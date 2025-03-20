@@ -2912,31 +2912,31 @@ func (r HealthcareService) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r HealthcareService) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert HealthcareService to Boolean")
+func (r HealthcareService) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert HealthcareService to Boolean")
 }
-func (r HealthcareService) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert HealthcareService to String")
+func (r HealthcareService) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert HealthcareService to String")
 }
-func (r HealthcareService) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert HealthcareService to Integer")
+func (r HealthcareService) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert HealthcareService to Integer")
 }
-func (r HealthcareService) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert HealthcareService to Decimal")
+func (r HealthcareService) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert HealthcareService to Decimal")
 }
-func (r HealthcareService) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert HealthcareService to Date")
+func (r HealthcareService) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert HealthcareService to Date")
 }
-func (r HealthcareService) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert HealthcareService to Time")
+func (r HealthcareService) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert HealthcareService to Time")
 }
-func (r HealthcareService) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert HealthcareService to DateTime")
+func (r HealthcareService) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert HealthcareService to DateTime")
 }
-func (r HealthcareService) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert HealthcareService to Quantity")
+func (r HealthcareService) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert HealthcareService to Quantity")
 }
-func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *HealthcareService
 	switch other := other.(type) {
 	case HealthcareService:
@@ -2944,29 +2944,17 @@ func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *HealthcareService:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r HealthcareService) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *HealthcareService
-	switch other := other.(type) {
-	case HealthcareService:
-		o = &other
-	case *HealthcareService:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r HealthcareService) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3227,31 +3215,31 @@ func (r HealthcareServiceEligibility) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r HealthcareServiceEligibility) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to Boolean")
+func (r HealthcareServiceEligibility) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert HealthcareServiceEligibility to Boolean")
 }
-func (r HealthcareServiceEligibility) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to String")
+func (r HealthcareServiceEligibility) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert HealthcareServiceEligibility to String")
 }
-func (r HealthcareServiceEligibility) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to Integer")
+func (r HealthcareServiceEligibility) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert HealthcareServiceEligibility to Integer")
 }
-func (r HealthcareServiceEligibility) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to Decimal")
+func (r HealthcareServiceEligibility) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert HealthcareServiceEligibility to Decimal")
 }
-func (r HealthcareServiceEligibility) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to Date")
+func (r HealthcareServiceEligibility) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert HealthcareServiceEligibility to Date")
 }
-func (r HealthcareServiceEligibility) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to Time")
+func (r HealthcareServiceEligibility) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert HealthcareServiceEligibility to Time")
 }
-func (r HealthcareServiceEligibility) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to DateTime")
+func (r HealthcareServiceEligibility) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert HealthcareServiceEligibility to DateTime")
 }
-func (r HealthcareServiceEligibility) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert HealthcareServiceEligibility to Quantity")
+func (r HealthcareServiceEligibility) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert HealthcareServiceEligibility to Quantity")
 }
-func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *HealthcareServiceEligibility
 	switch other := other.(type) {
 	case HealthcareServiceEligibility:
@@ -3259,29 +3247,17 @@ func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTy
 	case *HealthcareServiceEligibility:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r HealthcareServiceEligibility) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *HealthcareServiceEligibility
-	switch other := other.(type) {
-	case HealthcareServiceEligibility:
-		o = &other
-	case *HealthcareServiceEligibility:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r HealthcareServiceEligibility) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

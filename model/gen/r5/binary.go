@@ -631,31 +631,31 @@ func (r Binary) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Binary) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Binary to Boolean")
+func (r Binary) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Binary to Boolean")
 }
-func (r Binary) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Binary to String")
+func (r Binary) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Binary to String")
 }
-func (r Binary) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Binary to Integer")
+func (r Binary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Binary to Integer")
 }
-func (r Binary) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Binary to Decimal")
+func (r Binary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Binary to Decimal")
 }
-func (r Binary) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Binary to Date")
+func (r Binary) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Binary to Date")
 }
-func (r Binary) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Binary to Time")
+func (r Binary) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Binary to Time")
 }
-func (r Binary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Binary to DateTime")
+func (r Binary) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Binary to DateTime")
 }
-func (r Binary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Binary to Quantity")
+func (r Binary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Binary to Quantity")
 }
-func (r Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Binary
 	switch other := other.(type) {
 	case Binary:
@@ -663,29 +663,17 @@ func (r Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	case *Binary:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Binary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Binary
-	switch other := other.(type) {
-	case Binary:
-		o = &other
-	case *Binary:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Binary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

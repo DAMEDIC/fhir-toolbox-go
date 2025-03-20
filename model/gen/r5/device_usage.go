@@ -2417,31 +2417,31 @@ func (r DeviceUsage) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DeviceUsage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DeviceUsage to Boolean")
+func (r DeviceUsage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DeviceUsage to Boolean")
 }
-func (r DeviceUsage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DeviceUsage to String")
+func (r DeviceUsage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DeviceUsage to String")
 }
-func (r DeviceUsage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DeviceUsage to Integer")
+func (r DeviceUsage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DeviceUsage to Integer")
 }
-func (r DeviceUsage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DeviceUsage to Decimal")
+func (r DeviceUsage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceUsage to Decimal")
 }
-func (r DeviceUsage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DeviceUsage to Date")
+func (r DeviceUsage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DeviceUsage to Date")
 }
-func (r DeviceUsage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DeviceUsage to Time")
+func (r DeviceUsage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DeviceUsage to Time")
 }
-func (r DeviceUsage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DeviceUsage to DateTime")
+func (r DeviceUsage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DeviceUsage to DateTime")
 }
-func (r DeviceUsage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DeviceUsage to Quantity")
+func (r DeviceUsage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceUsage to Quantity")
 }
-func (r DeviceUsage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceUsage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DeviceUsage
 	switch other := other.(type) {
 	case DeviceUsage:
@@ -2449,29 +2449,17 @@ func (r DeviceUsage) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	case *DeviceUsage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DeviceUsage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DeviceUsage
-	switch other := other.(type) {
-	case DeviceUsage:
-		o = &other
-	case *DeviceUsage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DeviceUsage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2688,31 +2676,31 @@ func (r DeviceUsageAdherence) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DeviceUsageAdherence) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to Boolean")
+func (r DeviceUsageAdherence) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DeviceUsageAdherence to Boolean")
 }
-func (r DeviceUsageAdherence) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to String")
+func (r DeviceUsageAdherence) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DeviceUsageAdherence to String")
 }
-func (r DeviceUsageAdherence) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to Integer")
+func (r DeviceUsageAdherence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DeviceUsageAdherence to Integer")
 }
-func (r DeviceUsageAdherence) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to Decimal")
+func (r DeviceUsageAdherence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceUsageAdherence to Decimal")
 }
-func (r DeviceUsageAdherence) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to Date")
+func (r DeviceUsageAdherence) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DeviceUsageAdherence to Date")
 }
-func (r DeviceUsageAdherence) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to Time")
+func (r DeviceUsageAdherence) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DeviceUsageAdherence to Time")
 }
-func (r DeviceUsageAdherence) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to DateTime")
+func (r DeviceUsageAdherence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DeviceUsageAdherence to DateTime")
 }
-func (r DeviceUsageAdherence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DeviceUsageAdherence to Quantity")
+func (r DeviceUsageAdherence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceUsageAdherence to Quantity")
 }
-func (r DeviceUsageAdherence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceUsageAdherence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DeviceUsageAdherence
 	switch other := other.(type) {
 	case DeviceUsageAdherence:
@@ -2720,29 +2708,17 @@ func (r DeviceUsageAdherence) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *DeviceUsageAdherence:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DeviceUsageAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DeviceUsageAdherence
-	switch other := other.(type) {
-	case DeviceUsageAdherence:
-		o = &other
-	case *DeviceUsageAdherence:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DeviceUsageAdherence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

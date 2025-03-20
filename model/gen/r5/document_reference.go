@@ -4197,31 +4197,31 @@ func (r DocumentReference) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DocumentReference) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DocumentReference to Boolean")
+func (r DocumentReference) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DocumentReference to Boolean")
 }
-func (r DocumentReference) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DocumentReference to String")
+func (r DocumentReference) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DocumentReference to String")
 }
-func (r DocumentReference) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DocumentReference to Integer")
+func (r DocumentReference) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DocumentReference to Integer")
 }
-func (r DocumentReference) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DocumentReference to Decimal")
+func (r DocumentReference) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReference to Decimal")
 }
-func (r DocumentReference) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DocumentReference to Date")
+func (r DocumentReference) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DocumentReference to Date")
 }
-func (r DocumentReference) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DocumentReference to Time")
+func (r DocumentReference) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DocumentReference to Time")
 }
-func (r DocumentReference) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DocumentReference to DateTime")
+func (r DocumentReference) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DocumentReference to DateTime")
 }
-func (r DocumentReference) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DocumentReference to Quantity")
+func (r DocumentReference) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReference to Quantity")
 }
-func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DocumentReference
 	switch other := other.(type) {
 	case DocumentReference:
@@ -4229,29 +4229,17 @@ func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *DocumentReference:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DocumentReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DocumentReference
-	switch other := other.(type) {
-	case DocumentReference:
-		o = &other
-	case *DocumentReference:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DocumentReference) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4515,31 +4503,31 @@ func (r DocumentReferenceAttester) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r DocumentReferenceAttester) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to Boolean")
+func (r DocumentReferenceAttester) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DocumentReferenceAttester to Boolean")
 }
-func (r DocumentReferenceAttester) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to String")
+func (r DocumentReferenceAttester) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DocumentReferenceAttester to String")
 }
-func (r DocumentReferenceAttester) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to Integer")
+func (r DocumentReferenceAttester) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DocumentReferenceAttester to Integer")
 }
-func (r DocumentReferenceAttester) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to Decimal")
+func (r DocumentReferenceAttester) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceAttester to Decimal")
 }
-func (r DocumentReferenceAttester) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to Date")
+func (r DocumentReferenceAttester) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DocumentReferenceAttester to Date")
 }
-func (r DocumentReferenceAttester) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to Time")
+func (r DocumentReferenceAttester) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DocumentReferenceAttester to Time")
 }
-func (r DocumentReferenceAttester) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to DateTime")
+func (r DocumentReferenceAttester) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DocumentReferenceAttester to DateTime")
 }
-func (r DocumentReferenceAttester) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DocumentReferenceAttester to Quantity")
+func (r DocumentReferenceAttester) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceAttester to Quantity")
 }
-func (r DocumentReferenceAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DocumentReferenceAttester
 	switch other := other.(type) {
 	case DocumentReferenceAttester:
@@ -4547,29 +4535,17 @@ func (r DocumentReferenceAttester) Equal(other fhirpath.Element, _noReverseTypeC
 	case *DocumentReferenceAttester:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DocumentReferenceAttester) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DocumentReferenceAttester
-	switch other := other.(type) {
-	case DocumentReferenceAttester:
-		o = &other
-	case *DocumentReferenceAttester:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DocumentReferenceAttester) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4651,31 +4627,31 @@ func (r DocumentReferenceRelatesTo) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r DocumentReferenceRelatesTo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to Boolean")
+func (r DocumentReferenceRelatesTo) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DocumentReferenceRelatesTo to Boolean")
 }
-func (r DocumentReferenceRelatesTo) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to String")
+func (r DocumentReferenceRelatesTo) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DocumentReferenceRelatesTo to String")
 }
-func (r DocumentReferenceRelatesTo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to Integer")
+func (r DocumentReferenceRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DocumentReferenceRelatesTo to Integer")
 }
-func (r DocumentReferenceRelatesTo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to Decimal")
+func (r DocumentReferenceRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceRelatesTo to Decimal")
 }
-func (r DocumentReferenceRelatesTo) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to Date")
+func (r DocumentReferenceRelatesTo) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DocumentReferenceRelatesTo to Date")
 }
-func (r DocumentReferenceRelatesTo) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to Time")
+func (r DocumentReferenceRelatesTo) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DocumentReferenceRelatesTo to Time")
 }
-func (r DocumentReferenceRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to DateTime")
+func (r DocumentReferenceRelatesTo) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DocumentReferenceRelatesTo to DateTime")
 }
-func (r DocumentReferenceRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DocumentReferenceRelatesTo to Quantity")
+func (r DocumentReferenceRelatesTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceRelatesTo to Quantity")
 }
-func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DocumentReferenceRelatesTo
 	switch other := other.(type) {
 	case DocumentReferenceRelatesTo:
@@ -4683,29 +4659,17 @@ func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseType
 	case *DocumentReferenceRelatesTo:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DocumentReferenceRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DocumentReferenceRelatesTo
-	switch other := other.(type) {
-	case DocumentReferenceRelatesTo:
-		o = &other
-	case *DocumentReferenceRelatesTo:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DocumentReferenceRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4782,31 +4746,31 @@ func (r DocumentReferenceContent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DocumentReferenceContent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to Boolean")
+func (r DocumentReferenceContent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DocumentReferenceContent to Boolean")
 }
-func (r DocumentReferenceContent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to String")
+func (r DocumentReferenceContent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DocumentReferenceContent to String")
 }
-func (r DocumentReferenceContent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to Integer")
+func (r DocumentReferenceContent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DocumentReferenceContent to Integer")
 }
-func (r DocumentReferenceContent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to Decimal")
+func (r DocumentReferenceContent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceContent to Decimal")
 }
-func (r DocumentReferenceContent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to Date")
+func (r DocumentReferenceContent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DocumentReferenceContent to Date")
 }
-func (r DocumentReferenceContent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to Time")
+func (r DocumentReferenceContent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DocumentReferenceContent to Time")
 }
-func (r DocumentReferenceContent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to DateTime")
+func (r DocumentReferenceContent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DocumentReferenceContent to DateTime")
 }
-func (r DocumentReferenceContent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DocumentReferenceContent to Quantity")
+func (r DocumentReferenceContent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceContent to Quantity")
 }
-func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DocumentReferenceContent
 	switch other := other.(type) {
 	case DocumentReferenceContent:
@@ -4814,29 +4778,17 @@ func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *DocumentReferenceContent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DocumentReferenceContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DocumentReferenceContent
-	switch other := other.(type) {
-	case DocumentReferenceContent:
-		o = &other
-	case *DocumentReferenceContent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DocumentReferenceContent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4908,31 +4860,31 @@ func (r DocumentReferenceContentProfile) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r DocumentReferenceContentProfile) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to Boolean")
+func (r DocumentReferenceContentProfile) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DocumentReferenceContentProfile to Boolean")
 }
-func (r DocumentReferenceContentProfile) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to String")
+func (r DocumentReferenceContentProfile) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DocumentReferenceContentProfile to String")
 }
-func (r DocumentReferenceContentProfile) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to Integer")
+func (r DocumentReferenceContentProfile) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DocumentReferenceContentProfile to Integer")
 }
-func (r DocumentReferenceContentProfile) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to Decimal")
+func (r DocumentReferenceContentProfile) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceContentProfile to Decimal")
 }
-func (r DocumentReferenceContentProfile) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to Date")
+func (r DocumentReferenceContentProfile) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DocumentReferenceContentProfile to Date")
 }
-func (r DocumentReferenceContentProfile) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to Time")
+func (r DocumentReferenceContentProfile) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DocumentReferenceContentProfile to Time")
 }
-func (r DocumentReferenceContentProfile) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to DateTime")
+func (r DocumentReferenceContentProfile) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DocumentReferenceContentProfile to DateTime")
 }
-func (r DocumentReferenceContentProfile) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DocumentReferenceContentProfile to Quantity")
+func (r DocumentReferenceContentProfile) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceContentProfile to Quantity")
 }
-func (r DocumentReferenceContentProfile) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceContentProfile) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DocumentReferenceContentProfile
 	switch other := other.(type) {
 	case DocumentReferenceContentProfile:
@@ -4940,29 +4892,17 @@ func (r DocumentReferenceContentProfile) Equal(other fhirpath.Element, _noRevers
 	case *DocumentReferenceContentProfile:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DocumentReferenceContentProfile) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DocumentReferenceContentProfile
-	switch other := other.(type) {
-	case DocumentReferenceContentProfile:
-		o = &other
-	case *DocumentReferenceContentProfile:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DocumentReferenceContentProfile) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

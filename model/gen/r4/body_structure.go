@@ -1262,31 +1262,31 @@ func (r BodyStructure) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r BodyStructure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BodyStructure to Boolean")
+func (r BodyStructure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BodyStructure to Boolean")
 }
-func (r BodyStructure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BodyStructure to String")
+func (r BodyStructure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BodyStructure to String")
 }
-func (r BodyStructure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BodyStructure to Integer")
+func (r BodyStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BodyStructure to Integer")
 }
-func (r BodyStructure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BodyStructure to Decimal")
+func (r BodyStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructure to Decimal")
 }
-func (r BodyStructure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BodyStructure to Date")
+func (r BodyStructure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BodyStructure to Date")
 }
-func (r BodyStructure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BodyStructure to Time")
+func (r BodyStructure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BodyStructure to Time")
 }
-func (r BodyStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BodyStructure to DateTime")
+func (r BodyStructure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BodyStructure to DateTime")
 }
-func (r BodyStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BodyStructure to Quantity")
+func (r BodyStructure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BodyStructure to Quantity")
 }
-func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BodyStructure
 	switch other := other.(type) {
 	case BodyStructure:
@@ -1294,29 +1294,17 @@ func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *BodyStructure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BodyStructure
-	switch other := other.(type) {
-	case BodyStructure:
-		o = &other
-	case *BodyStructure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

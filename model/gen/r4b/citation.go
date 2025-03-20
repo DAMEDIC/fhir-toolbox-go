@@ -16691,31 +16691,31 @@ func (r Citation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Citation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Citation to Boolean")
+func (r Citation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Citation to Boolean")
 }
-func (r Citation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Citation to String")
+func (r Citation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Citation to String")
 }
-func (r Citation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Citation to Integer")
+func (r Citation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Citation to Integer")
 }
-func (r Citation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Citation to Decimal")
+func (r Citation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Citation to Decimal")
 }
-func (r Citation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Citation to Date")
+func (r Citation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Citation to Date")
 }
-func (r Citation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Citation to Time")
+func (r Citation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Citation to Time")
 }
-func (r Citation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Citation to DateTime")
+func (r Citation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Citation to DateTime")
 }
-func (r Citation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Citation to Quantity")
+func (r Citation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Citation to Quantity")
 }
-func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Citation
 	switch other := other.(type) {
 	case Citation:
@@ -16723,29 +16723,17 @@ func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	case *Citation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Citation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Citation
-	switch other := other.(type) {
-	case Citation:
-		o = &other
-	case *Citation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Citation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17046,31 +17034,31 @@ func (r CitationSummary) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CitationSummary) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationSummary to Boolean")
+func (r CitationSummary) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationSummary to Boolean")
 }
-func (r CitationSummary) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationSummary to String")
+func (r CitationSummary) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationSummary to String")
 }
-func (r CitationSummary) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationSummary to Integer")
+func (r CitationSummary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationSummary to Integer")
 }
-func (r CitationSummary) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationSummary to Decimal")
+func (r CitationSummary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationSummary to Decimal")
 }
-func (r CitationSummary) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationSummary to Date")
+func (r CitationSummary) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationSummary to Date")
 }
-func (r CitationSummary) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationSummary to Time")
+func (r CitationSummary) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationSummary to Time")
 }
-func (r CitationSummary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationSummary to DateTime")
+func (r CitationSummary) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationSummary to DateTime")
 }
-func (r CitationSummary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationSummary to Quantity")
+func (r CitationSummary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationSummary to Quantity")
 }
-func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationSummary
 	switch other := other.(type) {
 	case CitationSummary:
@@ -17078,29 +17066,17 @@ func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *CitationSummary:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationSummary
-	switch other := other.(type) {
-	case CitationSummary:
-		o = &other
-	case *CitationSummary:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationSummary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17179,31 +17155,31 @@ func (r CitationClassification) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CitationClassification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationClassification to Boolean")
+func (r CitationClassification) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationClassification to Boolean")
 }
-func (r CitationClassification) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationClassification to String")
+func (r CitationClassification) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationClassification to String")
 }
-func (r CitationClassification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationClassification to Integer")
+func (r CitationClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationClassification to Integer")
 }
-func (r CitationClassification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationClassification to Decimal")
+func (r CitationClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationClassification to Decimal")
 }
-func (r CitationClassification) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationClassification to Date")
+func (r CitationClassification) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationClassification to Date")
 }
-func (r CitationClassification) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationClassification to Time")
+func (r CitationClassification) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationClassification to Time")
 }
-func (r CitationClassification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationClassification to DateTime")
+func (r CitationClassification) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationClassification to DateTime")
 }
-func (r CitationClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationClassification to Quantity")
+func (r CitationClassification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationClassification to Quantity")
 }
-func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationClassification
 	switch other := other.(type) {
 	case CitationClassification:
@@ -17211,29 +17187,17 @@ func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *CitationClassification:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationClassification
-	switch other := other.(type) {
-	case CitationClassification:
-		o = &other
-	case *CitationClassification:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17313,31 +17277,31 @@ func (r CitationStatusDate) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CitationStatusDate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationStatusDate to Boolean")
+func (r CitationStatusDate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationStatusDate to Boolean")
 }
-func (r CitationStatusDate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationStatusDate to String")
+func (r CitationStatusDate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationStatusDate to String")
 }
-func (r CitationStatusDate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationStatusDate to Integer")
+func (r CitationStatusDate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationStatusDate to Integer")
 }
-func (r CitationStatusDate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationStatusDate to Decimal")
+func (r CitationStatusDate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationStatusDate to Decimal")
 }
-func (r CitationStatusDate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationStatusDate to Date")
+func (r CitationStatusDate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationStatusDate to Date")
 }
-func (r CitationStatusDate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationStatusDate to Time")
+func (r CitationStatusDate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationStatusDate to Time")
 }
-func (r CitationStatusDate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationStatusDate to DateTime")
+func (r CitationStatusDate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationStatusDate to DateTime")
 }
-func (r CitationStatusDate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationStatusDate to Quantity")
+func (r CitationStatusDate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationStatusDate to Quantity")
 }
-func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationStatusDate
 	switch other := other.(type) {
 	case CitationStatusDate:
@@ -17345,29 +17309,17 @@ func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *CitationStatusDate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationStatusDate
-	switch other := other.(type) {
-	case CitationStatusDate:
-		o = &other
-	case *CitationStatusDate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationStatusDate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17454,31 +17406,31 @@ func (r CitationRelatesTo) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CitationRelatesTo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to Boolean")
+func (r CitationRelatesTo) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationRelatesTo to Boolean")
 }
-func (r CitationRelatesTo) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to String")
+func (r CitationRelatesTo) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationRelatesTo to String")
 }
-func (r CitationRelatesTo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to Integer")
+func (r CitationRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationRelatesTo to Integer")
 }
-func (r CitationRelatesTo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to Decimal")
+func (r CitationRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationRelatesTo to Decimal")
 }
-func (r CitationRelatesTo) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to Date")
+func (r CitationRelatesTo) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationRelatesTo to Date")
 }
-func (r CitationRelatesTo) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to Time")
+func (r CitationRelatesTo) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationRelatesTo to Time")
 }
-func (r CitationRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to DateTime")
+func (r CitationRelatesTo) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationRelatesTo to DateTime")
 }
-func (r CitationRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationRelatesTo to Quantity")
+func (r CitationRelatesTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationRelatesTo to Quantity")
 }
-func (r CitationRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationRelatesTo
 	switch other := other.(type) {
 	case CitationRelatesTo:
@@ -17486,29 +17438,17 @@ func (r CitationRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *CitationRelatesTo:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationRelatesTo
-	switch other := other.(type) {
-	case CitationRelatesTo:
-		o = &other
-	case *CitationRelatesTo:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17659,31 +17599,31 @@ func (r CitationCitedArtifact) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CitationCitedArtifact) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to Boolean")
+func (r CitationCitedArtifact) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifact to Boolean")
 }
-func (r CitationCitedArtifact) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to String")
+func (r CitationCitedArtifact) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifact to String")
 }
-func (r CitationCitedArtifact) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to Integer")
+func (r CitationCitedArtifact) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifact to Integer")
 }
-func (r CitationCitedArtifact) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to Decimal")
+func (r CitationCitedArtifact) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifact to Decimal")
 }
-func (r CitationCitedArtifact) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to Date")
+func (r CitationCitedArtifact) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifact to Date")
 }
-func (r CitationCitedArtifact) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to Time")
+func (r CitationCitedArtifact) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifact to Time")
 }
-func (r CitationCitedArtifact) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to DateTime")
+func (r CitationCitedArtifact) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifact to DateTime")
 }
-func (r CitationCitedArtifact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifact to Quantity")
+func (r CitationCitedArtifact) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifact to Quantity")
 }
-func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifact
 	switch other := other.(type) {
 	case CitationCitedArtifact:
@@ -17691,29 +17631,17 @@ func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *CitationCitedArtifact:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifact
-	switch other := other.(type) {
-	case CitationCitedArtifact:
-		o = &other
-	case *CitationCitedArtifact:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17881,31 +17809,31 @@ func (r CitationCitedArtifactVersion) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r CitationCitedArtifactVersion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to Boolean")
+func (r CitationCitedArtifactVersion) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactVersion to Boolean")
 }
-func (r CitationCitedArtifactVersion) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to String")
+func (r CitationCitedArtifactVersion) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactVersion to String")
 }
-func (r CitationCitedArtifactVersion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to Integer")
+func (r CitationCitedArtifactVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactVersion to Integer")
 }
-func (r CitationCitedArtifactVersion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to Decimal")
+func (r CitationCitedArtifactVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactVersion to Decimal")
 }
-func (r CitationCitedArtifactVersion) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to Date")
+func (r CitationCitedArtifactVersion) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactVersion to Date")
 }
-func (r CitationCitedArtifactVersion) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to Time")
+func (r CitationCitedArtifactVersion) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactVersion to Time")
 }
-func (r CitationCitedArtifactVersion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to DateTime")
+func (r CitationCitedArtifactVersion) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactVersion to DateTime")
 }
-func (r CitationCitedArtifactVersion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactVersion to Quantity")
+func (r CitationCitedArtifactVersion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactVersion to Quantity")
 }
-func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactVersion
 	switch other := other.(type) {
 	case CitationCitedArtifactVersion:
@@ -17913,29 +17841,17 @@ func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTy
 	case *CitationCitedArtifactVersion:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactVersion
-	switch other := other.(type) {
-	case CitationCitedArtifactVersion:
-		o = &other
-	case *CitationCitedArtifactVersion:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactVersion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18015,31 +17931,31 @@ func (r CitationCitedArtifactStatusDate) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r CitationCitedArtifactStatusDate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Boolean")
+func (r CitationCitedArtifactStatusDate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactStatusDate to Boolean")
 }
-func (r CitationCitedArtifactStatusDate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to String")
+func (r CitationCitedArtifactStatusDate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactStatusDate to String")
 }
-func (r CitationCitedArtifactStatusDate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Integer")
+func (r CitationCitedArtifactStatusDate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactStatusDate to Integer")
 }
-func (r CitationCitedArtifactStatusDate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Decimal")
+func (r CitationCitedArtifactStatusDate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to Decimal")
 }
-func (r CitationCitedArtifactStatusDate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Date")
+func (r CitationCitedArtifactStatusDate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to Date")
 }
-func (r CitationCitedArtifactStatusDate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Time")
+func (r CitationCitedArtifactStatusDate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to Time")
 }
-func (r CitationCitedArtifactStatusDate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to DateTime")
+func (r CitationCitedArtifactStatusDate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to DateTime")
 }
-func (r CitationCitedArtifactStatusDate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactStatusDate to Quantity")
+func (r CitationCitedArtifactStatusDate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to Quantity")
 }
-func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactStatusDate
 	switch other := other.(type) {
 	case CitationCitedArtifactStatusDate:
@@ -18047,29 +17963,17 @@ func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noRevers
 	case *CitationCitedArtifactStatusDate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactStatusDate
-	switch other := other.(type) {
-	case CitationCitedArtifactStatusDate:
-		o = &other
-	case *CitationCitedArtifactStatusDate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactStatusDate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18158,31 +18062,31 @@ func (r CitationCitedArtifactTitle) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r CitationCitedArtifactTitle) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to Boolean")
+func (r CitationCitedArtifactTitle) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactTitle to Boolean")
 }
-func (r CitationCitedArtifactTitle) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to String")
+func (r CitationCitedArtifactTitle) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactTitle to String")
 }
-func (r CitationCitedArtifactTitle) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to Integer")
+func (r CitationCitedArtifactTitle) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactTitle to Integer")
 }
-func (r CitationCitedArtifactTitle) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to Decimal")
+func (r CitationCitedArtifactTitle) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactTitle to Decimal")
 }
-func (r CitationCitedArtifactTitle) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to Date")
+func (r CitationCitedArtifactTitle) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactTitle to Date")
 }
-func (r CitationCitedArtifactTitle) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to Time")
+func (r CitationCitedArtifactTitle) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactTitle to Time")
 }
-func (r CitationCitedArtifactTitle) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to DateTime")
+func (r CitationCitedArtifactTitle) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactTitle to DateTime")
 }
-func (r CitationCitedArtifactTitle) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactTitle to Quantity")
+func (r CitationCitedArtifactTitle) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactTitle to Quantity")
 }
-func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactTitle
 	switch other := other.(type) {
 	case CitationCitedArtifactTitle:
@@ -18190,29 +18094,17 @@ func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseType
 	case *CitationCitedArtifactTitle:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactTitle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactTitle
-	switch other := other.(type) {
-	case CitationCitedArtifactTitle:
-		o = &other
-	case *CitationCitedArtifactTitle:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactTitle) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18306,31 +18198,31 @@ func (r CitationCitedArtifactAbstract) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r CitationCitedArtifactAbstract) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Boolean")
+func (r CitationCitedArtifactAbstract) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactAbstract to Boolean")
 }
-func (r CitationCitedArtifactAbstract) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to String")
+func (r CitationCitedArtifactAbstract) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactAbstract to String")
 }
-func (r CitationCitedArtifactAbstract) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Integer")
+func (r CitationCitedArtifactAbstract) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactAbstract to Integer")
 }
-func (r CitationCitedArtifactAbstract) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Decimal")
+func (r CitationCitedArtifactAbstract) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactAbstract to Decimal")
 }
-func (r CitationCitedArtifactAbstract) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Date")
+func (r CitationCitedArtifactAbstract) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactAbstract to Date")
 }
-func (r CitationCitedArtifactAbstract) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Time")
+func (r CitationCitedArtifactAbstract) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactAbstract to Time")
 }
-func (r CitationCitedArtifactAbstract) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to DateTime")
+func (r CitationCitedArtifactAbstract) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactAbstract to DateTime")
 }
-func (r CitationCitedArtifactAbstract) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactAbstract to Quantity")
+func (r CitationCitedArtifactAbstract) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactAbstract to Quantity")
 }
-func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactAbstract
 	switch other := other.(type) {
 	case CitationCitedArtifactAbstract:
@@ -18338,29 +18230,17 @@ func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseT
 	case *CitationCitedArtifactAbstract:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactAbstract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactAbstract
-	switch other := other.(type) {
-	case CitationCitedArtifactAbstract:
-		o = &other
-	case *CitationCitedArtifactAbstract:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactAbstract) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18458,31 +18338,31 @@ func (r CitationCitedArtifactPart) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r CitationCitedArtifactPart) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to Boolean")
+func (r CitationCitedArtifactPart) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactPart to Boolean")
 }
-func (r CitationCitedArtifactPart) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to String")
+func (r CitationCitedArtifactPart) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactPart to String")
 }
-func (r CitationCitedArtifactPart) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to Integer")
+func (r CitationCitedArtifactPart) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactPart to Integer")
 }
-func (r CitationCitedArtifactPart) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to Decimal")
+func (r CitationCitedArtifactPart) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPart to Decimal")
 }
-func (r CitationCitedArtifactPart) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to Date")
+func (r CitationCitedArtifactPart) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactPart to Date")
 }
-func (r CitationCitedArtifactPart) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to Time")
+func (r CitationCitedArtifactPart) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactPart to Time")
 }
-func (r CitationCitedArtifactPart) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to DateTime")
+func (r CitationCitedArtifactPart) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactPart to DateTime")
 }
-func (r CitationCitedArtifactPart) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPart to Quantity")
+func (r CitationCitedArtifactPart) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPart to Quantity")
 }
-func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactPart
 	switch other := other.(type) {
 	case CitationCitedArtifactPart:
@@ -18490,29 +18370,17 @@ func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeC
 	case *CitationCitedArtifactPart:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactPart
-	switch other := other.(type) {
-	case CitationCitedArtifactPart:
-		o = &other
-	case *CitationCitedArtifactPart:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactPart) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18599,31 +18467,31 @@ func (r CitationCitedArtifactRelatesTo) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r CitationCitedArtifactRelatesTo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Boolean")
+func (r CitationCitedArtifactRelatesTo) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Boolean")
 }
-func (r CitationCitedArtifactRelatesTo) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to String")
+func (r CitationCitedArtifactRelatesTo) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactRelatesTo to String")
 }
-func (r CitationCitedArtifactRelatesTo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Integer")
+func (r CitationCitedArtifactRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Integer")
 }
-func (r CitationCitedArtifactRelatesTo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Decimal")
+func (r CitationCitedArtifactRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Decimal")
 }
-func (r CitationCitedArtifactRelatesTo) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Date")
+func (r CitationCitedArtifactRelatesTo) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Date")
 }
-func (r CitationCitedArtifactRelatesTo) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Time")
+func (r CitationCitedArtifactRelatesTo) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Time")
 }
-func (r CitationCitedArtifactRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to DateTime")
+func (r CitationCitedArtifactRelatesTo) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to DateTime")
 }
-func (r CitationCitedArtifactRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactRelatesTo to Quantity")
+func (r CitationCitedArtifactRelatesTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Quantity")
 }
-func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactRelatesTo
 	switch other := other.(type) {
 	case CitationCitedArtifactRelatesTo:
@@ -18631,29 +18499,17 @@ func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverse
 	case *CitationCitedArtifactRelatesTo:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactRelatesTo
-	switch other := other.(type) {
-	case CitationCitedArtifactRelatesTo:
-		o = &other
-	case *CitationCitedArtifactRelatesTo:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18784,31 +18640,31 @@ func (r CitationCitedArtifactPublicationForm) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r CitationCitedArtifactPublicationForm) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Boolean")
+func (r CitationCitedArtifactPublicationForm) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Boolean")
 }
-func (r CitationCitedArtifactPublicationForm) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to String")
+func (r CitationCitedArtifactPublicationForm) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactPublicationForm to String")
 }
-func (r CitationCitedArtifactPublicationForm) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Integer")
+func (r CitationCitedArtifactPublicationForm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Integer")
 }
-func (r CitationCitedArtifactPublicationForm) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Decimal")
+func (r CitationCitedArtifactPublicationForm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Decimal")
 }
-func (r CitationCitedArtifactPublicationForm) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Date")
+func (r CitationCitedArtifactPublicationForm) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Date")
 }
-func (r CitationCitedArtifactPublicationForm) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Time")
+func (r CitationCitedArtifactPublicationForm) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Time")
 }
-func (r CitationCitedArtifactPublicationForm) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to DateTime")
+func (r CitationCitedArtifactPublicationForm) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to DateTime")
 }
-func (r CitationCitedArtifactPublicationForm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationForm to Quantity")
+func (r CitationCitedArtifactPublicationForm) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Quantity")
 }
-func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactPublicationForm
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationForm:
@@ -18816,29 +18672,17 @@ func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noR
 	case *CitationCitedArtifactPublicationForm:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactPublicationForm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactPublicationForm
-	switch other := other.(type) {
-	case CitationCitedArtifactPublicationForm:
-		o = &other
-	case *CitationCitedArtifactPublicationForm:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactPublicationForm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18995,31 +18839,31 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) Children(name ...string
 	}
 	return children
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Boolean")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Boolean")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to String")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to String")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Integer")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Integer")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Decimal")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Decimal")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Date")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Date")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Time")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Time")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to DateTime")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to DateTime")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Quantity")
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Quantity")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactPublicationFormPublishedIn
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationFormPublishedIn:
@@ -19027,29 +18871,17 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.El
 	case *CitationCitedArtifactPublicationFormPublishedIn:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactPublicationFormPublishedIn
-	switch other := other.(type) {
-	case CitationCitedArtifactPublicationFormPublishedIn:
-		o = &other
-	case *CitationCitedArtifactPublicationFormPublishedIn:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19159,31 +18991,31 @@ func (r CitationCitedArtifactPublicationFormPeriodicRelease) Children(name ...st
 	}
 	return children
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Boolean")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Boolean")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to String")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to String")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Integer")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Integer")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Decimal")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Decimal")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Date")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Date")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Time")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Time")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to DateTime")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to DateTime")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Quantity")
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Quantity")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicRelease) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactPublicationFormPeriodicRelease
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationFormPeriodicRelease:
@@ -19191,29 +19023,17 @@ func (r CitationCitedArtifactPublicationFormPeriodicRelease) Equal(other fhirpat
 	case *CitationCitedArtifactPublicationFormPeriodicRelease:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactPublicationFormPeriodicRelease) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactPublicationFormPeriodicRelease
-	switch other := other.(type) {
-	case CitationCitedArtifactPublicationFormPeriodicRelease:
-		o = &other
-	case *CitationCitedArtifactPublicationFormPeriodicRelease:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactPublicationFormPeriodicRelease) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19326,31 +19146,31 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) Ch
 	}
 	return children
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Boolean")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Boolean")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to String")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to String")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Integer")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Integer")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Decimal")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Decimal")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Date")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Date")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Time")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Time")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to DateTime")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to DateTime")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Quantity")
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Quantity")
 }
-func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
@@ -19358,29 +19178,17 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) Eq
 	case *CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication
-	switch other := other.(type) {
-	case CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
-		o = &other
-	case *CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19487,31 +19295,31 @@ func (r CitationCitedArtifactWebLocation) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r CitationCitedArtifactWebLocation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Boolean")
+func (r CitationCitedArtifactWebLocation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactWebLocation to Boolean")
 }
-func (r CitationCitedArtifactWebLocation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to String")
+func (r CitationCitedArtifactWebLocation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactWebLocation to String")
 }
-func (r CitationCitedArtifactWebLocation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Integer")
+func (r CitationCitedArtifactWebLocation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactWebLocation to Integer")
 }
-func (r CitationCitedArtifactWebLocation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Decimal")
+func (r CitationCitedArtifactWebLocation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to Decimal")
 }
-func (r CitationCitedArtifactWebLocation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Date")
+func (r CitationCitedArtifactWebLocation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to Date")
 }
-func (r CitationCitedArtifactWebLocation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Time")
+func (r CitationCitedArtifactWebLocation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to Time")
 }
-func (r CitationCitedArtifactWebLocation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to DateTime")
+func (r CitationCitedArtifactWebLocation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to DateTime")
 }
-func (r CitationCitedArtifactWebLocation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactWebLocation to Quantity")
+func (r CitationCitedArtifactWebLocation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to Quantity")
 }
-func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactWebLocation
 	switch other := other.(type) {
 	case CitationCitedArtifactWebLocation:
@@ -19519,29 +19327,17 @@ func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noRever
 	case *CitationCitedArtifactWebLocation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactWebLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactWebLocation
-	switch other := other.(type) {
-	case CitationCitedArtifactWebLocation:
-		o = &other
-	case *CitationCitedArtifactWebLocation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactWebLocation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19625,31 +19421,31 @@ func (r CitationCitedArtifactClassification) Children(name ...string) fhirpath.C
 	}
 	return children
 }
-func (r CitationCitedArtifactClassification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to Boolean")
+func (r CitationCitedArtifactClassification) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactClassification to Boolean")
 }
-func (r CitationCitedArtifactClassification) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to String")
+func (r CitationCitedArtifactClassification) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactClassification to String")
 }
-func (r CitationCitedArtifactClassification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to Integer")
+func (r CitationCitedArtifactClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactClassification to Integer")
 }
-func (r CitationCitedArtifactClassification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to Decimal")
+func (r CitationCitedArtifactClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactClassification to Decimal")
 }
-func (r CitationCitedArtifactClassification) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to Date")
+func (r CitationCitedArtifactClassification) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactClassification to Date")
 }
-func (r CitationCitedArtifactClassification) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to Time")
+func (r CitationCitedArtifactClassification) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactClassification to Time")
 }
-func (r CitationCitedArtifactClassification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to DateTime")
+func (r CitationCitedArtifactClassification) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactClassification to DateTime")
 }
-func (r CitationCitedArtifactClassification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassification to Quantity")
+func (r CitationCitedArtifactClassification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactClassification to Quantity")
 }
-func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactClassification
 	switch other := other.(type) {
 	case CitationCitedArtifactClassification:
@@ -19657,29 +19453,17 @@ func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noRe
 	case *CitationCitedArtifactClassification:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactClassification
-	switch other := other.(type) {
-	case CitationCitedArtifactClassification:
-		o = &other
-	case *CitationCitedArtifactClassification:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19780,31 +19564,31 @@ func (r CitationCitedArtifactClassificationWhoClassified) Children(name ...strin
 	}
 	return children
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Boolean")
+func (r CitationCitedArtifactClassificationWhoClassified) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Boolean")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to String")
+func (r CitationCitedArtifactClassificationWhoClassified) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to String")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Integer")
+func (r CitationCitedArtifactClassificationWhoClassified) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Integer")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Decimal")
+func (r CitationCitedArtifactClassificationWhoClassified) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Decimal")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Date")
+func (r CitationCitedArtifactClassificationWhoClassified) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Date")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Time")
+func (r CitationCitedArtifactClassificationWhoClassified) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Time")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to DateTime")
+func (r CitationCitedArtifactClassificationWhoClassified) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to DateTime")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Quantity")
+func (r CitationCitedArtifactClassificationWhoClassified) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Quantity")
 }
-func (r CitationCitedArtifactClassificationWhoClassified) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactClassificationWhoClassified) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactClassificationWhoClassified
 	switch other := other.(type) {
 	case CitationCitedArtifactClassificationWhoClassified:
@@ -19812,29 +19596,17 @@ func (r CitationCitedArtifactClassificationWhoClassified) Equal(other fhirpath.E
 	case *CitationCitedArtifactClassificationWhoClassified:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactClassificationWhoClassified) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactClassificationWhoClassified
-	switch other := other.(type) {
-	case CitationCitedArtifactClassificationWhoClassified:
-		o = &other
-	case *CitationCitedArtifactClassificationWhoClassified:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactClassificationWhoClassified) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19939,31 +19711,31 @@ func (r CitationCitedArtifactContributorship) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r CitationCitedArtifactContributorship) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Boolean")
+func (r CitationCitedArtifactContributorship) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactContributorship to Boolean")
 }
-func (r CitationCitedArtifactContributorship) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to String")
+func (r CitationCitedArtifactContributorship) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactContributorship to String")
 }
-func (r CitationCitedArtifactContributorship) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Integer")
+func (r CitationCitedArtifactContributorship) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactContributorship to Integer")
 }
-func (r CitationCitedArtifactContributorship) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Decimal")
+func (r CitationCitedArtifactContributorship) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorship to Decimal")
 }
-func (r CitationCitedArtifactContributorship) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Date")
+func (r CitationCitedArtifactContributorship) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactContributorship to Date")
 }
-func (r CitationCitedArtifactContributorship) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Time")
+func (r CitationCitedArtifactContributorship) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactContributorship to Time")
 }
-func (r CitationCitedArtifactContributorship) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to DateTime")
+func (r CitationCitedArtifactContributorship) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactContributorship to DateTime")
 }
-func (r CitationCitedArtifactContributorship) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorship to Quantity")
+func (r CitationCitedArtifactContributorship) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorship to Quantity")
 }
-func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactContributorship
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorship:
@@ -19971,29 +19743,17 @@ func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noR
 	case *CitationCitedArtifactContributorship:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactContributorship
-	switch other := other.(type) {
-	case CitationCitedArtifactContributorship:
-		o = &other
-	case *CitationCitedArtifactContributorship:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactContributorship) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -20129,31 +19889,31 @@ func (r CitationCitedArtifactContributorshipEntry) Children(name ...string) fhir
 	}
 	return children
 }
-func (r CitationCitedArtifactContributorshipEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Boolean")
+func (r CitationCitedArtifactContributorshipEntry) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Boolean")
 }
-func (r CitationCitedArtifactContributorshipEntry) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to String")
+func (r CitationCitedArtifactContributorshipEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to String")
 }
-func (r CitationCitedArtifactContributorshipEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Integer")
+func (r CitationCitedArtifactContributorshipEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Integer")
 }
-func (r CitationCitedArtifactContributorshipEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Decimal")
+func (r CitationCitedArtifactContributorshipEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Decimal")
 }
-func (r CitationCitedArtifactContributorshipEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Date")
+func (r CitationCitedArtifactContributorshipEntry) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Date")
 }
-func (r CitationCitedArtifactContributorshipEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Time")
+func (r CitationCitedArtifactContributorshipEntry) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Time")
 }
-func (r CitationCitedArtifactContributorshipEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to DateTime")
+func (r CitationCitedArtifactContributorshipEntry) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to DateTime")
 }
-func (r CitationCitedArtifactContributorshipEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Quantity")
+func (r CitationCitedArtifactContributorshipEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Quantity")
 }
-func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactContributorshipEntry
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntry:
@@ -20161,29 +19921,17 @@ func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element,
 	case *CitationCitedArtifactContributorshipEntry:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorshipEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactContributorshipEntry
-	switch other := other.(type) {
-	case CitationCitedArtifactContributorshipEntry:
-		o = &other
-	case *CitationCitedArtifactContributorshipEntry:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactContributorshipEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -20337,31 +20085,31 @@ func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) Children(name 
 	}
 	return children
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Boolean")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Boolean")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to String")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to String")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Integer")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Integer")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Decimal")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Decimal")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Date")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Date")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Time")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Time")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to DateTime")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to DateTime")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Quantity")
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Quantity")
 }
-func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactContributorshipEntryAffiliationInfo
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntryAffiliationInfo:
@@ -20369,29 +20117,17 @@ func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) Equal(other fh
 	case *CitationCitedArtifactContributorshipEntryAffiliationInfo:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactContributorshipEntryAffiliationInfo
-	switch other := other.(type) {
-	case CitationCitedArtifactContributorshipEntryAffiliationInfo:
-		o = &other
-	case *CitationCitedArtifactContributorshipEntryAffiliationInfo:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -20475,31 +20211,31 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) Children(
 	}
 	return children
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Boolean")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Boolean")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to String")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to String")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Integer")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Integer")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Decimal")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Decimal")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Date")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Date")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Time")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Time")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to DateTime")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to DateTime")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Quantity")
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Quantity")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactContributorshipEntryContributionInstance
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntryContributionInstance:
@@ -20507,29 +20243,17 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(oth
 	case *CitationCitedArtifactContributorshipEntryContributionInstance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactContributorshipEntryContributionInstance
-	switch other := other.(type) {
-	case CitationCitedArtifactContributorshipEntryContributionInstance:
-		o = &other
-	case *CitationCitedArtifactContributorshipEntryContributionInstance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -20616,31 +20340,31 @@ func (r CitationCitedArtifactContributorshipSummary) Children(name ...string) fh
 	}
 	return children
 }
-func (r CitationCitedArtifactContributorshipSummary) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Boolean")
+func (r CitationCitedArtifactContributorshipSummary) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Boolean")
 }
-func (r CitationCitedArtifactContributorshipSummary) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to String")
+func (r CitationCitedArtifactContributorshipSummary) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to String")
 }
-func (r CitationCitedArtifactContributorshipSummary) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Integer")
+func (r CitationCitedArtifactContributorshipSummary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Integer")
 }
-func (r CitationCitedArtifactContributorshipSummary) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Decimal")
+func (r CitationCitedArtifactContributorshipSummary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Decimal")
 }
-func (r CitationCitedArtifactContributorshipSummary) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Date")
+func (r CitationCitedArtifactContributorshipSummary) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Date")
 }
-func (r CitationCitedArtifactContributorshipSummary) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Time")
+func (r CitationCitedArtifactContributorshipSummary) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Time")
 }
-func (r CitationCitedArtifactContributorshipSummary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to DateTime")
+func (r CitationCitedArtifactContributorshipSummary) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to DateTime")
 }
-func (r CitationCitedArtifactContributorshipSummary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Quantity")
+func (r CitationCitedArtifactContributorshipSummary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Quantity")
 }
-func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CitationCitedArtifactContributorshipSummary
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipSummary:
@@ -20648,29 +20372,17 @@ func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Elemen
 	case *CitationCitedArtifactContributorshipSummary:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorshipSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CitationCitedArtifactContributorshipSummary
-	switch other := other.(type) {
-	case CitationCitedArtifactContributorshipSummary:
-		o = &other
-	case *CitationCitedArtifactContributorshipSummary:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CitationCitedArtifactContributorshipSummary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

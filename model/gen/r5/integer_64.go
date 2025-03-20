@@ -158,49 +158,43 @@ func (r Integer64) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Integer64) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Integer64 to Boolean")
+func (r Integer64) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Integer64 to Boolean")
 }
-func (r Integer64) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Integer64 to String")
+func (r Integer64) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Integer64 to String")
 }
-func (r Integer64) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Integer64 to Integer")
+func (r Integer64) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Integer64 to Integer")
 }
-func (r Integer64) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Integer64 to Decimal")
+func (r Integer64) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Integer64 to Decimal")
 }
-func (r Integer64) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Integer64 to Date")
+func (r Integer64) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Integer64 to Date")
 }
-func (r Integer64) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Integer64 to Time")
+func (r Integer64) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Integer64 to Time")
 }
-func (r Integer64) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Integer64 to DateTime")
+func (r Integer64) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Integer64 to DateTime")
 }
-func (r Integer64) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Integer64 to Quantity")
+func (r Integer64) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Integer64 to Quantity")
 }
-func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	o, ok := other.(Integer64)
 	if !ok {
-		return false
+		return false, true
 	}
 	if r.Value == nil || o.Value == nil {
-		return false
+		return false, true
 	}
-	return *r.Value == *o.Value
+	return *r.Value == *o.Value, true
 }
 func (r Integer64) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	o, ok := other.(Integer64)
-	if !ok {
-		return false
-	}
-	if r.Value == nil || o.Value == nil {
-		return false
-	}
-	return *r.Value == *o.Value
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -224,7 +218,7 @@ func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "Integer64",
+			Name:      "integer64",
 			Namespace: "FHIR",
 		},
 	}

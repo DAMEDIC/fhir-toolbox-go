@@ -1954,31 +1954,31 @@ func (r DocumentManifest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DocumentManifest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DocumentManifest to Boolean")
+func (r DocumentManifest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DocumentManifest to Boolean")
 }
-func (r DocumentManifest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DocumentManifest to String")
+func (r DocumentManifest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DocumentManifest to String")
 }
-func (r DocumentManifest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DocumentManifest to Integer")
+func (r DocumentManifest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DocumentManifest to Integer")
 }
-func (r DocumentManifest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DocumentManifest to Decimal")
+func (r DocumentManifest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentManifest to Decimal")
 }
-func (r DocumentManifest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DocumentManifest to Date")
+func (r DocumentManifest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DocumentManifest to Date")
 }
-func (r DocumentManifest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DocumentManifest to Time")
+func (r DocumentManifest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DocumentManifest to Time")
 }
-func (r DocumentManifest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DocumentManifest to DateTime")
+func (r DocumentManifest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DocumentManifest to DateTime")
 }
-func (r DocumentManifest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DocumentManifest to Quantity")
+func (r DocumentManifest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentManifest to Quantity")
 }
-func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DocumentManifest
 	switch other := other.(type) {
 	case DocumentManifest:
@@ -1986,29 +1986,17 @@ func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *DocumentManifest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DocumentManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DocumentManifest
-	switch other := other.(type) {
-	case DocumentManifest:
-		o = &other
-	case *DocumentManifest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DocumentManifest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2192,31 +2180,31 @@ func (r DocumentManifestRelated) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DocumentManifestRelated) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to Boolean")
+func (r DocumentManifestRelated) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DocumentManifestRelated to Boolean")
 }
-func (r DocumentManifestRelated) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to String")
+func (r DocumentManifestRelated) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DocumentManifestRelated to String")
 }
-func (r DocumentManifestRelated) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to Integer")
+func (r DocumentManifestRelated) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DocumentManifestRelated to Integer")
 }
-func (r DocumentManifestRelated) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to Decimal")
+func (r DocumentManifestRelated) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentManifestRelated to Decimal")
 }
-func (r DocumentManifestRelated) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to Date")
+func (r DocumentManifestRelated) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DocumentManifestRelated to Date")
 }
-func (r DocumentManifestRelated) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to Time")
+func (r DocumentManifestRelated) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DocumentManifestRelated to Time")
 }
-func (r DocumentManifestRelated) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to DateTime")
+func (r DocumentManifestRelated) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DocumentManifestRelated to DateTime")
 }
-func (r DocumentManifestRelated) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DocumentManifestRelated to Quantity")
+func (r DocumentManifestRelated) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentManifestRelated to Quantity")
 }
-func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DocumentManifestRelated
 	switch other := other.(type) {
 	case DocumentManifestRelated:
@@ -2224,29 +2212,17 @@ func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *DocumentManifestRelated:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DocumentManifestRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DocumentManifestRelated
-	switch other := other.(type) {
-	case DocumentManifestRelated:
-		o = &other
-	case *DocumentManifestRelated:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DocumentManifestRelated) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

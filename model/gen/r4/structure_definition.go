@@ -4590,31 +4590,31 @@ func (r StructureDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r StructureDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureDefinition to Boolean")
+func (r StructureDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureDefinition to Boolean")
 }
-func (r StructureDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureDefinition to String")
+func (r StructureDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureDefinition to String")
 }
-func (r StructureDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureDefinition to Integer")
+func (r StructureDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureDefinition to Integer")
 }
-func (r StructureDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureDefinition to Decimal")
+func (r StructureDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinition to Decimal")
 }
-func (r StructureDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureDefinition to Date")
+func (r StructureDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureDefinition to Date")
 }
-func (r StructureDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureDefinition to Time")
+func (r StructureDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureDefinition to Time")
 }
-func (r StructureDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureDefinition to DateTime")
+func (r StructureDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureDefinition to DateTime")
 }
-func (r StructureDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureDefinition to Quantity")
+func (r StructureDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinition to Quantity")
 }
-func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureDefinition
 	switch other := other.(type) {
 	case StructureDefinition:
@@ -4622,29 +4622,17 @@ func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *StructureDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureDefinition
-	switch other := other.(type) {
-	case StructureDefinition:
-		o = &other
-	case *StructureDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4941,31 +4929,31 @@ func (r StructureDefinitionMapping) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r StructureDefinitionMapping) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to Boolean")
+func (r StructureDefinitionMapping) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureDefinitionMapping to Boolean")
 }
-func (r StructureDefinitionMapping) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to String")
+func (r StructureDefinitionMapping) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureDefinitionMapping to String")
 }
-func (r StructureDefinitionMapping) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to Integer")
+func (r StructureDefinitionMapping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureDefinitionMapping to Integer")
 }
-func (r StructureDefinitionMapping) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to Decimal")
+func (r StructureDefinitionMapping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionMapping to Decimal")
 }
-func (r StructureDefinitionMapping) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to Date")
+func (r StructureDefinitionMapping) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureDefinitionMapping to Date")
 }
-func (r StructureDefinitionMapping) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to Time")
+func (r StructureDefinitionMapping) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureDefinitionMapping to Time")
 }
-func (r StructureDefinitionMapping) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to DateTime")
+func (r StructureDefinitionMapping) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureDefinitionMapping to DateTime")
 }
-func (r StructureDefinitionMapping) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureDefinitionMapping to Quantity")
+func (r StructureDefinitionMapping) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionMapping to Quantity")
 }
-func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureDefinitionMapping
 	switch other := other.(type) {
 	case StructureDefinitionMapping:
@@ -4973,29 +4961,17 @@ func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseType
 	case *StructureDefinitionMapping:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureDefinitionMapping
-	switch other := other.(type) {
-	case StructureDefinitionMapping:
-		o = &other
-	case *StructureDefinitionMapping:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5084,31 +5060,31 @@ func (r StructureDefinitionContext) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r StructureDefinitionContext) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to Boolean")
+func (r StructureDefinitionContext) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureDefinitionContext to Boolean")
 }
-func (r StructureDefinitionContext) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to String")
+func (r StructureDefinitionContext) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureDefinitionContext to String")
 }
-func (r StructureDefinitionContext) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to Integer")
+func (r StructureDefinitionContext) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureDefinitionContext to Integer")
 }
-func (r StructureDefinitionContext) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to Decimal")
+func (r StructureDefinitionContext) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionContext to Decimal")
 }
-func (r StructureDefinitionContext) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to Date")
+func (r StructureDefinitionContext) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureDefinitionContext to Date")
 }
-func (r StructureDefinitionContext) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to Time")
+func (r StructureDefinitionContext) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureDefinitionContext to Time")
 }
-func (r StructureDefinitionContext) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to DateTime")
+func (r StructureDefinitionContext) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureDefinitionContext to DateTime")
 }
-func (r StructureDefinitionContext) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureDefinitionContext to Quantity")
+func (r StructureDefinitionContext) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionContext to Quantity")
 }
-func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureDefinitionContext
 	switch other := other.(type) {
 	case StructureDefinitionContext:
@@ -5116,29 +5092,17 @@ func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseType
 	case *StructureDefinitionContext:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureDefinitionContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureDefinitionContext
-	switch other := other.(type) {
-	case StructureDefinitionContext:
-		o = &other
-	case *StructureDefinitionContext:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureDefinitionContext) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5212,31 +5176,31 @@ func (r StructureDefinitionSnapshot) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r StructureDefinitionSnapshot) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to Boolean")
+func (r StructureDefinitionSnapshot) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureDefinitionSnapshot to Boolean")
 }
-func (r StructureDefinitionSnapshot) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to String")
+func (r StructureDefinitionSnapshot) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureDefinitionSnapshot to String")
 }
-func (r StructureDefinitionSnapshot) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to Integer")
+func (r StructureDefinitionSnapshot) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureDefinitionSnapshot to Integer")
 }
-func (r StructureDefinitionSnapshot) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to Decimal")
+func (r StructureDefinitionSnapshot) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionSnapshot to Decimal")
 }
-func (r StructureDefinitionSnapshot) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to Date")
+func (r StructureDefinitionSnapshot) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureDefinitionSnapshot to Date")
 }
-func (r StructureDefinitionSnapshot) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to Time")
+func (r StructureDefinitionSnapshot) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureDefinitionSnapshot to Time")
 }
-func (r StructureDefinitionSnapshot) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to DateTime")
+func (r StructureDefinitionSnapshot) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureDefinitionSnapshot to DateTime")
 }
-func (r StructureDefinitionSnapshot) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureDefinitionSnapshot to Quantity")
+func (r StructureDefinitionSnapshot) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionSnapshot to Quantity")
 }
-func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureDefinitionSnapshot
 	switch other := other.(type) {
 	case StructureDefinitionSnapshot:
@@ -5244,29 +5208,17 @@ func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTyp
 	case *StructureDefinitionSnapshot:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureDefinitionSnapshot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureDefinitionSnapshot
-	switch other := other.(type) {
-	case StructureDefinitionSnapshot:
-		o = &other
-	case *StructureDefinitionSnapshot:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureDefinitionSnapshot) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5333,31 +5285,31 @@ func (r StructureDefinitionDifferential) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r StructureDefinitionDifferential) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to Boolean")
+func (r StructureDefinitionDifferential) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureDefinitionDifferential to Boolean")
 }
-func (r StructureDefinitionDifferential) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to String")
+func (r StructureDefinitionDifferential) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureDefinitionDifferential to String")
 }
-func (r StructureDefinitionDifferential) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to Integer")
+func (r StructureDefinitionDifferential) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureDefinitionDifferential to Integer")
 }
-func (r StructureDefinitionDifferential) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to Decimal")
+func (r StructureDefinitionDifferential) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionDifferential to Decimal")
 }
-func (r StructureDefinitionDifferential) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to Date")
+func (r StructureDefinitionDifferential) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureDefinitionDifferential to Date")
 }
-func (r StructureDefinitionDifferential) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to Time")
+func (r StructureDefinitionDifferential) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureDefinitionDifferential to Time")
 }
-func (r StructureDefinitionDifferential) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to DateTime")
+func (r StructureDefinitionDifferential) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureDefinitionDifferential to DateTime")
 }
-func (r StructureDefinitionDifferential) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureDefinitionDifferential to Quantity")
+func (r StructureDefinitionDifferential) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionDifferential to Quantity")
 }
-func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureDefinitionDifferential
 	switch other := other.(type) {
 	case StructureDefinitionDifferential:
@@ -5365,29 +5317,17 @@ func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noRevers
 	case *StructureDefinitionDifferential:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureDefinitionDifferential) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureDefinitionDifferential
-	switch other := other.(type) {
-	case StructureDefinitionDifferential:
-		o = &other
-	case *StructureDefinitionDifferential:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureDefinitionDifferential) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

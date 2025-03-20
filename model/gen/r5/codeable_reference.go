@@ -339,31 +339,31 @@ func (r CodeableReference) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CodeableReference) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CodeableReference to Boolean")
+func (r CodeableReference) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CodeableReference to Boolean")
 }
-func (r CodeableReference) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CodeableReference to String")
+func (r CodeableReference) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CodeableReference to String")
 }
-func (r CodeableReference) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CodeableReference to Integer")
+func (r CodeableReference) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CodeableReference to Integer")
 }
-func (r CodeableReference) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CodeableReference to Decimal")
+func (r CodeableReference) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CodeableReference to Decimal")
 }
-func (r CodeableReference) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CodeableReference to Date")
+func (r CodeableReference) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CodeableReference to Date")
 }
-func (r CodeableReference) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CodeableReference to Time")
+func (r CodeableReference) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CodeableReference to Time")
 }
-func (r CodeableReference) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CodeableReference to DateTime")
+func (r CodeableReference) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CodeableReference to DateTime")
 }
-func (r CodeableReference) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CodeableReference to Quantity")
+func (r CodeableReference) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CodeableReference to Quantity")
 }
-func (r CodeableReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeableReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CodeableReference
 	switch other := other.(type) {
 	case CodeableReference:
@@ -371,29 +371,17 @@ func (r CodeableReference) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *CodeableReference:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CodeableReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CodeableReference
-	switch other := other.(type) {
-	case CodeableReference:
-		o = &other
-	case *CodeableReference:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CodeableReference) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

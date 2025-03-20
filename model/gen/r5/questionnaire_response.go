@@ -3738,31 +3738,31 @@ func (r QuestionnaireResponse) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r QuestionnaireResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to Boolean")
+func (r QuestionnaireResponse) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert QuestionnaireResponse to Boolean")
 }
-func (r QuestionnaireResponse) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to String")
+func (r QuestionnaireResponse) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert QuestionnaireResponse to String")
 }
-func (r QuestionnaireResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to Integer")
+func (r QuestionnaireResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert QuestionnaireResponse to Integer")
 }
-func (r QuestionnaireResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to Decimal")
+func (r QuestionnaireResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert QuestionnaireResponse to Decimal")
 }
-func (r QuestionnaireResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to Date")
+func (r QuestionnaireResponse) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert QuestionnaireResponse to Date")
 }
-func (r QuestionnaireResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to Time")
+func (r QuestionnaireResponse) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert QuestionnaireResponse to Time")
 }
-func (r QuestionnaireResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to DateTime")
+func (r QuestionnaireResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert QuestionnaireResponse to DateTime")
 }
-func (r QuestionnaireResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert QuestionnaireResponse to Quantity")
+func (r QuestionnaireResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert QuestionnaireResponse to Quantity")
 }
-func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *QuestionnaireResponse
 	switch other := other.(type) {
 	case QuestionnaireResponse:
@@ -3770,29 +3770,17 @@ func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *QuestionnaireResponse:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r QuestionnaireResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *QuestionnaireResponse
-	switch other := other.(type) {
-	case QuestionnaireResponse:
-		o = &other
-	case *QuestionnaireResponse:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r QuestionnaireResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3982,31 +3970,31 @@ func (r QuestionnaireResponseItem) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r QuestionnaireResponseItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to Boolean")
+func (r QuestionnaireResponseItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert QuestionnaireResponseItem to Boolean")
 }
-func (r QuestionnaireResponseItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to String")
+func (r QuestionnaireResponseItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert QuestionnaireResponseItem to String")
 }
-func (r QuestionnaireResponseItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to Integer")
+func (r QuestionnaireResponseItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert QuestionnaireResponseItem to Integer")
 }
-func (r QuestionnaireResponseItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to Decimal")
+func (r QuestionnaireResponseItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert QuestionnaireResponseItem to Decimal")
 }
-func (r QuestionnaireResponseItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to Date")
+func (r QuestionnaireResponseItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert QuestionnaireResponseItem to Date")
 }
-func (r QuestionnaireResponseItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to Time")
+func (r QuestionnaireResponseItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert QuestionnaireResponseItem to Time")
 }
-func (r QuestionnaireResponseItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to DateTime")
+func (r QuestionnaireResponseItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert QuestionnaireResponseItem to DateTime")
 }
-func (r QuestionnaireResponseItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItem to Quantity")
+func (r QuestionnaireResponseItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert QuestionnaireResponseItem to Quantity")
 }
-func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *QuestionnaireResponseItem
 	switch other := other.(type) {
 	case QuestionnaireResponseItem:
@@ -4014,29 +4002,17 @@ func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeC
 	case *QuestionnaireResponseItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r QuestionnaireResponseItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *QuestionnaireResponseItem
-	switch other := other.(type) {
-	case QuestionnaireResponseItem:
-		o = &other
-	case *QuestionnaireResponseItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r QuestionnaireResponseItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4134,31 +4110,31 @@ func (r QuestionnaireResponseItemAnswer) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r QuestionnaireResponseItemAnswer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to Boolean")
+func (r QuestionnaireResponseItemAnswer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Boolean")
 }
-func (r QuestionnaireResponseItemAnswer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to String")
+func (r QuestionnaireResponseItemAnswer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert QuestionnaireResponseItemAnswer to String")
 }
-func (r QuestionnaireResponseItemAnswer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to Integer")
+func (r QuestionnaireResponseItemAnswer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Integer")
 }
-func (r QuestionnaireResponseItemAnswer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to Decimal")
+func (r QuestionnaireResponseItemAnswer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Decimal")
 }
-func (r QuestionnaireResponseItemAnswer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to Date")
+func (r QuestionnaireResponseItemAnswer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Date")
 }
-func (r QuestionnaireResponseItemAnswer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to Time")
+func (r QuestionnaireResponseItemAnswer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Time")
 }
-func (r QuestionnaireResponseItemAnswer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to DateTime")
+func (r QuestionnaireResponseItemAnswer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert QuestionnaireResponseItemAnswer to DateTime")
 }
-func (r QuestionnaireResponseItemAnswer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert QuestionnaireResponseItemAnswer to Quantity")
+func (r QuestionnaireResponseItemAnswer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Quantity")
 }
-func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *QuestionnaireResponseItemAnswer
 	switch other := other.(type) {
 	case QuestionnaireResponseItemAnswer:
@@ -4166,29 +4142,17 @@ func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noRevers
 	case *QuestionnaireResponseItemAnswer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r QuestionnaireResponseItemAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *QuestionnaireResponseItemAnswer
-	switch other := other.(type) {
-	case QuestionnaireResponseItemAnswer:
-		o = &other
-	case *QuestionnaireResponseItemAnswer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r QuestionnaireResponseItemAnswer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

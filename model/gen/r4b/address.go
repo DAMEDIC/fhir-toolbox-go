@@ -1086,31 +1086,31 @@ func (r Address) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Address) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Address to Boolean")
+func (r Address) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Address to Boolean")
 }
-func (r Address) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Address to String")
+func (r Address) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Address to String")
 }
-func (r Address) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Address to Integer")
+func (r Address) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Address to Integer")
 }
-func (r Address) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Address to Decimal")
+func (r Address) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Address to Decimal")
 }
-func (r Address) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Address to Date")
+func (r Address) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Address to Date")
 }
-func (r Address) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Address to Time")
+func (r Address) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Address to Time")
 }
-func (r Address) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Address to DateTime")
+func (r Address) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Address to DateTime")
 }
-func (r Address) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Address to Quantity")
+func (r Address) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Address to Quantity")
 }
-func (r Address) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Address) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Address
 	switch other := other.(type) {
 	case Address:
@@ -1118,29 +1118,17 @@ func (r Address) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	case *Address:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Address) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Address
-	switch other := other.(type) {
-	case Address:
-		o = &other
-	case *Address:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Address) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

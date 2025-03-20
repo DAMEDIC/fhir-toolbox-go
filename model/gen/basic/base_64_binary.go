@@ -93,68 +93,49 @@ func (r Base64Binary) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Base64Binary) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Base64Binary to Boolean")
+func (r Base64Binary) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Base64Binary to Boolean")
 }
-func (r Base64Binary) ToString(explicit bool) (*fhirpath.String, error) {
+func (r Base64Binary) ToString(explicit bool) (fhirpath.String, bool, error) {
 	if r.Value != nil {
 		v := fhirpath.String(*r.Value)
-		return &v, nil
+		return v, true, nil
 	} else {
-		return nil, nil
+		return "", false, nil
 	}
 }
-func (r Base64Binary) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Base64Binary to Integer")
+func (r Base64Binary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Base64Binary to Integer")
 }
-func (r Base64Binary) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Base64Binary to Decimal")
+func (r Base64Binary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Base64Binary to Decimal")
 }
-func (r Base64Binary) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Base64Binary to Date")
+func (r Base64Binary) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Base64Binary to Date")
 }
-func (r Base64Binary) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Base64Binary to Time")
+func (r Base64Binary) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Base64Binary to Time")
 }
-func (r Base64Binary) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Base64Binary to DateTime")
+func (r Base64Binary) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Base64Binary to DateTime")
 }
-func (r Base64Binary) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Base64Binary to Quantity")
+func (r Base64Binary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Base64Binary to Quantity")
 }
-func (r Base64Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToString(false)
-	if err != nil {
-		return false
+func (r Base64Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false, true
 	}
-	b, err := other.ToString(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
+	b, ok, err := other.ToString(false)
+	if err != nil || !ok {
+		return false, true
 	}
 	return a.Equal(b)
 }
 func (r Base64Binary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToString(false)
-	if err != nil {
-		return false
-	}
-	b, err := other.ToString(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
-	}
-	return a.Equivalent(b)
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Base64Binary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -178,7 +159,7 @@ func (r Base64Binary) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "Base64Binary",
+			Name:      "base64Binary",
 			Namespace: "FHIR",
 		},
 	}

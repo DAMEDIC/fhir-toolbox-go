@@ -2817,31 +2817,31 @@ func (r CompartmentDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CompartmentDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to Boolean")
+func (r CompartmentDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CompartmentDefinition to Boolean")
 }
-func (r CompartmentDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to String")
+func (r CompartmentDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CompartmentDefinition to String")
 }
-func (r CompartmentDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to Integer")
+func (r CompartmentDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CompartmentDefinition to Integer")
 }
-func (r CompartmentDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to Decimal")
+func (r CompartmentDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CompartmentDefinition to Decimal")
 }
-func (r CompartmentDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to Date")
+func (r CompartmentDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CompartmentDefinition to Date")
 }
-func (r CompartmentDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to Time")
+func (r CompartmentDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CompartmentDefinition to Time")
 }
-func (r CompartmentDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to DateTime")
+func (r CompartmentDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CompartmentDefinition to DateTime")
 }
-func (r CompartmentDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CompartmentDefinition to Quantity")
+func (r CompartmentDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CompartmentDefinition to Quantity")
 }
-func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CompartmentDefinition
 	switch other := other.(type) {
 	case CompartmentDefinition:
@@ -2849,29 +2849,17 @@ func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *CompartmentDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CompartmentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CompartmentDefinition
-	switch other := other.(type) {
-	case CompartmentDefinition:
-		o = &other
-	case *CompartmentDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CompartmentDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3096,31 +3084,31 @@ func (r CompartmentDefinitionResource) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r CompartmentDefinitionResource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to Boolean")
+func (r CompartmentDefinitionResource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CompartmentDefinitionResource to Boolean")
 }
-func (r CompartmentDefinitionResource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to String")
+func (r CompartmentDefinitionResource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CompartmentDefinitionResource to String")
 }
-func (r CompartmentDefinitionResource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to Integer")
+func (r CompartmentDefinitionResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CompartmentDefinitionResource to Integer")
 }
-func (r CompartmentDefinitionResource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to Decimal")
+func (r CompartmentDefinitionResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CompartmentDefinitionResource to Decimal")
 }
-func (r CompartmentDefinitionResource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to Date")
+func (r CompartmentDefinitionResource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CompartmentDefinitionResource to Date")
 }
-func (r CompartmentDefinitionResource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to Time")
+func (r CompartmentDefinitionResource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CompartmentDefinitionResource to Time")
 }
-func (r CompartmentDefinitionResource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to DateTime")
+func (r CompartmentDefinitionResource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CompartmentDefinitionResource to DateTime")
 }
-func (r CompartmentDefinitionResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CompartmentDefinitionResource to Quantity")
+func (r CompartmentDefinitionResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CompartmentDefinitionResource to Quantity")
 }
-func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CompartmentDefinitionResource
 	switch other := other.(type) {
 	case CompartmentDefinitionResource:
@@ -3128,29 +3116,17 @@ func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseT
 	case *CompartmentDefinitionResource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CompartmentDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CompartmentDefinitionResource
-	switch other := other.(type) {
-	case CompartmentDefinitionResource:
-		o = &other
-	case *CompartmentDefinitionResource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CompartmentDefinitionResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

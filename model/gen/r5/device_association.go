@@ -1717,31 +1717,31 @@ func (r DeviceAssociation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DeviceAssociation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DeviceAssociation to Boolean")
+func (r DeviceAssociation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DeviceAssociation to Boolean")
 }
-func (r DeviceAssociation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DeviceAssociation to String")
+func (r DeviceAssociation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DeviceAssociation to String")
 }
-func (r DeviceAssociation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DeviceAssociation to Integer")
+func (r DeviceAssociation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DeviceAssociation to Integer")
 }
-func (r DeviceAssociation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DeviceAssociation to Decimal")
+func (r DeviceAssociation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceAssociation to Decimal")
 }
-func (r DeviceAssociation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DeviceAssociation to Date")
+func (r DeviceAssociation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DeviceAssociation to Date")
 }
-func (r DeviceAssociation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DeviceAssociation to Time")
+func (r DeviceAssociation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DeviceAssociation to Time")
 }
-func (r DeviceAssociation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DeviceAssociation to DateTime")
+func (r DeviceAssociation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DeviceAssociation to DateTime")
 }
-func (r DeviceAssociation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DeviceAssociation to Quantity")
+func (r DeviceAssociation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceAssociation to Quantity")
 }
-func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DeviceAssociation
 	switch other := other.(type) {
 	case DeviceAssociation:
@@ -1749,29 +1749,17 @@ func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *DeviceAssociation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DeviceAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DeviceAssociation
-	switch other := other.(type) {
-	case DeviceAssociation:
-		o = &other
-	case *DeviceAssociation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DeviceAssociation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -1937,31 +1925,31 @@ func (r DeviceAssociationOperation) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r DeviceAssociationOperation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to Boolean")
+func (r DeviceAssociationOperation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DeviceAssociationOperation to Boolean")
 }
-func (r DeviceAssociationOperation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to String")
+func (r DeviceAssociationOperation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DeviceAssociationOperation to String")
 }
-func (r DeviceAssociationOperation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to Integer")
+func (r DeviceAssociationOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DeviceAssociationOperation to Integer")
 }
-func (r DeviceAssociationOperation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to Decimal")
+func (r DeviceAssociationOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceAssociationOperation to Decimal")
 }
-func (r DeviceAssociationOperation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to Date")
+func (r DeviceAssociationOperation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DeviceAssociationOperation to Date")
 }
-func (r DeviceAssociationOperation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to Time")
+func (r DeviceAssociationOperation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DeviceAssociationOperation to Time")
 }
-func (r DeviceAssociationOperation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to DateTime")
+func (r DeviceAssociationOperation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DeviceAssociationOperation to DateTime")
 }
-func (r DeviceAssociationOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DeviceAssociationOperation to Quantity")
+func (r DeviceAssociationOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceAssociationOperation to Quantity")
 }
-func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DeviceAssociationOperation
 	switch other := other.(type) {
 	case DeviceAssociationOperation:
@@ -1969,29 +1957,17 @@ func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseType
 	case *DeviceAssociationOperation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DeviceAssociationOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DeviceAssociationOperation
-	switch other := other.(type) {
-	case DeviceAssociationOperation:
-		o = &other
-	case *DeviceAssociationOperation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DeviceAssociationOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

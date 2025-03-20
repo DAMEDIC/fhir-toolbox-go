@@ -6288,31 +6288,31 @@ func (r TestPlan) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestPlan) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlan to Boolean")
+func (r TestPlan) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlan to Boolean")
 }
-func (r TestPlan) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlan to String")
+func (r TestPlan) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlan to String")
 }
-func (r TestPlan) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlan to Integer")
+func (r TestPlan) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlan to Integer")
 }
-func (r TestPlan) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlan to Decimal")
+func (r TestPlan) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlan to Decimal")
 }
-func (r TestPlan) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlan to Date")
+func (r TestPlan) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlan to Date")
 }
-func (r TestPlan) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlan to Time")
+func (r TestPlan) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlan to Time")
 }
-func (r TestPlan) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlan to DateTime")
+func (r TestPlan) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlan to DateTime")
 }
-func (r TestPlan) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlan to Quantity")
+func (r TestPlan) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlan to Quantity")
 }
-func (r TestPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlan
 	switch other := other.(type) {
 	case TestPlan:
@@ -6320,29 +6320,17 @@ func (r TestPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	case *TestPlan:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlan
-	switch other := other.(type) {
-	case TestPlan:
-		o = &other
-	case *TestPlan:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlan) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6603,31 +6591,31 @@ func (r TestPlanDependency) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestPlanDependency) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlanDependency to Boolean")
+func (r TestPlanDependency) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlanDependency to Boolean")
 }
-func (r TestPlanDependency) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlanDependency to String")
+func (r TestPlanDependency) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlanDependency to String")
 }
-func (r TestPlanDependency) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlanDependency to Integer")
+func (r TestPlanDependency) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlanDependency to Integer")
 }
-func (r TestPlanDependency) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlanDependency to Decimal")
+func (r TestPlanDependency) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanDependency to Decimal")
 }
-func (r TestPlanDependency) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlanDependency to Date")
+func (r TestPlanDependency) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlanDependency to Date")
 }
-func (r TestPlanDependency) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlanDependency to Time")
+func (r TestPlanDependency) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlanDependency to Time")
 }
-func (r TestPlanDependency) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlanDependency to DateTime")
+func (r TestPlanDependency) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlanDependency to DateTime")
 }
-func (r TestPlanDependency) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlanDependency to Quantity")
+func (r TestPlanDependency) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanDependency to Quantity")
 }
-func (r TestPlanDependency) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanDependency) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlanDependency
 	switch other := other.(type) {
 	case TestPlanDependency:
@@ -6635,29 +6623,17 @@ func (r TestPlanDependency) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *TestPlanDependency:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlanDependency) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlanDependency
-	switch other := other.(type) {
-	case TestPlanDependency:
-		o = &other
-	case *TestPlanDependency:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlanDependency) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6756,31 +6732,31 @@ func (r TestPlanTestCase) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestPlanTestCase) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to Boolean")
+func (r TestPlanTestCase) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlanTestCase to Boolean")
 }
-func (r TestPlanTestCase) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to String")
+func (r TestPlanTestCase) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlanTestCase to String")
 }
-func (r TestPlanTestCase) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to Integer")
+func (r TestPlanTestCase) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlanTestCase to Integer")
 }
-func (r TestPlanTestCase) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to Decimal")
+func (r TestPlanTestCase) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCase to Decimal")
 }
-func (r TestPlanTestCase) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to Date")
+func (r TestPlanTestCase) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlanTestCase to Date")
 }
-func (r TestPlanTestCase) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to Time")
+func (r TestPlanTestCase) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlanTestCase to Time")
 }
-func (r TestPlanTestCase) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to DateTime")
+func (r TestPlanTestCase) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlanTestCase to DateTime")
 }
-func (r TestPlanTestCase) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlanTestCase to Quantity")
+func (r TestPlanTestCase) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCase to Quantity")
 }
-func (r TestPlanTestCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlanTestCase
 	switch other := other.(type) {
 	case TestPlanTestCase:
@@ -6788,29 +6764,17 @@ func (r TestPlanTestCase) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *TestPlanTestCase:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlanTestCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlanTestCase
-	switch other := other.(type) {
-	case TestPlanTestCase:
-		o = &other
-	case *TestPlanTestCase:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlanTestCase) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6917,31 +6881,31 @@ func (r TestPlanTestCaseDependency) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r TestPlanTestCaseDependency) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to Boolean")
+func (r TestPlanTestCaseDependency) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlanTestCaseDependency to Boolean")
 }
-func (r TestPlanTestCaseDependency) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to String")
+func (r TestPlanTestCaseDependency) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlanTestCaseDependency to String")
 }
-func (r TestPlanTestCaseDependency) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to Integer")
+func (r TestPlanTestCaseDependency) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlanTestCaseDependency to Integer")
 }
-func (r TestPlanTestCaseDependency) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to Decimal")
+func (r TestPlanTestCaseDependency) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseDependency to Decimal")
 }
-func (r TestPlanTestCaseDependency) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to Date")
+func (r TestPlanTestCaseDependency) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlanTestCaseDependency to Date")
 }
-func (r TestPlanTestCaseDependency) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to Time")
+func (r TestPlanTestCaseDependency) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlanTestCaseDependency to Time")
 }
-func (r TestPlanTestCaseDependency) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to DateTime")
+func (r TestPlanTestCaseDependency) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlanTestCaseDependency to DateTime")
 }
-func (r TestPlanTestCaseDependency) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseDependency to Quantity")
+func (r TestPlanTestCaseDependency) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseDependency to Quantity")
 }
-func (r TestPlanTestCaseDependency) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseDependency) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlanTestCaseDependency
 	switch other := other.(type) {
 	case TestPlanTestCaseDependency:
@@ -6949,29 +6913,17 @@ func (r TestPlanTestCaseDependency) Equal(other fhirpath.Element, _noReverseType
 	case *TestPlanTestCaseDependency:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlanTestCaseDependency) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlanTestCaseDependency
-	switch other := other.(type) {
-	case TestPlanTestCaseDependency:
-		o = &other
-	case *TestPlanTestCaseDependency:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlanTestCaseDependency) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7050,31 +7002,31 @@ func (r TestPlanTestCaseTestRun) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestPlanTestCaseTestRun) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to Boolean")
+func (r TestPlanTestCaseTestRun) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlanTestCaseTestRun to Boolean")
 }
-func (r TestPlanTestCaseTestRun) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to String")
+func (r TestPlanTestCaseTestRun) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlanTestCaseTestRun to String")
 }
-func (r TestPlanTestCaseTestRun) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to Integer")
+func (r TestPlanTestCaseTestRun) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlanTestCaseTestRun to Integer")
 }
-func (r TestPlanTestCaseTestRun) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to Decimal")
+func (r TestPlanTestCaseTestRun) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseTestRun to Decimal")
 }
-func (r TestPlanTestCaseTestRun) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to Date")
+func (r TestPlanTestCaseTestRun) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlanTestCaseTestRun to Date")
 }
-func (r TestPlanTestCaseTestRun) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to Time")
+func (r TestPlanTestCaseTestRun) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlanTestCaseTestRun to Time")
 }
-func (r TestPlanTestCaseTestRun) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to DateTime")
+func (r TestPlanTestCaseTestRun) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlanTestCaseTestRun to DateTime")
 }
-func (r TestPlanTestCaseTestRun) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRun to Quantity")
+func (r TestPlanTestCaseTestRun) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseTestRun to Quantity")
 }
-func (r TestPlanTestCaseTestRun) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseTestRun) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlanTestCaseTestRun
 	switch other := other.(type) {
 	case TestPlanTestCaseTestRun:
@@ -7082,29 +7034,17 @@ func (r TestPlanTestCaseTestRun) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *TestPlanTestCaseTestRun:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlanTestCaseTestRun) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlanTestCaseTestRun
-	switch other := other.(type) {
-	case TestPlanTestCaseTestRun:
-		o = &other
-	case *TestPlanTestCaseTestRun:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlanTestCaseTestRun) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7183,31 +7123,31 @@ func (r TestPlanTestCaseTestRunScript) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r TestPlanTestCaseTestRunScript) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to Boolean")
+func (r TestPlanTestCaseTestRunScript) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Boolean")
 }
-func (r TestPlanTestCaseTestRunScript) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to String")
+func (r TestPlanTestCaseTestRunScript) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlanTestCaseTestRunScript to String")
 }
-func (r TestPlanTestCaseTestRunScript) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to Integer")
+func (r TestPlanTestCaseTestRunScript) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Integer")
 }
-func (r TestPlanTestCaseTestRunScript) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to Decimal")
+func (r TestPlanTestCaseTestRunScript) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Decimal")
 }
-func (r TestPlanTestCaseTestRunScript) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to Date")
+func (r TestPlanTestCaseTestRunScript) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Date")
 }
-func (r TestPlanTestCaseTestRunScript) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to Time")
+func (r TestPlanTestCaseTestRunScript) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Time")
 }
-func (r TestPlanTestCaseTestRunScript) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to DateTime")
+func (r TestPlanTestCaseTestRunScript) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlanTestCaseTestRunScript to DateTime")
 }
-func (r TestPlanTestCaseTestRunScript) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestRunScript to Quantity")
+func (r TestPlanTestCaseTestRunScript) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Quantity")
 }
-func (r TestPlanTestCaseTestRunScript) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseTestRunScript) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlanTestCaseTestRunScript
 	switch other := other.(type) {
 	case TestPlanTestCaseTestRunScript:
@@ -7215,29 +7155,17 @@ func (r TestPlanTestCaseTestRunScript) Equal(other fhirpath.Element, _noReverseT
 	case *TestPlanTestCaseTestRunScript:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlanTestCaseTestRunScript) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlanTestCaseTestRunScript
-	switch other := other.(type) {
-	case TestPlanTestCaseTestRunScript:
-		o = &other
-	case *TestPlanTestCaseTestRunScript:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlanTestCaseTestRunScript) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7319,31 +7247,31 @@ func (r TestPlanTestCaseTestData) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestPlanTestCaseTestData) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to Boolean")
+func (r TestPlanTestCaseTestData) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlanTestCaseTestData to Boolean")
 }
-func (r TestPlanTestCaseTestData) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to String")
+func (r TestPlanTestCaseTestData) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlanTestCaseTestData to String")
 }
-func (r TestPlanTestCaseTestData) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to Integer")
+func (r TestPlanTestCaseTestData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlanTestCaseTestData to Integer")
 }
-func (r TestPlanTestCaseTestData) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to Decimal")
+func (r TestPlanTestCaseTestData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseTestData to Decimal")
 }
-func (r TestPlanTestCaseTestData) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to Date")
+func (r TestPlanTestCaseTestData) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlanTestCaseTestData to Date")
 }
-func (r TestPlanTestCaseTestData) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to Time")
+func (r TestPlanTestCaseTestData) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlanTestCaseTestData to Time")
 }
-func (r TestPlanTestCaseTestData) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to DateTime")
+func (r TestPlanTestCaseTestData) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlanTestCaseTestData to DateTime")
 }
-func (r TestPlanTestCaseTestData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseTestData to Quantity")
+func (r TestPlanTestCaseTestData) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseTestData to Quantity")
 }
-func (r TestPlanTestCaseTestData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseTestData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlanTestCaseTestData
 	switch other := other.(type) {
 	case TestPlanTestCaseTestData:
@@ -7351,29 +7279,17 @@ func (r TestPlanTestCaseTestData) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *TestPlanTestCaseTestData:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlanTestCaseTestData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlanTestCaseTestData
-	switch other := other.(type) {
-	case TestPlanTestCaseTestData:
-		o = &other
-	case *TestPlanTestCaseTestData:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlanTestCaseTestData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7464,31 +7380,31 @@ func (r TestPlanTestCaseAssertion) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r TestPlanTestCaseAssertion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to Boolean")
+func (r TestPlanTestCaseAssertion) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestPlanTestCaseAssertion to Boolean")
 }
-func (r TestPlanTestCaseAssertion) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to String")
+func (r TestPlanTestCaseAssertion) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestPlanTestCaseAssertion to String")
 }
-func (r TestPlanTestCaseAssertion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to Integer")
+func (r TestPlanTestCaseAssertion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestPlanTestCaseAssertion to Integer")
 }
-func (r TestPlanTestCaseAssertion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to Decimal")
+func (r TestPlanTestCaseAssertion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseAssertion to Decimal")
 }
-func (r TestPlanTestCaseAssertion) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to Date")
+func (r TestPlanTestCaseAssertion) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestPlanTestCaseAssertion to Date")
 }
-func (r TestPlanTestCaseAssertion) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to Time")
+func (r TestPlanTestCaseAssertion) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestPlanTestCaseAssertion to Time")
 }
-func (r TestPlanTestCaseAssertion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to DateTime")
+func (r TestPlanTestCaseAssertion) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestPlanTestCaseAssertion to DateTime")
 }
-func (r TestPlanTestCaseAssertion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestPlanTestCaseAssertion to Quantity")
+func (r TestPlanTestCaseAssertion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseAssertion to Quantity")
 }
-func (r TestPlanTestCaseAssertion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseAssertion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestPlanTestCaseAssertion
 	switch other := other.(type) {
 	case TestPlanTestCaseAssertion:
@@ -7496,29 +7412,17 @@ func (r TestPlanTestCaseAssertion) Equal(other fhirpath.Element, _noReverseTypeC
 	case *TestPlanTestCaseAssertion:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestPlanTestCaseAssertion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestPlanTestCaseAssertion
-	switch other := other.(type) {
-	case TestPlanTestCaseAssertion:
-		o = &other
-	case *TestPlanTestCaseAssertion:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestPlanTestCaseAssertion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

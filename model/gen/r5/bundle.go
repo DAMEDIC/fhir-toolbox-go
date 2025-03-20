@@ -3827,31 +3827,31 @@ func (r Bundle) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Bundle) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Bundle to Boolean")
+func (r Bundle) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Bundle to Boolean")
 }
-func (r Bundle) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Bundle to String")
+func (r Bundle) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Bundle to String")
 }
-func (r Bundle) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Bundle to Integer")
+func (r Bundle) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Bundle to Integer")
 }
-func (r Bundle) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Bundle to Decimal")
+func (r Bundle) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Bundle to Decimal")
 }
-func (r Bundle) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Bundle to Date")
+func (r Bundle) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Bundle to Date")
 }
-func (r Bundle) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Bundle to Time")
+func (r Bundle) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Bundle to Time")
 }
-func (r Bundle) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Bundle to DateTime")
+func (r Bundle) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Bundle to DateTime")
 }
-func (r Bundle) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Bundle to Quantity")
+func (r Bundle) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Bundle to Quantity")
 }
-func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Bundle
 	switch other := other.(type) {
 	case Bundle:
@@ -3859,29 +3859,17 @@ func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	case *Bundle:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Bundle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Bundle
-	switch other := other.(type) {
-	case Bundle:
-		o = &other
-	case *Bundle:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Bundle) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4005,31 +3993,31 @@ func (r BundleLink) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r BundleLink) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BundleLink to Boolean")
+func (r BundleLink) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BundleLink to Boolean")
 }
-func (r BundleLink) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BundleLink to String")
+func (r BundleLink) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BundleLink to String")
 }
-func (r BundleLink) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BundleLink to Integer")
+func (r BundleLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BundleLink to Integer")
 }
-func (r BundleLink) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BundleLink to Decimal")
+func (r BundleLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BundleLink to Decimal")
 }
-func (r BundleLink) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BundleLink to Date")
+func (r BundleLink) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BundleLink to Date")
 }
-func (r BundleLink) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BundleLink to Time")
+func (r BundleLink) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BundleLink to Time")
 }
-func (r BundleLink) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BundleLink to DateTime")
+func (r BundleLink) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BundleLink to DateTime")
 }
-func (r BundleLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BundleLink to Quantity")
+func (r BundleLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BundleLink to Quantity")
 }
-func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BundleLink
 	switch other := other.(type) {
 	case BundleLink:
@@ -4037,29 +4025,17 @@ func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *BundleLink:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BundleLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BundleLink
-	switch other := other.(type) {
-	case BundleLink:
-		o = &other
-	case *BundleLink:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BundleLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4158,31 +4134,31 @@ func (r BundleEntry) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r BundleEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BundleEntry to Boolean")
+func (r BundleEntry) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BundleEntry to Boolean")
 }
-func (r BundleEntry) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BundleEntry to String")
+func (r BundleEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BundleEntry to String")
 }
-func (r BundleEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BundleEntry to Integer")
+func (r BundleEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BundleEntry to Integer")
 }
-func (r BundleEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BundleEntry to Decimal")
+func (r BundleEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntry to Decimal")
 }
-func (r BundleEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BundleEntry to Date")
+func (r BundleEntry) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BundleEntry to Date")
 }
-func (r BundleEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BundleEntry to Time")
+func (r BundleEntry) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BundleEntry to Time")
 }
-func (r BundleEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BundleEntry to DateTime")
+func (r BundleEntry) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BundleEntry to DateTime")
 }
-func (r BundleEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BundleEntry to Quantity")
+func (r BundleEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntry to Quantity")
 }
-func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BundleEntry
 	switch other := other.(type) {
 	case BundleEntry:
@@ -4190,29 +4166,17 @@ func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	case *BundleEntry:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BundleEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BundleEntry
-	switch other := other.(type) {
-	case BundleEntry:
-		o = &other
-	case *BundleEntry:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BundleEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4319,31 +4283,31 @@ func (r BundleEntrySearch) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r BundleEntrySearch) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to Boolean")
+func (r BundleEntrySearch) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BundleEntrySearch to Boolean")
 }
-func (r BundleEntrySearch) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to String")
+func (r BundleEntrySearch) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BundleEntrySearch to String")
 }
-func (r BundleEntrySearch) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to Integer")
+func (r BundleEntrySearch) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BundleEntrySearch to Integer")
 }
-func (r BundleEntrySearch) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to Decimal")
+func (r BundleEntrySearch) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntrySearch to Decimal")
 }
-func (r BundleEntrySearch) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to Date")
+func (r BundleEntrySearch) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BundleEntrySearch to Date")
 }
-func (r BundleEntrySearch) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to Time")
+func (r BundleEntrySearch) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BundleEntrySearch to Time")
 }
-func (r BundleEntrySearch) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to DateTime")
+func (r BundleEntrySearch) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BundleEntrySearch to DateTime")
 }
-func (r BundleEntrySearch) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BundleEntrySearch to Quantity")
+func (r BundleEntrySearch) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntrySearch to Quantity")
 }
-func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BundleEntrySearch
 	switch other := other.(type) {
 	case BundleEntrySearch:
@@ -4351,29 +4315,17 @@ func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *BundleEntrySearch:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BundleEntrySearch) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BundleEntrySearch
-	switch other := other.(type) {
-	case BundleEntrySearch:
-		o = &other
-	case *BundleEntrySearch:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BundleEntrySearch) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4468,31 +4420,31 @@ func (r BundleEntryRequest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r BundleEntryRequest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to Boolean")
+func (r BundleEntryRequest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BundleEntryRequest to Boolean")
 }
-func (r BundleEntryRequest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to String")
+func (r BundleEntryRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BundleEntryRequest to String")
 }
-func (r BundleEntryRequest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to Integer")
+func (r BundleEntryRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BundleEntryRequest to Integer")
 }
-func (r BundleEntryRequest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to Decimal")
+func (r BundleEntryRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntryRequest to Decimal")
 }
-func (r BundleEntryRequest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to Date")
+func (r BundleEntryRequest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BundleEntryRequest to Date")
 }
-func (r BundleEntryRequest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to Time")
+func (r BundleEntryRequest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BundleEntryRequest to Time")
 }
-func (r BundleEntryRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to DateTime")
+func (r BundleEntryRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BundleEntryRequest to DateTime")
 }
-func (r BundleEntryRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BundleEntryRequest to Quantity")
+func (r BundleEntryRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntryRequest to Quantity")
 }
-func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BundleEntryRequest
 	switch other := other.(type) {
 	case BundleEntryRequest:
@@ -4500,29 +4452,17 @@ func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *BundleEntryRequest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BundleEntryRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BundleEntryRequest
-	switch other := other.(type) {
-	case BundleEntryRequest:
-		o = &other
-	case *BundleEntryRequest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BundleEntryRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4642,31 +4582,31 @@ func (r BundleEntryResponse) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r BundleEntryResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to Boolean")
+func (r BundleEntryResponse) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BundleEntryResponse to Boolean")
 }
-func (r BundleEntryResponse) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to String")
+func (r BundleEntryResponse) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BundleEntryResponse to String")
 }
-func (r BundleEntryResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to Integer")
+func (r BundleEntryResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BundleEntryResponse to Integer")
 }
-func (r BundleEntryResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to Decimal")
+func (r BundleEntryResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntryResponse to Decimal")
 }
-func (r BundleEntryResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to Date")
+func (r BundleEntryResponse) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BundleEntryResponse to Date")
 }
-func (r BundleEntryResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to Time")
+func (r BundleEntryResponse) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BundleEntryResponse to Time")
 }
-func (r BundleEntryResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to DateTime")
+func (r BundleEntryResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BundleEntryResponse to DateTime")
 }
-func (r BundleEntryResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BundleEntryResponse to Quantity")
+func (r BundleEntryResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntryResponse to Quantity")
 }
-func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BundleEntryResponse
 	switch other := other.(type) {
 	case BundleEntryResponse:
@@ -4674,29 +4614,17 @@ func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *BundleEntryResponse:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BundleEntryResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BundleEntryResponse
-	switch other := other.(type) {
-	case BundleEntryResponse:
-		o = &other
-	case *BundleEntryResponse:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BundleEntryResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

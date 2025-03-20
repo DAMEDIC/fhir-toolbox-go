@@ -3122,31 +3122,31 @@ func (r ChargeItem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ChargeItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ChargeItem to Boolean")
+func (r ChargeItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ChargeItem to Boolean")
 }
-func (r ChargeItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ChargeItem to String")
+func (r ChargeItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ChargeItem to String")
 }
-func (r ChargeItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ChargeItem to Integer")
+func (r ChargeItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ChargeItem to Integer")
 }
-func (r ChargeItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ChargeItem to Decimal")
+func (r ChargeItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItem to Decimal")
 }
-func (r ChargeItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ChargeItem to Date")
+func (r ChargeItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ChargeItem to Date")
 }
-func (r ChargeItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ChargeItem to Time")
+func (r ChargeItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ChargeItem to Time")
 }
-func (r ChargeItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ChargeItem to DateTime")
+func (r ChargeItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ChargeItem to DateTime")
 }
-func (r ChargeItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ChargeItem to Quantity")
+func (r ChargeItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItem to Quantity")
 }
-func (r ChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ChargeItem
 	switch other := other.(type) {
 	case ChargeItem:
@@ -3154,29 +3154,17 @@ func (r ChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *ChargeItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ChargeItem
-	switch other := other.(type) {
-	case ChargeItem:
-		o = &other
-	case *ChargeItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ChargeItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3456,31 +3444,31 @@ func (r ChargeItemPerformer) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ChargeItemPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to Boolean")
+func (r ChargeItemPerformer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ChargeItemPerformer to Boolean")
 }
-func (r ChargeItemPerformer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to String")
+func (r ChargeItemPerformer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ChargeItemPerformer to String")
 }
-func (r ChargeItemPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to Integer")
+func (r ChargeItemPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ChargeItemPerformer to Integer")
 }
-func (r ChargeItemPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to Decimal")
+func (r ChargeItemPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemPerformer to Decimal")
 }
-func (r ChargeItemPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to Date")
+func (r ChargeItemPerformer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ChargeItemPerformer to Date")
 }
-func (r ChargeItemPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to Time")
+func (r ChargeItemPerformer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ChargeItemPerformer to Time")
 }
-func (r ChargeItemPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to DateTime")
+func (r ChargeItemPerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ChargeItemPerformer to DateTime")
 }
-func (r ChargeItemPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ChargeItemPerformer to Quantity")
+func (r ChargeItemPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemPerformer to Quantity")
 }
-func (r ChargeItemPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ChargeItemPerformer
 	switch other := other.(type) {
 	case ChargeItemPerformer:
@@ -3488,29 +3476,17 @@ func (r ChargeItemPerformer) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *ChargeItemPerformer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ChargeItemPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ChargeItemPerformer
-	switch other := other.(type) {
-	case ChargeItemPerformer:
-		o = &other
-	case *ChargeItemPerformer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ChargeItemPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

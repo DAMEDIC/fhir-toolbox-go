@@ -93,49 +93,43 @@ func (r Canonical) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Canonical) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Canonical to Boolean")
+func (r Canonical) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Canonical to Boolean")
 }
-func (r Canonical) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Canonical to String")
+func (r Canonical) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Canonical to String")
 }
-func (r Canonical) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Canonical to Integer")
+func (r Canonical) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Canonical to Integer")
 }
-func (r Canonical) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Canonical to Decimal")
+func (r Canonical) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Canonical to Decimal")
 }
-func (r Canonical) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Canonical to Date")
+func (r Canonical) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Canonical to Date")
 }
-func (r Canonical) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Canonical to Time")
+func (r Canonical) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Canonical to Time")
 }
-func (r Canonical) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Canonical to DateTime")
+func (r Canonical) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Canonical to DateTime")
 }
-func (r Canonical) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Canonical to Quantity")
+func (r Canonical) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Canonical to Quantity")
 }
-func (r Canonical) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Canonical) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	o, ok := other.(Canonical)
 	if !ok {
-		return false
+		return false, true
 	}
 	if r.Value == nil || o.Value == nil {
-		return false
+		return false, true
 	}
-	return *r.Value == *o.Value
+	return *r.Value == *o.Value, true
 }
 func (r Canonical) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	o, ok := other.(Canonical)
-	if !ok {
-		return false
-	}
-	if r.Value == nil || o.Value == nil {
-		return false
-	}
-	return *r.Value == *o.Value
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Canonical) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -159,7 +153,7 @@ func (r Canonical) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "Canonical",
+			Name:      "canonical",
 			Namespace: "FHIR",
 		},
 	}

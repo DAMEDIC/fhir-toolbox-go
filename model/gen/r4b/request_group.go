@@ -5103,31 +5103,31 @@ func (r RequestGroup) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r RequestGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestGroup to Boolean")
+func (r RequestGroup) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestGroup to Boolean")
 }
-func (r RequestGroup) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestGroup to String")
+func (r RequestGroup) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestGroup to String")
 }
-func (r RequestGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestGroup to Integer")
+func (r RequestGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestGroup to Integer")
 }
-func (r RequestGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestGroup to Decimal")
+func (r RequestGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroup to Decimal")
 }
-func (r RequestGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestGroup to Date")
+func (r RequestGroup) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestGroup to Date")
 }
-func (r RequestGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestGroup to Time")
+func (r RequestGroup) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestGroup to Time")
 }
-func (r RequestGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestGroup to DateTime")
+func (r RequestGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestGroup to DateTime")
 }
-func (r RequestGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestGroup to Quantity")
+func (r RequestGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroup to Quantity")
 }
-func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestGroup
 	switch other := other.(type) {
 	case RequestGroup:
@@ -5135,29 +5135,17 @@ func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *RequestGroup:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestGroup
-	switch other := other.(type) {
-	case RequestGroup:
-		o = &other
-	case *RequestGroup:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5468,31 +5456,31 @@ func (r RequestGroupAction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r RequestGroupAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestGroupAction to Boolean")
+func (r RequestGroupAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestGroupAction to Boolean")
 }
-func (r RequestGroupAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestGroupAction to String")
+func (r RequestGroupAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestGroupAction to String")
 }
-func (r RequestGroupAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestGroupAction to Integer")
+func (r RequestGroupAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestGroupAction to Integer")
 }
-func (r RequestGroupAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestGroupAction to Decimal")
+func (r RequestGroupAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroupAction to Decimal")
 }
-func (r RequestGroupAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestGroupAction to Date")
+func (r RequestGroupAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestGroupAction to Date")
 }
-func (r RequestGroupAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestGroupAction to Time")
+func (r RequestGroupAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestGroupAction to Time")
 }
-func (r RequestGroupAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestGroupAction to DateTime")
+func (r RequestGroupAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestGroupAction to DateTime")
 }
-func (r RequestGroupAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestGroupAction to Quantity")
+func (r RequestGroupAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroupAction to Quantity")
 }
-func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestGroupAction
 	switch other := other.(type) {
 	case RequestGroupAction:
@@ -5500,29 +5488,17 @@ func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *RequestGroupAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestGroupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestGroupAction
-	switch other := other.(type) {
-	case RequestGroupAction:
-		o = &other
-	case *RequestGroupAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestGroupAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5718,31 +5694,31 @@ func (r RequestGroupActionCondition) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r RequestGroupActionCondition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to Boolean")
+func (r RequestGroupActionCondition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestGroupActionCondition to Boolean")
 }
-func (r RequestGroupActionCondition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to String")
+func (r RequestGroupActionCondition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestGroupActionCondition to String")
 }
-func (r RequestGroupActionCondition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to Integer")
+func (r RequestGroupActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestGroupActionCondition to Integer")
 }
-func (r RequestGroupActionCondition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to Decimal")
+func (r RequestGroupActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroupActionCondition to Decimal")
 }
-func (r RequestGroupActionCondition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to Date")
+func (r RequestGroupActionCondition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestGroupActionCondition to Date")
 }
-func (r RequestGroupActionCondition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to Time")
+func (r RequestGroupActionCondition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestGroupActionCondition to Time")
 }
-func (r RequestGroupActionCondition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to DateTime")
+func (r RequestGroupActionCondition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestGroupActionCondition to DateTime")
 }
-func (r RequestGroupActionCondition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestGroupActionCondition to Quantity")
+func (r RequestGroupActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroupActionCondition to Quantity")
 }
-func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestGroupActionCondition
 	switch other := other.(type) {
 	case RequestGroupActionCondition:
@@ -5750,29 +5726,17 @@ func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTyp
 	case *RequestGroupActionCondition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestGroupActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestGroupActionCondition
-	switch other := other.(type) {
-	case RequestGroupActionCondition:
-		o = &other
-	case *RequestGroupActionCondition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestGroupActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5852,31 +5816,31 @@ func (r RequestGroupActionRelatedAction) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r RequestGroupActionRelatedAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Boolean")
+func (r RequestGroupActionRelatedAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestGroupActionRelatedAction to Boolean")
 }
-func (r RequestGroupActionRelatedAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to String")
+func (r RequestGroupActionRelatedAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestGroupActionRelatedAction to String")
 }
-func (r RequestGroupActionRelatedAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Integer")
+func (r RequestGroupActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestGroupActionRelatedAction to Integer")
 }
-func (r RequestGroupActionRelatedAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Decimal")
+func (r RequestGroupActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroupActionRelatedAction to Decimal")
 }
-func (r RequestGroupActionRelatedAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Date")
+func (r RequestGroupActionRelatedAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestGroupActionRelatedAction to Date")
 }
-func (r RequestGroupActionRelatedAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Time")
+func (r RequestGroupActionRelatedAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestGroupActionRelatedAction to Time")
 }
-func (r RequestGroupActionRelatedAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to DateTime")
+func (r RequestGroupActionRelatedAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestGroupActionRelatedAction to DateTime")
 }
-func (r RequestGroupActionRelatedAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestGroupActionRelatedAction to Quantity")
+func (r RequestGroupActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroupActionRelatedAction to Quantity")
 }
-func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestGroupActionRelatedAction
 	switch other := other.(type) {
 	case RequestGroupActionRelatedAction:
@@ -5884,29 +5848,17 @@ func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noRevers
 	case *RequestGroupActionRelatedAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestGroupActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestGroupActionRelatedAction
-	switch other := other.(type) {
-	case RequestGroupActionRelatedAction:
-		o = &other
-	case *RequestGroupActionRelatedAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestGroupActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

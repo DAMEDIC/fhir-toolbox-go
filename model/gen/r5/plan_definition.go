@@ -12726,31 +12726,31 @@ func (r PlanDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PlanDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinition to Boolean")
+func (r PlanDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinition to Boolean")
 }
-func (r PlanDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinition to String")
+func (r PlanDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinition to String")
 }
-func (r PlanDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinition to Integer")
+func (r PlanDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinition to Integer")
 }
-func (r PlanDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinition to Decimal")
+func (r PlanDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinition to Decimal")
 }
-func (r PlanDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinition to Date")
+func (r PlanDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinition to Date")
 }
-func (r PlanDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinition to Time")
+func (r PlanDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinition to Time")
 }
-func (r PlanDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinition to DateTime")
+func (r PlanDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinition to DateTime")
 }
-func (r PlanDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinition to Quantity")
+func (r PlanDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinition to Quantity")
 }
-func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinition
 	switch other := other.(type) {
 	case PlanDefinition:
@@ -12758,29 +12758,17 @@ func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *PlanDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinition
-	switch other := other.(type) {
-	case PlanDefinition:
-		o = &other
-	case *PlanDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13148,31 +13136,31 @@ func (r PlanDefinitionGoal) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PlanDefinitionGoal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to Boolean")
+func (r PlanDefinitionGoal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionGoal to Boolean")
 }
-func (r PlanDefinitionGoal) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to String")
+func (r PlanDefinitionGoal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionGoal to String")
 }
-func (r PlanDefinitionGoal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to Integer")
+func (r PlanDefinitionGoal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionGoal to Integer")
 }
-func (r PlanDefinitionGoal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to Decimal")
+func (r PlanDefinitionGoal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionGoal to Decimal")
 }
-func (r PlanDefinitionGoal) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to Date")
+func (r PlanDefinitionGoal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionGoal to Date")
 }
-func (r PlanDefinitionGoal) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to Time")
+func (r PlanDefinitionGoal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionGoal to Time")
 }
-func (r PlanDefinitionGoal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to DateTime")
+func (r PlanDefinitionGoal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionGoal to DateTime")
 }
-func (r PlanDefinitionGoal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoal to Quantity")
+func (r PlanDefinitionGoal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionGoal to Quantity")
 }
-func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionGoal
 	switch other := other.(type) {
 	case PlanDefinitionGoal:
@@ -13180,29 +13168,17 @@ func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *PlanDefinitionGoal:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionGoal
-	switch other := other.(type) {
-	case PlanDefinitionGoal:
-		o = &other
-	case *PlanDefinitionGoal:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionGoal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13321,31 +13297,31 @@ func (r PlanDefinitionGoalTarget) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PlanDefinitionGoalTarget) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to Boolean")
+func (r PlanDefinitionGoalTarget) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionGoalTarget to Boolean")
 }
-func (r PlanDefinitionGoalTarget) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to String")
+func (r PlanDefinitionGoalTarget) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionGoalTarget to String")
 }
-func (r PlanDefinitionGoalTarget) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to Integer")
+func (r PlanDefinitionGoalTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionGoalTarget to Integer")
 }
-func (r PlanDefinitionGoalTarget) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to Decimal")
+func (r PlanDefinitionGoalTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Decimal")
 }
-func (r PlanDefinitionGoalTarget) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to Date")
+func (r PlanDefinitionGoalTarget) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Date")
 }
-func (r PlanDefinitionGoalTarget) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to Time")
+func (r PlanDefinitionGoalTarget) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Time")
 }
-func (r PlanDefinitionGoalTarget) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to DateTime")
+func (r PlanDefinitionGoalTarget) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionGoalTarget to DateTime")
 }
-func (r PlanDefinitionGoalTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionGoalTarget to Quantity")
+func (r PlanDefinitionGoalTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Quantity")
 }
-func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionGoalTarget
 	switch other := other.(type) {
 	case PlanDefinitionGoalTarget:
@@ -13353,29 +13329,17 @@ func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *PlanDefinitionGoalTarget:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionGoalTarget
-	switch other := other.(type) {
-	case PlanDefinitionGoalTarget:
-		o = &other
-	case *PlanDefinitionGoalTarget:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionGoalTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13466,31 +13430,31 @@ func (r PlanDefinitionActor) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PlanDefinitionActor) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to Boolean")
+func (r PlanDefinitionActor) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActor to Boolean")
 }
-func (r PlanDefinitionActor) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to String")
+func (r PlanDefinitionActor) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActor to String")
 }
-func (r PlanDefinitionActor) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to Integer")
+func (r PlanDefinitionActor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActor to Integer")
 }
-func (r PlanDefinitionActor) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to Decimal")
+func (r PlanDefinitionActor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActor to Decimal")
 }
-func (r PlanDefinitionActor) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to Date")
+func (r PlanDefinitionActor) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActor to Date")
 }
-func (r PlanDefinitionActor) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to Time")
+func (r PlanDefinitionActor) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActor to Time")
 }
-func (r PlanDefinitionActor) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to DateTime")
+func (r PlanDefinitionActor) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActor to DateTime")
 }
-func (r PlanDefinitionActor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActor to Quantity")
+func (r PlanDefinitionActor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActor to Quantity")
 }
-func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActor
 	switch other := other.(type) {
 	case PlanDefinitionActor:
@@ -13498,29 +13462,17 @@ func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *PlanDefinitionActor:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActor
-	switch other := other.(type) {
-	case PlanDefinitionActor:
-		o = &other
-	case *PlanDefinitionActor:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13616,31 +13568,31 @@ func (r PlanDefinitionActorOption) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r PlanDefinitionActorOption) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to Boolean")
+func (r PlanDefinitionActorOption) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActorOption to Boolean")
 }
-func (r PlanDefinitionActorOption) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to String")
+func (r PlanDefinitionActorOption) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActorOption to String")
 }
-func (r PlanDefinitionActorOption) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to Integer")
+func (r PlanDefinitionActorOption) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActorOption to Integer")
 }
-func (r PlanDefinitionActorOption) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to Decimal")
+func (r PlanDefinitionActorOption) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActorOption to Decimal")
 }
-func (r PlanDefinitionActorOption) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to Date")
+func (r PlanDefinitionActorOption) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActorOption to Date")
 }
-func (r PlanDefinitionActorOption) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to Time")
+func (r PlanDefinitionActorOption) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActorOption to Time")
 }
-func (r PlanDefinitionActorOption) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to DateTime")
+func (r PlanDefinitionActorOption) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActorOption to DateTime")
 }
-func (r PlanDefinitionActorOption) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActorOption to Quantity")
+func (r PlanDefinitionActorOption) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActorOption to Quantity")
 }
-func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActorOption
 	switch other := other.(type) {
 	case PlanDefinitionActorOption:
@@ -13648,29 +13600,17 @@ func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeC
 	case *PlanDefinitionActorOption:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActorOption) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActorOption
-	switch other := other.(type) {
-	case PlanDefinitionActorOption:
-		o = &other
-	case *PlanDefinitionActorOption:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActorOption) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13898,31 +13838,31 @@ func (r PlanDefinitionAction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PlanDefinitionAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to Boolean")
+func (r PlanDefinitionAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionAction to Boolean")
 }
-func (r PlanDefinitionAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to String")
+func (r PlanDefinitionAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionAction to String")
 }
-func (r PlanDefinitionAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to Integer")
+func (r PlanDefinitionAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionAction to Integer")
 }
-func (r PlanDefinitionAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to Decimal")
+func (r PlanDefinitionAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionAction to Decimal")
 }
-func (r PlanDefinitionAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to Date")
+func (r PlanDefinitionAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionAction to Date")
 }
-func (r PlanDefinitionAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to Time")
+func (r PlanDefinitionAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionAction to Time")
 }
-func (r PlanDefinitionAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to DateTime")
+func (r PlanDefinitionAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionAction to DateTime")
 }
-func (r PlanDefinitionAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionAction to Quantity")
+func (r PlanDefinitionAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionAction to Quantity")
 }
-func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionAction
 	switch other := other.(type) {
 	case PlanDefinitionAction:
@@ -13930,29 +13870,17 @@ func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *PlanDefinitionAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionAction
-	switch other := other.(type) {
-	case PlanDefinitionAction:
-		o = &other
-	case *PlanDefinitionAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14218,31 +14146,31 @@ func (r PlanDefinitionActionCondition) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r PlanDefinitionActionCondition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to Boolean")
+func (r PlanDefinitionActionCondition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActionCondition to Boolean")
 }
-func (r PlanDefinitionActionCondition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to String")
+func (r PlanDefinitionActionCondition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActionCondition to String")
 }
-func (r PlanDefinitionActionCondition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to Integer")
+func (r PlanDefinitionActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActionCondition to Integer")
 }
-func (r PlanDefinitionActionCondition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to Decimal")
+func (r PlanDefinitionActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionCondition to Decimal")
 }
-func (r PlanDefinitionActionCondition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to Date")
+func (r PlanDefinitionActionCondition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActionCondition to Date")
 }
-func (r PlanDefinitionActionCondition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to Time")
+func (r PlanDefinitionActionCondition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActionCondition to Time")
 }
-func (r PlanDefinitionActionCondition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to DateTime")
+func (r PlanDefinitionActionCondition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActionCondition to DateTime")
 }
-func (r PlanDefinitionActionCondition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionCondition to Quantity")
+func (r PlanDefinitionActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionCondition to Quantity")
 }
-func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActionCondition
 	switch other := other.(type) {
 	case PlanDefinitionActionCondition:
@@ -14250,29 +14178,17 @@ func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseT
 	case *PlanDefinitionActionCondition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActionCondition
-	switch other := other.(type) {
-	case PlanDefinitionActionCondition:
-		o = &other
-	case *PlanDefinitionActionCondition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14356,31 +14272,31 @@ func (r PlanDefinitionActionInput) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r PlanDefinitionActionInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to Boolean")
+func (r PlanDefinitionActionInput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActionInput to Boolean")
 }
-func (r PlanDefinitionActionInput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to String")
+func (r PlanDefinitionActionInput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActionInput to String")
 }
-func (r PlanDefinitionActionInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to Integer")
+func (r PlanDefinitionActionInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActionInput to Integer")
 }
-func (r PlanDefinitionActionInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to Decimal")
+func (r PlanDefinitionActionInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionInput to Decimal")
 }
-func (r PlanDefinitionActionInput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to Date")
+func (r PlanDefinitionActionInput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActionInput to Date")
 }
-func (r PlanDefinitionActionInput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to Time")
+func (r PlanDefinitionActionInput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActionInput to Time")
 }
-func (r PlanDefinitionActionInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to DateTime")
+func (r PlanDefinitionActionInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActionInput to DateTime")
 }
-func (r PlanDefinitionActionInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionInput to Quantity")
+func (r PlanDefinitionActionInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionInput to Quantity")
 }
-func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActionInput
 	switch other := other.(type) {
 	case PlanDefinitionActionInput:
@@ -14388,29 +14304,17 @@ func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeC
 	case *PlanDefinitionActionInput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActionInput
-	switch other := other.(type) {
-	case PlanDefinitionActionInput:
-		o = &other
-	case *PlanDefinitionActionInput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActionInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14501,31 +14405,31 @@ func (r PlanDefinitionActionOutput) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r PlanDefinitionActionOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to Boolean")
+func (r PlanDefinitionActionOutput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActionOutput to Boolean")
 }
-func (r PlanDefinitionActionOutput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to String")
+func (r PlanDefinitionActionOutput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActionOutput to String")
 }
-func (r PlanDefinitionActionOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to Integer")
+func (r PlanDefinitionActionOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActionOutput to Integer")
 }
-func (r PlanDefinitionActionOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to Decimal")
+func (r PlanDefinitionActionOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionOutput to Decimal")
 }
-func (r PlanDefinitionActionOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to Date")
+func (r PlanDefinitionActionOutput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActionOutput to Date")
 }
-func (r PlanDefinitionActionOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to Time")
+func (r PlanDefinitionActionOutput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActionOutput to Time")
 }
-func (r PlanDefinitionActionOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to DateTime")
+func (r PlanDefinitionActionOutput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActionOutput to DateTime")
 }
-func (r PlanDefinitionActionOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionOutput to Quantity")
+func (r PlanDefinitionActionOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionOutput to Quantity")
 }
-func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActionOutput
 	switch other := other.(type) {
 	case PlanDefinitionActionOutput:
@@ -14533,29 +14437,17 @@ func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseType
 	case *PlanDefinitionActionOutput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActionOutput
-	switch other := other.(type) {
-	case PlanDefinitionActionOutput:
-		o = &other
-	case *PlanDefinitionActionOutput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActionOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14647,31 +14539,31 @@ func (r PlanDefinitionActionRelatedAction) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r PlanDefinitionActionRelatedAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to Boolean")
+func (r PlanDefinitionActionRelatedAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Boolean")
 }
-func (r PlanDefinitionActionRelatedAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to String")
+func (r PlanDefinitionActionRelatedAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActionRelatedAction to String")
 }
-func (r PlanDefinitionActionRelatedAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to Integer")
+func (r PlanDefinitionActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Integer")
 }
-func (r PlanDefinitionActionRelatedAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to Decimal")
+func (r PlanDefinitionActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Decimal")
 }
-func (r PlanDefinitionActionRelatedAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to Date")
+func (r PlanDefinitionActionRelatedAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Date")
 }
-func (r PlanDefinitionActionRelatedAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to Time")
+func (r PlanDefinitionActionRelatedAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Time")
 }
-func (r PlanDefinitionActionRelatedAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to DateTime")
+func (r PlanDefinitionActionRelatedAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to DateTime")
 }
-func (r PlanDefinitionActionRelatedAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionRelatedAction to Quantity")
+func (r PlanDefinitionActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Quantity")
 }
-func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActionRelatedAction
 	switch other := other.(type) {
 	case PlanDefinitionActionRelatedAction:
@@ -14679,29 +14571,17 @@ func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReve
 	case *PlanDefinitionActionRelatedAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActionRelatedAction
-	switch other := other.(type) {
-	case PlanDefinitionActionRelatedAction:
-		o = &other
-	case *PlanDefinitionActionRelatedAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14814,31 +14694,31 @@ func (r PlanDefinitionActionParticipant) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r PlanDefinitionActionParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to Boolean")
+func (r PlanDefinitionActionParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActionParticipant to Boolean")
 }
-func (r PlanDefinitionActionParticipant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to String")
+func (r PlanDefinitionActionParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActionParticipant to String")
 }
-func (r PlanDefinitionActionParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to Integer")
+func (r PlanDefinitionActionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActionParticipant to Integer")
 }
-func (r PlanDefinitionActionParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to Decimal")
+func (r PlanDefinitionActionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Decimal")
 }
-func (r PlanDefinitionActionParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to Date")
+func (r PlanDefinitionActionParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Date")
 }
-func (r PlanDefinitionActionParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to Time")
+func (r PlanDefinitionActionParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Time")
 }
-func (r PlanDefinitionActionParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to DateTime")
+func (r PlanDefinitionActionParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActionParticipant to DateTime")
 }
-func (r PlanDefinitionActionParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionParticipant to Quantity")
+func (r PlanDefinitionActionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Quantity")
 }
-func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActionParticipant
 	switch other := other.(type) {
 	case PlanDefinitionActionParticipant:
@@ -14846,29 +14726,17 @@ func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noRevers
 	case *PlanDefinitionActionParticipant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActionParticipant
-	switch other := other.(type) {
-	case PlanDefinitionActionParticipant:
-		o = &other
-	case *PlanDefinitionActionParticipant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14975,31 +14843,31 @@ func (r PlanDefinitionActionDynamicValue) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r PlanDefinitionActionDynamicValue) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to Boolean")
+func (r PlanDefinitionActionDynamicValue) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Boolean")
 }
-func (r PlanDefinitionActionDynamicValue) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to String")
+func (r PlanDefinitionActionDynamicValue) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PlanDefinitionActionDynamicValue to String")
 }
-func (r PlanDefinitionActionDynamicValue) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to Integer")
+func (r PlanDefinitionActionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Integer")
 }
-func (r PlanDefinitionActionDynamicValue) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to Decimal")
+func (r PlanDefinitionActionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Decimal")
 }
-func (r PlanDefinitionActionDynamicValue) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to Date")
+func (r PlanDefinitionActionDynamicValue) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Date")
 }
-func (r PlanDefinitionActionDynamicValue) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to Time")
+func (r PlanDefinitionActionDynamicValue) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Time")
 }
-func (r PlanDefinitionActionDynamicValue) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to DateTime")
+func (r PlanDefinitionActionDynamicValue) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to DateTime")
 }
-func (r PlanDefinitionActionDynamicValue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PlanDefinitionActionDynamicValue to Quantity")
+func (r PlanDefinitionActionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Quantity")
 }
-func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PlanDefinitionActionDynamicValue
 	switch other := other.(type) {
 	case PlanDefinitionActionDynamicValue:
@@ -15007,29 +14875,17 @@ func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noRever
 	case *PlanDefinitionActionDynamicValue:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PlanDefinitionActionDynamicValue
-	switch other := other.(type) {
-	case PlanDefinitionActionDynamicValue:
-		o = &other
-	case *PlanDefinitionActionDynamicValue:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PlanDefinitionActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

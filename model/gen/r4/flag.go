@@ -1177,31 +1177,31 @@ func (r Flag) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Flag) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Flag to Boolean")
+func (r Flag) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Flag to Boolean")
 }
-func (r Flag) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Flag to String")
+func (r Flag) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Flag to String")
 }
-func (r Flag) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Flag to Integer")
+func (r Flag) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Flag to Integer")
 }
-func (r Flag) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Flag to Decimal")
+func (r Flag) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Flag to Decimal")
 }
-func (r Flag) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Flag to Date")
+func (r Flag) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Flag to Date")
 }
-func (r Flag) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Flag to Time")
+func (r Flag) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Flag to Time")
 }
-func (r Flag) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Flag to DateTime")
+func (r Flag) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Flag to DateTime")
 }
-func (r Flag) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Flag to Quantity")
+func (r Flag) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Flag to Quantity")
 }
-func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Flag
 	switch other := other.(type) {
 	case Flag:
@@ -1209,29 +1209,17 @@ func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	case *Flag:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Flag) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Flag
-	switch other := other.(type) {
-	case Flag:
-		o = &other
-	case *Flag:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Flag) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

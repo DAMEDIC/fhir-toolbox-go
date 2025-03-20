@@ -1982,31 +1982,31 @@ func (r ManufacturedItemDefinition) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r ManufacturedItemDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to Boolean")
+func (r ManufacturedItemDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ManufacturedItemDefinition to Boolean")
 }
-func (r ManufacturedItemDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to String")
+func (r ManufacturedItemDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ManufacturedItemDefinition to String")
 }
-func (r ManufacturedItemDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to Integer")
+func (r ManufacturedItemDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ManufacturedItemDefinition to Integer")
 }
-func (r ManufacturedItemDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to Decimal")
+func (r ManufacturedItemDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ManufacturedItemDefinition to Decimal")
 }
-func (r ManufacturedItemDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to Date")
+func (r ManufacturedItemDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ManufacturedItemDefinition to Date")
 }
-func (r ManufacturedItemDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to Time")
+func (r ManufacturedItemDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ManufacturedItemDefinition to Time")
 }
-func (r ManufacturedItemDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to DateTime")
+func (r ManufacturedItemDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ManufacturedItemDefinition to DateTime")
 }
-func (r ManufacturedItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinition to Quantity")
+func (r ManufacturedItemDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ManufacturedItemDefinition to Quantity")
 }
-func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ManufacturedItemDefinition
 	switch other := other.(type) {
 	case ManufacturedItemDefinition:
@@ -2014,29 +2014,17 @@ func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseType
 	case *ManufacturedItemDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ManufacturedItemDefinition
-	switch other := other.(type) {
-	case ManufacturedItemDefinition:
-		o = &other
-	case *ManufacturedItemDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ManufacturedItemDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2183,31 +2171,31 @@ func (r ManufacturedItemDefinitionProperty) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r ManufacturedItemDefinitionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Boolean")
+func (r ManufacturedItemDefinitionProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Boolean")
 }
-func (r ManufacturedItemDefinitionProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to String")
+func (r ManufacturedItemDefinitionProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ManufacturedItemDefinitionProperty to String")
 }
-func (r ManufacturedItemDefinitionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Integer")
+func (r ManufacturedItemDefinitionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Integer")
 }
-func (r ManufacturedItemDefinitionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Decimal")
+func (r ManufacturedItemDefinitionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Decimal")
 }
-func (r ManufacturedItemDefinitionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Date")
+func (r ManufacturedItemDefinitionProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Date")
 }
-func (r ManufacturedItemDefinitionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Time")
+func (r ManufacturedItemDefinitionProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Time")
 }
-func (r ManufacturedItemDefinitionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to DateTime")
+func (r ManufacturedItemDefinitionProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ManufacturedItemDefinitionProperty to DateTime")
 }
-func (r ManufacturedItemDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ManufacturedItemDefinitionProperty to Quantity")
+func (r ManufacturedItemDefinitionProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Quantity")
 }
-func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ManufacturedItemDefinitionProperty
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionProperty:
@@ -2215,29 +2203,17 @@ func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noRev
 	case *ManufacturedItemDefinitionProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ManufacturedItemDefinitionProperty
-	switch other := other.(type) {
-	case ManufacturedItemDefinitionProperty:
-		o = &other
-	case *ManufacturedItemDefinitionProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ManufacturedItemDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

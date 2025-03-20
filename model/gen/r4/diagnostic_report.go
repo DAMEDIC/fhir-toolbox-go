@@ -2584,31 +2584,31 @@ func (r DiagnosticReport) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DiagnosticReport) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DiagnosticReport to Boolean")
+func (r DiagnosticReport) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DiagnosticReport to Boolean")
 }
-func (r DiagnosticReport) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DiagnosticReport to String")
+func (r DiagnosticReport) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DiagnosticReport to String")
 }
-func (r DiagnosticReport) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DiagnosticReport to Integer")
+func (r DiagnosticReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DiagnosticReport to Integer")
 }
-func (r DiagnosticReport) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DiagnosticReport to Decimal")
+func (r DiagnosticReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DiagnosticReport to Decimal")
 }
-func (r DiagnosticReport) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DiagnosticReport to Date")
+func (r DiagnosticReport) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DiagnosticReport to Date")
 }
-func (r DiagnosticReport) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DiagnosticReport to Time")
+func (r DiagnosticReport) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DiagnosticReport to Time")
 }
-func (r DiagnosticReport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DiagnosticReport to DateTime")
+func (r DiagnosticReport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DiagnosticReport to DateTime")
 }
-func (r DiagnosticReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DiagnosticReport to Quantity")
+func (r DiagnosticReport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DiagnosticReport to Quantity")
 }
-func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DiagnosticReport
 	switch other := other.(type) {
 	case DiagnosticReport:
@@ -2616,29 +2616,17 @@ func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *DiagnosticReport:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DiagnosticReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DiagnosticReport
-	switch other := other.(type) {
-	case DiagnosticReport:
-		o = &other
-	case *DiagnosticReport:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DiagnosticReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2862,31 +2850,31 @@ func (r DiagnosticReportMedia) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DiagnosticReportMedia) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to Boolean")
+func (r DiagnosticReportMedia) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DiagnosticReportMedia to Boolean")
 }
-func (r DiagnosticReportMedia) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to String")
+func (r DiagnosticReportMedia) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DiagnosticReportMedia to String")
 }
-func (r DiagnosticReportMedia) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to Integer")
+func (r DiagnosticReportMedia) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DiagnosticReportMedia to Integer")
 }
-func (r DiagnosticReportMedia) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to Decimal")
+func (r DiagnosticReportMedia) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DiagnosticReportMedia to Decimal")
 }
-func (r DiagnosticReportMedia) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to Date")
+func (r DiagnosticReportMedia) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DiagnosticReportMedia to Date")
 }
-func (r DiagnosticReportMedia) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to Time")
+func (r DiagnosticReportMedia) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DiagnosticReportMedia to Time")
 }
-func (r DiagnosticReportMedia) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to DateTime")
+func (r DiagnosticReportMedia) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DiagnosticReportMedia to DateTime")
 }
-func (r DiagnosticReportMedia) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DiagnosticReportMedia to Quantity")
+func (r DiagnosticReportMedia) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DiagnosticReportMedia to Quantity")
 }
-func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DiagnosticReportMedia
 	switch other := other.(type) {
 	case DiagnosticReportMedia:
@@ -2894,29 +2882,17 @@ func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *DiagnosticReportMedia:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DiagnosticReportMedia) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DiagnosticReportMedia
-	switch other := other.(type) {
-	case DiagnosticReportMedia:
-		o = &other
-	case *DiagnosticReportMedia:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DiagnosticReportMedia) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

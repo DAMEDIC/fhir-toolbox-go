@@ -6414,31 +6414,31 @@ func (r CodeSystem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CodeSystem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CodeSystem to Boolean")
+func (r CodeSystem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CodeSystem to Boolean")
 }
-func (r CodeSystem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CodeSystem to String")
+func (r CodeSystem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CodeSystem to String")
 }
-func (r CodeSystem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CodeSystem to Integer")
+func (r CodeSystem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CodeSystem to Integer")
 }
-func (r CodeSystem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CodeSystem to Decimal")
+func (r CodeSystem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystem to Decimal")
 }
-func (r CodeSystem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CodeSystem to Date")
+func (r CodeSystem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CodeSystem to Date")
 }
-func (r CodeSystem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CodeSystem to Time")
+func (r CodeSystem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CodeSystem to Time")
 }
-func (r CodeSystem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CodeSystem to DateTime")
+func (r CodeSystem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CodeSystem to DateTime")
 }
-func (r CodeSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CodeSystem to Quantity")
+func (r CodeSystem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystem to Quantity")
 }
-func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CodeSystem
 	switch other := other.(type) {
 	case CodeSystem:
@@ -6446,29 +6446,17 @@ func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *CodeSystem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CodeSystem
-	switch other := other.(type) {
-	case CodeSystem:
-		o = &other
-	case *CodeSystem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CodeSystem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6756,31 +6744,31 @@ func (r CodeSystemFilter) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CodeSystemFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to Boolean")
+func (r CodeSystemFilter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CodeSystemFilter to Boolean")
 }
-func (r CodeSystemFilter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to String")
+func (r CodeSystemFilter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CodeSystemFilter to String")
 }
-func (r CodeSystemFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to Integer")
+func (r CodeSystemFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CodeSystemFilter to Integer")
 }
-func (r CodeSystemFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to Decimal")
+func (r CodeSystemFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemFilter to Decimal")
 }
-func (r CodeSystemFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to Date")
+func (r CodeSystemFilter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CodeSystemFilter to Date")
 }
-func (r CodeSystemFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to Time")
+func (r CodeSystemFilter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CodeSystemFilter to Time")
 }
-func (r CodeSystemFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to DateTime")
+func (r CodeSystemFilter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CodeSystemFilter to DateTime")
 }
-func (r CodeSystemFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CodeSystemFilter to Quantity")
+func (r CodeSystemFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemFilter to Quantity")
 }
-func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CodeSystemFilter
 	switch other := other.(type) {
 	case CodeSystemFilter:
@@ -6788,29 +6776,17 @@ func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *CodeSystemFilter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CodeSystemFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CodeSystemFilter
-	switch other := other.(type) {
-	case CodeSystemFilter:
-		o = &other
-	case *CodeSystemFilter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CodeSystemFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6909,31 +6885,31 @@ func (r CodeSystemProperty) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CodeSystemProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to Boolean")
+func (r CodeSystemProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CodeSystemProperty to Boolean")
 }
-func (r CodeSystemProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to String")
+func (r CodeSystemProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CodeSystemProperty to String")
 }
-func (r CodeSystemProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to Integer")
+func (r CodeSystemProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CodeSystemProperty to Integer")
 }
-func (r CodeSystemProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to Decimal")
+func (r CodeSystemProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemProperty to Decimal")
 }
-func (r CodeSystemProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to Date")
+func (r CodeSystemProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CodeSystemProperty to Date")
 }
-func (r CodeSystemProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to Time")
+func (r CodeSystemProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CodeSystemProperty to Time")
 }
-func (r CodeSystemProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to DateTime")
+func (r CodeSystemProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CodeSystemProperty to DateTime")
 }
-func (r CodeSystemProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CodeSystemProperty to Quantity")
+func (r CodeSystemProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemProperty to Quantity")
 }
-func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CodeSystemProperty
 	switch other := other.(type) {
 	case CodeSystemProperty:
@@ -6941,29 +6917,17 @@ func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *CodeSystemProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CodeSystemProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CodeSystemProperty
-	switch other := other.(type) {
-	case CodeSystemProperty:
-		o = &other
-	case *CodeSystemProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CodeSystemProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7074,31 +7038,31 @@ func (r CodeSystemConcept) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CodeSystemConcept) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to Boolean")
+func (r CodeSystemConcept) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CodeSystemConcept to Boolean")
 }
-func (r CodeSystemConcept) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to String")
+func (r CodeSystemConcept) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CodeSystemConcept to String")
 }
-func (r CodeSystemConcept) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to Integer")
+func (r CodeSystemConcept) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CodeSystemConcept to Integer")
 }
-func (r CodeSystemConcept) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to Decimal")
+func (r CodeSystemConcept) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemConcept to Decimal")
 }
-func (r CodeSystemConcept) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to Date")
+func (r CodeSystemConcept) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CodeSystemConcept to Date")
 }
-func (r CodeSystemConcept) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to Time")
+func (r CodeSystemConcept) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CodeSystemConcept to Time")
 }
-func (r CodeSystemConcept) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to DateTime")
+func (r CodeSystemConcept) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CodeSystemConcept to DateTime")
 }
-func (r CodeSystemConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CodeSystemConcept to Quantity")
+func (r CodeSystemConcept) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemConcept to Quantity")
 }
-func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CodeSystemConcept
 	switch other := other.(type) {
 	case CodeSystemConcept:
@@ -7106,29 +7070,17 @@ func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *CodeSystemConcept:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CodeSystemConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CodeSystemConcept
-	switch other := other.(type) {
-	case CodeSystemConcept:
-		o = &other
-	case *CodeSystemConcept:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CodeSystemConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7238,31 +7190,31 @@ func (r CodeSystemConceptDesignation) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r CodeSystemConceptDesignation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to Boolean")
+func (r CodeSystemConceptDesignation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CodeSystemConceptDesignation to Boolean")
 }
-func (r CodeSystemConceptDesignation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to String")
+func (r CodeSystemConceptDesignation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CodeSystemConceptDesignation to String")
 }
-func (r CodeSystemConceptDesignation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to Integer")
+func (r CodeSystemConceptDesignation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CodeSystemConceptDesignation to Integer")
 }
-func (r CodeSystemConceptDesignation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to Decimal")
+func (r CodeSystemConceptDesignation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemConceptDesignation to Decimal")
 }
-func (r CodeSystemConceptDesignation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to Date")
+func (r CodeSystemConceptDesignation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CodeSystemConceptDesignation to Date")
 }
-func (r CodeSystemConceptDesignation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to Time")
+func (r CodeSystemConceptDesignation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CodeSystemConceptDesignation to Time")
 }
-func (r CodeSystemConceptDesignation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to DateTime")
+func (r CodeSystemConceptDesignation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CodeSystemConceptDesignation to DateTime")
 }
-func (r CodeSystemConceptDesignation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CodeSystemConceptDesignation to Quantity")
+func (r CodeSystemConceptDesignation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemConceptDesignation to Quantity")
 }
-func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CodeSystemConceptDesignation
 	switch other := other.(type) {
 	case CodeSystemConceptDesignation:
@@ -7270,29 +7222,17 @@ func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTy
 	case *CodeSystemConceptDesignation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CodeSystemConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CodeSystemConceptDesignation
-	switch other := other.(type) {
-	case CodeSystemConceptDesignation:
-		o = &other
-	case *CodeSystemConceptDesignation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CodeSystemConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7374,31 +7314,31 @@ func (r CodeSystemConceptProperty) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r CodeSystemConceptProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to Boolean")
+func (r CodeSystemConceptProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CodeSystemConceptProperty to Boolean")
 }
-func (r CodeSystemConceptProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to String")
+func (r CodeSystemConceptProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CodeSystemConceptProperty to String")
 }
-func (r CodeSystemConceptProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to Integer")
+func (r CodeSystemConceptProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CodeSystemConceptProperty to Integer")
 }
-func (r CodeSystemConceptProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to Decimal")
+func (r CodeSystemConceptProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemConceptProperty to Decimal")
 }
-func (r CodeSystemConceptProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to Date")
+func (r CodeSystemConceptProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CodeSystemConceptProperty to Date")
 }
-func (r CodeSystemConceptProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to Time")
+func (r CodeSystemConceptProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CodeSystemConceptProperty to Time")
 }
-func (r CodeSystemConceptProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to DateTime")
+func (r CodeSystemConceptProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CodeSystemConceptProperty to DateTime")
 }
-func (r CodeSystemConceptProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CodeSystemConceptProperty to Quantity")
+func (r CodeSystemConceptProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemConceptProperty to Quantity")
 }
-func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CodeSystemConceptProperty
 	switch other := other.(type) {
 	case CodeSystemConceptProperty:
@@ -7406,29 +7346,17 @@ func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeC
 	case *CodeSystemConceptProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CodeSystemConceptProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CodeSystemConceptProperty
-	switch other := other.(type) {
-	case CodeSystemConceptProperty:
-		o = &other
-	case *CodeSystemConceptProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CodeSystemConceptProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

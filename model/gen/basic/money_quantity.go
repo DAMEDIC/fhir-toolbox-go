@@ -402,31 +402,31 @@ func (r MoneyQuantity) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MoneyQuantity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MoneyQuantity to Boolean")
+func (r MoneyQuantity) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MoneyQuantity to Boolean")
 }
-func (r MoneyQuantity) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MoneyQuantity to String")
+func (r MoneyQuantity) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MoneyQuantity to String")
 }
-func (r MoneyQuantity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MoneyQuantity to Integer")
+func (r MoneyQuantity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MoneyQuantity to Integer")
 }
-func (r MoneyQuantity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MoneyQuantity to Decimal")
+func (r MoneyQuantity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MoneyQuantity to Decimal")
 }
-func (r MoneyQuantity) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MoneyQuantity to Date")
+func (r MoneyQuantity) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MoneyQuantity to Date")
 }
-func (r MoneyQuantity) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MoneyQuantity to Time")
+func (r MoneyQuantity) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MoneyQuantity to Time")
 }
-func (r MoneyQuantity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MoneyQuantity to DateTime")
+func (r MoneyQuantity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MoneyQuantity to DateTime")
 }
-func (r MoneyQuantity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MoneyQuantity to Quantity")
+func (r MoneyQuantity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MoneyQuantity to Quantity")
 }
-func (r MoneyQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MoneyQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MoneyQuantity
 	switch other := other.(type) {
 	case MoneyQuantity:
@@ -434,29 +434,17 @@ func (r MoneyQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *MoneyQuantity:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MoneyQuantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MoneyQuantity
-	switch other := other.(type) {
-	case MoneyQuantity:
-		o = &other
-	case *MoneyQuantity:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MoneyQuantity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

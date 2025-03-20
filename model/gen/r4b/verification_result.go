@@ -3631,31 +3631,31 @@ func (r VerificationResult) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r VerificationResult) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert VerificationResult to Boolean")
+func (r VerificationResult) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResult to Boolean")
 }
-func (r VerificationResult) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert VerificationResult to String")
+func (r VerificationResult) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResult to String")
 }
-func (r VerificationResult) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert VerificationResult to Integer")
+func (r VerificationResult) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResult to Integer")
 }
-func (r VerificationResult) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert VerificationResult to Decimal")
+func (r VerificationResult) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResult to Decimal")
 }
-func (r VerificationResult) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert VerificationResult to Date")
+func (r VerificationResult) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResult to Date")
 }
-func (r VerificationResult) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert VerificationResult to Time")
+func (r VerificationResult) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResult to Time")
 }
-func (r VerificationResult) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert VerificationResult to DateTime")
+func (r VerificationResult) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResult to DateTime")
 }
-func (r VerificationResult) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert VerificationResult to Quantity")
+func (r VerificationResult) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResult to Quantity")
 }
-func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *VerificationResult
 	switch other := other.(type) {
 	case VerificationResult:
@@ -3663,29 +3663,17 @@ func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *VerificationResult:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *VerificationResult
-	switch other := other.(type) {
-	case VerificationResult:
-		o = &other
-	case *VerificationResult:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3908,31 +3896,31 @@ func (r VerificationResultPrimarySource) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r VerificationResultPrimarySource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to Boolean")
+func (r VerificationResultPrimarySource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResultPrimarySource to Boolean")
 }
-func (r VerificationResultPrimarySource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to String")
+func (r VerificationResultPrimarySource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResultPrimarySource to String")
 }
-func (r VerificationResultPrimarySource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to Integer")
+func (r VerificationResultPrimarySource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResultPrimarySource to Integer")
 }
-func (r VerificationResultPrimarySource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to Decimal")
+func (r VerificationResultPrimarySource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultPrimarySource to Decimal")
 }
-func (r VerificationResultPrimarySource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to Date")
+func (r VerificationResultPrimarySource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResultPrimarySource to Date")
 }
-func (r VerificationResultPrimarySource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to Time")
+func (r VerificationResultPrimarySource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResultPrimarySource to Time")
 }
-func (r VerificationResultPrimarySource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to DateTime")
+func (r VerificationResultPrimarySource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResultPrimarySource to DateTime")
 }
-func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert VerificationResultPrimarySource to Quantity")
+func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultPrimarySource to Quantity")
 }
-func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *VerificationResultPrimarySource
 	switch other := other.(type) {
 	case VerificationResultPrimarySource:
@@ -3940,29 +3928,17 @@ func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noRevers
 	case *VerificationResultPrimarySource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *VerificationResultPrimarySource
-	switch other := other.(type) {
-	case VerificationResultPrimarySource:
-		o = &other
-	case *VerificationResultPrimarySource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4106,31 +4082,31 @@ func (r VerificationResultAttestation) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r VerificationResultAttestation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to Boolean")
+func (r VerificationResultAttestation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResultAttestation to Boolean")
 }
-func (r VerificationResultAttestation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to String")
+func (r VerificationResultAttestation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResultAttestation to String")
 }
-func (r VerificationResultAttestation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to Integer")
+func (r VerificationResultAttestation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResultAttestation to Integer")
 }
-func (r VerificationResultAttestation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to Decimal")
+func (r VerificationResultAttestation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultAttestation to Decimal")
 }
-func (r VerificationResultAttestation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to Date")
+func (r VerificationResultAttestation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResultAttestation to Date")
 }
-func (r VerificationResultAttestation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to Time")
+func (r VerificationResultAttestation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResultAttestation to Time")
 }
-func (r VerificationResultAttestation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to DateTime")
+func (r VerificationResultAttestation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResultAttestation to DateTime")
 }
-func (r VerificationResultAttestation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert VerificationResultAttestation to Quantity")
+func (r VerificationResultAttestation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultAttestation to Quantity")
 }
-func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *VerificationResultAttestation
 	switch other := other.(type) {
 	case VerificationResultAttestation:
@@ -4138,29 +4114,17 @@ func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseT
 	case *VerificationResultAttestation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *VerificationResultAttestation
-	switch other := other.(type) {
-	case VerificationResultAttestation:
-		o = &other
-	case *VerificationResultAttestation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4284,31 +4248,31 @@ func (r VerificationResultValidator) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r VerificationResultValidator) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to Boolean")
+func (r VerificationResultValidator) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResultValidator to Boolean")
 }
-func (r VerificationResultValidator) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to String")
+func (r VerificationResultValidator) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResultValidator to String")
 }
-func (r VerificationResultValidator) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to Integer")
+func (r VerificationResultValidator) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResultValidator to Integer")
 }
-func (r VerificationResultValidator) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to Decimal")
+func (r VerificationResultValidator) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultValidator to Decimal")
 }
-func (r VerificationResultValidator) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to Date")
+func (r VerificationResultValidator) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResultValidator to Date")
 }
-func (r VerificationResultValidator) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to Time")
+func (r VerificationResultValidator) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResultValidator to Time")
 }
-func (r VerificationResultValidator) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to DateTime")
+func (r VerificationResultValidator) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResultValidator to DateTime")
 }
-func (r VerificationResultValidator) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert VerificationResultValidator to Quantity")
+func (r VerificationResultValidator) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultValidator to Quantity")
 }
-func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *VerificationResultValidator
 	switch other := other.(type) {
 	case VerificationResultValidator:
@@ -4316,29 +4280,17 @@ func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTyp
 	case *VerificationResultValidator:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *VerificationResultValidator
-	switch other := other.(type) {
-	case VerificationResultValidator:
-		o = &other
-	case *VerificationResultValidator:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

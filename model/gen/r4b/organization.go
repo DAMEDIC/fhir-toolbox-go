@@ -2071,31 +2071,31 @@ func (r Organization) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Organization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Organization to Boolean")
+func (r Organization) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Organization to Boolean")
 }
-func (r Organization) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Organization to String")
+func (r Organization) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Organization to String")
 }
-func (r Organization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Organization to Integer")
+func (r Organization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Organization to Integer")
 }
-func (r Organization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Organization to Decimal")
+func (r Organization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Organization to Decimal")
 }
-func (r Organization) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Organization to Date")
+func (r Organization) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Organization to Date")
 }
-func (r Organization) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Organization to Time")
+func (r Organization) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Organization to Time")
 }
-func (r Organization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Organization to DateTime")
+func (r Organization) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Organization to DateTime")
 }
-func (r Organization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Organization to Quantity")
+func (r Organization) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Organization to Quantity")
 }
-func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Organization
 	switch other := other.(type) {
 	case Organization:
@@ -2103,29 +2103,17 @@ func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *Organization:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Organization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Organization
-	switch other := other.(type) {
-	case Organization:
-		o = &other
-	case *Organization:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Organization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2305,31 +2293,31 @@ func (r OrganizationContact) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r OrganizationContact) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OrganizationContact to Boolean")
+func (r OrganizationContact) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OrganizationContact to Boolean")
 }
-func (r OrganizationContact) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OrganizationContact to String")
+func (r OrganizationContact) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OrganizationContact to String")
 }
-func (r OrganizationContact) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OrganizationContact to Integer")
+func (r OrganizationContact) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OrganizationContact to Integer")
 }
-func (r OrganizationContact) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OrganizationContact to Decimal")
+func (r OrganizationContact) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OrganizationContact to Decimal")
 }
-func (r OrganizationContact) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OrganizationContact to Date")
+func (r OrganizationContact) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OrganizationContact to Date")
 }
-func (r OrganizationContact) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OrganizationContact to Time")
+func (r OrganizationContact) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OrganizationContact to Time")
 }
-func (r OrganizationContact) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OrganizationContact to DateTime")
+func (r OrganizationContact) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OrganizationContact to DateTime")
 }
-func (r OrganizationContact) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OrganizationContact to Quantity")
+func (r OrganizationContact) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OrganizationContact to Quantity")
 }
-func (r OrganizationContact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OrganizationContact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OrganizationContact
 	switch other := other.(type) {
 	case OrganizationContact:
@@ -2337,29 +2325,17 @@ func (r OrganizationContact) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *OrganizationContact:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OrganizationContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OrganizationContact
-	switch other := other.(type) {
-	case OrganizationContact:
-		o = &other
-	case *OrganizationContact:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OrganizationContact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

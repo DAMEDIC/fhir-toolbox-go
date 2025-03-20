@@ -142,68 +142,49 @@ func (r String) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r String) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert String to Boolean")
+func (r String) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert String to Boolean")
 }
-func (r String) ToString(explicit bool) (*fhirpath.String, error) {
+func (r String) ToString(explicit bool) (fhirpath.String, bool, error) {
 	if r.Value != nil {
 		v := fhirpath.String(*r.Value)
-		return &v, nil
+		return v, true, nil
 	} else {
-		return nil, nil
+		return "", false, nil
 	}
 }
-func (r String) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert String to Integer")
+func (r String) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert String to Integer")
 }
-func (r String) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert String to Decimal")
+func (r String) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert String to Decimal")
 }
-func (r String) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert String to Date")
+func (r String) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert String to Date")
 }
-func (r String) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert String to Time")
+func (r String) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert String to Time")
 }
-func (r String) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert String to DateTime")
+func (r String) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert String to DateTime")
 }
-func (r String) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert String to Quantity")
+func (r String) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert String to Quantity")
 }
-func (r String) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToString(false)
-	if err != nil {
-		return false
+func (r String) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false, true
 	}
-	b, err := other.ToString(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
+	b, ok, err := other.ToString(false)
+	if err != nil || !ok {
+		return false, true
 	}
 	return a.Equal(b)
 }
 func (r String) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToString(false)
-	if err != nil {
-		return false
-	}
-	b, err := other.ToString(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
-	}
-	return a.Equivalent(b)
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r String) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -227,7 +208,7 @@ func (r String) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "String",
+			Name:      "string",
 			Namespace: "FHIR",
 		},
 	}

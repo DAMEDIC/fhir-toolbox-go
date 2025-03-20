@@ -2901,31 +2901,31 @@ func (r AdverseEvent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AdverseEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdverseEvent to Boolean")
+func (r AdverseEvent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdverseEvent to Boolean")
 }
-func (r AdverseEvent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdverseEvent to String")
+func (r AdverseEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdverseEvent to String")
 }
-func (r AdverseEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdverseEvent to Integer")
+func (r AdverseEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdverseEvent to Integer")
 }
-func (r AdverseEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdverseEvent to Decimal")
+func (r AdverseEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEvent to Decimal")
 }
-func (r AdverseEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdverseEvent to Date")
+func (r AdverseEvent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdverseEvent to Date")
 }
-func (r AdverseEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdverseEvent to Time")
+func (r AdverseEvent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdverseEvent to Time")
 }
-func (r AdverseEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdverseEvent to DateTime")
+func (r AdverseEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdverseEvent to DateTime")
 }
-func (r AdverseEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdverseEvent to Quantity")
+func (r AdverseEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdverseEvent to Quantity")
 }
-func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdverseEvent
 	switch other := other.(type) {
 	case AdverseEvent:
@@ -2933,29 +2933,17 @@ func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *AdverseEvent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdverseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdverseEvent
-	switch other := other.(type) {
-	case AdverseEvent:
-		o = &other
-	case *AdverseEvent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdverseEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3193,31 +3181,31 @@ func (r AdverseEventSuspectEntity) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r AdverseEventSuspectEntity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to Boolean")
+func (r AdverseEventSuspectEntity) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdverseEventSuspectEntity to Boolean")
 }
-func (r AdverseEventSuspectEntity) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to String")
+func (r AdverseEventSuspectEntity) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdverseEventSuspectEntity to String")
 }
-func (r AdverseEventSuspectEntity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to Integer")
+func (r AdverseEventSuspectEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdverseEventSuspectEntity to Integer")
 }
-func (r AdverseEventSuspectEntity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to Decimal")
+func (r AdverseEventSuspectEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventSuspectEntity to Decimal")
 }
-func (r AdverseEventSuspectEntity) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to Date")
+func (r AdverseEventSuspectEntity) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdverseEventSuspectEntity to Date")
 }
-func (r AdverseEventSuspectEntity) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to Time")
+func (r AdverseEventSuspectEntity) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdverseEventSuspectEntity to Time")
 }
-func (r AdverseEventSuspectEntity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to DateTime")
+func (r AdverseEventSuspectEntity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdverseEventSuspectEntity to DateTime")
 }
-func (r AdverseEventSuspectEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntity to Quantity")
+func (r AdverseEventSuspectEntity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdverseEventSuspectEntity to Quantity")
 }
-func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdverseEventSuspectEntity
 	switch other := other.(type) {
 	case AdverseEventSuspectEntity:
@@ -3225,29 +3213,17 @@ func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeC
 	case *AdverseEventSuspectEntity:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdverseEventSuspectEntity
-	switch other := other.(type) {
-	case AdverseEventSuspectEntity:
-		o = &other
-	case *AdverseEventSuspectEntity:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdverseEventSuspectEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3336,31 +3312,31 @@ func (r AdverseEventSuspectEntityCausality) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r AdverseEventSuspectEntityCausality) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Boolean")
+func (r AdverseEventSuspectEntityCausality) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Boolean")
 }
-func (r AdverseEventSuspectEntityCausality) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to String")
+func (r AdverseEventSuspectEntityCausality) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdverseEventSuspectEntityCausality to String")
 }
-func (r AdverseEventSuspectEntityCausality) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Integer")
+func (r AdverseEventSuspectEntityCausality) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Integer")
 }
-func (r AdverseEventSuspectEntityCausality) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Decimal")
+func (r AdverseEventSuspectEntityCausality) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Decimal")
 }
-func (r AdverseEventSuspectEntityCausality) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Date")
+func (r AdverseEventSuspectEntityCausality) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Date")
 }
-func (r AdverseEventSuspectEntityCausality) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Time")
+func (r AdverseEventSuspectEntityCausality) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Time")
 }
-func (r AdverseEventSuspectEntityCausality) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to DateTime")
+func (r AdverseEventSuspectEntityCausality) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to DateTime")
 }
-func (r AdverseEventSuspectEntityCausality) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdverseEventSuspectEntityCausality to Quantity")
+func (r AdverseEventSuspectEntityCausality) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Quantity")
 }
-func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdverseEventSuspectEntityCausality
 	switch other := other.(type) {
 	case AdverseEventSuspectEntityCausality:
@@ -3368,29 +3344,17 @@ func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noRev
 	case *AdverseEventSuspectEntityCausality:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdverseEventSuspectEntityCausality
-	switch other := other.(type) {
-	case AdverseEventSuspectEntityCausality:
-		o = &other
-	case *AdverseEventSuspectEntityCausality:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdverseEventSuspectEntityCausality) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -193,7 +193,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Base64Binary",
+		Name:      "base64Binary",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -217,7 +217,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Boolean",
+		Name:      "boolean",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -241,7 +241,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Canonical",
+		Name:      "canonical",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -265,7 +265,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Code",
+		Name:      "code",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -289,7 +289,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Date",
+		Name:      "date",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -313,7 +313,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "DateTime",
+		Name:      "dateTime",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -337,7 +337,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Decimal",
+		Name:      "decimal",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -361,7 +361,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Id",
+		Name:      "id",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -385,7 +385,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Instant",
+		Name:      "instant",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -409,7 +409,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Integer",
+		Name:      "integer",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -433,7 +433,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Integer64",
+		Name:      "integer64",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -457,7 +457,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Markdown",
+		Name:      "markdown",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -481,7 +481,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Oid",
+		Name:      "oid",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -505,7 +505,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "PositiveInt",
+		Name:      "positiveInt",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -529,7 +529,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "String",
+		Name:      "string",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -553,7 +553,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Time",
+		Name:      "time",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -577,7 +577,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "UnsignedInt",
+		Name:      "unsignedInt",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -601,7 +601,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Uri",
+		Name:      "uri",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -625,7 +625,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Url",
+		Name:      "url",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -649,7 +649,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Uuid",
+		Name:      "uuid",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{
@@ -666,7 +666,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Name:      "PrimitiveType",
 			Namespace: "FHIR",
 		},
-		Name:      "Xhtml",
+		Name:      "xhtml",
 		Namespace: "FHIR",
 	},
 }, fhirpath.ClassInfo{

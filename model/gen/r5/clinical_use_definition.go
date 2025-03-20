@@ -5276,31 +5276,31 @@ func (r ClinicalUseDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClinicalUseDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to Boolean")
+func (r ClinicalUseDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinition to Boolean")
 }
-func (r ClinicalUseDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to String")
+func (r ClinicalUseDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinition to String")
 }
-func (r ClinicalUseDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to Integer")
+func (r ClinicalUseDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinition to Integer")
 }
-func (r ClinicalUseDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to Decimal")
+func (r ClinicalUseDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinition to Decimal")
 }
-func (r ClinicalUseDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to Date")
+func (r ClinicalUseDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinition to Date")
 }
-func (r ClinicalUseDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to Time")
+func (r ClinicalUseDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinition to Time")
 }
-func (r ClinicalUseDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to DateTime")
+func (r ClinicalUseDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinition to DateTime")
 }
-func (r ClinicalUseDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinition to Quantity")
+func (r ClinicalUseDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinition to Quantity")
 }
-func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinition
 	switch other := other.(type) {
 	case ClinicalUseDefinition:
@@ -5308,29 +5308,17 @@ func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *ClinicalUseDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinition
-	switch other := other.(type) {
-	case ClinicalUseDefinition:
-		o = &other
-	case *ClinicalUseDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5534,31 +5522,31 @@ func (r ClinicalUseDefinitionContraindication) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r ClinicalUseDefinitionContraindication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to Boolean")
+func (r ClinicalUseDefinitionContraindication) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Boolean")
 }
-func (r ClinicalUseDefinitionContraindication) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to String")
+func (r ClinicalUseDefinitionContraindication) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinitionContraindication to String")
 }
-func (r ClinicalUseDefinitionContraindication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to Integer")
+func (r ClinicalUseDefinitionContraindication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Integer")
 }
-func (r ClinicalUseDefinitionContraindication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to Decimal")
+func (r ClinicalUseDefinitionContraindication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Decimal")
 }
-func (r ClinicalUseDefinitionContraindication) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to Date")
+func (r ClinicalUseDefinitionContraindication) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Date")
 }
-func (r ClinicalUseDefinitionContraindication) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to Time")
+func (r ClinicalUseDefinitionContraindication) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Time")
 }
-func (r ClinicalUseDefinitionContraindication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to DateTime")
+func (r ClinicalUseDefinitionContraindication) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinitionContraindication to DateTime")
 }
-func (r ClinicalUseDefinitionContraindication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindication to Quantity")
+func (r ClinicalUseDefinitionContraindication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Quantity")
 }
-func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinitionContraindication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindication:
@@ -5566,29 +5554,17 @@ func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _no
 	case *ClinicalUseDefinitionContraindication:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinitionContraindication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinitionContraindication
-	switch other := other.(type) {
-	case ClinicalUseDefinitionContraindication:
-		o = &other
-	case *ClinicalUseDefinitionContraindication:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinitionContraindication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5691,31 +5667,31 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) Children(name ...stri
 	}
 	return children
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Boolean")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Boolean")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to String")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to String")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Integer")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Integer")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Decimal")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Decimal")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Date")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Date")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Time")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Time")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to DateTime")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to DateTime")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Quantity")
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Quantity")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinitionContraindicationOtherTherapy
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindicationOtherTherapy:
@@ -5723,29 +5699,17 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.
 	case *ClinicalUseDefinitionContraindicationOtherTherapy:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinitionContraindicationOtherTherapy
-	switch other := other.(type) {
-	case ClinicalUseDefinitionContraindicationOtherTherapy:
-		o = &other
-	case *ClinicalUseDefinitionContraindicationOtherTherapy:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5854,31 +5818,31 @@ func (r ClinicalUseDefinitionIndication) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r ClinicalUseDefinitionIndication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to Boolean")
+func (r ClinicalUseDefinitionIndication) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinitionIndication to Boolean")
 }
-func (r ClinicalUseDefinitionIndication) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to String")
+func (r ClinicalUseDefinitionIndication) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinitionIndication to String")
 }
-func (r ClinicalUseDefinitionIndication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to Integer")
+func (r ClinicalUseDefinitionIndication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinitionIndication to Integer")
 }
-func (r ClinicalUseDefinitionIndication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to Decimal")
+func (r ClinicalUseDefinitionIndication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionIndication to Decimal")
 }
-func (r ClinicalUseDefinitionIndication) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to Date")
+func (r ClinicalUseDefinitionIndication) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinitionIndication to Date")
 }
-func (r ClinicalUseDefinitionIndication) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to Time")
+func (r ClinicalUseDefinitionIndication) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinitionIndication to Time")
 }
-func (r ClinicalUseDefinitionIndication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to DateTime")
+func (r ClinicalUseDefinitionIndication) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinitionIndication to DateTime")
 }
-func (r ClinicalUseDefinitionIndication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionIndication to Quantity")
+func (r ClinicalUseDefinitionIndication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionIndication to Quantity")
 }
-func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinitionIndication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionIndication:
@@ -5886,29 +5850,17 @@ func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noRevers
 	case *ClinicalUseDefinitionIndication:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinitionIndication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinitionIndication
-	switch other := other.(type) {
-	case ClinicalUseDefinitionIndication:
-		o = &other
-	case *ClinicalUseDefinitionIndication:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinitionIndication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6044,31 +5996,31 @@ func (r ClinicalUseDefinitionInteraction) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r ClinicalUseDefinitionInteraction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to Boolean")
+func (r ClinicalUseDefinitionInteraction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Boolean")
 }
-func (r ClinicalUseDefinitionInteraction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to String")
+func (r ClinicalUseDefinitionInteraction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinitionInteraction to String")
 }
-func (r ClinicalUseDefinitionInteraction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to Integer")
+func (r ClinicalUseDefinitionInteraction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Integer")
 }
-func (r ClinicalUseDefinitionInteraction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to Decimal")
+func (r ClinicalUseDefinitionInteraction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Decimal")
 }
-func (r ClinicalUseDefinitionInteraction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to Date")
+func (r ClinicalUseDefinitionInteraction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Date")
 }
-func (r ClinicalUseDefinitionInteraction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to Time")
+func (r ClinicalUseDefinitionInteraction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Time")
 }
-func (r ClinicalUseDefinitionInteraction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to DateTime")
+func (r ClinicalUseDefinitionInteraction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinitionInteraction to DateTime")
 }
-func (r ClinicalUseDefinitionInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteraction to Quantity")
+func (r ClinicalUseDefinitionInteraction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Quantity")
 }
-func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinitionInteraction
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteraction:
@@ -6076,29 +6028,17 @@ func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noRever
 	case *ClinicalUseDefinitionInteraction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinitionInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinitionInteraction
-	switch other := other.(type) {
-	case ClinicalUseDefinitionInteraction:
-		o = &other
-	case *ClinicalUseDefinitionInteraction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinitionInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6191,31 +6131,31 @@ func (r ClinicalUseDefinitionInteractionInteractant) Children(name ...string) fh
 	}
 	return children
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Boolean")
+func (r ClinicalUseDefinitionInteractionInteractant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Boolean")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to String")
+func (r ClinicalUseDefinitionInteractionInteractant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to String")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Integer")
+func (r ClinicalUseDefinitionInteractionInteractant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Integer")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Decimal")
+func (r ClinicalUseDefinitionInteractionInteractant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Decimal")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Date")
+func (r ClinicalUseDefinitionInteractionInteractant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Date")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Time")
+func (r ClinicalUseDefinitionInteractionInteractant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Time")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to DateTime")
+func (r ClinicalUseDefinitionInteractionInteractant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to DateTime")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Quantity")
+func (r ClinicalUseDefinitionInteractionInteractant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Quantity")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinitionInteractionInteractant
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteractionInteractant:
@@ -6223,29 +6163,17 @@ func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Elemen
 	case *ClinicalUseDefinitionInteractionInteractant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinitionInteractionInteractant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinitionInteractionInteractant
-	switch other := other.(type) {
-	case ClinicalUseDefinitionInteractionInteractant:
-		o = &other
-	case *ClinicalUseDefinitionInteractionInteractant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinitionInteractionInteractant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6322,31 +6250,31 @@ func (r ClinicalUseDefinitionUndesirableEffect) Children(name ...string) fhirpat
 	}
 	return children
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Boolean")
+func (r ClinicalUseDefinitionUndesirableEffect) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Boolean")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to String")
+func (r ClinicalUseDefinitionUndesirableEffect) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to String")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Integer")
+func (r ClinicalUseDefinitionUndesirableEffect) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Integer")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Decimal")
+func (r ClinicalUseDefinitionUndesirableEffect) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Decimal")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Date")
+func (r ClinicalUseDefinitionUndesirableEffect) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Date")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Time")
+func (r ClinicalUseDefinitionUndesirableEffect) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Time")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to DateTime")
+func (r ClinicalUseDefinitionUndesirableEffect) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to DateTime")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Quantity")
+func (r ClinicalUseDefinitionUndesirableEffect) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Quantity")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinitionUndesirableEffect
 	switch other := other.(type) {
 	case ClinicalUseDefinitionUndesirableEffect:
@@ -6354,29 +6282,17 @@ func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _n
 	case *ClinicalUseDefinitionUndesirableEffect:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinitionUndesirableEffect) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinitionUndesirableEffect
-	switch other := other.(type) {
-	case ClinicalUseDefinitionUndesirableEffect:
-		o = &other
-	case *ClinicalUseDefinitionUndesirableEffect:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinitionUndesirableEffect) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6462,31 +6378,31 @@ func (r ClinicalUseDefinitionWarning) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r ClinicalUseDefinitionWarning) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to Boolean")
+func (r ClinicalUseDefinitionWarning) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalUseDefinitionWarning to Boolean")
 }
-func (r ClinicalUseDefinitionWarning) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to String")
+func (r ClinicalUseDefinitionWarning) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalUseDefinitionWarning to String")
 }
-func (r ClinicalUseDefinitionWarning) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to Integer")
+func (r ClinicalUseDefinitionWarning) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalUseDefinitionWarning to Integer")
 }
-func (r ClinicalUseDefinitionWarning) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to Decimal")
+func (r ClinicalUseDefinitionWarning) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionWarning to Decimal")
 }
-func (r ClinicalUseDefinitionWarning) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to Date")
+func (r ClinicalUseDefinitionWarning) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalUseDefinitionWarning to Date")
 }
-func (r ClinicalUseDefinitionWarning) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to Time")
+func (r ClinicalUseDefinitionWarning) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalUseDefinitionWarning to Time")
 }
-func (r ClinicalUseDefinitionWarning) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to DateTime")
+func (r ClinicalUseDefinitionWarning) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalUseDefinitionWarning to DateTime")
 }
-func (r ClinicalUseDefinitionWarning) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalUseDefinitionWarning to Quantity")
+func (r ClinicalUseDefinitionWarning) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionWarning to Quantity")
 }
-func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalUseDefinitionWarning
 	switch other := other.(type) {
 	case ClinicalUseDefinitionWarning:
@@ -6494,29 +6410,17 @@ func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTy
 	case *ClinicalUseDefinitionWarning:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalUseDefinitionWarning) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalUseDefinitionWarning
-	switch other := other.(type) {
-	case ClinicalUseDefinitionWarning:
-		o = &other
-	case *ClinicalUseDefinitionWarning:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalUseDefinitionWarning) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

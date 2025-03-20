@@ -3727,31 +3727,31 @@ func (r SpecimenDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SpecimenDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to Boolean")
+func (r SpecimenDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SpecimenDefinition to Boolean")
 }
-func (r SpecimenDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to String")
+func (r SpecimenDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SpecimenDefinition to String")
 }
-func (r SpecimenDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to Integer")
+func (r SpecimenDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SpecimenDefinition to Integer")
 }
-func (r SpecimenDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to Decimal")
+func (r SpecimenDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinition to Decimal")
 }
-func (r SpecimenDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to Date")
+func (r SpecimenDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SpecimenDefinition to Date")
 }
-func (r SpecimenDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to Time")
+func (r SpecimenDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SpecimenDefinition to Time")
 }
-func (r SpecimenDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to DateTime")
+func (r SpecimenDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SpecimenDefinition to DateTime")
 }
-func (r SpecimenDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SpecimenDefinition to Quantity")
+func (r SpecimenDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinition to Quantity")
 }
-func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SpecimenDefinition
 	switch other := other.(type) {
 	case SpecimenDefinition:
@@ -3759,29 +3759,17 @@ func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *SpecimenDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SpecimenDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SpecimenDefinition
-	switch other := other.(type) {
-	case SpecimenDefinition:
-		o = &other
-	case *SpecimenDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SpecimenDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3951,31 +3939,31 @@ func (r SpecimenDefinitionTypeTested) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r SpecimenDefinitionTypeTested) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Boolean")
+func (r SpecimenDefinitionTypeTested) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SpecimenDefinitionTypeTested to Boolean")
 }
-func (r SpecimenDefinitionTypeTested) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to String")
+func (r SpecimenDefinitionTypeTested) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SpecimenDefinitionTypeTested to String")
 }
-func (r SpecimenDefinitionTypeTested) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Integer")
+func (r SpecimenDefinitionTypeTested) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTested to Integer")
 }
-func (r SpecimenDefinitionTypeTested) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Decimal")
+func (r SpecimenDefinitionTypeTested) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Decimal")
 }
-func (r SpecimenDefinitionTypeTested) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Date")
+func (r SpecimenDefinitionTypeTested) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Date")
 }
-func (r SpecimenDefinitionTypeTested) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Time")
+func (r SpecimenDefinitionTypeTested) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Time")
 }
-func (r SpecimenDefinitionTypeTested) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to DateTime")
+func (r SpecimenDefinitionTypeTested) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to DateTime")
 }
-func (r SpecimenDefinitionTypeTested) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTested to Quantity")
+func (r SpecimenDefinitionTypeTested) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Quantity")
 }
-func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SpecimenDefinitionTypeTested
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTested:
@@ -3983,29 +3971,17 @@ func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTy
 	case *SpecimenDefinitionTypeTested:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SpecimenDefinitionTypeTested
-	switch other := other.(type) {
-	case SpecimenDefinitionTypeTested:
-		o = &other
-	case *SpecimenDefinitionTypeTested:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SpecimenDefinitionTypeTested) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4156,31 +4132,31 @@ func (r SpecimenDefinitionTypeTestedContainer) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Boolean")
+func (r SpecimenDefinitionTypeTestedContainer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Boolean")
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to String")
+func (r SpecimenDefinitionTypeTestedContainer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to String")
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Integer")
+func (r SpecimenDefinitionTypeTestedContainer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Integer")
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Decimal")
+func (r SpecimenDefinitionTypeTestedContainer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Decimal")
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Date")
+func (r SpecimenDefinitionTypeTestedContainer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Date")
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Time")
+func (r SpecimenDefinitionTypeTestedContainer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Time")
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to DateTime")
+func (r SpecimenDefinitionTypeTestedContainer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to DateTime")
 }
-func (r SpecimenDefinitionTypeTestedContainer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Quantity")
+func (r SpecimenDefinitionTypeTestedContainer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedContainer
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainer:
@@ -4188,29 +4164,17 @@ func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _no
 	case *SpecimenDefinitionTypeTestedContainer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SpecimenDefinitionTypeTestedContainer
-	switch other := other.(type) {
-	case SpecimenDefinitionTypeTestedContainer:
-		o = &other
-	case *SpecimenDefinitionTypeTestedContainer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SpecimenDefinitionTypeTestedContainer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4324,31 +4288,31 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) Children(name ...string) 
 	}
 	return children
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Boolean")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Boolean")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to String")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to String")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Integer")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Integer")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Decimal")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Decimal")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Date")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Date")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Time")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Time")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to DateTime")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to DateTime")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Quantity")
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedContainerAdditive
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainerAdditive:
@@ -4356,29 +4320,17 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Elem
 	case *SpecimenDefinitionTypeTestedContainerAdditive:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SpecimenDefinitionTypeTestedContainerAdditive
-	switch other := other.(type) {
-	case SpecimenDefinitionTypeTestedContainerAdditive:
-		o = &other
-	case *SpecimenDefinitionTypeTestedContainerAdditive:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4460,31 +4412,31 @@ func (r SpecimenDefinitionTypeTestedHandling) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Boolean")
+func (r SpecimenDefinitionTypeTestedHandling) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Boolean")
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to String")
+func (r SpecimenDefinitionTypeTestedHandling) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to String")
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Integer")
+func (r SpecimenDefinitionTypeTestedHandling) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Integer")
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Decimal")
+func (r SpecimenDefinitionTypeTestedHandling) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Decimal")
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Date")
+func (r SpecimenDefinitionTypeTestedHandling) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Date")
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Time")
+func (r SpecimenDefinitionTypeTestedHandling) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Time")
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to DateTime")
+func (r SpecimenDefinitionTypeTestedHandling) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to DateTime")
 }
-func (r SpecimenDefinitionTypeTestedHandling) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Quantity")
+func (r SpecimenDefinitionTypeTestedHandling) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedHandling
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedHandling:
@@ -4492,29 +4444,17 @@ func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noR
 	case *SpecimenDefinitionTypeTestedHandling:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SpecimenDefinitionTypeTestedHandling
-	switch other := other.(type) {
-	case SpecimenDefinitionTypeTestedHandling:
-		o = &other
-	case *SpecimenDefinitionTypeTestedHandling:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SpecimenDefinitionTypeTestedHandling) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

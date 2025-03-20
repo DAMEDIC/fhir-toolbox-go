@@ -5525,31 +5525,31 @@ func (r Parameters) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Parameters) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Parameters to Boolean")
+func (r Parameters) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Parameters to Boolean")
 }
-func (r Parameters) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Parameters to String")
+func (r Parameters) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Parameters to String")
 }
-func (r Parameters) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Parameters to Integer")
+func (r Parameters) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Parameters to Integer")
 }
-func (r Parameters) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Parameters to Decimal")
+func (r Parameters) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Parameters to Decimal")
 }
-func (r Parameters) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Parameters to Date")
+func (r Parameters) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Parameters to Date")
 }
-func (r Parameters) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Parameters to Time")
+func (r Parameters) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Parameters to Time")
 }
-func (r Parameters) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Parameters to DateTime")
+func (r Parameters) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Parameters to DateTime")
 }
-func (r Parameters) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Parameters to Quantity")
+func (r Parameters) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Parameters to Quantity")
 }
-func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Parameters
 	switch other := other.(type) {
 	case Parameters:
@@ -5557,29 +5557,17 @@ func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *Parameters:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Parameters) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Parameters
-	switch other := other.(type) {
-	case Parameters:
-		o = &other
-	case *Parameters:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Parameters) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5666,31 +5654,31 @@ func (r ParametersParameter) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ParametersParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ParametersParameter to Boolean")
+func (r ParametersParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ParametersParameter to Boolean")
 }
-func (r ParametersParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ParametersParameter to String")
+func (r ParametersParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ParametersParameter to String")
 }
-func (r ParametersParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ParametersParameter to Integer")
+func (r ParametersParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ParametersParameter to Integer")
 }
-func (r ParametersParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ParametersParameter to Decimal")
+func (r ParametersParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ParametersParameter to Decimal")
 }
-func (r ParametersParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ParametersParameter to Date")
+func (r ParametersParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ParametersParameter to Date")
 }
-func (r ParametersParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ParametersParameter to Time")
+func (r ParametersParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ParametersParameter to Time")
 }
-func (r ParametersParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ParametersParameter to DateTime")
+func (r ParametersParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ParametersParameter to DateTime")
 }
-func (r ParametersParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ParametersParameter to Quantity")
+func (r ParametersParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ParametersParameter to Quantity")
 }
-func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ParametersParameter
 	switch other := other.(type) {
 	case ParametersParameter:
@@ -5698,29 +5686,17 @@ func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *ParametersParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ParametersParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ParametersParameter
-	switch other := other.(type) {
-	case ParametersParameter:
-		o = &other
-	case *ParametersParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ParametersParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

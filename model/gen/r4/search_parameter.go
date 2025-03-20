@@ -3568,31 +3568,31 @@ func (r SearchParameter) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SearchParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SearchParameter to Boolean")
+func (r SearchParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SearchParameter to Boolean")
 }
-func (r SearchParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SearchParameter to String")
+func (r SearchParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SearchParameter to String")
 }
-func (r SearchParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SearchParameter to Integer")
+func (r SearchParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SearchParameter to Integer")
 }
-func (r SearchParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SearchParameter to Decimal")
+func (r SearchParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SearchParameter to Decimal")
 }
-func (r SearchParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SearchParameter to Date")
+func (r SearchParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SearchParameter to Date")
 }
-func (r SearchParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SearchParameter to Time")
+func (r SearchParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SearchParameter to Time")
 }
-func (r SearchParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SearchParameter to DateTime")
+func (r SearchParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SearchParameter to DateTime")
 }
-func (r SearchParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SearchParameter to Quantity")
+func (r SearchParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SearchParameter to Quantity")
 }
-func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SearchParameter
 	switch other := other.(type) {
 	case SearchParameter:
@@ -3600,29 +3600,17 @@ func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *SearchParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SearchParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SearchParameter
-	switch other := other.(type) {
-	case SearchParameter:
-		o = &other
-	case *SearchParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SearchParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3900,31 +3888,31 @@ func (r SearchParameterComponent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SearchParameterComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to Boolean")
+func (r SearchParameterComponent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SearchParameterComponent to Boolean")
 }
-func (r SearchParameterComponent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to String")
+func (r SearchParameterComponent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SearchParameterComponent to String")
 }
-func (r SearchParameterComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to Integer")
+func (r SearchParameterComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SearchParameterComponent to Integer")
 }
-func (r SearchParameterComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to Decimal")
+func (r SearchParameterComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SearchParameterComponent to Decimal")
 }
-func (r SearchParameterComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to Date")
+func (r SearchParameterComponent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SearchParameterComponent to Date")
 }
-func (r SearchParameterComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to Time")
+func (r SearchParameterComponent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SearchParameterComponent to Time")
 }
-func (r SearchParameterComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to DateTime")
+func (r SearchParameterComponent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SearchParameterComponent to DateTime")
 }
-func (r SearchParameterComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SearchParameterComponent to Quantity")
+func (r SearchParameterComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SearchParameterComponent to Quantity")
 }
-func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SearchParameterComponent
 	switch other := other.(type) {
 	case SearchParameterComponent:
@@ -3932,29 +3920,17 @@ func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *SearchParameterComponent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SearchParameterComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SearchParameterComponent
-	switch other := other.(type) {
-	case SearchParameterComponent:
-		o = &other
-	case *SearchParameterComponent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SearchParameterComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

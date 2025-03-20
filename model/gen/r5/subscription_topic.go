@@ -6288,31 +6288,31 @@ func (r SubscriptionTopic) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubscriptionTopic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to Boolean")
+func (r SubscriptionTopic) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionTopic to Boolean")
 }
-func (r SubscriptionTopic) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to String")
+func (r SubscriptionTopic) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionTopic to String")
 }
-func (r SubscriptionTopic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to Integer")
+func (r SubscriptionTopic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionTopic to Integer")
 }
-func (r SubscriptionTopic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to Decimal")
+func (r SubscriptionTopic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopic to Decimal")
 }
-func (r SubscriptionTopic) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to Date")
+func (r SubscriptionTopic) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionTopic to Date")
 }
-func (r SubscriptionTopic) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to Time")
+func (r SubscriptionTopic) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionTopic to Time")
 }
-func (r SubscriptionTopic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to DateTime")
+func (r SubscriptionTopic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionTopic to DateTime")
 }
-func (r SubscriptionTopic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionTopic to Quantity")
+func (r SubscriptionTopic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopic to Quantity")
 }
-func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionTopic
 	switch other := other.(type) {
 	case SubscriptionTopic:
@@ -6320,29 +6320,17 @@ func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *SubscriptionTopic:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionTopic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionTopic
-	switch other := other.(type) {
-	case SubscriptionTopic:
-		o = &other
-	case *SubscriptionTopic:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionTopic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6630,31 +6618,31 @@ func (r SubscriptionTopicResourceTrigger) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r SubscriptionTopicResourceTrigger) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to Boolean")
+func (r SubscriptionTopicResourceTrigger) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Boolean")
 }
-func (r SubscriptionTopicResourceTrigger) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to String")
+func (r SubscriptionTopicResourceTrigger) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionTopicResourceTrigger to String")
 }
-func (r SubscriptionTopicResourceTrigger) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to Integer")
+func (r SubscriptionTopicResourceTrigger) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Integer")
 }
-func (r SubscriptionTopicResourceTrigger) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to Decimal")
+func (r SubscriptionTopicResourceTrigger) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Decimal")
 }
-func (r SubscriptionTopicResourceTrigger) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to Date")
+func (r SubscriptionTopicResourceTrigger) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Date")
 }
-func (r SubscriptionTopicResourceTrigger) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to Time")
+func (r SubscriptionTopicResourceTrigger) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Time")
 }
-func (r SubscriptionTopicResourceTrigger) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to DateTime")
+func (r SubscriptionTopicResourceTrigger) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to DateTime")
 }
-func (r SubscriptionTopicResourceTrigger) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTrigger to Quantity")
+func (r SubscriptionTopicResourceTrigger) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Quantity")
 }
-func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionTopicResourceTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTrigger:
@@ -6662,29 +6650,17 @@ func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noRever
 	case *SubscriptionTopicResourceTrigger:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionTopicResourceTrigger
-	switch other := other.(type) {
-	case SubscriptionTopicResourceTrigger:
-		o = &other
-	case *SubscriptionTopicResourceTrigger:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionTopicResourceTrigger) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6799,31 +6775,31 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) Children(name ...string) 
 	}
 	return children
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Boolean")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Boolean")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to String")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to String")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Integer")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Integer")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Decimal")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Decimal")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Date")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Date")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Time")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Time")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to DateTime")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to DateTime")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Quantity")
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Quantity")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionTopicResourceTriggerQueryCriteria
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTriggerQueryCriteria:
@@ -6831,29 +6807,17 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Elem
 	case *SubscriptionTopicResourceTriggerQueryCriteria:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionTopicResourceTriggerQueryCriteria
-	switch other := other.(type) {
-	case SubscriptionTopicResourceTriggerQueryCriteria:
-		o = &other
-	case *SubscriptionTopicResourceTriggerQueryCriteria:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6954,31 +6918,31 @@ func (r SubscriptionTopicEventTrigger) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r SubscriptionTopicEventTrigger) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to Boolean")
+func (r SubscriptionTopicEventTrigger) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionTopicEventTrigger to Boolean")
 }
-func (r SubscriptionTopicEventTrigger) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to String")
+func (r SubscriptionTopicEventTrigger) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionTopicEventTrigger to String")
 }
-func (r SubscriptionTopicEventTrigger) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to Integer")
+func (r SubscriptionTopicEventTrigger) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionTopicEventTrigger to Integer")
 }
-func (r SubscriptionTopicEventTrigger) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to Decimal")
+func (r SubscriptionTopicEventTrigger) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Decimal")
 }
-func (r SubscriptionTopicEventTrigger) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to Date")
+func (r SubscriptionTopicEventTrigger) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Date")
 }
-func (r SubscriptionTopicEventTrigger) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to Time")
+func (r SubscriptionTopicEventTrigger) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Time")
 }
-func (r SubscriptionTopicEventTrigger) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to DateTime")
+func (r SubscriptionTopicEventTrigger) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to DateTime")
 }
-func (r SubscriptionTopicEventTrigger) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionTopicEventTrigger to Quantity")
+func (r SubscriptionTopicEventTrigger) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Quantity")
 }
-func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionTopicEventTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicEventTrigger:
@@ -6986,29 +6950,17 @@ func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseT
 	case *SubscriptionTopicEventTrigger:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionTopicEventTrigger
-	switch other := other.(type) {
-	case SubscriptionTopicEventTrigger:
-		o = &other
-	case *SubscriptionTopicEventTrigger:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionTopicEventTrigger) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7112,31 +7064,31 @@ func (r SubscriptionTopicCanFilterBy) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r SubscriptionTopicCanFilterBy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to Boolean")
+func (r SubscriptionTopicCanFilterBy) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Boolean")
 }
-func (r SubscriptionTopicCanFilterBy) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to String")
+func (r SubscriptionTopicCanFilterBy) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionTopicCanFilterBy to String")
 }
-func (r SubscriptionTopicCanFilterBy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to Integer")
+func (r SubscriptionTopicCanFilterBy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Integer")
 }
-func (r SubscriptionTopicCanFilterBy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to Decimal")
+func (r SubscriptionTopicCanFilterBy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Decimal")
 }
-func (r SubscriptionTopicCanFilterBy) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to Date")
+func (r SubscriptionTopicCanFilterBy) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Date")
 }
-func (r SubscriptionTopicCanFilterBy) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to Time")
+func (r SubscriptionTopicCanFilterBy) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Time")
 }
-func (r SubscriptionTopicCanFilterBy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to DateTime")
+func (r SubscriptionTopicCanFilterBy) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to DateTime")
 }
-func (r SubscriptionTopicCanFilterBy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionTopicCanFilterBy to Quantity")
+func (r SubscriptionTopicCanFilterBy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Quantity")
 }
-func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionTopicCanFilterBy
 	switch other := other.(type) {
 	case SubscriptionTopicCanFilterBy:
@@ -7144,29 +7096,17 @@ func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTy
 	case *SubscriptionTopicCanFilterBy:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionTopicCanFilterBy
-	switch other := other.(type) {
-	case SubscriptionTopicCanFilterBy:
-		o = &other
-	case *SubscriptionTopicCanFilterBy:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionTopicCanFilterBy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7276,31 +7216,31 @@ func (r SubscriptionTopicNotificationShape) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r SubscriptionTopicNotificationShape) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to Boolean")
+func (r SubscriptionTopicNotificationShape) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionTopicNotificationShape to Boolean")
 }
-func (r SubscriptionTopicNotificationShape) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to String")
+func (r SubscriptionTopicNotificationShape) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionTopicNotificationShape to String")
 }
-func (r SubscriptionTopicNotificationShape) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to Integer")
+func (r SubscriptionTopicNotificationShape) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionTopicNotificationShape to Integer")
 }
-func (r SubscriptionTopicNotificationShape) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to Decimal")
+func (r SubscriptionTopicNotificationShape) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Decimal")
 }
-func (r SubscriptionTopicNotificationShape) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to Date")
+func (r SubscriptionTopicNotificationShape) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Date")
 }
-func (r SubscriptionTopicNotificationShape) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to Time")
+func (r SubscriptionTopicNotificationShape) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Time")
 }
-func (r SubscriptionTopicNotificationShape) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to DateTime")
+func (r SubscriptionTopicNotificationShape) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to DateTime")
 }
-func (r SubscriptionTopicNotificationShape) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionTopicNotificationShape to Quantity")
+func (r SubscriptionTopicNotificationShape) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Quantity")
 }
-func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionTopicNotificationShape
 	switch other := other.(type) {
 	case SubscriptionTopicNotificationShape:
@@ -7308,29 +7248,17 @@ func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noRev
 	case *SubscriptionTopicNotificationShape:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionTopicNotificationShape
-	switch other := other.(type) {
-	case SubscriptionTopicNotificationShape:
-		o = &other
-	case *SubscriptionTopicNotificationShape:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionTopicNotificationShape) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

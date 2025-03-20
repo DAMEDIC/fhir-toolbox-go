@@ -4214,31 +4214,31 @@ func (r Procedure) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Procedure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Procedure to Boolean")
+func (r Procedure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Procedure to Boolean")
 }
-func (r Procedure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Procedure to String")
+func (r Procedure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Procedure to String")
 }
-func (r Procedure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Procedure to Integer")
+func (r Procedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Procedure to Integer")
 }
-func (r Procedure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Procedure to Decimal")
+func (r Procedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Procedure to Decimal")
 }
-func (r Procedure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Procedure to Date")
+func (r Procedure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Procedure to Date")
 }
-func (r Procedure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Procedure to Time")
+func (r Procedure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Procedure to Time")
 }
-func (r Procedure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Procedure to DateTime")
+func (r Procedure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Procedure to DateTime")
 }
-func (r Procedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Procedure to Quantity")
+func (r Procedure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Procedure to Quantity")
 }
-func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Procedure
 	switch other := other.(type) {
 	case Procedure:
@@ -4246,29 +4246,17 @@ func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	case *Procedure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Procedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Procedure
-	switch other := other.(type) {
-	case Procedure:
-		o = &other
-	case *Procedure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Procedure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4572,31 +4560,31 @@ func (r ProcedurePerformer) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ProcedurePerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to Boolean")
+func (r ProcedurePerformer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ProcedurePerformer to Boolean")
 }
-func (r ProcedurePerformer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to String")
+func (r ProcedurePerformer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ProcedurePerformer to String")
 }
-func (r ProcedurePerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to Integer")
+func (r ProcedurePerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ProcedurePerformer to Integer")
 }
-func (r ProcedurePerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to Decimal")
+func (r ProcedurePerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ProcedurePerformer to Decimal")
 }
-func (r ProcedurePerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to Date")
+func (r ProcedurePerformer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ProcedurePerformer to Date")
 }
-func (r ProcedurePerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to Time")
+func (r ProcedurePerformer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ProcedurePerformer to Time")
 }
-func (r ProcedurePerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to DateTime")
+func (r ProcedurePerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ProcedurePerformer to DateTime")
 }
-func (r ProcedurePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ProcedurePerformer to Quantity")
+func (r ProcedurePerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ProcedurePerformer to Quantity")
 }
-func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ProcedurePerformer
 	switch other := other.(type) {
 	case ProcedurePerformer:
@@ -4604,29 +4592,17 @@ func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ProcedurePerformer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ProcedurePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ProcedurePerformer
-	switch other := other.(type) {
-	case ProcedurePerformer:
-		o = &other
-	case *ProcedurePerformer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ProcedurePerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4717,31 +4693,31 @@ func (r ProcedureFocalDevice) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ProcedureFocalDevice) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to Boolean")
+func (r ProcedureFocalDevice) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ProcedureFocalDevice to Boolean")
 }
-func (r ProcedureFocalDevice) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to String")
+func (r ProcedureFocalDevice) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ProcedureFocalDevice to String")
 }
-func (r ProcedureFocalDevice) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to Integer")
+func (r ProcedureFocalDevice) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ProcedureFocalDevice to Integer")
 }
-func (r ProcedureFocalDevice) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to Decimal")
+func (r ProcedureFocalDevice) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ProcedureFocalDevice to Decimal")
 }
-func (r ProcedureFocalDevice) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to Date")
+func (r ProcedureFocalDevice) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ProcedureFocalDevice to Date")
 }
-func (r ProcedureFocalDevice) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to Time")
+func (r ProcedureFocalDevice) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ProcedureFocalDevice to Time")
 }
-func (r ProcedureFocalDevice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to DateTime")
+func (r ProcedureFocalDevice) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ProcedureFocalDevice to DateTime")
 }
-func (r ProcedureFocalDevice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ProcedureFocalDevice to Quantity")
+func (r ProcedureFocalDevice) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ProcedureFocalDevice to Quantity")
 }
-func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ProcedureFocalDevice
 	switch other := other.(type) {
 	case ProcedureFocalDevice:
@@ -4749,29 +4725,17 @@ func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *ProcedureFocalDevice:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ProcedureFocalDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ProcedureFocalDevice
-	switch other := other.(type) {
-	case ProcedureFocalDevice:
-		o = &other
-	case *ProcedureFocalDevice:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ProcedureFocalDevice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

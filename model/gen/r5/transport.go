@@ -12968,31 +12968,31 @@ func (r Transport) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Transport) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Transport to Boolean")
+func (r Transport) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Transport to Boolean")
 }
-func (r Transport) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Transport to String")
+func (r Transport) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Transport to String")
 }
-func (r Transport) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Transport to Integer")
+func (r Transport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Transport to Integer")
 }
-func (r Transport) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Transport to Decimal")
+func (r Transport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Transport to Decimal")
 }
-func (r Transport) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Transport to Date")
+func (r Transport) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Transport to Date")
 }
-func (r Transport) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Transport to Time")
+func (r Transport) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Transport to Time")
 }
-func (r Transport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Transport to DateTime")
+func (r Transport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Transport to DateTime")
 }
-func (r Transport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Transport to Quantity")
+func (r Transport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Transport to Quantity")
 }
-func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Transport
 	switch other := other.(type) {
 	case Transport:
@@ -13000,29 +13000,17 @@ func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	case *Transport:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Transport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Transport
-	switch other := other.(type) {
-	case Transport:
-		o = &other
-	case *Transport:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Transport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13351,31 +13339,31 @@ func (r TransportRestriction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TransportRestriction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TransportRestriction to Boolean")
+func (r TransportRestriction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TransportRestriction to Boolean")
 }
-func (r TransportRestriction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TransportRestriction to String")
+func (r TransportRestriction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TransportRestriction to String")
 }
-func (r TransportRestriction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TransportRestriction to Integer")
+func (r TransportRestriction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TransportRestriction to Integer")
 }
-func (r TransportRestriction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TransportRestriction to Decimal")
+func (r TransportRestriction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TransportRestriction to Decimal")
 }
-func (r TransportRestriction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TransportRestriction to Date")
+func (r TransportRestriction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TransportRestriction to Date")
 }
-func (r TransportRestriction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TransportRestriction to Time")
+func (r TransportRestriction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TransportRestriction to Time")
 }
-func (r TransportRestriction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TransportRestriction to DateTime")
+func (r TransportRestriction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TransportRestriction to DateTime")
 }
-func (r TransportRestriction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TransportRestriction to Quantity")
+func (r TransportRestriction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TransportRestriction to Quantity")
 }
-func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TransportRestriction
 	switch other := other.(type) {
 	case TransportRestriction:
@@ -13383,29 +13371,17 @@ func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *TransportRestriction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TransportRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TransportRestriction
-	switch other := other.(type) {
-	case TransportRestriction:
-		o = &other
-	case *TransportRestriction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TransportRestriction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13487,31 +13463,31 @@ func (r TransportInput) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TransportInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TransportInput to Boolean")
+func (r TransportInput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TransportInput to Boolean")
 }
-func (r TransportInput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TransportInput to String")
+func (r TransportInput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TransportInput to String")
 }
-func (r TransportInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TransportInput to Integer")
+func (r TransportInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TransportInput to Integer")
 }
-func (r TransportInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TransportInput to Decimal")
+func (r TransportInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TransportInput to Decimal")
 }
-func (r TransportInput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TransportInput to Date")
+func (r TransportInput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TransportInput to Date")
 }
-func (r TransportInput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TransportInput to Time")
+func (r TransportInput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TransportInput to Time")
 }
-func (r TransportInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TransportInput to DateTime")
+func (r TransportInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TransportInput to DateTime")
 }
-func (r TransportInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TransportInput to Quantity")
+func (r TransportInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TransportInput to Quantity")
 }
-func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TransportInput
 	switch other := other.(type) {
 	case TransportInput:
@@ -13519,29 +13495,17 @@ func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *TransportInput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TransportInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TransportInput
-	switch other := other.(type) {
-	case TransportInput:
-		o = &other
-	case *TransportInput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TransportInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13616,31 +13580,31 @@ func (r TransportOutput) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TransportOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TransportOutput to Boolean")
+func (r TransportOutput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TransportOutput to Boolean")
 }
-func (r TransportOutput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TransportOutput to String")
+func (r TransportOutput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TransportOutput to String")
 }
-func (r TransportOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TransportOutput to Integer")
+func (r TransportOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TransportOutput to Integer")
 }
-func (r TransportOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TransportOutput to Decimal")
+func (r TransportOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TransportOutput to Decimal")
 }
-func (r TransportOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TransportOutput to Date")
+func (r TransportOutput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TransportOutput to Date")
 }
-func (r TransportOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TransportOutput to Time")
+func (r TransportOutput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TransportOutput to Time")
 }
-func (r TransportOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TransportOutput to DateTime")
+func (r TransportOutput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TransportOutput to DateTime")
 }
-func (r TransportOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TransportOutput to Quantity")
+func (r TransportOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TransportOutput to Quantity")
 }
-func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TransportOutput
 	switch other := other.(type) {
 	case TransportOutput:
@@ -13648,29 +13612,17 @@ func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *TransportOutput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TransportOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TransportOutput
-	switch other := other.(type) {
-	case TransportOutput:
-		o = &other
-	case *TransportOutput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TransportOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

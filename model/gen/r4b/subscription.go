@@ -1886,31 +1886,31 @@ func (r Subscription) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Subscription) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Subscription to Boolean")
+func (r Subscription) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Subscription to Boolean")
 }
-func (r Subscription) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Subscription to String")
+func (r Subscription) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Subscription to String")
 }
-func (r Subscription) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Subscription to Integer")
+func (r Subscription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Subscription to Integer")
 }
-func (r Subscription) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Subscription to Decimal")
+func (r Subscription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Subscription to Decimal")
 }
-func (r Subscription) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Subscription to Date")
+func (r Subscription) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Subscription to Date")
 }
-func (r Subscription) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Subscription to Time")
+func (r Subscription) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Subscription to Time")
 }
-func (r Subscription) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Subscription to DateTime")
+func (r Subscription) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Subscription to DateTime")
 }
-func (r Subscription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Subscription to Quantity")
+func (r Subscription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Subscription to Quantity")
 }
-func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Subscription
 	switch other := other.(type) {
 	case Subscription:
@@ -1918,29 +1918,17 @@ func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *Subscription:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Subscription
-	switch other := other.(type) {
-	case Subscription:
-		o = &other
-	case *Subscription:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Subscription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2097,31 +2085,31 @@ func (r SubscriptionChannel) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubscriptionChannel) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to Boolean")
+func (r SubscriptionChannel) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionChannel to Boolean")
 }
-func (r SubscriptionChannel) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to String")
+func (r SubscriptionChannel) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionChannel to String")
 }
-func (r SubscriptionChannel) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to Integer")
+func (r SubscriptionChannel) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionChannel to Integer")
 }
-func (r SubscriptionChannel) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to Decimal")
+func (r SubscriptionChannel) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionChannel to Decimal")
 }
-func (r SubscriptionChannel) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to Date")
+func (r SubscriptionChannel) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionChannel to Date")
 }
-func (r SubscriptionChannel) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to Time")
+func (r SubscriptionChannel) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionChannel to Time")
 }
-func (r SubscriptionChannel) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to DateTime")
+func (r SubscriptionChannel) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionChannel to DateTime")
 }
-func (r SubscriptionChannel) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionChannel to Quantity")
+func (r SubscriptionChannel) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionChannel to Quantity")
 }
-func (r SubscriptionChannel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionChannel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionChannel
 	switch other := other.(type) {
 	case SubscriptionChannel:
@@ -2129,29 +2117,17 @@ func (r SubscriptionChannel) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *SubscriptionChannel:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionChannel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionChannel
-	switch other := other.(type) {
-	case SubscriptionChannel:
-		o = &other
-	case *SubscriptionChannel:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionChannel) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

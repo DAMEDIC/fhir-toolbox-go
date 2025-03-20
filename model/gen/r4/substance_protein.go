@@ -1887,31 +1887,31 @@ func (r SubstanceProtein) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubstanceProtein) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceProtein to Boolean")
+func (r SubstanceProtein) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceProtein to Boolean")
 }
-func (r SubstanceProtein) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceProtein to String")
+func (r SubstanceProtein) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceProtein to String")
 }
-func (r SubstanceProtein) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceProtein to Integer")
+func (r SubstanceProtein) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceProtein to Integer")
 }
-func (r SubstanceProtein) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceProtein to Decimal")
+func (r SubstanceProtein) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceProtein to Decimal")
 }
-func (r SubstanceProtein) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceProtein to Date")
+func (r SubstanceProtein) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceProtein to Date")
 }
-func (r SubstanceProtein) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceProtein to Time")
+func (r SubstanceProtein) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceProtein to Time")
 }
-func (r SubstanceProtein) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceProtein to DateTime")
+func (r SubstanceProtein) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceProtein to DateTime")
 }
-func (r SubstanceProtein) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceProtein to Quantity")
+func (r SubstanceProtein) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceProtein to Quantity")
 }
-func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceProtein
 	switch other := other.(type) {
 	case SubstanceProtein:
@@ -1919,29 +1919,17 @@ func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *SubstanceProtein:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceProtein) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceProtein
-	switch other := other.(type) {
-	case SubstanceProtein:
-		o = &other
-	case *SubstanceProtein:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceProtein) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2099,31 +2087,31 @@ func (r SubstanceProteinSubunit) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubstanceProteinSubunit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to Boolean")
+func (r SubstanceProteinSubunit) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceProteinSubunit to Boolean")
 }
-func (r SubstanceProteinSubunit) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to String")
+func (r SubstanceProteinSubunit) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceProteinSubunit to String")
 }
-func (r SubstanceProteinSubunit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to Integer")
+func (r SubstanceProteinSubunit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceProteinSubunit to Integer")
 }
-func (r SubstanceProteinSubunit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to Decimal")
+func (r SubstanceProteinSubunit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceProteinSubunit to Decimal")
 }
-func (r SubstanceProteinSubunit) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to Date")
+func (r SubstanceProteinSubunit) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceProteinSubunit to Date")
 }
-func (r SubstanceProteinSubunit) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to Time")
+func (r SubstanceProteinSubunit) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceProteinSubunit to Time")
 }
-func (r SubstanceProteinSubunit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to DateTime")
+func (r SubstanceProteinSubunit) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceProteinSubunit to DateTime")
 }
-func (r SubstanceProteinSubunit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceProteinSubunit to Quantity")
+func (r SubstanceProteinSubunit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceProteinSubunit to Quantity")
 }
-func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceProteinSubunit
 	switch other := other.(type) {
 	case SubstanceProteinSubunit:
@@ -2131,29 +2119,17 @@ func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *SubstanceProteinSubunit:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceProteinSubunit
-	switch other := other.(type) {
-	case SubstanceProteinSubunit:
-		o = &other
-	case *SubstanceProteinSubunit:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceProteinSubunit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -3288,31 +3288,31 @@ func (r AllergyIntolerance) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AllergyIntolerance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to Boolean")
+func (r AllergyIntolerance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AllergyIntolerance to Boolean")
 }
-func (r AllergyIntolerance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to String")
+func (r AllergyIntolerance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AllergyIntolerance to String")
 }
-func (r AllergyIntolerance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to Integer")
+func (r AllergyIntolerance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AllergyIntolerance to Integer")
 }
-func (r AllergyIntolerance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to Decimal")
+func (r AllergyIntolerance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AllergyIntolerance to Decimal")
 }
-func (r AllergyIntolerance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to Date")
+func (r AllergyIntolerance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AllergyIntolerance to Date")
 }
-func (r AllergyIntolerance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to Time")
+func (r AllergyIntolerance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AllergyIntolerance to Time")
 }
-func (r AllergyIntolerance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to DateTime")
+func (r AllergyIntolerance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AllergyIntolerance to DateTime")
 }
-func (r AllergyIntolerance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AllergyIntolerance to Quantity")
+func (r AllergyIntolerance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AllergyIntolerance to Quantity")
 }
-func (r AllergyIntolerance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AllergyIntolerance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AllergyIntolerance
 	switch other := other.(type) {
 	case AllergyIntolerance:
@@ -3320,29 +3320,17 @@ func (r AllergyIntolerance) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *AllergyIntolerance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AllergyIntolerance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AllergyIntolerance
-	switch other := other.(type) {
-	case AllergyIntolerance:
-		o = &other
-	case *AllergyIntolerance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AllergyIntolerance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3545,31 +3533,31 @@ func (r AllergyIntoleranceParticipant) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r AllergyIntoleranceParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Boolean")
+func (r AllergyIntoleranceParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AllergyIntoleranceParticipant to Boolean")
 }
-func (r AllergyIntoleranceParticipant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to String")
+func (r AllergyIntoleranceParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AllergyIntoleranceParticipant to String")
 }
-func (r AllergyIntoleranceParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Integer")
+func (r AllergyIntoleranceParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AllergyIntoleranceParticipant to Integer")
 }
-func (r AllergyIntoleranceParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Decimal")
+func (r AllergyIntoleranceParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AllergyIntoleranceParticipant to Decimal")
 }
-func (r AllergyIntoleranceParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Date")
+func (r AllergyIntoleranceParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AllergyIntoleranceParticipant to Date")
 }
-func (r AllergyIntoleranceParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Time")
+func (r AllergyIntoleranceParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AllergyIntoleranceParticipant to Time")
 }
-func (r AllergyIntoleranceParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to DateTime")
+func (r AllergyIntoleranceParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AllergyIntoleranceParticipant to DateTime")
 }
-func (r AllergyIntoleranceParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceParticipant to Quantity")
+func (r AllergyIntoleranceParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AllergyIntoleranceParticipant to Quantity")
 }
-func (r AllergyIntoleranceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AllergyIntoleranceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AllergyIntoleranceParticipant
 	switch other := other.(type) {
 	case AllergyIntoleranceParticipant:
@@ -3577,29 +3565,17 @@ func (r AllergyIntoleranceParticipant) Equal(other fhirpath.Element, _noReverseT
 	case *AllergyIntoleranceParticipant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AllergyIntoleranceParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AllergyIntoleranceParticipant
-	switch other := other.(type) {
-	case AllergyIntoleranceParticipant:
-		o = &other
-	case *AllergyIntoleranceParticipant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AllergyIntoleranceParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3703,31 +3679,31 @@ func (r AllergyIntoleranceReaction) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r AllergyIntoleranceReaction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to Boolean")
+func (r AllergyIntoleranceReaction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AllergyIntoleranceReaction to Boolean")
 }
-func (r AllergyIntoleranceReaction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to String")
+func (r AllergyIntoleranceReaction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AllergyIntoleranceReaction to String")
 }
-func (r AllergyIntoleranceReaction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to Integer")
+func (r AllergyIntoleranceReaction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AllergyIntoleranceReaction to Integer")
 }
-func (r AllergyIntoleranceReaction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to Decimal")
+func (r AllergyIntoleranceReaction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AllergyIntoleranceReaction to Decimal")
 }
-func (r AllergyIntoleranceReaction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to Date")
+func (r AllergyIntoleranceReaction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AllergyIntoleranceReaction to Date")
 }
-func (r AllergyIntoleranceReaction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to Time")
+func (r AllergyIntoleranceReaction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AllergyIntoleranceReaction to Time")
 }
-func (r AllergyIntoleranceReaction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to DateTime")
+func (r AllergyIntoleranceReaction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AllergyIntoleranceReaction to DateTime")
 }
-func (r AllergyIntoleranceReaction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AllergyIntoleranceReaction to Quantity")
+func (r AllergyIntoleranceReaction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AllergyIntoleranceReaction to Quantity")
 }
-func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AllergyIntoleranceReaction
 	switch other := other.(type) {
 	case AllergyIntoleranceReaction:
@@ -3735,29 +3711,17 @@ func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element, _noReverseType
 	case *AllergyIntoleranceReaction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AllergyIntoleranceReaction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AllergyIntoleranceReaction
-	switch other := other.(type) {
-	case AllergyIntoleranceReaction:
-		o = &other
-	case *AllergyIntoleranceReaction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AllergyIntoleranceReaction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -33,8 +33,8 @@ func (g FHIRPathGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 		generateToTimeFunc(f, s)
 		generateToDateTimeFunc(f, s)
 		generateToQuantityFunc(f, s)
-		generateEqualFunc(f, "Equal", s)
-		generateEqualFunc(f, "Equivalent", s)
+		generateEqualFunc(f, s)
+		generateEquivalentFunc(f, s)
 		generateTypeInfoFunc(f, s)
 	}
 
@@ -96,22 +96,29 @@ func generateChildrenFunc(f *File, s ir.Struct) {
 
 func generateToBooleanFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToBoolean").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "Boolean"),
+		Qual(fhirpathModuleName, "Boolean"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if s.Name == "Boolean" {
 			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
 				Id("v").Op(":=").Qual(fhirpathModuleName, "Boolean").Call(Op("*").Id("r").Dot("Value")),
 				Return(
-					Op("&").Id("v"),
+					Id("v"),
+					True(),
 					Nil(),
 				),
 			).Else().Block(
-				Return(Nil(), Nil()),
+				Return(
+					False(),
+					False(),
+					Nil(),
+				),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				False(),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Boolean", s.Name))),
 			)
 		}
@@ -120,22 +127,29 @@ func generateToBooleanFunc(f *File, s ir.Struct) {
 
 func generateToStringFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToString").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "String"),
+		Qual(fhirpathModuleName, "String"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if slices.Contains(stringTypes, s.Name) {
 			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
 				Id("v").Op(":=").Qual(fhirpathModuleName, "String").Call(Op("*").Id("r").Dot("Value")),
 				Return(
-					Op("&").Id("v"),
+					Id("v"),
+					True(),
 					Nil(),
 				),
 			).Else().Block(
-				Return(Nil(), Nil()),
+				Return(
+					Lit(""),
+					False(),
+					Nil(),
+				),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				Lit(""),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to String", s.Name))),
 			)
 		}
@@ -144,22 +158,29 @@ func generateToStringFunc(f *File, s ir.Struct) {
 
 func generateToIntegerFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToInteger").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "Integer"),
+		Qual(fhirpathModuleName, "Integer"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if slices.Contains(intTypes, s.Name) {
 			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
 				Id("v").Op(":=").Qual(fhirpathModuleName, "Integer").Call(Op("*").Id("r").Dot("Value")),
 				Return(
-					Op("&").Id("v"),
+					Id("v"),
+					True(),
 					Nil(),
 				),
 			).Else().Block(
-				Return(Nil(), Nil()),
+				Return(
+					Lit(0),
+					False(),
+					Nil(),
+				),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				Lit(0),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Integer", s.Name))),
 			)
 		}
@@ -168,7 +189,8 @@ func generateToIntegerFunc(f *File, s ir.Struct) {
 
 func generateToDecimalFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToDecimal").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "Decimal"),
+		Qual(fhirpathModuleName, "Decimal"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if s.Name == "Decimal" {
@@ -177,15 +199,21 @@ func generateToDecimalFunc(f *File, s ir.Struct) {
 					Id("Value"): Id("r").Dot("Value"),
 				}),
 				Return(
-					Op("&").Id("v"),
+					Id("v"),
+					True(),
 					Nil(),
 				),
 			).Else().Block(
-				Return(Nil(), Nil()),
+				Return(
+					Qual(fhirpathModuleName, "Decimal").Block(),
+					False(),
+					Nil(),
+				),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				Qual(fhirpathModuleName, "Decimal").Block(),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Decimal", s.Name))),
 			)
 		}
@@ -194,22 +222,29 @@ func generateToDecimalFunc(f *File, s ir.Struct) {
 
 func generateToDateFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToDate").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "Date"),
+		Qual(fhirpathModuleName, "Date"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if s.Name == "Date" {
 			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
 				List(Id("v"), Err()).Op(":=").Qual(fhirpathModuleName, "ParseDate").Call(Op("*").Id("r").Dot("Value")),
 				Return(
-					Op("&").Id("v"),
+					Id("v"),
+					True(),
 					Err(),
 				),
 			).Else().Block(
-				Return(Nil(), Nil()),
+				Return(
+					Qual(fhirpathModuleName, "Date").Block(),
+					False(),
+					Nil(),
+				),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				Qual(fhirpathModuleName, "Date").Block(),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Date", s.Name))),
 			)
 		}
@@ -218,22 +253,29 @@ func generateToDateFunc(f *File, s ir.Struct) {
 
 func generateToTimeFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToTime").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "Time"),
+		Qual(fhirpathModuleName, "Time"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if s.Name == "Time" {
 			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
 				List(Id("v"), Err()).Op(":=").Qual(fhirpathModuleName, "ParseTime").Call(Op("*").Id("r").Dot("Value")),
 				Return(
-					Op("&").Id("v"),
+					Id("v"),
+					True(),
 					Err(),
 				),
 			).Else().Block(
-				Return(Nil(), Nil()),
+				Return(
+					Qual(fhirpathModuleName, "Time").Block(),
+					False(),
+					Nil(),
+				),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				Qual(fhirpathModuleName, "Time").Block(),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Time", s.Name))),
 			)
 		}
@@ -242,22 +284,29 @@ func generateToTimeFunc(f *File, s ir.Struct) {
 
 func generateToDateTimeFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToDateTime").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "DateTime"),
+		Qual(fhirpathModuleName, "DateTime"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if slices.Contains(dateTimeTypes, s.Name) {
 			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
 				List(Id("v"), Err()).Op(":=").Qual(fhirpathModuleName, "ParseDateTime").Call(Op("*").Id("r").Dot("Value")),
 				Return(
-					Op("&").Id("v"),
+					Id("v"),
+					True(),
 					Err(),
 				),
 			).Else().Block(
-				Return(Nil(), Nil()),
+				Return(
+					Qual(fhirpathModuleName, "DateTime").Block(),
+					False(),
+					Nil(),
+				),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				Qual(fhirpathModuleName, "DateTime").Block(),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to DateTime", s.Name))),
 			)
 		}
@@ -266,7 +315,8 @@ func generateToDateTimeFunc(f *File, s ir.Struct) {
 
 func generateToQuantityFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("ToQuantity").Params(Id("explicit").Bool()).Params(
-		Op("*").Qual(fhirpathModuleName, "Quantity"),
+		Qual(fhirpathModuleName, "Quantity"),
+		Bool(),
 		Error(),
 	).BlockFunc(func(g *Group) {
 		if s.Name == "Quantity" {
@@ -274,11 +324,16 @@ func generateToQuantityFunc(f *File, s ir.Struct) {
 				Id("r").Dot("System").Dot("Value").Op("==").Nil().Op("||").
 				Op("*").Id("r").Dot("System").Dot("Value").Op("!=").Lit(ucumSystem)).Block(
 				Return(
-					Nil(),
+					Qual(fhirpathModuleName, "Quantity").Block(),
+					False(),
 					Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Quantity, no UCUM system", s.Name))),
 				),
 			).Else().If(Id("r").Dot("Value").Op("==").Nil()).Block(
-				Return(Nil(), Nil()),
+				Return(
+					Qual(fhirpathModuleName, "Quantity").Block(),
+					False(),
+					Nil(),
+				),
 			)
 
 			g.Var().Id("unit").String()
@@ -295,17 +350,19 @@ func generateToQuantityFunc(f *File, s ir.Struct) {
 			)
 
 			g.Return(
-				Op("&").Qual(fhirpathModuleName, "Quantity").Values(Dict{
+				Qual(fhirpathModuleName, "Quantity").Values(Dict{
 					Id("Value"): Qual(fhirpathModuleName, "Decimal").Values(Dict{
 						Id("Value"): Id("r").Dot("Value").Dot("Value"),
 					}),
 					Id("Unit"): Qual(fhirpathModuleName, "String").Call(Id("unit")),
 				}),
+				True(),
 				Nil(),
 			)
 		} else {
 			g.Return(
-				Nil(),
+				Qual(fhirpathModuleName, "Quantity").Block(),
+				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Quantity", s.Name))),
 			)
 		}
@@ -319,70 +376,66 @@ func generateTypeInfoFunc(f *File, s ir.Struct) {
 		}))
 }
 
-func generateEqualFunc(f *File, eqFn string, s ir.Struct) {
-	f.Func().Params(Id("r").Id(s.Name)).Id(eqFn).Params(
+func generateEqualFunc(f *File, s ir.Struct) {
+	f.Func().Params(Id("r").Id(s.Name)).Id("Equal").Params(
 		Id("other").Qual(fhirpathModuleName, "Element"),
 		Id("_noReverseTypeConversion").Op("...").Bool(),
-	).Bool().BlockFunc(func(g *Group) {
+	).Params(
+		Bool(),
+		Bool(),
+	).BlockFunc(func(g *Group) {
 		if s.IsPrimitive {
 			if s.Name == "Boolean" {
-				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToBoolean").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToBoolean").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
+				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToBoolean").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToBoolean").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if slices.Contains(stringTypes, s.Name) {
-				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToString").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToString").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
+				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToString").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToString").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if slices.Contains(intTypes, s.Name) {
-				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToInteger").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToInteger").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
+				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToInteger").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToInteger").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if s.Name == "Decimal" {
-				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToDecimal").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToDecimal").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
+				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToDecimal").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToDecimal").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if s.Name == "Time" {
-				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToTime").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToTime").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
+				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToTime").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToTime").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if slices.Contains(dateTimeTypes, s.Name) {
-				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToDateTime").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToDateTime").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
+				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToDateTime").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToDateTime").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if s.Name == "Quantity" {
-				g.List(Id("a"), Err()).Op(":=").Id("r").Dot("ToQuantity").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
-				g.List(Id("b"), Err()).Op(":=").Id("other").Dot("ToQuantity").Call(False())
-				g.If(Err().Op("!=").Nil()).Block(Return(False()))
+				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToQuantity").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToQuantity").Call(False())
+				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if s.Name == "Xhtml" {
 				g.List(Id("o"), Id("ok")).Op(":=").Id("other").Dot("").Call(Id(s.Name))
-				g.If(Op("!").Id("ok")).Block(Return(False()))
-				g.Return(Id("r.Value").Op("==").Id("o.Value"))
+				g.If(Op("!").Id("ok")).Block(Return(False(), True()))
+				g.Return(Id("r.Value").Op("==").Id("o.Value"), True())
 				return
 			} else {
 				g.List(Id("o"), Id("ok")).Op(":=").Id("other").Dot("").Call(Id(s.Name))
-				g.If(Op("!").Id("ok")).Block(Return(False()))
+				g.If(Op("!").Id("ok")).Block(Return(False(), True()))
 				g.If(Id("r.Value").Op("==").Nil().Op("||").Id("o.Value").Op("==").Nil()).
-					Block(Return(False()))
+					Block(Return(False(), True()))
 
-				g.Return(Id("*r.Value").Op("==").Id("*o.Value"))
+				g.Return(Id("*r.Value").Op("==").Id("*o.Value"), True())
 				return
 			}
 
-			g.If(Id("a").Op("==").Nil().Op("||").Id("b").Op("==").Nil()).
-				Block(Return(False()))
-
-			g.If(Id("a").Op("!=").Nil().Op("&&").Id("b").Op("!=").Nil().Op("&&").
-				Id("*a").Op("!=").Id("*b")).
-				Block(Return(False()))
-
-			g.Return().Id("a").Dot(eqFn).Call(Id("b"))
+			g.Return().Id("a").Dot("Equal").Call(Id("b"))
 		} else {
 			g.Var().Id("o").Op("*").Id(s.Name)
 			g.Switch(Id("other").Op(":=").Id("other").Dot("(type)")).Block(
@@ -393,18 +446,28 @@ func generateEqualFunc(f *File, eqFn string, s ir.Struct) {
 					Id("o").Op("=").Id("other"),
 				),
 				Default().Block(
-					Return(False()),
+					Return(False(), True()),
 				),
 			)
-			g.Id("eq").Op(":=").Id("r").Dot("Children").Call().Dot(eqFn).Call(
+			g.If(Id("o").Op("==").Nil()).Block(
+				Return(False(), True()),
+			)
+			g.List(Id("eq"), Id("ok")).Op(":=").Id("r").Dot("Children").Call().Dot("Equal").Call(
 				Id("o").Dot("Children").Call(),
 			)
-			g.If(Id("eq").Op("==").Nil()).Block(
-				Return(True()),
-			)
-			g.Return(Id("*eq"))
+			g.Return(Id("eq").Op("&&").Id("ok"), True())
 		}
 	})
+}
+
+func generateEquivalentFunc(f *File, s ir.Struct) {
+	f.Func().Params(Id("r").Id(s.Name)).Id("Equivalent").Params(
+		Id("other").Qual(fhirpathModuleName, "Element"),
+		Id("_noReverseTypeConversion").Op("...").Bool(),
+	).Params(Bool()).Block(
+		List(Id("eq"), Id("ok")).Op(":=").Id("r").Dot("Equal").Call(Id("other")),
+		Return(Id("eq").Op("&&").Id("ok")),
+	)
 }
 
 func (g FHIRPathGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {

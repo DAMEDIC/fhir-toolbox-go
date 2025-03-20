@@ -6304,31 +6304,31 @@ func (r EffectEvidenceSynthesis) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r EffectEvidenceSynthesis) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to Boolean")
+func (r EffectEvidenceSynthesis) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EffectEvidenceSynthesis to Boolean")
 }
-func (r EffectEvidenceSynthesis) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to String")
+func (r EffectEvidenceSynthesis) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EffectEvidenceSynthesis to String")
 }
-func (r EffectEvidenceSynthesis) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to Integer")
+func (r EffectEvidenceSynthesis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EffectEvidenceSynthesis to Integer")
 }
-func (r EffectEvidenceSynthesis) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to Decimal")
+func (r EffectEvidenceSynthesis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesis to Decimal")
 }
-func (r EffectEvidenceSynthesis) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to Date")
+func (r EffectEvidenceSynthesis) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EffectEvidenceSynthesis to Date")
 }
-func (r EffectEvidenceSynthesis) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to Time")
+func (r EffectEvidenceSynthesis) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EffectEvidenceSynthesis to Time")
 }
-func (r EffectEvidenceSynthesis) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to DateTime")
+func (r EffectEvidenceSynthesis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EffectEvidenceSynthesis to DateTime")
 }
-func (r EffectEvidenceSynthesis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesis to Quantity")
+func (r EffectEvidenceSynthesis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EffectEvidenceSynthesis to Quantity")
 }
-func (r EffectEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EffectEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EffectEvidenceSynthesis
 	switch other := other.(type) {
 	case EffectEvidenceSynthesis:
@@ -6336,29 +6336,17 @@ func (r EffectEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *EffectEvidenceSynthesis:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EffectEvidenceSynthesis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EffectEvidenceSynthesis
-	switch other := other.(type) {
-	case EffectEvidenceSynthesis:
-		o = &other
-	case *EffectEvidenceSynthesis:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EffectEvidenceSynthesis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6694,31 +6682,31 @@ func (r EffectEvidenceSynthesisSampleSize) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r EffectEvidenceSynthesisSampleSize) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Boolean")
+func (r EffectEvidenceSynthesisSampleSize) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Boolean")
 }
-func (r EffectEvidenceSynthesisSampleSize) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to String")
+func (r EffectEvidenceSynthesisSampleSize) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to String")
 }
-func (r EffectEvidenceSynthesisSampleSize) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Integer")
+func (r EffectEvidenceSynthesisSampleSize) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Integer")
 }
-func (r EffectEvidenceSynthesisSampleSize) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Decimal")
+func (r EffectEvidenceSynthesisSampleSize) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Decimal")
 }
-func (r EffectEvidenceSynthesisSampleSize) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Date")
+func (r EffectEvidenceSynthesisSampleSize) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Date")
 }
-func (r EffectEvidenceSynthesisSampleSize) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Time")
+func (r EffectEvidenceSynthesisSampleSize) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Time")
 }
-func (r EffectEvidenceSynthesisSampleSize) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to DateTime")
+func (r EffectEvidenceSynthesisSampleSize) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to DateTime")
 }
-func (r EffectEvidenceSynthesisSampleSize) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Quantity")
+func (r EffectEvidenceSynthesisSampleSize) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Quantity")
 }
-func (r EffectEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EffectEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EffectEvidenceSynthesisSampleSize
 	switch other := other.(type) {
 	case EffectEvidenceSynthesisSampleSize:
@@ -6726,29 +6714,17 @@ func (r EffectEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noReve
 	case *EffectEvidenceSynthesisSampleSize:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EffectEvidenceSynthesisSampleSize
-	switch other := other.(type) {
-	case EffectEvidenceSynthesisSampleSize:
-		o = &other
-	case *EffectEvidenceSynthesisSampleSize:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EffectEvidenceSynthesisSampleSize) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6842,31 +6818,31 @@ func (r EffectEvidenceSynthesisResultsByExposure) Children(name ...string) fhirp
 	}
 	return children
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Boolean")
+func (r EffectEvidenceSynthesisResultsByExposure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Boolean")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to String")
+func (r EffectEvidenceSynthesisResultsByExposure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to String")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Integer")
+func (r EffectEvidenceSynthesisResultsByExposure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Integer")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Decimal")
+func (r EffectEvidenceSynthesisResultsByExposure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Decimal")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Date")
+func (r EffectEvidenceSynthesisResultsByExposure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Date")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Time")
+func (r EffectEvidenceSynthesisResultsByExposure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Time")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to DateTime")
+func (r EffectEvidenceSynthesisResultsByExposure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to DateTime")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Quantity")
+func (r EffectEvidenceSynthesisResultsByExposure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Quantity")
 }
-func (r EffectEvidenceSynthesisResultsByExposure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EffectEvidenceSynthesisResultsByExposure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EffectEvidenceSynthesisResultsByExposure
 	switch other := other.(type) {
 	case EffectEvidenceSynthesisResultsByExposure:
@@ -6874,29 +6850,17 @@ func (r EffectEvidenceSynthesisResultsByExposure) Equal(other fhirpath.Element, 
 	case *EffectEvidenceSynthesisResultsByExposure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisResultsByExposure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EffectEvidenceSynthesisResultsByExposure
-	switch other := other.(type) {
-	case EffectEvidenceSynthesisResultsByExposure:
-		o = &other
-	case *EffectEvidenceSynthesisResultsByExposure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EffectEvidenceSynthesisResultsByExposure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7009,31 +6973,31 @@ func (r EffectEvidenceSynthesisEffectEstimate) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Boolean")
+func (r EffectEvidenceSynthesisEffectEstimate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Boolean")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to String")
+func (r EffectEvidenceSynthesisEffectEstimate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to String")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Integer")
+func (r EffectEvidenceSynthesisEffectEstimate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Integer")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Decimal")
+func (r EffectEvidenceSynthesisEffectEstimate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Decimal")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Date")
+func (r EffectEvidenceSynthesisEffectEstimate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Date")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Time")
+func (r EffectEvidenceSynthesisEffectEstimate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Time")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to DateTime")
+func (r EffectEvidenceSynthesisEffectEstimate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to DateTime")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Quantity")
+func (r EffectEvidenceSynthesisEffectEstimate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Quantity")
 }
-func (r EffectEvidenceSynthesisEffectEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EffectEvidenceSynthesisEffectEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EffectEvidenceSynthesisEffectEstimate
 	switch other := other.(type) {
 	case EffectEvidenceSynthesisEffectEstimate:
@@ -7041,29 +7005,17 @@ func (r EffectEvidenceSynthesisEffectEstimate) Equal(other fhirpath.Element, _no
 	case *EffectEvidenceSynthesisEffectEstimate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisEffectEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EffectEvidenceSynthesisEffectEstimate
-	switch other := other.(type) {
-	case EffectEvidenceSynthesisEffectEstimate:
-		o = &other
-	case *EffectEvidenceSynthesisEffectEstimate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EffectEvidenceSynthesisEffectEstimate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7180,31 +7132,31 @@ func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Children(name ..
 	}
 	return children
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Boolean")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Boolean")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to String")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to String")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Integer")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Integer")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Decimal")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Decimal")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Date")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Date")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Time")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Time")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to DateTime")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to DateTime")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Quantity")
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Quantity")
 }
-func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EffectEvidenceSynthesisEffectEstimatePrecisionEstimate
 	switch other := other.(type) {
 	case EffectEvidenceSynthesisEffectEstimatePrecisionEstimate:
@@ -7212,29 +7164,17 @@ func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Equal(other fhir
 	case *EffectEvidenceSynthesisEffectEstimatePrecisionEstimate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EffectEvidenceSynthesisEffectEstimatePrecisionEstimate
-	switch other := other.(type) {
-	case EffectEvidenceSynthesisEffectEstimatePrecisionEstimate:
-		o = &other
-	case *EffectEvidenceSynthesisEffectEstimatePrecisionEstimate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7332,31 +7272,31 @@ func (r EffectEvidenceSynthesisCertainty) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r EffectEvidenceSynthesisCertainty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Boolean")
+func (r EffectEvidenceSynthesisCertainty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Boolean")
 }
-func (r EffectEvidenceSynthesisCertainty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to String")
+func (r EffectEvidenceSynthesisCertainty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EffectEvidenceSynthesisCertainty to String")
 }
-func (r EffectEvidenceSynthesisCertainty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Integer")
+func (r EffectEvidenceSynthesisCertainty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Integer")
 }
-func (r EffectEvidenceSynthesisCertainty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Decimal")
+func (r EffectEvidenceSynthesisCertainty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Decimal")
 }
-func (r EffectEvidenceSynthesisCertainty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Date")
+func (r EffectEvidenceSynthesisCertainty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Date")
 }
-func (r EffectEvidenceSynthesisCertainty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Time")
+func (r EffectEvidenceSynthesisCertainty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Time")
 }
-func (r EffectEvidenceSynthesisCertainty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to DateTime")
+func (r EffectEvidenceSynthesisCertainty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to DateTime")
 }
-func (r EffectEvidenceSynthesisCertainty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertainty to Quantity")
+func (r EffectEvidenceSynthesisCertainty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Quantity")
 }
-func (r EffectEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EffectEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EffectEvidenceSynthesisCertainty
 	switch other := other.(type) {
 	case EffectEvidenceSynthesisCertainty:
@@ -7364,29 +7304,17 @@ func (r EffectEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noRever
 	case *EffectEvidenceSynthesisCertainty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EffectEvidenceSynthesisCertainty
-	switch other := other.(type) {
-	case EffectEvidenceSynthesisCertainty:
-		o = &other
-	case *EffectEvidenceSynthesisCertainty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EffectEvidenceSynthesisCertainty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7477,31 +7405,31 @@ func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Children(name ...
 	}
 	return children
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Boolean")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Boolean")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to String")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to String")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Integer")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Integer")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Decimal")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Decimal")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Date")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Date")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Time")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Time")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to DateTime")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to DateTime")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Quantity")
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Quantity")
 }
-func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EffectEvidenceSynthesisCertaintyCertaintySubcomponent
 	switch other := other.(type) {
 	case EffectEvidenceSynthesisCertaintyCertaintySubcomponent:
@@ -7509,29 +7437,17 @@ func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirp
 	case *EffectEvidenceSynthesisCertaintyCertaintySubcomponent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EffectEvidenceSynthesisCertaintyCertaintySubcomponent
-	switch other := other.(type) {
-	case EffectEvidenceSynthesisCertaintyCertaintySubcomponent:
-		o = &other
-	case *EffectEvidenceSynthesisCertaintyCertaintySubcomponent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

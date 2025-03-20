@@ -2801,31 +2801,31 @@ func (r Provenance) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Provenance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Provenance to Boolean")
+func (r Provenance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Provenance to Boolean")
 }
-func (r Provenance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Provenance to String")
+func (r Provenance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Provenance to String")
 }
-func (r Provenance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Provenance to Integer")
+func (r Provenance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Provenance to Integer")
 }
-func (r Provenance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Provenance to Decimal")
+func (r Provenance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Provenance to Decimal")
 }
-func (r Provenance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Provenance to Date")
+func (r Provenance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Provenance to Date")
 }
-func (r Provenance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Provenance to Time")
+func (r Provenance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Provenance to Time")
 }
-func (r Provenance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Provenance to DateTime")
+func (r Provenance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Provenance to DateTime")
 }
-func (r Provenance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Provenance to Quantity")
+func (r Provenance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Provenance to Quantity")
 }
-func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Provenance
 	switch other := other.(type) {
 	case Provenance:
@@ -2833,29 +2833,17 @@ func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *Provenance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Provenance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Provenance
-	switch other := other.(type) {
-	case Provenance:
-		o = &other
-	case *Provenance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Provenance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3054,31 +3042,31 @@ func (r ProvenanceAgent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ProvenanceAgent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to Boolean")
+func (r ProvenanceAgent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ProvenanceAgent to Boolean")
 }
-func (r ProvenanceAgent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to String")
+func (r ProvenanceAgent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ProvenanceAgent to String")
 }
-func (r ProvenanceAgent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to Integer")
+func (r ProvenanceAgent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ProvenanceAgent to Integer")
 }
-func (r ProvenanceAgent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to Decimal")
+func (r ProvenanceAgent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ProvenanceAgent to Decimal")
 }
-func (r ProvenanceAgent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to Date")
+func (r ProvenanceAgent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ProvenanceAgent to Date")
 }
-func (r ProvenanceAgent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to Time")
+func (r ProvenanceAgent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ProvenanceAgent to Time")
 }
-func (r ProvenanceAgent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to DateTime")
+func (r ProvenanceAgent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ProvenanceAgent to DateTime")
 }
-func (r ProvenanceAgent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ProvenanceAgent to Quantity")
+func (r ProvenanceAgent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ProvenanceAgent to Quantity")
 }
-func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ProvenanceAgent
 	switch other := other.(type) {
 	case ProvenanceAgent:
@@ -3086,29 +3074,17 @@ func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *ProvenanceAgent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ProvenanceAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ProvenanceAgent
-	switch other := other.(type) {
-	case ProvenanceAgent:
-		o = &other
-	case *ProvenanceAgent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ProvenanceAgent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3202,31 +3178,31 @@ func (r ProvenanceEntity) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ProvenanceEntity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to Boolean")
+func (r ProvenanceEntity) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ProvenanceEntity to Boolean")
 }
-func (r ProvenanceEntity) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to String")
+func (r ProvenanceEntity) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ProvenanceEntity to String")
 }
-func (r ProvenanceEntity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to Integer")
+func (r ProvenanceEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ProvenanceEntity to Integer")
 }
-func (r ProvenanceEntity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to Decimal")
+func (r ProvenanceEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ProvenanceEntity to Decimal")
 }
-func (r ProvenanceEntity) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to Date")
+func (r ProvenanceEntity) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ProvenanceEntity to Date")
 }
-func (r ProvenanceEntity) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to Time")
+func (r ProvenanceEntity) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ProvenanceEntity to Time")
 }
-func (r ProvenanceEntity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to DateTime")
+func (r ProvenanceEntity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ProvenanceEntity to DateTime")
 }
-func (r ProvenanceEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ProvenanceEntity to Quantity")
+func (r ProvenanceEntity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ProvenanceEntity to Quantity")
 }
-func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ProvenanceEntity
 	switch other := other.(type) {
 	case ProvenanceEntity:
@@ -3234,29 +3210,17 @@ func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *ProvenanceEntity:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ProvenanceEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ProvenanceEntity
-	switch other := other.(type) {
-	case ProvenanceEntity:
-		o = &other
-	case *ProvenanceEntity:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ProvenanceEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -4510,31 +4510,31 @@ func (r Extension) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Extension) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Extension to Boolean")
+func (r Extension) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Extension to Boolean")
 }
-func (r Extension) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Extension to String")
+func (r Extension) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Extension to String")
 }
-func (r Extension) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Extension to Integer")
+func (r Extension) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Extension to Integer")
 }
-func (r Extension) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Extension to Decimal")
+func (r Extension) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Extension to Decimal")
 }
-func (r Extension) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Extension to Date")
+func (r Extension) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Extension to Date")
 }
-func (r Extension) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Extension to Time")
+func (r Extension) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Extension to Time")
 }
-func (r Extension) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Extension to DateTime")
+func (r Extension) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Extension to DateTime")
 }
-func (r Extension) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Extension to Quantity")
+func (r Extension) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Extension to Quantity")
 }
-func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Extension
 	switch other := other.(type) {
 	case Extension:
@@ -4542,29 +4542,17 @@ func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	case *Extension:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Extension) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Extension
-	switch other := other.(type) {
-	case Extension:
-		o = &other
-	case *Extension:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Extension) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

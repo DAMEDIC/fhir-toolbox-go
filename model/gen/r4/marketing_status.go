@@ -570,31 +570,31 @@ func (r MarketingStatus) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MarketingStatus) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MarketingStatus to Boolean")
+func (r MarketingStatus) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MarketingStatus to Boolean")
 }
-func (r MarketingStatus) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MarketingStatus to String")
+func (r MarketingStatus) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MarketingStatus to String")
 }
-func (r MarketingStatus) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MarketingStatus to Integer")
+func (r MarketingStatus) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MarketingStatus to Integer")
 }
-func (r MarketingStatus) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MarketingStatus to Decimal")
+func (r MarketingStatus) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MarketingStatus to Decimal")
 }
-func (r MarketingStatus) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MarketingStatus to Date")
+func (r MarketingStatus) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MarketingStatus to Date")
 }
-func (r MarketingStatus) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MarketingStatus to Time")
+func (r MarketingStatus) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MarketingStatus to Time")
 }
-func (r MarketingStatus) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MarketingStatus to DateTime")
+func (r MarketingStatus) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MarketingStatus to DateTime")
 }
-func (r MarketingStatus) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MarketingStatus to Quantity")
+func (r MarketingStatus) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MarketingStatus to Quantity")
 }
-func (r MarketingStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MarketingStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MarketingStatus
 	switch other := other.(type) {
 	case MarketingStatus:
@@ -602,29 +602,17 @@ func (r MarketingStatus) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *MarketingStatus:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MarketingStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MarketingStatus
-	switch other := other.(type) {
-	case MarketingStatus:
-		o = &other
-	case *MarketingStatus:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MarketingStatus) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

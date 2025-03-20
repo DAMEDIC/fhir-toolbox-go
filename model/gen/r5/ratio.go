@@ -339,31 +339,31 @@ func (r Ratio) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Ratio) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Ratio to Boolean")
+func (r Ratio) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Ratio to Boolean")
 }
-func (r Ratio) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Ratio to String")
+func (r Ratio) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Ratio to String")
 }
-func (r Ratio) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Ratio to Integer")
+func (r Ratio) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Ratio to Integer")
 }
-func (r Ratio) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Ratio to Decimal")
+func (r Ratio) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Ratio to Decimal")
 }
-func (r Ratio) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Ratio to Date")
+func (r Ratio) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Ratio to Date")
 }
-func (r Ratio) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Ratio to Time")
+func (r Ratio) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Ratio to Time")
 }
-func (r Ratio) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Ratio to DateTime")
+func (r Ratio) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Ratio to DateTime")
 }
-func (r Ratio) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Ratio to Quantity")
+func (r Ratio) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Ratio to Quantity")
 }
-func (r Ratio) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Ratio) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Ratio
 	switch other := other.(type) {
 	case Ratio:
@@ -371,29 +371,17 @@ func (r Ratio) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) b
 	case *Ratio:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Ratio) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Ratio
-	switch other := other.(type) {
-	case Ratio:
-		o = &other
-	case *Ratio:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Ratio) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

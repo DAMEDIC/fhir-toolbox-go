@@ -2117,31 +2117,31 @@ func (r MedicationStatement) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MedicationStatement) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MedicationStatement to Boolean")
+func (r MedicationStatement) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MedicationStatement to Boolean")
 }
-func (r MedicationStatement) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MedicationStatement to String")
+func (r MedicationStatement) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MedicationStatement to String")
 }
-func (r MedicationStatement) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MedicationStatement to Integer")
+func (r MedicationStatement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MedicationStatement to Integer")
 }
-func (r MedicationStatement) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MedicationStatement to Decimal")
+func (r MedicationStatement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationStatement to Decimal")
 }
-func (r MedicationStatement) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MedicationStatement to Date")
+func (r MedicationStatement) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MedicationStatement to Date")
 }
-func (r MedicationStatement) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MedicationStatement to Time")
+func (r MedicationStatement) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MedicationStatement to Time")
 }
-func (r MedicationStatement) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MedicationStatement to DateTime")
+func (r MedicationStatement) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MedicationStatement to DateTime")
 }
-func (r MedicationStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MedicationStatement to Quantity")
+func (r MedicationStatement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MedicationStatement to Quantity")
 }
-func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MedicationStatement
 	switch other := other.(type) {
 	case MedicationStatement:
@@ -2149,29 +2149,17 @@ func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *MedicationStatement:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MedicationStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MedicationStatement
-	switch other := other.(type) {
-	case MedicationStatement:
-		o = &other
-	case *MedicationStatement:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MedicationStatement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

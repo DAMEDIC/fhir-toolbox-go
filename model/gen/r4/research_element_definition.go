@@ -5333,31 +5333,31 @@ func (r ResearchElementDefinition) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ResearchElementDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to Boolean")
+func (r ResearchElementDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ResearchElementDefinition to Boolean")
 }
-func (r ResearchElementDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to String")
+func (r ResearchElementDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ResearchElementDefinition to String")
 }
-func (r ResearchElementDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to Integer")
+func (r ResearchElementDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ResearchElementDefinition to Integer")
 }
-func (r ResearchElementDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to Decimal")
+func (r ResearchElementDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchElementDefinition to Decimal")
 }
-func (r ResearchElementDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to Date")
+func (r ResearchElementDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ResearchElementDefinition to Date")
 }
-func (r ResearchElementDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to Time")
+func (r ResearchElementDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ResearchElementDefinition to Time")
 }
-func (r ResearchElementDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to DateTime")
+func (r ResearchElementDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ResearchElementDefinition to DateTime")
 }
-func (r ResearchElementDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ResearchElementDefinition to Quantity")
+func (r ResearchElementDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchElementDefinition to Quantity")
 }
-func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ResearchElementDefinition
 	switch other := other.(type) {
 	case ResearchElementDefinition:
@@ -5365,29 +5365,17 @@ func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ResearchElementDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ResearchElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ResearchElementDefinition
-	switch other := other.(type) {
-	case ResearchElementDefinition:
-		o = &other
-	case *ResearchElementDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ResearchElementDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5766,31 +5754,31 @@ func (r ResearchElementDefinitionCharacteristic) Children(name ...string) fhirpa
 	}
 	return children
 }
-func (r ResearchElementDefinitionCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Boolean")
+func (r ResearchElementDefinitionCharacteristic) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Boolean")
 }
-func (r ResearchElementDefinitionCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to String")
+func (r ResearchElementDefinitionCharacteristic) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ResearchElementDefinitionCharacteristic to String")
 }
-func (r ResearchElementDefinitionCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Integer")
+func (r ResearchElementDefinitionCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Integer")
 }
-func (r ResearchElementDefinitionCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Decimal")
+func (r ResearchElementDefinitionCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Decimal")
 }
-func (r ResearchElementDefinitionCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Date")
+func (r ResearchElementDefinitionCharacteristic) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Date")
 }
-func (r ResearchElementDefinitionCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Time")
+func (r ResearchElementDefinitionCharacteristic) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Time")
 }
-func (r ResearchElementDefinitionCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to DateTime")
+func (r ResearchElementDefinitionCharacteristic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to DateTime")
 }
-func (r ResearchElementDefinitionCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ResearchElementDefinitionCharacteristic to Quantity")
+func (r ResearchElementDefinitionCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Quantity")
 }
-func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ResearchElementDefinitionCharacteristic
 	switch other := other.(type) {
 	case ResearchElementDefinitionCharacteristic:
@@ -5798,29 +5786,17 @@ func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _
 	case *ResearchElementDefinitionCharacteristic:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ResearchElementDefinitionCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ResearchElementDefinitionCharacteristic
-	switch other := other.(type) {
-	case ResearchElementDefinitionCharacteristic:
-		o = &other
-	case *ResearchElementDefinitionCharacteristic:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ResearchElementDefinitionCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

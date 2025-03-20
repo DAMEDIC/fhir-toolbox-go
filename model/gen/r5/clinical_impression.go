@@ -2640,31 +2640,31 @@ func (r ClinicalImpression) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClinicalImpression) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalImpression to Boolean")
+func (r ClinicalImpression) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalImpression to Boolean")
 }
-func (r ClinicalImpression) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalImpression to String")
+func (r ClinicalImpression) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalImpression to String")
 }
-func (r ClinicalImpression) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalImpression to Integer")
+func (r ClinicalImpression) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalImpression to Integer")
 }
-func (r ClinicalImpression) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalImpression to Decimal")
+func (r ClinicalImpression) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalImpression to Decimal")
 }
-func (r ClinicalImpression) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalImpression to Date")
+func (r ClinicalImpression) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalImpression to Date")
 }
-func (r ClinicalImpression) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalImpression to Time")
+func (r ClinicalImpression) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalImpression to Time")
 }
-func (r ClinicalImpression) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalImpression to DateTime")
+func (r ClinicalImpression) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalImpression to DateTime")
 }
-func (r ClinicalImpression) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalImpression to Quantity")
+func (r ClinicalImpression) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalImpression to Quantity")
 }
-func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalImpression
 	switch other := other.(type) {
 	case ClinicalImpression:
@@ -2672,29 +2672,17 @@ func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ClinicalImpression:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalImpression) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalImpression
-	switch other := other.(type) {
-	case ClinicalImpression:
-		o = &other
-	case *ClinicalImpression:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalImpression) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2927,31 +2915,31 @@ func (r ClinicalImpressionFinding) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ClinicalImpressionFinding) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to Boolean")
+func (r ClinicalImpressionFinding) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClinicalImpressionFinding to Boolean")
 }
-func (r ClinicalImpressionFinding) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to String")
+func (r ClinicalImpressionFinding) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClinicalImpressionFinding to String")
 }
-func (r ClinicalImpressionFinding) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to Integer")
+func (r ClinicalImpressionFinding) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClinicalImpressionFinding to Integer")
 }
-func (r ClinicalImpressionFinding) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to Decimal")
+func (r ClinicalImpressionFinding) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalImpressionFinding to Decimal")
 }
-func (r ClinicalImpressionFinding) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to Date")
+func (r ClinicalImpressionFinding) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClinicalImpressionFinding to Date")
 }
-func (r ClinicalImpressionFinding) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to Time")
+func (r ClinicalImpressionFinding) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClinicalImpressionFinding to Time")
 }
-func (r ClinicalImpressionFinding) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to DateTime")
+func (r ClinicalImpressionFinding) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClinicalImpressionFinding to DateTime")
 }
-func (r ClinicalImpressionFinding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClinicalImpressionFinding to Quantity")
+func (r ClinicalImpressionFinding) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalImpressionFinding to Quantity")
 }
-func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClinicalImpressionFinding
 	switch other := other.(type) {
 	case ClinicalImpressionFinding:
@@ -2959,29 +2947,17 @@ func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ClinicalImpressionFinding:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClinicalImpressionFinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClinicalImpressionFinding
-	switch other := other.(type) {
-	case ClinicalImpressionFinding:
-		o = &other
-	case *ClinicalImpressionFinding:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClinicalImpressionFinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

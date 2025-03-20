@@ -4055,31 +4055,31 @@ func (r Composition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Composition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Composition to Boolean")
+func (r Composition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Composition to Boolean")
 }
-func (r Composition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Composition to String")
+func (r Composition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Composition to String")
 }
-func (r Composition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Composition to Integer")
+func (r Composition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Composition to Integer")
 }
-func (r Composition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Composition to Decimal")
+func (r Composition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Composition to Decimal")
 }
-func (r Composition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Composition to Date")
+func (r Composition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Composition to Date")
 }
-func (r Composition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Composition to Time")
+func (r Composition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Composition to Time")
 }
-func (r Composition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Composition to DateTime")
+func (r Composition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Composition to DateTime")
 }
-func (r Composition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Composition to Quantity")
+func (r Composition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Composition to Quantity")
 }
-func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Composition
 	switch other := other.(type) {
 	case Composition:
@@ -4087,29 +4087,17 @@ func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	case *Composition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Composition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Composition
-	switch other := other.(type) {
-	case Composition:
-		o = &other
-	case *Composition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Composition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4317,31 +4305,31 @@ func (r CompositionAttester) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CompositionAttester) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CompositionAttester to Boolean")
+func (r CompositionAttester) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CompositionAttester to Boolean")
 }
-func (r CompositionAttester) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CompositionAttester to String")
+func (r CompositionAttester) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CompositionAttester to String")
 }
-func (r CompositionAttester) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CompositionAttester to Integer")
+func (r CompositionAttester) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CompositionAttester to Integer")
 }
-func (r CompositionAttester) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CompositionAttester to Decimal")
+func (r CompositionAttester) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CompositionAttester to Decimal")
 }
-func (r CompositionAttester) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CompositionAttester to Date")
+func (r CompositionAttester) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CompositionAttester to Date")
 }
-func (r CompositionAttester) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CompositionAttester to Time")
+func (r CompositionAttester) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CompositionAttester to Time")
 }
-func (r CompositionAttester) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CompositionAttester to DateTime")
+func (r CompositionAttester) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CompositionAttester to DateTime")
 }
-func (r CompositionAttester) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CompositionAttester to Quantity")
+func (r CompositionAttester) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionAttester to Quantity")
 }
-func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CompositionAttester
 	switch other := other.(type) {
 	case CompositionAttester:
@@ -4349,29 +4337,17 @@ func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *CompositionAttester:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CompositionAttester) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CompositionAttester
-	switch other := other.(type) {
-	case CompositionAttester:
-		o = &other
-	case *CompositionAttester:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CompositionAttester) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4453,31 +4429,31 @@ func (r CompositionRelatesTo) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CompositionRelatesTo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to Boolean")
+func (r CompositionRelatesTo) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CompositionRelatesTo to Boolean")
 }
-func (r CompositionRelatesTo) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to String")
+func (r CompositionRelatesTo) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CompositionRelatesTo to String")
 }
-func (r CompositionRelatesTo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to Integer")
+func (r CompositionRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CompositionRelatesTo to Integer")
 }
-func (r CompositionRelatesTo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to Decimal")
+func (r CompositionRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CompositionRelatesTo to Decimal")
 }
-func (r CompositionRelatesTo) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to Date")
+func (r CompositionRelatesTo) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CompositionRelatesTo to Date")
 }
-func (r CompositionRelatesTo) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to Time")
+func (r CompositionRelatesTo) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CompositionRelatesTo to Time")
 }
-func (r CompositionRelatesTo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to DateTime")
+func (r CompositionRelatesTo) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CompositionRelatesTo to DateTime")
 }
-func (r CompositionRelatesTo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CompositionRelatesTo to Quantity")
+func (r CompositionRelatesTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionRelatesTo to Quantity")
 }
-func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CompositionRelatesTo
 	switch other := other.(type) {
 	case CompositionRelatesTo:
@@ -4485,29 +4461,17 @@ func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *CompositionRelatesTo:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CompositionRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CompositionRelatesTo
-	switch other := other.(type) {
-	case CompositionRelatesTo:
-		o = &other
-	case *CompositionRelatesTo:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CompositionRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4591,31 +4555,31 @@ func (r CompositionEvent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CompositionEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CompositionEvent to Boolean")
+func (r CompositionEvent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CompositionEvent to Boolean")
 }
-func (r CompositionEvent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CompositionEvent to String")
+func (r CompositionEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CompositionEvent to String")
 }
-func (r CompositionEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CompositionEvent to Integer")
+func (r CompositionEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CompositionEvent to Integer")
 }
-func (r CompositionEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CompositionEvent to Decimal")
+func (r CompositionEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CompositionEvent to Decimal")
 }
-func (r CompositionEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CompositionEvent to Date")
+func (r CompositionEvent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CompositionEvent to Date")
 }
-func (r CompositionEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CompositionEvent to Time")
+func (r CompositionEvent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CompositionEvent to Time")
 }
-func (r CompositionEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CompositionEvent to DateTime")
+func (r CompositionEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CompositionEvent to DateTime")
 }
-func (r CompositionEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CompositionEvent to Quantity")
+func (r CompositionEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionEvent to Quantity")
 }
-func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CompositionEvent
 	switch other := other.(type) {
 	case CompositionEvent:
@@ -4623,29 +4587,17 @@ func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *CompositionEvent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CompositionEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CompositionEvent
-	switch other := other.(type) {
-	case CompositionEvent:
-		o = &other
-	case *CompositionEvent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CompositionEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4771,31 +4723,31 @@ func (r CompositionSection) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CompositionSection) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CompositionSection to Boolean")
+func (r CompositionSection) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CompositionSection to Boolean")
 }
-func (r CompositionSection) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CompositionSection to String")
+func (r CompositionSection) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CompositionSection to String")
 }
-func (r CompositionSection) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CompositionSection to Integer")
+func (r CompositionSection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CompositionSection to Integer")
 }
-func (r CompositionSection) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CompositionSection to Decimal")
+func (r CompositionSection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CompositionSection to Decimal")
 }
-func (r CompositionSection) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CompositionSection to Date")
+func (r CompositionSection) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CompositionSection to Date")
 }
-func (r CompositionSection) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CompositionSection to Time")
+func (r CompositionSection) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CompositionSection to Time")
 }
-func (r CompositionSection) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CompositionSection to DateTime")
+func (r CompositionSection) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CompositionSection to DateTime")
 }
-func (r CompositionSection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CompositionSection to Quantity")
+func (r CompositionSection) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionSection to Quantity")
 }
-func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CompositionSection
 	switch other := other.(type) {
 	case CompositionSection:
@@ -4803,29 +4755,17 @@ func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *CompositionSection:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CompositionSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CompositionSection
-	switch other := other.(type) {
-	case CompositionSection:
-		o = &other
-	case *CompositionSection:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CompositionSection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -2063,31 +2063,31 @@ func (r List) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r List) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert List to Boolean")
+func (r List) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert List to Boolean")
 }
-func (r List) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert List to String")
+func (r List) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert List to String")
 }
-func (r List) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert List to Integer")
+func (r List) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert List to Integer")
 }
-func (r List) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert List to Decimal")
+func (r List) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert List to Decimal")
 }
-func (r List) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert List to Date")
+func (r List) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert List to Date")
 }
-func (r List) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert List to Time")
+func (r List) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert List to Time")
 }
-func (r List) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert List to DateTime")
+func (r List) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert List to DateTime")
 }
-func (r List) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert List to Quantity")
+func (r List) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert List to Quantity")
 }
-func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *List
 	switch other := other.(type) {
 	case List:
@@ -2095,29 +2095,17 @@ func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	case *List:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r List) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *List
-	switch other := other.(type) {
-	case List:
-		o = &other
-	case *List:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r List) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2316,31 +2304,31 @@ func (r ListEntry) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ListEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ListEntry to Boolean")
+func (r ListEntry) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ListEntry to Boolean")
 }
-func (r ListEntry) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ListEntry to String")
+func (r ListEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ListEntry to String")
 }
-func (r ListEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ListEntry to Integer")
+func (r ListEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ListEntry to Integer")
 }
-func (r ListEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ListEntry to Decimal")
+func (r ListEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ListEntry to Decimal")
 }
-func (r ListEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ListEntry to Date")
+func (r ListEntry) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ListEntry to Date")
 }
-func (r ListEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ListEntry to Time")
+func (r ListEntry) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ListEntry to Time")
 }
-func (r ListEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ListEntry to DateTime")
+func (r ListEntry) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ListEntry to DateTime")
 }
-func (r ListEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ListEntry to Quantity")
+func (r ListEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ListEntry to Quantity")
 }
-func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ListEntry
 	switch other := other.(type) {
 	case ListEntry:
@@ -2348,29 +2336,17 @@ func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	case *ListEntry:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ListEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ListEntry
-	switch other := other.(type) {
-	case ListEntry:
-		o = &other
-	case *ListEntry:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ListEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

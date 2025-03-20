@@ -5603,31 +5603,31 @@ func (r ActivityDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ActivityDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ActivityDefinition to Boolean")
+func (r ActivityDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ActivityDefinition to Boolean")
 }
-func (r ActivityDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ActivityDefinition to String")
+func (r ActivityDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ActivityDefinition to String")
 }
-func (r ActivityDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ActivityDefinition to Integer")
+func (r ActivityDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ActivityDefinition to Integer")
 }
-func (r ActivityDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ActivityDefinition to Decimal")
+func (r ActivityDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ActivityDefinition to Decimal")
 }
-func (r ActivityDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ActivityDefinition to Date")
+func (r ActivityDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ActivityDefinition to Date")
 }
-func (r ActivityDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ActivityDefinition to Time")
+func (r ActivityDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ActivityDefinition to Time")
 }
-func (r ActivityDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ActivityDefinition to DateTime")
+func (r ActivityDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ActivityDefinition to DateTime")
 }
-func (r ActivityDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ActivityDefinition to Quantity")
+func (r ActivityDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ActivityDefinition to Quantity")
 }
-func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ActivityDefinition
 	switch other := other.(type) {
 	case ActivityDefinition:
@@ -5635,29 +5635,17 @@ func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ActivityDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ActivityDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ActivityDefinition
-	switch other := other.(type) {
-	case ActivityDefinition:
-		o = &other
-	case *ActivityDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ActivityDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6077,31 +6065,31 @@ func (r ActivityDefinitionParticipant) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r ActivityDefinitionParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to Boolean")
+func (r ActivityDefinitionParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ActivityDefinitionParticipant to Boolean")
 }
-func (r ActivityDefinitionParticipant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to String")
+func (r ActivityDefinitionParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ActivityDefinitionParticipant to String")
 }
-func (r ActivityDefinitionParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to Integer")
+func (r ActivityDefinitionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ActivityDefinitionParticipant to Integer")
 }
-func (r ActivityDefinitionParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to Decimal")
+func (r ActivityDefinitionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ActivityDefinitionParticipant to Decimal")
 }
-func (r ActivityDefinitionParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to Date")
+func (r ActivityDefinitionParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ActivityDefinitionParticipant to Date")
 }
-func (r ActivityDefinitionParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to Time")
+func (r ActivityDefinitionParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ActivityDefinitionParticipant to Time")
 }
-func (r ActivityDefinitionParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to DateTime")
+func (r ActivityDefinitionParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ActivityDefinitionParticipant to DateTime")
 }
-func (r ActivityDefinitionParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ActivityDefinitionParticipant to Quantity")
+func (r ActivityDefinitionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ActivityDefinitionParticipant to Quantity")
 }
-func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ActivityDefinitionParticipant
 	switch other := other.(type) {
 	case ActivityDefinitionParticipant:
@@ -6109,29 +6097,17 @@ func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseT
 	case *ActivityDefinitionParticipant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ActivityDefinitionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ActivityDefinitionParticipant
-	switch other := other.(type) {
-	case ActivityDefinitionParticipant:
-		o = &other
-	case *ActivityDefinitionParticipant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ActivityDefinitionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6206,31 +6182,31 @@ func (r ActivityDefinitionDynamicValue) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r ActivityDefinitionDynamicValue) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to Boolean")
+func (r ActivityDefinitionDynamicValue) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ActivityDefinitionDynamicValue to Boolean")
 }
-func (r ActivityDefinitionDynamicValue) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to String")
+func (r ActivityDefinitionDynamicValue) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ActivityDefinitionDynamicValue to String")
 }
-func (r ActivityDefinitionDynamicValue) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to Integer")
+func (r ActivityDefinitionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ActivityDefinitionDynamicValue to Integer")
 }
-func (r ActivityDefinitionDynamicValue) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to Decimal")
+func (r ActivityDefinitionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ActivityDefinitionDynamicValue to Decimal")
 }
-func (r ActivityDefinitionDynamicValue) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to Date")
+func (r ActivityDefinitionDynamicValue) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ActivityDefinitionDynamicValue to Date")
 }
-func (r ActivityDefinitionDynamicValue) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to Time")
+func (r ActivityDefinitionDynamicValue) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ActivityDefinitionDynamicValue to Time")
 }
-func (r ActivityDefinitionDynamicValue) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to DateTime")
+func (r ActivityDefinitionDynamicValue) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ActivityDefinitionDynamicValue to DateTime")
 }
-func (r ActivityDefinitionDynamicValue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ActivityDefinitionDynamicValue to Quantity")
+func (r ActivityDefinitionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ActivityDefinitionDynamicValue to Quantity")
 }
-func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ActivityDefinitionDynamicValue
 	switch other := other.(type) {
 	case ActivityDefinitionDynamicValue:
@@ -6238,29 +6214,17 @@ func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverse
 	case *ActivityDefinitionDynamicValue:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ActivityDefinitionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ActivityDefinitionDynamicValue
-	switch other := other.(type) {
-	case ActivityDefinitionDynamicValue:
-		o = &other
-	case *ActivityDefinitionDynamicValue:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ActivityDefinitionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -4200,31 +4200,31 @@ func (r ChargeItemDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ChargeItemDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to Boolean")
+func (r ChargeItemDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ChargeItemDefinition to Boolean")
 }
-func (r ChargeItemDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to String")
+func (r ChargeItemDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ChargeItemDefinition to String")
 }
-func (r ChargeItemDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to Integer")
+func (r ChargeItemDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ChargeItemDefinition to Integer")
 }
-func (r ChargeItemDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to Decimal")
+func (r ChargeItemDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinition to Decimal")
 }
-func (r ChargeItemDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to Date")
+func (r ChargeItemDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ChargeItemDefinition to Date")
 }
-func (r ChargeItemDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to Time")
+func (r ChargeItemDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ChargeItemDefinition to Time")
 }
-func (r ChargeItemDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to DateTime")
+func (r ChargeItemDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ChargeItemDefinition to DateTime")
 }
-func (r ChargeItemDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ChargeItemDefinition to Quantity")
+func (r ChargeItemDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemDefinition to Quantity")
 }
-func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ChargeItemDefinition
 	switch other := other.(type) {
 	case ChargeItemDefinition:
@@ -4232,29 +4232,17 @@ func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *ChargeItemDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ChargeItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ChargeItemDefinition
-	switch other := other.(type) {
-	case ChargeItemDefinition:
-		o = &other
-	case *ChargeItemDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ChargeItemDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4520,31 +4508,31 @@ func (r ChargeItemDefinitionApplicability) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r ChargeItemDefinitionApplicability) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Boolean")
+func (r ChargeItemDefinitionApplicability) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ChargeItemDefinitionApplicability to Boolean")
 }
-func (r ChargeItemDefinitionApplicability) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to String")
+func (r ChargeItemDefinitionApplicability) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ChargeItemDefinitionApplicability to String")
 }
-func (r ChargeItemDefinitionApplicability) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Integer")
+func (r ChargeItemDefinitionApplicability) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ChargeItemDefinitionApplicability to Integer")
 }
-func (r ChargeItemDefinitionApplicability) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Decimal")
+func (r ChargeItemDefinitionApplicability) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinitionApplicability to Decimal")
 }
-func (r ChargeItemDefinitionApplicability) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Date")
+func (r ChargeItemDefinitionApplicability) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ChargeItemDefinitionApplicability to Date")
 }
-func (r ChargeItemDefinitionApplicability) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Time")
+func (r ChargeItemDefinitionApplicability) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ChargeItemDefinitionApplicability to Time")
 }
-func (r ChargeItemDefinitionApplicability) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to DateTime")
+func (r ChargeItemDefinitionApplicability) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ChargeItemDefinitionApplicability to DateTime")
 }
-func (r ChargeItemDefinitionApplicability) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionApplicability to Quantity")
+func (r ChargeItemDefinitionApplicability) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemDefinitionApplicability to Quantity")
 }
-func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ChargeItemDefinitionApplicability
 	switch other := other.(type) {
 	case ChargeItemDefinitionApplicability:
@@ -4552,29 +4540,17 @@ func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReve
 	case *ChargeItemDefinitionApplicability:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ChargeItemDefinitionApplicability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ChargeItemDefinitionApplicability
-	switch other := other.(type) {
-	case ChargeItemDefinitionApplicability:
-		o = &other
-	case *ChargeItemDefinitionApplicability:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ChargeItemDefinitionApplicability) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4660,31 +4636,31 @@ func (r ChargeItemDefinitionPropertyGroup) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r ChargeItemDefinitionPropertyGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Boolean")
+func (r ChargeItemDefinitionPropertyGroup) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Boolean")
 }
-func (r ChargeItemDefinitionPropertyGroup) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to String")
+func (r ChargeItemDefinitionPropertyGroup) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to String")
 }
-func (r ChargeItemDefinitionPropertyGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Integer")
+func (r ChargeItemDefinitionPropertyGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Integer")
 }
-func (r ChargeItemDefinitionPropertyGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Decimal")
+func (r ChargeItemDefinitionPropertyGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Decimal")
 }
-func (r ChargeItemDefinitionPropertyGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Date")
+func (r ChargeItemDefinitionPropertyGroup) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Date")
 }
-func (r ChargeItemDefinitionPropertyGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Time")
+func (r ChargeItemDefinitionPropertyGroup) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Time")
 }
-func (r ChargeItemDefinitionPropertyGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to DateTime")
+func (r ChargeItemDefinitionPropertyGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to DateTime")
 }
-func (r ChargeItemDefinitionPropertyGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Quantity")
+func (r ChargeItemDefinitionPropertyGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Quantity")
 }
-func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ChargeItemDefinitionPropertyGroup
 	switch other := other.(type) {
 	case ChargeItemDefinitionPropertyGroup:
@@ -4692,29 +4668,17 @@ func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReve
 	case *ChargeItemDefinitionPropertyGroup:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ChargeItemDefinitionPropertyGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ChargeItemDefinitionPropertyGroup
-	switch other := other.(type) {
-	case ChargeItemDefinitionPropertyGroup:
-		o = &other
-	case *ChargeItemDefinitionPropertyGroup:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ChargeItemDefinitionPropertyGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4801,31 +4765,31 @@ func (r ChargeItemDefinitionPropertyGroupPriceComponent) Children(name ...string
 	}
 	return children
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Boolean")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Boolean")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to String")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to String")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Integer")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Integer")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Decimal")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Decimal")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Date")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Date")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Time")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Time")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to DateTime")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to DateTime")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Quantity")
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Quantity")
 }
-func (r ChargeItemDefinitionPropertyGroupPriceComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ChargeItemDefinitionPropertyGroupPriceComponent
 	switch other := other.(type) {
 	case ChargeItemDefinitionPropertyGroupPriceComponent:
@@ -4833,29 +4797,17 @@ func (r ChargeItemDefinitionPropertyGroupPriceComponent) Equal(other fhirpath.El
 	case *ChargeItemDefinitionPropertyGroupPriceComponent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ChargeItemDefinitionPropertyGroupPriceComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ChargeItemDefinitionPropertyGroupPriceComponent
-	switch other := other.(type) {
-	case ChargeItemDefinitionPropertyGroupPriceComponent:
-		o = &other
-	case *ChargeItemDefinitionPropertyGroupPriceComponent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ChargeItemDefinitionPropertyGroupPriceComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

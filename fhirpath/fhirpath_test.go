@@ -94,6 +94,13 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 					}
 					assert.NoError(t, err)
 
+					if test.Predicate {
+						v, ok, err := fhirpath.Singleton[fhirpath.Boolean](result)
+						assert.NoError(t, err)
+						assert.True(t, ok, "expected boolean value to exist")
+						result = fhirpath.Collection{v}
+					}
+
 					expected := test.OutputCollection()
 					diff, _ := difflib.GetUnifiedDiffString(difflib.UnifiedDiff{
 						A:        difflib.SplitLines(expected.String()),
@@ -103,7 +110,7 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 						Context:  1,
 					})
 					// use equivalence to have empty results { } ~ { } result in true
-					assert.True(t, *expected.Equivalent(result), diff)
+					assert.True(t, expected.Equivalent(result), diff)
 				})
 			}
 		})

@@ -8079,31 +8079,31 @@ func (r RequestOrchestration) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r RequestOrchestration) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestration to Boolean")
+func (r RequestOrchestration) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestration to Boolean")
 }
-func (r RequestOrchestration) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestration to String")
+func (r RequestOrchestration) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestration to String")
 }
-func (r RequestOrchestration) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestration to Integer")
+func (r RequestOrchestration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestration to Integer")
 }
-func (r RequestOrchestration) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestration to Decimal")
+func (r RequestOrchestration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestration to Decimal")
 }
-func (r RequestOrchestration) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestration to Date")
+func (r RequestOrchestration) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestration to Date")
 }
-func (r RequestOrchestration) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestration to Time")
+func (r RequestOrchestration) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestration to Time")
 }
-func (r RequestOrchestration) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestration to DateTime")
+func (r RequestOrchestration) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestration to DateTime")
 }
-func (r RequestOrchestration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestration to Quantity")
+func (r RequestOrchestration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestration to Quantity")
 }
-func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestration
 	switch other := other.(type) {
 	case RequestOrchestration:
@@ -8111,29 +8111,17 @@ func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *RequestOrchestration:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestration
-	switch other := other.(type) {
-	case RequestOrchestration:
-		o = &other
-	case *RequestOrchestration:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8484,31 +8472,31 @@ func (r RequestOrchestrationAction) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r RequestOrchestrationAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to Boolean")
+func (r RequestOrchestrationAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestrationAction to Boolean")
 }
-func (r RequestOrchestrationAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to String")
+func (r RequestOrchestrationAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestrationAction to String")
 }
-func (r RequestOrchestrationAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to Integer")
+func (r RequestOrchestrationAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestrationAction to Integer")
 }
-func (r RequestOrchestrationAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to Decimal")
+func (r RequestOrchestrationAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationAction to Decimal")
 }
-func (r RequestOrchestrationAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to Date")
+func (r RequestOrchestrationAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestrationAction to Date")
 }
-func (r RequestOrchestrationAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to Time")
+func (r RequestOrchestrationAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestrationAction to Time")
 }
-func (r RequestOrchestrationAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to DateTime")
+func (r RequestOrchestrationAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestrationAction to DateTime")
 }
-func (r RequestOrchestrationAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestrationAction to Quantity")
+func (r RequestOrchestrationAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationAction to Quantity")
 }
-func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestrationAction
 	switch other := other.(type) {
 	case RequestOrchestrationAction:
@@ -8516,29 +8504,17 @@ func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseType
 	case *RequestOrchestrationAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestrationAction
-	switch other := other.(type) {
-	case RequestOrchestrationAction:
-		o = &other
-	case *RequestOrchestrationAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestrationAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8790,31 +8766,31 @@ func (r RequestOrchestrationActionCondition) Children(name ...string) fhirpath.C
 	}
 	return children
 }
-func (r RequestOrchestrationActionCondition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Boolean")
+func (r RequestOrchestrationActionCondition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestrationActionCondition to Boolean")
 }
-func (r RequestOrchestrationActionCondition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to String")
+func (r RequestOrchestrationActionCondition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestrationActionCondition to String")
 }
-func (r RequestOrchestrationActionCondition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Integer")
+func (r RequestOrchestrationActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestrationActionCondition to Integer")
 }
-func (r RequestOrchestrationActionCondition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Decimal")
+func (r RequestOrchestrationActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Decimal")
 }
-func (r RequestOrchestrationActionCondition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Date")
+func (r RequestOrchestrationActionCondition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Date")
 }
-func (r RequestOrchestrationActionCondition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Time")
+func (r RequestOrchestrationActionCondition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Time")
 }
-func (r RequestOrchestrationActionCondition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to DateTime")
+func (r RequestOrchestrationActionCondition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestrationActionCondition to DateTime")
 }
-func (r RequestOrchestrationActionCondition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionCondition to Quantity")
+func (r RequestOrchestrationActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Quantity")
 }
-func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestrationActionCondition
 	switch other := other.(type) {
 	case RequestOrchestrationActionCondition:
@@ -8822,29 +8798,17 @@ func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noRe
 	case *RequestOrchestrationActionCondition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestrationActionCondition
-	switch other := other.(type) {
-	case RequestOrchestrationActionCondition:
-		o = &other
-	case *RequestOrchestrationActionCondition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestrationActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8928,31 +8892,31 @@ func (r RequestOrchestrationActionInput) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r RequestOrchestrationActionInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to Boolean")
+func (r RequestOrchestrationActionInput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestrationActionInput to Boolean")
 }
-func (r RequestOrchestrationActionInput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to String")
+func (r RequestOrchestrationActionInput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestrationActionInput to String")
 }
-func (r RequestOrchestrationActionInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to Integer")
+func (r RequestOrchestrationActionInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestrationActionInput to Integer")
 }
-func (r RequestOrchestrationActionInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to Decimal")
+func (r RequestOrchestrationActionInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionInput to Decimal")
 }
-func (r RequestOrchestrationActionInput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to Date")
+func (r RequestOrchestrationActionInput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestrationActionInput to Date")
 }
-func (r RequestOrchestrationActionInput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to Time")
+func (r RequestOrchestrationActionInput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestrationActionInput to Time")
 }
-func (r RequestOrchestrationActionInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to DateTime")
+func (r RequestOrchestrationActionInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestrationActionInput to DateTime")
 }
-func (r RequestOrchestrationActionInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionInput to Quantity")
+func (r RequestOrchestrationActionInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionInput to Quantity")
 }
-func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestrationActionInput
 	switch other := other.(type) {
 	case RequestOrchestrationActionInput:
@@ -8960,29 +8924,17 @@ func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noRevers
 	case *RequestOrchestrationActionInput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestrationActionInput
-	switch other := other.(type) {
-	case RequestOrchestrationActionInput:
-		o = &other
-	case *RequestOrchestrationActionInput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestrationActionInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9073,31 +9025,31 @@ func (r RequestOrchestrationActionOutput) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r RequestOrchestrationActionOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Boolean")
+func (r RequestOrchestrationActionOutput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestrationActionOutput to Boolean")
 }
-func (r RequestOrchestrationActionOutput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to String")
+func (r RequestOrchestrationActionOutput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestrationActionOutput to String")
 }
-func (r RequestOrchestrationActionOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Integer")
+func (r RequestOrchestrationActionOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestrationActionOutput to Integer")
 }
-func (r RequestOrchestrationActionOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Decimal")
+func (r RequestOrchestrationActionOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Decimal")
 }
-func (r RequestOrchestrationActionOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Date")
+func (r RequestOrchestrationActionOutput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Date")
 }
-func (r RequestOrchestrationActionOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Time")
+func (r RequestOrchestrationActionOutput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Time")
 }
-func (r RequestOrchestrationActionOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to DateTime")
+func (r RequestOrchestrationActionOutput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestrationActionOutput to DateTime")
 }
-func (r RequestOrchestrationActionOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionOutput to Quantity")
+func (r RequestOrchestrationActionOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Quantity")
 }
-func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestrationActionOutput
 	switch other := other.(type) {
 	case RequestOrchestrationActionOutput:
@@ -9105,29 +9057,17 @@ func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noRever
 	case *RequestOrchestrationActionOutput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestrationActionOutput
-	switch other := other.(type) {
-	case RequestOrchestrationActionOutput:
-		o = &other
-	case *RequestOrchestrationActionOutput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestrationActionOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9219,31 +9159,31 @@ func (r RequestOrchestrationActionRelatedAction) Children(name ...string) fhirpa
 	}
 	return children
 }
-func (r RequestOrchestrationActionRelatedAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Boolean")
+func (r RequestOrchestrationActionRelatedAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Boolean")
 }
-func (r RequestOrchestrationActionRelatedAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to String")
+func (r RequestOrchestrationActionRelatedAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestrationActionRelatedAction to String")
 }
-func (r RequestOrchestrationActionRelatedAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Integer")
+func (r RequestOrchestrationActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Integer")
 }
-func (r RequestOrchestrationActionRelatedAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Decimal")
+func (r RequestOrchestrationActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Decimal")
 }
-func (r RequestOrchestrationActionRelatedAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Date")
+func (r RequestOrchestrationActionRelatedAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Date")
 }
-func (r RequestOrchestrationActionRelatedAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Time")
+func (r RequestOrchestrationActionRelatedAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Time")
 }
-func (r RequestOrchestrationActionRelatedAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to DateTime")
+func (r RequestOrchestrationActionRelatedAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to DateTime")
 }
-func (r RequestOrchestrationActionRelatedAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionRelatedAction to Quantity")
+func (r RequestOrchestrationActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Quantity")
 }
-func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestrationActionRelatedAction
 	switch other := other.(type) {
 	case RequestOrchestrationActionRelatedAction:
@@ -9251,29 +9191,17 @@ func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _
 	case *RequestOrchestrationActionRelatedAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestrationActionRelatedAction
-	switch other := other.(type) {
-	case RequestOrchestrationActionRelatedAction:
-		o = &other
-	case *RequestOrchestrationActionRelatedAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestrationActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9386,31 +9314,31 @@ func (r RequestOrchestrationActionParticipant) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r RequestOrchestrationActionParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Boolean")
+func (r RequestOrchestrationActionParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestrationActionParticipant to Boolean")
 }
-func (r RequestOrchestrationActionParticipant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to String")
+func (r RequestOrchestrationActionParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestrationActionParticipant to String")
 }
-func (r RequestOrchestrationActionParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Integer")
+func (r RequestOrchestrationActionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestrationActionParticipant to Integer")
 }
-func (r RequestOrchestrationActionParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Decimal")
+func (r RequestOrchestrationActionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Decimal")
 }
-func (r RequestOrchestrationActionParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Date")
+func (r RequestOrchestrationActionParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Date")
 }
-func (r RequestOrchestrationActionParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Time")
+func (r RequestOrchestrationActionParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Time")
 }
-func (r RequestOrchestrationActionParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to DateTime")
+func (r RequestOrchestrationActionParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to DateTime")
 }
-func (r RequestOrchestrationActionParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionParticipant to Quantity")
+func (r RequestOrchestrationActionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Quantity")
 }
-func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestrationActionParticipant
 	switch other := other.(type) {
 	case RequestOrchestrationActionParticipant:
@@ -9418,29 +9346,17 @@ func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _no
 	case *RequestOrchestrationActionParticipant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestrationActionParticipant
-	switch other := other.(type) {
-	case RequestOrchestrationActionParticipant:
-		o = &other
-	case *RequestOrchestrationActionParticipant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestrationActionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9547,31 +9463,31 @@ func (r RequestOrchestrationActionDynamicValue) Children(name ...string) fhirpat
 	}
 	return children
 }
-func (r RequestOrchestrationActionDynamicValue) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Boolean")
+func (r RequestOrchestrationActionDynamicValue) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Boolean")
 }
-func (r RequestOrchestrationActionDynamicValue) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to String")
+func (r RequestOrchestrationActionDynamicValue) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RequestOrchestrationActionDynamicValue to String")
 }
-func (r RequestOrchestrationActionDynamicValue) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Integer")
+func (r RequestOrchestrationActionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Integer")
 }
-func (r RequestOrchestrationActionDynamicValue) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Decimal")
+func (r RequestOrchestrationActionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Decimal")
 }
-func (r RequestOrchestrationActionDynamicValue) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Date")
+func (r RequestOrchestrationActionDynamicValue) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Date")
 }
-func (r RequestOrchestrationActionDynamicValue) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Time")
+func (r RequestOrchestrationActionDynamicValue) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Time")
 }
-func (r RequestOrchestrationActionDynamicValue) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to DateTime")
+func (r RequestOrchestrationActionDynamicValue) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to DateTime")
 }
-func (r RequestOrchestrationActionDynamicValue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RequestOrchestrationActionDynamicValue to Quantity")
+func (r RequestOrchestrationActionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Quantity")
 }
-func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RequestOrchestrationActionDynamicValue
 	switch other := other.(type) {
 	case RequestOrchestrationActionDynamicValue:
@@ -9579,29 +9495,17 @@ func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _n
 	case *RequestOrchestrationActionDynamicValue:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RequestOrchestrationActionDynamicValue
-	switch other := other.(type) {
-	case RequestOrchestrationActionDynamicValue:
-		o = &other
-	case *RequestOrchestrationActionDynamicValue:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RequestOrchestrationActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

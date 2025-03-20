@@ -12287,31 +12287,31 @@ func (r Task) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Task) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Task to Boolean")
+func (r Task) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Task to Boolean")
 }
-func (r Task) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Task to String")
+func (r Task) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Task to String")
 }
-func (r Task) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Task to Integer")
+func (r Task) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Task to Integer")
 }
-func (r Task) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Task to Decimal")
+func (r Task) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Task to Decimal")
 }
-func (r Task) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Task to Date")
+func (r Task) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Task to Date")
 }
-func (r Task) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Task to Time")
+func (r Task) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Task to Time")
 }
-func (r Task) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Task to DateTime")
+func (r Task) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Task to DateTime")
 }
-func (r Task) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Task to Quantity")
+func (r Task) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Task to Quantity")
 }
-func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Task
 	switch other := other.(type) {
 	case Task:
@@ -12319,29 +12319,17 @@ func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	case *Task:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Task) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Task
-	switch other := other.(type) {
-	case Task:
-		o = &other
-	case *Task:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Task) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12663,31 +12651,31 @@ func (r TaskRestriction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TaskRestriction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TaskRestriction to Boolean")
+func (r TaskRestriction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TaskRestriction to Boolean")
 }
-func (r TaskRestriction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TaskRestriction to String")
+func (r TaskRestriction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TaskRestriction to String")
 }
-func (r TaskRestriction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TaskRestriction to Integer")
+func (r TaskRestriction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TaskRestriction to Integer")
 }
-func (r TaskRestriction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TaskRestriction to Decimal")
+func (r TaskRestriction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TaskRestriction to Decimal")
 }
-func (r TaskRestriction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TaskRestriction to Date")
+func (r TaskRestriction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TaskRestriction to Date")
 }
-func (r TaskRestriction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TaskRestriction to Time")
+func (r TaskRestriction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TaskRestriction to Time")
 }
-func (r TaskRestriction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TaskRestriction to DateTime")
+func (r TaskRestriction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TaskRestriction to DateTime")
 }
-func (r TaskRestriction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TaskRestriction to Quantity")
+func (r TaskRestriction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TaskRestriction to Quantity")
 }
-func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TaskRestriction
 	switch other := other.(type) {
 	case TaskRestriction:
@@ -12695,29 +12683,17 @@ func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *TaskRestriction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TaskRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TaskRestriction
-	switch other := other.(type) {
-	case TaskRestriction:
-		o = &other
-	case *TaskRestriction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TaskRestriction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12799,31 +12775,31 @@ func (r TaskInput) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TaskInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TaskInput to Boolean")
+func (r TaskInput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TaskInput to Boolean")
 }
-func (r TaskInput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TaskInput to String")
+func (r TaskInput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TaskInput to String")
 }
-func (r TaskInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TaskInput to Integer")
+func (r TaskInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TaskInput to Integer")
 }
-func (r TaskInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TaskInput to Decimal")
+func (r TaskInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TaskInput to Decimal")
 }
-func (r TaskInput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TaskInput to Date")
+func (r TaskInput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TaskInput to Date")
 }
-func (r TaskInput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TaskInput to Time")
+func (r TaskInput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TaskInput to Time")
 }
-func (r TaskInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TaskInput to DateTime")
+func (r TaskInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TaskInput to DateTime")
 }
-func (r TaskInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TaskInput to Quantity")
+func (r TaskInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TaskInput to Quantity")
 }
-func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TaskInput
 	switch other := other.(type) {
 	case TaskInput:
@@ -12831,29 +12807,17 @@ func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	case *TaskInput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TaskInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TaskInput
-	switch other := other.(type) {
-	case TaskInput:
-		o = &other
-	case *TaskInput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TaskInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -12928,31 +12892,31 @@ func (r TaskOutput) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TaskOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TaskOutput to Boolean")
+func (r TaskOutput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TaskOutput to Boolean")
 }
-func (r TaskOutput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TaskOutput to String")
+func (r TaskOutput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TaskOutput to String")
 }
-func (r TaskOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TaskOutput to Integer")
+func (r TaskOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TaskOutput to Integer")
 }
-func (r TaskOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TaskOutput to Decimal")
+func (r TaskOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TaskOutput to Decimal")
 }
-func (r TaskOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TaskOutput to Date")
+func (r TaskOutput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TaskOutput to Date")
 }
-func (r TaskOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TaskOutput to Time")
+func (r TaskOutput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TaskOutput to Time")
 }
-func (r TaskOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TaskOutput to DateTime")
+func (r TaskOutput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TaskOutput to DateTime")
 }
-func (r TaskOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TaskOutput to Quantity")
+func (r TaskOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TaskOutput to Quantity")
 }
-func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TaskOutput
 	switch other := other.(type) {
 	case TaskOutput:
@@ -12960,29 +12924,17 @@ func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *TaskOutput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TaskOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TaskOutput
-	switch other := other.(type) {
-	case TaskOutput:
-		o = &other
-	case *TaskOutput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TaskOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

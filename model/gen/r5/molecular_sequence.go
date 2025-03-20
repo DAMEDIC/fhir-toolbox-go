@@ -3481,31 +3481,31 @@ func (r MolecularSequence) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MolecularSequence) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MolecularSequence to Boolean")
+func (r MolecularSequence) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequence to Boolean")
 }
-func (r MolecularSequence) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MolecularSequence to String")
+func (r MolecularSequence) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequence to String")
 }
-func (r MolecularSequence) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MolecularSequence to Integer")
+func (r MolecularSequence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequence to Integer")
 }
-func (r MolecularSequence) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MolecularSequence to Decimal")
+func (r MolecularSequence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequence to Decimal")
 }
-func (r MolecularSequence) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MolecularSequence to Date")
+func (r MolecularSequence) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequence to Date")
 }
-func (r MolecularSequence) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MolecularSequence to Time")
+func (r MolecularSequence) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequence to Time")
 }
-func (r MolecularSequence) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MolecularSequence to DateTime")
+func (r MolecularSequence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequence to DateTime")
 }
-func (r MolecularSequence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MolecularSequence to Quantity")
+func (r MolecularSequence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequence to Quantity")
 }
-func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MolecularSequence
 	switch other := other.(type) {
 	case MolecularSequence:
@@ -3513,29 +3513,17 @@ func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *MolecularSequence:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MolecularSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MolecularSequence
-	switch other := other.(type) {
-	case MolecularSequence:
-		o = &other
-	case *MolecularSequence:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MolecularSequence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3718,31 +3706,31 @@ func (r MolecularSequenceRelative) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r MolecularSequenceRelative) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to Boolean")
+func (r MolecularSequenceRelative) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceRelative to Boolean")
 }
-func (r MolecularSequenceRelative) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to String")
+func (r MolecularSequenceRelative) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceRelative to String")
 }
-func (r MolecularSequenceRelative) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to Integer")
+func (r MolecularSequenceRelative) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceRelative to Integer")
 }
-func (r MolecularSequenceRelative) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to Decimal")
+func (r MolecularSequenceRelative) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRelative to Decimal")
 }
-func (r MolecularSequenceRelative) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to Date")
+func (r MolecularSequenceRelative) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceRelative to Date")
 }
-func (r MolecularSequenceRelative) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to Time")
+func (r MolecularSequenceRelative) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceRelative to Time")
 }
-func (r MolecularSequenceRelative) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to DateTime")
+func (r MolecularSequenceRelative) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceRelative to DateTime")
 }
-func (r MolecularSequenceRelative) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelative to Quantity")
+func (r MolecularSequenceRelative) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceRelative to Quantity")
 }
-func (r MolecularSequenceRelative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceRelative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MolecularSequenceRelative
 	switch other := other.(type) {
 	case MolecularSequenceRelative:
@@ -3750,29 +3738,17 @@ func (r MolecularSequenceRelative) Equal(other fhirpath.Element, _noReverseTypeC
 	case *MolecularSequenceRelative:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MolecularSequenceRelative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MolecularSequenceRelative
-	switch other := other.(type) {
-	case MolecularSequenceRelative:
-		o = &other
-	case *MolecularSequenceRelative:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MolecularSequenceRelative) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3897,31 +3873,31 @@ func (r MolecularSequenceRelativeStartingSequence) Children(name ...string) fhir
 	}
 	return children
 }
-func (r MolecularSequenceRelativeStartingSequence) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Boolean")
+func (r MolecularSequenceRelativeStartingSequence) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Boolean")
 }
-func (r MolecularSequenceRelativeStartingSequence) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to String")
+func (r MolecularSequenceRelativeStartingSequence) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to String")
 }
-func (r MolecularSequenceRelativeStartingSequence) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Integer")
+func (r MolecularSequenceRelativeStartingSequence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Integer")
 }
-func (r MolecularSequenceRelativeStartingSequence) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Decimal")
+func (r MolecularSequenceRelativeStartingSequence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Decimal")
 }
-func (r MolecularSequenceRelativeStartingSequence) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Date")
+func (r MolecularSequenceRelativeStartingSequence) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Date")
 }
-func (r MolecularSequenceRelativeStartingSequence) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Time")
+func (r MolecularSequenceRelativeStartingSequence) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Time")
 }
-func (r MolecularSequenceRelativeStartingSequence) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to DateTime")
+func (r MolecularSequenceRelativeStartingSequence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to DateTime")
 }
-func (r MolecularSequenceRelativeStartingSequence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Quantity")
+func (r MolecularSequenceRelativeStartingSequence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Quantity")
 }
-func (r MolecularSequenceRelativeStartingSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceRelativeStartingSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MolecularSequenceRelativeStartingSequence
 	switch other := other.(type) {
 	case MolecularSequenceRelativeStartingSequence:
@@ -3929,29 +3905,17 @@ func (r MolecularSequenceRelativeStartingSequence) Equal(other fhirpath.Element,
 	case *MolecularSequenceRelativeStartingSequence:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MolecularSequenceRelativeStartingSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MolecularSequenceRelativeStartingSequence
-	switch other := other.(type) {
-	case MolecularSequenceRelativeStartingSequence:
-		o = &other
-	case *MolecularSequenceRelativeStartingSequence:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MolecularSequenceRelativeStartingSequence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4075,31 +4039,31 @@ func (r MolecularSequenceRelativeEdit) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r MolecularSequenceRelativeEdit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Boolean")
+func (r MolecularSequenceRelativeEdit) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceRelativeEdit to Boolean")
 }
-func (r MolecularSequenceRelativeEdit) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to String")
+func (r MolecularSequenceRelativeEdit) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceRelativeEdit to String")
 }
-func (r MolecularSequenceRelativeEdit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Integer")
+func (r MolecularSequenceRelativeEdit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceRelativeEdit to Integer")
 }
-func (r MolecularSequenceRelativeEdit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Decimal")
+func (r MolecularSequenceRelativeEdit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRelativeEdit to Decimal")
 }
-func (r MolecularSequenceRelativeEdit) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Date")
+func (r MolecularSequenceRelativeEdit) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceRelativeEdit to Date")
 }
-func (r MolecularSequenceRelativeEdit) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Time")
+func (r MolecularSequenceRelativeEdit) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceRelativeEdit to Time")
 }
-func (r MolecularSequenceRelativeEdit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to DateTime")
+func (r MolecularSequenceRelativeEdit) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceRelativeEdit to DateTime")
 }
-func (r MolecularSequenceRelativeEdit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MolecularSequenceRelativeEdit to Quantity")
+func (r MolecularSequenceRelativeEdit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceRelativeEdit to Quantity")
 }
-func (r MolecularSequenceRelativeEdit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceRelativeEdit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MolecularSequenceRelativeEdit
 	switch other := other.(type) {
 	case MolecularSequenceRelativeEdit:
@@ -4107,29 +4071,17 @@ func (r MolecularSequenceRelativeEdit) Equal(other fhirpath.Element, _noReverseT
 	case *MolecularSequenceRelativeEdit:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MolecularSequenceRelativeEdit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MolecularSequenceRelativeEdit
-	switch other := other.(type) {
-	case MolecularSequenceRelativeEdit:
-		o = &other
-	case *MolecularSequenceRelativeEdit:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MolecularSequenceRelativeEdit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

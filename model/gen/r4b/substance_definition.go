@@ -9012,31 +9012,31 @@ func (r SubstanceDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubstanceDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to Boolean")
+func (r SubstanceDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinition to Boolean")
 }
-func (r SubstanceDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to String")
+func (r SubstanceDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinition to String")
 }
-func (r SubstanceDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to Integer")
+func (r SubstanceDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinition to Integer")
 }
-func (r SubstanceDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to Decimal")
+func (r SubstanceDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinition to Decimal")
 }
-func (r SubstanceDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to Date")
+func (r SubstanceDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinition to Date")
 }
-func (r SubstanceDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to Time")
+func (r SubstanceDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinition to Time")
 }
-func (r SubstanceDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to DateTime")
+func (r SubstanceDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinition to DateTime")
 }
-func (r SubstanceDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinition to Quantity")
+func (r SubstanceDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinition to Quantity")
 }
-func (r SubstanceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinition
 	switch other := other.(type) {
 	case SubstanceDefinition:
@@ -9044,29 +9044,17 @@ func (r SubstanceDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *SubstanceDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinition
-	switch other := other.(type) {
-	case SubstanceDefinition:
-		o = &other
-	case *SubstanceDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9329,31 +9317,31 @@ func (r SubstanceDefinitionMoiety) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r SubstanceDefinitionMoiety) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Boolean")
+func (r SubstanceDefinitionMoiety) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionMoiety to Boolean")
 }
-func (r SubstanceDefinitionMoiety) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to String")
+func (r SubstanceDefinitionMoiety) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionMoiety to String")
 }
-func (r SubstanceDefinitionMoiety) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Integer")
+func (r SubstanceDefinitionMoiety) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionMoiety to Integer")
 }
-func (r SubstanceDefinitionMoiety) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Decimal")
+func (r SubstanceDefinitionMoiety) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionMoiety to Decimal")
 }
-func (r SubstanceDefinitionMoiety) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Date")
+func (r SubstanceDefinitionMoiety) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionMoiety to Date")
 }
-func (r SubstanceDefinitionMoiety) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Time")
+func (r SubstanceDefinitionMoiety) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionMoiety to Time")
 }
-func (r SubstanceDefinitionMoiety) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to DateTime")
+func (r SubstanceDefinitionMoiety) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionMoiety to DateTime")
 }
-func (r SubstanceDefinitionMoiety) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMoiety to Quantity")
+func (r SubstanceDefinitionMoiety) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionMoiety to Quantity")
 }
-func (r SubstanceDefinitionMoiety) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionMoiety) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionMoiety
 	switch other := other.(type) {
 	case SubstanceDefinitionMoiety:
@@ -9361,29 +9349,17 @@ func (r SubstanceDefinitionMoiety) Equal(other fhirpath.Element, _noReverseTypeC
 	case *SubstanceDefinitionMoiety:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionMoiety) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionMoiety
-	switch other := other.(type) {
-	case SubstanceDefinitionMoiety:
-		o = &other
-	case *SubstanceDefinitionMoiety:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionMoiety) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9502,31 +9478,31 @@ func (r SubstanceDefinitionProperty) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r SubstanceDefinitionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to Boolean")
+func (r SubstanceDefinitionProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionProperty to Boolean")
 }
-func (r SubstanceDefinitionProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to String")
+func (r SubstanceDefinitionProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionProperty to String")
 }
-func (r SubstanceDefinitionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to Integer")
+func (r SubstanceDefinitionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionProperty to Integer")
 }
-func (r SubstanceDefinitionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to Decimal")
+func (r SubstanceDefinitionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionProperty to Decimal")
 }
-func (r SubstanceDefinitionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to Date")
+func (r SubstanceDefinitionProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionProperty to Date")
 }
-func (r SubstanceDefinitionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to Time")
+func (r SubstanceDefinitionProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionProperty to Time")
 }
-func (r SubstanceDefinitionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to DateTime")
+func (r SubstanceDefinitionProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionProperty to DateTime")
 }
-func (r SubstanceDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionProperty to Quantity")
+func (r SubstanceDefinitionProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionProperty to Quantity")
 }
-func (r SubstanceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionProperty
 	switch other := other.(type) {
 	case SubstanceDefinitionProperty:
@@ -9534,29 +9510,17 @@ func (r SubstanceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTyp
 	case *SubstanceDefinitionProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionProperty
-	switch other := other.(type) {
-	case SubstanceDefinitionProperty:
-		o = &other
-	case *SubstanceDefinitionProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9638,31 +9602,31 @@ func (r SubstanceDefinitionMolecularWeight) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r SubstanceDefinitionMolecularWeight) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Boolean")
+func (r SubstanceDefinitionMolecularWeight) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Boolean")
 }
-func (r SubstanceDefinitionMolecularWeight) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to String")
+func (r SubstanceDefinitionMolecularWeight) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionMolecularWeight to String")
 }
-func (r SubstanceDefinitionMolecularWeight) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Integer")
+func (r SubstanceDefinitionMolecularWeight) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Integer")
 }
-func (r SubstanceDefinitionMolecularWeight) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Decimal")
+func (r SubstanceDefinitionMolecularWeight) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Decimal")
 }
-func (r SubstanceDefinitionMolecularWeight) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Date")
+func (r SubstanceDefinitionMolecularWeight) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Date")
 }
-func (r SubstanceDefinitionMolecularWeight) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Time")
+func (r SubstanceDefinitionMolecularWeight) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Time")
 }
-func (r SubstanceDefinitionMolecularWeight) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to DateTime")
+func (r SubstanceDefinitionMolecularWeight) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to DateTime")
 }
-func (r SubstanceDefinitionMolecularWeight) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionMolecularWeight to Quantity")
+func (r SubstanceDefinitionMolecularWeight) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Quantity")
 }
-func (r SubstanceDefinitionMolecularWeight) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionMolecularWeight) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionMolecularWeight
 	switch other := other.(type) {
 	case SubstanceDefinitionMolecularWeight:
@@ -9670,29 +9634,17 @@ func (r SubstanceDefinitionMolecularWeight) Equal(other fhirpath.Element, _noRev
 	case *SubstanceDefinitionMolecularWeight:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionMolecularWeight) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionMolecularWeight
-	switch other := other.(type) {
-	case SubstanceDefinitionMolecularWeight:
-		o = &other
-	case *SubstanceDefinitionMolecularWeight:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionMolecularWeight) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9808,31 +9760,31 @@ func (r SubstanceDefinitionStructure) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r SubstanceDefinitionStructure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to Boolean")
+func (r SubstanceDefinitionStructure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionStructure to Boolean")
 }
-func (r SubstanceDefinitionStructure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to String")
+func (r SubstanceDefinitionStructure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionStructure to String")
 }
-func (r SubstanceDefinitionStructure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to Integer")
+func (r SubstanceDefinitionStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionStructure to Integer")
 }
-func (r SubstanceDefinitionStructure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to Decimal")
+func (r SubstanceDefinitionStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionStructure to Decimal")
 }
-func (r SubstanceDefinitionStructure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to Date")
+func (r SubstanceDefinitionStructure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionStructure to Date")
 }
-func (r SubstanceDefinitionStructure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to Time")
+func (r SubstanceDefinitionStructure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionStructure to Time")
 }
-func (r SubstanceDefinitionStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to DateTime")
+func (r SubstanceDefinitionStructure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionStructure to DateTime")
 }
-func (r SubstanceDefinitionStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructure to Quantity")
+func (r SubstanceDefinitionStructure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionStructure to Quantity")
 }
-func (r SubstanceDefinitionStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionStructure
 	switch other := other.(type) {
 	case SubstanceDefinitionStructure:
@@ -9840,29 +9792,17 @@ func (r SubstanceDefinitionStructure) Equal(other fhirpath.Element, _noReverseTy
 	case *SubstanceDefinitionStructure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionStructure
-	switch other := other.(type) {
-	case SubstanceDefinitionStructure:
-		o = &other
-	case *SubstanceDefinitionStructure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9993,31 +9933,31 @@ func (r SubstanceDefinitionStructureRepresentation) Children(name ...string) fhi
 	}
 	return children
 }
-func (r SubstanceDefinitionStructureRepresentation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Boolean")
+func (r SubstanceDefinitionStructureRepresentation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Boolean")
 }
-func (r SubstanceDefinitionStructureRepresentation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to String")
+func (r SubstanceDefinitionStructureRepresentation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to String")
 }
-func (r SubstanceDefinitionStructureRepresentation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Integer")
+func (r SubstanceDefinitionStructureRepresentation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Integer")
 }
-func (r SubstanceDefinitionStructureRepresentation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Decimal")
+func (r SubstanceDefinitionStructureRepresentation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Decimal")
 }
-func (r SubstanceDefinitionStructureRepresentation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Date")
+func (r SubstanceDefinitionStructureRepresentation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Date")
 }
-func (r SubstanceDefinitionStructureRepresentation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Time")
+func (r SubstanceDefinitionStructureRepresentation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Time")
 }
-func (r SubstanceDefinitionStructureRepresentation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to DateTime")
+func (r SubstanceDefinitionStructureRepresentation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to DateTime")
 }
-func (r SubstanceDefinitionStructureRepresentation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Quantity")
+func (r SubstanceDefinitionStructureRepresentation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Quantity")
 }
-func (r SubstanceDefinitionStructureRepresentation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionStructureRepresentation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionStructureRepresentation
 	switch other := other.(type) {
 	case SubstanceDefinitionStructureRepresentation:
@@ -10025,29 +9965,17 @@ func (r SubstanceDefinitionStructureRepresentation) Equal(other fhirpath.Element
 	case *SubstanceDefinitionStructureRepresentation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionStructureRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionStructureRepresentation
-	switch other := other.(type) {
-	case SubstanceDefinitionStructureRepresentation:
-		o = &other
-	case *SubstanceDefinitionStructureRepresentation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionStructureRepresentation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10155,31 +10083,31 @@ func (r SubstanceDefinitionCode) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubstanceDefinitionCode) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to Boolean")
+func (r SubstanceDefinitionCode) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionCode to Boolean")
 }
-func (r SubstanceDefinitionCode) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to String")
+func (r SubstanceDefinitionCode) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionCode to String")
 }
-func (r SubstanceDefinitionCode) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to Integer")
+func (r SubstanceDefinitionCode) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionCode to Integer")
 }
-func (r SubstanceDefinitionCode) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to Decimal")
+func (r SubstanceDefinitionCode) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionCode to Decimal")
 }
-func (r SubstanceDefinitionCode) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to Date")
+func (r SubstanceDefinitionCode) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionCode to Date")
 }
-func (r SubstanceDefinitionCode) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to Time")
+func (r SubstanceDefinitionCode) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionCode to Time")
 }
-func (r SubstanceDefinitionCode) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to DateTime")
+func (r SubstanceDefinitionCode) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionCode to DateTime")
 }
-func (r SubstanceDefinitionCode) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionCode to Quantity")
+func (r SubstanceDefinitionCode) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionCode to Quantity")
 }
-func (r SubstanceDefinitionCode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionCode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionCode
 	switch other := other.(type) {
 	case SubstanceDefinitionCode:
@@ -10187,29 +10115,17 @@ func (r SubstanceDefinitionCode) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *SubstanceDefinitionCode:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionCode
-	switch other := other.(type) {
-	case SubstanceDefinitionCode:
-		o = &other
-	case *SubstanceDefinitionCode:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionCode) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10352,31 +10268,31 @@ func (r SubstanceDefinitionName) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubstanceDefinitionName) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to Boolean")
+func (r SubstanceDefinitionName) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionName to Boolean")
 }
-func (r SubstanceDefinitionName) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to String")
+func (r SubstanceDefinitionName) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionName to String")
 }
-func (r SubstanceDefinitionName) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to Integer")
+func (r SubstanceDefinitionName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionName to Integer")
 }
-func (r SubstanceDefinitionName) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to Decimal")
+func (r SubstanceDefinitionName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionName to Decimal")
 }
-func (r SubstanceDefinitionName) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to Date")
+func (r SubstanceDefinitionName) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionName to Date")
 }
-func (r SubstanceDefinitionName) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to Time")
+func (r SubstanceDefinitionName) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionName to Time")
 }
-func (r SubstanceDefinitionName) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to DateTime")
+func (r SubstanceDefinitionName) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionName to DateTime")
 }
-func (r SubstanceDefinitionName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionName to Quantity")
+func (r SubstanceDefinitionName) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionName to Quantity")
 }
-func (r SubstanceDefinitionName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionName
 	switch other := other.(type) {
 	case SubstanceDefinitionName:
@@ -10384,29 +10300,17 @@ func (r SubstanceDefinitionName) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *SubstanceDefinitionName:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionName
-	switch other := other.(type) {
-	case SubstanceDefinitionName:
-		o = &other
-	case *SubstanceDefinitionName:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10553,31 +10457,31 @@ func (r SubstanceDefinitionNameOfficial) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r SubstanceDefinitionNameOfficial) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Boolean")
+func (r SubstanceDefinitionNameOfficial) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Boolean")
 }
-func (r SubstanceDefinitionNameOfficial) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to String")
+func (r SubstanceDefinitionNameOfficial) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionNameOfficial to String")
 }
-func (r SubstanceDefinitionNameOfficial) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Integer")
+func (r SubstanceDefinitionNameOfficial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Integer")
 }
-func (r SubstanceDefinitionNameOfficial) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Decimal")
+func (r SubstanceDefinitionNameOfficial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Decimal")
 }
-func (r SubstanceDefinitionNameOfficial) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Date")
+func (r SubstanceDefinitionNameOfficial) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Date")
 }
-func (r SubstanceDefinitionNameOfficial) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Time")
+func (r SubstanceDefinitionNameOfficial) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Time")
 }
-func (r SubstanceDefinitionNameOfficial) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to DateTime")
+func (r SubstanceDefinitionNameOfficial) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionNameOfficial to DateTime")
 }
-func (r SubstanceDefinitionNameOfficial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionNameOfficial to Quantity")
+func (r SubstanceDefinitionNameOfficial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Quantity")
 }
-func (r SubstanceDefinitionNameOfficial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionNameOfficial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionNameOfficial
 	switch other := other.(type) {
 	case SubstanceDefinitionNameOfficial:
@@ -10585,29 +10489,17 @@ func (r SubstanceDefinitionNameOfficial) Equal(other fhirpath.Element, _noRevers
 	case *SubstanceDefinitionNameOfficial:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionNameOfficial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionNameOfficial
-	switch other := other.(type) {
-	case SubstanceDefinitionNameOfficial:
-		o = &other
-	case *SubstanceDefinitionNameOfficial:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionNameOfficial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10716,31 +10608,31 @@ func (r SubstanceDefinitionRelationship) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r SubstanceDefinitionRelationship) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Boolean")
+func (r SubstanceDefinitionRelationship) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionRelationship to Boolean")
 }
-func (r SubstanceDefinitionRelationship) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to String")
+func (r SubstanceDefinitionRelationship) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionRelationship to String")
 }
-func (r SubstanceDefinitionRelationship) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Integer")
+func (r SubstanceDefinitionRelationship) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionRelationship to Integer")
 }
-func (r SubstanceDefinitionRelationship) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Decimal")
+func (r SubstanceDefinitionRelationship) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionRelationship to Decimal")
 }
-func (r SubstanceDefinitionRelationship) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Date")
+func (r SubstanceDefinitionRelationship) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionRelationship to Date")
 }
-func (r SubstanceDefinitionRelationship) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Time")
+func (r SubstanceDefinitionRelationship) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionRelationship to Time")
 }
-func (r SubstanceDefinitionRelationship) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to DateTime")
+func (r SubstanceDefinitionRelationship) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionRelationship to DateTime")
 }
-func (r SubstanceDefinitionRelationship) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionRelationship to Quantity")
+func (r SubstanceDefinitionRelationship) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionRelationship to Quantity")
 }
-func (r SubstanceDefinitionRelationship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionRelationship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionRelationship
 	switch other := other.(type) {
 	case SubstanceDefinitionRelationship:
@@ -10748,29 +10640,17 @@ func (r SubstanceDefinitionRelationship) Equal(other fhirpath.Element, _noRevers
 	case *SubstanceDefinitionRelationship:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionRelationship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionRelationship
-	switch other := other.(type) {
-	case SubstanceDefinitionRelationship:
-		o = &other
-	case *SubstanceDefinitionRelationship:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionRelationship) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10899,31 +10779,31 @@ func (r SubstanceDefinitionSourceMaterial) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r SubstanceDefinitionSourceMaterial) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Boolean")
+func (r SubstanceDefinitionSourceMaterial) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Boolean")
 }
-func (r SubstanceDefinitionSourceMaterial) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to String")
+func (r SubstanceDefinitionSourceMaterial) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceDefinitionSourceMaterial to String")
 }
-func (r SubstanceDefinitionSourceMaterial) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Integer")
+func (r SubstanceDefinitionSourceMaterial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Integer")
 }
-func (r SubstanceDefinitionSourceMaterial) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Decimal")
+func (r SubstanceDefinitionSourceMaterial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Decimal")
 }
-func (r SubstanceDefinitionSourceMaterial) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Date")
+func (r SubstanceDefinitionSourceMaterial) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Date")
 }
-func (r SubstanceDefinitionSourceMaterial) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Time")
+func (r SubstanceDefinitionSourceMaterial) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Time")
 }
-func (r SubstanceDefinitionSourceMaterial) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to DateTime")
+func (r SubstanceDefinitionSourceMaterial) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to DateTime")
 }
-func (r SubstanceDefinitionSourceMaterial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceDefinitionSourceMaterial to Quantity")
+func (r SubstanceDefinitionSourceMaterial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Quantity")
 }
-func (r SubstanceDefinitionSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceDefinitionSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceDefinitionSourceMaterial
 	switch other := other.(type) {
 	case SubstanceDefinitionSourceMaterial:
@@ -10931,29 +10811,17 @@ func (r SubstanceDefinitionSourceMaterial) Equal(other fhirpath.Element, _noReve
 	case *SubstanceDefinitionSourceMaterial:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceDefinitionSourceMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceDefinitionSourceMaterial
-	switch other := other.(type) {
-	case SubstanceDefinitionSourceMaterial:
-		o = &other
-	case *SubstanceDefinitionSourceMaterial:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceDefinitionSourceMaterial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

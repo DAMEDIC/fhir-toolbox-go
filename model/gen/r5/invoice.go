@@ -3189,31 +3189,31 @@ func (r Invoice) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Invoice) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Invoice to Boolean")
+func (r Invoice) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Invoice to Boolean")
 }
-func (r Invoice) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Invoice to String")
+func (r Invoice) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Invoice to String")
 }
-func (r Invoice) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Invoice to Integer")
+func (r Invoice) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Invoice to Integer")
 }
-func (r Invoice) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Invoice to Decimal")
+func (r Invoice) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Invoice to Decimal")
 }
-func (r Invoice) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Invoice to Date")
+func (r Invoice) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Invoice to Date")
 }
-func (r Invoice) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Invoice to Time")
+func (r Invoice) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Invoice to Time")
 }
-func (r Invoice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Invoice to DateTime")
+func (r Invoice) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Invoice to DateTime")
 }
-func (r Invoice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Invoice to Quantity")
+func (r Invoice) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Invoice to Quantity")
 }
-func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Invoice
 	switch other := other.(type) {
 	case Invoice:
@@ -3221,29 +3221,17 @@ func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	case *Invoice:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Invoice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Invoice
-	switch other := other.(type) {
-	case Invoice:
-		o = &other
-	case *Invoice:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Invoice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3467,31 +3455,31 @@ func (r InvoiceParticipant) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r InvoiceParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to Boolean")
+func (r InvoiceParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InvoiceParticipant to Boolean")
 }
-func (r InvoiceParticipant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to String")
+func (r InvoiceParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InvoiceParticipant to String")
 }
-func (r InvoiceParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to Integer")
+func (r InvoiceParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InvoiceParticipant to Integer")
 }
-func (r InvoiceParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to Decimal")
+func (r InvoiceParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InvoiceParticipant to Decimal")
 }
-func (r InvoiceParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to Date")
+func (r InvoiceParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InvoiceParticipant to Date")
 }
-func (r InvoiceParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to Time")
+func (r InvoiceParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InvoiceParticipant to Time")
 }
-func (r InvoiceParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to DateTime")
+func (r InvoiceParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InvoiceParticipant to DateTime")
 }
-func (r InvoiceParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InvoiceParticipant to Quantity")
+func (r InvoiceParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InvoiceParticipant to Quantity")
 }
-func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InvoiceParticipant
 	switch other := other.(type) {
 	case InvoiceParticipant:
@@ -3499,29 +3487,17 @@ func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *InvoiceParticipant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InvoiceParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InvoiceParticipant
-	switch other := other.(type) {
-	case InvoiceParticipant:
-		o = &other
-	case *InvoiceParticipant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InvoiceParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3608,31 +3584,31 @@ func (r InvoiceLineItem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r InvoiceLineItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to Boolean")
+func (r InvoiceLineItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InvoiceLineItem to Boolean")
 }
-func (r InvoiceLineItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to String")
+func (r InvoiceLineItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InvoiceLineItem to String")
 }
-func (r InvoiceLineItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to Integer")
+func (r InvoiceLineItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InvoiceLineItem to Integer")
 }
-func (r InvoiceLineItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to Decimal")
+func (r InvoiceLineItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InvoiceLineItem to Decimal")
 }
-func (r InvoiceLineItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to Date")
+func (r InvoiceLineItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InvoiceLineItem to Date")
 }
-func (r InvoiceLineItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to Time")
+func (r InvoiceLineItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InvoiceLineItem to Time")
 }
-func (r InvoiceLineItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to DateTime")
+func (r InvoiceLineItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InvoiceLineItem to DateTime")
 }
-func (r InvoiceLineItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InvoiceLineItem to Quantity")
+func (r InvoiceLineItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InvoiceLineItem to Quantity")
 }
-func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InvoiceLineItem
 	switch other := other.(type) {
 	case InvoiceLineItem:
@@ -3640,29 +3616,17 @@ func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *InvoiceLineItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InvoiceLineItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InvoiceLineItem
-	switch other := other.(type) {
-	case InvoiceLineItem:
-		o = &other
-	case *InvoiceLineItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InvoiceLineItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

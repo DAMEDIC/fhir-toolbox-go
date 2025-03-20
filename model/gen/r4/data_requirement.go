@@ -2592,31 +2592,31 @@ func (r DataRequirement) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DataRequirement) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DataRequirement to Boolean")
+func (r DataRequirement) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DataRequirement to Boolean")
 }
-func (r DataRequirement) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DataRequirement to String")
+func (r DataRequirement) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DataRequirement to String")
 }
-func (r DataRequirement) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DataRequirement to Integer")
+func (r DataRequirement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DataRequirement to Integer")
 }
-func (r DataRequirement) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DataRequirement to Decimal")
+func (r DataRequirement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirement to Decimal")
 }
-func (r DataRequirement) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DataRequirement to Date")
+func (r DataRequirement) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DataRequirement to Date")
 }
-func (r DataRequirement) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DataRequirement to Time")
+func (r DataRequirement) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DataRequirement to Time")
 }
-func (r DataRequirement) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DataRequirement to DateTime")
+func (r DataRequirement) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DataRequirement to DateTime")
 }
-func (r DataRequirement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DataRequirement to Quantity")
+func (r DataRequirement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirement to Quantity")
 }
-func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DataRequirement
 	switch other := other.(type) {
 	case DataRequirement:
@@ -2624,29 +2624,17 @@ func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *DataRequirement:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DataRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DataRequirement
-	switch other := other.(type) {
-	case DataRequirement:
-		o = &other
-	case *DataRequirement:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DataRequirement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2765,31 +2753,31 @@ func (r DataRequirementCodeFilter) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r DataRequirementCodeFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to Boolean")
+func (r DataRequirementCodeFilter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DataRequirementCodeFilter to Boolean")
 }
-func (r DataRequirementCodeFilter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to String")
+func (r DataRequirementCodeFilter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DataRequirementCodeFilter to String")
 }
-func (r DataRequirementCodeFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to Integer")
+func (r DataRequirementCodeFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DataRequirementCodeFilter to Integer")
 }
-func (r DataRequirementCodeFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to Decimal")
+func (r DataRequirementCodeFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementCodeFilter to Decimal")
 }
-func (r DataRequirementCodeFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to Date")
+func (r DataRequirementCodeFilter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DataRequirementCodeFilter to Date")
 }
-func (r DataRequirementCodeFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to Time")
+func (r DataRequirementCodeFilter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DataRequirementCodeFilter to Time")
 }
-func (r DataRequirementCodeFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to DateTime")
+func (r DataRequirementCodeFilter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DataRequirementCodeFilter to DateTime")
 }
-func (r DataRequirementCodeFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DataRequirementCodeFilter to Quantity")
+func (r DataRequirementCodeFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementCodeFilter to Quantity")
 }
-func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DataRequirementCodeFilter
 	switch other := other.(type) {
 	case DataRequirementCodeFilter:
@@ -2797,29 +2785,17 @@ func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	case *DataRequirementCodeFilter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DataRequirementCodeFilter
-	switch other := other.(type) {
-	case DataRequirementCodeFilter:
-		o = &other
-	case *DataRequirementCodeFilter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DataRequirementCodeFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2905,31 +2881,31 @@ func (r DataRequirementDateFilter) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r DataRequirementDateFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to Boolean")
+func (r DataRequirementDateFilter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DataRequirementDateFilter to Boolean")
 }
-func (r DataRequirementDateFilter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to String")
+func (r DataRequirementDateFilter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DataRequirementDateFilter to String")
 }
-func (r DataRequirementDateFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to Integer")
+func (r DataRequirementDateFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DataRequirementDateFilter to Integer")
 }
-func (r DataRequirementDateFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to Decimal")
+func (r DataRequirementDateFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementDateFilter to Decimal")
 }
-func (r DataRequirementDateFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to Date")
+func (r DataRequirementDateFilter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DataRequirementDateFilter to Date")
 }
-func (r DataRequirementDateFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to Time")
+func (r DataRequirementDateFilter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DataRequirementDateFilter to Time")
 }
-func (r DataRequirementDateFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to DateTime")
+func (r DataRequirementDateFilter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DataRequirementDateFilter to DateTime")
 }
-func (r DataRequirementDateFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DataRequirementDateFilter to Quantity")
+func (r DataRequirementDateFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementDateFilter to Quantity")
 }
-func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DataRequirementDateFilter
 	switch other := other.(type) {
 	case DataRequirementDateFilter:
@@ -2937,29 +2913,17 @@ func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	case *DataRequirementDateFilter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DataRequirementDateFilter
-	switch other := other.(type) {
-	case DataRequirementDateFilter:
-		o = &other
-	case *DataRequirementDateFilter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DataRequirementDateFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3029,31 +2993,31 @@ func (r DataRequirementSort) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DataRequirementSort) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DataRequirementSort to Boolean")
+func (r DataRequirementSort) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DataRequirementSort to Boolean")
 }
-func (r DataRequirementSort) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DataRequirementSort to String")
+func (r DataRequirementSort) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DataRequirementSort to String")
 }
-func (r DataRequirementSort) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DataRequirementSort to Integer")
+func (r DataRequirementSort) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DataRequirementSort to Integer")
 }
-func (r DataRequirementSort) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DataRequirementSort to Decimal")
+func (r DataRequirementSort) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementSort to Decimal")
 }
-func (r DataRequirementSort) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DataRequirementSort to Date")
+func (r DataRequirementSort) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DataRequirementSort to Date")
 }
-func (r DataRequirementSort) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DataRequirementSort to Time")
+func (r DataRequirementSort) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DataRequirementSort to Time")
 }
-func (r DataRequirementSort) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DataRequirementSort to DateTime")
+func (r DataRequirementSort) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DataRequirementSort to DateTime")
 }
-func (r DataRequirementSort) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DataRequirementSort to Quantity")
+func (r DataRequirementSort) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementSort to Quantity")
 }
-func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DataRequirementSort
 	switch other := other.(type) {
 	case DataRequirementSort:
@@ -3061,29 +3025,17 @@ func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *DataRequirementSort:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DataRequirementSort) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DataRequirementSort
-	switch other := other.(type) {
-	case DataRequirementSort:
-		o = &other
-	case *DataRequirementSort:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DataRequirementSort) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

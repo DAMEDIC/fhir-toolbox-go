@@ -2263,31 +2263,31 @@ func (r RegulatedAuthorization) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r RegulatedAuthorization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to Boolean")
+func (r RegulatedAuthorization) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RegulatedAuthorization to Boolean")
 }
-func (r RegulatedAuthorization) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to String")
+func (r RegulatedAuthorization) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RegulatedAuthorization to String")
 }
-func (r RegulatedAuthorization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to Integer")
+func (r RegulatedAuthorization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RegulatedAuthorization to Integer")
 }
-func (r RegulatedAuthorization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to Decimal")
+func (r RegulatedAuthorization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RegulatedAuthorization to Decimal")
 }
-func (r RegulatedAuthorization) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to Date")
+func (r RegulatedAuthorization) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RegulatedAuthorization to Date")
 }
-func (r RegulatedAuthorization) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to Time")
+func (r RegulatedAuthorization) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RegulatedAuthorization to Time")
 }
-func (r RegulatedAuthorization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to DateTime")
+func (r RegulatedAuthorization) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RegulatedAuthorization to DateTime")
 }
-func (r RegulatedAuthorization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RegulatedAuthorization to Quantity")
+func (r RegulatedAuthorization) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RegulatedAuthorization to Quantity")
 }
-func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RegulatedAuthorization
 	switch other := other.(type) {
 	case RegulatedAuthorization:
@@ -2295,29 +2295,17 @@ func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *RegulatedAuthorization:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RegulatedAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RegulatedAuthorization
-	switch other := other.(type) {
-	case RegulatedAuthorization:
-		o = &other
-	case *RegulatedAuthorization:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RegulatedAuthorization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2530,31 +2518,31 @@ func (r RegulatedAuthorizationCase) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r RegulatedAuthorizationCase) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to Boolean")
+func (r RegulatedAuthorizationCase) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RegulatedAuthorizationCase to Boolean")
 }
-func (r RegulatedAuthorizationCase) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to String")
+func (r RegulatedAuthorizationCase) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RegulatedAuthorizationCase to String")
 }
-func (r RegulatedAuthorizationCase) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to Integer")
+func (r RegulatedAuthorizationCase) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RegulatedAuthorizationCase to Integer")
 }
-func (r RegulatedAuthorizationCase) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to Decimal")
+func (r RegulatedAuthorizationCase) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RegulatedAuthorizationCase to Decimal")
 }
-func (r RegulatedAuthorizationCase) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to Date")
+func (r RegulatedAuthorizationCase) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RegulatedAuthorizationCase to Date")
 }
-func (r RegulatedAuthorizationCase) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to Time")
+func (r RegulatedAuthorizationCase) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RegulatedAuthorizationCase to Time")
 }
-func (r RegulatedAuthorizationCase) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to DateTime")
+func (r RegulatedAuthorizationCase) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RegulatedAuthorizationCase to DateTime")
 }
-func (r RegulatedAuthorizationCase) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RegulatedAuthorizationCase to Quantity")
+func (r RegulatedAuthorizationCase) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RegulatedAuthorizationCase to Quantity")
 }
-func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RegulatedAuthorizationCase
 	switch other := other.(type) {
 	case RegulatedAuthorizationCase:
@@ -2562,29 +2550,17 @@ func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseType
 	case *RegulatedAuthorizationCase:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RegulatedAuthorizationCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RegulatedAuthorizationCase
-	switch other := other.(type) {
-	case RegulatedAuthorizationCase:
-		o = &other
-	case *RegulatedAuthorizationCase:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RegulatedAuthorizationCase) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

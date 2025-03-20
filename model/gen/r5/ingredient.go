@@ -4071,31 +4071,31 @@ func (r Ingredient) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Ingredient) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Ingredient to Boolean")
+func (r Ingredient) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Ingredient to Boolean")
 }
-func (r Ingredient) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Ingredient to String")
+func (r Ingredient) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Ingredient to String")
 }
-func (r Ingredient) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Ingredient to Integer")
+func (r Ingredient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Ingredient to Integer")
 }
-func (r Ingredient) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Ingredient to Decimal")
+func (r Ingredient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Ingredient to Decimal")
 }
-func (r Ingredient) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Ingredient to Date")
+func (r Ingredient) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Ingredient to Date")
 }
-func (r Ingredient) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Ingredient to Time")
+func (r Ingredient) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Ingredient to Time")
 }
-func (r Ingredient) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Ingredient to DateTime")
+func (r Ingredient) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Ingredient to DateTime")
 }
-func (r Ingredient) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Ingredient to Quantity")
+func (r Ingredient) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Ingredient to Quantity")
 }
-func (r Ingredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Ingredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Ingredient
 	switch other := other.(type) {
 	case Ingredient:
@@ -4103,29 +4103,17 @@ func (r Ingredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *Ingredient:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Ingredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Ingredient
-	switch other := other.(type) {
-	case Ingredient:
-		o = &other
-	case *Ingredient:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Ingredient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4293,31 +4281,31 @@ func (r IngredientManufacturer) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r IngredientManufacturer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to Boolean")
+func (r IngredientManufacturer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert IngredientManufacturer to Boolean")
 }
-func (r IngredientManufacturer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to String")
+func (r IngredientManufacturer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert IngredientManufacturer to String")
 }
-func (r IngredientManufacturer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to Integer")
+func (r IngredientManufacturer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert IngredientManufacturer to Integer")
 }
-func (r IngredientManufacturer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to Decimal")
+func (r IngredientManufacturer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert IngredientManufacturer to Decimal")
 }
-func (r IngredientManufacturer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to Date")
+func (r IngredientManufacturer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert IngredientManufacturer to Date")
 }
-func (r IngredientManufacturer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to Time")
+func (r IngredientManufacturer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert IngredientManufacturer to Time")
 }
-func (r IngredientManufacturer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to DateTime")
+func (r IngredientManufacturer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert IngredientManufacturer to DateTime")
 }
-func (r IngredientManufacturer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert IngredientManufacturer to Quantity")
+func (r IngredientManufacturer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert IngredientManufacturer to Quantity")
 }
-func (r IngredientManufacturer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r IngredientManufacturer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *IngredientManufacturer
 	switch other := other.(type) {
 	case IngredientManufacturer:
@@ -4325,29 +4313,17 @@ func (r IngredientManufacturer) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *IngredientManufacturer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r IngredientManufacturer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *IngredientManufacturer
-	switch other := other.(type) {
-	case IngredientManufacturer:
-		o = &other
-	case *IngredientManufacturer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r IngredientManufacturer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4424,31 +4400,31 @@ func (r IngredientSubstance) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r IngredientSubstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert IngredientSubstance to Boolean")
+func (r IngredientSubstance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert IngredientSubstance to Boolean")
 }
-func (r IngredientSubstance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert IngredientSubstance to String")
+func (r IngredientSubstance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert IngredientSubstance to String")
 }
-func (r IngredientSubstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert IngredientSubstance to Integer")
+func (r IngredientSubstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert IngredientSubstance to Integer")
 }
-func (r IngredientSubstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert IngredientSubstance to Decimal")
+func (r IngredientSubstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert IngredientSubstance to Decimal")
 }
-func (r IngredientSubstance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert IngredientSubstance to Date")
+func (r IngredientSubstance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert IngredientSubstance to Date")
 }
-func (r IngredientSubstance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert IngredientSubstance to Time")
+func (r IngredientSubstance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert IngredientSubstance to Time")
 }
-func (r IngredientSubstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert IngredientSubstance to DateTime")
+func (r IngredientSubstance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert IngredientSubstance to DateTime")
 }
-func (r IngredientSubstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert IngredientSubstance to Quantity")
+func (r IngredientSubstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert IngredientSubstance to Quantity")
 }
-func (r IngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r IngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *IngredientSubstance
 	switch other := other.(type) {
 	case IngredientSubstance:
@@ -4456,29 +4432,17 @@ func (r IngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *IngredientSubstance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r IngredientSubstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *IngredientSubstance
-	switch other := other.(type) {
-	case IngredientSubstance:
-		o = &other
-	case *IngredientSubstance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r IngredientSubstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4587,31 +4551,31 @@ func (r IngredientSubstanceStrength) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r IngredientSubstanceStrength) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to Boolean")
+func (r IngredientSubstanceStrength) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert IngredientSubstanceStrength to Boolean")
 }
-func (r IngredientSubstanceStrength) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to String")
+func (r IngredientSubstanceStrength) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert IngredientSubstanceStrength to String")
 }
-func (r IngredientSubstanceStrength) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to Integer")
+func (r IngredientSubstanceStrength) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert IngredientSubstanceStrength to Integer")
 }
-func (r IngredientSubstanceStrength) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to Decimal")
+func (r IngredientSubstanceStrength) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert IngredientSubstanceStrength to Decimal")
 }
-func (r IngredientSubstanceStrength) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to Date")
+func (r IngredientSubstanceStrength) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert IngredientSubstanceStrength to Date")
 }
-func (r IngredientSubstanceStrength) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to Time")
+func (r IngredientSubstanceStrength) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert IngredientSubstanceStrength to Time")
 }
-func (r IngredientSubstanceStrength) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to DateTime")
+func (r IngredientSubstanceStrength) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert IngredientSubstanceStrength to DateTime")
 }
-func (r IngredientSubstanceStrength) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrength to Quantity")
+func (r IngredientSubstanceStrength) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert IngredientSubstanceStrength to Quantity")
 }
-func (r IngredientSubstanceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r IngredientSubstanceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *IngredientSubstanceStrength
 	switch other := other.(type) {
 	case IngredientSubstanceStrength:
@@ -4619,29 +4583,17 @@ func (r IngredientSubstanceStrength) Equal(other fhirpath.Element, _noReverseTyp
 	case *IngredientSubstanceStrength:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r IngredientSubstanceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *IngredientSubstanceStrength
-	switch other := other.(type) {
-	case IngredientSubstanceStrength:
-		o = &other
-	case *IngredientSubstanceStrength:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r IngredientSubstanceStrength) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4768,31 +4720,31 @@ func (r IngredientSubstanceStrengthReferenceStrength) Children(name ...string) f
 	}
 	return children
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Boolean")
+func (r IngredientSubstanceStrengthReferenceStrength) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Boolean")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to String")
+func (r IngredientSubstanceStrengthReferenceStrength) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to String")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Integer")
+func (r IngredientSubstanceStrengthReferenceStrength) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Integer")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Decimal")
+func (r IngredientSubstanceStrengthReferenceStrength) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Decimal")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Date")
+func (r IngredientSubstanceStrengthReferenceStrength) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Date")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Time")
+func (r IngredientSubstanceStrengthReferenceStrength) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Time")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to DateTime")
+func (r IngredientSubstanceStrengthReferenceStrength) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to DateTime")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Quantity")
+func (r IngredientSubstanceStrengthReferenceStrength) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert IngredientSubstanceStrengthReferenceStrength to Quantity")
 }
-func (r IngredientSubstanceStrengthReferenceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r IngredientSubstanceStrengthReferenceStrength) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *IngredientSubstanceStrengthReferenceStrength
 	switch other := other.(type) {
 	case IngredientSubstanceStrengthReferenceStrength:
@@ -4800,29 +4752,17 @@ func (r IngredientSubstanceStrengthReferenceStrength) Equal(other fhirpath.Eleme
 	case *IngredientSubstanceStrengthReferenceStrength:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r IngredientSubstanceStrengthReferenceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *IngredientSubstanceStrengthReferenceStrength
-	switch other := other.(type) {
-	case IngredientSubstanceStrengthReferenceStrength:
-		o = &other
-	case *IngredientSubstanceStrengthReferenceStrength:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r IngredientSubstanceStrengthReferenceStrength) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

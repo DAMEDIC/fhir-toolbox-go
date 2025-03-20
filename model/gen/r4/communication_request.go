@@ -2948,31 +2948,31 @@ func (r CommunicationRequest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CommunicationRequest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CommunicationRequest to Boolean")
+func (r CommunicationRequest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CommunicationRequest to Boolean")
 }
-func (r CommunicationRequest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CommunicationRequest to String")
+func (r CommunicationRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CommunicationRequest to String")
 }
-func (r CommunicationRequest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CommunicationRequest to Integer")
+func (r CommunicationRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CommunicationRequest to Integer")
 }
-func (r CommunicationRequest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CommunicationRequest to Decimal")
+func (r CommunicationRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CommunicationRequest to Decimal")
 }
-func (r CommunicationRequest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CommunicationRequest to Date")
+func (r CommunicationRequest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CommunicationRequest to Date")
 }
-func (r CommunicationRequest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CommunicationRequest to Time")
+func (r CommunicationRequest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CommunicationRequest to Time")
 }
-func (r CommunicationRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CommunicationRequest to DateTime")
+func (r CommunicationRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CommunicationRequest to DateTime")
 }
-func (r CommunicationRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CommunicationRequest to Quantity")
+func (r CommunicationRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CommunicationRequest to Quantity")
 }
-func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CommunicationRequest
 	switch other := other.(type) {
 	case CommunicationRequest:
@@ -2980,29 +2980,17 @@ func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *CommunicationRequest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CommunicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CommunicationRequest
-	switch other := other.(type) {
-	case CommunicationRequest:
-		o = &other
-	case *CommunicationRequest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CommunicationRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3249,31 +3237,31 @@ func (r CommunicationRequestPayload) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r CommunicationRequestPayload) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to Boolean")
+func (r CommunicationRequestPayload) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CommunicationRequestPayload to Boolean")
 }
-func (r CommunicationRequestPayload) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to String")
+func (r CommunicationRequestPayload) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CommunicationRequestPayload to String")
 }
-func (r CommunicationRequestPayload) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to Integer")
+func (r CommunicationRequestPayload) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CommunicationRequestPayload to Integer")
 }
-func (r CommunicationRequestPayload) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to Decimal")
+func (r CommunicationRequestPayload) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CommunicationRequestPayload to Decimal")
 }
-func (r CommunicationRequestPayload) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to Date")
+func (r CommunicationRequestPayload) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CommunicationRequestPayload to Date")
 }
-func (r CommunicationRequestPayload) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to Time")
+func (r CommunicationRequestPayload) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CommunicationRequestPayload to Time")
 }
-func (r CommunicationRequestPayload) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to DateTime")
+func (r CommunicationRequestPayload) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CommunicationRequestPayload to DateTime")
 }
-func (r CommunicationRequestPayload) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CommunicationRequestPayload to Quantity")
+func (r CommunicationRequestPayload) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CommunicationRequestPayload to Quantity")
 }
-func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CommunicationRequestPayload
 	switch other := other.(type) {
 	case CommunicationRequestPayload:
@@ -3281,29 +3269,17 @@ func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTyp
 	case *CommunicationRequestPayload:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CommunicationRequestPayload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CommunicationRequestPayload
-	switch other := other.(type) {
-	case CommunicationRequestPayload:
-		o = &other
-	case *CommunicationRequestPayload:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CommunicationRequestPayload) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

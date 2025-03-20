@@ -5039,31 +5039,31 @@ func (r Account) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Account) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Account to Boolean")
+func (r Account) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Account to Boolean")
 }
-func (r Account) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Account to String")
+func (r Account) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Account to String")
 }
-func (r Account) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Account to Integer")
+func (r Account) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Account to Integer")
 }
-func (r Account) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Account to Decimal")
+func (r Account) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Account to Decimal")
 }
-func (r Account) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Account to Date")
+func (r Account) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Account to Date")
 }
-func (r Account) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Account to Time")
+func (r Account) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Account to Time")
 }
-func (r Account) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Account to DateTime")
+func (r Account) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Account to DateTime")
 }
-func (r Account) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Account to Quantity")
+func (r Account) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Account to Quantity")
 }
-func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Account
 	switch other := other.(type) {
 	case Account:
@@ -5071,29 +5071,17 @@ func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	case *Account:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Account) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Account
-	switch other := other.(type) {
-	case Account:
-		o = &other
-	case *Account:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Account) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5310,31 +5298,31 @@ func (r AccountCoverage) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AccountCoverage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AccountCoverage to Boolean")
+func (r AccountCoverage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AccountCoverage to Boolean")
 }
-func (r AccountCoverage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AccountCoverage to String")
+func (r AccountCoverage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AccountCoverage to String")
 }
-func (r AccountCoverage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AccountCoverage to Integer")
+func (r AccountCoverage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AccountCoverage to Integer")
 }
-func (r AccountCoverage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AccountCoverage to Decimal")
+func (r AccountCoverage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AccountCoverage to Decimal")
 }
-func (r AccountCoverage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AccountCoverage to Date")
+func (r AccountCoverage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AccountCoverage to Date")
 }
-func (r AccountCoverage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AccountCoverage to Time")
+func (r AccountCoverage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AccountCoverage to Time")
 }
-func (r AccountCoverage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AccountCoverage to DateTime")
+func (r AccountCoverage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AccountCoverage to DateTime")
 }
-func (r AccountCoverage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AccountCoverage to Quantity")
+func (r AccountCoverage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AccountCoverage to Quantity")
 }
-func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AccountCoverage
 	switch other := other.(type) {
 	case AccountCoverage:
@@ -5342,29 +5330,17 @@ func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *AccountCoverage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AccountCoverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AccountCoverage
-	switch other := other.(type) {
-	case AccountCoverage:
-		o = &other
-	case *AccountCoverage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AccountCoverage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5446,31 +5422,31 @@ func (r AccountGuarantor) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AccountGuarantor) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AccountGuarantor to Boolean")
+func (r AccountGuarantor) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AccountGuarantor to Boolean")
 }
-func (r AccountGuarantor) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AccountGuarantor to String")
+func (r AccountGuarantor) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AccountGuarantor to String")
 }
-func (r AccountGuarantor) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AccountGuarantor to Integer")
+func (r AccountGuarantor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AccountGuarantor to Integer")
 }
-func (r AccountGuarantor) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AccountGuarantor to Decimal")
+func (r AccountGuarantor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AccountGuarantor to Decimal")
 }
-func (r AccountGuarantor) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AccountGuarantor to Date")
+func (r AccountGuarantor) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AccountGuarantor to Date")
 }
-func (r AccountGuarantor) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AccountGuarantor to Time")
+func (r AccountGuarantor) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AccountGuarantor to Time")
 }
-func (r AccountGuarantor) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AccountGuarantor to DateTime")
+func (r AccountGuarantor) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AccountGuarantor to DateTime")
 }
-func (r AccountGuarantor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AccountGuarantor to Quantity")
+func (r AccountGuarantor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AccountGuarantor to Quantity")
 }
-func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AccountGuarantor
 	switch other := other.(type) {
 	case AccountGuarantor:
@@ -5478,29 +5454,17 @@ func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *AccountGuarantor:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AccountGuarantor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AccountGuarantor
-	switch other := other.(type) {
-	case AccountGuarantor:
-		o = &other
-	case *AccountGuarantor:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AccountGuarantor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5604,31 +5568,31 @@ func (r AccountDiagnosis) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AccountDiagnosis) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to Boolean")
+func (r AccountDiagnosis) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AccountDiagnosis to Boolean")
 }
-func (r AccountDiagnosis) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to String")
+func (r AccountDiagnosis) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AccountDiagnosis to String")
 }
-func (r AccountDiagnosis) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to Integer")
+func (r AccountDiagnosis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AccountDiagnosis to Integer")
 }
-func (r AccountDiagnosis) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to Decimal")
+func (r AccountDiagnosis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AccountDiagnosis to Decimal")
 }
-func (r AccountDiagnosis) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to Date")
+func (r AccountDiagnosis) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AccountDiagnosis to Date")
 }
-func (r AccountDiagnosis) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to Time")
+func (r AccountDiagnosis) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AccountDiagnosis to Time")
 }
-func (r AccountDiagnosis) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to DateTime")
+func (r AccountDiagnosis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AccountDiagnosis to DateTime")
 }
-func (r AccountDiagnosis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AccountDiagnosis to Quantity")
+func (r AccountDiagnosis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AccountDiagnosis to Quantity")
 }
-func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AccountDiagnosis
 	switch other := other.(type) {
 	case AccountDiagnosis:
@@ -5636,29 +5600,17 @@ func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *AccountDiagnosis:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AccountDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AccountDiagnosis
-	switch other := other.(type) {
-	case AccountDiagnosis:
-		o = &other
-	case *AccountDiagnosis:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AccountDiagnosis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5783,31 +5735,31 @@ func (r AccountProcedure) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AccountProcedure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AccountProcedure to Boolean")
+func (r AccountProcedure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AccountProcedure to Boolean")
 }
-func (r AccountProcedure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AccountProcedure to String")
+func (r AccountProcedure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AccountProcedure to String")
 }
-func (r AccountProcedure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AccountProcedure to Integer")
+func (r AccountProcedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AccountProcedure to Integer")
 }
-func (r AccountProcedure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AccountProcedure to Decimal")
+func (r AccountProcedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AccountProcedure to Decimal")
 }
-func (r AccountProcedure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AccountProcedure to Date")
+func (r AccountProcedure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AccountProcedure to Date")
 }
-func (r AccountProcedure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AccountProcedure to Time")
+func (r AccountProcedure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AccountProcedure to Time")
 }
-func (r AccountProcedure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AccountProcedure to DateTime")
+func (r AccountProcedure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AccountProcedure to DateTime")
 }
-func (r AccountProcedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AccountProcedure to Quantity")
+func (r AccountProcedure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AccountProcedure to Quantity")
 }
-func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AccountProcedure
 	switch other := other.(type) {
 	case AccountProcedure:
@@ -5815,29 +5767,17 @@ func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *AccountProcedure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AccountProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AccountProcedure
-	switch other := other.(type) {
-	case AccountProcedure:
-		o = &other
-	case *AccountProcedure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AccountProcedure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5942,31 +5882,31 @@ func (r AccountRelatedAccount) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AccountRelatedAccount) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to Boolean")
+func (r AccountRelatedAccount) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AccountRelatedAccount to Boolean")
 }
-func (r AccountRelatedAccount) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to String")
+func (r AccountRelatedAccount) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AccountRelatedAccount to String")
 }
-func (r AccountRelatedAccount) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to Integer")
+func (r AccountRelatedAccount) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AccountRelatedAccount to Integer")
 }
-func (r AccountRelatedAccount) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to Decimal")
+func (r AccountRelatedAccount) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AccountRelatedAccount to Decimal")
 }
-func (r AccountRelatedAccount) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to Date")
+func (r AccountRelatedAccount) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AccountRelatedAccount to Date")
 }
-func (r AccountRelatedAccount) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to Time")
+func (r AccountRelatedAccount) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AccountRelatedAccount to Time")
 }
-func (r AccountRelatedAccount) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to DateTime")
+func (r AccountRelatedAccount) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AccountRelatedAccount to DateTime")
 }
-func (r AccountRelatedAccount) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AccountRelatedAccount to Quantity")
+func (r AccountRelatedAccount) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AccountRelatedAccount to Quantity")
 }
-func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AccountRelatedAccount
 	switch other := other.(type) {
 	case AccountRelatedAccount:
@@ -5974,29 +5914,17 @@ func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *AccountRelatedAccount:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AccountRelatedAccount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AccountRelatedAccount
-	switch other := other.(type) {
-	case AccountRelatedAccount:
-		o = &other
-	case *AccountRelatedAccount:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AccountRelatedAccount) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6083,31 +6011,31 @@ func (r AccountBalance) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AccountBalance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AccountBalance to Boolean")
+func (r AccountBalance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AccountBalance to Boolean")
 }
-func (r AccountBalance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AccountBalance to String")
+func (r AccountBalance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AccountBalance to String")
 }
-func (r AccountBalance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AccountBalance to Integer")
+func (r AccountBalance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AccountBalance to Integer")
 }
-func (r AccountBalance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AccountBalance to Decimal")
+func (r AccountBalance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AccountBalance to Decimal")
 }
-func (r AccountBalance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AccountBalance to Date")
+func (r AccountBalance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AccountBalance to Date")
 }
-func (r AccountBalance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AccountBalance to Time")
+func (r AccountBalance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AccountBalance to Time")
 }
-func (r AccountBalance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AccountBalance to DateTime")
+func (r AccountBalance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AccountBalance to DateTime")
 }
-func (r AccountBalance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AccountBalance to Quantity")
+func (r AccountBalance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AccountBalance to Quantity")
 }
-func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AccountBalance
 	switch other := other.(type) {
 	case AccountBalance:
@@ -6115,29 +6043,17 @@ func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *AccountBalance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AccountBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AccountBalance
-	switch other := other.(type) {
-	case AccountBalance:
-		o = &other
-	case *AccountBalance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AccountBalance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

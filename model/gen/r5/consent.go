@@ -4979,31 +4979,31 @@ func (r Consent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Consent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Consent to Boolean")
+func (r Consent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Consent to Boolean")
 }
-func (r Consent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Consent to String")
+func (r Consent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Consent to String")
 }
-func (r Consent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Consent to Integer")
+func (r Consent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Consent to Integer")
 }
-func (r Consent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Consent to Decimal")
+func (r Consent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Consent to Decimal")
 }
-func (r Consent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Consent to Date")
+func (r Consent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Consent to Date")
 }
-func (r Consent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Consent to Time")
+func (r Consent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Consent to Time")
 }
-func (r Consent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Consent to DateTime")
+func (r Consent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Consent to DateTime")
 }
-func (r Consent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Consent to Quantity")
+func (r Consent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Consent to Quantity")
 }
-func (r Consent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Consent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Consent
 	switch other := other.(type) {
 	case Consent:
@@ -5011,29 +5011,17 @@ func (r Consent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	case *Consent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Consent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Consent
-	switch other := other.(type) {
-	case Consent:
-		o = &other
-	case *Consent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Consent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5259,31 +5247,31 @@ func (r ConsentPolicyBasis) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ConsentPolicyBasis) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to Boolean")
+func (r ConsentPolicyBasis) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ConsentPolicyBasis to Boolean")
 }
-func (r ConsentPolicyBasis) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to String")
+func (r ConsentPolicyBasis) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ConsentPolicyBasis to String")
 }
-func (r ConsentPolicyBasis) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to Integer")
+func (r ConsentPolicyBasis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ConsentPolicyBasis to Integer")
 }
-func (r ConsentPolicyBasis) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to Decimal")
+func (r ConsentPolicyBasis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentPolicyBasis to Decimal")
 }
-func (r ConsentPolicyBasis) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to Date")
+func (r ConsentPolicyBasis) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ConsentPolicyBasis to Date")
 }
-func (r ConsentPolicyBasis) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to Time")
+func (r ConsentPolicyBasis) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ConsentPolicyBasis to Time")
 }
-func (r ConsentPolicyBasis) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to DateTime")
+func (r ConsentPolicyBasis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ConsentPolicyBasis to DateTime")
 }
-func (r ConsentPolicyBasis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ConsentPolicyBasis to Quantity")
+func (r ConsentPolicyBasis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ConsentPolicyBasis to Quantity")
 }
-func (r ConsentPolicyBasis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConsentPolicyBasis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ConsentPolicyBasis
 	switch other := other.(type) {
 	case ConsentPolicyBasis:
@@ -5291,29 +5279,17 @@ func (r ConsentPolicyBasis) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ConsentPolicyBasis:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ConsentPolicyBasis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ConsentPolicyBasis
-	switch other := other.(type) {
-	case ConsentPolicyBasis:
-		o = &other
-	case *ConsentPolicyBasis:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ConsentPolicyBasis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5405,31 +5381,31 @@ func (r ConsentVerification) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ConsentVerification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ConsentVerification to Boolean")
+func (r ConsentVerification) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ConsentVerification to Boolean")
 }
-func (r ConsentVerification) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ConsentVerification to String")
+func (r ConsentVerification) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ConsentVerification to String")
 }
-func (r ConsentVerification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ConsentVerification to Integer")
+func (r ConsentVerification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ConsentVerification to Integer")
 }
-func (r ConsentVerification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ConsentVerification to Decimal")
+func (r ConsentVerification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentVerification to Decimal")
 }
-func (r ConsentVerification) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ConsentVerification to Date")
+func (r ConsentVerification) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ConsentVerification to Date")
 }
-func (r ConsentVerification) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ConsentVerification to Time")
+func (r ConsentVerification) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ConsentVerification to Time")
 }
-func (r ConsentVerification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ConsentVerification to DateTime")
+func (r ConsentVerification) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ConsentVerification to DateTime")
 }
-func (r ConsentVerification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ConsentVerification to Quantity")
+func (r ConsentVerification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ConsentVerification to Quantity")
 }
-func (r ConsentVerification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConsentVerification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ConsentVerification
 	switch other := other.(type) {
 	case ConsentVerification:
@@ -5437,29 +5413,17 @@ func (r ConsentVerification) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *ConsentVerification:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ConsentVerification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ConsentVerification
-	switch other := other.(type) {
-	case ConsentVerification:
-		o = &other
-	case *ConsentVerification:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ConsentVerification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5609,31 +5573,31 @@ func (r ConsentProvision) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ConsentProvision) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ConsentProvision to Boolean")
+func (r ConsentProvision) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ConsentProvision to Boolean")
 }
-func (r ConsentProvision) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ConsentProvision to String")
+func (r ConsentProvision) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ConsentProvision to String")
 }
-func (r ConsentProvision) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ConsentProvision to Integer")
+func (r ConsentProvision) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ConsentProvision to Integer")
 }
-func (r ConsentProvision) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ConsentProvision to Decimal")
+func (r ConsentProvision) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentProvision to Decimal")
 }
-func (r ConsentProvision) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ConsentProvision to Date")
+func (r ConsentProvision) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ConsentProvision to Date")
 }
-func (r ConsentProvision) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ConsentProvision to Time")
+func (r ConsentProvision) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ConsentProvision to Time")
 }
-func (r ConsentProvision) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ConsentProvision to DateTime")
+func (r ConsentProvision) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ConsentProvision to DateTime")
 }
-func (r ConsentProvision) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ConsentProvision to Quantity")
+func (r ConsentProvision) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ConsentProvision to Quantity")
 }
-func (r ConsentProvision) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConsentProvision) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ConsentProvision
 	switch other := other.(type) {
 	case ConsentProvision:
@@ -5641,29 +5605,17 @@ func (r ConsentProvision) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *ConsentProvision:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ConsentProvision) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ConsentProvision
-	switch other := other.(type) {
-	case ConsentProvision:
-		o = &other
-	case *ConsentProvision:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ConsentProvision) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5812,31 +5764,31 @@ func (r ConsentProvisionActor) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ConsentProvisionActor) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to Boolean")
+func (r ConsentProvisionActor) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ConsentProvisionActor to Boolean")
 }
-func (r ConsentProvisionActor) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to String")
+func (r ConsentProvisionActor) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ConsentProvisionActor to String")
 }
-func (r ConsentProvisionActor) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to Integer")
+func (r ConsentProvisionActor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ConsentProvisionActor to Integer")
 }
-func (r ConsentProvisionActor) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to Decimal")
+func (r ConsentProvisionActor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentProvisionActor to Decimal")
 }
-func (r ConsentProvisionActor) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to Date")
+func (r ConsentProvisionActor) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ConsentProvisionActor to Date")
 }
-func (r ConsentProvisionActor) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to Time")
+func (r ConsentProvisionActor) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ConsentProvisionActor to Time")
 }
-func (r ConsentProvisionActor) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to DateTime")
+func (r ConsentProvisionActor) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ConsentProvisionActor to DateTime")
 }
-func (r ConsentProvisionActor) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ConsentProvisionActor to Quantity")
+func (r ConsentProvisionActor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ConsentProvisionActor to Quantity")
 }
-func (r ConsentProvisionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConsentProvisionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ConsentProvisionActor
 	switch other := other.(type) {
 	case ConsentProvisionActor:
@@ -5844,29 +5796,17 @@ func (r ConsentProvisionActor) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *ConsentProvisionActor:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ConsentProvisionActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ConsentProvisionActor
-	switch other := other.(type) {
-	case ConsentProvisionActor:
-		o = &other
-	case *ConsentProvisionActor:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ConsentProvisionActor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5941,31 +5881,31 @@ func (r ConsentProvisionData) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ConsentProvisionData) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to Boolean")
+func (r ConsentProvisionData) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ConsentProvisionData to Boolean")
 }
-func (r ConsentProvisionData) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to String")
+func (r ConsentProvisionData) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ConsentProvisionData to String")
 }
-func (r ConsentProvisionData) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to Integer")
+func (r ConsentProvisionData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ConsentProvisionData to Integer")
 }
-func (r ConsentProvisionData) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to Decimal")
+func (r ConsentProvisionData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentProvisionData to Decimal")
 }
-func (r ConsentProvisionData) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to Date")
+func (r ConsentProvisionData) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ConsentProvisionData to Date")
 }
-func (r ConsentProvisionData) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to Time")
+func (r ConsentProvisionData) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ConsentProvisionData to Time")
 }
-func (r ConsentProvisionData) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to DateTime")
+func (r ConsentProvisionData) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ConsentProvisionData to DateTime")
 }
-func (r ConsentProvisionData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ConsentProvisionData to Quantity")
+func (r ConsentProvisionData) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ConsentProvisionData to Quantity")
 }
-func (r ConsentProvisionData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConsentProvisionData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ConsentProvisionData
 	switch other := other.(type) {
 	case ConsentProvisionData:
@@ -5973,29 +5913,17 @@ func (r ConsentProvisionData) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *ConsentProvisionData:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ConsentProvisionData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ConsentProvisionData
-	switch other := other.(type) {
-	case ConsentProvisionData:
-		o = &other
-	case *ConsentProvisionData:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ConsentProvisionData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

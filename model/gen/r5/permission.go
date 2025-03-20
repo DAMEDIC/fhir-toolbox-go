@@ -3779,31 +3779,31 @@ func (r Permission) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Permission) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Permission to Boolean")
+func (r Permission) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Permission to Boolean")
 }
-func (r Permission) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Permission to String")
+func (r Permission) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Permission to String")
 }
-func (r Permission) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Permission to Integer")
+func (r Permission) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Permission to Integer")
 }
-func (r Permission) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Permission to Decimal")
+func (r Permission) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Permission to Decimal")
 }
-func (r Permission) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Permission to Date")
+func (r Permission) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Permission to Date")
 }
-func (r Permission) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Permission to Time")
+func (r Permission) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Permission to Time")
 }
-func (r Permission) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Permission to DateTime")
+func (r Permission) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Permission to DateTime")
 }
-func (r Permission) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Permission to Quantity")
+func (r Permission) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Permission to Quantity")
 }
-func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Permission
 	switch other := other.(type) {
 	case Permission:
@@ -3811,29 +3811,17 @@ func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *Permission:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Permission) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Permission
-	switch other := other.(type) {
-	case Permission:
-		o = &other
-	case *Permission:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Permission) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3982,31 +3970,31 @@ func (r PermissionJustification) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PermissionJustification) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PermissionJustification to Boolean")
+func (r PermissionJustification) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PermissionJustification to Boolean")
 }
-func (r PermissionJustification) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PermissionJustification to String")
+func (r PermissionJustification) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PermissionJustification to String")
 }
-func (r PermissionJustification) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PermissionJustification to Integer")
+func (r PermissionJustification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PermissionJustification to Integer")
 }
-func (r PermissionJustification) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PermissionJustification to Decimal")
+func (r PermissionJustification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionJustification to Decimal")
 }
-func (r PermissionJustification) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PermissionJustification to Date")
+func (r PermissionJustification) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PermissionJustification to Date")
 }
-func (r PermissionJustification) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PermissionJustification to Time")
+func (r PermissionJustification) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PermissionJustification to Time")
 }
-func (r PermissionJustification) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PermissionJustification to DateTime")
+func (r PermissionJustification) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PermissionJustification to DateTime")
 }
-func (r PermissionJustification) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PermissionJustification to Quantity")
+func (r PermissionJustification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionJustification to Quantity")
 }
-func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PermissionJustification
 	switch other := other.(type) {
 	case PermissionJustification:
@@ -4014,29 +4002,17 @@ func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *PermissionJustification:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PermissionJustification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PermissionJustification
-	switch other := other.(type) {
-	case PermissionJustification:
-		o = &other
-	case *PermissionJustification:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PermissionJustification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4125,31 +4101,31 @@ func (r PermissionRule) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PermissionRule) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PermissionRule to Boolean")
+func (r PermissionRule) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PermissionRule to Boolean")
 }
-func (r PermissionRule) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PermissionRule to String")
+func (r PermissionRule) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PermissionRule to String")
 }
-func (r PermissionRule) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PermissionRule to Integer")
+func (r PermissionRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PermissionRule to Integer")
 }
-func (r PermissionRule) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PermissionRule to Decimal")
+func (r PermissionRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRule to Decimal")
 }
-func (r PermissionRule) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PermissionRule to Date")
+func (r PermissionRule) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PermissionRule to Date")
 }
-func (r PermissionRule) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PermissionRule to Time")
+func (r PermissionRule) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PermissionRule to Time")
 }
-func (r PermissionRule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PermissionRule to DateTime")
+func (r PermissionRule) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PermissionRule to DateTime")
 }
-func (r PermissionRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PermissionRule to Quantity")
+func (r PermissionRule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRule to Quantity")
 }
-func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PermissionRule
 	switch other := other.(type) {
 	case PermissionRule:
@@ -4157,29 +4133,17 @@ func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *PermissionRule:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PermissionRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PermissionRule
-	switch other := other.(type) {
-	case PermissionRule:
-		o = &other
-	case *PermissionRule:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PermissionRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4282,31 +4246,31 @@ func (r PermissionRuleData) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PermissionRuleData) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PermissionRuleData to Boolean")
+func (r PermissionRuleData) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PermissionRuleData to Boolean")
 }
-func (r PermissionRuleData) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PermissionRuleData to String")
+func (r PermissionRuleData) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PermissionRuleData to String")
 }
-func (r PermissionRuleData) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PermissionRuleData to Integer")
+func (r PermissionRuleData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PermissionRuleData to Integer")
 }
-func (r PermissionRuleData) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PermissionRuleData to Decimal")
+func (r PermissionRuleData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleData to Decimal")
 }
-func (r PermissionRuleData) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PermissionRuleData to Date")
+func (r PermissionRuleData) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PermissionRuleData to Date")
 }
-func (r PermissionRuleData) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PermissionRuleData to Time")
+func (r PermissionRuleData) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PermissionRuleData to Time")
 }
-func (r PermissionRuleData) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PermissionRuleData to DateTime")
+func (r PermissionRuleData) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PermissionRuleData to DateTime")
 }
-func (r PermissionRuleData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PermissionRuleData to Quantity")
+func (r PermissionRuleData) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRuleData to Quantity")
 }
-func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PermissionRuleData
 	switch other := other.(type) {
 	case PermissionRuleData:
@@ -4314,29 +4278,17 @@ func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *PermissionRuleData:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PermissionRuleData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PermissionRuleData
-	switch other := other.(type) {
-	case PermissionRuleData:
-		o = &other
-	case *PermissionRuleData:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PermissionRuleData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4425,31 +4377,31 @@ func (r PermissionRuleDataResource) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r PermissionRuleDataResource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to Boolean")
+func (r PermissionRuleDataResource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PermissionRuleDataResource to Boolean")
 }
-func (r PermissionRuleDataResource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to String")
+func (r PermissionRuleDataResource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PermissionRuleDataResource to String")
 }
-func (r PermissionRuleDataResource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to Integer")
+func (r PermissionRuleDataResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PermissionRuleDataResource to Integer")
 }
-func (r PermissionRuleDataResource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to Decimal")
+func (r PermissionRuleDataResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleDataResource to Decimal")
 }
-func (r PermissionRuleDataResource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to Date")
+func (r PermissionRuleDataResource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PermissionRuleDataResource to Date")
 }
-func (r PermissionRuleDataResource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to Time")
+func (r PermissionRuleDataResource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PermissionRuleDataResource to Time")
 }
-func (r PermissionRuleDataResource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to DateTime")
+func (r PermissionRuleDataResource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PermissionRuleDataResource to DateTime")
 }
-func (r PermissionRuleDataResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PermissionRuleDataResource to Quantity")
+func (r PermissionRuleDataResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRuleDataResource to Quantity")
 }
-func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PermissionRuleDataResource
 	switch other := other.(type) {
 	case PermissionRuleDataResource:
@@ -4457,29 +4409,17 @@ func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseType
 	case *PermissionRuleDataResource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PermissionRuleDataResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PermissionRuleDataResource
-	switch other := other.(type) {
-	case PermissionRuleDataResource:
-		o = &other
-	case *PermissionRuleDataResource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PermissionRuleDataResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4563,31 +4503,31 @@ func (r PermissionRuleActivity) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PermissionRuleActivity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to Boolean")
+func (r PermissionRuleActivity) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PermissionRuleActivity to Boolean")
 }
-func (r PermissionRuleActivity) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to String")
+func (r PermissionRuleActivity) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PermissionRuleActivity to String")
 }
-func (r PermissionRuleActivity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to Integer")
+func (r PermissionRuleActivity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PermissionRuleActivity to Integer")
 }
-func (r PermissionRuleActivity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to Decimal")
+func (r PermissionRuleActivity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleActivity to Decimal")
 }
-func (r PermissionRuleActivity) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to Date")
+func (r PermissionRuleActivity) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PermissionRuleActivity to Date")
 }
-func (r PermissionRuleActivity) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to Time")
+func (r PermissionRuleActivity) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PermissionRuleActivity to Time")
 }
-func (r PermissionRuleActivity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to DateTime")
+func (r PermissionRuleActivity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PermissionRuleActivity to DateTime")
 }
-func (r PermissionRuleActivity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PermissionRuleActivity to Quantity")
+func (r PermissionRuleActivity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRuleActivity to Quantity")
 }
-func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PermissionRuleActivity
 	switch other := other.(type) {
 	case PermissionRuleActivity:
@@ -4595,29 +4535,17 @@ func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *PermissionRuleActivity:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PermissionRuleActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PermissionRuleActivity
-	switch other := other.(type) {
-	case PermissionRuleActivity:
-		o = &other
-	case *PermissionRuleActivity:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PermissionRuleActivity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

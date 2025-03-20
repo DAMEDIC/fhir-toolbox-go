@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"github.com/cockroachdb/apd/v3"
 	"maps"
 	"regexp"
@@ -22,15 +21,15 @@ type Element interface {
 	//
 	// If no name is passed, all children are returned.
 	Children(name ...string) Collection
-	ToBoolean(explicit bool) (*Boolean, error)
-	ToString(explicit bool) (*String, error)
-	ToInteger(explicit bool) (*Integer, error)
-	ToDecimal(explicit bool) (*Decimal, error)
-	ToDate(explicit bool) (*Date, error)
-	ToTime(explicit bool) (*Time, error)
-	ToDateTime(explicit bool) (*DateTime, error)
-	ToQuantity(explicit bool) (*Quantity, error)
-	Equal(other Element, _noReverseTypeConversion ...bool) bool
+	ToBoolean(explicit bool) (v Boolean, ok bool, err error)
+	ToString(explicit bool) (v String, ok bool, err error)
+	ToInteger(explicit bool) (v Integer, ok bool, err error)
+	ToDecimal(explicit bool) (v Decimal, ok bool, err error)
+	ToDate(explicit bool) (v Date, ok bool, err error)
+	ToTime(explicit bool) (v Time, ok bool, err error)
+	ToDateTime(explicit bool) (v DateTime, ok bool, err error)
+	ToQuantity(explicit bool) (v Quantity, ok bool, err error)
+	Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool)
 	Equivalent(other Element, _noReverseTypeConversion ...bool) bool
 	TypeInfo() TypeInfo
 	fmt.Stringer
@@ -40,7 +39,7 @@ type cmpElement interface {
 	Element
 	// Cmp may return nil, because attempting to operate on quantities
 	// with invalid units will result in empty ({ }).
-	Cmp(other Element) (*int, error)
+	Cmp(other Element) (cmp int, ok bool, err error)
 }
 
 type multiplyElement interface {
@@ -136,11 +135,12 @@ func (i SimpleTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i SimpleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	return i == other
+func (i SimpleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	return i == other, true
 }
 func (i SimpleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return i.Equal(other)
+	eq, _ := i.Equal(other)
+	return eq
 }
 func (i SimpleTypeInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
@@ -194,26 +194,27 @@ func (i ClassInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
 	o, ok := other.(ClassInfo)
 	if !ok {
-		return false
+		return false, true
 	}
 	if i.SimpleTypeInfo != o.SimpleTypeInfo {
-		return false
+		return false, true
 	}
 	if len(i.Element) != len(o.Element) {
-		return false
+		return false, true
 	}
 	for i, e := range i.Element {
 		if e != o.Element[i] {
-			return false
+			return false, true
 		}
 	}
-	return true
+	return true, true
 }
 func (i ClassInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return i.Equal(other)
+	eq, _ := i.Equal(other)
+	return eq
 }
 func (i ClassInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
@@ -258,11 +259,12 @@ func (i ClassInfoElement) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ClassInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	return i == other
+func (i ClassInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	return i == other, true
 }
 func (i ClassInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return i.Equal(other)
+	eq, _ := i.Equal(other)
+	return eq
 }
 func (i ClassInfoElement) TypeInfo() TypeInfo {
 	return ClassInfo{
@@ -304,11 +306,12 @@ func (i ListTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ListTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	return i == other
+func (i ListTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	return i == other, true
 }
 func (i ListTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return i.Equal(other)
+	eq, _ := i.Equal(other)
+	return eq
 }
 func (i ListTypeInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
@@ -350,23 +353,24 @@ func (i TupleTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i TupleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) bool {
+func (i TupleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
 	o, ok := other.(TupleTypeInfo)
 	if !ok {
-		return false
+		return false, true
 	}
 	if len(i.Element) != len(o.Element) {
-		return false
+		return false, true
 	}
 	for i, e := range i.Element {
 		if e != o.Element[i] {
-			return false
+			return false, true
 		}
 	}
-	return true
+	return true, true
 }
 func (i TupleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return i.Equal(other)
+	eq, _ := i.Equal(other)
+	return eq
 }
 func (i TupleTypeInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
@@ -408,11 +412,12 @@ func (i TupleTypeInfoElement) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i TupleTypeInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	return i == other
+func (i TupleTypeInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	return i == other, true
 }
 func (i TupleTypeInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return i.Equal(other)
+	eq, _ := i.Equal(other)
+	return eq
 }
 func (i TupleTypeInfoElement) TypeInfo() TypeInfo {
 	return ClassInfo{
@@ -464,11 +469,12 @@ func ParseTypeSpecifier(s string) TypeSpecifier {
 func (t TypeSpecifier) Children(name ...string) Collection {
 	return nil
 }
-func (t TypeSpecifier) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	return t == other
+func (t TypeSpecifier) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	return t == other, true
 }
 func (t TypeSpecifier) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return t.Equal(other)
+	eq, _ := t.Equal(other)
+	return eq
 }
 func (t TypeSpecifier) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -625,61 +631,60 @@ func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Collection
 	}
 }
 
-func elementTo[T Element](e Element, explicit bool) (*T, error) {
-	var v *T
+func elementTo[T Element](e Element, explicit bool) (v T, ok bool, err error) {
 	switch any(v).(type) {
-	case *Boolean:
-		v, err := e.ToBoolean(explicit)
-		return any(v).(*T), err
-	case *String:
-		v, err := e.ToString(explicit)
-		return any(v).(*T), err
-	case *Integer:
-		v, err := e.ToInteger(explicit)
-		return any(v).(*T), err
-	case *Decimal:
-		v, err := e.ToDecimal(explicit)
-		return any(v).(*T), err
-	case *Date:
-		v, err := e.ToDate(explicit)
-		return any(v).(*T), err
-	case *Time:
-		v, err := e.ToTime(explicit)
-		return any(v).(*T), err
-	case *DateTime:
-		v, err := e.ToDateTime(explicit)
-		return any(v).(*T), err
-	case *Quantity:
-		v, err := e.ToQuantity(explicit)
-		return any(v).(*T), err
+	case Boolean:
+		v, ok, err := e.ToBoolean(explicit)
+		return any(v).(T), ok, err
+	case String:
+		v, ok, err := e.ToString(explicit)
+		return any(v).(T), ok, err
+	case Integer:
+		v, ok, err := e.ToInteger(explicit)
+		return any(v).(T), ok, err
+	case Decimal:
+		v, ok, err := e.ToDecimal(explicit)
+		return any(v).(T), ok, err
+	case Date:
+		v, ok, err := e.ToDate(explicit)
+		return any(v).(T), ok, err
+	case Time:
+		v, ok, err := e.ToTime(explicit)
+		return any(v).(T), ok, err
+	case DateTime:
+		v, ok, err := e.ToDateTime(explicit)
+		return any(v).(T), ok, err
+	case Quantity:
+		v, ok, err := e.ToQuantity(explicit)
+		return any(v).(T), ok, err
 	default:
-		return v, fmt.Errorf("can not convert to type %T", v)
+		return v, false, fmt.Errorf("can not convert to type %T", v)
 	}
 }
 
 func toPrimitive(e Element) (Element, bool) {
-	if p, err := e.ToBoolean(false); err == nil {
+	if p, ok, err := e.ToBoolean(false); err == nil && ok {
 		return p, true
 	}
-	if p, err := e.ToString(false); err == nil {
+	if p, ok, err := e.ToString(false); err == nil && ok {
 		return p, true
 	}
-	if p, err := e.ToInteger(false); err == nil {
+	if p, ok, err := e.ToInteger(false); err == nil && ok {
 		return p, true
 	}
-	if p, err := e.ToDecimal(false); err == nil {
+	if p, ok, err := e.ToDecimal(false); err == nil && ok {
 		return p, true
 	}
-	if p, err := e.ToDate(false); err == nil {
+	if p, ok, err := e.ToDate(false); err == nil && ok {
 		return p, true
 	}
-	if p, err := e.ToTime(false); err == nil {
+	if p, ok, err := e.ToTime(false); err == nil && ok {
 		return p, true
 	}
-	if p, err := e.ToDateTime(false); err == nil {
+	if p, ok, err := e.ToDateTime(false); err == nil && ok {
 		return p, true
 	}
-	if p, err := e.ToQuantity(false); err == nil {
+	if p, ok, err := e.ToQuantity(false); err == nil && ok {
 		return p, true
 	}
 	return nil, false
@@ -687,27 +692,28 @@ func toPrimitive(e Element) (Element, bool) {
 
 type Collection []Element
 
-func (c Collection) Equal(other Collection) *bool {
+func (c Collection) Equal(other Collection) (eq bool, ok bool) {
 	if len(c) == 0 || len(other) == 0 {
-		return nil
+		return false, false
 	}
 	if len(c) != len(other) {
-		return utils.Ptr(false)
+		return false, true
 	}
 	for i, e := range c {
-		if !e.Equal(other[i]) {
-			return utils.Ptr(false)
+		eq, ok := e.Equal(other[i])
+		if !ok || !eq {
+			return false, true
 		}
 	}
-	return utils.Ptr(true)
+	return true, true
 }
 
-func (c Collection) Equivalent(other Collection) *bool {
+func (c Collection) Equivalent(other Collection) bool {
 	if len(c) == 0 && len(other) == 0 {
-		return utils.Ptr(true)
+		return true
 	}
 	if len(c) != len(other) {
-		return utils.Ptr(false)
+		return false
 	}
 
 outer:
@@ -717,17 +723,17 @@ outer:
 				continue outer
 			}
 		}
-		return utils.Ptr(false)
+		return false
 	}
-	return utils.Ptr(true)
+	return true
 }
 
-func (c Collection) Cmp(other Collection) (*int, error) {
+func (c Collection) Cmp(other Collection) (cmp int, ok bool, err error) {
 	if len(c) == 0 || len(other) == 0 {
-		return nil, nil
+		return 0, false, nil
 	}
 	if len(c) != 1 || len(other) != 1 {
-		return nil, fmt.Errorf("can not compare collections with len != 1: %v and %v", c, other)
+		return 0, false, fmt.Errorf("can not compare collections with len != 1: %v and %v", c, other)
 	}
 
 	left, ok := c[0].(cmpElement)
@@ -736,7 +742,7 @@ func (c Collection) Cmp(other Collection) (*int, error) {
 		left, ok = primitive.(cmpElement)
 	}
 	if !ok {
-		return nil, errors.New("only strings, integers, decimals, quantities, dates, datetimes and times can be compared")
+		return 0, false, errors.New("only strings, integers, decimals, quantities, dates, datetimes and times can be compared")
 	}
 	right := other[0]
 
@@ -760,7 +766,8 @@ func (c Collection) Union(other Collection) Collection {
 	for _, o := range other {
 		found := false
 		for _, e := range union {
-			if o.Equal(e) {
+			eq, ok := o.Equal(e)
+			if ok && eq {
 				found = true
 				break
 			}
@@ -792,7 +799,8 @@ func (c Collection) Combine(other Collection) Collection {
 }
 func (c Collection) Contains(element Element) bool {
 	for _, e := range c {
-		if e.Equal(element) {
+		eq, ok := e.Equal(element)
+		if ok && eq {
 			return true
 		}
 	}
@@ -1020,68 +1028,69 @@ func (b Boolean) Children(name ...string) Collection {
 	return nil
 }
 
-func (b Boolean) ToBoolean(explicit bool) (*Boolean, error) {
-	return &b, nil
+func (b Boolean) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
+	return b, true, nil
 }
-func (b Boolean) ToString(explicit bool) (*String, error) {
+func (b Boolean) ToString(explicit bool) (v String, ok bool, err error) {
 	if explicit {
-		return utils.Ptr(String(b.String())), nil
+		return String(b.String()), true, nil
 	}
-	return nil, implicitConversionError[Boolean, String]()
+	return "", false, implicitConversionError[Boolean, String]()
 }
-func (b Boolean) ToInteger(explicit bool) (*Integer, error) {
-	if explicit {
-		if b {
-			return utils.Ptr[Integer](1), nil
-		} else {
-			return utils.Ptr[Integer](0), nil
-		}
-	}
-	return nil, implicitConversionError[Boolean, Integer]()
-}
-func (b Boolean) ToDecimal(explicit bool) (*Decimal, error) {
+func (b Boolean) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	if explicit {
 		if b {
-			return &Decimal{Value: apd.New(10, -1)}, nil
+			return 1, true, nil
 		} else {
-			return &Decimal{Value: apd.New(00, -1)}, nil
+			return 0, true, nil
 		}
 	}
-	return nil, implicitConversionError[Boolean, Decimal]()
+	return 0, false, implicitConversionError[Boolean, Integer]()
+}
+func (b Boolean) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
+	if explicit {
+		if b {
+			return Decimal{Value: apd.New(10, -1)}, true, nil
+		} else {
+			return Decimal{Value: apd.New(00, -1)}, true, nil
+		}
+	}
+	return Decimal{}, false, implicitConversionError[Boolean, Decimal]()
 }
 
-func (b Boolean) ToDate(explicit bool) (*Date, error) {
-	return nil, conversionError[Boolean, Date]()
+func (b Boolean) ToDate(explicit bool) (v Date, ok bool, err error) {
+	return Date{}, false, conversionError[Boolean, Date]()
 }
-func (b Boolean) ToTime(explicit bool) (*Time, error) {
-	return nil, conversionError[Boolean, Time]()
+func (b Boolean) ToTime(explicit bool) (v Time, ok bool, err error) {
+	return Time{}, false, conversionError[Boolean, Time]()
 }
-func (b Boolean) ToDateTime(explicit bool) (*DateTime, error) {
-	return nil, conversionError[Boolean, DateTime]()
+func (b Boolean) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
+	return DateTime{}, false, conversionError[Boolean, DateTime]()
 }
-func (b Boolean) ToQuantity(explicit bool) (*Quantity, error) {
+func (b Boolean) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	if explicit {
 		if b {
-			return &Quantity{Value: Decimal{Value: apd.New(10, -1)}, Unit: "1"}, nil
+			return Quantity{Value: Decimal{Value: apd.New(10, -1)}, Unit: "1"}, true, nil
 		} else {
-			return &Quantity{Value: Decimal{Value: apd.New(00, -1)}, Unit: "1"}, nil
+			return Quantity{Value: Decimal{Value: apd.New(00, -1)}, Unit: "1"}, true, nil
 		}
 	}
-	return nil, conversionError[Boolean, Quantity]()
+	return Quantity{}, false, conversionError[Boolean, Quantity]()
 }
-func (b Boolean) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToBoolean(false)
-	if err == nil && o != nil {
-		return b == *o
+func (b Boolean) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToBoolean(false)
+	if err == nil && ok {
+		return b == o, true
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(b, true)
 	} else {
-		return false
+		return false, true
 	}
 }
 func (b Boolean) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return b.Equal(other, _noReverseTypeConversion...)
+	eq, ok := b.Equal(other, _noReverseTypeConversion...)
+	return ok && eq == true
 }
 func (b Boolean) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -1100,120 +1109,120 @@ func (s String) Children(name ...string) Collection {
 	return nil
 }
 
-func (s String) ToBoolean(explicit bool) (*Boolean, error) {
+func (s String) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 	if explicit {
 		if slices.Contains([]string{"true", "t", "yes", "y", "1", "1.0"}, string(s)) {
-			return utils.Ptr[Boolean](true), nil
+			return true, true, nil
 		} else if slices.Contains([]string{"false", "f", "no", "n", "0", "0.0"}, string(s)) {
-			return utils.Ptr[Boolean](false), nil
+			return false, true, nil
 		} else {
-			return nil, nil
+			return false, false, nil
 		}
 	}
-	return nil, implicitConversionError[String, Boolean]()
+	return false, false, implicitConversionError[String, Boolean]()
 }
-func (s String) ToString(explicit bool) (*String, error) {
-	return &s, nil
+func (s String) ToString(explicit bool) (v String, ok bool, err error) {
+	return s, true, nil
 }
-func (s String) ToInteger(explicit bool) (*Integer, error) {
+func (s String) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	if explicit {
 		i, err := strconv.Atoi(string(s))
 		if err != nil {
-			return nil, nil
+			return 0, false, nil
 		}
-		return utils.Ptr(Integer(i)), nil
+		return Integer(i), true, nil
 	}
-	return nil, conversionError[String, Integer]()
+	return 0, false, conversionError[String, Integer]()
 }
-func (s String) ToDecimal(explicit bool) (*Decimal, error) {
+func (s String) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	if explicit {
 		d, _, err := apd.NewFromString(string(s))
 		if err != nil {
-			return nil, nil
+			return Decimal{}, false, nil
 		}
-		return &Decimal{Value: d}, nil
+		return Decimal{Value: d}, true, nil
 	}
-	return nil, conversionError[String, Decimal]()
+	return Decimal{}, false, conversionError[String, Decimal]()
 }
-func (s String) ToDate(explicit bool) (*Date, error) {
+func (s String) ToDate(explicit bool) (v Date, ok bool, err error) {
 	if explicit {
 		d, err := ParseDate(string(s))
 		if err != nil {
-			return nil, nil
+			return Date{}, false, nil
 		}
-		return utils.Ptr[Date](d), nil
+		return d, true, nil
 	}
-	return nil, conversionError[String, Date]()
+	return Date{}, false, conversionError[String, Date]()
 }
-func (s String) ToTime(explicit bool) (*Time, error) {
+func (s String) ToTime(explicit bool) (v Time, ok bool, err error) {
 	if explicit {
 		d, err := parseTime(string(s), false)
 		if err != nil {
-			return nil, nil
+			return Time{}, false, nil
 		}
-		return utils.Ptr[Time](d), nil
+		return d, true, nil
 	}
-	return nil, conversionError[String, Time]()
+	return Time{}, false, conversionError[String, Time]()
 }
-func (s String) ToDateTime(explicit bool) (*DateTime, error) {
+func (s String) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 	if explicit {
 		d, err := ParseDateTime(string(s))
 		if err != nil {
-			return nil, nil
+			return DateTime{}, false, nil
 		}
-		return utils.Ptr[DateTime](d), nil
+		return d, true, nil
 	}
-	return nil, conversionError[String, DateTime]()
+	return DateTime{}, false, conversionError[String, DateTime]()
 }
-func (s String) ToQuantity(explicit bool) (*Quantity, error) {
+func (s String) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	q, err := ParseQuantity(string(s))
 	if err != nil {
-		return nil, nil
+		return Quantity{}, false, nil
 	}
-	return &q, nil
+	return q, true, nil
 }
-func (s String) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToString(false)
-	if err == nil && o != nil {
-		return s == *o
+func (s String) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToString(false)
+	if err == nil && ok {
+		return s == o, true
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(s, true)
 	} else {
-		return false
+		return false, true
 	}
 }
 
 var whitespaceReplaceRegex = regexp.MustCompile("[\t\r\n]")
 
 func (s String) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToString(false)
-	if err == nil && o != nil {
+	o, ok, err := other.ToString(false)
+	if err == nil && ok {
 		return whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(s)), " ") ==
-			whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(*o)), " ")
+			whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(o)), " ")
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Equal(s, true)
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
+		return other.Equivalent(s, true)
 	} else {
 		return false
 	}
 }
-func (s String) Cmp(other Element) (*int, error) {
-	o, err := other.ToString(false)
-	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare String to %T, left: %v right: %v", other, s, other)
+func (s String) Cmp(other Element) (cmp int, ok bool, err error) {
+	o, ok, err := other.ToString(false)
+	if err != nil || !ok {
+		return 0, false, fmt.Errorf("can not compare String to %T, left: %v right: %v", other, s, other)
 	}
-	return utils.Ptr(strings.Compare(string(s), string(*o))), nil
+	return strings.Compare(string(s), string(o)), true, nil
 }
 func (s String) Add(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToString(false)
+	o, ok, err := other.ToString(false)
 	if err != nil {
 		return nil, fmt.Errorf("can not add %T to String, %v + %v", other, s, other)
 	}
-	if o == nil {
+	if !ok {
 		return nil, nil
 	}
-	return s + *o, nil
+	return s + o, nil
 }
 func (s String) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -1247,66 +1256,67 @@ func (i Integer) Children(name ...string) Collection {
 	return nil
 }
 
-func (i Integer) ToBoolean(explicit bool) (*Boolean, error) {
+func (i Integer) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 	if explicit {
 		switch i {
 		case 0:
-			return utils.Ptr[Boolean](false), nil
+			return false, true, nil
 		case 1:
-			return utils.Ptr[Boolean](true), nil
+			return true, true, nil
 		default:
-			return nil, nil
+			return false, false, nil
 		}
 	}
-	return nil, implicitConversionError[Integer, Boolean]()
+	return false, false, implicitConversionError[Integer, Boolean]()
 }
-func (i Integer) ToString(explicit bool) (*String, error) {
-	return utils.Ptr(String(i.String())), nil
+func (i Integer) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(i.String()), true, nil
 }
-func (i Integer) ToInteger(explicit bool) (*Integer, error) {
-	return &i, nil
+func (i Integer) ToInteger(explicit bool) (v Integer, ok bool, err error) {
+	return i, true, nil
 }
-func (i Integer) ToDecimal(explicit bool) (*Decimal, error) {
-	return &Decimal{Value: apd.New(int64(i), 0)}, nil
+func (i Integer) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
+	return Decimal{Value: apd.New(int64(i), 0)}, true, nil
 }
-func (i Integer) ToDate(explicit bool) (*Date, error) {
-	return nil, conversionError[Integer, Date]()
+func (i Integer) ToDate(explicit bool) (v Date, ok bool, err error) {
+	return Date{}, false, conversionError[Integer, Date]()
 }
-func (i Integer) ToTime(explicit bool) (*Time, error) {
-	return nil, conversionError[Integer, Time]()
+func (i Integer) ToTime(explicit bool) (v Time, ok bool, err error) {
+	return Time{}, false, conversionError[Integer, Time]()
 }
-func (i Integer) ToDateTime(explicit bool) (*DateTime, error) {
-	return nil, conversionError[Integer, DateTime]()
+func (i Integer) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
+	return DateTime{}, false, conversionError[Integer, DateTime]()
 }
-func (i Integer) ToQuantity(explicit bool) (*Quantity, error) {
-	return &Quantity{
+func (i Integer) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
+	return Quantity{
 		Value: Decimal{
 			Value: apd.New(int64(i), 0),
 		},
 		Unit: "1",
-	}, nil
+	}, true, nil
 }
-func (i Integer) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToInteger(false)
-	if err == nil && o != nil {
-		return i == *o
+func (i Integer) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToInteger(false)
+	if err == nil && ok {
+		return i == o, true
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(i, true)
 	} else {
-		return false
+		return false, false
 	}
 }
 func (i Integer) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return i.Equal(other, _noReverseTypeConversion...)
+	eq, ok := i.Equal(other, _noReverseTypeConversion...)
+	return ok && eq == true
 }
-func (i Integer) Cmp(other Element) (*int, error) {
-	d, _ := i.ToDecimal(false)
-	cmp, err := d.Cmp(other)
-	if err != nil {
-		return nil, fmt.Errorf("can not compare Integer to %T, left: %v right: %v", other, i, other)
+func (i Integer) Cmp(other Element) (cmp int, ok bool, err error) {
+	d, _, _ := i.ToDecimal(false)
+	cmp, ok, err = d.Cmp(other)
+	if err != nil || !ok {
+		return 0, false, fmt.Errorf("can not compare Integer to %T, left: %v right: %v", other, i, other)
 	}
-	return cmp, nil
+	return cmp, true, nil
 }
 func (i Integer) Multiply(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
@@ -1317,16 +1327,13 @@ func (i Integer) Multiply(ctx context.Context, other Element) (Element, error) {
 		}
 		return Integer(result), nil
 	case Decimal:
-		d, _ := i.ToDecimal(false)
+		d, _, _ := i.ToDecimal(false)
 		return d.Multiply(ctx, o)
 	}
 	return nil, fmt.Errorf("can not multiply Integer with %T: %v * %v", other, i, other)
 }
 func (i Integer) Divide(ctx context.Context, other Element) (Element, error) {
-	d, err := i.ToDecimal(false)
-	if err != nil {
-		return nil, fmt.Errorf("can not divide Integer with %T: %v * %v", other, i, other)
-	}
+	d, _, _ := i.ToDecimal(false)
 	return d.Divide(ctx, other)
 }
 func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
@@ -1338,7 +1345,7 @@ func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
 		}
 		return Integer(result), nil
 	case Decimal:
-		d, _ := i.ToDecimal(false)
+		d, _, _ := i.ToDecimal(false)
 		return d.Div(ctx, o)
 	}
 	return nil, fmt.Errorf("can not div Integer with %T: %v div %v", other, i, other)
@@ -1352,7 +1359,7 @@ func (i Integer) Mod(ctx context.Context, other Element) (Element, error) {
 		}
 		return Integer(result), nil
 	case Decimal:
-		d, _ := i.ToDecimal(false)
+		d, _, _ := i.ToDecimal(false)
 		return d.Mod(ctx, o)
 	}
 	return nil, fmt.Errorf("can not mod Integer with %T: %v mod %v", other, i, other)
@@ -1366,7 +1373,7 @@ func (i Integer) Add(ctx context.Context, other Element) (Element, error) {
 		}
 		return Integer(result), nil
 	case Decimal:
-		d, _ := i.ToDecimal(false)
+		d, _, _ := i.ToDecimal(false)
 		return d.Add(ctx, o)
 	}
 	return nil, fmt.Errorf("can not add Integer and %T: %v + %v", other, i, other)
@@ -1380,7 +1387,7 @@ func (i Integer) Subtract(ctx context.Context, other Element) (Element, error) {
 		}
 		return Integer(result), nil
 	case Decimal:
-		d, _ := i.ToDecimal(false)
+		d, _, _ := i.ToDecimal(false)
 		return d.Subtract(ctx, o)
 	}
 	return nil, fmt.Errorf("can not subtract %T from Integer: %v - %v", other, i, other)
@@ -1405,44 +1412,44 @@ func (d Decimal) Children(name ...string) Collection {
 	return nil
 }
 
-func (d Decimal) ToBoolean(explicit bool) (*Boolean, error) {
+func (d Decimal) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 	if explicit {
 		if d.Value.Cmp(apd.New(1, 0)) == 0 {
-			return utils.Ptr[Boolean](true), nil
+			return true, true, nil
 		} else if d.Value.Cmp(apd.New(0, 0)) == 0 {
-			return utils.Ptr[Boolean](false), nil
+			return false, true, nil
 		} else {
-			return nil, nil
+			return false, false, nil
 		}
 	}
-	return nil, implicitConversionError[Decimal, Boolean]()
+	return false, false, implicitConversionError[Decimal, Boolean]()
 }
-func (d Decimal) ToString(explicit bool) (*String, error) {
-	return utils.Ptr(String(d.String())), nil
+func (d Decimal) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(d.String()), false, nil
 }
-func (d Decimal) ToDecimal(explicit bool) (*Decimal, error) {
-	return &d, nil
+func (d Decimal) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
+	return d, true, nil
 }
-func (d Decimal) ToQuantity(explicit bool) (*Quantity, error) {
-	return &Quantity{
+func (d Decimal) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
+	return Quantity{
 		Value: d,
 		Unit:  "1",
-	}, nil
+	}, true, nil
 }
-func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToDecimal(false)
-	if err == nil && o != nil {
-		return d.Value.Cmp(o.Value) == 0
+func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToDecimal(false)
+	if err == nil && !ok {
+		return d.Value.Cmp(o.Value) == 0, true
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(d, true)
 	} else {
-		return false
+		return false, true
 	}
 }
 func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToDecimal(false)
-	if err == nil && o != nil {
+	o, ok, err := other.ToDecimal(false)
+	if err == nil && !ok {
 		prec := uint32(min(d.Value.NumDigits(), o.Value.NumDigits()))
 		ctx := apd.BaseContext.WithPrecision(prec)
 		var a, b apd.Decimal
@@ -1456,22 +1463,23 @@ func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) boo
 		}
 		return a.Cmp(&b) == 0
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
-		return other.Equal(d, true)
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
+		eq, ok := other.Equal(d, true)
+		return ok && eq
 	} else {
 		return false
 	}
 }
-func (d Decimal) Cmp(other Element) (*int, error) {
-	o, err := other.ToDecimal(false)
-	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Decimal to %T, left: %v right: %v", other, d, other)
+func (d Decimal) Cmp(other Element) (cmp int, ok bool, err error) {
+	o, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
+		return 0, false, fmt.Errorf("can not compare Decimal to %T, left: %v right: %v", other, d, other)
 	}
-	return utils.Ptr(d.Value.Cmp(o.Value)), nil
+	return d.Value.Cmp(o.Value), true, nil
 }
 func (d Decimal) Multiply(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToDecimal(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not multiply Decimal with %T: %v * %v", other, d, other)
 	}
 	var res apd.Decimal
@@ -1482,8 +1490,8 @@ func (d Decimal) Multiply(ctx context.Context, other Element) (Element, error) {
 	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Divide(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToDecimal(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not divide Decimal with %T: %v / %v", other, d, other)
 	}
 	if o.Value.IsZero() {
@@ -1497,8 +1505,8 @@ func (d Decimal) Divide(ctx context.Context, other Element) (Element, error) {
 	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Div(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToDecimal(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not div Decimal with %T: %v div %v", other, d, other)
 	}
 	if o.Value.IsZero() {
@@ -1512,8 +1520,8 @@ func (d Decimal) Div(ctx context.Context, other Element) (Element, error) {
 	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Mod(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToDecimal(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not mod Decimal with %T: %v mod %v", other, d, other)
 	}
 	if o.Value.IsZero() {
@@ -1527,8 +1535,8 @@ func (d Decimal) Mod(ctx context.Context, other Element) (Element, error) {
 	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Add(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToDecimal(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not add Decimal and %T: %v + %v", other, d, other)
 	}
 	if o.Value.IsZero() {
@@ -1542,8 +1550,8 @@ func (d Decimal) Add(ctx context.Context, other Element) (Element, error) {
 	return Decimal{Value: &res}, nil
 }
 func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToDecimal(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not subtract %T from Decimal: %v - %v", other, d, other)
 	}
 	if o.Value.IsZero() {
@@ -1584,86 +1592,87 @@ const (
 func (d Date) Children(name ...string) Collection {
 	return nil
 }
-func (d Date) ToString(explicit bool) (*String, error) {
-	return utils.Ptr(String(d.String())), nil
+func (d Date) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(d.String()), true, nil
 }
-func (d Date) ToDate(explicit bool) (*Date, error) {
-	return &d, nil
+func (d Date) ToDate(explicit bool) (v Date, ok bool, err error) {
+	return d, true, nil
 }
-func (d Date) ToDateTime(explicit bool) (*DateTime, error) {
-	return &DateTime{
+func (d Date) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
+	return DateTime{
 		Value:     d.Value,
 		Precision: DateTimePrecisionDay,
-	}, nil
+	}, true, nil
 }
-func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToDate(false)
-	if err == nil && o != nil {
-		cmp, err := d.Cmp(o)
-		if err == nil && cmp != nil {
-			return *cmp == 0
+func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToDate(false)
+	if err == nil && ok {
+		cmp, ok, err := d.Cmp(o)
+		if err == nil && ok {
+			return cmp == 0, true
 		}
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(d, true)
 	} else {
-		return false
+		return false, true
 	}
 }
 func (d Date) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToDate(false)
-	if err == nil && o != nil && d.Precision == o.Precision {
-		return d.Equal(other, _noReverseTypeConversion...)
+	o, ok, err := other.ToDate(false)
+	if err == nil && ok && d.Precision == o.Precision {
+		eq, ok := d.Equal(other, _noReverseTypeConversion...)
+		return ok && eq == true
 	}
 	return false
 }
-func (d Date) Cmp(other Element) (*int, error) {
-	o, err := other.ToDate(false)
-	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Date to %T, left: %v right: %v", other, d, other)
+func (d Date) Cmp(other Element) (cmp int, ok bool, err error) {
+	o, ok, err := other.ToDate(false)
+	if err != nil || !ok {
+		return 0, false, fmt.Errorf("can not compare Date to %T, left: %v right: %v", other, d, other)
 	}
 	switch d.Precision {
 	case DatePrecisionYear:
 		if o.Precision != DatePrecisionYear {
-			return nil, nil
+			return 0, false, nil
 		}
 		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else {
-			return utils.Ptr(0), nil
+			return 0, true, nil
 		}
 	case DatePrecisionMonth:
 		if o.Precision != DatePrecisionMonth {
-			return nil, nil
+			return 0, false, nil
 		}
 		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else {
-			return utils.Ptr(0), nil
+			return 0, true, nil
 		}
 	default:
 		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else if d.Value.Day() < o.Value.In(d.Value.Location()).Day() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if d.Value.Day() > o.Value.In(d.Value.Location()).Day() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else {
-			return utils.Ptr(0), nil
+			return 0, true, nil
 		}
 	}
 }
@@ -1675,8 +1684,8 @@ func (d Date) Add(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("cannot perform arithmetic on empty date")
 	}
 
-	q, err := other.ToQuantity(false)
-	if err != nil || q == nil {
+	q, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not add Date with %T: %v + %v", other, d, other)
 	}
 
@@ -1729,8 +1738,8 @@ func (d Date) Subtract(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("cannot perform arithmetic on empty date")
 	}
 
-	q, err := other.ToQuantity(false)
-	if err != nil || q == nil {
+	q, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not subtract from Date with %T: %v - %v", other, d, other)
 	}
 
@@ -1814,53 +1823,54 @@ func (t Time) Children(name ...string) Collection {
 	return nil
 }
 
-func (t Time) ToString(explicit bool) (*String, error) {
-	return utils.Ptr(String(t.String())), nil
+func (t Time) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(t.String()), true, nil
 }
-func (t Time) ToTime(explicit bool) (*Time, error) {
-	return &t, nil
+func (t Time) ToTime(explicit bool) (v Time, ok bool, err error) {
+	return t, true, nil
 }
-func (t Time) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToTime(false)
-	if err == nil && o != nil {
-		cmp, err := t.Cmp(o)
-		if err == nil && cmp != nil {
-			return *cmp == 0
+func (t Time) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToTime(false)
+	if err == nil && ok {
+		cmp, ok, err := t.Cmp(o)
+		if err == nil && ok {
+			return cmp == 0, true
 		}
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(t, true)
 	} else {
-		return false
+		return false, true
 	}
 }
 func (t Time) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToTime(false)
-	if err == nil && o != nil && t.Precision == o.Precision {
-		return t.Equal(other, _noReverseTypeConversion...)
+	o, ok, err := other.ToTime(false)
+	if err == nil && ok && t.Precision == o.Precision {
+		eq, ok := t.Equal(other, _noReverseTypeConversion...)
+		return ok && eq
 	}
 	return false
 }
-func (t Time) Cmp(other Element) (*int, error) {
-	o, err := other.ToTime(false)
-	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, t, other)
+func (t Time) Cmp(other Element) (cmp int, ok bool, err error) {
+	o, ok, err := other.ToTime(false)
+	if err != nil || !ok {
+		return 0, false, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, t, other)
 	}
 	switch t.Precision {
 	case TimePrecisionHour:
 		if o.Precision != TimePrecisionHour {
-			return nil, nil
+			return 0, false, nil
 		}
-		return utils.Ptr(t.Value.Truncate(time.Hour).Compare(
-			o.Value.In(t.Value.Location()).Truncate(time.Hour))), nil
+		return t.Value.Truncate(time.Hour).Compare(
+			o.Value.In(t.Value.Location()).Truncate(time.Hour)), true, nil
 	case TimePrecisionMinute:
 		if o.Precision != TimePrecisionMinute {
-			return nil, nil
+			return 0, false, nil
 		}
-		return utils.Ptr(t.Value.Truncate(time.Minute).Compare(
-			o.Value.In(t.Value.Location()).Truncate(time.Minute))), nil
+		return t.Value.Truncate(time.Minute).Compare(
+			o.Value.In(t.Value.Location()).Truncate(time.Minute)), true, nil
 	default:
-		return utils.Ptr(t.Value.Compare(o.Value.In(t.Value.Location()))), nil
+		return t.Value.Compare(o.Value.In(t.Value.Location())), true, nil
 	}
 }
 
@@ -1871,8 +1881,8 @@ func (t Time) Add(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("cannot perform arithmetic on empty time")
 	}
 
-	q, err := other.ToQuantity(false)
-	if err != nil || q == nil {
+	q, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not add Time with %T: %v + %v", other, t, other)
 	}
 
@@ -1921,8 +1931,8 @@ func (t Time) Subtract(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("cannot perform arithmetic on empty time")
 	}
 
-	q, err := other.ToQuantity(false)
-	if err != nil || q == nil {
+	q, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not subtract from Time with %T: %v - %v", other, t, other)
 	}
 
@@ -2004,10 +2014,10 @@ const (
 func (dt DateTime) Children(name ...string) Collection {
 	return nil
 }
-func (dt DateTime) ToString(explicit bool) (*String, error) {
-	return utils.Ptr(String(dt.String())), nil
+func (dt DateTime) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(dt.String()), true, nil
 }
-func (dt DateTime) ToDate(explicit bool) (*Date, error) {
+func (dt DateTime) ToDate(explicit bool) (v Date, ok bool, err error) {
 	var precision DatePrecision
 	switch dt.Precision {
 	case DateTimePrecisionYear, DateTimePrecisionMonth:
@@ -2015,101 +2025,102 @@ func (dt DateTime) ToDate(explicit bool) (*Date, error) {
 	default:
 		precision = DatePrecisionFull
 	}
-	return &Date{
+	return Date{
 		Value:     dt.Value,
 		Precision: precision,
-	}, nil
+	}, true, nil
 }
-func (dt DateTime) ToDateTime(explicit bool) (*DateTime, error) {
-	return &dt, nil
+func (dt DateTime) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
+	return dt, true, nil
 }
-func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToDateTime(false)
-	if err == nil && o != nil {
-		cmp, err := dt.Cmp(o)
-		if err == nil && cmp != nil {
-			return *cmp == 0
+func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToDateTime(false)
+	if err == nil && ok {
+		cmp, ok, err := dt.Cmp(o)
+		if err == nil && ok {
+			return cmp == 0, true
 		}
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(dt, true)
 	} else {
-		return false
+		return false, true
 	}
 }
 func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToDateTime(false)
-	if err == nil && o != nil && dt.Precision == o.Precision {
-		return dt.Equal(other, _noReverseTypeConversion...)
+	o, ok, err := other.ToDateTime(false)
+	if err == nil && ok && dt.Precision == o.Precision {
+		eq, ok := dt.Equal(other, _noReverseTypeConversion...)
+		return ok && eq
 	}
 	return false
 }
-func (dt DateTime) Cmp(other Element) (*int, error) {
-	o, err := other.ToDateTime(false)
-	if err != nil || o == nil {
-		return nil, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, dt, other)
+func (dt DateTime) Cmp(other Element) (cmp int, ok bool, err error) {
+	o, ok, err := other.ToDateTime(false)
+	if err != nil || !ok {
+		return 0, false, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, dt, other)
 	}
 	switch dt.Precision {
 	case DateTimePrecisionYear:
 		if o.Precision != DateTimePrecisionYear {
-			return nil, nil
+			return 0, false, nil
 		}
 		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else {
-			return utils.Ptr(0), nil
+			return 0, true, nil
 		}
 	case DateTimePrecisionMonth:
 		if o.Precision != DateTimePrecisionMonth {
-			return nil, nil
+			return 0, false, nil
 		}
 		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else {
-			return utils.Ptr(0), nil
+			return 0, true, nil
 		}
 	case DateTimePrecisionDay:
 		if o.Precision != DateTimePrecisionDay {
-			return nil, nil
+			return 0, false, nil
 		}
 		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else if dt.Value.Day() < o.Value.In(dt.Value.Location()).Day() {
-			return utils.Ptr(-1), nil
+			return -1, true, nil
 		} else if dt.Value.Day() > o.Value.In(dt.Value.Location()).Day() {
-			return utils.Ptr(1), nil
+			return 1, true, nil
 		} else {
-			return utils.Ptr(0), nil
+			return 0, true, nil
 		}
 	case DateTimePrecisionHour:
 		if o.Precision != DateTimePrecisionHour {
-			return nil, nil
+			return 0, false, nil
 		}
-		return utils.Ptr(dt.Value.Truncate(time.Hour).Compare(
-			o.Value.In(dt.Value.Location()).Truncate(time.Hour))), nil
+		return dt.Value.Truncate(time.Hour).Compare(
+			o.Value.In(dt.Value.Location()).Truncate(time.Hour)), true, nil
 	case DateTimePrecisionMinute:
 		if o.Precision != DateTimePrecisionMinute {
-			return nil, nil
+			return 0, false, nil
 		}
-		return utils.Ptr(dt.Value.Truncate(time.Minute).Compare(
-			o.Value.In(dt.Value.Location()).Truncate(time.Minute))), nil
+		return dt.Value.Truncate(time.Minute).Compare(
+			o.Value.In(dt.Value.Location()).Truncate(time.Minute)), true, nil
 	default:
-		return utils.Ptr(dt.Value.Compare(
-			o.Value.In(dt.Value.Location()))), nil
+		return dt.Value.Compare(
+			o.Value.In(dt.Value.Location())), true, nil
 	}
 }
 
@@ -2120,8 +2131,8 @@ func (dt DateTime) Add(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("cannot perform arithmetic on empty datetime")
 	}
 
-	q, err := other.ToQuantity(false)
-	if err != nil || q == nil {
+	q, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not add DateTime with %T: %v + %v", other, dt, other)
 	}
 
@@ -2187,8 +2198,8 @@ func (dt DateTime) Subtract(ctx context.Context, other Element) (Element, error)
 		return nil, fmt.Errorf("cannot perform arithmetic on empty datetime")
 	}
 
-	q, err := other.ToQuantity(false)
-	if err != nil || q == nil {
+	q, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not subtract from DateTime with %T: %v - %v", other, dt, other)
 	}
 
@@ -2461,43 +2472,45 @@ func (q Quantity) Children(name ...string) Collection {
 	}
 	return children
 }
-func (q Quantity) ToString(explicit bool) (*String, error) {
-	return utils.Ptr(String(q.String())), nil
+func (q Quantity) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(q.String()), true, nil
 }
-func (q Quantity) ToQuantity(explicit bool) (*Quantity, error) {
-	return &q, nil
+func (q Quantity) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
+	return q, true, nil
 }
-func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) bool {
-	o, err := other.ToQuantity(false)
-	if err == nil && o != nil {
+func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	o, ok, err := other.ToQuantity(false)
+	if err == nil && ok {
 		left := q.dateAsUCUM()
 		right := o.dateAsUCUM()
-		return left.Value.Equal(right.Value) && left.Unit == right.Unit
+		eq, ok := left.Value.Equal(right.Value)
+		return ok && eq && left.Unit == right.Unit, true
 	}
-	if len(_noReverseTypeConversion) > 0 && _noReverseTypeConversion[0] {
+	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(q, true)
 	} else {
-		return false
+		return false, true
 	}
 }
 func (q Quantity) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	return q.Equal(other)
+	eq, ok := q.Equal(other, _noReverseTypeConversion...)
+	return ok && eq == true
 }
-func (q Quantity) Cmp(other Element) (*int, error) {
-	o, err := other.ToQuantity(false)
-	if err != nil || o == nil {
-		return utils.Ptr(0), fmt.Errorf("can not compare Quantity to %T, left: %v right: %v", other, q, other)
+func (q Quantity) Cmp(other Element) (cmp int, ok bool, err error) {
+	o, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
+		return 0, false, fmt.Errorf("can not compare Quantity to %T, left: %v right: %v", other, q, other)
 	}
 	left := q.dateAsUCUM()
 	right := o.dateAsUCUM()
 	if left.Unit != right.Unit {
-		return utils.Ptr(0), fmt.Errorf("quantity units do not match, left: %v right: %v", left.Unit, right.Unit)
+		return 0, false, fmt.Errorf("quantity units do not match, left: %v right: %v", left.Unit, right.Unit)
 	}
 	return left.Value.Cmp(right.Value)
 }
 func (q Quantity) Multiply(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToQuantity(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not multiply Quantity with %T: %v * %v", other, q, other)
 	}
 	left := q.dateAsUCUM()
@@ -2511,8 +2524,8 @@ func (q Quantity) Multiply(ctx context.Context, other Element) (Element, error) 
 	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
 }
 func (q Quantity) Divide(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToQuantity(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not divide Quantity with %T: %v / %v", other, q, other)
 	}
 	left := q.dateAsUCUM()
@@ -2526,8 +2539,8 @@ func (q Quantity) Divide(ctx context.Context, other Element) (Element, error) {
 	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
 }
 func (q Quantity) Add(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToQuantity(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not add Quantity and %T: %v + %v", other, q, other)
 	}
 	left := q.dateAsUCUM()
@@ -2545,8 +2558,8 @@ func (q Quantity) Add(ctx context.Context, other Element) (Element, error) {
 	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
 }
 func (q Quantity) Subtract(ctx context.Context, other Element) (Element, error) {
-	o, err := other.ToQuantity(false)
-	if err != nil || o == nil {
+	o, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return nil, fmt.Errorf("can not subtract %T from Quantity: %v - %v", other, q, other)
 	}
 	left := q.dateAsUCUM()
@@ -2624,29 +2637,29 @@ func ParseQuantity(s string) (Quantity, error) {
 type defaultConversionError[F any] struct {
 }
 
-func (_ defaultConversionError[F]) ToBoolean(explicit bool) (*Boolean, error) {
-	return nil, conversionError[F, Boolean]()
+func (_ defaultConversionError[F]) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
+	return false, false, conversionError[F, Boolean]()
 }
-func (_ defaultConversionError[F]) ToString(explicit bool) (*String, error) {
-	return nil, conversionError[F, Boolean]()
+func (_ defaultConversionError[F]) ToString(explicit bool) (v String, ok bool, err error) {
+	return "", false, conversionError[F, Boolean]()
 }
-func (_ defaultConversionError[F]) ToInteger(explicit bool) (*Integer, error) {
-	return nil, conversionError[F, Integer]()
+func (_ defaultConversionError[F]) ToInteger(explicit bool) (v Integer, ok bool, err error) {
+	return 0, false, conversionError[F, Integer]()
 }
-func (_ defaultConversionError[F]) ToDecimal(explicit bool) (*Decimal, error) {
-	return nil, conversionError[F, Decimal]()
+func (_ defaultConversionError[F]) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
+	return Decimal{}, false, conversionError[F, Decimal]()
 }
-func (_ defaultConversionError[F]) ToDate(explicit bool) (*Date, error) {
-	return nil, conversionError[F, Date]()
+func (_ defaultConversionError[F]) ToDate(explicit bool) (v Date, ok bool, err error) {
+	return Date{}, false, conversionError[F, Date]()
 }
-func (_ defaultConversionError[F]) ToTime(explicit bool) (*Time, error) {
-	return nil, conversionError[F, Time]()
+func (_ defaultConversionError[F]) ToTime(explicit bool) (v Time, ok bool, err error) {
+	return Time{}, false, conversionError[F, Time]()
 }
-func (_ defaultConversionError[F]) ToDateTime(explicit bool) (*DateTime, error) {
-	return nil, conversionError[F, DateTime]()
+func (_ defaultConversionError[F]) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
+	return DateTime{}, false, conversionError[F, DateTime]()
 }
-func (_ defaultConversionError[F]) ToQuantity(explicit bool) (*Quantity, error) {
-	return nil, conversionError[F, Quantity]()
+func (_ defaultConversionError[F]) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
+	return Quantity{}, false, conversionError[F, Quantity]()
 }
 
 func conversionError[F any, T Element]() error {

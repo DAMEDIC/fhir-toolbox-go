@@ -2971,31 +2971,31 @@ func (r EventDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r EventDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EventDefinition to Boolean")
+func (r EventDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EventDefinition to Boolean")
 }
-func (r EventDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EventDefinition to String")
+func (r EventDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EventDefinition to String")
 }
-func (r EventDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EventDefinition to Integer")
+func (r EventDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EventDefinition to Integer")
 }
-func (r EventDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EventDefinition to Decimal")
+func (r EventDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EventDefinition to Decimal")
 }
-func (r EventDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EventDefinition to Date")
+func (r EventDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EventDefinition to Date")
 }
-func (r EventDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EventDefinition to Time")
+func (r EventDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EventDefinition to Time")
 }
-func (r EventDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EventDefinition to DateTime")
+func (r EventDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EventDefinition to DateTime")
 }
-func (r EventDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EventDefinition to Quantity")
+func (r EventDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EventDefinition to Quantity")
 }
-func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EventDefinition
 	switch other := other.(type) {
 	case EventDefinition:
@@ -3003,29 +3003,17 @@ func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *EventDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EventDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EventDefinition
-	switch other := other.(type) {
-	case EventDefinition:
-		o = &other
-	case *EventDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EventDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

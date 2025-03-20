@@ -67,7 +67,7 @@ func generateType(g *Group, s ir.Struct) {
 	g.Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
 		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit(s.Name),
+			Id("Name"):      Lit(s.MarshalName),
 			Id("BaseType"):  base,
 		}),
 		Id("Element"): elements,

@@ -9413,31 +9413,31 @@ func (r StructureMap) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r StructureMap) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMap to Boolean")
+func (r StructureMap) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMap to Boolean")
 }
-func (r StructureMap) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMap to String")
+func (r StructureMap) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMap to String")
 }
-func (r StructureMap) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMap to Integer")
+func (r StructureMap) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMap to Integer")
 }
-func (r StructureMap) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMap to Decimal")
+func (r StructureMap) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMap to Decimal")
 }
-func (r StructureMap) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMap to Date")
+func (r StructureMap) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMap to Date")
 }
-func (r StructureMap) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMap to Time")
+func (r StructureMap) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMap to Time")
 }
-func (r StructureMap) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMap to DateTime")
+func (r StructureMap) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMap to DateTime")
 }
-func (r StructureMap) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMap to Quantity")
+func (r StructureMap) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMap to Quantity")
 }
-func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMap
 	switch other := other.(type) {
 	case StructureMap:
@@ -9445,29 +9445,17 @@ func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *StructureMap:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMap
-	switch other := other.(type) {
-	case StructureMap:
-		o = &other
-	case *StructureMap:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMap) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9720,31 +9708,31 @@ func (r StructureMapStructure) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r StructureMapStructure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapStructure to Boolean")
+func (r StructureMapStructure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapStructure to Boolean")
 }
-func (r StructureMapStructure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapStructure to String")
+func (r StructureMapStructure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapStructure to String")
 }
-func (r StructureMapStructure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapStructure to Integer")
+func (r StructureMapStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapStructure to Integer")
 }
-func (r StructureMapStructure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapStructure to Decimal")
+func (r StructureMapStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapStructure to Decimal")
 }
-func (r StructureMapStructure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapStructure to Date")
+func (r StructureMapStructure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapStructure to Date")
 }
-func (r StructureMapStructure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapStructure to Time")
+func (r StructureMapStructure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapStructure to Time")
 }
-func (r StructureMapStructure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapStructure to DateTime")
+func (r StructureMapStructure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapStructure to DateTime")
 }
-func (r StructureMapStructure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapStructure to Quantity")
+func (r StructureMapStructure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapStructure to Quantity")
 }
-func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapStructure
 	switch other := other.(type) {
 	case StructureMapStructure:
@@ -9752,29 +9740,17 @@ func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *StructureMapStructure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapStructure
-	switch other := other.(type) {
-	case StructureMapStructure:
-		o = &other
-	case *StructureMapStructure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9867,31 +9843,31 @@ func (r StructureMapConst) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r StructureMapConst) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapConst to Boolean")
+func (r StructureMapConst) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapConst to Boolean")
 }
-func (r StructureMapConst) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapConst to String")
+func (r StructureMapConst) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapConst to String")
 }
-func (r StructureMapConst) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapConst to Integer")
+func (r StructureMapConst) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapConst to Integer")
 }
-func (r StructureMapConst) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapConst to Decimal")
+func (r StructureMapConst) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapConst to Decimal")
 }
-func (r StructureMapConst) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapConst to Date")
+func (r StructureMapConst) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapConst to Date")
 }
-func (r StructureMapConst) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapConst to Time")
+func (r StructureMapConst) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapConst to Time")
 }
-func (r StructureMapConst) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapConst to DateTime")
+func (r StructureMapConst) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapConst to DateTime")
 }
-func (r StructureMapConst) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapConst to Quantity")
+func (r StructureMapConst) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapConst to Quantity")
 }
-func (r StructureMapConst) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapConst) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapConst
 	switch other := other.(type) {
 	case StructureMapConst:
@@ -9899,29 +9875,17 @@ func (r StructureMapConst) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *StructureMapConst:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapConst) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapConst
-	switch other := other.(type) {
-	case StructureMapConst:
-		o = &other
-	case *StructureMapConst:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapConst) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10018,31 +9982,31 @@ func (r StructureMapGroup) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r StructureMapGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapGroup to Boolean")
+func (r StructureMapGroup) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapGroup to Boolean")
 }
-func (r StructureMapGroup) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapGroup to String")
+func (r StructureMapGroup) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapGroup to String")
 }
-func (r StructureMapGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapGroup to Integer")
+func (r StructureMapGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapGroup to Integer")
 }
-func (r StructureMapGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapGroup to Decimal")
+func (r StructureMapGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroup to Decimal")
 }
-func (r StructureMapGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapGroup to Date")
+func (r StructureMapGroup) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapGroup to Date")
 }
-func (r StructureMapGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapGroup to Time")
+func (r StructureMapGroup) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapGroup to Time")
 }
-func (r StructureMapGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapGroup to DateTime")
+func (r StructureMapGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapGroup to DateTime")
 }
-func (r StructureMapGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapGroup to Quantity")
+func (r StructureMapGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroup to Quantity")
 }
-func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapGroup
 	switch other := other.(type) {
 	case StructureMapGroup:
@@ -10050,29 +10014,17 @@ func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *StructureMapGroup:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapGroup
-	switch other := other.(type) {
-	case StructureMapGroup:
-		o = &other
-	case *StructureMapGroup:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10185,31 +10137,31 @@ func (r StructureMapGroupInput) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r StructureMapGroupInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to Boolean")
+func (r StructureMapGroupInput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapGroupInput to Boolean")
 }
-func (r StructureMapGroupInput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to String")
+func (r StructureMapGroupInput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapGroupInput to String")
 }
-func (r StructureMapGroupInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to Integer")
+func (r StructureMapGroupInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapGroupInput to Integer")
 }
-func (r StructureMapGroupInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to Decimal")
+func (r StructureMapGroupInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupInput to Decimal")
 }
-func (r StructureMapGroupInput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to Date")
+func (r StructureMapGroupInput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapGroupInput to Date")
 }
-func (r StructureMapGroupInput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to Time")
+func (r StructureMapGroupInput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapGroupInput to Time")
 }
-func (r StructureMapGroupInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to DateTime")
+func (r StructureMapGroupInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapGroupInput to DateTime")
 }
-func (r StructureMapGroupInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapGroupInput to Quantity")
+func (r StructureMapGroupInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupInput to Quantity")
 }
-func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapGroupInput
 	switch other := other.(type) {
 	case StructureMapGroupInput:
@@ -10217,29 +10169,17 @@ func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *StructureMapGroupInput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapGroupInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapGroupInput
-	switch other := other.(type) {
-	case StructureMapGroupInput:
-		o = &other
-	case *StructureMapGroupInput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapGroupInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10352,31 +10292,31 @@ func (r StructureMapGroupRule) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r StructureMapGroupRule) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to Boolean")
+func (r StructureMapGroupRule) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapGroupRule to Boolean")
 }
-func (r StructureMapGroupRule) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to String")
+func (r StructureMapGroupRule) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapGroupRule to String")
 }
-func (r StructureMapGroupRule) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to Integer")
+func (r StructureMapGroupRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapGroupRule to Integer")
 }
-func (r StructureMapGroupRule) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to Decimal")
+func (r StructureMapGroupRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRule to Decimal")
 }
-func (r StructureMapGroupRule) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to Date")
+func (r StructureMapGroupRule) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapGroupRule to Date")
 }
-func (r StructureMapGroupRule) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to Time")
+func (r StructureMapGroupRule) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapGroupRule to Time")
 }
-func (r StructureMapGroupRule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to DateTime")
+func (r StructureMapGroupRule) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapGroupRule to DateTime")
 }
-func (r StructureMapGroupRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapGroupRule to Quantity")
+func (r StructureMapGroupRule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRule to Quantity")
 }
-func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapGroupRule
 	switch other := other.(type) {
 	case StructureMapGroupRule:
@@ -10384,29 +10324,17 @@ func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *StructureMapGroupRule:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapGroupRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapGroupRule
-	switch other := other.(type) {
-	case StructureMapGroupRule:
-		o = &other
-	case *StructureMapGroupRule:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapGroupRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10556,31 +10484,31 @@ func (r StructureMapGroupRuleSource) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r StructureMapGroupRuleSource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to Boolean")
+func (r StructureMapGroupRuleSource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapGroupRuleSource to Boolean")
 }
-func (r StructureMapGroupRuleSource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to String")
+func (r StructureMapGroupRuleSource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapGroupRuleSource to String")
 }
-func (r StructureMapGroupRuleSource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to Integer")
+func (r StructureMapGroupRuleSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapGroupRuleSource to Integer")
 }
-func (r StructureMapGroupRuleSource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to Decimal")
+func (r StructureMapGroupRuleSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleSource to Decimal")
 }
-func (r StructureMapGroupRuleSource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to Date")
+func (r StructureMapGroupRuleSource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapGroupRuleSource to Date")
 }
-func (r StructureMapGroupRuleSource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to Time")
+func (r StructureMapGroupRuleSource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapGroupRuleSource to Time")
 }
-func (r StructureMapGroupRuleSource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to DateTime")
+func (r StructureMapGroupRuleSource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapGroupRuleSource to DateTime")
 }
-func (r StructureMapGroupRuleSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleSource to Quantity")
+func (r StructureMapGroupRuleSource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleSource to Quantity")
 }
-func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapGroupRuleSource
 	switch other := other.(type) {
 	case StructureMapGroupRuleSource:
@@ -10588,29 +10516,17 @@ func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTyp
 	case *StructureMapGroupRuleSource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapGroupRuleSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapGroupRuleSource
-	switch other := other.(type) {
-	case StructureMapGroupRuleSource:
-		o = &other
-	case *StructureMapGroupRuleSource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapGroupRuleSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10777,31 +10693,31 @@ func (r StructureMapGroupRuleTarget) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r StructureMapGroupRuleTarget) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Boolean")
+func (r StructureMapGroupRuleTarget) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapGroupRuleTarget to Boolean")
 }
-func (r StructureMapGroupRuleTarget) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to String")
+func (r StructureMapGroupRuleTarget) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapGroupRuleTarget to String")
 }
-func (r StructureMapGroupRuleTarget) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Integer")
+func (r StructureMapGroupRuleTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapGroupRuleTarget to Integer")
 }
-func (r StructureMapGroupRuleTarget) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Decimal")
+func (r StructureMapGroupRuleTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleTarget to Decimal")
 }
-func (r StructureMapGroupRuleTarget) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Date")
+func (r StructureMapGroupRuleTarget) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapGroupRuleTarget to Date")
 }
-func (r StructureMapGroupRuleTarget) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Time")
+func (r StructureMapGroupRuleTarget) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapGroupRuleTarget to Time")
 }
-func (r StructureMapGroupRuleTarget) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to DateTime")
+func (r StructureMapGroupRuleTarget) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapGroupRuleTarget to DateTime")
 }
-func (r StructureMapGroupRuleTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTarget to Quantity")
+func (r StructureMapGroupRuleTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleTarget to Quantity")
 }
-func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapGroupRuleTarget
 	switch other := other.(type) {
 	case StructureMapGroupRuleTarget:
@@ -10809,29 +10725,17 @@ func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTyp
 	case *StructureMapGroupRuleTarget:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapGroupRuleTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapGroupRuleTarget
-	switch other := other.(type) {
-	case StructureMapGroupRuleTarget:
-		o = &other
-	case *StructureMapGroupRuleTarget:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapGroupRuleTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10938,31 +10842,31 @@ func (r StructureMapGroupRuleTargetParameter) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r StructureMapGroupRuleTargetParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Boolean")
+func (r StructureMapGroupRuleTargetParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Boolean")
 }
-func (r StructureMapGroupRuleTargetParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to String")
+func (r StructureMapGroupRuleTargetParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapGroupRuleTargetParameter to String")
 }
-func (r StructureMapGroupRuleTargetParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Integer")
+func (r StructureMapGroupRuleTargetParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Integer")
 }
-func (r StructureMapGroupRuleTargetParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Decimal")
+func (r StructureMapGroupRuleTargetParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Decimal")
 }
-func (r StructureMapGroupRuleTargetParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Date")
+func (r StructureMapGroupRuleTargetParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Date")
 }
-func (r StructureMapGroupRuleTargetParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Time")
+func (r StructureMapGroupRuleTargetParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Time")
 }
-func (r StructureMapGroupRuleTargetParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to DateTime")
+func (r StructureMapGroupRuleTargetParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to DateTime")
 }
-func (r StructureMapGroupRuleTargetParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleTargetParameter to Quantity")
+func (r StructureMapGroupRuleTargetParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Quantity")
 }
-func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapGroupRuleTargetParameter
 	switch other := other.(type) {
 	case StructureMapGroupRuleTargetParameter:
@@ -10970,29 +10874,17 @@ func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noR
 	case *StructureMapGroupRuleTargetParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapGroupRuleTargetParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapGroupRuleTargetParameter
-	switch other := other.(type) {
-	case StructureMapGroupRuleTargetParameter:
-		o = &other
-	case *StructureMapGroupRuleTargetParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapGroupRuleTargetParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -11062,31 +10954,31 @@ func (r StructureMapGroupRuleDependent) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r StructureMapGroupRuleDependent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Boolean")
+func (r StructureMapGroupRuleDependent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert StructureMapGroupRuleDependent to Boolean")
 }
-func (r StructureMapGroupRuleDependent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to String")
+func (r StructureMapGroupRuleDependent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert StructureMapGroupRuleDependent to String")
 }
-func (r StructureMapGroupRuleDependent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Integer")
+func (r StructureMapGroupRuleDependent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert StructureMapGroupRuleDependent to Integer")
 }
-func (r StructureMapGroupRuleDependent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Decimal")
+func (r StructureMapGroupRuleDependent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleDependent to Decimal")
 }
-func (r StructureMapGroupRuleDependent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Date")
+func (r StructureMapGroupRuleDependent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert StructureMapGroupRuleDependent to Date")
 }
-func (r StructureMapGroupRuleDependent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Time")
+func (r StructureMapGroupRuleDependent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert StructureMapGroupRuleDependent to Time")
 }
-func (r StructureMapGroupRuleDependent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to DateTime")
+func (r StructureMapGroupRuleDependent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert StructureMapGroupRuleDependent to DateTime")
 }
-func (r StructureMapGroupRuleDependent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert StructureMapGroupRuleDependent to Quantity")
+func (r StructureMapGroupRuleDependent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleDependent to Quantity")
 }
-func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *StructureMapGroupRuleDependent
 	switch other := other.(type) {
 	case StructureMapGroupRuleDependent:
@@ -11094,29 +10986,17 @@ func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverse
 	case *StructureMapGroupRuleDependent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r StructureMapGroupRuleDependent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *StructureMapGroupRuleDependent
-	switch other := other.(type) {
-	case StructureMapGroupRuleDependent:
-		o = &other
-	case *StructureMapGroupRuleDependent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r StructureMapGroupRuleDependent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

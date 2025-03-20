@@ -2998,31 +2998,31 @@ func (r ArtifactAssessment) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ArtifactAssessment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to Boolean")
+func (r ArtifactAssessment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ArtifactAssessment to Boolean")
 }
-func (r ArtifactAssessment) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to String")
+func (r ArtifactAssessment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ArtifactAssessment to String")
 }
-func (r ArtifactAssessment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to Integer")
+func (r ArtifactAssessment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ArtifactAssessment to Integer")
 }
-func (r ArtifactAssessment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to Decimal")
+func (r ArtifactAssessment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ArtifactAssessment to Decimal")
 }
-func (r ArtifactAssessment) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to Date")
+func (r ArtifactAssessment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ArtifactAssessment to Date")
 }
-func (r ArtifactAssessment) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to Time")
+func (r ArtifactAssessment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ArtifactAssessment to Time")
 }
-func (r ArtifactAssessment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to DateTime")
+func (r ArtifactAssessment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ArtifactAssessment to DateTime")
 }
-func (r ArtifactAssessment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ArtifactAssessment to Quantity")
+func (r ArtifactAssessment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ArtifactAssessment to Quantity")
 }
-func (r ArtifactAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ArtifactAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ArtifactAssessment
 	switch other := other.(type) {
 	case ArtifactAssessment:
@@ -3030,29 +3030,17 @@ func (r ArtifactAssessment) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ArtifactAssessment:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ArtifactAssessment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ArtifactAssessment
-	switch other := other.(type) {
-	case ArtifactAssessment:
-		o = &other
-	case *ArtifactAssessment:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ArtifactAssessment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3269,31 +3257,31 @@ func (r ArtifactAssessmentContent) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ArtifactAssessmentContent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to Boolean")
+func (r ArtifactAssessmentContent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ArtifactAssessmentContent to Boolean")
 }
-func (r ArtifactAssessmentContent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to String")
+func (r ArtifactAssessmentContent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ArtifactAssessmentContent to String")
 }
-func (r ArtifactAssessmentContent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to Integer")
+func (r ArtifactAssessmentContent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ArtifactAssessmentContent to Integer")
 }
-func (r ArtifactAssessmentContent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to Decimal")
+func (r ArtifactAssessmentContent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ArtifactAssessmentContent to Decimal")
 }
-func (r ArtifactAssessmentContent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to Date")
+func (r ArtifactAssessmentContent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ArtifactAssessmentContent to Date")
 }
-func (r ArtifactAssessmentContent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to Time")
+func (r ArtifactAssessmentContent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ArtifactAssessmentContent to Time")
 }
-func (r ArtifactAssessmentContent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to DateTime")
+func (r ArtifactAssessmentContent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ArtifactAssessmentContent to DateTime")
 }
-func (r ArtifactAssessmentContent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ArtifactAssessmentContent to Quantity")
+func (r ArtifactAssessmentContent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ArtifactAssessmentContent to Quantity")
 }
-func (r ArtifactAssessmentContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ArtifactAssessmentContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ArtifactAssessmentContent
 	switch other := other.(type) {
 	case ArtifactAssessmentContent:
@@ -3301,29 +3289,17 @@ func (r ArtifactAssessmentContent) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ArtifactAssessmentContent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ArtifactAssessmentContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ArtifactAssessmentContent
-	switch other := other.(type) {
-	case ArtifactAssessmentContent:
-		o = &other
-	case *ArtifactAssessmentContent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ArtifactAssessmentContent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

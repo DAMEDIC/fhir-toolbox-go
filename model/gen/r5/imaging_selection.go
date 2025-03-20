@@ -4179,31 +4179,31 @@ func (r ImagingSelection) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImagingSelection) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingSelection to Boolean")
+func (r ImagingSelection) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingSelection to Boolean")
 }
-func (r ImagingSelection) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingSelection to String")
+func (r ImagingSelection) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingSelection to String")
 }
-func (r ImagingSelection) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingSelection to Integer")
+func (r ImagingSelection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingSelection to Integer")
 }
-func (r ImagingSelection) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingSelection to Decimal")
+func (r ImagingSelection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelection to Decimal")
 }
-func (r ImagingSelection) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingSelection to Date")
+func (r ImagingSelection) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingSelection to Date")
 }
-func (r ImagingSelection) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingSelection to Time")
+func (r ImagingSelection) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingSelection to Time")
 }
-func (r ImagingSelection) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingSelection to DateTime")
+func (r ImagingSelection) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingSelection to DateTime")
 }
-func (r ImagingSelection) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingSelection to Quantity")
+func (r ImagingSelection) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelection to Quantity")
 }
-func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingSelection
 	switch other := other.(type) {
 	case ImagingSelection:
@@ -4211,29 +4211,17 @@ func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *ImagingSelection:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingSelection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingSelection
-	switch other := other.(type) {
-	case ImagingSelection:
-		o = &other
-	case *ImagingSelection:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingSelection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4452,31 +4440,31 @@ func (r ImagingSelectionPerformer) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ImagingSelectionPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to Boolean")
+func (r ImagingSelectionPerformer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingSelectionPerformer to Boolean")
 }
-func (r ImagingSelectionPerformer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to String")
+func (r ImagingSelectionPerformer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingSelectionPerformer to String")
 }
-func (r ImagingSelectionPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to Integer")
+func (r ImagingSelectionPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingSelectionPerformer to Integer")
 }
-func (r ImagingSelectionPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to Decimal")
+func (r ImagingSelectionPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionPerformer to Decimal")
 }
-func (r ImagingSelectionPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to Date")
+func (r ImagingSelectionPerformer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingSelectionPerformer to Date")
 }
-func (r ImagingSelectionPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to Time")
+func (r ImagingSelectionPerformer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingSelectionPerformer to Time")
 }
-func (r ImagingSelectionPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to DateTime")
+func (r ImagingSelectionPerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingSelectionPerformer to DateTime")
 }
-func (r ImagingSelectionPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingSelectionPerformer to Quantity")
+func (r ImagingSelectionPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionPerformer to Quantity")
 }
-func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingSelectionPerformer
 	switch other := other.(type) {
 	case ImagingSelectionPerformer:
@@ -4484,29 +4472,17 @@ func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ImagingSelectionPerformer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingSelectionPerformer
-	switch other := other.(type) {
-	case ImagingSelectionPerformer:
-		o = &other
-	case *ImagingSelectionPerformer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingSelectionPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4603,31 +4579,31 @@ func (r ImagingSelectionInstance) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImagingSelectionInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to Boolean")
+func (r ImagingSelectionInstance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingSelectionInstance to Boolean")
 }
-func (r ImagingSelectionInstance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to String")
+func (r ImagingSelectionInstance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingSelectionInstance to String")
 }
-func (r ImagingSelectionInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to Integer")
+func (r ImagingSelectionInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingSelectionInstance to Integer")
 }
-func (r ImagingSelectionInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to Decimal")
+func (r ImagingSelectionInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstance to Decimal")
 }
-func (r ImagingSelectionInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to Date")
+func (r ImagingSelectionInstance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingSelectionInstance to Date")
 }
-func (r ImagingSelectionInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to Time")
+func (r ImagingSelectionInstance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingSelectionInstance to Time")
 }
-func (r ImagingSelectionInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to DateTime")
+func (r ImagingSelectionInstance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingSelectionInstance to DateTime")
 }
-func (r ImagingSelectionInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstance to Quantity")
+func (r ImagingSelectionInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstance to Quantity")
 }
-func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingSelectionInstance
 	switch other := other.(type) {
 	case ImagingSelectionInstance:
@@ -4635,29 +4611,17 @@ func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ImagingSelectionInstance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingSelectionInstance
-	switch other := other.(type) {
-	case ImagingSelectionInstance:
-		o = &other
-	case *ImagingSelectionInstance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingSelectionInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4762,31 +4726,31 @@ func (r ImagingSelectionInstanceImageRegion2D) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Boolean")
+func (r ImagingSelectionInstanceImageRegion2D) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Boolean")
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to String")
+func (r ImagingSelectionInstanceImageRegion2D) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to String")
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Integer")
+func (r ImagingSelectionInstanceImageRegion2D) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Integer")
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Decimal")
+func (r ImagingSelectionInstanceImageRegion2D) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Decimal")
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Date")
+func (r ImagingSelectionInstanceImageRegion2D) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Date")
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Time")
+func (r ImagingSelectionInstanceImageRegion2D) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Time")
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to DateTime")
+func (r ImagingSelectionInstanceImageRegion2D) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to DateTime")
 }
-func (r ImagingSelectionInstanceImageRegion2D) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Quantity")
+func (r ImagingSelectionInstanceImageRegion2D) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Quantity")
 }
-func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingSelectionInstanceImageRegion2D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion2D:
@@ -4794,29 +4758,17 @@ func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _no
 	case *ImagingSelectionInstanceImageRegion2D:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingSelectionInstanceImageRegion2D
-	switch other := other.(type) {
-	case ImagingSelectionInstanceImageRegion2D:
-		o = &other
-	case *ImagingSelectionInstanceImageRegion2D:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingSelectionInstanceImageRegion2D) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4893,31 +4845,31 @@ func (r ImagingSelectionInstanceImageRegion3D) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Boolean")
+func (r ImagingSelectionInstanceImageRegion3D) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Boolean")
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to String")
+func (r ImagingSelectionInstanceImageRegion3D) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to String")
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Integer")
+func (r ImagingSelectionInstanceImageRegion3D) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Integer")
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Decimal")
+func (r ImagingSelectionInstanceImageRegion3D) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Decimal")
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Date")
+func (r ImagingSelectionInstanceImageRegion3D) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Date")
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Time")
+func (r ImagingSelectionInstanceImageRegion3D) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Time")
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to DateTime")
+func (r ImagingSelectionInstanceImageRegion3D) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to DateTime")
 }
-func (r ImagingSelectionInstanceImageRegion3D) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Quantity")
+func (r ImagingSelectionInstanceImageRegion3D) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Quantity")
 }
-func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingSelectionInstanceImageRegion3D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion3D:
@@ -4925,29 +4877,17 @@ func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _no
 	case *ImagingSelectionInstanceImageRegion3D:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingSelectionInstanceImageRegion3D
-	switch other := other.(type) {
-	case ImagingSelectionInstanceImageRegion3D:
-		o = &other
-	case *ImagingSelectionInstanceImageRegion3D:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingSelectionInstanceImageRegion3D) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

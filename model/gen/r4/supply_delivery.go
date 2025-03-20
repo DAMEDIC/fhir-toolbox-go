@@ -2090,31 +2090,31 @@ func (r SupplyDelivery) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SupplyDelivery) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SupplyDelivery to Boolean")
+func (r SupplyDelivery) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SupplyDelivery to Boolean")
 }
-func (r SupplyDelivery) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SupplyDelivery to String")
+func (r SupplyDelivery) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SupplyDelivery to String")
 }
-func (r SupplyDelivery) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SupplyDelivery to Integer")
+func (r SupplyDelivery) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SupplyDelivery to Integer")
 }
-func (r SupplyDelivery) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SupplyDelivery to Decimal")
+func (r SupplyDelivery) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyDelivery to Decimal")
 }
-func (r SupplyDelivery) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SupplyDelivery to Date")
+func (r SupplyDelivery) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SupplyDelivery to Date")
 }
-func (r SupplyDelivery) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SupplyDelivery to Time")
+func (r SupplyDelivery) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SupplyDelivery to Time")
 }
-func (r SupplyDelivery) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SupplyDelivery to DateTime")
+func (r SupplyDelivery) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SupplyDelivery to DateTime")
 }
-func (r SupplyDelivery) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SupplyDelivery to Quantity")
+func (r SupplyDelivery) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SupplyDelivery to Quantity")
 }
-func (r SupplyDelivery) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SupplyDelivery) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SupplyDelivery
 	switch other := other.(type) {
 	case SupplyDelivery:
@@ -2122,29 +2122,17 @@ func (r SupplyDelivery) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *SupplyDelivery:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SupplyDelivery) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SupplyDelivery
-	switch other := other.(type) {
-	case SupplyDelivery:
-		o = &other
-	case *SupplyDelivery:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SupplyDelivery) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2321,31 +2309,31 @@ func (r SupplyDeliverySuppliedItem) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r SupplyDeliverySuppliedItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Boolean")
+func (r SupplyDeliverySuppliedItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SupplyDeliverySuppliedItem to Boolean")
 }
-func (r SupplyDeliverySuppliedItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to String")
+func (r SupplyDeliverySuppliedItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SupplyDeliverySuppliedItem to String")
 }
-func (r SupplyDeliverySuppliedItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Integer")
+func (r SupplyDeliverySuppliedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SupplyDeliverySuppliedItem to Integer")
 }
-func (r SupplyDeliverySuppliedItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Decimal")
+func (r SupplyDeliverySuppliedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyDeliverySuppliedItem to Decimal")
 }
-func (r SupplyDeliverySuppliedItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Date")
+func (r SupplyDeliverySuppliedItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SupplyDeliverySuppliedItem to Date")
 }
-func (r SupplyDeliverySuppliedItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Time")
+func (r SupplyDeliverySuppliedItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SupplyDeliverySuppliedItem to Time")
 }
-func (r SupplyDeliverySuppliedItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to DateTime")
+func (r SupplyDeliverySuppliedItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SupplyDeliverySuppliedItem to DateTime")
 }
-func (r SupplyDeliverySuppliedItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SupplyDeliverySuppliedItem to Quantity")
+func (r SupplyDeliverySuppliedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SupplyDeliverySuppliedItem to Quantity")
 }
-func (r SupplyDeliverySuppliedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SupplyDeliverySuppliedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SupplyDeliverySuppliedItem
 	switch other := other.(type) {
 	case SupplyDeliverySuppliedItem:
@@ -2353,29 +2341,17 @@ func (r SupplyDeliverySuppliedItem) Equal(other fhirpath.Element, _noReverseType
 	case *SupplyDeliverySuppliedItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SupplyDeliverySuppliedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SupplyDeliverySuppliedItem
-	switch other := other.(type) {
-	case SupplyDeliverySuppliedItem:
-		o = &other
-	case *SupplyDeliverySuppliedItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SupplyDeliverySuppliedItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

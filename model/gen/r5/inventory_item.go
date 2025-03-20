@@ -5469,31 +5469,31 @@ func (r InventoryItem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r InventoryItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InventoryItem to Boolean")
+func (r InventoryItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InventoryItem to Boolean")
 }
-func (r InventoryItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InventoryItem to String")
+func (r InventoryItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InventoryItem to String")
 }
-func (r InventoryItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InventoryItem to Integer")
+func (r InventoryItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InventoryItem to Integer")
 }
-func (r InventoryItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InventoryItem to Decimal")
+func (r InventoryItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItem to Decimal")
 }
-func (r InventoryItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InventoryItem to Date")
+func (r InventoryItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InventoryItem to Date")
 }
-func (r InventoryItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InventoryItem to Time")
+func (r InventoryItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InventoryItem to Time")
 }
-func (r InventoryItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InventoryItem to DateTime")
+func (r InventoryItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InventoryItem to DateTime")
 }
-func (r InventoryItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InventoryItem to Quantity")
+func (r InventoryItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItem to Quantity")
 }
-func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InventoryItem
 	switch other := other.(type) {
 	case InventoryItem:
@@ -5501,29 +5501,17 @@ func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *InventoryItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InventoryItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InventoryItem
-	switch other := other.(type) {
-	case InventoryItem:
-		o = &other
-	case *InventoryItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InventoryItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5720,31 +5708,31 @@ func (r InventoryItemName) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r InventoryItemName) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InventoryItemName to Boolean")
+func (r InventoryItemName) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InventoryItemName to Boolean")
 }
-func (r InventoryItemName) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InventoryItemName to String")
+func (r InventoryItemName) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InventoryItemName to String")
 }
-func (r InventoryItemName) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InventoryItemName to Integer")
+func (r InventoryItemName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InventoryItemName to Integer")
 }
-func (r InventoryItemName) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InventoryItemName to Decimal")
+func (r InventoryItemName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemName to Decimal")
 }
-func (r InventoryItemName) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InventoryItemName to Date")
+func (r InventoryItemName) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InventoryItemName to Date")
 }
-func (r InventoryItemName) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InventoryItemName to Time")
+func (r InventoryItemName) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InventoryItemName to Time")
 }
-func (r InventoryItemName) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InventoryItemName to DateTime")
+func (r InventoryItemName) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InventoryItemName to DateTime")
 }
-func (r InventoryItemName) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InventoryItemName to Quantity")
+func (r InventoryItemName) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemName to Quantity")
 }
-func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InventoryItemName
 	switch other := other.(type) {
 	case InventoryItemName:
@@ -5752,29 +5740,17 @@ func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *InventoryItemName:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InventoryItemName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InventoryItemName
-	switch other := other.(type) {
-	case InventoryItemName:
-		o = &other
-	case *InventoryItemName:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InventoryItemName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5856,31 +5832,31 @@ func (r InventoryItemResponsibleOrganization) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r InventoryItemResponsibleOrganization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Boolean")
+func (r InventoryItemResponsibleOrganization) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InventoryItemResponsibleOrganization to Boolean")
 }
-func (r InventoryItemResponsibleOrganization) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to String")
+func (r InventoryItemResponsibleOrganization) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InventoryItemResponsibleOrganization to String")
 }
-func (r InventoryItemResponsibleOrganization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Integer")
+func (r InventoryItemResponsibleOrganization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InventoryItemResponsibleOrganization to Integer")
 }
-func (r InventoryItemResponsibleOrganization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Decimal")
+func (r InventoryItemResponsibleOrganization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to Decimal")
 }
-func (r InventoryItemResponsibleOrganization) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Date")
+func (r InventoryItemResponsibleOrganization) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to Date")
 }
-func (r InventoryItemResponsibleOrganization) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Time")
+func (r InventoryItemResponsibleOrganization) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to Time")
 }
-func (r InventoryItemResponsibleOrganization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to DateTime")
+func (r InventoryItemResponsibleOrganization) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to DateTime")
 }
-func (r InventoryItemResponsibleOrganization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InventoryItemResponsibleOrganization to Quantity")
+func (r InventoryItemResponsibleOrganization) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to Quantity")
 }
-func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InventoryItemResponsibleOrganization
 	switch other := other.(type) {
 	case InventoryItemResponsibleOrganization:
@@ -5888,29 +5864,17 @@ func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noR
 	case *InventoryItemResponsibleOrganization:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InventoryItemResponsibleOrganization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InventoryItemResponsibleOrganization
-	switch other := other.(type) {
-	case InventoryItemResponsibleOrganization:
-		o = &other
-	case *InventoryItemResponsibleOrganization:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InventoryItemResponsibleOrganization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5989,31 +5953,31 @@ func (r InventoryItemDescription) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r InventoryItemDescription) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to Boolean")
+func (r InventoryItemDescription) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InventoryItemDescription to Boolean")
 }
-func (r InventoryItemDescription) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to String")
+func (r InventoryItemDescription) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InventoryItemDescription to String")
 }
-func (r InventoryItemDescription) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to Integer")
+func (r InventoryItemDescription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InventoryItemDescription to Integer")
 }
-func (r InventoryItemDescription) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to Decimal")
+func (r InventoryItemDescription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemDescription to Decimal")
 }
-func (r InventoryItemDescription) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to Date")
+func (r InventoryItemDescription) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InventoryItemDescription to Date")
 }
-func (r InventoryItemDescription) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to Time")
+func (r InventoryItemDescription) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InventoryItemDescription to Time")
 }
-func (r InventoryItemDescription) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to DateTime")
+func (r InventoryItemDescription) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InventoryItemDescription to DateTime")
 }
-func (r InventoryItemDescription) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InventoryItemDescription to Quantity")
+func (r InventoryItemDescription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemDescription to Quantity")
 }
-func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InventoryItemDescription
 	switch other := other.(type) {
 	case InventoryItemDescription:
@@ -6021,29 +5985,17 @@ func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *InventoryItemDescription:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InventoryItemDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InventoryItemDescription
-	switch other := other.(type) {
-	case InventoryItemDescription:
-		o = &other
-	case *InventoryItemDescription:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InventoryItemDescription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6121,31 +6073,31 @@ func (r InventoryItemAssociation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r InventoryItemAssociation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to Boolean")
+func (r InventoryItemAssociation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InventoryItemAssociation to Boolean")
 }
-func (r InventoryItemAssociation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to String")
+func (r InventoryItemAssociation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InventoryItemAssociation to String")
 }
-func (r InventoryItemAssociation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to Integer")
+func (r InventoryItemAssociation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InventoryItemAssociation to Integer")
 }
-func (r InventoryItemAssociation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to Decimal")
+func (r InventoryItemAssociation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemAssociation to Decimal")
 }
-func (r InventoryItemAssociation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to Date")
+func (r InventoryItemAssociation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InventoryItemAssociation to Date")
 }
-func (r InventoryItemAssociation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to Time")
+func (r InventoryItemAssociation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InventoryItemAssociation to Time")
 }
-func (r InventoryItemAssociation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to DateTime")
+func (r InventoryItemAssociation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InventoryItemAssociation to DateTime")
 }
-func (r InventoryItemAssociation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InventoryItemAssociation to Quantity")
+func (r InventoryItemAssociation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemAssociation to Quantity")
 }
-func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InventoryItemAssociation
 	switch other := other.(type) {
 	case InventoryItemAssociation:
@@ -6153,29 +6105,17 @@ func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *InventoryItemAssociation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InventoryItemAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InventoryItemAssociation
-	switch other := other.(type) {
-	case InventoryItemAssociation:
-		o = &other
-	case *InventoryItemAssociation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InventoryItemAssociation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6257,31 +6197,31 @@ func (r InventoryItemCharacteristic) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r InventoryItemCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to Boolean")
+func (r InventoryItemCharacteristic) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InventoryItemCharacteristic to Boolean")
 }
-func (r InventoryItemCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to String")
+func (r InventoryItemCharacteristic) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InventoryItemCharacteristic to String")
 }
-func (r InventoryItemCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to Integer")
+func (r InventoryItemCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InventoryItemCharacteristic to Integer")
 }
-func (r InventoryItemCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to Decimal")
+func (r InventoryItemCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemCharacteristic to Decimal")
 }
-func (r InventoryItemCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to Date")
+func (r InventoryItemCharacteristic) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InventoryItemCharacteristic to Date")
 }
-func (r InventoryItemCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to Time")
+func (r InventoryItemCharacteristic) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InventoryItemCharacteristic to Time")
 }
-func (r InventoryItemCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to DateTime")
+func (r InventoryItemCharacteristic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InventoryItemCharacteristic to DateTime")
 }
-func (r InventoryItemCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InventoryItemCharacteristic to Quantity")
+func (r InventoryItemCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemCharacteristic to Quantity")
 }
-func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InventoryItemCharacteristic
 	switch other := other.(type) {
 	case InventoryItemCharacteristic:
@@ -6289,29 +6229,17 @@ func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTyp
 	case *InventoryItemCharacteristic:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InventoryItemCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InventoryItemCharacteristic
-	switch other := other.(type) {
-	case InventoryItemCharacteristic:
-		o = &other
-	case *InventoryItemCharacteristic:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InventoryItemCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6405,31 +6333,31 @@ func (r InventoryItemInstance) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r InventoryItemInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to Boolean")
+func (r InventoryItemInstance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert InventoryItemInstance to Boolean")
 }
-func (r InventoryItemInstance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to String")
+func (r InventoryItemInstance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert InventoryItemInstance to String")
 }
-func (r InventoryItemInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to Integer")
+func (r InventoryItemInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert InventoryItemInstance to Integer")
 }
-func (r InventoryItemInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to Decimal")
+func (r InventoryItemInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemInstance to Decimal")
 }
-func (r InventoryItemInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to Date")
+func (r InventoryItemInstance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert InventoryItemInstance to Date")
 }
-func (r InventoryItemInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to Time")
+func (r InventoryItemInstance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert InventoryItemInstance to Time")
 }
-func (r InventoryItemInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to DateTime")
+func (r InventoryItemInstance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert InventoryItemInstance to DateTime")
 }
-func (r InventoryItemInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert InventoryItemInstance to Quantity")
+func (r InventoryItemInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemInstance to Quantity")
 }
-func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *InventoryItemInstance
 	switch other := other.(type) {
 	case InventoryItemInstance:
@@ -6437,29 +6365,17 @@ func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *InventoryItemInstance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r InventoryItemInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *InventoryItemInstance
-	switch other := other.(type) {
-	case InventoryItemInstance:
-		o = &other
-	case *InventoryItemInstance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r InventoryItemInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

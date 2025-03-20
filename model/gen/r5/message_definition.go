@@ -4202,31 +4202,31 @@ func (r MessageDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MessageDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MessageDefinition to Boolean")
+func (r MessageDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MessageDefinition to Boolean")
 }
-func (r MessageDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MessageDefinition to String")
+func (r MessageDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MessageDefinition to String")
 }
-func (r MessageDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MessageDefinition to Integer")
+func (r MessageDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MessageDefinition to Integer")
 }
-func (r MessageDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MessageDefinition to Decimal")
+func (r MessageDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MessageDefinition to Decimal")
 }
-func (r MessageDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MessageDefinition to Date")
+func (r MessageDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MessageDefinition to Date")
 }
-func (r MessageDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MessageDefinition to Time")
+func (r MessageDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MessageDefinition to Time")
 }
-func (r MessageDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MessageDefinition to DateTime")
+func (r MessageDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MessageDefinition to DateTime")
 }
-func (r MessageDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MessageDefinition to Quantity")
+func (r MessageDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MessageDefinition to Quantity")
 }
-func (r MessageDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MessageDefinition
 	switch other := other.(type) {
 	case MessageDefinition:
@@ -4234,29 +4234,17 @@ func (r MessageDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *MessageDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MessageDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MessageDefinition
-	switch other := other.(type) {
-	case MessageDefinition:
-		o = &other
-	case *MessageDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MessageDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4544,31 +4532,31 @@ func (r MessageDefinitionFocus) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MessageDefinitionFocus) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to Boolean")
+func (r MessageDefinitionFocus) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MessageDefinitionFocus to Boolean")
 }
-func (r MessageDefinitionFocus) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to String")
+func (r MessageDefinitionFocus) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MessageDefinitionFocus to String")
 }
-func (r MessageDefinitionFocus) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to Integer")
+func (r MessageDefinitionFocus) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MessageDefinitionFocus to Integer")
 }
-func (r MessageDefinitionFocus) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to Decimal")
+func (r MessageDefinitionFocus) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MessageDefinitionFocus to Decimal")
 }
-func (r MessageDefinitionFocus) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to Date")
+func (r MessageDefinitionFocus) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MessageDefinitionFocus to Date")
 }
-func (r MessageDefinitionFocus) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to Time")
+func (r MessageDefinitionFocus) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MessageDefinitionFocus to Time")
 }
-func (r MessageDefinitionFocus) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to DateTime")
+func (r MessageDefinitionFocus) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MessageDefinitionFocus to DateTime")
 }
-func (r MessageDefinitionFocus) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MessageDefinitionFocus to Quantity")
+func (r MessageDefinitionFocus) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MessageDefinitionFocus to Quantity")
 }
-func (r MessageDefinitionFocus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageDefinitionFocus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MessageDefinitionFocus
 	switch other := other.(type) {
 	case MessageDefinitionFocus:
@@ -4576,29 +4564,17 @@ func (r MessageDefinitionFocus) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *MessageDefinitionFocus:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MessageDefinitionFocus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MessageDefinitionFocus
-	switch other := other.(type) {
-	case MessageDefinitionFocus:
-		o = &other
-	case *MessageDefinitionFocus:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MessageDefinitionFocus) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4689,31 +4665,31 @@ func (r MessageDefinitionAllowedResponse) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r MessageDefinitionAllowedResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to Boolean")
+func (r MessageDefinitionAllowedResponse) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MessageDefinitionAllowedResponse to Boolean")
 }
-func (r MessageDefinitionAllowedResponse) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to String")
+func (r MessageDefinitionAllowedResponse) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MessageDefinitionAllowedResponse to String")
 }
-func (r MessageDefinitionAllowedResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to Integer")
+func (r MessageDefinitionAllowedResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MessageDefinitionAllowedResponse to Integer")
 }
-func (r MessageDefinitionAllowedResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to Decimal")
+func (r MessageDefinitionAllowedResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MessageDefinitionAllowedResponse to Decimal")
 }
-func (r MessageDefinitionAllowedResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to Date")
+func (r MessageDefinitionAllowedResponse) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MessageDefinitionAllowedResponse to Date")
 }
-func (r MessageDefinitionAllowedResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to Time")
+func (r MessageDefinitionAllowedResponse) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MessageDefinitionAllowedResponse to Time")
 }
-func (r MessageDefinitionAllowedResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to DateTime")
+func (r MessageDefinitionAllowedResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MessageDefinitionAllowedResponse to DateTime")
 }
-func (r MessageDefinitionAllowedResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MessageDefinitionAllowedResponse to Quantity")
+func (r MessageDefinitionAllowedResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MessageDefinitionAllowedResponse to Quantity")
 }
-func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MessageDefinitionAllowedResponse
 	switch other := other.(type) {
 	case MessageDefinitionAllowedResponse:
@@ -4721,29 +4697,17 @@ func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element, _noRever
 	case *MessageDefinitionAllowedResponse:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MessageDefinitionAllowedResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MessageDefinitionAllowedResponse
-	switch other := other.(type) {
-	case MessageDefinitionAllowedResponse:
-		o = &other
-	case *MessageDefinitionAllowedResponse:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MessageDefinitionAllowedResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

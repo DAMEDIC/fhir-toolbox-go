@@ -5508,31 +5508,31 @@ func (r ObservationDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ObservationDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ObservationDefinition to Boolean")
+func (r ObservationDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ObservationDefinition to Boolean")
 }
-func (r ObservationDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ObservationDefinition to String")
+func (r ObservationDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ObservationDefinition to String")
 }
-func (r ObservationDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ObservationDefinition to Integer")
+func (r ObservationDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ObservationDefinition to Integer")
 }
-func (r ObservationDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ObservationDefinition to Decimal")
+func (r ObservationDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinition to Decimal")
 }
-func (r ObservationDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ObservationDefinition to Date")
+func (r ObservationDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ObservationDefinition to Date")
 }
-func (r ObservationDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ObservationDefinition to Time")
+func (r ObservationDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ObservationDefinition to Time")
 }
-func (r ObservationDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ObservationDefinition to DateTime")
+func (r ObservationDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ObservationDefinition to DateTime")
 }
-func (r ObservationDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ObservationDefinition to Quantity")
+func (r ObservationDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinition to Quantity")
 }
-func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ObservationDefinition
 	switch other := other.(type) {
 	case ObservationDefinition:
@@ -5540,29 +5540,17 @@ func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *ObservationDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ObservationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ObservationDefinition
-	switch other := other.(type) {
-	case ObservationDefinition:
-		o = &other
-	case *ObservationDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ObservationDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5971,31 +5959,31 @@ func (r ObservationDefinitionQualifiedValue) Children(name ...string) fhirpath.C
 	}
 	return children
 }
-func (r ObservationDefinitionQualifiedValue) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to Boolean")
+func (r ObservationDefinitionQualifiedValue) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Boolean")
 }
-func (r ObservationDefinitionQualifiedValue) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to String")
+func (r ObservationDefinitionQualifiedValue) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ObservationDefinitionQualifiedValue to String")
 }
-func (r ObservationDefinitionQualifiedValue) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to Integer")
+func (r ObservationDefinitionQualifiedValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Integer")
 }
-func (r ObservationDefinitionQualifiedValue) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to Decimal")
+func (r ObservationDefinitionQualifiedValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Decimal")
 }
-func (r ObservationDefinitionQualifiedValue) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to Date")
+func (r ObservationDefinitionQualifiedValue) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Date")
 }
-func (r ObservationDefinitionQualifiedValue) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to Time")
+func (r ObservationDefinitionQualifiedValue) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Time")
 }
-func (r ObservationDefinitionQualifiedValue) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to DateTime")
+func (r ObservationDefinitionQualifiedValue) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ObservationDefinitionQualifiedValue to DateTime")
 }
-func (r ObservationDefinitionQualifiedValue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ObservationDefinitionQualifiedValue to Quantity")
+func (r ObservationDefinitionQualifiedValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Quantity")
 }
-func (r ObservationDefinitionQualifiedValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinitionQualifiedValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ObservationDefinitionQualifiedValue
 	switch other := other.(type) {
 	case ObservationDefinitionQualifiedValue:
@@ -6003,29 +5991,17 @@ func (r ObservationDefinitionQualifiedValue) Equal(other fhirpath.Element, _noRe
 	case *ObservationDefinitionQualifiedValue:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ObservationDefinitionQualifiedValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ObservationDefinitionQualifiedValue
-	switch other := other.(type) {
-	case ObservationDefinitionQualifiedValue:
-		o = &other
-	case *ObservationDefinitionQualifiedValue:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ObservationDefinitionQualifiedValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6182,31 +6158,31 @@ func (r ObservationDefinitionComponent) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r ObservationDefinitionComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to Boolean")
+func (r ObservationDefinitionComponent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ObservationDefinitionComponent to Boolean")
 }
-func (r ObservationDefinitionComponent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to String")
+func (r ObservationDefinitionComponent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ObservationDefinitionComponent to String")
 }
-func (r ObservationDefinitionComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to Integer")
+func (r ObservationDefinitionComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ObservationDefinitionComponent to Integer")
 }
-func (r ObservationDefinitionComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to Decimal")
+func (r ObservationDefinitionComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionComponent to Decimal")
 }
-func (r ObservationDefinitionComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to Date")
+func (r ObservationDefinitionComponent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ObservationDefinitionComponent to Date")
 }
-func (r ObservationDefinitionComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to Time")
+func (r ObservationDefinitionComponent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ObservationDefinitionComponent to Time")
 }
-func (r ObservationDefinitionComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to DateTime")
+func (r ObservationDefinitionComponent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ObservationDefinitionComponent to DateTime")
 }
-func (r ObservationDefinitionComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ObservationDefinitionComponent to Quantity")
+func (r ObservationDefinitionComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinitionComponent to Quantity")
 }
-func (r ObservationDefinitionComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinitionComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ObservationDefinitionComponent
 	switch other := other.(type) {
 	case ObservationDefinitionComponent:
@@ -6214,29 +6190,17 @@ func (r ObservationDefinitionComponent) Equal(other fhirpath.Element, _noReverse
 	case *ObservationDefinitionComponent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ObservationDefinitionComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ObservationDefinitionComponent
-	switch other := other.(type) {
-	case ObservationDefinitionComponent:
-		o = &other
-	case *ObservationDefinitionComponent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ObservationDefinitionComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

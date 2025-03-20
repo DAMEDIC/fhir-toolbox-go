@@ -3903,31 +3903,31 @@ func (r NamingSystem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r NamingSystem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert NamingSystem to Boolean")
+func (r NamingSystem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert NamingSystem to Boolean")
 }
-func (r NamingSystem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert NamingSystem to String")
+func (r NamingSystem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert NamingSystem to String")
 }
-func (r NamingSystem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert NamingSystem to Integer")
+func (r NamingSystem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert NamingSystem to Integer")
 }
-func (r NamingSystem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert NamingSystem to Decimal")
+func (r NamingSystem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert NamingSystem to Decimal")
 }
-func (r NamingSystem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert NamingSystem to Date")
+func (r NamingSystem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert NamingSystem to Date")
 }
-func (r NamingSystem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert NamingSystem to Time")
+func (r NamingSystem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert NamingSystem to Time")
 }
-func (r NamingSystem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert NamingSystem to DateTime")
+func (r NamingSystem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert NamingSystem to DateTime")
 }
-func (r NamingSystem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert NamingSystem to Quantity")
+func (r NamingSystem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert NamingSystem to Quantity")
 }
-func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *NamingSystem
 	switch other := other.(type) {
 	case NamingSystem:
@@ -3935,29 +3935,17 @@ func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *NamingSystem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r NamingSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *NamingSystem
-	switch other := other.(type) {
-	case NamingSystem:
-		o = &other
-	case *NamingSystem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r NamingSystem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4290,31 +4278,31 @@ func (r NamingSystemUniqueId) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r NamingSystemUniqueId) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to Boolean")
+func (r NamingSystemUniqueId) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert NamingSystemUniqueId to Boolean")
 }
-func (r NamingSystemUniqueId) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to String")
+func (r NamingSystemUniqueId) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert NamingSystemUniqueId to String")
 }
-func (r NamingSystemUniqueId) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to Integer")
+func (r NamingSystemUniqueId) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert NamingSystemUniqueId to Integer")
 }
-func (r NamingSystemUniqueId) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to Decimal")
+func (r NamingSystemUniqueId) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert NamingSystemUniqueId to Decimal")
 }
-func (r NamingSystemUniqueId) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to Date")
+func (r NamingSystemUniqueId) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert NamingSystemUniqueId to Date")
 }
-func (r NamingSystemUniqueId) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to Time")
+func (r NamingSystemUniqueId) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert NamingSystemUniqueId to Time")
 }
-func (r NamingSystemUniqueId) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to DateTime")
+func (r NamingSystemUniqueId) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert NamingSystemUniqueId to DateTime")
 }
-func (r NamingSystemUniqueId) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert NamingSystemUniqueId to Quantity")
+func (r NamingSystemUniqueId) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert NamingSystemUniqueId to Quantity")
 }
-func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *NamingSystemUniqueId
 	switch other := other.(type) {
 	case NamingSystemUniqueId:
@@ -4322,29 +4310,17 @@ func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *NamingSystemUniqueId:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r NamingSystemUniqueId) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *NamingSystemUniqueId
-	switch other := other.(type) {
-	case NamingSystemUniqueId:
-		o = &other
-	case *NamingSystemUniqueId:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r NamingSystemUniqueId) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

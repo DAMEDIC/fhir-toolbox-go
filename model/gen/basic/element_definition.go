@@ -17098,31 +17098,31 @@ func (r ElementDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ElementDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinition to Boolean")
+func (r ElementDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinition to Boolean")
 }
-func (r ElementDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinition to String")
+func (r ElementDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinition to String")
 }
-func (r ElementDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinition to Integer")
+func (r ElementDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinition to Integer")
 }
-func (r ElementDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinition to Decimal")
+func (r ElementDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinition to Decimal")
 }
-func (r ElementDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinition to Date")
+func (r ElementDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinition to Date")
 }
-func (r ElementDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinition to Time")
+func (r ElementDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinition to Time")
 }
-func (r ElementDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinition to DateTime")
+func (r ElementDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinition to DateTime")
 }
-func (r ElementDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinition to Quantity")
+func (r ElementDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinition to Quantity")
 }
-func (r ElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinition
 	switch other := other.(type) {
 	case ElementDefinition:
@@ -17130,29 +17130,17 @@ func (r ElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *ElementDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinition
-	switch other := other.(type) {
-	case ElementDefinition:
-		o = &other
-	case *ElementDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17458,31 +17446,31 @@ func (r ElementDefinitionSlicing) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ElementDefinitionSlicing) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to Boolean")
+func (r ElementDefinitionSlicing) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionSlicing to Boolean")
 }
-func (r ElementDefinitionSlicing) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to String")
+func (r ElementDefinitionSlicing) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionSlicing to String")
 }
-func (r ElementDefinitionSlicing) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to Integer")
+func (r ElementDefinitionSlicing) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionSlicing to Integer")
 }
-func (r ElementDefinitionSlicing) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to Decimal")
+func (r ElementDefinitionSlicing) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionSlicing to Decimal")
 }
-func (r ElementDefinitionSlicing) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to Date")
+func (r ElementDefinitionSlicing) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionSlicing to Date")
 }
-func (r ElementDefinitionSlicing) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to Time")
+func (r ElementDefinitionSlicing) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionSlicing to Time")
 }
-func (r ElementDefinitionSlicing) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to DateTime")
+func (r ElementDefinitionSlicing) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionSlicing to DateTime")
 }
-func (r ElementDefinitionSlicing) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicing to Quantity")
+func (r ElementDefinitionSlicing) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionSlicing to Quantity")
 }
-func (r ElementDefinitionSlicing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionSlicing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionSlicing
 	switch other := other.(type) {
 	case ElementDefinitionSlicing:
@@ -17490,29 +17478,17 @@ func (r ElementDefinitionSlicing) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ElementDefinitionSlicing:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionSlicing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionSlicing
-	switch other := other.(type) {
-	case ElementDefinitionSlicing:
-		o = &other
-	case *ElementDefinitionSlicing:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionSlicing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17589,31 +17565,31 @@ func (r ElementDefinitionSlicingDiscriminator) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r ElementDefinitionSlicingDiscriminator) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Boolean")
+func (r ElementDefinitionSlicingDiscriminator) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Boolean")
 }
-func (r ElementDefinitionSlicingDiscriminator) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to String")
+func (r ElementDefinitionSlicingDiscriminator) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to String")
 }
-func (r ElementDefinitionSlicingDiscriminator) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Integer")
+func (r ElementDefinitionSlicingDiscriminator) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Integer")
 }
-func (r ElementDefinitionSlicingDiscriminator) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Decimal")
+func (r ElementDefinitionSlicingDiscriminator) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Decimal")
 }
-func (r ElementDefinitionSlicingDiscriminator) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Date")
+func (r ElementDefinitionSlicingDiscriminator) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Date")
 }
-func (r ElementDefinitionSlicingDiscriminator) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Time")
+func (r ElementDefinitionSlicingDiscriminator) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Time")
 }
-func (r ElementDefinitionSlicingDiscriminator) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to DateTime")
+func (r ElementDefinitionSlicingDiscriminator) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to DateTime")
 }
-func (r ElementDefinitionSlicingDiscriminator) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Quantity")
+func (r ElementDefinitionSlicingDiscriminator) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Quantity")
 }
-func (r ElementDefinitionSlicingDiscriminator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionSlicingDiscriminator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionSlicingDiscriminator
 	switch other := other.(type) {
 	case ElementDefinitionSlicingDiscriminator:
@@ -17621,29 +17597,17 @@ func (r ElementDefinitionSlicingDiscriminator) Equal(other fhirpath.Element, _no
 	case *ElementDefinitionSlicingDiscriminator:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionSlicingDiscriminator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionSlicingDiscriminator
-	switch other := other.(type) {
-	case ElementDefinitionSlicingDiscriminator:
-		o = &other
-	case *ElementDefinitionSlicingDiscriminator:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionSlicingDiscriminator) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17709,31 +17673,31 @@ func (r ElementDefinitionBase) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ElementDefinitionBase) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to Boolean")
+func (r ElementDefinitionBase) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionBase to Boolean")
 }
-func (r ElementDefinitionBase) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to String")
+func (r ElementDefinitionBase) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionBase to String")
 }
-func (r ElementDefinitionBase) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to Integer")
+func (r ElementDefinitionBase) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionBase to Integer")
 }
-func (r ElementDefinitionBase) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to Decimal")
+func (r ElementDefinitionBase) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionBase to Decimal")
 }
-func (r ElementDefinitionBase) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to Date")
+func (r ElementDefinitionBase) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionBase to Date")
 }
-func (r ElementDefinitionBase) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to Time")
+func (r ElementDefinitionBase) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionBase to Time")
 }
-func (r ElementDefinitionBase) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to DateTime")
+func (r ElementDefinitionBase) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionBase to DateTime")
 }
-func (r ElementDefinitionBase) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionBase to Quantity")
+func (r ElementDefinitionBase) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionBase to Quantity")
 }
-func (r ElementDefinitionBase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionBase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionBase
 	switch other := other.(type) {
 	case ElementDefinitionBase:
@@ -17741,29 +17705,17 @@ func (r ElementDefinitionBase) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *ElementDefinitionBase:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionBase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionBase
-	switch other := other.(type) {
-	case ElementDefinitionBase:
-		o = &other
-	case *ElementDefinitionBase:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionBase) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17850,31 +17802,31 @@ func (r ElementDefinitionType) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ElementDefinitionType) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to Boolean")
+func (r ElementDefinitionType) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionType to Boolean")
 }
-func (r ElementDefinitionType) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to String")
+func (r ElementDefinitionType) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionType to String")
 }
-func (r ElementDefinitionType) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to Integer")
+func (r ElementDefinitionType) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionType to Integer")
 }
-func (r ElementDefinitionType) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to Decimal")
+func (r ElementDefinitionType) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionType to Decimal")
 }
-func (r ElementDefinitionType) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to Date")
+func (r ElementDefinitionType) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionType to Date")
 }
-func (r ElementDefinitionType) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to Time")
+func (r ElementDefinitionType) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionType to Time")
 }
-func (r ElementDefinitionType) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to DateTime")
+func (r ElementDefinitionType) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionType to DateTime")
 }
-func (r ElementDefinitionType) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionType to Quantity")
+func (r ElementDefinitionType) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionType to Quantity")
 }
-func (r ElementDefinitionType) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionType) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionType
 	switch other := other.(type) {
 	case ElementDefinitionType:
@@ -17882,29 +17834,17 @@ func (r ElementDefinitionType) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *ElementDefinitionType:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionType) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionType
-	switch other := other.(type) {
-	case ElementDefinitionType:
-		o = &other
-	case *ElementDefinitionType:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionType) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17988,31 +17928,31 @@ func (r ElementDefinitionExample) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ElementDefinitionExample) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to Boolean")
+func (r ElementDefinitionExample) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionExample to Boolean")
 }
-func (r ElementDefinitionExample) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to String")
+func (r ElementDefinitionExample) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionExample to String")
 }
-func (r ElementDefinitionExample) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to Integer")
+func (r ElementDefinitionExample) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionExample to Integer")
 }
-func (r ElementDefinitionExample) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to Decimal")
+func (r ElementDefinitionExample) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionExample to Decimal")
 }
-func (r ElementDefinitionExample) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to Date")
+func (r ElementDefinitionExample) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionExample to Date")
 }
-func (r ElementDefinitionExample) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to Time")
+func (r ElementDefinitionExample) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionExample to Time")
 }
-func (r ElementDefinitionExample) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to DateTime")
+func (r ElementDefinitionExample) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionExample to DateTime")
 }
-func (r ElementDefinitionExample) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionExample to Quantity")
+func (r ElementDefinitionExample) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionExample to Quantity")
 }
-func (r ElementDefinitionExample) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionExample) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionExample
 	switch other := other.(type) {
 	case ElementDefinitionExample:
@@ -18020,29 +17960,17 @@ func (r ElementDefinitionExample) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ElementDefinitionExample:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionExample) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionExample
-	switch other := other.(type) {
-	case ElementDefinitionExample:
-		o = &other
-	case *ElementDefinitionExample:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionExample) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18123,31 +18051,31 @@ func (r ElementDefinitionConstraint) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ElementDefinitionConstraint) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to Boolean")
+func (r ElementDefinitionConstraint) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionConstraint to Boolean")
 }
-func (r ElementDefinitionConstraint) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to String")
+func (r ElementDefinitionConstraint) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionConstraint to String")
 }
-func (r ElementDefinitionConstraint) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to Integer")
+func (r ElementDefinitionConstraint) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionConstraint to Integer")
 }
-func (r ElementDefinitionConstraint) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to Decimal")
+func (r ElementDefinitionConstraint) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionConstraint to Decimal")
 }
-func (r ElementDefinitionConstraint) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to Date")
+func (r ElementDefinitionConstraint) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionConstraint to Date")
 }
-func (r ElementDefinitionConstraint) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to Time")
+func (r ElementDefinitionConstraint) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionConstraint to Time")
 }
-func (r ElementDefinitionConstraint) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to DateTime")
+func (r ElementDefinitionConstraint) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionConstraint to DateTime")
 }
-func (r ElementDefinitionConstraint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionConstraint to Quantity")
+func (r ElementDefinitionConstraint) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionConstraint to Quantity")
 }
-func (r ElementDefinitionConstraint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionConstraint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionConstraint
 	switch other := other.(type) {
 	case ElementDefinitionConstraint:
@@ -18155,29 +18083,17 @@ func (r ElementDefinitionConstraint) Equal(other fhirpath.Element, _noReverseTyp
 	case *ElementDefinitionConstraint:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionConstraint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionConstraint
-	switch other := other.(type) {
-	case ElementDefinitionConstraint:
-		o = &other
-	case *ElementDefinitionConstraint:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionConstraint) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18275,31 +18191,31 @@ func (r ElementDefinitionBinding) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ElementDefinitionBinding) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to Boolean")
+func (r ElementDefinitionBinding) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionBinding to Boolean")
 }
-func (r ElementDefinitionBinding) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to String")
+func (r ElementDefinitionBinding) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionBinding to String")
 }
-func (r ElementDefinitionBinding) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to Integer")
+func (r ElementDefinitionBinding) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionBinding to Integer")
 }
-func (r ElementDefinitionBinding) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to Decimal")
+func (r ElementDefinitionBinding) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionBinding to Decimal")
 }
-func (r ElementDefinitionBinding) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to Date")
+func (r ElementDefinitionBinding) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionBinding to Date")
 }
-func (r ElementDefinitionBinding) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to Time")
+func (r ElementDefinitionBinding) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionBinding to Time")
 }
-func (r ElementDefinitionBinding) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to DateTime")
+func (r ElementDefinitionBinding) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionBinding to DateTime")
 }
-func (r ElementDefinitionBinding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionBinding to Quantity")
+func (r ElementDefinitionBinding) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionBinding to Quantity")
 }
-func (r ElementDefinitionBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionBinding
 	switch other := other.(type) {
 	case ElementDefinitionBinding:
@@ -18307,29 +18223,17 @@ func (r ElementDefinitionBinding) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ElementDefinitionBinding:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionBinding
-	switch other := other.(type) {
-	case ElementDefinitionBinding:
-		o = &other
-	case *ElementDefinitionBinding:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionBinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18409,31 +18313,31 @@ func (r ElementDefinitionMapping) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ElementDefinitionMapping) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to Boolean")
+func (r ElementDefinitionMapping) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ElementDefinitionMapping to Boolean")
 }
-func (r ElementDefinitionMapping) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to String")
+func (r ElementDefinitionMapping) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ElementDefinitionMapping to String")
 }
-func (r ElementDefinitionMapping) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to Integer")
+func (r ElementDefinitionMapping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ElementDefinitionMapping to Integer")
 }
-func (r ElementDefinitionMapping) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to Decimal")
+func (r ElementDefinitionMapping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionMapping to Decimal")
 }
-func (r ElementDefinitionMapping) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to Date")
+func (r ElementDefinitionMapping) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ElementDefinitionMapping to Date")
 }
-func (r ElementDefinitionMapping) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to Time")
+func (r ElementDefinitionMapping) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ElementDefinitionMapping to Time")
 }
-func (r ElementDefinitionMapping) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to DateTime")
+func (r ElementDefinitionMapping) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ElementDefinitionMapping to DateTime")
 }
-func (r ElementDefinitionMapping) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ElementDefinitionMapping to Quantity")
+func (r ElementDefinitionMapping) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ElementDefinitionMapping to Quantity")
 }
-func (r ElementDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ElementDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ElementDefinitionMapping
 	switch other := other.(type) {
 	case ElementDefinitionMapping:
@@ -18441,29 +18345,17 @@ func (r ElementDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ElementDefinitionMapping:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ElementDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ElementDefinitionMapping
-	switch other := other.(type) {
-	case ElementDefinitionMapping:
-		o = &other
-	case *ElementDefinitionMapping:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ElementDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

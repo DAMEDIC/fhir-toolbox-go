@@ -1153,31 +1153,31 @@ func (r EnrollmentRequest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r EnrollmentRequest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to Boolean")
+func (r EnrollmentRequest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EnrollmentRequest to Boolean")
 }
-func (r EnrollmentRequest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to String")
+func (r EnrollmentRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EnrollmentRequest to String")
 }
-func (r EnrollmentRequest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to Integer")
+func (r EnrollmentRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EnrollmentRequest to Integer")
 }
-func (r EnrollmentRequest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to Decimal")
+func (r EnrollmentRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EnrollmentRequest to Decimal")
 }
-func (r EnrollmentRequest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to Date")
+func (r EnrollmentRequest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EnrollmentRequest to Date")
 }
-func (r EnrollmentRequest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to Time")
+func (r EnrollmentRequest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EnrollmentRequest to Time")
 }
-func (r EnrollmentRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to DateTime")
+func (r EnrollmentRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EnrollmentRequest to DateTime")
 }
-func (r EnrollmentRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EnrollmentRequest to Quantity")
+func (r EnrollmentRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EnrollmentRequest to Quantity")
 }
-func (r EnrollmentRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EnrollmentRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EnrollmentRequest
 	switch other := other.(type) {
 	case EnrollmentRequest:
@@ -1185,29 +1185,17 @@ func (r EnrollmentRequest) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *EnrollmentRequest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EnrollmentRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EnrollmentRequest
-	switch other := other.(type) {
-	case EnrollmentRequest:
-		o = &other
-	case *EnrollmentRequest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EnrollmentRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

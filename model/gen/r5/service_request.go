@@ -5483,31 +5483,31 @@ func (r ServiceRequest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ServiceRequest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ServiceRequest to Boolean")
+func (r ServiceRequest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ServiceRequest to Boolean")
 }
-func (r ServiceRequest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ServiceRequest to String")
+func (r ServiceRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ServiceRequest to String")
 }
-func (r ServiceRequest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ServiceRequest to Integer")
+func (r ServiceRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ServiceRequest to Integer")
 }
-func (r ServiceRequest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ServiceRequest to Decimal")
+func (r ServiceRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequest to Decimal")
 }
-func (r ServiceRequest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ServiceRequest to Date")
+func (r ServiceRequest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ServiceRequest to Date")
 }
-func (r ServiceRequest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ServiceRequest to Time")
+func (r ServiceRequest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ServiceRequest to Time")
 }
-func (r ServiceRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ServiceRequest to DateTime")
+func (r ServiceRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ServiceRequest to DateTime")
 }
-func (r ServiceRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ServiceRequest to Quantity")
+func (r ServiceRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequest to Quantity")
 }
-func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ServiceRequest
 	switch other := other.(type) {
 	case ServiceRequest:
@@ -5515,29 +5515,17 @@ func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *ServiceRequest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ServiceRequest
-	switch other := other.(type) {
-	case ServiceRequest:
-		o = &other
-	case *ServiceRequest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5868,31 +5856,31 @@ func (r ServiceRequestOrderDetail) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ServiceRequestOrderDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to Boolean")
+func (r ServiceRequestOrderDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ServiceRequestOrderDetail to Boolean")
 }
-func (r ServiceRequestOrderDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to String")
+func (r ServiceRequestOrderDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ServiceRequestOrderDetail to String")
 }
-func (r ServiceRequestOrderDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to Integer")
+func (r ServiceRequestOrderDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ServiceRequestOrderDetail to Integer")
 }
-func (r ServiceRequestOrderDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to Decimal")
+func (r ServiceRequestOrderDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequestOrderDetail to Decimal")
 }
-func (r ServiceRequestOrderDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to Date")
+func (r ServiceRequestOrderDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ServiceRequestOrderDetail to Date")
 }
-func (r ServiceRequestOrderDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to Time")
+func (r ServiceRequestOrderDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ServiceRequestOrderDetail to Time")
 }
-func (r ServiceRequestOrderDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to DateTime")
+func (r ServiceRequestOrderDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ServiceRequestOrderDetail to DateTime")
 }
-func (r ServiceRequestOrderDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetail to Quantity")
+func (r ServiceRequestOrderDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequestOrderDetail to Quantity")
 }
-func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ServiceRequestOrderDetail
 	switch other := other.(type) {
 	case ServiceRequestOrderDetail:
@@ -5900,29 +5888,17 @@ func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ServiceRequestOrderDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ServiceRequestOrderDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ServiceRequestOrderDetail
-	switch other := other.(type) {
-	case ServiceRequestOrderDetail:
-		o = &other
-	case *ServiceRequestOrderDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ServiceRequestOrderDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5997,31 +5973,31 @@ func (r ServiceRequestOrderDetailParameter) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r ServiceRequestOrderDetailParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to Boolean")
+func (r ServiceRequestOrderDetailParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Boolean")
 }
-func (r ServiceRequestOrderDetailParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to String")
+func (r ServiceRequestOrderDetailParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ServiceRequestOrderDetailParameter to String")
 }
-func (r ServiceRequestOrderDetailParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to Integer")
+func (r ServiceRequestOrderDetailParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Integer")
 }
-func (r ServiceRequestOrderDetailParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to Decimal")
+func (r ServiceRequestOrderDetailParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Decimal")
 }
-func (r ServiceRequestOrderDetailParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to Date")
+func (r ServiceRequestOrderDetailParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Date")
 }
-func (r ServiceRequestOrderDetailParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to Time")
+func (r ServiceRequestOrderDetailParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Time")
 }
-func (r ServiceRequestOrderDetailParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to DateTime")
+func (r ServiceRequestOrderDetailParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ServiceRequestOrderDetailParameter to DateTime")
 }
-func (r ServiceRequestOrderDetailParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ServiceRequestOrderDetailParameter to Quantity")
+func (r ServiceRequestOrderDetailParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Quantity")
 }
-func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ServiceRequestOrderDetailParameter
 	switch other := other.(type) {
 	case ServiceRequestOrderDetailParameter:
@@ -6029,29 +6005,17 @@ func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noRev
 	case *ServiceRequestOrderDetailParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ServiceRequestOrderDetailParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ServiceRequestOrderDetailParameter
-	switch other := other.(type) {
-	case ServiceRequestOrderDetailParameter:
-		o = &other
-	case *ServiceRequestOrderDetailParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ServiceRequestOrderDetailParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6125,31 +6089,31 @@ func (r ServiceRequestPatientInstruction) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r ServiceRequestPatientInstruction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to Boolean")
+func (r ServiceRequestPatientInstruction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ServiceRequestPatientInstruction to Boolean")
 }
-func (r ServiceRequestPatientInstruction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to String")
+func (r ServiceRequestPatientInstruction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ServiceRequestPatientInstruction to String")
 }
-func (r ServiceRequestPatientInstruction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to Integer")
+func (r ServiceRequestPatientInstruction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ServiceRequestPatientInstruction to Integer")
 }
-func (r ServiceRequestPatientInstruction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to Decimal")
+func (r ServiceRequestPatientInstruction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequestPatientInstruction to Decimal")
 }
-func (r ServiceRequestPatientInstruction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to Date")
+func (r ServiceRequestPatientInstruction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ServiceRequestPatientInstruction to Date")
 }
-func (r ServiceRequestPatientInstruction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to Time")
+func (r ServiceRequestPatientInstruction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ServiceRequestPatientInstruction to Time")
 }
-func (r ServiceRequestPatientInstruction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to DateTime")
+func (r ServiceRequestPatientInstruction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ServiceRequestPatientInstruction to DateTime")
 }
-func (r ServiceRequestPatientInstruction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ServiceRequestPatientInstruction to Quantity")
+func (r ServiceRequestPatientInstruction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequestPatientInstruction to Quantity")
 }
-func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ServiceRequestPatientInstruction
 	switch other := other.(type) {
 	case ServiceRequestPatientInstruction:
@@ -6157,29 +6121,17 @@ func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noRever
 	case *ServiceRequestPatientInstruction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ServiceRequestPatientInstruction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ServiceRequestPatientInstruction
-	switch other := other.(type) {
-	case ServiceRequestPatientInstruction:
-		o = &other
-	case *ServiceRequestPatientInstruction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ServiceRequestPatientInstruction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

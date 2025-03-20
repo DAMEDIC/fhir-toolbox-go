@@ -3289,31 +3289,31 @@ func (r MessageHeader) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MessageHeader) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MessageHeader to Boolean")
+func (r MessageHeader) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MessageHeader to Boolean")
 }
-func (r MessageHeader) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MessageHeader to String")
+func (r MessageHeader) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MessageHeader to String")
 }
-func (r MessageHeader) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MessageHeader to Integer")
+func (r MessageHeader) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MessageHeader to Integer")
 }
-func (r MessageHeader) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MessageHeader to Decimal")
+func (r MessageHeader) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeader to Decimal")
 }
-func (r MessageHeader) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MessageHeader to Date")
+func (r MessageHeader) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MessageHeader to Date")
 }
-func (r MessageHeader) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MessageHeader to Time")
+func (r MessageHeader) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MessageHeader to Time")
 }
-func (r MessageHeader) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MessageHeader to DateTime")
+func (r MessageHeader) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MessageHeader to DateTime")
 }
-func (r MessageHeader) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MessageHeader to Quantity")
+func (r MessageHeader) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeader to Quantity")
 }
-func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MessageHeader
 	switch other := other.(type) {
 	case MessageHeader:
@@ -3321,29 +3321,17 @@ func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *MessageHeader:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MessageHeader) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MessageHeader
-	switch other := other.(type) {
-	case MessageHeader:
-		o = &other
-	case *MessageHeader:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MessageHeader) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3523,31 +3511,31 @@ func (r MessageHeaderDestination) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MessageHeaderDestination) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to Boolean")
+func (r MessageHeaderDestination) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MessageHeaderDestination to Boolean")
 }
-func (r MessageHeaderDestination) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to String")
+func (r MessageHeaderDestination) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MessageHeaderDestination to String")
 }
-func (r MessageHeaderDestination) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to Integer")
+func (r MessageHeaderDestination) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MessageHeaderDestination to Integer")
 }
-func (r MessageHeaderDestination) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to Decimal")
+func (r MessageHeaderDestination) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeaderDestination to Decimal")
 }
-func (r MessageHeaderDestination) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to Date")
+func (r MessageHeaderDestination) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MessageHeaderDestination to Date")
 }
-func (r MessageHeaderDestination) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to Time")
+func (r MessageHeaderDestination) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MessageHeaderDestination to Time")
 }
-func (r MessageHeaderDestination) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to DateTime")
+func (r MessageHeaderDestination) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MessageHeaderDestination to DateTime")
 }
-func (r MessageHeaderDestination) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MessageHeaderDestination to Quantity")
+func (r MessageHeaderDestination) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeaderDestination to Quantity")
 }
-func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MessageHeaderDestination
 	switch other := other.(type) {
 	case MessageHeaderDestination:
@@ -3555,29 +3543,17 @@ func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *MessageHeaderDestination:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MessageHeaderDestination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MessageHeaderDestination
-	switch other := other.(type) {
-	case MessageHeaderDestination:
-		o = &other
-	case *MessageHeaderDestination:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MessageHeaderDestination) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3685,31 +3661,31 @@ func (r MessageHeaderSource) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MessageHeaderSource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to Boolean")
+func (r MessageHeaderSource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MessageHeaderSource to Boolean")
 }
-func (r MessageHeaderSource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to String")
+func (r MessageHeaderSource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MessageHeaderSource to String")
 }
-func (r MessageHeaderSource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to Integer")
+func (r MessageHeaderSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MessageHeaderSource to Integer")
 }
-func (r MessageHeaderSource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to Decimal")
+func (r MessageHeaderSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeaderSource to Decimal")
 }
-func (r MessageHeaderSource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to Date")
+func (r MessageHeaderSource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MessageHeaderSource to Date")
 }
-func (r MessageHeaderSource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to Time")
+func (r MessageHeaderSource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MessageHeaderSource to Time")
 }
-func (r MessageHeaderSource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to DateTime")
+func (r MessageHeaderSource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MessageHeaderSource to DateTime")
 }
-func (r MessageHeaderSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MessageHeaderSource to Quantity")
+func (r MessageHeaderSource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeaderSource to Quantity")
 }
-func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MessageHeaderSource
 	switch other := other.(type) {
 	case MessageHeaderSource:
@@ -3717,29 +3693,17 @@ func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *MessageHeaderSource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MessageHeaderSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MessageHeaderSource
-	switch other := other.(type) {
-	case MessageHeaderSource:
-		o = &other
-	case *MessageHeaderSource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MessageHeaderSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3840,31 +3804,31 @@ func (r MessageHeaderResponse) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MessageHeaderResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to Boolean")
+func (r MessageHeaderResponse) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MessageHeaderResponse to Boolean")
 }
-func (r MessageHeaderResponse) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to String")
+func (r MessageHeaderResponse) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MessageHeaderResponse to String")
 }
-func (r MessageHeaderResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to Integer")
+func (r MessageHeaderResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MessageHeaderResponse to Integer")
 }
-func (r MessageHeaderResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to Decimal")
+func (r MessageHeaderResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeaderResponse to Decimal")
 }
-func (r MessageHeaderResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to Date")
+func (r MessageHeaderResponse) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MessageHeaderResponse to Date")
 }
-func (r MessageHeaderResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to Time")
+func (r MessageHeaderResponse) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MessageHeaderResponse to Time")
 }
-func (r MessageHeaderResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to DateTime")
+func (r MessageHeaderResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MessageHeaderResponse to DateTime")
 }
-func (r MessageHeaderResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MessageHeaderResponse to Quantity")
+func (r MessageHeaderResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeaderResponse to Quantity")
 }
-func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MessageHeaderResponse
 	switch other := other.(type) {
 	case MessageHeaderResponse:
@@ -3872,29 +3836,17 @@ func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *MessageHeaderResponse:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MessageHeaderResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MessageHeaderResponse
-	switch other := other.(type) {
-	case MessageHeaderResponse:
-		o = &other
-	case *MessageHeaderResponse:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MessageHeaderResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -5027,31 +5027,31 @@ func (r GenomicStudy) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r GenomicStudy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GenomicStudy to Boolean")
+func (r GenomicStudy) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GenomicStudy to Boolean")
 }
-func (r GenomicStudy) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GenomicStudy to String")
+func (r GenomicStudy) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GenomicStudy to String")
 }
-func (r GenomicStudy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GenomicStudy to Integer")
+func (r GenomicStudy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GenomicStudy to Integer")
 }
-func (r GenomicStudy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GenomicStudy to Decimal")
+func (r GenomicStudy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudy to Decimal")
 }
-func (r GenomicStudy) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GenomicStudy to Date")
+func (r GenomicStudy) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GenomicStudy to Date")
 }
-func (r GenomicStudy) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GenomicStudy to Time")
+func (r GenomicStudy) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GenomicStudy to Time")
 }
-func (r GenomicStudy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GenomicStudy to DateTime")
+func (r GenomicStudy) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GenomicStudy to DateTime")
 }
-func (r GenomicStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GenomicStudy to Quantity")
+func (r GenomicStudy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudy to Quantity")
 }
-func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GenomicStudy
 	switch other := other.(type) {
 	case GenomicStudy:
@@ -5059,29 +5059,17 @@ func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *GenomicStudy:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GenomicStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GenomicStudy
-	switch other := other.(type) {
-	case GenomicStudy:
-		o = &other
-	case *GenomicStudy:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GenomicStudy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5366,31 +5354,31 @@ func (r GenomicStudyAnalysis) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r GenomicStudyAnalysis) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to Boolean")
+func (r GenomicStudyAnalysis) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GenomicStudyAnalysis to Boolean")
 }
-func (r GenomicStudyAnalysis) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to String")
+func (r GenomicStudyAnalysis) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GenomicStudyAnalysis to String")
 }
-func (r GenomicStudyAnalysis) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to Integer")
+func (r GenomicStudyAnalysis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GenomicStudyAnalysis to Integer")
 }
-func (r GenomicStudyAnalysis) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to Decimal")
+func (r GenomicStudyAnalysis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysis to Decimal")
 }
-func (r GenomicStudyAnalysis) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to Date")
+func (r GenomicStudyAnalysis) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GenomicStudyAnalysis to Date")
 }
-func (r GenomicStudyAnalysis) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to Time")
+func (r GenomicStudyAnalysis) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GenomicStudyAnalysis to Time")
 }
-func (r GenomicStudyAnalysis) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to DateTime")
+func (r GenomicStudyAnalysis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GenomicStudyAnalysis to DateTime")
 }
-func (r GenomicStudyAnalysis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysis to Quantity")
+func (r GenomicStudyAnalysis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysis to Quantity")
 }
-func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GenomicStudyAnalysis
 	switch other := other.(type) {
 	case GenomicStudyAnalysis:
@@ -5398,29 +5386,17 @@ func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *GenomicStudyAnalysis:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GenomicStudyAnalysis
-	switch other := other.(type) {
-	case GenomicStudyAnalysis:
-		o = &other
-	case *GenomicStudyAnalysis:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GenomicStudyAnalysis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5616,31 +5592,31 @@ func (r GenomicStudyAnalysisInput) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r GenomicStudyAnalysisInput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Boolean")
+func (r GenomicStudyAnalysisInput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GenomicStudyAnalysisInput to Boolean")
 }
-func (r GenomicStudyAnalysisInput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to String")
+func (r GenomicStudyAnalysisInput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GenomicStudyAnalysisInput to String")
 }
-func (r GenomicStudyAnalysisInput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Integer")
+func (r GenomicStudyAnalysisInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GenomicStudyAnalysisInput to Integer")
 }
-func (r GenomicStudyAnalysisInput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Decimal")
+func (r GenomicStudyAnalysisInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Decimal")
 }
-func (r GenomicStudyAnalysisInput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Date")
+func (r GenomicStudyAnalysisInput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Date")
 }
-func (r GenomicStudyAnalysisInput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Time")
+func (r GenomicStudyAnalysisInput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Time")
 }
-func (r GenomicStudyAnalysisInput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to DateTime")
+func (r GenomicStudyAnalysisInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GenomicStudyAnalysisInput to DateTime")
 }
-func (r GenomicStudyAnalysisInput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisInput to Quantity")
+func (r GenomicStudyAnalysisInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Quantity")
 }
-func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GenomicStudyAnalysisInput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisInput:
@@ -5648,29 +5624,17 @@ func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeC
 	case *GenomicStudyAnalysisInput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GenomicStudyAnalysisInput
-	switch other := other.(type) {
-	case GenomicStudyAnalysisInput:
-		o = &other
-	case *GenomicStudyAnalysisInput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GenomicStudyAnalysisInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5756,31 +5720,31 @@ func (r GenomicStudyAnalysisOutput) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r GenomicStudyAnalysisOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Boolean")
+func (r GenomicStudyAnalysisOutput) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GenomicStudyAnalysisOutput to Boolean")
 }
-func (r GenomicStudyAnalysisOutput) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to String")
+func (r GenomicStudyAnalysisOutput) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GenomicStudyAnalysisOutput to String")
 }
-func (r GenomicStudyAnalysisOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Integer")
+func (r GenomicStudyAnalysisOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GenomicStudyAnalysisOutput to Integer")
 }
-func (r GenomicStudyAnalysisOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Decimal")
+func (r GenomicStudyAnalysisOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Decimal")
 }
-func (r GenomicStudyAnalysisOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Date")
+func (r GenomicStudyAnalysisOutput) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Date")
 }
-func (r GenomicStudyAnalysisOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Time")
+func (r GenomicStudyAnalysisOutput) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Time")
 }
-func (r GenomicStudyAnalysisOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to DateTime")
+func (r GenomicStudyAnalysisOutput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to DateTime")
 }
-func (r GenomicStudyAnalysisOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisOutput to Quantity")
+func (r GenomicStudyAnalysisOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Quantity")
 }
-func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GenomicStudyAnalysisOutput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisOutput:
@@ -5788,29 +5752,17 @@ func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseType
 	case *GenomicStudyAnalysisOutput:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GenomicStudyAnalysisOutput
-	switch other := other.(type) {
-	case GenomicStudyAnalysisOutput:
-		o = &other
-	case *GenomicStudyAnalysisOutput:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GenomicStudyAnalysisOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5889,31 +5841,31 @@ func (r GenomicStudyAnalysisPerformer) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r GenomicStudyAnalysisPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Boolean")
+func (r GenomicStudyAnalysisPerformer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Boolean")
 }
-func (r GenomicStudyAnalysisPerformer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to String")
+func (r GenomicStudyAnalysisPerformer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GenomicStudyAnalysisPerformer to String")
 }
-func (r GenomicStudyAnalysisPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Integer")
+func (r GenomicStudyAnalysisPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Integer")
 }
-func (r GenomicStudyAnalysisPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Decimal")
+func (r GenomicStudyAnalysisPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Decimal")
 }
-func (r GenomicStudyAnalysisPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Date")
+func (r GenomicStudyAnalysisPerformer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Date")
 }
-func (r GenomicStudyAnalysisPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Time")
+func (r GenomicStudyAnalysisPerformer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Time")
 }
-func (r GenomicStudyAnalysisPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to DateTime")
+func (r GenomicStudyAnalysisPerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to DateTime")
 }
-func (r GenomicStudyAnalysisPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisPerformer to Quantity")
+func (r GenomicStudyAnalysisPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Quantity")
 }
-func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GenomicStudyAnalysisPerformer
 	switch other := other.(type) {
 	case GenomicStudyAnalysisPerformer:
@@ -5921,29 +5873,17 @@ func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseT
 	case *GenomicStudyAnalysisPerformer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GenomicStudyAnalysisPerformer
-	switch other := other.(type) {
-	case GenomicStudyAnalysisPerformer:
-		o = &other
-	case *GenomicStudyAnalysisPerformer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GenomicStudyAnalysisPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6022,31 +5962,31 @@ func (r GenomicStudyAnalysisDevice) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r GenomicStudyAnalysisDevice) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Boolean")
+func (r GenomicStudyAnalysisDevice) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GenomicStudyAnalysisDevice to Boolean")
 }
-func (r GenomicStudyAnalysisDevice) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to String")
+func (r GenomicStudyAnalysisDevice) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GenomicStudyAnalysisDevice to String")
 }
-func (r GenomicStudyAnalysisDevice) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Integer")
+func (r GenomicStudyAnalysisDevice) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GenomicStudyAnalysisDevice to Integer")
 }
-func (r GenomicStudyAnalysisDevice) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Decimal")
+func (r GenomicStudyAnalysisDevice) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Decimal")
 }
-func (r GenomicStudyAnalysisDevice) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Date")
+func (r GenomicStudyAnalysisDevice) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Date")
 }
-func (r GenomicStudyAnalysisDevice) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Time")
+func (r GenomicStudyAnalysisDevice) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Time")
 }
-func (r GenomicStudyAnalysisDevice) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to DateTime")
+func (r GenomicStudyAnalysisDevice) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to DateTime")
 }
-func (r GenomicStudyAnalysisDevice) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GenomicStudyAnalysisDevice to Quantity")
+func (r GenomicStudyAnalysisDevice) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Quantity")
 }
-func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GenomicStudyAnalysisDevice
 	switch other := other.(type) {
 	case GenomicStudyAnalysisDevice:
@@ -6054,29 +5994,17 @@ func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseType
 	case *GenomicStudyAnalysisDevice:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GenomicStudyAnalysisDevice
-	switch other := other.(type) {
-	case GenomicStudyAnalysisDevice:
-		o = &other
-	case *GenomicStudyAnalysisDevice:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GenomicStudyAnalysisDevice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

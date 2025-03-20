@@ -1591,31 +1591,31 @@ func (r OrganizationAffiliation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r OrganizationAffiliation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to Boolean")
+func (r OrganizationAffiliation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OrganizationAffiliation to Boolean")
 }
-func (r OrganizationAffiliation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to String")
+func (r OrganizationAffiliation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OrganizationAffiliation to String")
 }
-func (r OrganizationAffiliation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to Integer")
+func (r OrganizationAffiliation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OrganizationAffiliation to Integer")
 }
-func (r OrganizationAffiliation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to Decimal")
+func (r OrganizationAffiliation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OrganizationAffiliation to Decimal")
 }
-func (r OrganizationAffiliation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to Date")
+func (r OrganizationAffiliation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OrganizationAffiliation to Date")
 }
-func (r OrganizationAffiliation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to Time")
+func (r OrganizationAffiliation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OrganizationAffiliation to Time")
 }
-func (r OrganizationAffiliation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to DateTime")
+func (r OrganizationAffiliation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OrganizationAffiliation to DateTime")
 }
-func (r OrganizationAffiliation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OrganizationAffiliation to Quantity")
+func (r OrganizationAffiliation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OrganizationAffiliation to Quantity")
 }
-func (r OrganizationAffiliation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OrganizationAffiliation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OrganizationAffiliation
 	switch other := other.(type) {
 	case OrganizationAffiliation:
@@ -1623,29 +1623,17 @@ func (r OrganizationAffiliation) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *OrganizationAffiliation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OrganizationAffiliation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OrganizationAffiliation
-	switch other := other.(type) {
-	case OrganizationAffiliation:
-		o = &other
-	case *OrganizationAffiliation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OrganizationAffiliation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

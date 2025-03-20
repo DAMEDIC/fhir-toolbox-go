@@ -4881,31 +4881,31 @@ func (r CoverageEligibilityResponse) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r CoverageEligibilityResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to Boolean")
+func (r CoverageEligibilityResponse) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CoverageEligibilityResponse to Boolean")
 }
-func (r CoverageEligibilityResponse) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to String")
+func (r CoverageEligibilityResponse) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CoverageEligibilityResponse to String")
 }
-func (r CoverageEligibilityResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to Integer")
+func (r CoverageEligibilityResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CoverageEligibilityResponse to Integer")
 }
-func (r CoverageEligibilityResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to Decimal")
+func (r CoverageEligibilityResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponse to Decimal")
 }
-func (r CoverageEligibilityResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to Date")
+func (r CoverageEligibilityResponse) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CoverageEligibilityResponse to Date")
 }
-func (r CoverageEligibilityResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to Time")
+func (r CoverageEligibilityResponse) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CoverageEligibilityResponse to Time")
 }
-func (r CoverageEligibilityResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to DateTime")
+func (r CoverageEligibilityResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CoverageEligibilityResponse to DateTime")
 }
-func (r CoverageEligibilityResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponse to Quantity")
+func (r CoverageEligibilityResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponse to Quantity")
 }
-func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CoverageEligibilityResponse
 	switch other := other.(type) {
 	case CoverageEligibilityResponse:
@@ -4913,29 +4913,17 @@ func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTyp
 	case *CoverageEligibilityResponse:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CoverageEligibilityResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CoverageEligibilityResponse
-	switch other := other.(type) {
-	case CoverageEligibilityResponse:
-		o = &other
-	case *CoverageEligibilityResponse:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CoverageEligibilityResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5148,31 +5136,31 @@ func (r CoverageEligibilityResponseInsurance) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r CoverageEligibilityResponseInsurance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to Boolean")
+func (r CoverageEligibilityResponseInsurance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Boolean")
 }
-func (r CoverageEligibilityResponseInsurance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to String")
+func (r CoverageEligibilityResponseInsurance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CoverageEligibilityResponseInsurance to String")
 }
-func (r CoverageEligibilityResponseInsurance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to Integer")
+func (r CoverageEligibilityResponseInsurance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Integer")
 }
-func (r CoverageEligibilityResponseInsurance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to Decimal")
+func (r CoverageEligibilityResponseInsurance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Decimal")
 }
-func (r CoverageEligibilityResponseInsurance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to Date")
+func (r CoverageEligibilityResponseInsurance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Date")
 }
-func (r CoverageEligibilityResponseInsurance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to Time")
+func (r CoverageEligibilityResponseInsurance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Time")
 }
-func (r CoverageEligibilityResponseInsurance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to DateTime")
+func (r CoverageEligibilityResponseInsurance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to DateTime")
 }
-func (r CoverageEligibilityResponseInsurance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsurance to Quantity")
+func (r CoverageEligibilityResponseInsurance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Quantity")
 }
-func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CoverageEligibilityResponseInsurance
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsurance:
@@ -5180,29 +5168,17 @@ func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noR
 	case *CoverageEligibilityResponseInsurance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CoverageEligibilityResponseInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CoverageEligibilityResponseInsurance
-	switch other := other.(type) {
-	case CoverageEligibilityResponseInsurance:
-		o = &other
-	case *CoverageEligibilityResponseInsurance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CoverageEligibilityResponseInsurance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5355,31 +5331,31 @@ func (r CoverageEligibilityResponseInsuranceItem) Children(name ...string) fhirp
 	}
 	return children
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Boolean")
+func (r CoverageEligibilityResponseInsuranceItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Boolean")
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to String")
+func (r CoverageEligibilityResponseInsuranceItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to String")
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Integer")
+func (r CoverageEligibilityResponseInsuranceItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Integer")
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Decimal")
+func (r CoverageEligibilityResponseInsuranceItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Decimal")
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Date")
+func (r CoverageEligibilityResponseInsuranceItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Date")
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Time")
+func (r CoverageEligibilityResponseInsuranceItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Time")
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to DateTime")
+func (r CoverageEligibilityResponseInsuranceItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to DateTime")
 }
-func (r CoverageEligibilityResponseInsuranceItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Quantity")
+func (r CoverageEligibilityResponseInsuranceItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Quantity")
 }
-func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CoverageEligibilityResponseInsuranceItem
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsuranceItem:
@@ -5387,29 +5363,17 @@ func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, 
 	case *CoverageEligibilityResponseInsuranceItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CoverageEligibilityResponseInsuranceItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CoverageEligibilityResponseInsuranceItem
-	switch other := other.(type) {
-	case CoverageEligibilityResponseInsuranceItem:
-		o = &other
-	case *CoverageEligibilityResponseInsuranceItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CoverageEligibilityResponseInsuranceItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5575,31 +5539,31 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) Children(name ...string
 	}
 	return children
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Boolean")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Boolean")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to String")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to String")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Integer")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Integer")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Decimal")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Decimal")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Date")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Date")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Time")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Time")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to DateTime")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to DateTime")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Quantity")
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Quantity")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CoverageEligibilityResponseInsuranceItemBenefit
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsuranceItemBenefit:
@@ -5607,29 +5571,17 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.El
 	case *CoverageEligibilityResponseInsuranceItemBenefit:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CoverageEligibilityResponseInsuranceItemBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CoverageEligibilityResponseInsuranceItemBenefit
-	switch other := other.(type) {
-	case CoverageEligibilityResponseInsuranceItemBenefit:
-		o = &other
-	case *CoverageEligibilityResponseInsuranceItemBenefit:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CoverageEligibilityResponseInsuranceItemBenefit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5708,31 +5660,31 @@ func (r CoverageEligibilityResponseError) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r CoverageEligibilityResponseError) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to Boolean")
+func (r CoverageEligibilityResponseError) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CoverageEligibilityResponseError to Boolean")
 }
-func (r CoverageEligibilityResponseError) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to String")
+func (r CoverageEligibilityResponseError) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CoverageEligibilityResponseError to String")
 }
-func (r CoverageEligibilityResponseError) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to Integer")
+func (r CoverageEligibilityResponseError) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CoverageEligibilityResponseError to Integer")
 }
-func (r CoverageEligibilityResponseError) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to Decimal")
+func (r CoverageEligibilityResponseError) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseError to Decimal")
 }
-func (r CoverageEligibilityResponseError) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to Date")
+func (r CoverageEligibilityResponseError) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CoverageEligibilityResponseError to Date")
 }
-func (r CoverageEligibilityResponseError) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to Time")
+func (r CoverageEligibilityResponseError) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CoverageEligibilityResponseError to Time")
 }
-func (r CoverageEligibilityResponseError) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to DateTime")
+func (r CoverageEligibilityResponseError) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CoverageEligibilityResponseError to DateTime")
 }
-func (r CoverageEligibilityResponseError) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CoverageEligibilityResponseError to Quantity")
+func (r CoverageEligibilityResponseError) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseError to Quantity")
 }
-func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CoverageEligibilityResponseError
 	switch other := other.(type) {
 	case CoverageEligibilityResponseError:
@@ -5740,29 +5692,17 @@ func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noRever
 	case *CoverageEligibilityResponseError:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CoverageEligibilityResponseError) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CoverageEligibilityResponseError
-	switch other := other.(type) {
-	case CoverageEligibilityResponseError:
-		o = &other
-	case *CoverageEligibilityResponseError:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CoverageEligibilityResponseError) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

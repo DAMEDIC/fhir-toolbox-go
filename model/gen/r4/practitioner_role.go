@@ -2829,31 +2829,31 @@ func (r PractitionerRole) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r PractitionerRole) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PractitionerRole to Boolean")
+func (r PractitionerRole) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PractitionerRole to Boolean")
 }
-func (r PractitionerRole) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PractitionerRole to String")
+func (r PractitionerRole) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PractitionerRole to String")
 }
-func (r PractitionerRole) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PractitionerRole to Integer")
+func (r PractitionerRole) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PractitionerRole to Integer")
 }
-func (r PractitionerRole) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PractitionerRole to Decimal")
+func (r PractitionerRole) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PractitionerRole to Decimal")
 }
-func (r PractitionerRole) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PractitionerRole to Date")
+func (r PractitionerRole) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PractitionerRole to Date")
 }
-func (r PractitionerRole) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PractitionerRole to Time")
+func (r PractitionerRole) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PractitionerRole to Time")
 }
-func (r PractitionerRole) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PractitionerRole to DateTime")
+func (r PractitionerRole) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PractitionerRole to DateTime")
 }
-func (r PractitionerRole) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PractitionerRole to Quantity")
+func (r PractitionerRole) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PractitionerRole to Quantity")
 }
-func (r PractitionerRole) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PractitionerRole) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PractitionerRole
 	switch other := other.(type) {
 	case PractitionerRole:
@@ -2861,29 +2861,17 @@ func (r PractitionerRole) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *PractitionerRole:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PractitionerRole) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PractitionerRole
-	switch other := other.(type) {
-	case PractitionerRole:
-		o = &other
-	case *PractitionerRole:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PractitionerRole) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3091,31 +3079,31 @@ func (r PractitionerRoleAvailableTime) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r PractitionerRoleAvailableTime) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Boolean")
+func (r PractitionerRoleAvailableTime) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PractitionerRoleAvailableTime to Boolean")
 }
-func (r PractitionerRoleAvailableTime) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to String")
+func (r PractitionerRoleAvailableTime) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PractitionerRoleAvailableTime to String")
 }
-func (r PractitionerRoleAvailableTime) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Integer")
+func (r PractitionerRoleAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PractitionerRoleAvailableTime to Integer")
 }
-func (r PractitionerRoleAvailableTime) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Decimal")
+func (r PractitionerRoleAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PractitionerRoleAvailableTime to Decimal")
 }
-func (r PractitionerRoleAvailableTime) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Date")
+func (r PractitionerRoleAvailableTime) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PractitionerRoleAvailableTime to Date")
 }
-func (r PractitionerRoleAvailableTime) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Time")
+func (r PractitionerRoleAvailableTime) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PractitionerRoleAvailableTime to Time")
 }
-func (r PractitionerRoleAvailableTime) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to DateTime")
+func (r PractitionerRoleAvailableTime) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PractitionerRoleAvailableTime to DateTime")
 }
-func (r PractitionerRoleAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PractitionerRoleAvailableTime to Quantity")
+func (r PractitionerRoleAvailableTime) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PractitionerRoleAvailableTime to Quantity")
 }
-func (r PractitionerRoleAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PractitionerRoleAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PractitionerRoleAvailableTime
 	switch other := other.(type) {
 	case PractitionerRoleAvailableTime:
@@ -3123,29 +3111,17 @@ func (r PractitionerRoleAvailableTime) Equal(other fhirpath.Element, _noReverseT
 	case *PractitionerRoleAvailableTime:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PractitionerRoleAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PractitionerRoleAvailableTime
-	switch other := other.(type) {
-	case PractitionerRoleAvailableTime:
-		o = &other
-	case *PractitionerRoleAvailableTime:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PractitionerRoleAvailableTime) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3236,31 +3212,31 @@ func (r PractitionerRoleNotAvailable) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r PractitionerRoleNotAvailable) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Boolean")
+func (r PractitionerRoleNotAvailable) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PractitionerRoleNotAvailable to Boolean")
 }
-func (r PractitionerRoleNotAvailable) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to String")
+func (r PractitionerRoleNotAvailable) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PractitionerRoleNotAvailable to String")
 }
-func (r PractitionerRoleNotAvailable) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Integer")
+func (r PractitionerRoleNotAvailable) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PractitionerRoleNotAvailable to Integer")
 }
-func (r PractitionerRoleNotAvailable) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Decimal")
+func (r PractitionerRoleNotAvailable) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PractitionerRoleNotAvailable to Decimal")
 }
-func (r PractitionerRoleNotAvailable) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Date")
+func (r PractitionerRoleNotAvailable) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PractitionerRoleNotAvailable to Date")
 }
-func (r PractitionerRoleNotAvailable) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Time")
+func (r PractitionerRoleNotAvailable) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PractitionerRoleNotAvailable to Time")
 }
-func (r PractitionerRoleNotAvailable) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to DateTime")
+func (r PractitionerRoleNotAvailable) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PractitionerRoleNotAvailable to DateTime")
 }
-func (r PractitionerRoleNotAvailable) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PractitionerRoleNotAvailable to Quantity")
+func (r PractitionerRoleNotAvailable) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PractitionerRoleNotAvailable to Quantity")
 }
-func (r PractitionerRoleNotAvailable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PractitionerRoleNotAvailable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PractitionerRoleNotAvailable
 	switch other := other.(type) {
 	case PractitionerRoleNotAvailable:
@@ -3268,29 +3244,17 @@ func (r PractitionerRoleNotAvailable) Equal(other fhirpath.Element, _noReverseTy
 	case *PractitionerRoleNotAvailable:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PractitionerRoleNotAvailable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PractitionerRoleNotAvailable
-	switch other := other.(type) {
-	case PractitionerRoleNotAvailable:
-		o = &other
-	case *PractitionerRoleNotAvailable:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PractitionerRoleNotAvailable) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

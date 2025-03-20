@@ -16534,31 +16534,31 @@ func (r Contract) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Contract) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Contract to Boolean")
+func (r Contract) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Contract to Boolean")
 }
-func (r Contract) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Contract to String")
+func (r Contract) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Contract to String")
 }
-func (r Contract) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Contract to Integer")
+func (r Contract) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Contract to Integer")
 }
-func (r Contract) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Contract to Decimal")
+func (r Contract) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Contract to Decimal")
 }
-func (r Contract) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Contract to Date")
+func (r Contract) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Contract to Date")
 }
-func (r Contract) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Contract to Time")
+func (r Contract) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Contract to Time")
 }
-func (r Contract) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Contract to DateTime")
+func (r Contract) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Contract to DateTime")
 }
-func (r Contract) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Contract to Quantity")
+func (r Contract) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Contract to Quantity")
 }
-func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Contract
 	switch other := other.(type) {
 	case Contract:
@@ -16566,29 +16566,17 @@ func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	case *Contract:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Contract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Contract
-	switch other := other.(type) {
-	case Contract:
-		o = &other
-	case *Contract:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Contract) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -16935,31 +16923,31 @@ func (r ContractContentDefinition) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ContractContentDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to Boolean")
+func (r ContractContentDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractContentDefinition to Boolean")
 }
-func (r ContractContentDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to String")
+func (r ContractContentDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractContentDefinition to String")
 }
-func (r ContractContentDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to Integer")
+func (r ContractContentDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractContentDefinition to Integer")
 }
-func (r ContractContentDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to Decimal")
+func (r ContractContentDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractContentDefinition to Decimal")
 }
-func (r ContractContentDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to Date")
+func (r ContractContentDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractContentDefinition to Date")
 }
-func (r ContractContentDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to Time")
+func (r ContractContentDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractContentDefinition to Time")
 }
-func (r ContractContentDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to DateTime")
+func (r ContractContentDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractContentDefinition to DateTime")
 }
-func (r ContractContentDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractContentDefinition to Quantity")
+func (r ContractContentDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractContentDefinition to Quantity")
 }
-func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractContentDefinition
 	switch other := other.(type) {
 	case ContractContentDefinition:
@@ -16967,29 +16955,17 @@ func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ContractContentDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractContentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractContentDefinition
-	switch other := other.(type) {
-	case ContractContentDefinition:
-		o = &other
-	case *ContractContentDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractContentDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17144,31 +17120,31 @@ func (r ContractTerm) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractTerm) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTerm to Boolean")
+func (r ContractTerm) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTerm to Boolean")
 }
-func (r ContractTerm) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTerm to String")
+func (r ContractTerm) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTerm to String")
 }
-func (r ContractTerm) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTerm to Integer")
+func (r ContractTerm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTerm to Integer")
 }
-func (r ContractTerm) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTerm to Decimal")
+func (r ContractTerm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTerm to Decimal")
 }
-func (r ContractTerm) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTerm to Date")
+func (r ContractTerm) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTerm to Date")
 }
-func (r ContractTerm) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTerm to Time")
+func (r ContractTerm) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTerm to Time")
 }
-func (r ContractTerm) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTerm to DateTime")
+func (r ContractTerm) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTerm to DateTime")
 }
-func (r ContractTerm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTerm to Quantity")
+func (r ContractTerm) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTerm to Quantity")
 }
-func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTerm
 	switch other := other.(type) {
 	case ContractTerm:
@@ -17176,29 +17152,17 @@ func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *ContractTerm:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTerm
-	switch other := other.(type) {
-	case ContractTerm:
-		o = &other
-	case *ContractTerm:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTerm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17355,31 +17319,31 @@ func (r ContractTermSecurityLabel) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ContractTermSecurityLabel) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to Boolean")
+func (r ContractTermSecurityLabel) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermSecurityLabel to Boolean")
 }
-func (r ContractTermSecurityLabel) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to String")
+func (r ContractTermSecurityLabel) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermSecurityLabel to String")
 }
-func (r ContractTermSecurityLabel) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to Integer")
+func (r ContractTermSecurityLabel) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermSecurityLabel to Integer")
 }
-func (r ContractTermSecurityLabel) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to Decimal")
+func (r ContractTermSecurityLabel) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermSecurityLabel to Decimal")
 }
-func (r ContractTermSecurityLabel) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to Date")
+func (r ContractTermSecurityLabel) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermSecurityLabel to Date")
 }
-func (r ContractTermSecurityLabel) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to Time")
+func (r ContractTermSecurityLabel) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermSecurityLabel to Time")
 }
-func (r ContractTermSecurityLabel) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to DateTime")
+func (r ContractTermSecurityLabel) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermSecurityLabel to DateTime")
 }
-func (r ContractTermSecurityLabel) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermSecurityLabel to Quantity")
+func (r ContractTermSecurityLabel) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermSecurityLabel to Quantity")
 }
-func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermSecurityLabel
 	switch other := other.(type) {
 	case ContractTermSecurityLabel:
@@ -17387,29 +17351,17 @@ func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ContractTermSecurityLabel:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermSecurityLabel
-	switch other := other.(type) {
-	case ContractTermSecurityLabel:
-		o = &other
-	case *ContractTermSecurityLabel:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermSecurityLabel) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17542,31 +17494,31 @@ func (r ContractTermOffer) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractTermOffer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermOffer to Boolean")
+func (r ContractTermOffer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermOffer to Boolean")
 }
-func (r ContractTermOffer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermOffer to String")
+func (r ContractTermOffer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermOffer to String")
 }
-func (r ContractTermOffer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermOffer to Integer")
+func (r ContractTermOffer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermOffer to Integer")
 }
-func (r ContractTermOffer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermOffer to Decimal")
+func (r ContractTermOffer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOffer to Decimal")
 }
-func (r ContractTermOffer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermOffer to Date")
+func (r ContractTermOffer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermOffer to Date")
 }
-func (r ContractTermOffer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermOffer to Time")
+func (r ContractTermOffer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermOffer to Time")
 }
-func (r ContractTermOffer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermOffer to DateTime")
+func (r ContractTermOffer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermOffer to DateTime")
 }
-func (r ContractTermOffer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermOffer to Quantity")
+func (r ContractTermOffer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOffer to Quantity")
 }
-func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermOffer
 	switch other := other.(type) {
 	case ContractTermOffer:
@@ -17574,29 +17526,17 @@ func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *ContractTermOffer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermOffer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermOffer
-	switch other := other.(type) {
-	case ContractTermOffer:
-		o = &other
-	case *ContractTermOffer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermOffer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17729,31 +17669,31 @@ func (r ContractTermOfferParty) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractTermOfferParty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to Boolean")
+func (r ContractTermOfferParty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermOfferParty to Boolean")
 }
-func (r ContractTermOfferParty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to String")
+func (r ContractTermOfferParty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermOfferParty to String")
 }
-func (r ContractTermOfferParty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to Integer")
+func (r ContractTermOfferParty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermOfferParty to Integer")
 }
-func (r ContractTermOfferParty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to Decimal")
+func (r ContractTermOfferParty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOfferParty to Decimal")
 }
-func (r ContractTermOfferParty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to Date")
+func (r ContractTermOfferParty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermOfferParty to Date")
 }
-func (r ContractTermOfferParty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to Time")
+func (r ContractTermOfferParty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermOfferParty to Time")
 }
-func (r ContractTermOfferParty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to DateTime")
+func (r ContractTermOfferParty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermOfferParty to DateTime")
 }
-func (r ContractTermOfferParty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermOfferParty to Quantity")
+func (r ContractTermOfferParty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOfferParty to Quantity")
 }
-func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermOfferParty
 	switch other := other.(type) {
 	case ContractTermOfferParty:
@@ -17761,29 +17701,17 @@ func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *ContractTermOfferParty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermOfferParty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermOfferParty
-	switch other := other.(type) {
-	case ContractTermOfferParty:
-		o = &other
-	case *ContractTermOfferParty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermOfferParty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17855,31 +17783,31 @@ func (r ContractTermOfferAnswer) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractTermOfferAnswer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to Boolean")
+func (r ContractTermOfferAnswer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermOfferAnswer to Boolean")
 }
-func (r ContractTermOfferAnswer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to String")
+func (r ContractTermOfferAnswer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermOfferAnswer to String")
 }
-func (r ContractTermOfferAnswer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to Integer")
+func (r ContractTermOfferAnswer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermOfferAnswer to Integer")
 }
-func (r ContractTermOfferAnswer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to Decimal")
+func (r ContractTermOfferAnswer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOfferAnswer to Decimal")
 }
-func (r ContractTermOfferAnswer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to Date")
+func (r ContractTermOfferAnswer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermOfferAnswer to Date")
 }
-func (r ContractTermOfferAnswer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to Time")
+func (r ContractTermOfferAnswer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermOfferAnswer to Time")
 }
-func (r ContractTermOfferAnswer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to DateTime")
+func (r ContractTermOfferAnswer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermOfferAnswer to DateTime")
 }
-func (r ContractTermOfferAnswer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermOfferAnswer to Quantity")
+func (r ContractTermOfferAnswer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOfferAnswer to Quantity")
 }
-func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermOfferAnswer
 	switch other := other.(type) {
 	case ContractTermOfferAnswer:
@@ -17887,29 +17815,17 @@ func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *ContractTermOfferAnswer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermOfferAnswer
-	switch other := other.(type) {
-	case ContractTermOfferAnswer:
-		o = &other
-	case *ContractTermOfferAnswer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermOfferAnswer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18046,31 +17962,31 @@ func (r ContractTermAsset) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractTermAsset) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermAsset to Boolean")
+func (r ContractTermAsset) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermAsset to Boolean")
 }
-func (r ContractTermAsset) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermAsset to String")
+func (r ContractTermAsset) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermAsset to String")
 }
-func (r ContractTermAsset) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermAsset to Integer")
+func (r ContractTermAsset) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermAsset to Integer")
 }
-func (r ContractTermAsset) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermAsset to Decimal")
+func (r ContractTermAsset) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAsset to Decimal")
 }
-func (r ContractTermAsset) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermAsset to Date")
+func (r ContractTermAsset) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermAsset to Date")
 }
-func (r ContractTermAsset) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermAsset to Time")
+func (r ContractTermAsset) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermAsset to Time")
 }
-func (r ContractTermAsset) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermAsset to DateTime")
+func (r ContractTermAsset) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermAsset to DateTime")
 }
-func (r ContractTermAsset) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermAsset to Quantity")
+func (r ContractTermAsset) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAsset to Quantity")
 }
-func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermAsset
 	switch other := other.(type) {
 	case ContractTermAsset:
@@ -18078,29 +17994,17 @@ func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *ContractTermAsset:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermAsset) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermAsset
-	switch other := other.(type) {
-	case ContractTermAsset:
-		o = &other
-	case *ContractTermAsset:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermAsset) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18275,31 +18179,31 @@ func (r ContractTermAssetContext) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractTermAssetContext) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to Boolean")
+func (r ContractTermAssetContext) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermAssetContext to Boolean")
 }
-func (r ContractTermAssetContext) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to String")
+func (r ContractTermAssetContext) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermAssetContext to String")
 }
-func (r ContractTermAssetContext) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to Integer")
+func (r ContractTermAssetContext) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermAssetContext to Integer")
 }
-func (r ContractTermAssetContext) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to Decimal")
+func (r ContractTermAssetContext) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAssetContext to Decimal")
 }
-func (r ContractTermAssetContext) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to Date")
+func (r ContractTermAssetContext) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermAssetContext to Date")
 }
-func (r ContractTermAssetContext) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to Time")
+func (r ContractTermAssetContext) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermAssetContext to Time")
 }
-func (r ContractTermAssetContext) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to DateTime")
+func (r ContractTermAssetContext) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermAssetContext to DateTime")
 }
-func (r ContractTermAssetContext) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermAssetContext to Quantity")
+func (r ContractTermAssetContext) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAssetContext to Quantity")
 }
-func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermAssetContext
 	switch other := other.(type) {
 	case ContractTermAssetContext:
@@ -18307,29 +18211,17 @@ func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ContractTermAssetContext:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermAssetContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermAssetContext
-	switch other := other.(type) {
-	case ContractTermAssetContext:
-		o = &other
-	case *ContractTermAssetContext:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermAssetContext) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18475,31 +18367,31 @@ func (r ContractTermAssetValuedItem) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ContractTermAssetValuedItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to Boolean")
+func (r ContractTermAssetValuedItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermAssetValuedItem to Boolean")
 }
-func (r ContractTermAssetValuedItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to String")
+func (r ContractTermAssetValuedItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermAssetValuedItem to String")
 }
-func (r ContractTermAssetValuedItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to Integer")
+func (r ContractTermAssetValuedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermAssetValuedItem to Integer")
 }
-func (r ContractTermAssetValuedItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to Decimal")
+func (r ContractTermAssetValuedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAssetValuedItem to Decimal")
 }
-func (r ContractTermAssetValuedItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to Date")
+func (r ContractTermAssetValuedItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermAssetValuedItem to Date")
 }
-func (r ContractTermAssetValuedItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to Time")
+func (r ContractTermAssetValuedItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermAssetValuedItem to Time")
 }
-func (r ContractTermAssetValuedItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to DateTime")
+func (r ContractTermAssetValuedItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermAssetValuedItem to DateTime")
 }
-func (r ContractTermAssetValuedItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermAssetValuedItem to Quantity")
+func (r ContractTermAssetValuedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAssetValuedItem to Quantity")
 }
-func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermAssetValuedItem
 	switch other := other.(type) {
 	case ContractTermAssetValuedItem:
@@ -18507,29 +18399,17 @@ func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTyp
 	case *ContractTermAssetValuedItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermAssetValuedItem
-	switch other := other.(type) {
-	case ContractTermAssetValuedItem:
-		o = &other
-	case *ContractTermAssetValuedItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermAssetValuedItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -18781,31 +18661,31 @@ func (r ContractTermAction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractTermAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermAction to Boolean")
+func (r ContractTermAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermAction to Boolean")
 }
-func (r ContractTermAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermAction to String")
+func (r ContractTermAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermAction to String")
 }
-func (r ContractTermAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermAction to Integer")
+func (r ContractTermAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermAction to Integer")
 }
-func (r ContractTermAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermAction to Decimal")
+func (r ContractTermAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAction to Decimal")
 }
-func (r ContractTermAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermAction to Date")
+func (r ContractTermAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermAction to Date")
 }
-func (r ContractTermAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermAction to Time")
+func (r ContractTermAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermAction to Time")
 }
-func (r ContractTermAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermAction to DateTime")
+func (r ContractTermAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermAction to DateTime")
 }
-func (r ContractTermAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermAction to Quantity")
+func (r ContractTermAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAction to Quantity")
 }
-func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermAction
 	switch other := other.(type) {
 	case ContractTermAction:
@@ -18813,29 +18693,17 @@ func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ContractTermAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermAction
-	switch other := other.(type) {
-	case ContractTermAction:
-		o = &other
-	case *ContractTermAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19047,31 +18915,31 @@ func (r ContractTermActionSubject) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ContractTermActionSubject) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to Boolean")
+func (r ContractTermActionSubject) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractTermActionSubject to Boolean")
 }
-func (r ContractTermActionSubject) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to String")
+func (r ContractTermActionSubject) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractTermActionSubject to String")
 }
-func (r ContractTermActionSubject) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to Integer")
+func (r ContractTermActionSubject) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractTermActionSubject to Integer")
 }
-func (r ContractTermActionSubject) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to Decimal")
+func (r ContractTermActionSubject) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermActionSubject to Decimal")
 }
-func (r ContractTermActionSubject) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to Date")
+func (r ContractTermActionSubject) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractTermActionSubject to Date")
 }
-func (r ContractTermActionSubject) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to Time")
+func (r ContractTermActionSubject) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractTermActionSubject to Time")
 }
-func (r ContractTermActionSubject) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to DateTime")
+func (r ContractTermActionSubject) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractTermActionSubject to DateTime")
 }
-func (r ContractTermActionSubject) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractTermActionSubject to Quantity")
+func (r ContractTermActionSubject) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermActionSubject to Quantity")
 }
-func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractTermActionSubject
 	switch other := other.(type) {
 	case ContractTermActionSubject:
@@ -19079,29 +18947,17 @@ func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ContractTermActionSubject:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractTermActionSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractTermActionSubject
-	switch other := other.(type) {
-	case ContractTermActionSubject:
-		o = &other
-	case *ContractTermActionSubject:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractTermActionSubject) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19181,31 +19037,31 @@ func (r ContractSigner) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractSigner) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractSigner to Boolean")
+func (r ContractSigner) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractSigner to Boolean")
 }
-func (r ContractSigner) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractSigner to String")
+func (r ContractSigner) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractSigner to String")
 }
-func (r ContractSigner) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractSigner to Integer")
+func (r ContractSigner) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractSigner to Integer")
 }
-func (r ContractSigner) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractSigner to Decimal")
+func (r ContractSigner) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractSigner to Decimal")
 }
-func (r ContractSigner) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractSigner to Date")
+func (r ContractSigner) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractSigner to Date")
 }
-func (r ContractSigner) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractSigner to Time")
+func (r ContractSigner) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractSigner to Time")
 }
-func (r ContractSigner) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractSigner to DateTime")
+func (r ContractSigner) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractSigner to DateTime")
 }
-func (r ContractSigner) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractSigner to Quantity")
+func (r ContractSigner) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractSigner to Quantity")
 }
-func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractSigner
 	switch other := other.(type) {
 	case ContractSigner:
@@ -19213,29 +19069,17 @@ func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *ContractSigner:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractSigner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractSigner
-	switch other := other.(type) {
-	case ContractSigner:
-		o = &other
-	case *ContractSigner:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractSigner) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19314,31 +19158,31 @@ func (r ContractFriendly) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractFriendly) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractFriendly to Boolean")
+func (r ContractFriendly) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractFriendly to Boolean")
 }
-func (r ContractFriendly) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractFriendly to String")
+func (r ContractFriendly) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractFriendly to String")
 }
-func (r ContractFriendly) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractFriendly to Integer")
+func (r ContractFriendly) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractFriendly to Integer")
 }
-func (r ContractFriendly) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractFriendly to Decimal")
+func (r ContractFriendly) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractFriendly to Decimal")
 }
-func (r ContractFriendly) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractFriendly to Date")
+func (r ContractFriendly) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractFriendly to Date")
 }
-func (r ContractFriendly) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractFriendly to Time")
+func (r ContractFriendly) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractFriendly to Time")
 }
-func (r ContractFriendly) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractFriendly to DateTime")
+func (r ContractFriendly) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractFriendly to DateTime")
 }
-func (r ContractFriendly) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractFriendly to Quantity")
+func (r ContractFriendly) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractFriendly to Quantity")
 }
-func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractFriendly
 	switch other := other.(type) {
 	case ContractFriendly:
@@ -19346,29 +19190,17 @@ func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *ContractFriendly:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractFriendly) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractFriendly
-	switch other := other.(type) {
-	case ContractFriendly:
-		o = &other
-	case *ContractFriendly:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractFriendly) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19433,31 +19265,31 @@ func (r ContractLegal) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractLegal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractLegal to Boolean")
+func (r ContractLegal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractLegal to Boolean")
 }
-func (r ContractLegal) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractLegal to String")
+func (r ContractLegal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractLegal to String")
 }
-func (r ContractLegal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractLegal to Integer")
+func (r ContractLegal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractLegal to Integer")
 }
-func (r ContractLegal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractLegal to Decimal")
+func (r ContractLegal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractLegal to Decimal")
 }
-func (r ContractLegal) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractLegal to Date")
+func (r ContractLegal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractLegal to Date")
 }
-func (r ContractLegal) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractLegal to Time")
+func (r ContractLegal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractLegal to Time")
 }
-func (r ContractLegal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractLegal to DateTime")
+func (r ContractLegal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractLegal to DateTime")
 }
-func (r ContractLegal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractLegal to Quantity")
+func (r ContractLegal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractLegal to Quantity")
 }
-func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractLegal
 	switch other := other.(type) {
 	case ContractLegal:
@@ -19465,29 +19297,17 @@ func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *ContractLegal:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractLegal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractLegal
-	switch other := other.(type) {
-	case ContractLegal:
-		o = &other
-	case *ContractLegal:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractLegal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -19552,31 +19372,31 @@ func (r ContractRule) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContractRule) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContractRule to Boolean")
+func (r ContractRule) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContractRule to Boolean")
 }
-func (r ContractRule) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContractRule to String")
+func (r ContractRule) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContractRule to String")
 }
-func (r ContractRule) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContractRule to Integer")
+func (r ContractRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContractRule to Integer")
 }
-func (r ContractRule) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContractRule to Decimal")
+func (r ContractRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContractRule to Decimal")
 }
-func (r ContractRule) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContractRule to Date")
+func (r ContractRule) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContractRule to Date")
 }
-func (r ContractRule) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContractRule to Time")
+func (r ContractRule) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContractRule to Time")
 }
-func (r ContractRule) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContractRule to DateTime")
+func (r ContractRule) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContractRule to DateTime")
 }
-func (r ContractRule) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContractRule to Quantity")
+func (r ContractRule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContractRule to Quantity")
 }
-func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContractRule
 	switch other := other.(type) {
 	case ContractRule:
@@ -19584,29 +19404,17 @@ func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *ContractRule:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContractRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContractRule
-	switch other := other.(type) {
-	case ContractRule:
-		o = &other
-	case *ContractRule:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContractRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

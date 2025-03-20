@@ -1340,31 +1340,31 @@ func (r Availability) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Availability) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Availability to Boolean")
+func (r Availability) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Availability to Boolean")
 }
-func (r Availability) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Availability to String")
+func (r Availability) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Availability to String")
 }
-func (r Availability) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Availability to Integer")
+func (r Availability) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Availability to Integer")
 }
-func (r Availability) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Availability to Decimal")
+func (r Availability) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Availability to Decimal")
 }
-func (r Availability) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Availability to Date")
+func (r Availability) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Availability to Date")
 }
-func (r Availability) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Availability to Time")
+func (r Availability) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Availability to Time")
 }
-func (r Availability) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Availability to DateTime")
+func (r Availability) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Availability to DateTime")
 }
-func (r Availability) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Availability to Quantity")
+func (r Availability) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Availability to Quantity")
 }
-func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Availability
 	switch other := other.(type) {
 	case Availability:
@@ -1372,29 +1372,17 @@ func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *Availability:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Availability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Availability
-	switch other := other.(type) {
-	case Availability:
-		o = &other
-	case *Availability:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Availability) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -1471,31 +1459,31 @@ func (r AvailabilityAvailableTime) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r AvailabilityAvailableTime) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to Boolean")
+func (r AvailabilityAvailableTime) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AvailabilityAvailableTime to Boolean")
 }
-func (r AvailabilityAvailableTime) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to String")
+func (r AvailabilityAvailableTime) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AvailabilityAvailableTime to String")
 }
-func (r AvailabilityAvailableTime) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to Integer")
+func (r AvailabilityAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AvailabilityAvailableTime to Integer")
 }
-func (r AvailabilityAvailableTime) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to Decimal")
+func (r AvailabilityAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AvailabilityAvailableTime to Decimal")
 }
-func (r AvailabilityAvailableTime) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to Date")
+func (r AvailabilityAvailableTime) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AvailabilityAvailableTime to Date")
 }
-func (r AvailabilityAvailableTime) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to Time")
+func (r AvailabilityAvailableTime) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AvailabilityAvailableTime to Time")
 }
-func (r AvailabilityAvailableTime) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to DateTime")
+func (r AvailabilityAvailableTime) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AvailabilityAvailableTime to DateTime")
 }
-func (r AvailabilityAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AvailabilityAvailableTime to Quantity")
+func (r AvailabilityAvailableTime) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AvailabilityAvailableTime to Quantity")
 }
-func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AvailabilityAvailableTime
 	switch other := other.(type) {
 	case AvailabilityAvailableTime:
@@ -1503,29 +1491,17 @@ func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeC
 	case *AvailabilityAvailableTime:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AvailabilityAvailableTime
-	switch other := other.(type) {
-	case AvailabilityAvailableTime:
-		o = &other
-	case *AvailabilityAvailableTime:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AvailabilityAvailableTime) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -1606,31 +1582,31 @@ func (r AvailabilityNotAvailableTime) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r AvailabilityNotAvailableTime) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Boolean")
+func (r AvailabilityNotAvailableTime) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AvailabilityNotAvailableTime to Boolean")
 }
-func (r AvailabilityNotAvailableTime) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to String")
+func (r AvailabilityNotAvailableTime) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AvailabilityNotAvailableTime to String")
 }
-func (r AvailabilityNotAvailableTime) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Integer")
+func (r AvailabilityNotAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AvailabilityNotAvailableTime to Integer")
 }
-func (r AvailabilityNotAvailableTime) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Decimal")
+func (r AvailabilityNotAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Decimal")
 }
-func (r AvailabilityNotAvailableTime) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Date")
+func (r AvailabilityNotAvailableTime) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Date")
 }
-func (r AvailabilityNotAvailableTime) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Time")
+func (r AvailabilityNotAvailableTime) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Time")
 }
-func (r AvailabilityNotAvailableTime) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to DateTime")
+func (r AvailabilityNotAvailableTime) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AvailabilityNotAvailableTime to DateTime")
 }
-func (r AvailabilityNotAvailableTime) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AvailabilityNotAvailableTime to Quantity")
+func (r AvailabilityNotAvailableTime) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Quantity")
 }
-func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AvailabilityNotAvailableTime
 	switch other := other.(type) {
 	case AvailabilityNotAvailableTime:
@@ -1638,29 +1614,17 @@ func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTy
 	case *AvailabilityNotAvailableTime:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AvailabilityNotAvailableTime
-	switch other := other.(type) {
-	case AvailabilityNotAvailableTime:
-		o = &other
-	case *AvailabilityNotAvailableTime:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AvailabilityNotAvailableTime) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

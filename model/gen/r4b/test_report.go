@@ -5408,31 +5408,31 @@ func (r TestReport) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReport) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReport to Boolean")
+func (r TestReport) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReport to Boolean")
 }
-func (r TestReport) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReport to String")
+func (r TestReport) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReport to String")
 }
-func (r TestReport) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReport to Integer")
+func (r TestReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReport to Integer")
 }
-func (r TestReport) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReport to Decimal")
+func (r TestReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReport to Decimal")
 }
-func (r TestReport) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReport to Date")
+func (r TestReport) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReport to Date")
 }
-func (r TestReport) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReport to Time")
+func (r TestReport) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReport to Time")
 }
-func (r TestReport) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReport to DateTime")
+func (r TestReport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReport to DateTime")
 }
-func (r TestReport) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReport to Quantity")
+func (r TestReport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReport to Quantity")
 }
-func (r TestReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReport
 	switch other := other.(type) {
 	case TestReport:
@@ -5440,29 +5440,17 @@ func (r TestReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *TestReport:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReport
-	switch other := other.(type) {
-	case TestReport:
-		o = &other
-	case *TestReport:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5647,31 +5635,31 @@ func (r TestReportParticipant) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReportParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportParticipant to Boolean")
+func (r TestReportParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportParticipant to Boolean")
 }
-func (r TestReportParticipant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportParticipant to String")
+func (r TestReportParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportParticipant to String")
 }
-func (r TestReportParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportParticipant to Integer")
+func (r TestReportParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportParticipant to Integer")
 }
-func (r TestReportParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportParticipant to Decimal")
+func (r TestReportParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportParticipant to Decimal")
 }
-func (r TestReportParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportParticipant to Date")
+func (r TestReportParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportParticipant to Date")
 }
-func (r TestReportParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportParticipant to Time")
+func (r TestReportParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportParticipant to Time")
 }
-func (r TestReportParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportParticipant to DateTime")
+func (r TestReportParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportParticipant to DateTime")
 }
-func (r TestReportParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportParticipant to Quantity")
+func (r TestReportParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportParticipant to Quantity")
 }
-func (r TestReportParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportParticipant
 	switch other := other.(type) {
 	case TestReportParticipant:
@@ -5679,29 +5667,17 @@ func (r TestReportParticipant) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *TestReportParticipant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportParticipant
-	switch other := other.(type) {
-	case TestReportParticipant:
-		o = &other
-	case *TestReportParticipant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5782,31 +5758,31 @@ func (r TestReportSetup) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReportSetup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportSetup to Boolean")
+func (r TestReportSetup) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportSetup to Boolean")
 }
-func (r TestReportSetup) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportSetup to String")
+func (r TestReportSetup) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportSetup to String")
 }
-func (r TestReportSetup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportSetup to Integer")
+func (r TestReportSetup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportSetup to Integer")
 }
-func (r TestReportSetup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportSetup to Decimal")
+func (r TestReportSetup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetup to Decimal")
 }
-func (r TestReportSetup) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportSetup to Date")
+func (r TestReportSetup) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportSetup to Date")
 }
-func (r TestReportSetup) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportSetup to Time")
+func (r TestReportSetup) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportSetup to Time")
 }
-func (r TestReportSetup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportSetup to DateTime")
+func (r TestReportSetup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportSetup to DateTime")
 }
-func (r TestReportSetup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportSetup to Quantity")
+func (r TestReportSetup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportSetup to Quantity")
 }
-func (r TestReportSetup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportSetup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportSetup
 	switch other := other.(type) {
 	case TestReportSetup:
@@ -5814,29 +5790,17 @@ func (r TestReportSetup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *TestReportSetup:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportSetup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportSetup
-	switch other := other.(type) {
-	case TestReportSetup:
-		o = &other
-	case *TestReportSetup:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportSetup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5908,31 +5872,31 @@ func (r TestReportSetupAction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReportSetupAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to Boolean")
+func (r TestReportSetupAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportSetupAction to Boolean")
 }
-func (r TestReportSetupAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to String")
+func (r TestReportSetupAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportSetupAction to String")
 }
-func (r TestReportSetupAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to Integer")
+func (r TestReportSetupAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportSetupAction to Integer")
 }
-func (r TestReportSetupAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to Decimal")
+func (r TestReportSetupAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetupAction to Decimal")
 }
-func (r TestReportSetupAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to Date")
+func (r TestReportSetupAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportSetupAction to Date")
 }
-func (r TestReportSetupAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to Time")
+func (r TestReportSetupAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportSetupAction to Time")
 }
-func (r TestReportSetupAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to DateTime")
+func (r TestReportSetupAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportSetupAction to DateTime")
 }
-func (r TestReportSetupAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportSetupAction to Quantity")
+func (r TestReportSetupAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportSetupAction to Quantity")
 }
-func (r TestReportSetupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportSetupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportSetupAction
 	switch other := other.(type) {
 	case TestReportSetupAction:
@@ -5940,29 +5904,17 @@ func (r TestReportSetupAction) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *TestReportSetupAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportSetupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportSetupAction
-	switch other := other.(type) {
-	case TestReportSetupAction:
-		o = &other
-	case *TestReportSetupAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportSetupAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6044,31 +5996,31 @@ func (r TestReportSetupActionOperation) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r TestReportSetupActionOperation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to Boolean")
+func (r TestReportSetupActionOperation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportSetupActionOperation to Boolean")
 }
-func (r TestReportSetupActionOperation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to String")
+func (r TestReportSetupActionOperation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportSetupActionOperation to String")
 }
-func (r TestReportSetupActionOperation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to Integer")
+func (r TestReportSetupActionOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportSetupActionOperation to Integer")
 }
-func (r TestReportSetupActionOperation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to Decimal")
+func (r TestReportSetupActionOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetupActionOperation to Decimal")
 }
-func (r TestReportSetupActionOperation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to Date")
+func (r TestReportSetupActionOperation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportSetupActionOperation to Date")
 }
-func (r TestReportSetupActionOperation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to Time")
+func (r TestReportSetupActionOperation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportSetupActionOperation to Time")
 }
-func (r TestReportSetupActionOperation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to DateTime")
+func (r TestReportSetupActionOperation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportSetupActionOperation to DateTime")
 }
-func (r TestReportSetupActionOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportSetupActionOperation to Quantity")
+func (r TestReportSetupActionOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportSetupActionOperation to Quantity")
 }
-func (r TestReportSetupActionOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportSetupActionOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportSetupActionOperation
 	switch other := other.(type) {
 	case TestReportSetupActionOperation:
@@ -6076,29 +6028,17 @@ func (r TestReportSetupActionOperation) Equal(other fhirpath.Element, _noReverse
 	case *TestReportSetupActionOperation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportSetupActionOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportSetupActionOperation
-	switch other := other.(type) {
-	case TestReportSetupActionOperation:
-		o = &other
-	case *TestReportSetupActionOperation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6187,31 +6127,31 @@ func (r TestReportSetupActionAssert) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r TestReportSetupActionAssert) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to Boolean")
+func (r TestReportSetupActionAssert) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportSetupActionAssert to Boolean")
 }
-func (r TestReportSetupActionAssert) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to String")
+func (r TestReportSetupActionAssert) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportSetupActionAssert to String")
 }
-func (r TestReportSetupActionAssert) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to Integer")
+func (r TestReportSetupActionAssert) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportSetupActionAssert to Integer")
 }
-func (r TestReportSetupActionAssert) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to Decimal")
+func (r TestReportSetupActionAssert) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetupActionAssert to Decimal")
 }
-func (r TestReportSetupActionAssert) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to Date")
+func (r TestReportSetupActionAssert) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportSetupActionAssert to Date")
 }
-func (r TestReportSetupActionAssert) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to Time")
+func (r TestReportSetupActionAssert) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportSetupActionAssert to Time")
 }
-func (r TestReportSetupActionAssert) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to DateTime")
+func (r TestReportSetupActionAssert) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportSetupActionAssert to DateTime")
 }
-func (r TestReportSetupActionAssert) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportSetupActionAssert to Quantity")
+func (r TestReportSetupActionAssert) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportSetupActionAssert to Quantity")
 }
-func (r TestReportSetupActionAssert) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportSetupActionAssert) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportSetupActionAssert
 	switch other := other.(type) {
 	case TestReportSetupActionAssert:
@@ -6219,29 +6159,17 @@ func (r TestReportSetupActionAssert) Equal(other fhirpath.Element, _noReverseTyp
 	case *TestReportSetupActionAssert:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportSetupActionAssert) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportSetupActionAssert
-	switch other := other.(type) {
-	case TestReportSetupActionAssert:
-		o = &other
-	case *TestReportSetupActionAssert:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6332,31 +6260,31 @@ func (r TestReportTest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReportTest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportTest to Boolean")
+func (r TestReportTest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportTest to Boolean")
 }
-func (r TestReportTest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportTest to String")
+func (r TestReportTest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportTest to String")
 }
-func (r TestReportTest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportTest to Integer")
+func (r TestReportTest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportTest to Integer")
 }
-func (r TestReportTest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportTest to Decimal")
+func (r TestReportTest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTest to Decimal")
 }
-func (r TestReportTest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportTest to Date")
+func (r TestReportTest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportTest to Date")
 }
-func (r TestReportTest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportTest to Time")
+func (r TestReportTest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportTest to Time")
 }
-func (r TestReportTest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportTest to DateTime")
+func (r TestReportTest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportTest to DateTime")
 }
-func (r TestReportTest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportTest to Quantity")
+func (r TestReportTest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportTest to Quantity")
 }
-func (r TestReportTest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportTest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportTest
 	switch other := other.(type) {
 	case TestReportTest:
@@ -6364,29 +6292,17 @@ func (r TestReportTest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *TestReportTest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportTest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportTest
-	switch other := other.(type) {
-	case TestReportTest:
-		o = &other
-	case *TestReportTest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportTest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6472,31 +6388,31 @@ func (r TestReportTestAction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReportTestAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportTestAction to Boolean")
+func (r TestReportTestAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportTestAction to Boolean")
 }
-func (r TestReportTestAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportTestAction to String")
+func (r TestReportTestAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportTestAction to String")
 }
-func (r TestReportTestAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportTestAction to Integer")
+func (r TestReportTestAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportTestAction to Integer")
 }
-func (r TestReportTestAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportTestAction to Decimal")
+func (r TestReportTestAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTestAction to Decimal")
 }
-func (r TestReportTestAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportTestAction to Date")
+func (r TestReportTestAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportTestAction to Date")
 }
-func (r TestReportTestAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportTestAction to Time")
+func (r TestReportTestAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportTestAction to Time")
 }
-func (r TestReportTestAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportTestAction to DateTime")
+func (r TestReportTestAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportTestAction to DateTime")
 }
-func (r TestReportTestAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportTestAction to Quantity")
+func (r TestReportTestAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportTestAction to Quantity")
 }
-func (r TestReportTestAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportTestAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportTestAction
 	switch other := other.(type) {
 	case TestReportTestAction:
@@ -6504,29 +6420,17 @@ func (r TestReportTestAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *TestReportTestAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportTestAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportTestAction
-	switch other := other.(type) {
-	case TestReportTestAction:
-		o = &other
-	case *TestReportTestAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportTestAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6600,31 +6504,31 @@ func (r TestReportTeardown) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReportTeardown) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportTeardown to Boolean")
+func (r TestReportTeardown) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportTeardown to Boolean")
 }
-func (r TestReportTeardown) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportTeardown to String")
+func (r TestReportTeardown) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportTeardown to String")
 }
-func (r TestReportTeardown) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportTeardown to Integer")
+func (r TestReportTeardown) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportTeardown to Integer")
 }
-func (r TestReportTeardown) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportTeardown to Decimal")
+func (r TestReportTeardown) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTeardown to Decimal")
 }
-func (r TestReportTeardown) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportTeardown to Date")
+func (r TestReportTeardown) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportTeardown to Date")
 }
-func (r TestReportTeardown) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportTeardown to Time")
+func (r TestReportTeardown) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportTeardown to Time")
 }
-func (r TestReportTeardown) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportTeardown to DateTime")
+func (r TestReportTeardown) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportTeardown to DateTime")
 }
-func (r TestReportTeardown) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportTeardown to Quantity")
+func (r TestReportTeardown) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportTeardown to Quantity")
 }
-func (r TestReportTeardown) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportTeardown) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportTeardown
 	switch other := other.(type) {
 	case TestReportTeardown:
@@ -6632,29 +6536,17 @@ func (r TestReportTeardown) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *TestReportTeardown:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportTeardown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportTeardown
-	switch other := other.(type) {
-	case TestReportTeardown:
-		o = &other
-	case *TestReportTeardown:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportTeardown) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6719,31 +6611,31 @@ func (r TestReportTeardownAction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r TestReportTeardownAction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to Boolean")
+func (r TestReportTeardownAction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert TestReportTeardownAction to Boolean")
 }
-func (r TestReportTeardownAction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to String")
+func (r TestReportTeardownAction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert TestReportTeardownAction to String")
 }
-func (r TestReportTeardownAction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to Integer")
+func (r TestReportTeardownAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert TestReportTeardownAction to Integer")
 }
-func (r TestReportTeardownAction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to Decimal")
+func (r TestReportTeardownAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTeardownAction to Decimal")
 }
-func (r TestReportTeardownAction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to Date")
+func (r TestReportTeardownAction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert TestReportTeardownAction to Date")
 }
-func (r TestReportTeardownAction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to Time")
+func (r TestReportTeardownAction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert TestReportTeardownAction to Time")
 }
-func (r TestReportTeardownAction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to DateTime")
+func (r TestReportTeardownAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert TestReportTeardownAction to DateTime")
 }
-func (r TestReportTeardownAction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert TestReportTeardownAction to Quantity")
+func (r TestReportTeardownAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert TestReportTeardownAction to Quantity")
 }
-func (r TestReportTeardownAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestReportTeardownAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *TestReportTeardownAction
 	switch other := other.(type) {
 	case TestReportTeardownAction:
@@ -6751,29 +6643,17 @@ func (r TestReportTeardownAction) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *TestReportTeardownAction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r TestReportTeardownAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *TestReportTeardownAction
-	switch other := other.(type) {
-	case TestReportTeardownAction:
-		o = &other
-	case *TestReportTeardownAction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r TestReportTeardownAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

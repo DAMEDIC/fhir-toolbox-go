@@ -107,43 +107,40 @@ func (r Xhtml) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Xhtml) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Xhtml to Boolean")
+func (r Xhtml) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Xhtml to Boolean")
 }
-func (r Xhtml) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Xhtml to String")
+func (r Xhtml) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Xhtml to String")
 }
-func (r Xhtml) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Xhtml to Integer")
+func (r Xhtml) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Xhtml to Integer")
 }
-func (r Xhtml) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Xhtml to Decimal")
+func (r Xhtml) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Xhtml to Decimal")
 }
-func (r Xhtml) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Xhtml to Date")
+func (r Xhtml) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Xhtml to Date")
 }
-func (r Xhtml) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Xhtml to Time")
+func (r Xhtml) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Xhtml to Time")
 }
-func (r Xhtml) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Xhtml to DateTime")
+func (r Xhtml) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Xhtml to DateTime")
 }
-func (r Xhtml) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Xhtml to Quantity")
+func (r Xhtml) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Xhtml to Quantity")
 }
-func (r Xhtml) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Xhtml) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	o, ok := other.(Xhtml)
 	if !ok {
-		return false
+		return false, true
 	}
-	return r.Value == o.Value
+	return r.Value == o.Value, true
 }
 func (r Xhtml) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	o, ok := other.(Xhtml)
-	if !ok {
-		return false
-	}
-	return r.Value == o.Value
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Xhtml) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -160,7 +157,7 @@ func (r Xhtml) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "Xhtml",
+			Name:      "xhtml",
 			Namespace: "FHIR",
 		},
 	}

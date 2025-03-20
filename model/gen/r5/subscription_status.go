@@ -1793,31 +1793,31 @@ func (r SubscriptionStatus) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubscriptionStatus) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to Boolean")
+func (r SubscriptionStatus) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionStatus to Boolean")
 }
-func (r SubscriptionStatus) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to String")
+func (r SubscriptionStatus) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionStatus to String")
 }
-func (r SubscriptionStatus) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to Integer")
+func (r SubscriptionStatus) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionStatus to Integer")
 }
-func (r SubscriptionStatus) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to Decimal")
+func (r SubscriptionStatus) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionStatus to Decimal")
 }
-func (r SubscriptionStatus) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to Date")
+func (r SubscriptionStatus) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionStatus to Date")
 }
-func (r SubscriptionStatus) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to Time")
+func (r SubscriptionStatus) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionStatus to Time")
 }
-func (r SubscriptionStatus) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to DateTime")
+func (r SubscriptionStatus) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionStatus to DateTime")
 }
-func (r SubscriptionStatus) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionStatus to Quantity")
+func (r SubscriptionStatus) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionStatus to Quantity")
 }
-func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionStatus
 	switch other := other.(type) {
 	case SubscriptionStatus:
@@ -1825,29 +1825,17 @@ func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *SubscriptionStatus:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionStatus
-	switch other := other.(type) {
-	case SubscriptionStatus:
-		o = &other
-	case *SubscriptionStatus:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionStatus) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2004,31 +1992,31 @@ func (r SubscriptionStatusNotificationEvent) Children(name ...string) fhirpath.C
 	}
 	return children
 }
-func (r SubscriptionStatusNotificationEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Boolean")
+func (r SubscriptionStatusNotificationEvent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Boolean")
 }
-func (r SubscriptionStatusNotificationEvent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to String")
+func (r SubscriptionStatusNotificationEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubscriptionStatusNotificationEvent to String")
 }
-func (r SubscriptionStatusNotificationEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Integer")
+func (r SubscriptionStatusNotificationEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Integer")
 }
-func (r SubscriptionStatusNotificationEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Decimal")
+func (r SubscriptionStatusNotificationEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Decimal")
 }
-func (r SubscriptionStatusNotificationEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Date")
+func (r SubscriptionStatusNotificationEvent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Date")
 }
-func (r SubscriptionStatusNotificationEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Time")
+func (r SubscriptionStatusNotificationEvent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Time")
 }
-func (r SubscriptionStatusNotificationEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to DateTime")
+func (r SubscriptionStatusNotificationEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubscriptionStatusNotificationEvent to DateTime")
 }
-func (r SubscriptionStatusNotificationEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubscriptionStatusNotificationEvent to Quantity")
+func (r SubscriptionStatusNotificationEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Quantity")
 }
-func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubscriptionStatusNotificationEvent
 	switch other := other.(type) {
 	case SubscriptionStatusNotificationEvent:
@@ -2036,29 +2024,17 @@ func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noRe
 	case *SubscriptionStatusNotificationEvent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubscriptionStatusNotificationEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubscriptionStatusNotificationEvent
-	switch other := other.(type) {
-	case SubscriptionStatusNotificationEvent:
-		o = &other
-	case *SubscriptionStatusNotificationEvent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubscriptionStatusNotificationEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

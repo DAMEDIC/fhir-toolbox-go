@@ -5329,31 +5329,31 @@ func (r OperationDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r OperationDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OperationDefinition to Boolean")
+func (r OperationDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OperationDefinition to Boolean")
 }
-func (r OperationDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OperationDefinition to String")
+func (r OperationDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OperationDefinition to String")
 }
-func (r OperationDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OperationDefinition to Integer")
+func (r OperationDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OperationDefinition to Integer")
 }
-func (r OperationDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OperationDefinition to Decimal")
+func (r OperationDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinition to Decimal")
 }
-func (r OperationDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OperationDefinition to Date")
+func (r OperationDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OperationDefinition to Date")
 }
-func (r OperationDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OperationDefinition to Time")
+func (r OperationDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OperationDefinition to Time")
 }
-func (r OperationDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OperationDefinition to DateTime")
+func (r OperationDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OperationDefinition to DateTime")
 }
-func (r OperationDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OperationDefinition to Quantity")
+func (r OperationDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinition to Quantity")
 }
-func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OperationDefinition
 	switch other := other.(type) {
 	case OperationDefinition:
@@ -5361,29 +5361,17 @@ func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *OperationDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OperationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OperationDefinition
-	switch other := other.(type) {
-	case OperationDefinition:
-		o = &other
-	case *OperationDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OperationDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5702,31 +5690,31 @@ func (r OperationDefinitionParameter) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r OperationDefinitionParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to Boolean")
+func (r OperationDefinitionParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OperationDefinitionParameter to Boolean")
 }
-func (r OperationDefinitionParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to String")
+func (r OperationDefinitionParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OperationDefinitionParameter to String")
 }
-func (r OperationDefinitionParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to Integer")
+func (r OperationDefinitionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OperationDefinitionParameter to Integer")
 }
-func (r OperationDefinitionParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to Decimal")
+func (r OperationDefinitionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionParameter to Decimal")
 }
-func (r OperationDefinitionParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to Date")
+func (r OperationDefinitionParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OperationDefinitionParameter to Date")
 }
-func (r OperationDefinitionParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to Time")
+func (r OperationDefinitionParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OperationDefinitionParameter to Time")
 }
-func (r OperationDefinitionParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to DateTime")
+func (r OperationDefinitionParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OperationDefinitionParameter to DateTime")
 }
-func (r OperationDefinitionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameter to Quantity")
+func (r OperationDefinitionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionParameter to Quantity")
 }
-func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OperationDefinitionParameter
 	switch other := other.(type) {
 	case OperationDefinitionParameter:
@@ -5734,29 +5722,17 @@ func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTy
 	case *OperationDefinitionParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OperationDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OperationDefinitionParameter
-	switch other := other.(type) {
-	case OperationDefinitionParameter:
-		o = &other
-	case *OperationDefinitionParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OperationDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5894,31 +5870,31 @@ func (r OperationDefinitionParameterBinding) Children(name ...string) fhirpath.C
 	}
 	return children
 }
-func (r OperationDefinitionParameterBinding) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Boolean")
+func (r OperationDefinitionParameterBinding) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OperationDefinitionParameterBinding to Boolean")
 }
-func (r OperationDefinitionParameterBinding) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to String")
+func (r OperationDefinitionParameterBinding) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OperationDefinitionParameterBinding to String")
 }
-func (r OperationDefinitionParameterBinding) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Integer")
+func (r OperationDefinitionParameterBinding) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OperationDefinitionParameterBinding to Integer")
 }
-func (r OperationDefinitionParameterBinding) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Decimal")
+func (r OperationDefinitionParameterBinding) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionParameterBinding to Decimal")
 }
-func (r OperationDefinitionParameterBinding) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Date")
+func (r OperationDefinitionParameterBinding) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OperationDefinitionParameterBinding to Date")
 }
-func (r OperationDefinitionParameterBinding) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Time")
+func (r OperationDefinitionParameterBinding) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OperationDefinitionParameterBinding to Time")
 }
-func (r OperationDefinitionParameterBinding) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to DateTime")
+func (r OperationDefinitionParameterBinding) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OperationDefinitionParameterBinding to DateTime")
 }
-func (r OperationDefinitionParameterBinding) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterBinding to Quantity")
+func (r OperationDefinitionParameterBinding) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionParameterBinding to Quantity")
 }
-func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OperationDefinitionParameterBinding
 	switch other := other.(type) {
 	case OperationDefinitionParameterBinding:
@@ -5926,29 +5902,17 @@ func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noRe
 	case *OperationDefinitionParameterBinding:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OperationDefinitionParameterBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OperationDefinitionParameterBinding
-	switch other := other.(type) {
-	case OperationDefinitionParameterBinding:
-		o = &other
-	case *OperationDefinitionParameterBinding:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OperationDefinitionParameterBinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6025,31 +5989,31 @@ func (r OperationDefinitionParameterReferencedFrom) Children(name ...string) fhi
 	}
 	return children
 }
-func (r OperationDefinitionParameterReferencedFrom) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Boolean")
+func (r OperationDefinitionParameterReferencedFrom) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Boolean")
 }
-func (r OperationDefinitionParameterReferencedFrom) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to String")
+func (r OperationDefinitionParameterReferencedFrom) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to String")
 }
-func (r OperationDefinitionParameterReferencedFrom) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Integer")
+func (r OperationDefinitionParameterReferencedFrom) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Integer")
 }
-func (r OperationDefinitionParameterReferencedFrom) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Decimal")
+func (r OperationDefinitionParameterReferencedFrom) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Decimal")
 }
-func (r OperationDefinitionParameterReferencedFrom) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Date")
+func (r OperationDefinitionParameterReferencedFrom) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Date")
 }
-func (r OperationDefinitionParameterReferencedFrom) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Time")
+func (r OperationDefinitionParameterReferencedFrom) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Time")
 }
-func (r OperationDefinitionParameterReferencedFrom) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to DateTime")
+func (r OperationDefinitionParameterReferencedFrom) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to DateTime")
 }
-func (r OperationDefinitionParameterReferencedFrom) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Quantity")
+func (r OperationDefinitionParameterReferencedFrom) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Quantity")
 }
-func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OperationDefinitionParameterReferencedFrom
 	switch other := other.(type) {
 	case OperationDefinitionParameterReferencedFrom:
@@ -6057,29 +6021,17 @@ func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element
 	case *OperationDefinitionParameterReferencedFrom:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OperationDefinitionParameterReferencedFrom) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OperationDefinitionParameterReferencedFrom
-	switch other := other.(type) {
-	case OperationDefinitionParameterReferencedFrom:
-		o = &other
-	case *OperationDefinitionParameterReferencedFrom:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OperationDefinitionParameterReferencedFrom) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6158,31 +6110,31 @@ func (r OperationDefinitionOverload) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r OperationDefinitionOverload) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to Boolean")
+func (r OperationDefinitionOverload) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OperationDefinitionOverload to Boolean")
 }
-func (r OperationDefinitionOverload) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to String")
+func (r OperationDefinitionOverload) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OperationDefinitionOverload to String")
 }
-func (r OperationDefinitionOverload) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to Integer")
+func (r OperationDefinitionOverload) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OperationDefinitionOverload to Integer")
 }
-func (r OperationDefinitionOverload) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to Decimal")
+func (r OperationDefinitionOverload) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionOverload to Decimal")
 }
-func (r OperationDefinitionOverload) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to Date")
+func (r OperationDefinitionOverload) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OperationDefinitionOverload to Date")
 }
-func (r OperationDefinitionOverload) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to Time")
+func (r OperationDefinitionOverload) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OperationDefinitionOverload to Time")
 }
-func (r OperationDefinitionOverload) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to DateTime")
+func (r OperationDefinitionOverload) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OperationDefinitionOverload to DateTime")
 }
-func (r OperationDefinitionOverload) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OperationDefinitionOverload to Quantity")
+func (r OperationDefinitionOverload) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionOverload to Quantity")
 }
-func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OperationDefinitionOverload
 	switch other := other.(type) {
 	case OperationDefinitionOverload:
@@ -6190,29 +6142,17 @@ func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTyp
 	case *OperationDefinitionOverload:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OperationDefinitionOverload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OperationDefinitionOverload
-	switch other := other.(type) {
-	case OperationDefinitionOverload:
-		o = &other
-	case *OperationDefinitionOverload:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OperationDefinitionOverload) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

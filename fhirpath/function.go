@@ -197,14 +197,14 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameter")
 		}
-		b, err := Singleton[Boolean](target)
+		b, ok, err := Singleton[Boolean](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if b == nil {
+		if !ok {
 			return nil, true, nil
 		}
-		return Collection{!*b}, true, nil
+		return Collection{!b}, true, nil
 	},
 	"empty": func(
 		ctx context.Context,
@@ -240,11 +240,11 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			b, err := Singleton[Boolean](criteria)
+			b, ok, err := Singleton[Boolean](criteria)
 			if err != nil {
 				return nil, false, err
 			}
-			if b != nil && *b {
+			if ok && bool(b) {
 				// Found at least one element that matches the criteria
 				return Collection{Boolean(true)}, true, nil
 			}
@@ -274,11 +274,11 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			b, err := Singleton[Boolean](criteria)
+			b, ok, err := Singleton[Boolean](criteria)
 			if err != nil {
 				return nil, false, err
 			}
-			if b == nil || !*b {
+			if ok || !bool(b) {
 				// Found at least one element that doesn't match the criteria
 				return Collection{Boolean(false)}, true, nil
 			}
@@ -303,11 +303,11 @@ var defaultFunctions = Functions{
 		}
 
 		for _, elem := range target {
-			b, err := elem.ToBoolean(false)
+			b, ok, err := elem.ToBoolean(false)
 			if err != nil {
 				return nil, false, err
 			}
-			if b == nil || !*b {
+			if !ok || !bool(b) {
 				return Collection{Boolean(false)}, true, nil
 			}
 		}
@@ -330,11 +330,11 @@ var defaultFunctions = Functions{
 		}
 
 		for _, elem := range target {
-			b, err := elem.ToBoolean(false)
+			b, ok, err := elem.ToBoolean(false)
 			if err != nil {
 				return nil, false, err
 			}
-			if b != nil && *b {
+			if ok && bool(b) {
 				return Collection{Boolean(true)}, true, nil
 			}
 		}
@@ -357,11 +357,11 @@ var defaultFunctions = Functions{
 		}
 
 		for _, elem := range target {
-			b, err := elem.ToBoolean(false)
+			b, ok, err := elem.ToBoolean(false)
 			if err != nil {
 				return nil, false, err
 			}
-			if b == nil || *b {
+			if !ok || bool(b) {
 				return Collection{Boolean(false)}, true, nil
 			}
 		}
@@ -384,11 +384,11 @@ var defaultFunctions = Functions{
 		}
 
 		for _, elem := range target {
-			b, err := elem.ToBoolean(false)
+			b, ok, err := elem.ToBoolean(false)
 			if err != nil {
 				return nil, false, err
 			}
-			if b != nil && !*b {
+			if ok && !bool(b) {
 				return Collection{Boolean(true)}, true, nil
 			}
 		}
@@ -423,7 +423,8 @@ var defaultFunctions = Functions{
 		for _, elem := range target {
 			found := false
 			for _, otherElem := range other {
-				if elem.Equal(otherElem) {
+				eq, ok := elem.Equal(otherElem)
+				if ok && eq {
 					found = true
 					break
 				}
@@ -463,7 +464,8 @@ var defaultFunctions = Functions{
 		for _, otherElem := range other {
 			found := false
 			for _, elem := range target {
-				if otherElem.Equal(elem) {
+				eq, ok := otherElem.Equal(elem)
+				if ok && eq {
 					found = true
 					break
 				}
@@ -505,7 +507,8 @@ var defaultFunctions = Functions{
 		for _, elem := range target {
 			found := false
 			for _, resultElem := range result {
-				if elem.Equal(resultElem) {
+				eq, ok := elem.Equal(resultElem)
+				if ok && eq {
 					found = true
 					break
 				}
@@ -535,7 +538,8 @@ var defaultFunctions = Functions{
 		// Check if all elements are distinct
 		for i := 0; i < len(target); i++ {
 			for j := i + 1; j < len(target); j++ {
-				if target[i].Equal(target[j]) {
+				eq, ok := target[i].Equal(target[j])
+				if ok && eq {
 					return Collection{Boolean(false)}, true, nil
 				}
 			}
@@ -564,11 +568,11 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			b, err := Singleton[Boolean](criteria)
+			b, ok, err := Singleton[Boolean](criteria)
 			if err != nil {
 				return nil, false, err
 			}
-			if b != nil && *b {
+			if ok && bool(b) {
 				// Element matches the criteria, add it to the result
 				result = append(result, elem)
 			}
@@ -644,7 +648,8 @@ var defaultFunctions = Functions{
 				// Check for new items
 				for _, item := range projection {
 					for _, seen := range result {
-						if !seen.Equal(item) {
+						eq, ok := seen.Equal(item)
+						if !ok || !eq {
 							newItems = append(newItems, item)
 						}
 					}
@@ -815,26 +820,26 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to integer
-		num, err := Singleton[Integer](numCollection)
+		num, ok, err := Singleton[Integer](numCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if num == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected integer parameter")
 		}
 
 		// If num is less than or equal to zero, return the input collection
-		if *num <= 0 {
+		if num <= 0 {
 			return target, inputOrdered, nil
 		}
 
 		// If num is greater than or equal to the length of the collection, return empty
-		if int(*num) >= len(target) {
+		if int(num) >= len(target) {
 			return nil, true, nil
 		}
 
 		// Return all but the first num items
-		return target[int(*num):], inputOrdered, nil
+		return target[num:], inputOrdered, nil
 	},
 	"take": func(
 		ctx context.Context,
@@ -863,26 +868,26 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert to integer
-		num, err := Singleton[Integer](numCollection)
+		num, ok, err := Singleton[Integer](numCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if num == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected integer parameter")
 		}
 
 		// If num is less than or equal to zero, return empty
-		if *num <= 0 {
+		if num <= 0 {
 			return nil, true, nil
 		}
 
 		// If num is greater than the length of the collection, return the whole collection
-		if int(*num) >= len(target) {
+		if int(num) >= len(target) {
 			return target, inputOrdered, nil
 		}
 
 		// Return the first num items
-		return target[:int(*num)], inputOrdered, nil
+		return target[:num], inputOrdered, nil
 	},
 	"intersect": func(
 		ctx context.Context,
@@ -915,11 +920,13 @@ var defaultFunctions = Functions{
 		for _, elem := range target {
 			// Check if the element is in the other collection
 			for _, otherElem := range other {
-				if elem.Equal(otherElem) {
+				eq, ok := elem.Equal(otherElem)
+				if ok && eq {
 					// Check if the element is already in the result (eliminate duplicates)
 					found := false
 					for _, resultElem := range result {
-						if elem.Equal(resultElem) {
+						eq, ok := elem.Equal(resultElem)
+						if ok && eq {
 							found = true
 							break
 						}
@@ -966,7 +973,8 @@ var defaultFunctions = Functions{
 			// Check if the element is in the other collection
 			found := false
 			for _, otherElem := range other {
-				if elem.Equal(otherElem) {
+				eq, ok := elem.Equal(otherElem)
+				if ok && eq {
 					found = true
 					break
 				}
@@ -1038,13 +1046,13 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert criterion to boolean
-		criterionBool, err := Singleton[Boolean](criterion)
+		criterionBool, ok, err := Singleton[Boolean](criterion)
 		if err != nil {
 			return nil, false, err
 		}
 
 		// If criterion is true, return the value of the true-result argument
-		if criterionBool != nil && bool(*criterionBool) {
+		if ok && bool(criterionBool) {
 			trueResult, ordered, err := evaluate(ctx, nil, parameters[1])
 			if err != nil {
 				return nil, false, err
@@ -1083,15 +1091,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
 		}
 
-		b, err := elementTo[Boolean](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if b == nil {
+		b, ok, err := elementTo[Boolean](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
-		return Collection{*b}, true, nil
+		return Collection{b}, true, nil
 	},
 	"convertsToBoolean": func(
 		ctx context.Context,
@@ -1111,8 +1116,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
 		}
 
-		_, err = elementTo[Boolean](target[0], true)
-		if err != nil {
+		_, ok, err := elementTo[Boolean](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1136,15 +1141,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
 		}
 
-		i, err := elementTo[Integer](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if i == nil {
+		i, ok, err := elementTo[Integer](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
-		return Collection{*i}, true, nil
+		return Collection{i}, true, nil
 	},
 	"convertsToInteger": func(
 		ctx context.Context,
@@ -1164,8 +1166,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
 		}
 
-		_, err = elementTo[Integer](target[0], true)
-		if err != nil {
+		_, ok, err := elementTo[Integer](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1189,15 +1191,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
 		}
 
-		d, err := elementTo[Date](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if d == nil {
+		d, ok, err := elementTo[Date](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
-		return Collection{*d}, true, nil
+		return Collection{d}, true, nil
 	},
 	"convertsToDate": func(
 		ctx context.Context,
@@ -1217,8 +1216,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
 		}
 
-		_, err = elementTo[Date](target[0], true)
-		if err != nil {
+		_, ok, err := elementTo[Date](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1242,15 +1241,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
 		}
 
-		dt, err := elementTo[DateTime](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if dt == nil {
+		dt, ok, err := elementTo[DateTime](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
-		return Collection{*dt}, true, nil
+		return Collection{dt}, true, nil
 	},
 	"convertsToDateTime": func(
 		ctx context.Context,
@@ -1270,8 +1266,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
 		}
 
-		_, err = elementTo[DateTime](target[0], true)
-		if err != nil {
+		_, ok, err := elementTo[DateTime](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1295,15 +1291,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
 		}
 
-		t, err := elementTo[Time](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if t == nil {
+		t, ok, err := elementTo[Time](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
-		return Collection{*t}, true, nil
+		return Collection{t}, true, nil
 	},
 	"convertsToTime": func(
 		ctx context.Context,
@@ -1323,8 +1316,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
 		}
 
-		_, err = elementTo[Time](target[0], true)
-		if err != nil {
+		_, ok, err := elementTo[Time](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1348,15 +1341,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
 		}
 
-		d, err := elementTo[Decimal](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if d == nil {
+		d, ok, err := elementTo[Decimal](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
-		return Collection{*d}, true, nil
+		return Collection{d}, true, nil
 	},
 	"convertsToDecimal": func(
 		ctx context.Context,
@@ -1376,8 +1366,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
 		}
 
-		_, err = elementTo[Decimal](target[0], true)
-		if err != nil {
+		_, ok, err := elementTo[Decimal](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1402,11 +1392,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
 		}
 
-		q, err := elementTo[Quantity](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if q == nil {
+		q, ok, err := elementTo[Quantity](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
@@ -1418,25 +1405,18 @@ var defaultFunctions = Functions{
 				return nil, false, err
 			}
 
-			// Convert to string
-			if len(unitCollection) == 0 {
-				return nil, false, fmt.Errorf("expected string unit parameter")
-			} else if len(unitCollection) > 1 {
-				return nil, false, fmt.Errorf("expected single string unit parameter")
-			}
-
-			unitStr, err := elementTo[String](unitCollection[0], true)
+			unitStr, ok, err := Singleton[String](unitCollection)
 			if err != nil {
 				return nil, false, err
 			}
-			if unitStr == nil {
+			if !ok {
 				return nil, false, fmt.Errorf("expected string unit parameter")
 			}
 
-			q.Unit = *unitStr
+			q.Unit = unitStr
 		}
 
-		return Collection{*q}, true, nil
+		return Collection{q}, true, nil
 	},
 	"convertsToQuantity": func(
 		ctx context.Context,
@@ -1457,11 +1437,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
 		}
 
-		q, err := elementTo[Quantity](target[0], true)
-		if err != nil {
-			return Collection{Boolean(false)}, true, nil
-		}
-		if q == nil {
+		_, ok, err := elementTo[Quantity](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1480,11 +1457,11 @@ var defaultFunctions = Functions{
 				return nil, false, fmt.Errorf("expected single string unit parameter")
 			}
 
-			unitStr, err := elementTo[String](unitCollection[0], true)
+			_, ok, err := Singleton[String](unitCollection)
 			if err != nil {
 				return nil, false, err
 			}
-			if unitStr == nil {
+			if !ok {
 				return nil, false, fmt.Errorf("expected string unit parameter")
 			}
 		}
@@ -1509,15 +1486,12 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
 		}
 
-		s, err := elementTo[String](target[0], true)
-		if err != nil {
-			return nil, true, nil // Return empty collection if conversion fails
-		}
-		if s == nil {
+		s, ok, err := elementTo[String](target[0], true)
+		if err != nil || !ok {
 			return nil, true, nil
 		}
 
-		return Collection{*s}, true, nil
+		return Collection{s}, true, nil
 	},
 	"convertsToString": func(
 		ctx context.Context,
@@ -1537,8 +1511,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
 		}
 
-		_, err = elementTo[String](target[0], true)
-		if err != nil {
+		_, ok, err := elementTo[String](target[0], true)
+		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
 
@@ -1556,11 +1530,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1571,21 +1545,21 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert substring to string
-		substring, err := Singleton[String](substringCollection)
+		substring, ok, err := Singleton[String](substringCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if substring == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string substring parameter")
 		}
 
 		// If substring is an empty string (''), the function returns 0
-		if *substring == "" {
+		if substring == "" {
 			return Collection{Integer(0)}, true, nil
 		}
 
 		// Return the index of the substring in the string
-		index := strings.Index(string(*s), string(*substring))
+		index := strings.Index(string(s), string(substring))
 		return Collection{Integer(index)}, true, nil
 	},
 	"substring": func(
@@ -1600,11 +1574,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1615,16 +1589,16 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert start to integer
-		start, err := Singleton[Integer](startCollection)
+		start, ok, err := Singleton[Integer](startCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if start == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected integer start parameter")
 		}
 
 		// If start is negative or greater than or equal to the length of the string, return empty
-		if *start < 0 || int(*start) >= len(*s) {
+		if start < 0 || int(start) >= len(s) {
 			return nil, true, nil
 		}
 
@@ -1637,31 +1611,31 @@ var defaultFunctions = Functions{
 			}
 
 			// Convert length to integer
-			length, err := Singleton[Integer](lengthCollection)
+			length, ok, err := Singleton[Integer](lengthCollection)
 			if err != nil {
 				return nil, false, err
 			}
-			if length == nil {
+			if !ok {
 				return nil, false, fmt.Errorf("expected integer length parameter")
 			}
 
 			// If length is negative, treat it as 0
-			if *length < 0 {
-				*length = 0
+			if length < 0 {
+				length = 0
 			}
 
 			// Calculate end index (start + length)
-			end := int(*start) + int(*length)
-			if end > len(*s) {
-				end = len(*s)
+			end := int(start) + int(length)
+			if end > len(s) {
+				end = len(s)
 			}
 
-			result := String(string(*s)[int(*start):end])
+			result := String(s[start:end])
 			return Collection{result}, true, nil
 		}
 
 		// If length parameter is not provided, return the rest of the string
-		return Collection{String(string(*s)[int(*start):])}, true, nil
+		return Collection{String(s[start:])}, true, nil
 	},
 	"startsWith": func(
 		ctx context.Context,
@@ -1675,11 +1649,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1690,21 +1664,21 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert prefix to string
-		prefix, err := Singleton[String](prefixCollection)
+		prefix, ok, err := Singleton[String](prefixCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if prefix == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string prefix parameter")
 		}
 
 		// If prefix is an empty string (''), the result is true
-		if *prefix == "" {
+		if prefix == "" {
 			return Collection{Boolean(true)}, true, nil
 		}
 
 		// Check if the string starts with the prefix
-		startsWith := strings.HasPrefix(string(*s), string(*prefix))
+		startsWith := strings.HasPrefix(string(s), string(prefix))
 		return Collection{Boolean(startsWith)}, true, nil
 	},
 	"endsWith": func(
@@ -1719,11 +1693,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1734,21 +1708,21 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert suffix to string
-		suffix, err := Singleton[String](suffixCollection)
+		suffix, ok, err := Singleton[String](suffixCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if suffix == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string suffix parameter")
 		}
 
 		// If suffix is an empty string (''), the result is true
-		if *suffix == "" {
+		if suffix == "" {
 			return Collection{Boolean(true)}, true, nil
 		}
 
 		// Check if the string ends with the suffix
-		endsWith := strings.HasSuffix(string(*s), string(*suffix))
+		endsWith := strings.HasSuffix(string(s), string(suffix))
 		return Collection{Boolean(endsWith)}, true, nil
 	},
 	"contains": func(
@@ -1763,11 +1737,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1778,21 +1752,21 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert substring to string
-		substring, err := Singleton[String](substringCollection)
+		substring, ok, err := Singleton[String](substringCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if substring == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string substring parameter")
 		}
 
 		// If substring is an empty string (''), the result is true
-		if *substring == "" {
+		if substring == "" {
 			return Collection{Boolean(true)}, true, nil
 		}
 
 		// Check if the string contains the substring
-		contains := strings.Contains(string(*s), string(*substring))
+		contains := strings.Contains(string(s), string(substring))
 		return Collection{Boolean(contains)}, true, nil
 	},
 	"upper": func(
@@ -1807,16 +1781,16 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
 		// Convert the string to upper case
-		return Collection{String(strings.ToUpper(string(*s)))}, true, nil
+		return Collection{String(strings.ToUpper(string(s)))}, true, nil
 	},
 	"lower": func(
 		ctx context.Context,
@@ -1830,16 +1804,16 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
 		// Convert the string to lower case
-		return Collection{String(strings.ToLower(string(*s)))}, true, nil
+		return Collection{String(strings.ToLower(string(s)))}, true, nil
 	},
 	"replace": func(
 		ctx context.Context,
@@ -1853,11 +1827,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1868,11 +1842,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert pattern to string
-		pattern, err := Singleton[String](patternCollection)
+		pattern, ok, err := Singleton[String](patternCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if pattern == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string pattern parameter")
 		}
 
@@ -1883,27 +1857,27 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert substitution to string
-		substitution, err := Singleton[String](substitutionCollection)
+		substitution, ok, err := Singleton[String](substitutionCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if substitution == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string substitution parameter")
 		}
 
 		// If pattern is an empty string (''), every character in the input string is surrounded by the substitution
-		if *pattern == "" {
+		if pattern == "" {
 			var result strings.Builder
-			result.WriteString(string(*substitution))
-			for _, c := range string(*s) {
+			result.WriteString(string(substitution))
+			for _, c := range s {
 				result.WriteRune(c)
-				result.WriteString(string(*substitution))
+				result.WriteString(string(substitution))
 			}
 			return Collection{String(result.String())}, true, nil
 		}
 
 		// Replace all instances of pattern with substitution
-		return Collection{String(strings.ReplaceAll(string(*s), string(*pattern), string(*substitution)))}, true, nil
+		return Collection{String(strings.ReplaceAll(string(s), string(pattern), string(substitution)))}, true, nil
 	},
 	"matches": func(
 		ctx context.Context,
@@ -1917,11 +1891,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1932,22 +1906,22 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert regex to string
-		regexStr, err := Singleton[String](regexCollection)
+		regexStr, ok, err := Singleton[String](regexCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if regexStr == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string regex parameter")
 		}
 
 		// Compile the regular expression
-		regex, err := regexp.Compile(string(*regexStr))
+		regex, err := regexp.Compile(string(regexStr))
 		if err != nil {
 			return nil, false, fmt.Errorf("invalid regular expression: %v", err)
 		}
 
 		// Check if the string matches the regular expression
-		return Collection{Boolean(regex.MatchString(string(*s)))}, true, nil
+		return Collection{Boolean(regex.MatchString(string(s)))}, true, nil
 	},
 	"replaceMatches": func(
 		ctx context.Context,
@@ -1961,11 +1935,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
@@ -1976,11 +1950,11 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert regex to string
-		regexStr, err := Singleton[String](regexCollection)
+		regexStr, ok, err := Singleton[String](regexCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if regexStr == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string regex parameter")
 		}
 
@@ -1991,22 +1965,22 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert substitution to string
-		substitution, err := Singleton[String](substitutionCollection)
+		substitution, ok, err := Singleton[String](substitutionCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if substitution == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("expected string substitution parameter")
 		}
 
 		// Compile the regular expression
-		regex, err := regexp.Compile(string(*regexStr))
+		regex, err := regexp.Compile(string(regexStr))
 		if err != nil {
 			return nil, false, fmt.Errorf("invalid regular expression: %v", err)
 		}
 
 		// Replace all matches of the regular expression with the substitution
-		return Collection{String(regex.ReplaceAllString(string(*s), string(*substitution)))}, true, nil
+		return Collection{String(regex.ReplaceAllString(string(s), string(substitution)))}, true, nil
 	},
 	"length": func(
 		ctx context.Context,
@@ -2020,16 +1994,16 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
 		// Return the length of the string
-		return Collection{Integer(len(*s))}, true, nil
+		return Collection{Integer(len(s))}, true, nil
 	},
 	"toChars": func(
 		ctx context.Context,
@@ -2043,17 +2017,17 @@ var defaultFunctions = Functions{
 		}
 
 		// Convert input to string
-		s, err := Singleton[String](target)
+		s, ok, err := Singleton[String](target)
 		if err != nil {
 			return nil, false, err
 		}
-		if s == nil {
+		if !ok {
 			return nil, true, nil
 		}
 
 		// Convert the string to a collection of characters
-		chars := make(Collection, len(*s))
-		for i, c := range string(*s) {
+		chars := make(Collection, len(s))
+		for i, c := range string(s) {
 			chars[i] = String(c)
 		}
 		return chars, true, nil
@@ -2069,24 +2043,24 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		i, err := Singleton[Integer](target)
-		if err == nil && i != nil {
-			if *i < 0 {
-				return Collection{Integer(-*i)}, true, nil
+		i, ok, err := Singleton[Integer](target)
+		if err == nil && ok {
+			if i < 0 {
+				return Collection{-i}, true, nil
 			}
-			return Collection{*i}, true, nil
+			return Collection{i}, true, nil
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Create a new Decimal with the absolute value
 			var absValue apd.Decimal
 			absValue.Abs(d.Value)
 			return Collection{Decimal{Value: &absValue}}, true, nil
 		}
 
-		q, err := Singleton[Quantity](target)
-		if err == nil && q != nil {
+		q, ok, err := Singleton[Quantity](target)
+		if err == nil && ok {
 			// Create a new Quantity with the absolute value of the value
 			var absValue apd.Decimal
 			absValue.Abs(q.Value.Value)
@@ -2106,14 +2080,14 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		i, err := Singleton[Integer](target)
-		if err == nil && i != nil {
+		i, ok, err := Singleton[Integer](target)
+		if err == nil && ok {
 			// Integer is already a whole number, so ceiling is the same
-			return Collection{*i}, true, nil
+			return Collection{i}, true, nil
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Get the integer part
 			var intPart apd.Decimal
 			_, err = apdContext(ctx).Ceil(&intPart, d.Value)
@@ -2142,14 +2116,14 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		i, err := Singleton[Integer](target)
-		if err == nil && i != nil {
+		i, ok, err := Singleton[Integer](target)
+		if err == nil && ok {
 			// Integer is already a whole number, so floor is the same
-			return Collection{*i}, true, nil
+			return Collection{i}, true, nil
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Get the integer part
 			var intPart apd.Decimal
 			_, err = apdContext(ctx).Floor(&intPart, d.Value)
@@ -2179,14 +2153,14 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		i, err := Singleton[Integer](target)
-		if err == nil && i != nil {
+		i, ok, err := Singleton[Integer](target)
+		if err == nil && ok {
 			// Integer is already a whole number, so truncate is the same
-			return Collection{*i}, true, nil
+			return Collection{i}, true, nil
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Get the integer part
 			var intPart apd.Decimal
 
@@ -2232,25 +2206,25 @@ var defaultFunctions = Functions{
 
 			// If the precision collection is empty, use default precision
 			if len(precisionCollection) > 0 {
-				precisionInt, err := Singleton[Integer](precisionCollection)
+				precisionInt, ok, err := Singleton[Integer](precisionCollection)
 				if err != nil {
 					return nil, false, err
 				}
-				if precisionInt == nil {
+				if !ok {
 					return nil, false, fmt.Errorf("expected integer precision parameter")
 				}
 
 				// Precision must be >= 0
-				if *precisionInt < 0 {
+				if precisionInt < 0 {
 					return nil, false, fmt.Errorf("precision must be >= 0")
 				}
 
-				precision = int(*precisionInt)
+				precision = int(precisionInt)
 			}
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Create a context with the specified precision
 			apdCtx := apdContext(ctx).WithPrecision(uint32(precision + 1))
 
@@ -2277,8 +2251,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Calculate e^x
 			var result apd.Decimal
 			_, err = apdContext(ctx).Exp(&result, d.Value)
@@ -2302,8 +2276,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Calculate ln(x)
 			var result apd.Decimal
 			_, err = apdContext(ctx).Ln(&result, d.Value)
@@ -2332,18 +2306,18 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
-		baseDecimal, err := Singleton[Decimal](baseCollection)
-		if err != nil || baseDecimal == nil {
+		baseDecimal, ok, err := Singleton[Decimal](baseCollection)
+		if err != nil || !ok {
 			// Try to convert Integer to Decimal
-			baseInt, err := Singleton[Integer](baseCollection)
-			if err != nil || baseInt == nil {
+			baseInt, ok, err := Singleton[Integer](baseCollection)
+			if err != nil || !ok {
 				return nil, false, fmt.Errorf("expected Integer or Decimal base parameter but got %T", baseCollection[0])
 			}
-			baseDecimal = &Decimal{Value: apd.New(int64(*baseInt), 0)}
+			baseDecimal = Decimal{Value: apd.New(int64(baseInt), 0)}
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			// Calculate log_base(x) = ln(x) / ln(base)
 			var lnX, lnBase, result apd.Decimal
 			_, err = apdContext(ctx).Ln(&lnX, d.Value)
@@ -2382,22 +2356,22 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
-		exponentInt, err := Singleton[Integer](exponentCollection)
-		if err == nil && exponentInt != nil {
+		exponentInt, ok, err := Singleton[Integer](exponentCollection)
+		if err == nil && ok {
 			// Handle Integer base
-			i, err := Singleton[Integer](target)
-			if err == nil && i != nil {
+			i, ok, err := Singleton[Integer](target)
+			if err == nil && ok {
 				// For Integer base and Integer exponent, return Integer if possible
-				result := int64(math.Pow(float64(*i), float64(*exponentInt)))
+				result := int64(math.Pow(float64(i), float64(exponentInt)))
 
 				// Check if the result can be represented as an Integer
-				if math.Pow(float64(*i), float64(*exponentInt)) == float64(result) {
+				if math.Pow(float64(i), float64(exponentInt)) == float64(result) {
 					return Collection{Integer(result)}, true, nil
 				}
 
 				// Otherwise, return as Decimal
 				resultDecimal := apd.New(0, 0)
-				_, err := resultDecimal.SetFloat64(math.Pow(float64(*i), float64(*exponentInt)))
+				_, err := resultDecimal.SetFloat64(math.Pow(float64(i), float64(exponentInt)))
 				if err != nil {
 					return nil, false, err
 				}
@@ -2406,18 +2380,18 @@ var defaultFunctions = Functions{
 		}
 
 		// Get the exponent as a Decimal
-		exponentDecimal, err := Singleton[Decimal](exponentCollection)
-		if err != nil || exponentDecimal == nil {
+		exponentDecimal, ok, err := Singleton[Decimal](exponentCollection)
+		if err != nil || !ok {
 			// Try to convert Integer to Decimal
-			exponentInt, err := Singleton[Integer](exponentCollection)
-			if err != nil || exponentInt == nil {
+			exponentInt, ok, err := Singleton[Integer](exponentCollection)
+			if err != nil || !ok {
 				return nil, false, fmt.Errorf("expected Integer or Decimal exponent parameter but got %T", exponentCollection[0])
 			}
-			exponentDecimal = &Decimal{Value: apd.New(int64(*exponentInt), 0)}
+			exponentDecimal = Decimal{Value: apd.New(int64(exponentInt), 0)}
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			_, err := exponentDecimal.Value.Int64()
 			// For negative base, the result is empty
 			if d.Value.Negative {
@@ -2447,8 +2421,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		d, err := Singleton[Decimal](target)
-		if err == nil && d != nil {
+		d, ok, err := Singleton[Decimal](target)
+		if err == nil && ok {
 			if d.Value.Negative {
 				return nil, true, nil
 			}
@@ -2522,7 +2496,8 @@ var defaultFunctions = Functions{
 				for _, child := range children {
 					isNew := true
 					for _, seen := range result {
-						if seen.Equal(child) {
+						eq, ok := seen.Equal(child)
+						if ok && eq {
 							isNew = false
 							break
 						}
@@ -2568,11 +2543,11 @@ var defaultFunctions = Functions{
 		if len(nameParam) != 1 {
 			return nil, false, fmt.Errorf("expected single name parameter")
 		}
-		nameStr, err := Singleton[String](nameParam)
+		nameStr, ok, err := Singleton[String](nameParam)
 		if err != nil {
 			return nil, false, err
 		}
-		if nameStr == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("name parameter cannot be null")
 		}
 
@@ -2589,7 +2564,7 @@ var defaultFunctions = Functions{
 			logCollection = target
 		}
 
-		err = logger.Log(string(*nameStr), logCollection)
+		err = logger.Log(string(nameStr), logCollection)
 		if err != nil {
 			return nil, false, err
 		}

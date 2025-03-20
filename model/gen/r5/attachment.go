@@ -1276,31 +1276,31 @@ func (r Attachment) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Attachment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Attachment to Boolean")
+func (r Attachment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Attachment to Boolean")
 }
-func (r Attachment) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Attachment to String")
+func (r Attachment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Attachment to String")
 }
-func (r Attachment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Attachment to Integer")
+func (r Attachment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Attachment to Integer")
 }
-func (r Attachment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Attachment to Decimal")
+func (r Attachment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Attachment to Decimal")
 }
-func (r Attachment) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Attachment to Date")
+func (r Attachment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Attachment to Date")
 }
-func (r Attachment) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Attachment to Time")
+func (r Attachment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Attachment to Time")
 }
-func (r Attachment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Attachment to DateTime")
+func (r Attachment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Attachment to DateTime")
 }
-func (r Attachment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Attachment to Quantity")
+func (r Attachment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Attachment to Quantity")
 }
-func (r Attachment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Attachment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Attachment
 	switch other := other.(type) {
 	case Attachment:
@@ -1308,29 +1308,17 @@ func (r Attachment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *Attachment:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Attachment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Attachment
-	switch other := other.(type) {
-	case Attachment:
-		o = &other
-	case *Attachment:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Attachment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

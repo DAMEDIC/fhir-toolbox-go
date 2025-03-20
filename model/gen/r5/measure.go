@@ -8550,31 +8550,31 @@ func (r Measure) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Measure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Measure to Boolean")
+func (r Measure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Measure to Boolean")
 }
-func (r Measure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Measure to String")
+func (r Measure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Measure to String")
 }
-func (r Measure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Measure to Integer")
+func (r Measure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Measure to Integer")
 }
-func (r Measure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Measure to Decimal")
+func (r Measure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Measure to Decimal")
 }
-func (r Measure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Measure to Date")
+func (r Measure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Measure to Date")
 }
-func (r Measure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Measure to Time")
+func (r Measure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Measure to Time")
 }
-func (r Measure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Measure to DateTime")
+func (r Measure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Measure to DateTime")
 }
-func (r Measure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Measure to Quantity")
+func (r Measure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Measure to Quantity")
 }
-func (r Measure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Measure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Measure
 	switch other := other.(type) {
 	case Measure:
@@ -8582,29 +8582,17 @@ func (r Measure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	case *Measure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Measure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Measure
-	switch other := other.(type) {
-	case Measure:
-		o = &other
-	case *Measure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Measure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9019,31 +9007,31 @@ func (r MeasureTerm) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MeasureTerm) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MeasureTerm to Boolean")
+func (r MeasureTerm) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MeasureTerm to Boolean")
 }
-func (r MeasureTerm) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MeasureTerm to String")
+func (r MeasureTerm) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MeasureTerm to String")
 }
-func (r MeasureTerm) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MeasureTerm to Integer")
+func (r MeasureTerm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MeasureTerm to Integer")
 }
-func (r MeasureTerm) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MeasureTerm to Decimal")
+func (r MeasureTerm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureTerm to Decimal")
 }
-func (r MeasureTerm) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MeasureTerm to Date")
+func (r MeasureTerm) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MeasureTerm to Date")
 }
-func (r MeasureTerm) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MeasureTerm to Time")
+func (r MeasureTerm) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MeasureTerm to Time")
 }
-func (r MeasureTerm) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MeasureTerm to DateTime")
+func (r MeasureTerm) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MeasureTerm to DateTime")
 }
-func (r MeasureTerm) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MeasureTerm to Quantity")
+func (r MeasureTerm) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureTerm to Quantity")
 }
-func (r MeasureTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MeasureTerm
 	switch other := other.(type) {
 	case MeasureTerm:
@@ -9051,29 +9039,17 @@ func (r MeasureTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	case *MeasureTerm:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MeasureTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MeasureTerm
-	switch other := other.(type) {
-	case MeasureTerm:
-		o = &other
-	case *MeasureTerm:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MeasureTerm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9207,31 +9183,31 @@ func (r MeasureGroup) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MeasureGroup) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MeasureGroup to Boolean")
+func (r MeasureGroup) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MeasureGroup to Boolean")
 }
-func (r MeasureGroup) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MeasureGroup to String")
+func (r MeasureGroup) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MeasureGroup to String")
 }
-func (r MeasureGroup) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MeasureGroup to Integer")
+func (r MeasureGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MeasureGroup to Integer")
 }
-func (r MeasureGroup) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MeasureGroup to Decimal")
+func (r MeasureGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureGroup to Decimal")
 }
-func (r MeasureGroup) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MeasureGroup to Date")
+func (r MeasureGroup) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MeasureGroup to Date")
 }
-func (r MeasureGroup) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MeasureGroup to Time")
+func (r MeasureGroup) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MeasureGroup to Time")
 }
-func (r MeasureGroup) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MeasureGroup to DateTime")
+func (r MeasureGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MeasureGroup to DateTime")
 }
-func (r MeasureGroup) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MeasureGroup to Quantity")
+func (r MeasureGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroup to Quantity")
 }
-func (r MeasureGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MeasureGroup
 	switch other := other.(type) {
 	case MeasureGroup:
@@ -9239,29 +9215,17 @@ func (r MeasureGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *MeasureGroup:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MeasureGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MeasureGroup
-	switch other := other.(type) {
-	case MeasureGroup:
-		o = &other
-	case *MeasureGroup:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MeasureGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9442,31 +9406,31 @@ func (r MeasureGroupPopulation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MeasureGroupPopulation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to Boolean")
+func (r MeasureGroupPopulation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MeasureGroupPopulation to Boolean")
 }
-func (r MeasureGroupPopulation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to String")
+func (r MeasureGroupPopulation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MeasureGroupPopulation to String")
 }
-func (r MeasureGroupPopulation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to Integer")
+func (r MeasureGroupPopulation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MeasureGroupPopulation to Integer")
 }
-func (r MeasureGroupPopulation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to Decimal")
+func (r MeasureGroupPopulation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureGroupPopulation to Decimal")
 }
-func (r MeasureGroupPopulation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to Date")
+func (r MeasureGroupPopulation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MeasureGroupPopulation to Date")
 }
-func (r MeasureGroupPopulation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to Time")
+func (r MeasureGroupPopulation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MeasureGroupPopulation to Time")
 }
-func (r MeasureGroupPopulation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to DateTime")
+func (r MeasureGroupPopulation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MeasureGroupPopulation to DateTime")
 }
-func (r MeasureGroupPopulation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MeasureGroupPopulation to Quantity")
+func (r MeasureGroupPopulation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroupPopulation to Quantity")
 }
-func (r MeasureGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MeasureGroupPopulation
 	switch other := other.(type) {
 	case MeasureGroupPopulation:
@@ -9474,29 +9438,17 @@ func (r MeasureGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *MeasureGroupPopulation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MeasureGroupPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MeasureGroupPopulation
-	switch other := other.(type) {
-	case MeasureGroupPopulation:
-		o = &other
-	case *MeasureGroupPopulation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MeasureGroupPopulation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9630,31 +9582,31 @@ func (r MeasureGroupStratifier) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MeasureGroupStratifier) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to Boolean")
+func (r MeasureGroupStratifier) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MeasureGroupStratifier to Boolean")
 }
-func (r MeasureGroupStratifier) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to String")
+func (r MeasureGroupStratifier) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MeasureGroupStratifier to String")
 }
-func (r MeasureGroupStratifier) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to Integer")
+func (r MeasureGroupStratifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MeasureGroupStratifier to Integer")
 }
-func (r MeasureGroupStratifier) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to Decimal")
+func (r MeasureGroupStratifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureGroupStratifier to Decimal")
 }
-func (r MeasureGroupStratifier) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to Date")
+func (r MeasureGroupStratifier) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MeasureGroupStratifier to Date")
 }
-func (r MeasureGroupStratifier) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to Time")
+func (r MeasureGroupStratifier) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MeasureGroupStratifier to Time")
 }
-func (r MeasureGroupStratifier) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to DateTime")
+func (r MeasureGroupStratifier) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MeasureGroupStratifier to DateTime")
 }
-func (r MeasureGroupStratifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifier to Quantity")
+func (r MeasureGroupStratifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroupStratifier to Quantity")
 }
-func (r MeasureGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MeasureGroupStratifier
 	switch other := other.(type) {
 	case MeasureGroupStratifier:
@@ -9662,29 +9614,17 @@ func (r MeasureGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *MeasureGroupStratifier:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MeasureGroupStratifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MeasureGroupStratifier
-	switch other := other.(type) {
-	case MeasureGroupStratifier:
-		o = &other
-	case *MeasureGroupStratifier:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MeasureGroupStratifier) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9806,31 +9746,31 @@ func (r MeasureGroupStratifierComponent) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r MeasureGroupStratifierComponent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to Boolean")
+func (r MeasureGroupStratifierComponent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MeasureGroupStratifierComponent to Boolean")
 }
-func (r MeasureGroupStratifierComponent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to String")
+func (r MeasureGroupStratifierComponent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MeasureGroupStratifierComponent to String")
 }
-func (r MeasureGroupStratifierComponent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to Integer")
+func (r MeasureGroupStratifierComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MeasureGroupStratifierComponent to Integer")
 }
-func (r MeasureGroupStratifierComponent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to Decimal")
+func (r MeasureGroupStratifierComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureGroupStratifierComponent to Decimal")
 }
-func (r MeasureGroupStratifierComponent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to Date")
+func (r MeasureGroupStratifierComponent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MeasureGroupStratifierComponent to Date")
 }
-func (r MeasureGroupStratifierComponent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to Time")
+func (r MeasureGroupStratifierComponent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MeasureGroupStratifierComponent to Time")
 }
-func (r MeasureGroupStratifierComponent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to DateTime")
+func (r MeasureGroupStratifierComponent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MeasureGroupStratifierComponent to DateTime")
 }
-func (r MeasureGroupStratifierComponent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MeasureGroupStratifierComponent to Quantity")
+func (r MeasureGroupStratifierComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroupStratifierComponent to Quantity")
 }
-func (r MeasureGroupStratifierComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroupStratifierComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MeasureGroupStratifierComponent
 	switch other := other.(type) {
 	case MeasureGroupStratifierComponent:
@@ -9838,29 +9778,17 @@ func (r MeasureGroupStratifierComponent) Equal(other fhirpath.Element, _noRevers
 	case *MeasureGroupStratifierComponent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MeasureGroupStratifierComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MeasureGroupStratifierComponent
-	switch other := other.(type) {
-	case MeasureGroupStratifierComponent:
-		o = &other
-	case *MeasureGroupStratifierComponent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MeasureGroupStratifierComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9973,31 +9901,31 @@ func (r MeasureSupplementalData) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r MeasureSupplementalData) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to Boolean")
+func (r MeasureSupplementalData) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MeasureSupplementalData to Boolean")
 }
-func (r MeasureSupplementalData) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to String")
+func (r MeasureSupplementalData) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MeasureSupplementalData to String")
 }
-func (r MeasureSupplementalData) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to Integer")
+func (r MeasureSupplementalData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MeasureSupplementalData to Integer")
 }
-func (r MeasureSupplementalData) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to Decimal")
+func (r MeasureSupplementalData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureSupplementalData to Decimal")
 }
-func (r MeasureSupplementalData) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to Date")
+func (r MeasureSupplementalData) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MeasureSupplementalData to Date")
 }
-func (r MeasureSupplementalData) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to Time")
+func (r MeasureSupplementalData) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MeasureSupplementalData to Time")
 }
-func (r MeasureSupplementalData) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to DateTime")
+func (r MeasureSupplementalData) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MeasureSupplementalData to DateTime")
 }
-func (r MeasureSupplementalData) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MeasureSupplementalData to Quantity")
+func (r MeasureSupplementalData) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureSupplementalData to Quantity")
 }
-func (r MeasureSupplementalData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureSupplementalData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MeasureSupplementalData
 	switch other := other.(type) {
 	case MeasureSupplementalData:
@@ -10005,29 +9933,17 @@ func (r MeasureSupplementalData) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *MeasureSupplementalData:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MeasureSupplementalData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MeasureSupplementalData
-	switch other := other.(type) {
-	case MeasureSupplementalData:
-		o = &other
-	case *MeasureSupplementalData:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MeasureSupplementalData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -8128,31 +8128,31 @@ func (r Evidence) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Evidence) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Evidence to Boolean")
+func (r Evidence) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Evidence to Boolean")
 }
-func (r Evidence) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Evidence to String")
+func (r Evidence) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Evidence to String")
 }
-func (r Evidence) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Evidence to Integer")
+func (r Evidence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Evidence to Integer")
 }
-func (r Evidence) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Evidence to Decimal")
+func (r Evidence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Evidence to Decimal")
 }
-func (r Evidence) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Evidence to Date")
+func (r Evidence) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Evidence to Date")
 }
-func (r Evidence) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Evidence to Time")
+func (r Evidence) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Evidence to Time")
 }
-func (r Evidence) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Evidence to DateTime")
+func (r Evidence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Evidence to DateTime")
 }
-func (r Evidence) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Evidence to Quantity")
+func (r Evidence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Evidence to Quantity")
 }
-func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Evidence
 	switch other := other.(type) {
 	case Evidence:
@@ -8160,29 +8160,17 @@ func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	case *Evidence:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Evidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Evidence
-	switch other := other.(type) {
-	case Evidence:
-		o = &other
-	case *Evidence:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Evidence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8517,31 +8505,31 @@ func (r EvidenceVariableDefinition) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r EvidenceVariableDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to Boolean")
+func (r EvidenceVariableDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EvidenceVariableDefinition to Boolean")
 }
-func (r EvidenceVariableDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to String")
+func (r EvidenceVariableDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EvidenceVariableDefinition to String")
 }
-func (r EvidenceVariableDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to Integer")
+func (r EvidenceVariableDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EvidenceVariableDefinition to Integer")
 }
-func (r EvidenceVariableDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to Decimal")
+func (r EvidenceVariableDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceVariableDefinition to Decimal")
 }
-func (r EvidenceVariableDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to Date")
+func (r EvidenceVariableDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EvidenceVariableDefinition to Date")
 }
-func (r EvidenceVariableDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to Time")
+func (r EvidenceVariableDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EvidenceVariableDefinition to Time")
 }
-func (r EvidenceVariableDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to DateTime")
+func (r EvidenceVariableDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EvidenceVariableDefinition to DateTime")
 }
-func (r EvidenceVariableDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EvidenceVariableDefinition to Quantity")
+func (r EvidenceVariableDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceVariableDefinition to Quantity")
 }
-func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EvidenceVariableDefinition
 	switch other := other.(type) {
 	case EvidenceVariableDefinition:
@@ -8549,29 +8537,17 @@ func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseType
 	case *EvidenceVariableDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EvidenceVariableDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EvidenceVariableDefinition
-	switch other := other.(type) {
-	case EvidenceVariableDefinition:
-		o = &other
-	case *EvidenceVariableDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EvidenceVariableDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8718,31 +8694,31 @@ func (r EvidenceStatistic) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r EvidenceStatistic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to Boolean")
+func (r EvidenceStatistic) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EvidenceStatistic to Boolean")
 }
-func (r EvidenceStatistic) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to String")
+func (r EvidenceStatistic) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EvidenceStatistic to String")
 }
-func (r EvidenceStatistic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to Integer")
+func (r EvidenceStatistic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EvidenceStatistic to Integer")
 }
-func (r EvidenceStatistic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to Decimal")
+func (r EvidenceStatistic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceStatistic to Decimal")
 }
-func (r EvidenceStatistic) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to Date")
+func (r EvidenceStatistic) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EvidenceStatistic to Date")
 }
-func (r EvidenceStatistic) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to Time")
+func (r EvidenceStatistic) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EvidenceStatistic to Time")
 }
-func (r EvidenceStatistic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to DateTime")
+func (r EvidenceStatistic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EvidenceStatistic to DateTime")
 }
-func (r EvidenceStatistic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EvidenceStatistic to Quantity")
+func (r EvidenceStatistic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatistic to Quantity")
 }
-func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EvidenceStatistic
 	switch other := other.(type) {
 	case EvidenceStatistic:
@@ -8750,29 +8726,17 @@ func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *EvidenceStatistic:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EvidenceStatistic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EvidenceStatistic
-	switch other := other.(type) {
-	case EvidenceStatistic:
-		o = &other
-	case *EvidenceStatistic:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EvidenceStatistic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8922,31 +8886,31 @@ func (r EvidenceStatisticSampleSize) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r EvidenceStatisticSampleSize) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to Boolean")
+func (r EvidenceStatisticSampleSize) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EvidenceStatisticSampleSize to Boolean")
 }
-func (r EvidenceStatisticSampleSize) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to String")
+func (r EvidenceStatisticSampleSize) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EvidenceStatisticSampleSize to String")
 }
-func (r EvidenceStatisticSampleSize) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to Integer")
+func (r EvidenceStatisticSampleSize) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EvidenceStatisticSampleSize to Integer")
 }
-func (r EvidenceStatisticSampleSize) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to Decimal")
+func (r EvidenceStatisticSampleSize) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceStatisticSampleSize to Decimal")
 }
-func (r EvidenceStatisticSampleSize) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to Date")
+func (r EvidenceStatisticSampleSize) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EvidenceStatisticSampleSize to Date")
 }
-func (r EvidenceStatisticSampleSize) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to Time")
+func (r EvidenceStatisticSampleSize) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EvidenceStatisticSampleSize to Time")
 }
-func (r EvidenceStatisticSampleSize) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to DateTime")
+func (r EvidenceStatisticSampleSize) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EvidenceStatisticSampleSize to DateTime")
 }
-func (r EvidenceStatisticSampleSize) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EvidenceStatisticSampleSize to Quantity")
+func (r EvidenceStatisticSampleSize) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticSampleSize to Quantity")
 }
-func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EvidenceStatisticSampleSize
 	switch other := other.(type) {
 	case EvidenceStatisticSampleSize:
@@ -8954,29 +8918,17 @@ func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTyp
 	case *EvidenceStatisticSampleSize:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EvidenceStatisticSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EvidenceStatisticSampleSize
-	switch other := other.(type) {
-	case EvidenceStatisticSampleSize:
-		o = &other
-	case *EvidenceStatisticSampleSize:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EvidenceStatisticSampleSize) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9101,31 +9053,31 @@ func (r EvidenceStatisticAttributeEstimate) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r EvidenceStatisticAttributeEstimate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to Boolean")
+func (r EvidenceStatisticAttributeEstimate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to Boolean")
 }
-func (r EvidenceStatisticAttributeEstimate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to String")
+func (r EvidenceStatisticAttributeEstimate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EvidenceStatisticAttributeEstimate to String")
 }
-func (r EvidenceStatisticAttributeEstimate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to Integer")
+func (r EvidenceStatisticAttributeEstimate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to Integer")
 }
-func (r EvidenceStatisticAttributeEstimate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to Decimal")
+func (r EvidenceStatisticAttributeEstimate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to Decimal")
 }
-func (r EvidenceStatisticAttributeEstimate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to Date")
+func (r EvidenceStatisticAttributeEstimate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to Date")
 }
-func (r EvidenceStatisticAttributeEstimate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to Time")
+func (r EvidenceStatisticAttributeEstimate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to Time")
 }
-func (r EvidenceStatisticAttributeEstimate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to DateTime")
+func (r EvidenceStatisticAttributeEstimate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to DateTime")
 }
-func (r EvidenceStatisticAttributeEstimate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EvidenceStatisticAttributeEstimate to Quantity")
+func (r EvidenceStatisticAttributeEstimate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to Quantity")
 }
-func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EvidenceStatisticAttributeEstimate
 	switch other := other.(type) {
 	case EvidenceStatisticAttributeEstimate:
@@ -9133,29 +9085,17 @@ func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noRev
 	case *EvidenceStatisticAttributeEstimate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EvidenceStatisticAttributeEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EvidenceStatisticAttributeEstimate
-	switch other := other.(type) {
-	case EvidenceStatisticAttributeEstimate:
-		o = &other
-	case *EvidenceStatisticAttributeEstimate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EvidenceStatisticAttributeEstimate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9277,31 +9217,31 @@ func (r EvidenceStatisticModelCharacteristic) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r EvidenceStatisticModelCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to Boolean")
+func (r EvidenceStatisticModelCharacteristic) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to Boolean")
 }
-func (r EvidenceStatisticModelCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to String")
+func (r EvidenceStatisticModelCharacteristic) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EvidenceStatisticModelCharacteristic to String")
 }
-func (r EvidenceStatisticModelCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to Integer")
+func (r EvidenceStatisticModelCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to Integer")
 }
-func (r EvidenceStatisticModelCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to Decimal")
+func (r EvidenceStatisticModelCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to Decimal")
 }
-func (r EvidenceStatisticModelCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to Date")
+func (r EvidenceStatisticModelCharacteristic) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to Date")
 }
-func (r EvidenceStatisticModelCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to Time")
+func (r EvidenceStatisticModelCharacteristic) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to Time")
 }
-func (r EvidenceStatisticModelCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to DateTime")
+func (r EvidenceStatisticModelCharacteristic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to DateTime")
 }
-func (r EvidenceStatisticModelCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristic to Quantity")
+func (r EvidenceStatisticModelCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to Quantity")
 }
-func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EvidenceStatisticModelCharacteristic
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristic:
@@ -9309,29 +9249,17 @@ func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noR
 	case *EvidenceStatisticModelCharacteristic:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EvidenceStatisticModelCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EvidenceStatisticModelCharacteristic
-	switch other := other.(type) {
-	case EvidenceStatisticModelCharacteristic:
-		o = &other
-	case *EvidenceStatisticModelCharacteristic:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EvidenceStatisticModelCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9437,31 +9365,31 @@ func (r EvidenceStatisticModelCharacteristicVariable) Children(name ...string) f
 	}
 	return children
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Boolean")
+func (r EvidenceStatisticModelCharacteristicVariable) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Boolean")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to String")
+func (r EvidenceStatisticModelCharacteristicVariable) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to String")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Integer")
+func (r EvidenceStatisticModelCharacteristicVariable) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Integer")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Decimal")
+func (r EvidenceStatisticModelCharacteristicVariable) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Decimal")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Date")
+func (r EvidenceStatisticModelCharacteristicVariable) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Date")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Time")
+func (r EvidenceStatisticModelCharacteristicVariable) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Time")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to DateTime")
+func (r EvidenceStatisticModelCharacteristicVariable) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to DateTime")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Quantity")
+func (r EvidenceStatisticModelCharacteristicVariable) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Quantity")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EvidenceStatisticModelCharacteristicVariable
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristicVariable:
@@ -9469,29 +9397,17 @@ func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Eleme
 	case *EvidenceStatisticModelCharacteristicVariable:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EvidenceStatisticModelCharacteristicVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EvidenceStatisticModelCharacteristicVariable
-	switch other := other.(type) {
-	case EvidenceStatisticModelCharacteristicVariable:
-		o = &other
-	case *EvidenceStatisticModelCharacteristicVariable:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EvidenceStatisticModelCharacteristicVariable) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9611,31 +9527,31 @@ func (r EvidenceCertainty) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r EvidenceCertainty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to Boolean")
+func (r EvidenceCertainty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EvidenceCertainty to Boolean")
 }
-func (r EvidenceCertainty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to String")
+func (r EvidenceCertainty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EvidenceCertainty to String")
 }
-func (r EvidenceCertainty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to Integer")
+func (r EvidenceCertainty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EvidenceCertainty to Integer")
 }
-func (r EvidenceCertainty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to Decimal")
+func (r EvidenceCertainty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceCertainty to Decimal")
 }
-func (r EvidenceCertainty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to Date")
+func (r EvidenceCertainty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EvidenceCertainty to Date")
 }
-func (r EvidenceCertainty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to Time")
+func (r EvidenceCertainty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EvidenceCertainty to Time")
 }
-func (r EvidenceCertainty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to DateTime")
+func (r EvidenceCertainty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EvidenceCertainty to DateTime")
 }
-func (r EvidenceCertainty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EvidenceCertainty to Quantity")
+func (r EvidenceCertainty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceCertainty to Quantity")
 }
-func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EvidenceCertainty
 	switch other := other.(type) {
 	case EvidenceCertainty:
@@ -9643,29 +9559,17 @@ func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *EvidenceCertainty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EvidenceCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EvidenceCertainty
-	switch other := other.(type) {
-	case EvidenceCertainty:
-		o = &other
-	case *EvidenceCertainty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EvidenceCertainty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

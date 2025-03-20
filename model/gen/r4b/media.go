@@ -2279,31 +2279,31 @@ func (r Media) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Media) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Media to Boolean")
+func (r Media) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Media to Boolean")
 }
-func (r Media) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Media to String")
+func (r Media) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Media to String")
 }
-func (r Media) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Media to Integer")
+func (r Media) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Media to Integer")
 }
-func (r Media) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Media to Decimal")
+func (r Media) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Media to Decimal")
 }
-func (r Media) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Media to Date")
+func (r Media) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Media to Date")
 }
-func (r Media) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Media to Time")
+func (r Media) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Media to Time")
 }
-func (r Media) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Media to DateTime")
+func (r Media) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Media to DateTime")
 }
-func (r Media) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Media to Quantity")
+func (r Media) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Media to Quantity")
 }
-func (r Media) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Media) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Media
 	switch other := other.(type) {
 	case Media:
@@ -2311,29 +2311,17 @@ func (r Media) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) b
 	case *Media:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Media) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Media
-	switch other := other.(type) {
-	case Media:
-		o = &other
-	case *Media:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Media) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

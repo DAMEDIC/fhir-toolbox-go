@@ -12669,31 +12669,31 @@ func (r ValueSet) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ValueSet) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSet to Boolean")
+func (r ValueSet) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSet to Boolean")
 }
-func (r ValueSet) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSet to String")
+func (r ValueSet) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSet to String")
 }
-func (r ValueSet) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSet to Integer")
+func (r ValueSet) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSet to Integer")
 }
-func (r ValueSet) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSet to Decimal")
+func (r ValueSet) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSet to Decimal")
 }
-func (r ValueSet) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSet to Date")
+func (r ValueSet) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSet to Date")
 }
-func (r ValueSet) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSet to Time")
+func (r ValueSet) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSet to Time")
 }
-func (r ValueSet) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSet to DateTime")
+func (r ValueSet) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSet to DateTime")
 }
-func (r ValueSet) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSet to Quantity")
+func (r ValueSet) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSet to Quantity")
 }
-func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSet
 	switch other := other.(type) {
 	case ValueSet:
@@ -12701,29 +12701,17 @@ func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	case *ValueSet:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSet
-	switch other := other.(type) {
-	case ValueSet:
-		o = &other
-	case *ValueSet:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSet) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13048,31 +13036,31 @@ func (r ValueSetCompose) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ValueSetCompose) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetCompose to Boolean")
+func (r ValueSetCompose) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetCompose to Boolean")
 }
-func (r ValueSetCompose) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetCompose to String")
+func (r ValueSetCompose) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetCompose to String")
 }
-func (r ValueSetCompose) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetCompose to Integer")
+func (r ValueSetCompose) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetCompose to Integer")
 }
-func (r ValueSetCompose) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetCompose to Decimal")
+func (r ValueSetCompose) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetCompose to Decimal")
 }
-func (r ValueSetCompose) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetCompose to Date")
+func (r ValueSetCompose) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetCompose to Date")
 }
-func (r ValueSetCompose) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetCompose to Time")
+func (r ValueSetCompose) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetCompose to Time")
 }
-func (r ValueSetCompose) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetCompose to DateTime")
+func (r ValueSetCompose) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetCompose to DateTime")
 }
-func (r ValueSetCompose) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetCompose to Quantity")
+func (r ValueSetCompose) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetCompose to Quantity")
 }
-func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetCompose
 	switch other := other.(type) {
 	case ValueSetCompose:
@@ -13080,29 +13068,17 @@ func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *ValueSetCompose:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetCompose) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetCompose
-	switch other := other.(type) {
-	case ValueSetCompose:
-		o = &other
-	case *ValueSetCompose:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetCompose) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13222,31 +13198,31 @@ func (r ValueSetComposeInclude) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ValueSetComposeInclude) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to Boolean")
+func (r ValueSetComposeInclude) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetComposeInclude to Boolean")
 }
-func (r ValueSetComposeInclude) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to String")
+func (r ValueSetComposeInclude) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetComposeInclude to String")
 }
-func (r ValueSetComposeInclude) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to Integer")
+func (r ValueSetComposeInclude) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetComposeInclude to Integer")
 }
-func (r ValueSetComposeInclude) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to Decimal")
+func (r ValueSetComposeInclude) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeInclude to Decimal")
 }
-func (r ValueSetComposeInclude) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to Date")
+func (r ValueSetComposeInclude) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetComposeInclude to Date")
 }
-func (r ValueSetComposeInclude) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to Time")
+func (r ValueSetComposeInclude) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetComposeInclude to Time")
 }
-func (r ValueSetComposeInclude) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to DateTime")
+func (r ValueSetComposeInclude) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetComposeInclude to DateTime")
 }
-func (r ValueSetComposeInclude) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetComposeInclude to Quantity")
+func (r ValueSetComposeInclude) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeInclude to Quantity")
 }
-func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetComposeInclude
 	switch other := other.(type) {
 	case ValueSetComposeInclude:
@@ -13254,29 +13230,17 @@ func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *ValueSetComposeInclude:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetComposeInclude) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetComposeInclude
-	switch other := other.(type) {
-	case ValueSetComposeInclude:
-		o = &other
-	case *ValueSetComposeInclude:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetComposeInclude) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13386,31 +13350,31 @@ func (r ValueSetComposeIncludeConcept) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r ValueSetComposeIncludeConcept) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Boolean")
+func (r ValueSetComposeIncludeConcept) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetComposeIncludeConcept to Boolean")
 }
-func (r ValueSetComposeIncludeConcept) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to String")
+func (r ValueSetComposeIncludeConcept) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetComposeIncludeConcept to String")
 }
-func (r ValueSetComposeIncludeConcept) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Integer")
+func (r ValueSetComposeIncludeConcept) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetComposeIncludeConcept to Integer")
 }
-func (r ValueSetComposeIncludeConcept) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Decimal")
+func (r ValueSetComposeIncludeConcept) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to Decimal")
 }
-func (r ValueSetComposeIncludeConcept) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Date")
+func (r ValueSetComposeIncludeConcept) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to Date")
 }
-func (r ValueSetComposeIncludeConcept) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Time")
+func (r ValueSetComposeIncludeConcept) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to Time")
 }
-func (r ValueSetComposeIncludeConcept) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to DateTime")
+func (r ValueSetComposeIncludeConcept) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to DateTime")
 }
-func (r ValueSetComposeIncludeConcept) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConcept to Quantity")
+func (r ValueSetComposeIncludeConcept) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to Quantity")
 }
-func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetComposeIncludeConcept
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConcept:
@@ -13418,29 +13382,17 @@ func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseT
 	case *ValueSetComposeIncludeConcept:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetComposeIncludeConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetComposeIncludeConcept
-	switch other := other.(type) {
-	case ValueSetComposeIncludeConcept:
-		o = &other
-	case *ValueSetComposeIncludeConcept:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetComposeIncludeConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13534,31 +13486,31 @@ func (r ValueSetComposeIncludeConceptDesignation) Children(name ...string) fhirp
 	}
 	return children
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Boolean")
+func (r ValueSetComposeIncludeConceptDesignation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Boolean")
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to String")
+func (r ValueSetComposeIncludeConceptDesignation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to String")
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Integer")
+func (r ValueSetComposeIncludeConceptDesignation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Integer")
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Decimal")
+func (r ValueSetComposeIncludeConceptDesignation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Decimal")
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Date")
+func (r ValueSetComposeIncludeConceptDesignation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Date")
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Time")
+func (r ValueSetComposeIncludeConceptDesignation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Time")
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to DateTime")
+func (r ValueSetComposeIncludeConceptDesignation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to DateTime")
 }
-func (r ValueSetComposeIncludeConceptDesignation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Quantity")
+func (r ValueSetComposeIncludeConceptDesignation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Quantity")
 }
-func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetComposeIncludeConceptDesignation
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConceptDesignation:
@@ -13566,29 +13518,17 @@ func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, 
 	case *ValueSetComposeIncludeConceptDesignation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetComposeIncludeConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetComposeIncludeConceptDesignation
-	switch other := other.(type) {
-	case ValueSetComposeIncludeConceptDesignation:
-		o = &other
-	case *ValueSetComposeIncludeConceptDesignation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetComposeIncludeConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13680,31 +13620,31 @@ func (r ValueSetComposeIncludeFilter) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r ValueSetComposeIncludeFilter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Boolean")
+func (r ValueSetComposeIncludeFilter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetComposeIncludeFilter to Boolean")
 }
-func (r ValueSetComposeIncludeFilter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to String")
+func (r ValueSetComposeIncludeFilter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetComposeIncludeFilter to String")
 }
-func (r ValueSetComposeIncludeFilter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Integer")
+func (r ValueSetComposeIncludeFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetComposeIncludeFilter to Integer")
 }
-func (r ValueSetComposeIncludeFilter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Decimal")
+func (r ValueSetComposeIncludeFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to Decimal")
 }
-func (r ValueSetComposeIncludeFilter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Date")
+func (r ValueSetComposeIncludeFilter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to Date")
 }
-func (r ValueSetComposeIncludeFilter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Time")
+func (r ValueSetComposeIncludeFilter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to Time")
 }
-func (r ValueSetComposeIncludeFilter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to DateTime")
+func (r ValueSetComposeIncludeFilter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to DateTime")
 }
-func (r ValueSetComposeIncludeFilter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetComposeIncludeFilter to Quantity")
+func (r ValueSetComposeIncludeFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to Quantity")
 }
-func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetComposeIncludeFilter
 	switch other := other.(type) {
 	case ValueSetComposeIncludeFilter:
@@ -13712,29 +13652,17 @@ func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTy
 	case *ValueSetComposeIncludeFilter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetComposeIncludeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetComposeIncludeFilter
-	switch other := other.(type) {
-	case ValueSetComposeIncludeFilter:
-		o = &other
-	case *ValueSetComposeIncludeFilter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetComposeIncludeFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -13848,31 +13776,31 @@ func (r ValueSetExpansion) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ValueSetExpansion) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to Boolean")
+func (r ValueSetExpansion) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetExpansion to Boolean")
 }
-func (r ValueSetExpansion) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to String")
+func (r ValueSetExpansion) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetExpansion to String")
 }
-func (r ValueSetExpansion) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to Integer")
+func (r ValueSetExpansion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetExpansion to Integer")
 }
-func (r ValueSetExpansion) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to Decimal")
+func (r ValueSetExpansion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansion to Decimal")
 }
-func (r ValueSetExpansion) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to Date")
+func (r ValueSetExpansion) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetExpansion to Date")
 }
-func (r ValueSetExpansion) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to Time")
+func (r ValueSetExpansion) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetExpansion to Time")
 }
-func (r ValueSetExpansion) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to DateTime")
+func (r ValueSetExpansion) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetExpansion to DateTime")
 }
-func (r ValueSetExpansion) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetExpansion to Quantity")
+func (r ValueSetExpansion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansion to Quantity")
 }
-func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetExpansion
 	switch other := other.(type) {
 	case ValueSetExpansion:
@@ -13880,29 +13808,17 @@ func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *ValueSetExpansion:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetExpansion
-	switch other := other.(type) {
-	case ValueSetExpansion:
-		o = &other
-	case *ValueSetExpansion:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetExpansion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14021,31 +13937,31 @@ func (r ValueSetExpansionParameter) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r ValueSetExpansionParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to Boolean")
+func (r ValueSetExpansionParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetExpansionParameter to Boolean")
 }
-func (r ValueSetExpansionParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to String")
+func (r ValueSetExpansionParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetExpansionParameter to String")
 }
-func (r ValueSetExpansionParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to Integer")
+func (r ValueSetExpansionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetExpansionParameter to Integer")
 }
-func (r ValueSetExpansionParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to Decimal")
+func (r ValueSetExpansionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionParameter to Decimal")
 }
-func (r ValueSetExpansionParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to Date")
+func (r ValueSetExpansionParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetExpansionParameter to Date")
 }
-func (r ValueSetExpansionParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to Time")
+func (r ValueSetExpansionParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetExpansionParameter to Time")
 }
-func (r ValueSetExpansionParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to DateTime")
+func (r ValueSetExpansionParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetExpansionParameter to DateTime")
 }
-func (r ValueSetExpansionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetExpansionParameter to Quantity")
+func (r ValueSetExpansionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansionParameter to Quantity")
 }
-func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetExpansionParameter
 	switch other := other.(type) {
 	case ValueSetExpansionParameter:
@@ -14053,29 +13969,17 @@ func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseType
 	case *ValueSetExpansionParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetExpansionParameter
-	switch other := other.(type) {
-	case ValueSetExpansionParameter:
-		o = &other
-	case *ValueSetExpansionParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetExpansionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14152,31 +14056,31 @@ func (r ValueSetExpansionProperty) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ValueSetExpansionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to Boolean")
+func (r ValueSetExpansionProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetExpansionProperty to Boolean")
 }
-func (r ValueSetExpansionProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to String")
+func (r ValueSetExpansionProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetExpansionProperty to String")
 }
-func (r ValueSetExpansionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to Integer")
+func (r ValueSetExpansionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetExpansionProperty to Integer")
 }
-func (r ValueSetExpansionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to Decimal")
+func (r ValueSetExpansionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionProperty to Decimal")
 }
-func (r ValueSetExpansionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to Date")
+func (r ValueSetExpansionProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetExpansionProperty to Date")
 }
-func (r ValueSetExpansionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to Time")
+func (r ValueSetExpansionProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetExpansionProperty to Time")
 }
-func (r ValueSetExpansionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to DateTime")
+func (r ValueSetExpansionProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetExpansionProperty to DateTime")
 }
-func (r ValueSetExpansionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetExpansionProperty to Quantity")
+func (r ValueSetExpansionProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansionProperty to Quantity")
 }
-func (r ValueSetExpansionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetExpansionProperty
 	switch other := other.(type) {
 	case ValueSetExpansionProperty:
@@ -14184,29 +14088,17 @@ func (r ValueSetExpansionProperty) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ValueSetExpansionProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetExpansionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetExpansionProperty
-	switch other := other.(type) {
-	case ValueSetExpansionProperty:
-		o = &other
-	case *ValueSetExpansionProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetExpansionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14320,31 +14212,31 @@ func (r ValueSetExpansionContains) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ValueSetExpansionContains) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to Boolean")
+func (r ValueSetExpansionContains) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetExpansionContains to Boolean")
 }
-func (r ValueSetExpansionContains) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to String")
+func (r ValueSetExpansionContains) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetExpansionContains to String")
 }
-func (r ValueSetExpansionContains) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to Integer")
+func (r ValueSetExpansionContains) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetExpansionContains to Integer")
 }
-func (r ValueSetExpansionContains) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to Decimal")
+func (r ValueSetExpansionContains) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionContains to Decimal")
 }
-func (r ValueSetExpansionContains) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to Date")
+func (r ValueSetExpansionContains) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetExpansionContains to Date")
 }
-func (r ValueSetExpansionContains) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to Time")
+func (r ValueSetExpansionContains) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetExpansionContains to Time")
 }
-func (r ValueSetExpansionContains) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to DateTime")
+func (r ValueSetExpansionContains) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetExpansionContains to DateTime")
 }
-func (r ValueSetExpansionContains) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContains to Quantity")
+func (r ValueSetExpansionContains) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansionContains to Quantity")
 }
-func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetExpansionContains
 	switch other := other.(type) {
 	case ValueSetExpansionContains:
@@ -14352,29 +14244,17 @@ func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ValueSetExpansionContains:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetExpansionContains) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetExpansionContains
-	switch other := other.(type) {
-	case ValueSetExpansionContains:
-		o = &other
-	case *ValueSetExpansionContains:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetExpansionContains) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14503,31 +14383,31 @@ func (r ValueSetExpansionContainsProperty) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r ValueSetExpansionContainsProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Boolean")
+func (r ValueSetExpansionContainsProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetExpansionContainsProperty to Boolean")
 }
-func (r ValueSetExpansionContainsProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to String")
+func (r ValueSetExpansionContainsProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetExpansionContainsProperty to String")
 }
-func (r ValueSetExpansionContainsProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Integer")
+func (r ValueSetExpansionContainsProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetExpansionContainsProperty to Integer")
 }
-func (r ValueSetExpansionContainsProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Decimal")
+func (r ValueSetExpansionContainsProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionContainsProperty to Decimal")
 }
-func (r ValueSetExpansionContainsProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Date")
+func (r ValueSetExpansionContainsProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetExpansionContainsProperty to Date")
 }
-func (r ValueSetExpansionContainsProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Time")
+func (r ValueSetExpansionContainsProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetExpansionContainsProperty to Time")
 }
-func (r ValueSetExpansionContainsProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to DateTime")
+func (r ValueSetExpansionContainsProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetExpansionContainsProperty to DateTime")
 }
-func (r ValueSetExpansionContainsProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsProperty to Quantity")
+func (r ValueSetExpansionContainsProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansionContainsProperty to Quantity")
 }
-func (r ValueSetExpansionContainsProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansionContainsProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetExpansionContainsProperty
 	switch other := other.(type) {
 	case ValueSetExpansionContainsProperty:
@@ -14535,29 +14415,17 @@ func (r ValueSetExpansionContainsProperty) Equal(other fhirpath.Element, _noReve
 	case *ValueSetExpansionContainsProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetExpansionContainsProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetExpansionContainsProperty
-	switch other := other.(type) {
-	case ValueSetExpansionContainsProperty:
-		o = &other
-	case *ValueSetExpansionContainsProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetExpansionContainsProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14639,31 +14507,31 @@ func (r ValueSetExpansionContainsPropertySubProperty) Children(name ...string) f
 	}
 	return children
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Boolean")
+func (r ValueSetExpansionContainsPropertySubProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Boolean")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to String")
+func (r ValueSetExpansionContainsPropertySubProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to String")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Integer")
+func (r ValueSetExpansionContainsPropertySubProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Integer")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Decimal")
+func (r ValueSetExpansionContainsPropertySubProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Decimal")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Date")
+func (r ValueSetExpansionContainsPropertySubProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Date")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Time")
+func (r ValueSetExpansionContainsPropertySubProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Time")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to DateTime")
+func (r ValueSetExpansionContainsPropertySubProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to DateTime")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Quantity")
+func (r ValueSetExpansionContainsPropertySubProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansionContainsPropertySubProperty to Quantity")
 }
-func (r ValueSetExpansionContainsPropertySubProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansionContainsPropertySubProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetExpansionContainsPropertySubProperty
 	switch other := other.(type) {
 	case ValueSetExpansionContainsPropertySubProperty:
@@ -14671,29 +14539,17 @@ func (r ValueSetExpansionContainsPropertySubProperty) Equal(other fhirpath.Eleme
 	case *ValueSetExpansionContainsPropertySubProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetExpansionContainsPropertySubProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetExpansionContainsPropertySubProperty
-	switch other := other.(type) {
-	case ValueSetExpansionContainsPropertySubProperty:
-		o = &other
-	case *ValueSetExpansionContainsPropertySubProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetExpansionContainsPropertySubProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14772,31 +14628,31 @@ func (r ValueSetScope) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ValueSetScope) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ValueSetScope to Boolean")
+func (r ValueSetScope) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ValueSetScope to Boolean")
 }
-func (r ValueSetScope) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ValueSetScope to String")
+func (r ValueSetScope) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ValueSetScope to String")
 }
-func (r ValueSetScope) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ValueSetScope to Integer")
+func (r ValueSetScope) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ValueSetScope to Integer")
 }
-func (r ValueSetScope) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ValueSetScope to Decimal")
+func (r ValueSetScope) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetScope to Decimal")
 }
-func (r ValueSetScope) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ValueSetScope to Date")
+func (r ValueSetScope) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ValueSetScope to Date")
 }
-func (r ValueSetScope) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ValueSetScope to Time")
+func (r ValueSetScope) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ValueSetScope to Time")
 }
-func (r ValueSetScope) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ValueSetScope to DateTime")
+func (r ValueSetScope) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ValueSetScope to DateTime")
 }
-func (r ValueSetScope) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ValueSetScope to Quantity")
+func (r ValueSetScope) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetScope to Quantity")
 }
-func (r ValueSetScope) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetScope) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ValueSetScope
 	switch other := other.(type) {
 	case ValueSetScope:
@@ -14804,29 +14660,17 @@ func (r ValueSetScope) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *ValueSetScope:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ValueSetScope) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ValueSetScope
-	switch other := other.(type) {
-	case ValueSetScope:
-		o = &other
-	case *ValueSetScope:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ValueSetScope) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

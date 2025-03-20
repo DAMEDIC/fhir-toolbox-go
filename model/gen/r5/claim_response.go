@@ -14249,31 +14249,31 @@ func (r ClaimResponse) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponse) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponse to Boolean")
+func (r ClaimResponse) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponse to Boolean")
 }
-func (r ClaimResponse) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponse to String")
+func (r ClaimResponse) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponse to String")
 }
-func (r ClaimResponse) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponse to Integer")
+func (r ClaimResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponse to Integer")
 }
-func (r ClaimResponse) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponse to Decimal")
+func (r ClaimResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponse to Decimal")
 }
-func (r ClaimResponse) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponse to Date")
+func (r ClaimResponse) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponse to Date")
 }
-func (r ClaimResponse) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponse to Time")
+func (r ClaimResponse) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponse to Time")
 }
-func (r ClaimResponse) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponse to DateTime")
+func (r ClaimResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponse to DateTime")
 }
-func (r ClaimResponse) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponse to Quantity")
+func (r ClaimResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponse to Quantity")
 }
-func (r ClaimResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponse
 	switch other := other.(type) {
 	case ClaimResponse:
@@ -14281,29 +14281,17 @@ func (r ClaimResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *ClaimResponse:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponse
-	switch other := other.(type) {
-	case ClaimResponse:
-		o = &other
-	case *ClaimResponse:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14623,31 +14611,31 @@ func (r ClaimResponseEvent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to Boolean")
+func (r ClaimResponseEvent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseEvent to Boolean")
 }
-func (r ClaimResponseEvent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to String")
+func (r ClaimResponseEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseEvent to String")
 }
-func (r ClaimResponseEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to Integer")
+func (r ClaimResponseEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseEvent to Integer")
 }
-func (r ClaimResponseEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to Decimal")
+func (r ClaimResponseEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseEvent to Decimal")
 }
-func (r ClaimResponseEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to Date")
+func (r ClaimResponseEvent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseEvent to Date")
 }
-func (r ClaimResponseEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to Time")
+func (r ClaimResponseEvent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseEvent to Time")
 }
-func (r ClaimResponseEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to DateTime")
+func (r ClaimResponseEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseEvent to DateTime")
 }
-func (r ClaimResponseEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseEvent to Quantity")
+func (r ClaimResponseEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseEvent to Quantity")
 }
-func (r ClaimResponseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseEvent
 	switch other := other.(type) {
 	case ClaimResponseEvent:
@@ -14655,29 +14643,17 @@ func (r ClaimResponseEvent) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ClaimResponseEvent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseEvent
-	switch other := other.(type) {
-	case ClaimResponseEvent:
-		o = &other
-	case *ClaimResponseEvent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14774,31 +14750,31 @@ func (r ClaimResponseItem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to Boolean")
+func (r ClaimResponseItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseItem to Boolean")
 }
-func (r ClaimResponseItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to String")
+func (r ClaimResponseItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseItem to String")
 }
-func (r ClaimResponseItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to Integer")
+func (r ClaimResponseItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseItem to Integer")
 }
-func (r ClaimResponseItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to Decimal")
+func (r ClaimResponseItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseItem to Decimal")
 }
-func (r ClaimResponseItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to Date")
+func (r ClaimResponseItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseItem to Date")
 }
-func (r ClaimResponseItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to Time")
+func (r ClaimResponseItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseItem to Time")
 }
-func (r ClaimResponseItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to DateTime")
+func (r ClaimResponseItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseItem to DateTime")
 }
-func (r ClaimResponseItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseItem to Quantity")
+func (r ClaimResponseItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseItem to Quantity")
 }
-func (r ClaimResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseItem
 	switch other := other.(type) {
 	case ClaimResponseItem:
@@ -14806,29 +14782,17 @@ func (r ClaimResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *ClaimResponseItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseItem
-	switch other := other.(type) {
-	case ClaimResponseItem:
-		o = &other
-	case *ClaimResponseItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -14945,31 +14909,31 @@ func (r ClaimResponseItemReviewOutcome) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r ClaimResponseItemReviewOutcome) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to Boolean")
+func (r ClaimResponseItemReviewOutcome) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseItemReviewOutcome to Boolean")
 }
-func (r ClaimResponseItemReviewOutcome) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to String")
+func (r ClaimResponseItemReviewOutcome) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseItemReviewOutcome to String")
 }
-func (r ClaimResponseItemReviewOutcome) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to Integer")
+func (r ClaimResponseItemReviewOutcome) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseItemReviewOutcome to Integer")
 }
-func (r ClaimResponseItemReviewOutcome) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to Decimal")
+func (r ClaimResponseItemReviewOutcome) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseItemReviewOutcome to Decimal")
 }
-func (r ClaimResponseItemReviewOutcome) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to Date")
+func (r ClaimResponseItemReviewOutcome) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseItemReviewOutcome to Date")
 }
-func (r ClaimResponseItemReviewOutcome) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to Time")
+func (r ClaimResponseItemReviewOutcome) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseItemReviewOutcome to Time")
 }
-func (r ClaimResponseItemReviewOutcome) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to DateTime")
+func (r ClaimResponseItemReviewOutcome) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseItemReviewOutcome to DateTime")
 }
-func (r ClaimResponseItemReviewOutcome) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseItemReviewOutcome to Quantity")
+func (r ClaimResponseItemReviewOutcome) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseItemReviewOutcome to Quantity")
 }
-func (r ClaimResponseItemReviewOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseItemReviewOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseItemReviewOutcome
 	switch other := other.(type) {
 	case ClaimResponseItemReviewOutcome:
@@ -14977,29 +14941,17 @@ func (r ClaimResponseItemReviewOutcome) Equal(other fhirpath.Element, _noReverse
 	case *ClaimResponseItemReviewOutcome:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseItemReviewOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseItemReviewOutcome
-	switch other := other.(type) {
-	case ClaimResponseItemReviewOutcome:
-		o = &other
-	case *ClaimResponseItemReviewOutcome:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseItemReviewOutcome) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -15100,31 +15052,31 @@ func (r ClaimResponseItemAdjudication) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r ClaimResponseItemAdjudication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to Boolean")
+func (r ClaimResponseItemAdjudication) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseItemAdjudication to Boolean")
 }
-func (r ClaimResponseItemAdjudication) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to String")
+func (r ClaimResponseItemAdjudication) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseItemAdjudication to String")
 }
-func (r ClaimResponseItemAdjudication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to Integer")
+func (r ClaimResponseItemAdjudication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseItemAdjudication to Integer")
 }
-func (r ClaimResponseItemAdjudication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to Decimal")
+func (r ClaimResponseItemAdjudication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseItemAdjudication to Decimal")
 }
-func (r ClaimResponseItemAdjudication) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to Date")
+func (r ClaimResponseItemAdjudication) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseItemAdjudication to Date")
 }
-func (r ClaimResponseItemAdjudication) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to Time")
+func (r ClaimResponseItemAdjudication) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseItemAdjudication to Time")
 }
-func (r ClaimResponseItemAdjudication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to DateTime")
+func (r ClaimResponseItemAdjudication) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseItemAdjudication to DateTime")
 }
-func (r ClaimResponseItemAdjudication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseItemAdjudication to Quantity")
+func (r ClaimResponseItemAdjudication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseItemAdjudication to Quantity")
 }
-func (r ClaimResponseItemAdjudication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseItemAdjudication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseItemAdjudication
 	switch other := other.(type) {
 	case ClaimResponseItemAdjudication:
@@ -15132,29 +15084,17 @@ func (r ClaimResponseItemAdjudication) Equal(other fhirpath.Element, _noReverseT
 	case *ClaimResponseItemAdjudication:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseItemAdjudication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseItemAdjudication
-	switch other := other.(type) {
-	case ClaimResponseItemAdjudication:
-		o = &other
-	case *ClaimResponseItemAdjudication:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseItemAdjudication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -15265,31 +15205,31 @@ func (r ClaimResponseItemDetail) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseItemDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to Boolean")
+func (r ClaimResponseItemDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseItemDetail to Boolean")
 }
-func (r ClaimResponseItemDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to String")
+func (r ClaimResponseItemDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseItemDetail to String")
 }
-func (r ClaimResponseItemDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to Integer")
+func (r ClaimResponseItemDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseItemDetail to Integer")
 }
-func (r ClaimResponseItemDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to Decimal")
+func (r ClaimResponseItemDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseItemDetail to Decimal")
 }
-func (r ClaimResponseItemDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to Date")
+func (r ClaimResponseItemDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseItemDetail to Date")
 }
-func (r ClaimResponseItemDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to Time")
+func (r ClaimResponseItemDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseItemDetail to Time")
 }
-func (r ClaimResponseItemDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to DateTime")
+func (r ClaimResponseItemDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseItemDetail to DateTime")
 }
-func (r ClaimResponseItemDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetail to Quantity")
+func (r ClaimResponseItemDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseItemDetail to Quantity")
 }
-func (r ClaimResponseItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseItemDetail
 	switch other := other.(type) {
 	case ClaimResponseItemDetail:
@@ -15297,29 +15237,17 @@ func (r ClaimResponseItemDetail) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *ClaimResponseItemDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseItemDetail
-	switch other := other.(type) {
-	case ClaimResponseItemDetail:
-		o = &other
-	case *ClaimResponseItemDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseItemDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -15439,31 +15367,31 @@ func (r ClaimResponseItemDetailSubDetail) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r ClaimResponseItemDetailSubDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to Boolean")
+func (r ClaimResponseItemDetailSubDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseItemDetailSubDetail to Boolean")
 }
-func (r ClaimResponseItemDetailSubDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to String")
+func (r ClaimResponseItemDetailSubDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseItemDetailSubDetail to String")
 }
-func (r ClaimResponseItemDetailSubDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to Integer")
+func (r ClaimResponseItemDetailSubDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseItemDetailSubDetail to Integer")
 }
-func (r ClaimResponseItemDetailSubDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to Decimal")
+func (r ClaimResponseItemDetailSubDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseItemDetailSubDetail to Decimal")
 }
-func (r ClaimResponseItemDetailSubDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to Date")
+func (r ClaimResponseItemDetailSubDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseItemDetailSubDetail to Date")
 }
-func (r ClaimResponseItemDetailSubDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to Time")
+func (r ClaimResponseItemDetailSubDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseItemDetailSubDetail to Time")
 }
-func (r ClaimResponseItemDetailSubDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to DateTime")
+func (r ClaimResponseItemDetailSubDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseItemDetailSubDetail to DateTime")
 }
-func (r ClaimResponseItemDetailSubDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseItemDetailSubDetail to Quantity")
+func (r ClaimResponseItemDetailSubDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseItemDetailSubDetail to Quantity")
 }
-func (r ClaimResponseItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseItemDetailSubDetail
 	switch other := other.(type) {
 	case ClaimResponseItemDetailSubDetail:
@@ -15471,29 +15399,17 @@ func (r ClaimResponseItemDetailSubDetail) Equal(other fhirpath.Element, _noRever
 	case *ClaimResponseItemDetailSubDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseItemDetailSubDetail
-	switch other := other.(type) {
-	case ClaimResponseItemDetailSubDetail:
-		o = &other
-	case *ClaimResponseItemDetailSubDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -15698,31 +15614,31 @@ func (r ClaimResponseAddItem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseAddItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to Boolean")
+func (r ClaimResponseAddItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseAddItem to Boolean")
 }
-func (r ClaimResponseAddItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to String")
+func (r ClaimResponseAddItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseAddItem to String")
 }
-func (r ClaimResponseAddItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to Integer")
+func (r ClaimResponseAddItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseAddItem to Integer")
 }
-func (r ClaimResponseAddItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to Decimal")
+func (r ClaimResponseAddItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseAddItem to Decimal")
 }
-func (r ClaimResponseAddItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to Date")
+func (r ClaimResponseAddItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseAddItem to Date")
 }
-func (r ClaimResponseAddItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to Time")
+func (r ClaimResponseAddItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseAddItem to Time")
 }
-func (r ClaimResponseAddItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to DateTime")
+func (r ClaimResponseAddItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseAddItem to DateTime")
 }
-func (r ClaimResponseAddItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItem to Quantity")
+func (r ClaimResponseAddItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseAddItem to Quantity")
 }
-func (r ClaimResponseAddItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseAddItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseAddItem
 	switch other := other.(type) {
 	case ClaimResponseAddItem:
@@ -15730,29 +15646,17 @@ func (r ClaimResponseAddItem) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *ClaimResponseAddItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseAddItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseAddItem
-	switch other := other.(type) {
-	case ClaimResponseAddItem:
-		o = &other
-	case *ClaimResponseAddItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseAddItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -15978,31 +15882,31 @@ func (r ClaimResponseAddItemBodySite) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r ClaimResponseAddItemBodySite) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to Boolean")
+func (r ClaimResponseAddItemBodySite) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseAddItemBodySite to Boolean")
 }
-func (r ClaimResponseAddItemBodySite) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to String")
+func (r ClaimResponseAddItemBodySite) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseAddItemBodySite to String")
 }
-func (r ClaimResponseAddItemBodySite) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to Integer")
+func (r ClaimResponseAddItemBodySite) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseAddItemBodySite to Integer")
 }
-func (r ClaimResponseAddItemBodySite) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to Decimal")
+func (r ClaimResponseAddItemBodySite) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseAddItemBodySite to Decimal")
 }
-func (r ClaimResponseAddItemBodySite) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to Date")
+func (r ClaimResponseAddItemBodySite) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseAddItemBodySite to Date")
 }
-func (r ClaimResponseAddItemBodySite) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to Time")
+func (r ClaimResponseAddItemBodySite) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseAddItemBodySite to Time")
 }
-func (r ClaimResponseAddItemBodySite) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to DateTime")
+func (r ClaimResponseAddItemBodySite) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseAddItemBodySite to DateTime")
 }
-func (r ClaimResponseAddItemBodySite) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemBodySite to Quantity")
+func (r ClaimResponseAddItemBodySite) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseAddItemBodySite to Quantity")
 }
-func (r ClaimResponseAddItemBodySite) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseAddItemBodySite) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseAddItemBodySite
 	switch other := other.(type) {
 	case ClaimResponseAddItemBodySite:
@@ -16010,29 +15914,17 @@ func (r ClaimResponseAddItemBodySite) Equal(other fhirpath.Element, _noReverseTy
 	case *ClaimResponseAddItemBodySite:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseAddItemBodySite) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseAddItemBodySite
-	switch other := other.(type) {
-	case ClaimResponseAddItemBodySite:
-		o = &other
-	case *ClaimResponseAddItemBodySite:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseAddItemBodySite) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -16171,31 +16063,31 @@ func (r ClaimResponseAddItemDetail) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r ClaimResponseAddItemDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to Boolean")
+func (r ClaimResponseAddItemDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseAddItemDetail to Boolean")
 }
-func (r ClaimResponseAddItemDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to String")
+func (r ClaimResponseAddItemDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseAddItemDetail to String")
 }
-func (r ClaimResponseAddItemDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to Integer")
+func (r ClaimResponseAddItemDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseAddItemDetail to Integer")
 }
-func (r ClaimResponseAddItemDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to Decimal")
+func (r ClaimResponseAddItemDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseAddItemDetail to Decimal")
 }
-func (r ClaimResponseAddItemDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to Date")
+func (r ClaimResponseAddItemDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseAddItemDetail to Date")
 }
-func (r ClaimResponseAddItemDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to Time")
+func (r ClaimResponseAddItemDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseAddItemDetail to Time")
 }
-func (r ClaimResponseAddItemDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to DateTime")
+func (r ClaimResponseAddItemDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseAddItemDetail to DateTime")
 }
-func (r ClaimResponseAddItemDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetail to Quantity")
+func (r ClaimResponseAddItemDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseAddItemDetail to Quantity")
 }
-func (r ClaimResponseAddItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseAddItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseAddItemDetail
 	switch other := other.(type) {
 	case ClaimResponseAddItemDetail:
@@ -16203,29 +16095,17 @@ func (r ClaimResponseAddItemDetail) Equal(other fhirpath.Element, _noReverseType
 	case *ClaimResponseAddItemDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseAddItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseAddItemDetail
-	switch other := other.(type) {
-	case ClaimResponseAddItemDetail:
-		o = &other
-	case *ClaimResponseAddItemDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseAddItemDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -16443,31 +16323,31 @@ func (r ClaimResponseAddItemDetailSubDetail) Children(name ...string) fhirpath.C
 	}
 	return children
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Boolean")
+func (r ClaimResponseAddItemDetailSubDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Boolean")
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to String")
+func (r ClaimResponseAddItemDetailSubDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to String")
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Integer")
+func (r ClaimResponseAddItemDetailSubDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Integer")
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Decimal")
+func (r ClaimResponseAddItemDetailSubDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Decimal")
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Date")
+func (r ClaimResponseAddItemDetailSubDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Date")
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Time")
+func (r ClaimResponseAddItemDetailSubDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Time")
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to DateTime")
+func (r ClaimResponseAddItemDetailSubDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to DateTime")
 }
-func (r ClaimResponseAddItemDetailSubDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Quantity")
+func (r ClaimResponseAddItemDetailSubDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseAddItemDetailSubDetail to Quantity")
 }
-func (r ClaimResponseAddItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseAddItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseAddItemDetailSubDetail
 	switch other := other.(type) {
 	case ClaimResponseAddItemDetailSubDetail:
@@ -16475,29 +16355,17 @@ func (r ClaimResponseAddItemDetailSubDetail) Equal(other fhirpath.Element, _noRe
 	case *ClaimResponseAddItemDetailSubDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseAddItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseAddItemDetailSubDetail
-	switch other := other.(type) {
-	case ClaimResponseAddItemDetailSubDetail:
-		o = &other
-	case *ClaimResponseAddItemDetailSubDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseAddItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -16649,31 +16517,31 @@ func (r ClaimResponseTotal) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseTotal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to Boolean")
+func (r ClaimResponseTotal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseTotal to Boolean")
 }
-func (r ClaimResponseTotal) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to String")
+func (r ClaimResponseTotal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseTotal to String")
 }
-func (r ClaimResponseTotal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to Integer")
+func (r ClaimResponseTotal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseTotal to Integer")
 }
-func (r ClaimResponseTotal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to Decimal")
+func (r ClaimResponseTotal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseTotal to Decimal")
 }
-func (r ClaimResponseTotal) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to Date")
+func (r ClaimResponseTotal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseTotal to Date")
 }
-func (r ClaimResponseTotal) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to Time")
+func (r ClaimResponseTotal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseTotal to Time")
 }
-func (r ClaimResponseTotal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to DateTime")
+func (r ClaimResponseTotal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseTotal to DateTime")
 }
-func (r ClaimResponseTotal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseTotal to Quantity")
+func (r ClaimResponseTotal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseTotal to Quantity")
 }
-func (r ClaimResponseTotal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseTotal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseTotal
 	switch other := other.(type) {
 	case ClaimResponseTotal:
@@ -16681,29 +16549,17 @@ func (r ClaimResponseTotal) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ClaimResponseTotal:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseTotal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseTotal
-	switch other := other.(type) {
-	case ClaimResponseTotal:
-		o = &other
-	case *ClaimResponseTotal:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseTotal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -16798,31 +16654,31 @@ func (r ClaimResponsePayment) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponsePayment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to Boolean")
+func (r ClaimResponsePayment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponsePayment to Boolean")
 }
-func (r ClaimResponsePayment) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to String")
+func (r ClaimResponsePayment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponsePayment to String")
 }
-func (r ClaimResponsePayment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to Integer")
+func (r ClaimResponsePayment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponsePayment to Integer")
 }
-func (r ClaimResponsePayment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to Decimal")
+func (r ClaimResponsePayment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponsePayment to Decimal")
 }
-func (r ClaimResponsePayment) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to Date")
+func (r ClaimResponsePayment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponsePayment to Date")
 }
-func (r ClaimResponsePayment) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to Time")
+func (r ClaimResponsePayment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponsePayment to Time")
 }
-func (r ClaimResponsePayment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to DateTime")
+func (r ClaimResponsePayment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponsePayment to DateTime")
 }
-func (r ClaimResponsePayment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponsePayment to Quantity")
+func (r ClaimResponsePayment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponsePayment to Quantity")
 }
-func (r ClaimResponsePayment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponsePayment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponsePayment
 	switch other := other.(type) {
 	case ClaimResponsePayment:
@@ -16830,29 +16686,17 @@ func (r ClaimResponsePayment) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *ClaimResponsePayment:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponsePayment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponsePayment
-	switch other := other.(type) {
-	case ClaimResponsePayment:
-		o = &other
-	case *ClaimResponsePayment:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponsePayment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -16967,31 +16811,31 @@ func (r ClaimResponseProcessNote) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseProcessNote) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to Boolean")
+func (r ClaimResponseProcessNote) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseProcessNote to Boolean")
 }
-func (r ClaimResponseProcessNote) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to String")
+func (r ClaimResponseProcessNote) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseProcessNote to String")
 }
-func (r ClaimResponseProcessNote) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to Integer")
+func (r ClaimResponseProcessNote) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseProcessNote to Integer")
 }
-func (r ClaimResponseProcessNote) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to Decimal")
+func (r ClaimResponseProcessNote) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseProcessNote to Decimal")
 }
-func (r ClaimResponseProcessNote) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to Date")
+func (r ClaimResponseProcessNote) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseProcessNote to Date")
 }
-func (r ClaimResponseProcessNote) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to Time")
+func (r ClaimResponseProcessNote) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseProcessNote to Time")
 }
-func (r ClaimResponseProcessNote) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to DateTime")
+func (r ClaimResponseProcessNote) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseProcessNote to DateTime")
 }
-func (r ClaimResponseProcessNote) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseProcessNote to Quantity")
+func (r ClaimResponseProcessNote) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseProcessNote to Quantity")
 }
-func (r ClaimResponseProcessNote) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseProcessNote) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseProcessNote
 	switch other := other.(type) {
 	case ClaimResponseProcessNote:
@@ -16999,29 +16843,17 @@ func (r ClaimResponseProcessNote) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ClaimResponseProcessNote:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseProcessNote
-	switch other := other.(type) {
-	case ClaimResponseProcessNote:
-		o = &other
-	case *ClaimResponseProcessNote:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseProcessNote) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17123,31 +16955,31 @@ func (r ClaimResponseInsurance) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseInsurance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to Boolean")
+func (r ClaimResponseInsurance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseInsurance to Boolean")
 }
-func (r ClaimResponseInsurance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to String")
+func (r ClaimResponseInsurance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseInsurance to String")
 }
-func (r ClaimResponseInsurance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to Integer")
+func (r ClaimResponseInsurance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseInsurance to Integer")
 }
-func (r ClaimResponseInsurance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to Decimal")
+func (r ClaimResponseInsurance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseInsurance to Decimal")
 }
-func (r ClaimResponseInsurance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to Date")
+func (r ClaimResponseInsurance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseInsurance to Date")
 }
-func (r ClaimResponseInsurance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to Time")
+func (r ClaimResponseInsurance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseInsurance to Time")
 }
-func (r ClaimResponseInsurance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to DateTime")
+func (r ClaimResponseInsurance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseInsurance to DateTime")
 }
-func (r ClaimResponseInsurance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseInsurance to Quantity")
+func (r ClaimResponseInsurance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseInsurance to Quantity")
 }
-func (r ClaimResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseInsurance
 	switch other := other.(type) {
 	case ClaimResponseInsurance:
@@ -17155,29 +16987,17 @@ func (r ClaimResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *ClaimResponseInsurance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseInsurance
-	switch other := other.(type) {
-	case ClaimResponseInsurance:
-		o = &other
-	case *ClaimResponseInsurance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseInsurance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -17290,31 +17110,31 @@ func (r ClaimResponseError) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ClaimResponseError) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ClaimResponseError to Boolean")
+func (r ClaimResponseError) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ClaimResponseError to Boolean")
 }
-func (r ClaimResponseError) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ClaimResponseError to String")
+func (r ClaimResponseError) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ClaimResponseError to String")
 }
-func (r ClaimResponseError) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ClaimResponseError to Integer")
+func (r ClaimResponseError) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ClaimResponseError to Integer")
 }
-func (r ClaimResponseError) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ClaimResponseError to Decimal")
+func (r ClaimResponseError) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimResponseError to Decimal")
 }
-func (r ClaimResponseError) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ClaimResponseError to Date")
+func (r ClaimResponseError) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ClaimResponseError to Date")
 }
-func (r ClaimResponseError) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ClaimResponseError to Time")
+func (r ClaimResponseError) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ClaimResponseError to Time")
 }
-func (r ClaimResponseError) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ClaimResponseError to DateTime")
+func (r ClaimResponseError) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ClaimResponseError to DateTime")
 }
-func (r ClaimResponseError) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ClaimResponseError to Quantity")
+func (r ClaimResponseError) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimResponseError to Quantity")
 }
-func (r ClaimResponseError) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimResponseError) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ClaimResponseError
 	switch other := other.(type) {
 	case ClaimResponseError:
@@ -17322,29 +17142,17 @@ func (r ClaimResponseError) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ClaimResponseError:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ClaimResponseError) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ClaimResponseError
-	switch other := other.(type) {
-	case ClaimResponseError:
-		o = &other
-	case *ClaimResponseError:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ClaimResponseError) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

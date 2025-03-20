@@ -1339,31 +1339,31 @@ func (r Linkage) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Linkage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Linkage to Boolean")
+func (r Linkage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Linkage to Boolean")
 }
-func (r Linkage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Linkage to String")
+func (r Linkage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Linkage to String")
 }
-func (r Linkage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Linkage to Integer")
+func (r Linkage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Linkage to Integer")
 }
-func (r Linkage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Linkage to Decimal")
+func (r Linkage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Linkage to Decimal")
 }
-func (r Linkage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Linkage to Date")
+func (r Linkage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Linkage to Date")
 }
-func (r Linkage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Linkage to Time")
+func (r Linkage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Linkage to Time")
 }
-func (r Linkage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Linkage to DateTime")
+func (r Linkage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Linkage to DateTime")
 }
-func (r Linkage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Linkage to Quantity")
+func (r Linkage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Linkage to Quantity")
 }
-func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Linkage
 	switch other := other.(type) {
 	case Linkage:
@@ -1371,29 +1371,17 @@ func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	case *Linkage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Linkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Linkage
-	switch other := other.(type) {
-	case Linkage:
-		o = &other
-	case *Linkage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Linkage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -1510,31 +1498,31 @@ func (r LinkageItem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r LinkageItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert LinkageItem to Boolean")
+func (r LinkageItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert LinkageItem to Boolean")
 }
-func (r LinkageItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert LinkageItem to String")
+func (r LinkageItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert LinkageItem to String")
 }
-func (r LinkageItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert LinkageItem to Integer")
+func (r LinkageItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert LinkageItem to Integer")
 }
-func (r LinkageItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert LinkageItem to Decimal")
+func (r LinkageItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert LinkageItem to Decimal")
 }
-func (r LinkageItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert LinkageItem to Date")
+func (r LinkageItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert LinkageItem to Date")
 }
-func (r LinkageItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert LinkageItem to Time")
+func (r LinkageItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert LinkageItem to Time")
 }
-func (r LinkageItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert LinkageItem to DateTime")
+func (r LinkageItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert LinkageItem to DateTime")
 }
-func (r LinkageItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert LinkageItem to Quantity")
+func (r LinkageItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert LinkageItem to Quantity")
 }
-func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *LinkageItem
 	switch other := other.(type) {
 	case LinkageItem:
@@ -1542,29 +1530,17 @@ func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	case *LinkageItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r LinkageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *LinkageItem
-	switch other := other.(type) {
-	case LinkageItem:
-		o = &other
-	case *LinkageItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r LinkageItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

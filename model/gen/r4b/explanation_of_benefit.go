@@ -20457,31 +20457,31 @@ func (r ExplanationOfBenefit) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ExplanationOfBenefit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to Boolean")
+func (r ExplanationOfBenefit) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefit to Boolean")
 }
-func (r ExplanationOfBenefit) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to String")
+func (r ExplanationOfBenefit) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefit to String")
 }
-func (r ExplanationOfBenefit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to Integer")
+func (r ExplanationOfBenefit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefit to Integer")
 }
-func (r ExplanationOfBenefit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to Decimal")
+func (r ExplanationOfBenefit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefit to Decimal")
 }
-func (r ExplanationOfBenefit) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to Date")
+func (r ExplanationOfBenefit) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefit to Date")
 }
-func (r ExplanationOfBenefit) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to Time")
+func (r ExplanationOfBenefit) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefit to Time")
 }
-func (r ExplanationOfBenefit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to DateTime")
+func (r ExplanationOfBenefit) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefit to DateTime")
 }
-func (r ExplanationOfBenefit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefit to Quantity")
+func (r ExplanationOfBenefit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefit to Quantity")
 }
-func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefit
 	switch other := other.(type) {
 	case ExplanationOfBenefit:
@@ -20489,29 +20489,17 @@ func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *ExplanationOfBenefit:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefit
-	switch other := other.(type) {
-	case ExplanationOfBenefit:
-		o = &other
-	case *ExplanationOfBenefit:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -20917,31 +20905,31 @@ func (r ExplanationOfBenefitRelated) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ExplanationOfBenefitRelated) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to Boolean")
+func (r ExplanationOfBenefitRelated) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitRelated to Boolean")
 }
-func (r ExplanationOfBenefitRelated) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to String")
+func (r ExplanationOfBenefitRelated) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitRelated to String")
 }
-func (r ExplanationOfBenefitRelated) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to Integer")
+func (r ExplanationOfBenefitRelated) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitRelated to Integer")
 }
-func (r ExplanationOfBenefitRelated) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to Decimal")
+func (r ExplanationOfBenefitRelated) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitRelated to Decimal")
 }
-func (r ExplanationOfBenefitRelated) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to Date")
+func (r ExplanationOfBenefitRelated) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitRelated to Date")
 }
-func (r ExplanationOfBenefitRelated) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to Time")
+func (r ExplanationOfBenefitRelated) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitRelated to Time")
 }
-func (r ExplanationOfBenefitRelated) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to DateTime")
+func (r ExplanationOfBenefitRelated) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitRelated to DateTime")
 }
-func (r ExplanationOfBenefitRelated) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitRelated to Quantity")
+func (r ExplanationOfBenefitRelated) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitRelated to Quantity")
 }
-func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitRelated
 	switch other := other.(type) {
 	case ExplanationOfBenefitRelated:
@@ -20949,29 +20937,17 @@ func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTyp
 	case *ExplanationOfBenefitRelated:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitRelated
-	switch other := other.(type) {
-	case ExplanationOfBenefitRelated:
-		o = &other
-	case *ExplanationOfBenefitRelated:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitRelated) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -21057,31 +21033,31 @@ func (r ExplanationOfBenefitPayee) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ExplanationOfBenefitPayee) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to Boolean")
+func (r ExplanationOfBenefitPayee) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitPayee to Boolean")
 }
-func (r ExplanationOfBenefitPayee) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to String")
+func (r ExplanationOfBenefitPayee) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitPayee to String")
 }
-func (r ExplanationOfBenefitPayee) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to Integer")
+func (r ExplanationOfBenefitPayee) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitPayee to Integer")
 }
-func (r ExplanationOfBenefitPayee) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to Decimal")
+func (r ExplanationOfBenefitPayee) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitPayee to Decimal")
 }
-func (r ExplanationOfBenefitPayee) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to Date")
+func (r ExplanationOfBenefitPayee) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitPayee to Date")
 }
-func (r ExplanationOfBenefitPayee) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to Time")
+func (r ExplanationOfBenefitPayee) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitPayee to Time")
 }
-func (r ExplanationOfBenefitPayee) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to DateTime")
+func (r ExplanationOfBenefitPayee) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitPayee to DateTime")
 }
-func (r ExplanationOfBenefitPayee) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayee to Quantity")
+func (r ExplanationOfBenefitPayee) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitPayee to Quantity")
 }
-func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitPayee
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayee:
@@ -21089,29 +21065,17 @@ func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ExplanationOfBenefitPayee:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitPayee) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitPayee
-	switch other := other.(type) {
-	case ExplanationOfBenefitPayee:
-		o = &other
-	case *ExplanationOfBenefitPayee:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitPayee) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -21201,31 +21165,31 @@ func (r ExplanationOfBenefitCareTeam) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r ExplanationOfBenefitCareTeam) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to Boolean")
+func (r ExplanationOfBenefitCareTeam) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Boolean")
 }
-func (r ExplanationOfBenefitCareTeam) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to String")
+func (r ExplanationOfBenefitCareTeam) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitCareTeam to String")
 }
-func (r ExplanationOfBenefitCareTeam) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to Integer")
+func (r ExplanationOfBenefitCareTeam) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Integer")
 }
-func (r ExplanationOfBenefitCareTeam) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to Decimal")
+func (r ExplanationOfBenefitCareTeam) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Decimal")
 }
-func (r ExplanationOfBenefitCareTeam) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to Date")
+func (r ExplanationOfBenefitCareTeam) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Date")
 }
-func (r ExplanationOfBenefitCareTeam) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to Time")
+func (r ExplanationOfBenefitCareTeam) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Time")
 }
-func (r ExplanationOfBenefitCareTeam) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to DateTime")
+func (r ExplanationOfBenefitCareTeam) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitCareTeam to DateTime")
 }
-func (r ExplanationOfBenefitCareTeam) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitCareTeam to Quantity")
+func (r ExplanationOfBenefitCareTeam) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Quantity")
 }
-func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitCareTeam
 	switch other := other.(type) {
 	case ExplanationOfBenefitCareTeam:
@@ -21233,29 +21197,17 @@ func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTy
 	case *ExplanationOfBenefitCareTeam:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitCareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitCareTeam
-	switch other := other.(type) {
-	case ExplanationOfBenefitCareTeam:
-		o = &other
-	case *ExplanationOfBenefitCareTeam:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitCareTeam) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -21371,31 +21323,31 @@ func (r ExplanationOfBenefitSupportingInfo) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r ExplanationOfBenefitSupportingInfo) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Boolean")
+func (r ExplanationOfBenefitSupportingInfo) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Boolean")
 }
-func (r ExplanationOfBenefitSupportingInfo) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to String")
+func (r ExplanationOfBenefitSupportingInfo) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to String")
 }
-func (r ExplanationOfBenefitSupportingInfo) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Integer")
+func (r ExplanationOfBenefitSupportingInfo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Integer")
 }
-func (r ExplanationOfBenefitSupportingInfo) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Decimal")
+func (r ExplanationOfBenefitSupportingInfo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Decimal")
 }
-func (r ExplanationOfBenefitSupportingInfo) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Date")
+func (r ExplanationOfBenefitSupportingInfo) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Date")
 }
-func (r ExplanationOfBenefitSupportingInfo) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Time")
+func (r ExplanationOfBenefitSupportingInfo) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Time")
 }
-func (r ExplanationOfBenefitSupportingInfo) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to DateTime")
+func (r ExplanationOfBenefitSupportingInfo) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to DateTime")
 }
-func (r ExplanationOfBenefitSupportingInfo) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Quantity")
+func (r ExplanationOfBenefitSupportingInfo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Quantity")
 }
-func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitSupportingInfo
 	switch other := other.(type) {
 	case ExplanationOfBenefitSupportingInfo:
@@ -21403,29 +21355,17 @@ func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noRev
 	case *ExplanationOfBenefitSupportingInfo:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitSupportingInfo
-	switch other := other.(type) {
-	case ExplanationOfBenefitSupportingInfo:
-		o = &other
-	case *ExplanationOfBenefitSupportingInfo:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitSupportingInfo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -21543,31 +21483,31 @@ func (r ExplanationOfBenefitDiagnosis) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r ExplanationOfBenefitDiagnosis) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to Boolean")
+func (r ExplanationOfBenefitDiagnosis) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Boolean")
 }
-func (r ExplanationOfBenefitDiagnosis) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to String")
+func (r ExplanationOfBenefitDiagnosis) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitDiagnosis to String")
 }
-func (r ExplanationOfBenefitDiagnosis) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to Integer")
+func (r ExplanationOfBenefitDiagnosis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Integer")
 }
-func (r ExplanationOfBenefitDiagnosis) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to Decimal")
+func (r ExplanationOfBenefitDiagnosis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Decimal")
 }
-func (r ExplanationOfBenefitDiagnosis) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to Date")
+func (r ExplanationOfBenefitDiagnosis) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Date")
 }
-func (r ExplanationOfBenefitDiagnosis) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to Time")
+func (r ExplanationOfBenefitDiagnosis) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Time")
 }
-func (r ExplanationOfBenefitDiagnosis) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to DateTime")
+func (r ExplanationOfBenefitDiagnosis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to DateTime")
 }
-func (r ExplanationOfBenefitDiagnosis) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitDiagnosis to Quantity")
+func (r ExplanationOfBenefitDiagnosis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Quantity")
 }
-func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitDiagnosis
 	switch other := other.(type) {
 	case ExplanationOfBenefitDiagnosis:
@@ -21575,29 +21515,17 @@ func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseT
 	case *ExplanationOfBenefitDiagnosis:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitDiagnosis
-	switch other := other.(type) {
-	case ExplanationOfBenefitDiagnosis:
-		o = &other
-	case *ExplanationOfBenefitDiagnosis:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitDiagnosis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -21708,31 +21636,31 @@ func (r ExplanationOfBenefitProcedure) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r ExplanationOfBenefitProcedure) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to Boolean")
+func (r ExplanationOfBenefitProcedure) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitProcedure to Boolean")
 }
-func (r ExplanationOfBenefitProcedure) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to String")
+func (r ExplanationOfBenefitProcedure) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitProcedure to String")
 }
-func (r ExplanationOfBenefitProcedure) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to Integer")
+func (r ExplanationOfBenefitProcedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitProcedure to Integer")
 }
-func (r ExplanationOfBenefitProcedure) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to Decimal")
+func (r ExplanationOfBenefitProcedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitProcedure to Decimal")
 }
-func (r ExplanationOfBenefitProcedure) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to Date")
+func (r ExplanationOfBenefitProcedure) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitProcedure to Date")
 }
-func (r ExplanationOfBenefitProcedure) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to Time")
+func (r ExplanationOfBenefitProcedure) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitProcedure to Time")
 }
-func (r ExplanationOfBenefitProcedure) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to DateTime")
+func (r ExplanationOfBenefitProcedure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitProcedure to DateTime")
 }
-func (r ExplanationOfBenefitProcedure) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcedure to Quantity")
+func (r ExplanationOfBenefitProcedure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitProcedure to Quantity")
 }
-func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitProcedure
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcedure:
@@ -21740,29 +21668,17 @@ func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseT
 	case *ExplanationOfBenefitProcedure:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitProcedure
-	switch other := other.(type) {
-	case ExplanationOfBenefitProcedure:
-		o = &other
-	case *ExplanationOfBenefitProcedure:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitProcedure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -21863,31 +21779,31 @@ func (r ExplanationOfBenefitInsurance) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r ExplanationOfBenefitInsurance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to Boolean")
+func (r ExplanationOfBenefitInsurance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitInsurance to Boolean")
 }
-func (r ExplanationOfBenefitInsurance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to String")
+func (r ExplanationOfBenefitInsurance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitInsurance to String")
 }
-func (r ExplanationOfBenefitInsurance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to Integer")
+func (r ExplanationOfBenefitInsurance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitInsurance to Integer")
 }
-func (r ExplanationOfBenefitInsurance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to Decimal")
+func (r ExplanationOfBenefitInsurance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitInsurance to Decimal")
 }
-func (r ExplanationOfBenefitInsurance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to Date")
+func (r ExplanationOfBenefitInsurance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitInsurance to Date")
 }
-func (r ExplanationOfBenefitInsurance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to Time")
+func (r ExplanationOfBenefitInsurance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitInsurance to Time")
 }
-func (r ExplanationOfBenefitInsurance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to DateTime")
+func (r ExplanationOfBenefitInsurance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitInsurance to DateTime")
 }
-func (r ExplanationOfBenefitInsurance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitInsurance to Quantity")
+func (r ExplanationOfBenefitInsurance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitInsurance to Quantity")
 }
-func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitInsurance
 	switch other := other.(type) {
 	case ExplanationOfBenefitInsurance:
@@ -21895,29 +21811,17 @@ func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseT
 	case *ExplanationOfBenefitInsurance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitInsurance
-	switch other := other.(type) {
-	case ExplanationOfBenefitInsurance:
-		o = &other
-	case *ExplanationOfBenefitInsurance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitInsurance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -22008,31 +21912,31 @@ func (r ExplanationOfBenefitAccident) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r ExplanationOfBenefitAccident) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to Boolean")
+func (r ExplanationOfBenefitAccident) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitAccident to Boolean")
 }
-func (r ExplanationOfBenefitAccident) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to String")
+func (r ExplanationOfBenefitAccident) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitAccident to String")
 }
-func (r ExplanationOfBenefitAccident) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to Integer")
+func (r ExplanationOfBenefitAccident) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitAccident to Integer")
 }
-func (r ExplanationOfBenefitAccident) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to Decimal")
+func (r ExplanationOfBenefitAccident) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAccident to Decimal")
 }
-func (r ExplanationOfBenefitAccident) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to Date")
+func (r ExplanationOfBenefitAccident) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitAccident to Date")
 }
-func (r ExplanationOfBenefitAccident) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to Time")
+func (r ExplanationOfBenefitAccident) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitAccident to Time")
 }
-func (r ExplanationOfBenefitAccident) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to DateTime")
+func (r ExplanationOfBenefitAccident) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitAccident to DateTime")
 }
-func (r ExplanationOfBenefitAccident) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAccident to Quantity")
+func (r ExplanationOfBenefitAccident) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAccident to Quantity")
 }
-func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitAccident
 	switch other := other.(type) {
 	case ExplanationOfBenefitAccident:
@@ -22040,29 +21944,17 @@ func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTy
 	case *ExplanationOfBenefitAccident:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitAccident) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitAccident
-	switch other := other.(type) {
-	case ExplanationOfBenefitAccident:
-		o = &other
-	case *ExplanationOfBenefitAccident:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitAccident) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -22249,31 +22141,31 @@ func (r ExplanationOfBenefitItem) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ExplanationOfBenefitItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to Boolean")
+func (r ExplanationOfBenefitItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitItem to Boolean")
 }
-func (r ExplanationOfBenefitItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to String")
+func (r ExplanationOfBenefitItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitItem to String")
 }
-func (r ExplanationOfBenefitItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to Integer")
+func (r ExplanationOfBenefitItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitItem to Integer")
 }
-func (r ExplanationOfBenefitItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to Decimal")
+func (r ExplanationOfBenefitItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItem to Decimal")
 }
-func (r ExplanationOfBenefitItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to Date")
+func (r ExplanationOfBenefitItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitItem to Date")
 }
-func (r ExplanationOfBenefitItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to Time")
+func (r ExplanationOfBenefitItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitItem to Time")
 }
-func (r ExplanationOfBenefitItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to DateTime")
+func (r ExplanationOfBenefitItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitItem to DateTime")
 }
-func (r ExplanationOfBenefitItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItem to Quantity")
+func (r ExplanationOfBenefitItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItem to Quantity")
 }
-func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitItem:
@@ -22281,29 +22173,17 @@ func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *ExplanationOfBenefitItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitItem
-	switch other := other.(type) {
-	case ExplanationOfBenefitItem:
-		o = &other
-	case *ExplanationOfBenefitItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -22537,31 +22417,31 @@ func (r ExplanationOfBenefitItemAdjudication) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r ExplanationOfBenefitItemAdjudication) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Boolean")
+func (r ExplanationOfBenefitItemAdjudication) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Boolean")
 }
-func (r ExplanationOfBenefitItemAdjudication) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to String")
+func (r ExplanationOfBenefitItemAdjudication) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to String")
 }
-func (r ExplanationOfBenefitItemAdjudication) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Integer")
+func (r ExplanationOfBenefitItemAdjudication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Integer")
 }
-func (r ExplanationOfBenefitItemAdjudication) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Decimal")
+func (r ExplanationOfBenefitItemAdjudication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Decimal")
 }
-func (r ExplanationOfBenefitItemAdjudication) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Date")
+func (r ExplanationOfBenefitItemAdjudication) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Date")
 }
-func (r ExplanationOfBenefitItemAdjudication) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Time")
+func (r ExplanationOfBenefitItemAdjudication) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Time")
 }
-func (r ExplanationOfBenefitItemAdjudication) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to DateTime")
+func (r ExplanationOfBenefitItemAdjudication) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to DateTime")
 }
-func (r ExplanationOfBenefitItemAdjudication) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Quantity")
+func (r ExplanationOfBenefitItemAdjudication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Quantity")
 }
-func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitItemAdjudication
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemAdjudication:
@@ -22569,29 +22449,17 @@ func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noR
 	case *ExplanationOfBenefitItemAdjudication:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitItemAdjudication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitItemAdjudication
-	switch other := other.(type) {
-	case ExplanationOfBenefitItemAdjudication:
-		o = &other
-	case *ExplanationOfBenefitItemAdjudication:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitItemAdjudication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -22740,31 +22608,31 @@ func (r ExplanationOfBenefitItemDetail) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r ExplanationOfBenefitItemDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to Boolean")
+func (r ExplanationOfBenefitItemDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Boolean")
 }
-func (r ExplanationOfBenefitItemDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to String")
+func (r ExplanationOfBenefitItemDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitItemDetail to String")
 }
-func (r ExplanationOfBenefitItemDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to Integer")
+func (r ExplanationOfBenefitItemDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Integer")
 }
-func (r ExplanationOfBenefitItemDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to Decimal")
+func (r ExplanationOfBenefitItemDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Decimal")
 }
-func (r ExplanationOfBenefitItemDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to Date")
+func (r ExplanationOfBenefitItemDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Date")
 }
-func (r ExplanationOfBenefitItemDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to Time")
+func (r ExplanationOfBenefitItemDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Time")
 }
-func (r ExplanationOfBenefitItemDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to DateTime")
+func (r ExplanationOfBenefitItemDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitItemDetail to DateTime")
 }
-func (r ExplanationOfBenefitItemDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetail to Quantity")
+func (r ExplanationOfBenefitItemDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Quantity")
 }
-func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetail:
@@ -22772,29 +22640,17 @@ func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverse
 	case *ExplanationOfBenefitItemDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitItemDetail
-	switch other := other.(type) {
-	case ExplanationOfBenefitItemDetail:
-		o = &other
-	case *ExplanationOfBenefitItemDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitItemDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -23008,31 +22864,31 @@ func (r ExplanationOfBenefitItemDetailSubDetail) Children(name ...string) fhirpa
 	}
 	return children
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Boolean")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Boolean")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to String")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to String")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Integer")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Integer")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Decimal")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Decimal")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Date")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Date")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Time")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Time")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to DateTime")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to DateTime")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Quantity")
+func (r ExplanationOfBenefitItemDetailSubDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Quantity")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetailSubDetail:
@@ -23040,29 +22896,17 @@ func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _
 	case *ExplanationOfBenefitItemDetailSubDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitItemDetailSubDetail
-	switch other := other.(type) {
-	case ExplanationOfBenefitItemDetailSubDetail:
-		o = &other
-	case *ExplanationOfBenefitItemDetailSubDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -23296,31 +23140,31 @@ func (r ExplanationOfBenefitAddItem) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ExplanationOfBenefitAddItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to Boolean")
+func (r ExplanationOfBenefitAddItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitAddItem to Boolean")
 }
-func (r ExplanationOfBenefitAddItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to String")
+func (r ExplanationOfBenefitAddItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitAddItem to String")
 }
-func (r ExplanationOfBenefitAddItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to Integer")
+func (r ExplanationOfBenefitAddItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitAddItem to Integer")
 }
-func (r ExplanationOfBenefitAddItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to Decimal")
+func (r ExplanationOfBenefitAddItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAddItem to Decimal")
 }
-func (r ExplanationOfBenefitAddItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to Date")
+func (r ExplanationOfBenefitAddItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitAddItem to Date")
 }
-func (r ExplanationOfBenefitAddItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to Time")
+func (r ExplanationOfBenefitAddItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitAddItem to Time")
 }
-func (r ExplanationOfBenefitAddItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to DateTime")
+func (r ExplanationOfBenefitAddItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitAddItem to DateTime")
 }
-func (r ExplanationOfBenefitAddItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItem to Quantity")
+func (r ExplanationOfBenefitAddItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAddItem to Quantity")
 }
-func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitAddItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItem:
@@ -23328,29 +23172,17 @@ func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTyp
 	case *ExplanationOfBenefitAddItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitAddItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitAddItem
-	switch other := other.(type) {
-	case ExplanationOfBenefitAddItem:
-		o = &other
-	case *ExplanationOfBenefitAddItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitAddItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -23574,31 +23406,31 @@ func (r ExplanationOfBenefitAddItemDetail) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r ExplanationOfBenefitAddItemDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Boolean")
+func (r ExplanationOfBenefitAddItemDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Boolean")
 }
-func (r ExplanationOfBenefitAddItemDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to String")
+func (r ExplanationOfBenefitAddItemDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to String")
 }
-func (r ExplanationOfBenefitAddItemDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Integer")
+func (r ExplanationOfBenefitAddItemDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Integer")
 }
-func (r ExplanationOfBenefitAddItemDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Decimal")
+func (r ExplanationOfBenefitAddItemDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Decimal")
 }
-func (r ExplanationOfBenefitAddItemDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Date")
+func (r ExplanationOfBenefitAddItemDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Date")
 }
-func (r ExplanationOfBenefitAddItemDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Time")
+func (r ExplanationOfBenefitAddItemDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Time")
 }
-func (r ExplanationOfBenefitAddItemDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to DateTime")
+func (r ExplanationOfBenefitAddItemDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to DateTime")
 }
-func (r ExplanationOfBenefitAddItemDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Quantity")
+func (r ExplanationOfBenefitAddItemDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Quantity")
 }
-func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitAddItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetail:
@@ -23606,29 +23438,17 @@ func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReve
 	case *ExplanationOfBenefitAddItemDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitAddItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitAddItemDetail
-	switch other := other.(type) {
-	case ExplanationOfBenefitAddItemDetail:
-		o = &other
-	case *ExplanationOfBenefitAddItemDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitAddItemDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -23784,31 +23604,31 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) Children(name ...string) fhi
 	}
 	return children
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Boolean")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Boolean")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to String")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to String")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Integer")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Integer")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Decimal")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Decimal")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Date")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Date")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Time")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Time")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to DateTime")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to DateTime")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Quantity")
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Quantity")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitAddItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetailSubDetail:
@@ -23816,29 +23636,17 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element
 	case *ExplanationOfBenefitAddItemDetailSubDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitAddItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitAddItemDetailSubDetail
-	switch other := other.(type) {
-	case ExplanationOfBenefitAddItemDetailSubDetail:
-		o = &other
-	case *ExplanationOfBenefitAddItemDetailSubDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitAddItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -23955,31 +23763,31 @@ func (r ExplanationOfBenefitTotal) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ExplanationOfBenefitTotal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to Boolean")
+func (r ExplanationOfBenefitTotal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitTotal to Boolean")
 }
-func (r ExplanationOfBenefitTotal) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to String")
+func (r ExplanationOfBenefitTotal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitTotal to String")
 }
-func (r ExplanationOfBenefitTotal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to Integer")
+func (r ExplanationOfBenefitTotal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitTotal to Integer")
 }
-func (r ExplanationOfBenefitTotal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to Decimal")
+func (r ExplanationOfBenefitTotal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitTotal to Decimal")
 }
-func (r ExplanationOfBenefitTotal) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to Date")
+func (r ExplanationOfBenefitTotal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitTotal to Date")
 }
-func (r ExplanationOfBenefitTotal) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to Time")
+func (r ExplanationOfBenefitTotal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitTotal to Time")
 }
-func (r ExplanationOfBenefitTotal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to DateTime")
+func (r ExplanationOfBenefitTotal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitTotal to DateTime")
 }
-func (r ExplanationOfBenefitTotal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitTotal to Quantity")
+func (r ExplanationOfBenefitTotal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitTotal to Quantity")
 }
-func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitTotal
 	switch other := other.(type) {
 	case ExplanationOfBenefitTotal:
@@ -23987,29 +23795,17 @@ func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ExplanationOfBenefitTotal:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitTotal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitTotal
-	switch other := other.(type) {
-	case ExplanationOfBenefitTotal:
-		o = &other
-	case *ExplanationOfBenefitTotal:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitTotal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -24108,31 +23904,31 @@ func (r ExplanationOfBenefitPayment) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ExplanationOfBenefitPayment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to Boolean")
+func (r ExplanationOfBenefitPayment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitPayment to Boolean")
 }
-func (r ExplanationOfBenefitPayment) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to String")
+func (r ExplanationOfBenefitPayment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitPayment to String")
 }
-func (r ExplanationOfBenefitPayment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to Integer")
+func (r ExplanationOfBenefitPayment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitPayment to Integer")
 }
-func (r ExplanationOfBenefitPayment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to Decimal")
+func (r ExplanationOfBenefitPayment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitPayment to Decimal")
 }
-func (r ExplanationOfBenefitPayment) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to Date")
+func (r ExplanationOfBenefitPayment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitPayment to Date")
 }
-func (r ExplanationOfBenefitPayment) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to Time")
+func (r ExplanationOfBenefitPayment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitPayment to Time")
 }
-func (r ExplanationOfBenefitPayment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to DateTime")
+func (r ExplanationOfBenefitPayment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitPayment to DateTime")
 }
-func (r ExplanationOfBenefitPayment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitPayment to Quantity")
+func (r ExplanationOfBenefitPayment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitPayment to Quantity")
 }
-func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitPayment
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayment:
@@ -24140,29 +23936,17 @@ func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTyp
 	case *ExplanationOfBenefitPayment:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitPayment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitPayment
-	switch other := other.(type) {
-	case ExplanationOfBenefitPayment:
-		o = &other
-	case *ExplanationOfBenefitPayment:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitPayment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -24279,31 +24063,31 @@ func (r ExplanationOfBenefitProcessNote) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r ExplanationOfBenefitProcessNote) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to Boolean")
+func (r ExplanationOfBenefitProcessNote) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Boolean")
 }
-func (r ExplanationOfBenefitProcessNote) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to String")
+func (r ExplanationOfBenefitProcessNote) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitProcessNote to String")
 }
-func (r ExplanationOfBenefitProcessNote) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to Integer")
+func (r ExplanationOfBenefitProcessNote) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Integer")
 }
-func (r ExplanationOfBenefitProcessNote) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to Decimal")
+func (r ExplanationOfBenefitProcessNote) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Decimal")
 }
-func (r ExplanationOfBenefitProcessNote) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to Date")
+func (r ExplanationOfBenefitProcessNote) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Date")
 }
-func (r ExplanationOfBenefitProcessNote) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to Time")
+func (r ExplanationOfBenefitProcessNote) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Time")
 }
-func (r ExplanationOfBenefitProcessNote) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to DateTime")
+func (r ExplanationOfBenefitProcessNote) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitProcessNote to DateTime")
 }
-func (r ExplanationOfBenefitProcessNote) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitProcessNote to Quantity")
+func (r ExplanationOfBenefitProcessNote) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Quantity")
 }
-func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitProcessNote
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcessNote:
@@ -24311,29 +24095,17 @@ func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noRevers
 	case *ExplanationOfBenefitProcessNote:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitProcessNote
-	switch other := other.(type) {
-	case ExplanationOfBenefitProcessNote:
-		o = &other
-	case *ExplanationOfBenefitProcessNote:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitProcessNote) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -24454,31 +24226,31 @@ func (r ExplanationOfBenefitBenefitBalance) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r ExplanationOfBenefitBenefitBalance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Boolean")
+func (r ExplanationOfBenefitBenefitBalance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Boolean")
 }
-func (r ExplanationOfBenefitBenefitBalance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to String")
+func (r ExplanationOfBenefitBenefitBalance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to String")
 }
-func (r ExplanationOfBenefitBenefitBalance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Integer")
+func (r ExplanationOfBenefitBenefitBalance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Integer")
 }
-func (r ExplanationOfBenefitBenefitBalance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Decimal")
+func (r ExplanationOfBenefitBenefitBalance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Decimal")
 }
-func (r ExplanationOfBenefitBenefitBalance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Date")
+func (r ExplanationOfBenefitBenefitBalance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Date")
 }
-func (r ExplanationOfBenefitBenefitBalance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Time")
+func (r ExplanationOfBenefitBenefitBalance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Time")
 }
-func (r ExplanationOfBenefitBenefitBalance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to DateTime")
+func (r ExplanationOfBenefitBenefitBalance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to DateTime")
 }
-func (r ExplanationOfBenefitBenefitBalance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Quantity")
+func (r ExplanationOfBenefitBenefitBalance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Quantity")
 }
-func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitBenefitBalance
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalance:
@@ -24486,29 +24258,17 @@ func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noRev
 	case *ExplanationOfBenefitBenefitBalance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitBenefitBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitBenefitBalance
-	switch other := other.(type) {
-	case ExplanationOfBenefitBenefitBalance:
-		o = &other
-	case *ExplanationOfBenefitBenefitBalance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitBenefitBalance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -24632,31 +24392,31 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) Children(name ...string) fh
 	}
 	return children
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Boolean")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Boolean")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to String")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to String")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Integer")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Integer")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Decimal")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Decimal")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Date")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Date")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Time")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Time")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to DateTime")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to DateTime")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Quantity")
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Quantity")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ExplanationOfBenefitBenefitBalanceFinancial
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalanceFinancial:
@@ -24664,29 +24424,17 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Elemen
 	case *ExplanationOfBenefitBenefitBalanceFinancial:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ExplanationOfBenefitBenefitBalanceFinancial
-	switch other := other.(type) {
-	case ExplanationOfBenefitBenefitBalanceFinancial:
-		o = &other
-	case *ExplanationOfBenefitBenefitBalanceFinancial:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

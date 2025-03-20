@@ -93,49 +93,43 @@ func (r Url) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Url) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Url to Boolean")
+func (r Url) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Url to Boolean")
 }
-func (r Url) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Url to String")
+func (r Url) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Url to String")
 }
-func (r Url) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Url to Integer")
+func (r Url) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Url to Integer")
 }
-func (r Url) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Url to Decimal")
+func (r Url) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Url to Decimal")
 }
-func (r Url) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Url to Date")
+func (r Url) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Url to Date")
 }
-func (r Url) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Url to Time")
+func (r Url) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Url to Time")
 }
-func (r Url) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Url to DateTime")
+func (r Url) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Url to DateTime")
 }
-func (r Url) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Url to Quantity")
+func (r Url) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Url to Quantity")
 }
-func (r Url) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Url) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	o, ok := other.(Url)
 	if !ok {
-		return false
+		return false, true
 	}
 	if r.Value == nil || o.Value == nil {
-		return false
+		return false, true
 	}
-	return *r.Value == *o.Value
+	return *r.Value == *o.Value, true
 }
 func (r Url) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	o, ok := other.(Url)
-	if !ok {
-		return false
-	}
-	if r.Value == nil || o.Value == nil {
-		return false
-	}
-	return *r.Value == *o.Value
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Url) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -159,7 +153,7 @@ func (r Url) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "Url",
+			Name:      "url",
 			Namespace: "FHIR",
 		},
 	}

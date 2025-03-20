@@ -1920,31 +1920,31 @@ func (r EncounterHistory) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r EncounterHistory) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EncounterHistory to Boolean")
+func (r EncounterHistory) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EncounterHistory to Boolean")
 }
-func (r EncounterHistory) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EncounterHistory to String")
+func (r EncounterHistory) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EncounterHistory to String")
 }
-func (r EncounterHistory) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EncounterHistory to Integer")
+func (r EncounterHistory) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EncounterHistory to Integer")
 }
-func (r EncounterHistory) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EncounterHistory to Decimal")
+func (r EncounterHistory) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EncounterHistory to Decimal")
 }
-func (r EncounterHistory) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EncounterHistory to Date")
+func (r EncounterHistory) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EncounterHistory to Date")
 }
-func (r EncounterHistory) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EncounterHistory to Time")
+func (r EncounterHistory) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EncounterHistory to Time")
 }
-func (r EncounterHistory) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EncounterHistory to DateTime")
+func (r EncounterHistory) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EncounterHistory to DateTime")
 }
-func (r EncounterHistory) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EncounterHistory to Quantity")
+func (r EncounterHistory) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterHistory to Quantity")
 }
-func (r EncounterHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EncounterHistory
 	switch other := other.(type) {
 	case EncounterHistory:
@@ -1952,29 +1952,17 @@ func (r EncounterHistory) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *EncounterHistory:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EncounterHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EncounterHistory
-	switch other := other.(type) {
-	case EncounterHistory:
-		o = &other
-	case *EncounterHistory:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EncounterHistory) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2163,31 +2151,31 @@ func (r EncounterHistoryLocation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r EncounterHistoryLocation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to Boolean")
+func (r EncounterHistoryLocation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert EncounterHistoryLocation to Boolean")
 }
-func (r EncounterHistoryLocation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to String")
+func (r EncounterHistoryLocation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert EncounterHistoryLocation to String")
 }
-func (r EncounterHistoryLocation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to Integer")
+func (r EncounterHistoryLocation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert EncounterHistoryLocation to Integer")
 }
-func (r EncounterHistoryLocation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to Decimal")
+func (r EncounterHistoryLocation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert EncounterHistoryLocation to Decimal")
 }
-func (r EncounterHistoryLocation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to Date")
+func (r EncounterHistoryLocation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert EncounterHistoryLocation to Date")
 }
-func (r EncounterHistoryLocation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to Time")
+func (r EncounterHistoryLocation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert EncounterHistoryLocation to Time")
 }
-func (r EncounterHistoryLocation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to DateTime")
+func (r EncounterHistoryLocation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert EncounterHistoryLocation to DateTime")
 }
-func (r EncounterHistoryLocation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert EncounterHistoryLocation to Quantity")
+func (r EncounterHistoryLocation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterHistoryLocation to Quantity")
 }
-func (r EncounterHistoryLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterHistoryLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *EncounterHistoryLocation
 	switch other := other.(type) {
 	case EncounterHistoryLocation:
@@ -2195,29 +2183,17 @@ func (r EncounterHistoryLocation) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *EncounterHistoryLocation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r EncounterHistoryLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *EncounterHistoryLocation
-	switch other := other.(type) {
-	case EncounterHistoryLocation:
-		o = &other
-	case *EncounterHistoryLocation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r EncounterHistoryLocation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

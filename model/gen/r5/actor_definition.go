@@ -2742,31 +2742,31 @@ func (r ActorDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ActorDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ActorDefinition to Boolean")
+func (r ActorDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ActorDefinition to Boolean")
 }
-func (r ActorDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ActorDefinition to String")
+func (r ActorDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ActorDefinition to String")
 }
-func (r ActorDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ActorDefinition to Integer")
+func (r ActorDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ActorDefinition to Integer")
 }
-func (r ActorDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ActorDefinition to Decimal")
+func (r ActorDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ActorDefinition to Decimal")
 }
-func (r ActorDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ActorDefinition to Date")
+func (r ActorDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ActorDefinition to Date")
 }
-func (r ActorDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ActorDefinition to Time")
+func (r ActorDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ActorDefinition to Time")
 }
-func (r ActorDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ActorDefinition to DateTime")
+func (r ActorDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ActorDefinition to DateTime")
 }
-func (r ActorDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ActorDefinition to Quantity")
+func (r ActorDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ActorDefinition to Quantity")
 }
-func (r ActorDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActorDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ActorDefinition
 	switch other := other.(type) {
 	case ActorDefinition:
@@ -2774,29 +2774,17 @@ func (r ActorDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *ActorDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ActorDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ActorDefinition
-	switch other := other.(type) {
-	case ActorDefinition:
-		o = &other
-	case *ActorDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ActorDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

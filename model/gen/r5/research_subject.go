@@ -1931,31 +1931,31 @@ func (r ResearchSubject) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ResearchSubject) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ResearchSubject to Boolean")
+func (r ResearchSubject) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ResearchSubject to Boolean")
 }
-func (r ResearchSubject) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ResearchSubject to String")
+func (r ResearchSubject) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ResearchSubject to String")
 }
-func (r ResearchSubject) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ResearchSubject to Integer")
+func (r ResearchSubject) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ResearchSubject to Integer")
 }
-func (r ResearchSubject) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ResearchSubject to Decimal")
+func (r ResearchSubject) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchSubject to Decimal")
 }
-func (r ResearchSubject) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ResearchSubject to Date")
+func (r ResearchSubject) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ResearchSubject to Date")
 }
-func (r ResearchSubject) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ResearchSubject to Time")
+func (r ResearchSubject) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ResearchSubject to Time")
 }
-func (r ResearchSubject) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ResearchSubject to DateTime")
+func (r ResearchSubject) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ResearchSubject to DateTime")
 }
-func (r ResearchSubject) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ResearchSubject to Quantity")
+func (r ResearchSubject) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchSubject to Quantity")
 }
-func (r ResearchSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ResearchSubject
 	switch other := other.(type) {
 	case ResearchSubject:
@@ -1963,29 +1963,17 @@ func (r ResearchSubject) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *ResearchSubject:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ResearchSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ResearchSubject
-	switch other := other.(type) {
-	case ResearchSubject:
-		o = &other
-	case *ResearchSubject:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ResearchSubject) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2168,31 +2156,31 @@ func (r ResearchSubjectProgress) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ResearchSubjectProgress) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to Boolean")
+func (r ResearchSubjectProgress) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ResearchSubjectProgress to Boolean")
 }
-func (r ResearchSubjectProgress) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to String")
+func (r ResearchSubjectProgress) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ResearchSubjectProgress to String")
 }
-func (r ResearchSubjectProgress) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to Integer")
+func (r ResearchSubjectProgress) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ResearchSubjectProgress to Integer")
 }
-func (r ResearchSubjectProgress) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to Decimal")
+func (r ResearchSubjectProgress) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchSubjectProgress to Decimal")
 }
-func (r ResearchSubjectProgress) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to Date")
+func (r ResearchSubjectProgress) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ResearchSubjectProgress to Date")
 }
-func (r ResearchSubjectProgress) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to Time")
+func (r ResearchSubjectProgress) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ResearchSubjectProgress to Time")
 }
-func (r ResearchSubjectProgress) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to DateTime")
+func (r ResearchSubjectProgress) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ResearchSubjectProgress to DateTime")
 }
-func (r ResearchSubjectProgress) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ResearchSubjectProgress to Quantity")
+func (r ResearchSubjectProgress) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchSubjectProgress to Quantity")
 }
-func (r ResearchSubjectProgress) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchSubjectProgress) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ResearchSubjectProgress
 	switch other := other.(type) {
 	case ResearchSubjectProgress:
@@ -2200,29 +2188,17 @@ func (r ResearchSubjectProgress) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *ResearchSubjectProgress:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ResearchSubjectProgress) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ResearchSubjectProgress
-	switch other := other.(type) {
-	case ResearchSubjectProgress:
-		o = &other
-	case *ResearchSubjectProgress:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ResearchSubjectProgress) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

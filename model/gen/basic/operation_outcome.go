@@ -1036,31 +1036,31 @@ func (r OperationOutcome) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r OperationOutcome) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OperationOutcome to Boolean")
+func (r OperationOutcome) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OperationOutcome to Boolean")
 }
-func (r OperationOutcome) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OperationOutcome to String")
+func (r OperationOutcome) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OperationOutcome to String")
 }
-func (r OperationOutcome) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OperationOutcome to Integer")
+func (r OperationOutcome) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OperationOutcome to Integer")
 }
-func (r OperationOutcome) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OperationOutcome to Decimal")
+func (r OperationOutcome) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OperationOutcome to Decimal")
 }
-func (r OperationOutcome) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OperationOutcome to Date")
+func (r OperationOutcome) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OperationOutcome to Date")
 }
-func (r OperationOutcome) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OperationOutcome to Time")
+func (r OperationOutcome) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OperationOutcome to Time")
 }
-func (r OperationOutcome) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OperationOutcome to DateTime")
+func (r OperationOutcome) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OperationOutcome to DateTime")
 }
-func (r OperationOutcome) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OperationOutcome to Quantity")
+func (r OperationOutcome) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OperationOutcome to Quantity")
 }
-func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OperationOutcome
 	switch other := other.(type) {
 	case OperationOutcome:
@@ -1068,29 +1068,17 @@ func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *OperationOutcome:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OperationOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OperationOutcome
-	switch other := other.(type) {
-	case OperationOutcome:
-		o = &other
-	case *OperationOutcome:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OperationOutcome) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -1213,31 +1201,31 @@ func (r OperationOutcomeIssue) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r OperationOutcomeIssue) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to Boolean")
+func (r OperationOutcomeIssue) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert OperationOutcomeIssue to Boolean")
 }
-func (r OperationOutcomeIssue) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to String")
+func (r OperationOutcomeIssue) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert OperationOutcomeIssue to String")
 }
-func (r OperationOutcomeIssue) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to Integer")
+func (r OperationOutcomeIssue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert OperationOutcomeIssue to Integer")
 }
-func (r OperationOutcomeIssue) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to Decimal")
+func (r OperationOutcomeIssue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert OperationOutcomeIssue to Decimal")
 }
-func (r OperationOutcomeIssue) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to Date")
+func (r OperationOutcomeIssue) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert OperationOutcomeIssue to Date")
 }
-func (r OperationOutcomeIssue) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to Time")
+func (r OperationOutcomeIssue) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert OperationOutcomeIssue to Time")
 }
-func (r OperationOutcomeIssue) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to DateTime")
+func (r OperationOutcomeIssue) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert OperationOutcomeIssue to DateTime")
 }
-func (r OperationOutcomeIssue) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert OperationOutcomeIssue to Quantity")
+func (r OperationOutcomeIssue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert OperationOutcomeIssue to Quantity")
 }
-func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *OperationOutcomeIssue
 	switch other := other.(type) {
 	case OperationOutcomeIssue:
@@ -1245,29 +1233,17 @@ func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *OperationOutcomeIssue:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r OperationOutcomeIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *OperationOutcomeIssue
-	switch other := other.(type) {
-	case OperationOutcomeIssue:
-		o = &other
-	case *OperationOutcomeIssue:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r OperationOutcomeIssue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

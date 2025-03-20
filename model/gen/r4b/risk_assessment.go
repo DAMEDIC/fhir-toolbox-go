@@ -2776,31 +2776,31 @@ func (r RiskAssessment) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r RiskAssessment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RiskAssessment to Boolean")
+func (r RiskAssessment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RiskAssessment to Boolean")
 }
-func (r RiskAssessment) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RiskAssessment to String")
+func (r RiskAssessment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RiskAssessment to String")
 }
-func (r RiskAssessment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RiskAssessment to Integer")
+func (r RiskAssessment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RiskAssessment to Integer")
 }
-func (r RiskAssessment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RiskAssessment to Decimal")
+func (r RiskAssessment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RiskAssessment to Decimal")
 }
-func (r RiskAssessment) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RiskAssessment to Date")
+func (r RiskAssessment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RiskAssessment to Date")
 }
-func (r RiskAssessment) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RiskAssessment to Time")
+func (r RiskAssessment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RiskAssessment to Time")
 }
-func (r RiskAssessment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RiskAssessment to DateTime")
+func (r RiskAssessment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RiskAssessment to DateTime")
 }
-func (r RiskAssessment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RiskAssessment to Quantity")
+func (r RiskAssessment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RiskAssessment to Quantity")
 }
-func (r RiskAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RiskAssessment
 	switch other := other.(type) {
 	case RiskAssessment:
@@ -2808,29 +2808,17 @@ func (r RiskAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	case *RiskAssessment:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RiskAssessment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RiskAssessment
-	switch other := other.(type) {
-	case RiskAssessment:
-		o = &other
-	case *RiskAssessment:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RiskAssessment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3069,31 +3057,31 @@ func (r RiskAssessmentPrediction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r RiskAssessmentPrediction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to Boolean")
+func (r RiskAssessmentPrediction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert RiskAssessmentPrediction to Boolean")
 }
-func (r RiskAssessmentPrediction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to String")
+func (r RiskAssessmentPrediction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert RiskAssessmentPrediction to String")
 }
-func (r RiskAssessmentPrediction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to Integer")
+func (r RiskAssessmentPrediction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert RiskAssessmentPrediction to Integer")
 }
-func (r RiskAssessmentPrediction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to Decimal")
+func (r RiskAssessmentPrediction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert RiskAssessmentPrediction to Decimal")
 }
-func (r RiskAssessmentPrediction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to Date")
+func (r RiskAssessmentPrediction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert RiskAssessmentPrediction to Date")
 }
-func (r RiskAssessmentPrediction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to Time")
+func (r RiskAssessmentPrediction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert RiskAssessmentPrediction to Time")
 }
-func (r RiskAssessmentPrediction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to DateTime")
+func (r RiskAssessmentPrediction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert RiskAssessmentPrediction to DateTime")
 }
-func (r RiskAssessmentPrediction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert RiskAssessmentPrediction to Quantity")
+func (r RiskAssessmentPrediction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert RiskAssessmentPrediction to Quantity")
 }
-func (r RiskAssessmentPrediction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskAssessmentPrediction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *RiskAssessmentPrediction
 	switch other := other.(type) {
 	case RiskAssessmentPrediction:
@@ -3101,29 +3089,17 @@ func (r RiskAssessmentPrediction) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *RiskAssessmentPrediction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r RiskAssessmentPrediction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *RiskAssessmentPrediction
-	switch other := other.(type) {
-	case RiskAssessmentPrediction:
-		o = &other
-	case *RiskAssessmentPrediction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r RiskAssessmentPrediction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -395,31 +395,31 @@ func (r Identifier) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Identifier) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Identifier to Boolean")
+func (r Identifier) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Identifier to Boolean")
 }
-func (r Identifier) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Identifier to String")
+func (r Identifier) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Identifier to String")
 }
-func (r Identifier) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Identifier to Integer")
+func (r Identifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Identifier to Integer")
 }
-func (r Identifier) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Identifier to Decimal")
+func (r Identifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Identifier to Decimal")
 }
-func (r Identifier) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Identifier to Date")
+func (r Identifier) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Identifier to Date")
 }
-func (r Identifier) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Identifier to Time")
+func (r Identifier) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Identifier to Time")
 }
-func (r Identifier) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Identifier to DateTime")
+func (r Identifier) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Identifier to DateTime")
 }
-func (r Identifier) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Identifier to Quantity")
+func (r Identifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Identifier to Quantity")
 }
-func (r Identifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Identifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Identifier
 	switch other := other.(type) {
 	case Identifier:
@@ -427,29 +427,17 @@ func (r Identifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *Identifier:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Identifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Identifier
-	switch other := other.(type) {
-	case Identifier:
-		o = &other
-	case *Identifier:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Identifier) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -5218,31 +5218,31 @@ func (r Immunization) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Immunization) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Immunization to Boolean")
+func (r Immunization) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Immunization to Boolean")
 }
-func (r Immunization) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Immunization to String")
+func (r Immunization) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Immunization to String")
 }
-func (r Immunization) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Immunization to Integer")
+func (r Immunization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Immunization to Integer")
 }
-func (r Immunization) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Immunization to Decimal")
+func (r Immunization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Immunization to Decimal")
 }
-func (r Immunization) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Immunization to Date")
+func (r Immunization) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Immunization to Date")
 }
-func (r Immunization) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Immunization to Time")
+func (r Immunization) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Immunization to Time")
 }
-func (r Immunization) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Immunization to DateTime")
+func (r Immunization) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Immunization to DateTime")
 }
-func (r Immunization) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Immunization to Quantity")
+func (r Immunization) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Immunization to Quantity")
 }
-func (r Immunization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Immunization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Immunization
 	switch other := other.(type) {
 	case Immunization:
@@ -5250,29 +5250,17 @@ func (r Immunization) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *Immunization:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Immunization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Immunization
-	switch other := other.(type) {
-	case Immunization:
-		o = &other
-	case *Immunization:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Immunization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5566,31 +5554,31 @@ func (r ImmunizationPerformer) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImmunizationPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to Boolean")
+func (r ImmunizationPerformer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImmunizationPerformer to Boolean")
 }
-func (r ImmunizationPerformer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to String")
+func (r ImmunizationPerformer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImmunizationPerformer to String")
 }
-func (r ImmunizationPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to Integer")
+func (r ImmunizationPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImmunizationPerformer to Integer")
 }
-func (r ImmunizationPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to Decimal")
+func (r ImmunizationPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationPerformer to Decimal")
 }
-func (r ImmunizationPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to Date")
+func (r ImmunizationPerformer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImmunizationPerformer to Date")
 }
-func (r ImmunizationPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to Time")
+func (r ImmunizationPerformer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImmunizationPerformer to Time")
 }
-func (r ImmunizationPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to DateTime")
+func (r ImmunizationPerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImmunizationPerformer to DateTime")
 }
-func (r ImmunizationPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImmunizationPerformer to Quantity")
+func (r ImmunizationPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImmunizationPerformer to Quantity")
 }
-func (r ImmunizationPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImmunizationPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImmunizationPerformer
 	switch other := other.(type) {
 	case ImmunizationPerformer:
@@ -5598,29 +5586,17 @@ func (r ImmunizationPerformer) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *ImmunizationPerformer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImmunizationPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImmunizationPerformer
-	switch other := other.(type) {
-	case ImmunizationPerformer:
-		o = &other
-	case *ImmunizationPerformer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImmunizationPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5709,31 +5685,31 @@ func (r ImmunizationEducation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImmunizationEducation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to Boolean")
+func (r ImmunizationEducation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImmunizationEducation to Boolean")
 }
-func (r ImmunizationEducation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to String")
+func (r ImmunizationEducation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImmunizationEducation to String")
 }
-func (r ImmunizationEducation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to Integer")
+func (r ImmunizationEducation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImmunizationEducation to Integer")
 }
-func (r ImmunizationEducation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to Decimal")
+func (r ImmunizationEducation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationEducation to Decimal")
 }
-func (r ImmunizationEducation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to Date")
+func (r ImmunizationEducation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImmunizationEducation to Date")
 }
-func (r ImmunizationEducation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to Time")
+func (r ImmunizationEducation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImmunizationEducation to Time")
 }
-func (r ImmunizationEducation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to DateTime")
+func (r ImmunizationEducation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImmunizationEducation to DateTime")
 }
-func (r ImmunizationEducation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImmunizationEducation to Quantity")
+func (r ImmunizationEducation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImmunizationEducation to Quantity")
 }
-func (r ImmunizationEducation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImmunizationEducation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImmunizationEducation
 	switch other := other.(type) {
 	case ImmunizationEducation:
@@ -5741,29 +5717,17 @@ func (r ImmunizationEducation) Equal(other fhirpath.Element, _noReverseTypeConve
 	case *ImmunizationEducation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImmunizationEducation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImmunizationEducation
-	switch other := other.(type) {
-	case ImmunizationEducation:
-		o = &other
-	case *ImmunizationEducation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImmunizationEducation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5861,31 +5825,31 @@ func (r ImmunizationReaction) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImmunizationReaction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to Boolean")
+func (r ImmunizationReaction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImmunizationReaction to Boolean")
 }
-func (r ImmunizationReaction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to String")
+func (r ImmunizationReaction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImmunizationReaction to String")
 }
-func (r ImmunizationReaction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to Integer")
+func (r ImmunizationReaction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImmunizationReaction to Integer")
 }
-func (r ImmunizationReaction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to Decimal")
+func (r ImmunizationReaction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationReaction to Decimal")
 }
-func (r ImmunizationReaction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to Date")
+func (r ImmunizationReaction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImmunizationReaction to Date")
 }
-func (r ImmunizationReaction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to Time")
+func (r ImmunizationReaction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImmunizationReaction to Time")
 }
-func (r ImmunizationReaction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to DateTime")
+func (r ImmunizationReaction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImmunizationReaction to DateTime")
 }
-func (r ImmunizationReaction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImmunizationReaction to Quantity")
+func (r ImmunizationReaction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImmunizationReaction to Quantity")
 }
-func (r ImmunizationReaction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImmunizationReaction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImmunizationReaction
 	switch other := other.(type) {
 	case ImmunizationReaction:
@@ -5893,29 +5857,17 @@ func (r ImmunizationReaction) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *ImmunizationReaction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImmunizationReaction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImmunizationReaction
-	switch other := other.(type) {
-	case ImmunizationReaction:
-		o = &other
-	case *ImmunizationReaction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImmunizationReaction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6014,31 +5966,31 @@ func (r ImmunizationProtocolApplied) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ImmunizationProtocolApplied) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to Boolean")
+func (r ImmunizationProtocolApplied) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImmunizationProtocolApplied to Boolean")
 }
-func (r ImmunizationProtocolApplied) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to String")
+func (r ImmunizationProtocolApplied) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImmunizationProtocolApplied to String")
 }
-func (r ImmunizationProtocolApplied) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to Integer")
+func (r ImmunizationProtocolApplied) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImmunizationProtocolApplied to Integer")
 }
-func (r ImmunizationProtocolApplied) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to Decimal")
+func (r ImmunizationProtocolApplied) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationProtocolApplied to Decimal")
 }
-func (r ImmunizationProtocolApplied) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to Date")
+func (r ImmunizationProtocolApplied) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImmunizationProtocolApplied to Date")
 }
-func (r ImmunizationProtocolApplied) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to Time")
+func (r ImmunizationProtocolApplied) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImmunizationProtocolApplied to Time")
 }
-func (r ImmunizationProtocolApplied) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to DateTime")
+func (r ImmunizationProtocolApplied) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImmunizationProtocolApplied to DateTime")
 }
-func (r ImmunizationProtocolApplied) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImmunizationProtocolApplied to Quantity")
+func (r ImmunizationProtocolApplied) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImmunizationProtocolApplied to Quantity")
 }
-func (r ImmunizationProtocolApplied) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImmunizationProtocolApplied) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImmunizationProtocolApplied
 	switch other := other.(type) {
 	case ImmunizationProtocolApplied:
@@ -6046,29 +5998,17 @@ func (r ImmunizationProtocolApplied) Equal(other fhirpath.Element, _noReverseTyp
 	case *ImmunizationProtocolApplied:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImmunizationProtocolApplied) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImmunizationProtocolApplied
-	switch other := other.(type) {
-	case ImmunizationProtocolApplied:
-		o = &other
-	case *ImmunizationProtocolApplied:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImmunizationProtocolApplied) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

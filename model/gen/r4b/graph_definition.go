@@ -3943,31 +3943,31 @@ func (r GraphDefinition) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r GraphDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GraphDefinition to Boolean")
+func (r GraphDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GraphDefinition to Boolean")
 }
-func (r GraphDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GraphDefinition to String")
+func (r GraphDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GraphDefinition to String")
 }
-func (r GraphDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GraphDefinition to Integer")
+func (r GraphDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GraphDefinition to Integer")
 }
-func (r GraphDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GraphDefinition to Decimal")
+func (r GraphDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinition to Decimal")
 }
-func (r GraphDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GraphDefinition to Date")
+func (r GraphDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GraphDefinition to Date")
 }
-func (r GraphDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GraphDefinition to Time")
+func (r GraphDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GraphDefinition to Time")
 }
-func (r GraphDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GraphDefinition to DateTime")
+func (r GraphDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GraphDefinition to DateTime")
 }
-func (r GraphDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GraphDefinition to Quantity")
+func (r GraphDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinition to Quantity")
 }
-func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GraphDefinition
 	switch other := other.(type) {
 	case GraphDefinition:
@@ -3975,29 +3975,17 @@ func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *GraphDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GraphDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GraphDefinition
-	switch other := other.(type) {
-	case GraphDefinition:
-		o = &other
-	case *GraphDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GraphDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4222,31 +4210,31 @@ func (r GraphDefinitionLink) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r GraphDefinitionLink) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to Boolean")
+func (r GraphDefinitionLink) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GraphDefinitionLink to Boolean")
 }
-func (r GraphDefinitionLink) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to String")
+func (r GraphDefinitionLink) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GraphDefinitionLink to String")
 }
-func (r GraphDefinitionLink) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to Integer")
+func (r GraphDefinitionLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GraphDefinitionLink to Integer")
 }
-func (r GraphDefinitionLink) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to Decimal")
+func (r GraphDefinitionLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinitionLink to Decimal")
 }
-func (r GraphDefinitionLink) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to Date")
+func (r GraphDefinitionLink) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GraphDefinitionLink to Date")
 }
-func (r GraphDefinitionLink) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to Time")
+func (r GraphDefinitionLink) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GraphDefinitionLink to Time")
 }
-func (r GraphDefinitionLink) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to DateTime")
+func (r GraphDefinitionLink) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GraphDefinitionLink to DateTime")
 }
-func (r GraphDefinitionLink) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GraphDefinitionLink to Quantity")
+func (r GraphDefinitionLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinitionLink to Quantity")
 }
-func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GraphDefinitionLink
 	switch other := other.(type) {
 	case GraphDefinitionLink:
@@ -4254,29 +4242,17 @@ func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *GraphDefinitionLink:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GraphDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GraphDefinitionLink
-	switch other := other.(type) {
-	case GraphDefinitionLink:
-		o = &other
-	case *GraphDefinitionLink:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GraphDefinitionLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4396,31 +4372,31 @@ func (r GraphDefinitionLinkTarget) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r GraphDefinitionLinkTarget) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Boolean")
+func (r GraphDefinitionLinkTarget) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GraphDefinitionLinkTarget to Boolean")
 }
-func (r GraphDefinitionLinkTarget) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to String")
+func (r GraphDefinitionLinkTarget) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GraphDefinitionLinkTarget to String")
 }
-func (r GraphDefinitionLinkTarget) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Integer")
+func (r GraphDefinitionLinkTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GraphDefinitionLinkTarget to Integer")
 }
-func (r GraphDefinitionLinkTarget) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Decimal")
+func (r GraphDefinitionLinkTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinitionLinkTarget to Decimal")
 }
-func (r GraphDefinitionLinkTarget) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Date")
+func (r GraphDefinitionLinkTarget) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GraphDefinitionLinkTarget to Date")
 }
-func (r GraphDefinitionLinkTarget) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Time")
+func (r GraphDefinitionLinkTarget) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GraphDefinitionLinkTarget to Time")
 }
-func (r GraphDefinitionLinkTarget) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to DateTime")
+func (r GraphDefinitionLinkTarget) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GraphDefinitionLinkTarget to DateTime")
 }
-func (r GraphDefinitionLinkTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTarget to Quantity")
+func (r GraphDefinitionLinkTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinitionLinkTarget to Quantity")
 }
-func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GraphDefinitionLinkTarget
 	switch other := other.(type) {
 	case GraphDefinitionLinkTarget:
@@ -4428,29 +4404,17 @@ func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeC
 	case *GraphDefinitionLinkTarget:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GraphDefinitionLinkTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GraphDefinitionLinkTarget
-	switch other := other.(type) {
-	case GraphDefinitionLinkTarget:
-		o = &other
-	case *GraphDefinitionLinkTarget:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GraphDefinitionLinkTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4559,31 +4523,31 @@ func (r GraphDefinitionLinkTargetCompartment) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r GraphDefinitionLinkTargetCompartment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Boolean")
+func (r GraphDefinitionLinkTargetCompartment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Boolean")
 }
-func (r GraphDefinitionLinkTargetCompartment) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to String")
+func (r GraphDefinitionLinkTargetCompartment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to String")
 }
-func (r GraphDefinitionLinkTargetCompartment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Integer")
+func (r GraphDefinitionLinkTargetCompartment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Integer")
 }
-func (r GraphDefinitionLinkTargetCompartment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Decimal")
+func (r GraphDefinitionLinkTargetCompartment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Decimal")
 }
-func (r GraphDefinitionLinkTargetCompartment) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Date")
+func (r GraphDefinitionLinkTargetCompartment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Date")
 }
-func (r GraphDefinitionLinkTargetCompartment) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Time")
+func (r GraphDefinitionLinkTargetCompartment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Time")
 }
-func (r GraphDefinitionLinkTargetCompartment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to DateTime")
+func (r GraphDefinitionLinkTargetCompartment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to DateTime")
 }
-func (r GraphDefinitionLinkTargetCompartment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Quantity")
+func (r GraphDefinitionLinkTargetCompartment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Quantity")
 }
-func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GraphDefinitionLinkTargetCompartment
 	switch other := other.(type) {
 	case GraphDefinitionLinkTargetCompartment:
@@ -4591,29 +4555,17 @@ func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noR
 	case *GraphDefinitionLinkTargetCompartment:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GraphDefinitionLinkTargetCompartment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GraphDefinitionLinkTargetCompartment
-	switch other := other.(type) {
-	case GraphDefinitionLinkTargetCompartment:
-		o = &other
-	case *GraphDefinitionLinkTargetCompartment:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GraphDefinitionLinkTargetCompartment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

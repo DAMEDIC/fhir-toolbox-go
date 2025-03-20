@@ -2899,31 +2899,31 @@ func (r SubstanceNucleicAcid) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SubstanceNucleicAcid) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to Boolean")
+func (r SubstanceNucleicAcid) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceNucleicAcid to Boolean")
 }
-func (r SubstanceNucleicAcid) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to String")
+func (r SubstanceNucleicAcid) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceNucleicAcid to String")
 }
-func (r SubstanceNucleicAcid) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to Integer")
+func (r SubstanceNucleicAcid) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceNucleicAcid to Integer")
 }
-func (r SubstanceNucleicAcid) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to Decimal")
+func (r SubstanceNucleicAcid) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcid to Decimal")
 }
-func (r SubstanceNucleicAcid) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to Date")
+func (r SubstanceNucleicAcid) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceNucleicAcid to Date")
 }
-func (r SubstanceNucleicAcid) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to Time")
+func (r SubstanceNucleicAcid) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceNucleicAcid to Time")
 }
-func (r SubstanceNucleicAcid) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to DateTime")
+func (r SubstanceNucleicAcid) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceNucleicAcid to DateTime")
 }
-func (r SubstanceNucleicAcid) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcid to Quantity")
+func (r SubstanceNucleicAcid) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcid to Quantity")
 }
-func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceNucleicAcid
 	switch other := other.(type) {
 	case SubstanceNucleicAcid:
@@ -2931,29 +2931,17 @@ func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *SubstanceNucleicAcid:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceNucleicAcid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceNucleicAcid
-	switch other := other.(type) {
-	case SubstanceNucleicAcid:
-		o = &other
-	case *SubstanceNucleicAcid:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceNucleicAcid) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3118,31 +3106,31 @@ func (r SubstanceNucleicAcidSubunit) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r SubstanceNucleicAcidSubunit) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Boolean")
+func (r SubstanceNucleicAcidSubunit) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Boolean")
 }
-func (r SubstanceNucleicAcidSubunit) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to String")
+func (r SubstanceNucleicAcidSubunit) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceNucleicAcidSubunit to String")
 }
-func (r SubstanceNucleicAcidSubunit) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Integer")
+func (r SubstanceNucleicAcidSubunit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Integer")
 }
-func (r SubstanceNucleicAcidSubunit) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Decimal")
+func (r SubstanceNucleicAcidSubunit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Decimal")
 }
-func (r SubstanceNucleicAcidSubunit) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Date")
+func (r SubstanceNucleicAcidSubunit) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Date")
 }
-func (r SubstanceNucleicAcidSubunit) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Time")
+func (r SubstanceNucleicAcidSubunit) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Time")
 }
-func (r SubstanceNucleicAcidSubunit) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to DateTime")
+func (r SubstanceNucleicAcidSubunit) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceNucleicAcidSubunit to DateTime")
 }
-func (r SubstanceNucleicAcidSubunit) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunit to Quantity")
+func (r SubstanceNucleicAcidSubunit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Quantity")
 }
-func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceNucleicAcidSubunit
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunit:
@@ -3150,29 +3138,17 @@ func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTyp
 	case *SubstanceNucleicAcidSubunit:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceNucleicAcidSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceNucleicAcidSubunit
-	switch other := other.(type) {
-	case SubstanceNucleicAcidSubunit:
-		o = &other
-	case *SubstanceNucleicAcidSubunit:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceNucleicAcidSubunit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3303,31 +3279,31 @@ func (r SubstanceNucleicAcidSubunitLinkage) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Boolean")
+func (r SubstanceNucleicAcidSubunitLinkage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Boolean")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to String")
+func (r SubstanceNucleicAcidSubunitLinkage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to String")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Integer")
+func (r SubstanceNucleicAcidSubunitLinkage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Integer")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Decimal")
+func (r SubstanceNucleicAcidSubunitLinkage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Decimal")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Date")
+func (r SubstanceNucleicAcidSubunitLinkage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Date")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Time")
+func (r SubstanceNucleicAcidSubunitLinkage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Time")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to DateTime")
+func (r SubstanceNucleicAcidSubunitLinkage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to DateTime")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Quantity")
+func (r SubstanceNucleicAcidSubunitLinkage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Quantity")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceNucleicAcidSubunitLinkage
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitLinkage:
@@ -3335,29 +3311,17 @@ func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noRev
 	case *SubstanceNucleicAcidSubunitLinkage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceNucleicAcidSubunitLinkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceNucleicAcidSubunitLinkage
-	switch other := other.(type) {
-	case SubstanceNucleicAcidSubunitLinkage:
-		o = &other
-	case *SubstanceNucleicAcidSubunitLinkage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceNucleicAcidSubunitLinkage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3455,31 +3419,31 @@ func (r SubstanceNucleicAcidSubunitSugar) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Boolean")
+func (r SubstanceNucleicAcidSubunitSugar) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Boolean")
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to String")
+func (r SubstanceNucleicAcidSubunitSugar) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to String")
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Integer")
+func (r SubstanceNucleicAcidSubunitSugar) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Integer")
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Decimal")
+func (r SubstanceNucleicAcidSubunitSugar) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Decimal")
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Date")
+func (r SubstanceNucleicAcidSubunitSugar) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Date")
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Time")
+func (r SubstanceNucleicAcidSubunitSugar) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Time")
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to DateTime")
+func (r SubstanceNucleicAcidSubunitSugar) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to DateTime")
 }
-func (r SubstanceNucleicAcidSubunitSugar) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Quantity")
+func (r SubstanceNucleicAcidSubunitSugar) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Quantity")
 }
-func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SubstanceNucleicAcidSubunitSugar
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitSugar:
@@ -3487,29 +3451,17 @@ func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noRever
 	case *SubstanceNucleicAcidSubunitSugar:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SubstanceNucleicAcidSubunitSugar) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SubstanceNucleicAcidSubunitSugar
-	switch other := other.(type) {
-	case SubstanceNucleicAcidSubunitSugar:
-		o = &other
-	case *SubstanceNucleicAcidSubunitSugar:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SubstanceNucleicAcidSubunitSugar) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

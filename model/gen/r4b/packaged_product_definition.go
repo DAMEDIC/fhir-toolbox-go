@@ -4896,31 +4896,31 @@ func (r PackagedProductDefinition) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r PackagedProductDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to Boolean")
+func (r PackagedProductDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PackagedProductDefinition to Boolean")
 }
-func (r PackagedProductDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to String")
+func (r PackagedProductDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PackagedProductDefinition to String")
 }
-func (r PackagedProductDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to Integer")
+func (r PackagedProductDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PackagedProductDefinition to Integer")
 }
-func (r PackagedProductDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to Decimal")
+func (r PackagedProductDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinition to Decimal")
 }
-func (r PackagedProductDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to Date")
+func (r PackagedProductDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PackagedProductDefinition to Date")
 }
-func (r PackagedProductDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to Time")
+func (r PackagedProductDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PackagedProductDefinition to Time")
 }
-func (r PackagedProductDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to DateTime")
+func (r PackagedProductDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PackagedProductDefinition to DateTime")
 }
-func (r PackagedProductDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PackagedProductDefinition to Quantity")
+func (r PackagedProductDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinition to Quantity")
 }
-func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PackagedProductDefinition
 	switch other := other.(type) {
 	case PackagedProductDefinition:
@@ -4928,29 +4928,17 @@ func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	case *PackagedProductDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PackagedProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PackagedProductDefinition
-	switch other := other.(type) {
-	case PackagedProductDefinition:
-		o = &other
-	case *PackagedProductDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PackagedProductDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5148,31 +5136,31 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) Children(name ...string) f
 	}
 	return children
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Boolean")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Boolean")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to String")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to String")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Integer")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Integer")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Decimal")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Decimal")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Date")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Date")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Time")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Time")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to DateTime")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to DateTime")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Quantity")
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Quantity")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PackagedProductDefinitionLegalStatusOfSupply
 	switch other := other.(type) {
 	case PackagedProductDefinitionLegalStatusOfSupply:
@@ -5180,29 +5168,17 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Eleme
 	case *PackagedProductDefinitionLegalStatusOfSupply:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PackagedProductDefinitionLegalStatusOfSupply
-	switch other := other.(type) {
-	case PackagedProductDefinitionLegalStatusOfSupply:
-		o = &other
-	case *PackagedProductDefinitionLegalStatusOfSupply:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5321,31 +5297,31 @@ func (r PackagedProductDefinitionPackage) Children(name ...string) fhirpath.Coll
 	}
 	return children
 }
-func (r PackagedProductDefinitionPackage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to Boolean")
+func (r PackagedProductDefinitionPackage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PackagedProductDefinitionPackage to Boolean")
 }
-func (r PackagedProductDefinitionPackage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to String")
+func (r PackagedProductDefinitionPackage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PackagedProductDefinitionPackage to String")
 }
-func (r PackagedProductDefinitionPackage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to Integer")
+func (r PackagedProductDefinitionPackage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PackagedProductDefinitionPackage to Integer")
 }
-func (r PackagedProductDefinitionPackage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to Decimal")
+func (r PackagedProductDefinitionPackage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackage to Decimal")
 }
-func (r PackagedProductDefinitionPackage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to Date")
+func (r PackagedProductDefinitionPackage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PackagedProductDefinitionPackage to Date")
 }
-func (r PackagedProductDefinitionPackage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to Time")
+func (r PackagedProductDefinitionPackage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PackagedProductDefinitionPackage to Time")
 }
-func (r PackagedProductDefinitionPackage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to DateTime")
+func (r PackagedProductDefinitionPackage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PackagedProductDefinitionPackage to DateTime")
 }
-func (r PackagedProductDefinitionPackage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackage to Quantity")
+func (r PackagedProductDefinitionPackage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackage to Quantity")
 }
-func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PackagedProductDefinitionPackage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackage:
@@ -5353,29 +5329,17 @@ func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noRever
 	case *PackagedProductDefinitionPackage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PackagedProductDefinitionPackage
-	switch other := other.(type) {
-	case PackagedProductDefinitionPackage:
-		o = &other
-	case *PackagedProductDefinitionPackage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PackagedProductDefinitionPackage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5515,31 +5479,31 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) Children(name ...strin
 	}
 	return children
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Boolean")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Boolean")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to String")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to String")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Integer")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Integer")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Decimal")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Decimal")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Date")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Date")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Time")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Time")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to DateTime")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to DateTime")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Quantity")
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Quantity")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PackagedProductDefinitionPackageShelfLifeStorage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageShelfLifeStorage:
@@ -5547,29 +5511,17 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.E
 	case *PackagedProductDefinitionPackageShelfLifeStorage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackageShelfLifeStorage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PackagedProductDefinitionPackageShelfLifeStorage
-	switch other := other.(type) {
-	case PackagedProductDefinitionPackageShelfLifeStorage:
-		o = &other
-	case *PackagedProductDefinitionPackageShelfLifeStorage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PackagedProductDefinitionPackageShelfLifeStorage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5653,31 +5605,31 @@ func (r PackagedProductDefinitionPackageProperty) Children(name ...string) fhirp
 	}
 	return children
 }
-func (r PackagedProductDefinitionPackageProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to Boolean")
+func (r PackagedProductDefinitionPackageProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Boolean")
 }
-func (r PackagedProductDefinitionPackageProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to String")
+func (r PackagedProductDefinitionPackageProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PackagedProductDefinitionPackageProperty to String")
 }
-func (r PackagedProductDefinitionPackageProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to Integer")
+func (r PackagedProductDefinitionPackageProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Integer")
 }
-func (r PackagedProductDefinitionPackageProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to Decimal")
+func (r PackagedProductDefinitionPackageProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Decimal")
 }
-func (r PackagedProductDefinitionPackageProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to Date")
+func (r PackagedProductDefinitionPackageProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Date")
 }
-func (r PackagedProductDefinitionPackageProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to Time")
+func (r PackagedProductDefinitionPackageProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Time")
 }
-func (r PackagedProductDefinitionPackageProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to DateTime")
+func (r PackagedProductDefinitionPackageProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to DateTime")
 }
-func (r PackagedProductDefinitionPackageProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageProperty to Quantity")
+func (r PackagedProductDefinitionPackageProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Quantity")
 }
-func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PackagedProductDefinitionPackageProperty
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageProperty:
@@ -5685,29 +5637,17 @@ func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, 
 	case *PackagedProductDefinitionPackageProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackageProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PackagedProductDefinitionPackageProperty
-	switch other := other.(type) {
-	case PackagedProductDefinitionPackageProperty:
-		o = &other
-	case *PackagedProductDefinitionPackageProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PackagedProductDefinitionPackageProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -5784,31 +5724,31 @@ func (r PackagedProductDefinitionPackageContainedItem) Children(name ...string) 
 	}
 	return children
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Boolean")
+func (r PackagedProductDefinitionPackageContainedItem) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Boolean")
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to String")
+func (r PackagedProductDefinitionPackageContainedItem) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to String")
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Integer")
+func (r PackagedProductDefinitionPackageContainedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Integer")
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Decimal")
+func (r PackagedProductDefinitionPackageContainedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Decimal")
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Date")
+func (r PackagedProductDefinitionPackageContainedItem) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Date")
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Time")
+func (r PackagedProductDefinitionPackageContainedItem) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Time")
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to DateTime")
+func (r PackagedProductDefinitionPackageContainedItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to DateTime")
 }
-func (r PackagedProductDefinitionPackageContainedItem) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Quantity")
+func (r PackagedProductDefinitionPackageContainedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Quantity")
 }
-func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *PackagedProductDefinitionPackageContainedItem
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageContainedItem:
@@ -5816,29 +5756,17 @@ func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Elem
 	case *PackagedProductDefinitionPackageContainedItem:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackageContainedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *PackagedProductDefinitionPackageContainedItem
-	switch other := other.(type) {
-	case PackagedProductDefinitionPackageContainedItem:
-		o = &other
-	case *PackagedProductDefinitionPackageContainedItem:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r PackagedProductDefinitionPackageContainedItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

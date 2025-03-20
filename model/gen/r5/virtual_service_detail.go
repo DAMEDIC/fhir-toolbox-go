@@ -997,31 +997,31 @@ func (r VirtualServiceDetail) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r VirtualServiceDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to Boolean")
+func (r VirtualServiceDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VirtualServiceDetail to Boolean")
 }
-func (r VirtualServiceDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to String")
+func (r VirtualServiceDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VirtualServiceDetail to String")
 }
-func (r VirtualServiceDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to Integer")
+func (r VirtualServiceDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VirtualServiceDetail to Integer")
 }
-func (r VirtualServiceDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to Decimal")
+func (r VirtualServiceDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VirtualServiceDetail to Decimal")
 }
-func (r VirtualServiceDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to Date")
+func (r VirtualServiceDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VirtualServiceDetail to Date")
 }
-func (r VirtualServiceDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to Time")
+func (r VirtualServiceDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VirtualServiceDetail to Time")
 }
-func (r VirtualServiceDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to DateTime")
+func (r VirtualServiceDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VirtualServiceDetail to DateTime")
 }
-func (r VirtualServiceDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert VirtualServiceDetail to Quantity")
+func (r VirtualServiceDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VirtualServiceDetail to Quantity")
 }
-func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *VirtualServiceDetail
 	switch other := other.(type) {
 	case VirtualServiceDetail:
@@ -1029,29 +1029,17 @@ func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConver
 	case *VirtualServiceDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r VirtualServiceDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *VirtualServiceDetail
-	switch other := other.(type) {
-	case VirtualServiceDetail:
-		o = &other
-	case *VirtualServiceDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r VirtualServiceDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

@@ -2118,31 +2118,31 @@ func (r BiologicallyDerivedProductDispense) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r BiologicallyDerivedProductDispense) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Boolean")
+func (r BiologicallyDerivedProductDispense) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BiologicallyDerivedProductDispense to Boolean")
 }
-func (r BiologicallyDerivedProductDispense) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to String")
+func (r BiologicallyDerivedProductDispense) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BiologicallyDerivedProductDispense to String")
 }
-func (r BiologicallyDerivedProductDispense) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Integer")
+func (r BiologicallyDerivedProductDispense) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BiologicallyDerivedProductDispense to Integer")
 }
-func (r BiologicallyDerivedProductDispense) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Decimal")
+func (r BiologicallyDerivedProductDispense) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductDispense to Decimal")
 }
-func (r BiologicallyDerivedProductDispense) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Date")
+func (r BiologicallyDerivedProductDispense) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BiologicallyDerivedProductDispense to Date")
 }
-func (r BiologicallyDerivedProductDispense) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Time")
+func (r BiologicallyDerivedProductDispense) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BiologicallyDerivedProductDispense to Time")
 }
-func (r BiologicallyDerivedProductDispense) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to DateTime")
+func (r BiologicallyDerivedProductDispense) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BiologicallyDerivedProductDispense to DateTime")
 }
-func (r BiologicallyDerivedProductDispense) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispense to Quantity")
+func (r BiologicallyDerivedProductDispense) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductDispense to Quantity")
 }
-func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BiologicallyDerivedProductDispense
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispense:
@@ -2150,29 +2150,17 @@ func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noRev
 	case *BiologicallyDerivedProductDispense:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BiologicallyDerivedProductDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BiologicallyDerivedProductDispense
-	switch other := other.(type) {
-	case BiologicallyDerivedProductDispense:
-		o = &other
-	case *BiologicallyDerivedProductDispense:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BiologicallyDerivedProductDispense) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2382,31 +2370,31 @@ func (r BiologicallyDerivedProductDispensePerformer) Children(name ...string) fh
 	}
 	return children
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Boolean")
+func (r BiologicallyDerivedProductDispensePerformer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Boolean")
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to String")
+func (r BiologicallyDerivedProductDispensePerformer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to String")
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Integer")
+func (r BiologicallyDerivedProductDispensePerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Integer")
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Decimal")
+func (r BiologicallyDerivedProductDispensePerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Decimal")
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Date")
+func (r BiologicallyDerivedProductDispensePerformer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Date")
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Time")
+func (r BiologicallyDerivedProductDispensePerformer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Time")
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to DateTime")
+func (r BiologicallyDerivedProductDispensePerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to DateTime")
 }
-func (r BiologicallyDerivedProductDispensePerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Quantity")
+func (r BiologicallyDerivedProductDispensePerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Quantity")
 }
-func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *BiologicallyDerivedProductDispensePerformer
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispensePerformer:
@@ -2414,29 +2402,17 @@ func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Elemen
 	case *BiologicallyDerivedProductDispensePerformer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r BiologicallyDerivedProductDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *BiologicallyDerivedProductDispensePerformer
-	switch other := other.(type) {
-	case BiologicallyDerivedProductDispensePerformer:
-		o = &other
-	case *BiologicallyDerivedProductDispensePerformer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r BiologicallyDerivedProductDispensePerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

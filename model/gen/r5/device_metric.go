@@ -1810,31 +1810,31 @@ func (r DeviceMetric) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DeviceMetric) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DeviceMetric to Boolean")
+func (r DeviceMetric) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DeviceMetric to Boolean")
 }
-func (r DeviceMetric) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DeviceMetric to String")
+func (r DeviceMetric) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DeviceMetric to String")
 }
-func (r DeviceMetric) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DeviceMetric to Integer")
+func (r DeviceMetric) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DeviceMetric to Integer")
 }
-func (r DeviceMetric) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DeviceMetric to Decimal")
+func (r DeviceMetric) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceMetric to Decimal")
 }
-func (r DeviceMetric) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DeviceMetric to Date")
+func (r DeviceMetric) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DeviceMetric to Date")
 }
-func (r DeviceMetric) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DeviceMetric to Time")
+func (r DeviceMetric) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DeviceMetric to Time")
 }
-func (r DeviceMetric) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DeviceMetric to DateTime")
+func (r DeviceMetric) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DeviceMetric to DateTime")
 }
-func (r DeviceMetric) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DeviceMetric to Quantity")
+func (r DeviceMetric) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceMetric to Quantity")
 }
-func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DeviceMetric
 	switch other := other.(type) {
 	case DeviceMetric:
@@ -1842,29 +1842,17 @@ func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *DeviceMetric:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DeviceMetric) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DeviceMetric
-	switch other := other.(type) {
-	case DeviceMetric:
-		o = &other
-	case *DeviceMetric:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DeviceMetric) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2032,31 +2020,31 @@ func (r DeviceMetricCalibration) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r DeviceMetricCalibration) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to Boolean")
+func (r DeviceMetricCalibration) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert DeviceMetricCalibration to Boolean")
 }
-func (r DeviceMetricCalibration) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to String")
+func (r DeviceMetricCalibration) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert DeviceMetricCalibration to String")
 }
-func (r DeviceMetricCalibration) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to Integer")
+func (r DeviceMetricCalibration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert DeviceMetricCalibration to Integer")
 }
-func (r DeviceMetricCalibration) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to Decimal")
+func (r DeviceMetricCalibration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceMetricCalibration to Decimal")
 }
-func (r DeviceMetricCalibration) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to Date")
+func (r DeviceMetricCalibration) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert DeviceMetricCalibration to Date")
 }
-func (r DeviceMetricCalibration) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to Time")
+func (r DeviceMetricCalibration) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert DeviceMetricCalibration to Time")
 }
-func (r DeviceMetricCalibration) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to DateTime")
+func (r DeviceMetricCalibration) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert DeviceMetricCalibration to DateTime")
 }
-func (r DeviceMetricCalibration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert DeviceMetricCalibration to Quantity")
+func (r DeviceMetricCalibration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceMetricCalibration to Quantity")
 }
-func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *DeviceMetricCalibration
 	switch other := other.(type) {
 	case DeviceMetricCalibration:
@@ -2064,29 +2052,17 @@ func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *DeviceMetricCalibration:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r DeviceMetricCalibration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *DeviceMetricCalibration
-	switch other := other.(type) {
-	case DeviceMetricCalibration:
-		o = &other
-	case *DeviceMetricCalibration:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r DeviceMetricCalibration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

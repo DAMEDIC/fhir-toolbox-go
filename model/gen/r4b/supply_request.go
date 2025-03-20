@@ -2642,31 +2642,31 @@ func (r SupplyRequest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SupplyRequest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SupplyRequest to Boolean")
+func (r SupplyRequest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SupplyRequest to Boolean")
 }
-func (r SupplyRequest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SupplyRequest to String")
+func (r SupplyRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SupplyRequest to String")
 }
-func (r SupplyRequest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SupplyRequest to Integer")
+func (r SupplyRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SupplyRequest to Integer")
 }
-func (r SupplyRequest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SupplyRequest to Decimal")
+func (r SupplyRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyRequest to Decimal")
 }
-func (r SupplyRequest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SupplyRequest to Date")
+func (r SupplyRequest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SupplyRequest to Date")
 }
-func (r SupplyRequest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SupplyRequest to Time")
+func (r SupplyRequest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SupplyRequest to Time")
 }
-func (r SupplyRequest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SupplyRequest to DateTime")
+func (r SupplyRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SupplyRequest to DateTime")
 }
-func (r SupplyRequest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SupplyRequest to Quantity")
+func (r SupplyRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SupplyRequest to Quantity")
 }
-func (r SupplyRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SupplyRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SupplyRequest
 	switch other := other.(type) {
 	case SupplyRequest:
@@ -2674,29 +2674,17 @@ func (r SupplyRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *SupplyRequest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SupplyRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SupplyRequest
-	switch other := other.(type) {
-	case SupplyRequest:
-		o = &other
-	case *SupplyRequest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SupplyRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2901,31 +2889,31 @@ func (r SupplyRequestParameter) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r SupplyRequestParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to Boolean")
+func (r SupplyRequestParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SupplyRequestParameter to Boolean")
 }
-func (r SupplyRequestParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to String")
+func (r SupplyRequestParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SupplyRequestParameter to String")
 }
-func (r SupplyRequestParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to Integer")
+func (r SupplyRequestParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SupplyRequestParameter to Integer")
 }
-func (r SupplyRequestParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to Decimal")
+func (r SupplyRequestParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyRequestParameter to Decimal")
 }
-func (r SupplyRequestParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to Date")
+func (r SupplyRequestParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SupplyRequestParameter to Date")
 }
-func (r SupplyRequestParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to Time")
+func (r SupplyRequestParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SupplyRequestParameter to Time")
 }
-func (r SupplyRequestParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to DateTime")
+func (r SupplyRequestParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SupplyRequestParameter to DateTime")
 }
-func (r SupplyRequestParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert SupplyRequestParameter to Quantity")
+func (r SupplyRequestParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SupplyRequestParameter to Quantity")
 }
-func (r SupplyRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SupplyRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *SupplyRequestParameter
 	switch other := other.(type) {
 	case SupplyRequestParameter:
@@ -2933,29 +2921,17 @@ func (r SupplyRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *SupplyRequestParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r SupplyRequestParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *SupplyRequestParameter
-	switch other := other.(type) {
-	case SupplyRequestParameter:
-		o = &other
-	case *SupplyRequestParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r SupplyRequestParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

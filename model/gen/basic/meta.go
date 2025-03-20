@@ -500,31 +500,31 @@ func (r Meta) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Meta) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Meta to Boolean")
+func (r Meta) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Meta to Boolean")
 }
-func (r Meta) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Meta to String")
+func (r Meta) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Meta to String")
 }
-func (r Meta) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Meta to Integer")
+func (r Meta) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Meta to Integer")
 }
-func (r Meta) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Meta to Decimal")
+func (r Meta) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Meta to Decimal")
 }
-func (r Meta) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Meta to Date")
+func (r Meta) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Meta to Date")
 }
-func (r Meta) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Meta to Time")
+func (r Meta) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Meta to Time")
 }
-func (r Meta) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Meta to DateTime")
+func (r Meta) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Meta to DateTime")
 }
-func (r Meta) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Meta to Quantity")
+func (r Meta) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Meta to Quantity")
 }
-func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Meta
 	switch other := other.(type) {
 	case Meta:
@@ -532,29 +532,17 @@ func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	case *Meta:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Meta) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Meta
-	switch other := other.(type) {
-	case Meta:
-		o = &other
-	case *Meta:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Meta) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

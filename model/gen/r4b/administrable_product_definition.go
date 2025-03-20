@@ -3696,31 +3696,31 @@ func (r AdministrableProductDefinition) Children(name ...string) fhirpath.Collec
 	}
 	return children
 }
-func (r AdministrableProductDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to Boolean")
+func (r AdministrableProductDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdministrableProductDefinition to Boolean")
 }
-func (r AdministrableProductDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to String")
+func (r AdministrableProductDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdministrableProductDefinition to String")
 }
-func (r AdministrableProductDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to Integer")
+func (r AdministrableProductDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdministrableProductDefinition to Integer")
 }
-func (r AdministrableProductDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to Decimal")
+func (r AdministrableProductDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinition to Decimal")
 }
-func (r AdministrableProductDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to Date")
+func (r AdministrableProductDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdministrableProductDefinition to Date")
 }
-func (r AdministrableProductDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to Time")
+func (r AdministrableProductDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdministrableProductDefinition to Time")
 }
-func (r AdministrableProductDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to DateTime")
+func (r AdministrableProductDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdministrableProductDefinition to DateTime")
 }
-func (r AdministrableProductDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinition to Quantity")
+func (r AdministrableProductDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinition to Quantity")
 }
-func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdministrableProductDefinition
 	switch other := other.(type) {
 	case AdministrableProductDefinition:
@@ -3728,29 +3728,17 @@ func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverse
 	case *AdministrableProductDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdministrableProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdministrableProductDefinition
-	switch other := other.(type) {
-	case AdministrableProductDefinition:
-		o = &other
-	case *AdministrableProductDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdministrableProductDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3923,31 +3911,31 @@ func (r AdministrableProductDefinitionProperty) Children(name ...string) fhirpat
 	}
 	return children
 }
-func (r AdministrableProductDefinitionProperty) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Boolean")
+func (r AdministrableProductDefinitionProperty) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdministrableProductDefinitionProperty to Boolean")
 }
-func (r AdministrableProductDefinitionProperty) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to String")
+func (r AdministrableProductDefinitionProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdministrableProductDefinitionProperty to String")
 }
-func (r AdministrableProductDefinitionProperty) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Integer")
+func (r AdministrableProductDefinitionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdministrableProductDefinitionProperty to Integer")
 }
-func (r AdministrableProductDefinitionProperty) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Decimal")
+func (r AdministrableProductDefinitionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionProperty to Decimal")
 }
-func (r AdministrableProductDefinitionProperty) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Date")
+func (r AdministrableProductDefinitionProperty) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdministrableProductDefinitionProperty to Date")
 }
-func (r AdministrableProductDefinitionProperty) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Time")
+func (r AdministrableProductDefinitionProperty) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdministrableProductDefinitionProperty to Time")
 }
-func (r AdministrableProductDefinitionProperty) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to DateTime")
+func (r AdministrableProductDefinitionProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdministrableProductDefinitionProperty to DateTime")
 }
-func (r AdministrableProductDefinitionProperty) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionProperty to Quantity")
+func (r AdministrableProductDefinitionProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionProperty to Quantity")
 }
-func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdministrableProductDefinitionProperty
 	switch other := other.(type) {
 	case AdministrableProductDefinitionProperty:
@@ -3955,29 +3943,17 @@ func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _n
 	case *AdministrableProductDefinitionProperty:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdministrableProductDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdministrableProductDefinitionProperty
-	switch other := other.(type) {
-	case AdministrableProductDefinitionProperty:
-		o = &other
-	case *AdministrableProductDefinitionProperty:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdministrableProductDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4086,31 +4062,31 @@ func (r AdministrableProductDefinitionRouteOfAdministration) Children(name ...st
 	}
 	return children
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Boolean")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Boolean")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to String")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to String")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Integer")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Integer")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Decimal")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Decimal")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Date")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Date")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Time")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Time")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to DateTime")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to DateTime")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Quantity")
+func (r AdministrableProductDefinitionRouteOfAdministration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Quantity")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdministrableProductDefinitionRouteOfAdministration
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministration:
@@ -4118,29 +4094,17 @@ func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpat
 	case *AdministrableProductDefinitionRouteOfAdministration:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdministrableProductDefinitionRouteOfAdministration
-	switch other := other.(type) {
-	case AdministrableProductDefinitionRouteOfAdministration:
-		o = &other
-	case *AdministrableProductDefinitionRouteOfAdministration:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4252,31 +4216,31 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Childr
 	}
 	return children
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Boolean")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Boolean")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to String")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to String")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Integer")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Integer")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Decimal")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Decimal")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Date")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Date")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Time")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Time")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to DateTime")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to DateTime")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Quantity")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Quantity")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
@@ -4284,29 +4248,17 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(
 	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
-	switch other := other.(type) {
-	case AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
-		o = &other
-	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4386,31 +4338,31 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 	}
 	return children
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Boolean")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Boolean")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to String")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to String")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Integer")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Integer")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Decimal")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Decimal")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Date")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Date")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Time")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Time")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to DateTime")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to DateTime")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
@@ -4418,29 +4370,17 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
-	switch other := other.(type) {
-	case AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = &other
-	case *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

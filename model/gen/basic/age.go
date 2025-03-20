@@ -402,31 +402,31 @@ func (r Age) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Age) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Age to Boolean")
+func (r Age) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Age to Boolean")
 }
-func (r Age) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Age to String")
+func (r Age) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Age to String")
 }
-func (r Age) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Age to Integer")
+func (r Age) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Age to Integer")
 }
-func (r Age) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Age to Decimal")
+func (r Age) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Age to Decimal")
 }
-func (r Age) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Age to Date")
+func (r Age) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Age to Date")
 }
-func (r Age) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Age to Time")
+func (r Age) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Age to Time")
 }
-func (r Age) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Age to DateTime")
+func (r Age) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Age to DateTime")
 }
-func (r Age) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Age to Quantity")
+func (r Age) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Age to Quantity")
 }
-func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Age
 	switch other := other.(type) {
 	case Age:
@@ -434,29 +434,17 @@ func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) boo
 	case *Age:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Age) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Age
-	switch other := other.(type) {
-	case Age:
-		o = &other
-	case *Age:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Age) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

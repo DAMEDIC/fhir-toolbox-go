@@ -93,73 +93,54 @@ func (r Date) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Date) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Date to Boolean")
+func (r Date) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Date to Boolean")
 }
-func (r Date) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Date to String")
+func (r Date) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Date to String")
 }
-func (r Date) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Date to Integer")
+func (r Date) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Date to Integer")
 }
-func (r Date) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Date to Decimal")
+func (r Date) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Date to Decimal")
 }
-func (r Date) ToDate(explicit bool) (*fhirpath.Date, error) {
+func (r Date) ToDate(explicit bool) (fhirpath.Date, bool, error) {
 	if r.Value != nil {
 		v, err := fhirpath.ParseDate(*r.Value)
-		return &v, err
+		return v, true, err
 	} else {
-		return nil, nil
+		return fhirpath.Date{}, false, nil
 	}
 }
-func (r Date) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Date to Time")
+func (r Date) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Date to Time")
 }
-func (r Date) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+func (r Date) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 	if r.Value != nil {
 		v, err := fhirpath.ParseDateTime(*r.Value)
-		return &v, err
+		return v, true, err
 	} else {
-		return nil, nil
+		return fhirpath.DateTime{}, false, nil
 	}
 }
-func (r Date) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Date to Quantity")
+func (r Date) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Date to Quantity")
 }
-func (r Date) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToDateTime(false)
-	if err != nil {
-		return false
+func (r Date) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToDateTime(false)
+	if err != nil || !ok {
+		return false, true
 	}
-	b, err := other.ToDateTime(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
+	b, ok, err := other.ToDateTime(false)
+	if err != nil || !ok {
+		return false, true
 	}
 	return a.Equal(b)
 }
 func (r Date) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToDateTime(false)
-	if err != nil {
-		return false
-	}
-	b, err := other.ToDateTime(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
-	}
-	return a.Equivalent(b)
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Date) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -183,7 +164,7 @@ func (r Date) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "Date",
+			Name:      "date",
 			Namespace: "FHIR",
 		},
 	}

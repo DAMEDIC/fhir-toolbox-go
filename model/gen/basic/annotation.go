@@ -388,31 +388,31 @@ func (r Annotation) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Annotation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Annotation to Boolean")
+func (r Annotation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Annotation to Boolean")
 }
-func (r Annotation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Annotation to String")
+func (r Annotation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Annotation to String")
 }
-func (r Annotation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Annotation to Integer")
+func (r Annotation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Annotation to Integer")
 }
-func (r Annotation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Annotation to Decimal")
+func (r Annotation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Annotation to Decimal")
 }
-func (r Annotation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Annotation to Date")
+func (r Annotation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Annotation to Date")
 }
-func (r Annotation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Annotation to Time")
+func (r Annotation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Annotation to Time")
 }
-func (r Annotation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Annotation to DateTime")
+func (r Annotation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Annotation to DateTime")
 }
-func (r Annotation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Annotation to Quantity")
+func (r Annotation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Annotation to Quantity")
 }
-func (r Annotation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Annotation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Annotation
 	switch other := other.(type) {
 	case Annotation:
@@ -420,29 +420,17 @@ func (r Annotation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *Annotation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Annotation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Annotation
-	switch other := other.(type) {
-	case Annotation:
-		o = &other
-	case *Annotation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Annotation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

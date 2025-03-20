@@ -9022,31 +9022,31 @@ func (r ImplementationGuide) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImplementationGuide) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuide to Boolean")
+func (r ImplementationGuide) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuide to Boolean")
 }
-func (r ImplementationGuide) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuide to String")
+func (r ImplementationGuide) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuide to String")
 }
-func (r ImplementationGuide) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuide to Integer")
+func (r ImplementationGuide) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuide to Integer")
 }
-func (r ImplementationGuide) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuide to Decimal")
+func (r ImplementationGuide) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuide to Decimal")
 }
-func (r ImplementationGuide) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuide to Date")
+func (r ImplementationGuide) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuide to Date")
 }
-func (r ImplementationGuide) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuide to Time")
+func (r ImplementationGuide) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuide to Time")
 }
-func (r ImplementationGuide) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuide to DateTime")
+func (r ImplementationGuide) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuide to DateTime")
 }
-func (r ImplementationGuide) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuide to Quantity")
+func (r ImplementationGuide) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuide to Quantity")
 }
-func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuide
 	switch other := other.(type) {
 	case ImplementationGuide:
@@ -9054,29 +9054,17 @@ func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *ImplementationGuide:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuide) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuide
-	switch other := other.(type) {
-	case ImplementationGuide:
-		o = &other
-	case *ImplementationGuide:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuide) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9319,31 +9307,31 @@ func (r ImplementationGuideDependsOn) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r ImplementationGuideDependsOn) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to Boolean")
+func (r ImplementationGuideDependsOn) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDependsOn to Boolean")
 }
-func (r ImplementationGuideDependsOn) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to String")
+func (r ImplementationGuideDependsOn) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDependsOn to String")
 }
-func (r ImplementationGuideDependsOn) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to Integer")
+func (r ImplementationGuideDependsOn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDependsOn to Integer")
 }
-func (r ImplementationGuideDependsOn) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to Decimal")
+func (r ImplementationGuideDependsOn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDependsOn to Decimal")
 }
-func (r ImplementationGuideDependsOn) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to Date")
+func (r ImplementationGuideDependsOn) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDependsOn to Date")
 }
-func (r ImplementationGuideDependsOn) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to Time")
+func (r ImplementationGuideDependsOn) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDependsOn to Time")
 }
-func (r ImplementationGuideDependsOn) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to DateTime")
+func (r ImplementationGuideDependsOn) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDependsOn to DateTime")
 }
-func (r ImplementationGuideDependsOn) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideDependsOn to Quantity")
+func (r ImplementationGuideDependsOn) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDependsOn to Quantity")
 }
-func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideDependsOn
 	switch other := other.(type) {
 	case ImplementationGuideDependsOn:
@@ -9351,29 +9339,17 @@ func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTy
 	case *ImplementationGuideDependsOn:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideDependsOn
-	switch other := other.(type) {
-	case ImplementationGuideDependsOn:
-		o = &other
-	case *ImplementationGuideDependsOn:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideDependsOn) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9455,31 +9431,31 @@ func (r ImplementationGuideGlobal) Children(name ...string) fhirpath.Collection 
 	}
 	return children
 }
-func (r ImplementationGuideGlobal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to Boolean")
+func (r ImplementationGuideGlobal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideGlobal to Boolean")
 }
-func (r ImplementationGuideGlobal) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to String")
+func (r ImplementationGuideGlobal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideGlobal to String")
 }
-func (r ImplementationGuideGlobal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to Integer")
+func (r ImplementationGuideGlobal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideGlobal to Integer")
 }
-func (r ImplementationGuideGlobal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to Decimal")
+func (r ImplementationGuideGlobal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideGlobal to Decimal")
 }
-func (r ImplementationGuideGlobal) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to Date")
+func (r ImplementationGuideGlobal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideGlobal to Date")
 }
-func (r ImplementationGuideGlobal) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to Time")
+func (r ImplementationGuideGlobal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideGlobal to Time")
 }
-func (r ImplementationGuideGlobal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to DateTime")
+func (r ImplementationGuideGlobal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideGlobal to DateTime")
 }
-func (r ImplementationGuideGlobal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideGlobal to Quantity")
+func (r ImplementationGuideGlobal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideGlobal to Quantity")
 }
-func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideGlobal
 	switch other := other.(type) {
 	case ImplementationGuideGlobal:
@@ -9487,29 +9463,17 @@ func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeC
 	case *ImplementationGuideGlobal:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideGlobal
-	switch other := other.(type) {
-	case ImplementationGuideGlobal:
-		o = &other
-	case *ImplementationGuideGlobal:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideGlobal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9603,31 +9567,31 @@ func (r ImplementationGuideDefinition) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r ImplementationGuideDefinition) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to Boolean")
+func (r ImplementationGuideDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinition to Boolean")
 }
-func (r ImplementationGuideDefinition) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to String")
+func (r ImplementationGuideDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinition to String")
 }
-func (r ImplementationGuideDefinition) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to Integer")
+func (r ImplementationGuideDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinition to Integer")
 }
-func (r ImplementationGuideDefinition) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to Decimal")
+func (r ImplementationGuideDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinition to Decimal")
 }
-func (r ImplementationGuideDefinition) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to Date")
+func (r ImplementationGuideDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinition to Date")
 }
-func (r ImplementationGuideDefinition) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to Time")
+func (r ImplementationGuideDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinition to Time")
 }
-func (r ImplementationGuideDefinition) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to DateTime")
+func (r ImplementationGuideDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinition to DateTime")
 }
-func (r ImplementationGuideDefinition) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinition to Quantity")
+func (r ImplementationGuideDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinition to Quantity")
 }
-func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideDefinition
 	switch other := other.(type) {
 	case ImplementationGuideDefinition:
@@ -9635,29 +9599,17 @@ func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseT
 	case *ImplementationGuideDefinition:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideDefinition
-	switch other := other.(type) {
-	case ImplementationGuideDefinition:
-		o = &other
-	case *ImplementationGuideDefinition:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9755,31 +9707,31 @@ func (r ImplementationGuideDefinitionGrouping) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r ImplementationGuideDefinitionGrouping) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to Boolean")
+func (r ImplementationGuideDefinitionGrouping) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Boolean")
 }
-func (r ImplementationGuideDefinitionGrouping) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to String")
+func (r ImplementationGuideDefinitionGrouping) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionGrouping to String")
 }
-func (r ImplementationGuideDefinitionGrouping) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to Integer")
+func (r ImplementationGuideDefinitionGrouping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Integer")
 }
-func (r ImplementationGuideDefinitionGrouping) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to Decimal")
+func (r ImplementationGuideDefinitionGrouping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Decimal")
 }
-func (r ImplementationGuideDefinitionGrouping) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to Date")
+func (r ImplementationGuideDefinitionGrouping) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Date")
 }
-func (r ImplementationGuideDefinitionGrouping) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to Time")
+func (r ImplementationGuideDefinitionGrouping) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Time")
 }
-func (r ImplementationGuideDefinitionGrouping) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to DateTime")
+func (r ImplementationGuideDefinitionGrouping) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to DateTime")
 }
-func (r ImplementationGuideDefinitionGrouping) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionGrouping to Quantity")
+func (r ImplementationGuideDefinitionGrouping) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Quantity")
 }
-func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideDefinitionGrouping
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionGrouping:
@@ -9787,29 +9739,17 @@ func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _no
 	case *ImplementationGuideDefinitionGrouping:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideDefinitionGrouping
-	switch other := other.(type) {
-	case ImplementationGuideDefinitionGrouping:
-		o = &other
-	case *ImplementationGuideDefinitionGrouping:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideDefinitionGrouping) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9906,31 +9846,31 @@ func (r ImplementationGuideDefinitionResource) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r ImplementationGuideDefinitionResource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to Boolean")
+func (r ImplementationGuideDefinitionResource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionResource to Boolean")
 }
-func (r ImplementationGuideDefinitionResource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to String")
+func (r ImplementationGuideDefinitionResource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionResource to String")
 }
-func (r ImplementationGuideDefinitionResource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to Integer")
+func (r ImplementationGuideDefinitionResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionResource to Integer")
 }
-func (r ImplementationGuideDefinitionResource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to Decimal")
+func (r ImplementationGuideDefinitionResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Decimal")
 }
-func (r ImplementationGuideDefinitionResource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to Date")
+func (r ImplementationGuideDefinitionResource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Date")
 }
-func (r ImplementationGuideDefinitionResource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to Time")
+func (r ImplementationGuideDefinitionResource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Time")
 }
-func (r ImplementationGuideDefinitionResource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to DateTime")
+func (r ImplementationGuideDefinitionResource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to DateTime")
 }
-func (r ImplementationGuideDefinitionResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionResource to Quantity")
+func (r ImplementationGuideDefinitionResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Quantity")
 }
-func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideDefinitionResource
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionResource:
@@ -9938,29 +9878,17 @@ func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _no
 	case *ImplementationGuideDefinitionResource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideDefinitionResource
-	switch other := other.(type) {
-	case ImplementationGuideDefinitionResource:
-		o = &other
-	case *ImplementationGuideDefinitionResource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideDefinitionResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10071,31 +9999,31 @@ func (r ImplementationGuideDefinitionPage) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r ImplementationGuideDefinitionPage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to Boolean")
+func (r ImplementationGuideDefinitionPage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionPage to Boolean")
 }
-func (r ImplementationGuideDefinitionPage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to String")
+func (r ImplementationGuideDefinitionPage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionPage to String")
 }
-func (r ImplementationGuideDefinitionPage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to Integer")
+func (r ImplementationGuideDefinitionPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionPage to Integer")
 }
-func (r ImplementationGuideDefinitionPage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to Decimal")
+func (r ImplementationGuideDefinitionPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Decimal")
 }
-func (r ImplementationGuideDefinitionPage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to Date")
+func (r ImplementationGuideDefinitionPage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Date")
 }
-func (r ImplementationGuideDefinitionPage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to Time")
+func (r ImplementationGuideDefinitionPage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Time")
 }
-func (r ImplementationGuideDefinitionPage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to DateTime")
+func (r ImplementationGuideDefinitionPage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to DateTime")
 }
-func (r ImplementationGuideDefinitionPage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionPage to Quantity")
+func (r ImplementationGuideDefinitionPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Quantity")
 }
-func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideDefinitionPage
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionPage:
@@ -10103,29 +10031,17 @@ func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReve
 	case *ImplementationGuideDefinitionPage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideDefinitionPage
-	switch other := other.(type) {
-	case ImplementationGuideDefinitionPage:
-		o = &other
-	case *ImplementationGuideDefinitionPage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideDefinitionPage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10214,31 +10130,31 @@ func (r ImplementationGuideDefinitionParameter) Children(name ...string) fhirpat
 	}
 	return children
 }
-func (r ImplementationGuideDefinitionParameter) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to Boolean")
+func (r ImplementationGuideDefinitionParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Boolean")
 }
-func (r ImplementationGuideDefinitionParameter) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to String")
+func (r ImplementationGuideDefinitionParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionParameter to String")
 }
-func (r ImplementationGuideDefinitionParameter) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to Integer")
+func (r ImplementationGuideDefinitionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Integer")
 }
-func (r ImplementationGuideDefinitionParameter) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to Decimal")
+func (r ImplementationGuideDefinitionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Decimal")
 }
-func (r ImplementationGuideDefinitionParameter) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to Date")
+func (r ImplementationGuideDefinitionParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Date")
 }
-func (r ImplementationGuideDefinitionParameter) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to Time")
+func (r ImplementationGuideDefinitionParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Time")
 }
-func (r ImplementationGuideDefinitionParameter) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to DateTime")
+func (r ImplementationGuideDefinitionParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to DateTime")
 }
-func (r ImplementationGuideDefinitionParameter) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionParameter to Quantity")
+func (r ImplementationGuideDefinitionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Quantity")
 }
-func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideDefinitionParameter
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionParameter:
@@ -10246,29 +10162,17 @@ func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _n
 	case *ImplementationGuideDefinitionParameter:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideDefinitionParameter
-	switch other := other.(type) {
-	case ImplementationGuideDefinitionParameter:
-		o = &other
-	case *ImplementationGuideDefinitionParameter:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10348,31 +10252,31 @@ func (r ImplementationGuideDefinitionTemplate) Children(name ...string) fhirpath
 	}
 	return children
 }
-func (r ImplementationGuideDefinitionTemplate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to Boolean")
+func (r ImplementationGuideDefinitionTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Boolean")
 }
-func (r ImplementationGuideDefinitionTemplate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to String")
+func (r ImplementationGuideDefinitionTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionTemplate to String")
 }
-func (r ImplementationGuideDefinitionTemplate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to Integer")
+func (r ImplementationGuideDefinitionTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Integer")
 }
-func (r ImplementationGuideDefinitionTemplate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to Decimal")
+func (r ImplementationGuideDefinitionTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Decimal")
 }
-func (r ImplementationGuideDefinitionTemplate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to Date")
+func (r ImplementationGuideDefinitionTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Date")
 }
-func (r ImplementationGuideDefinitionTemplate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to Time")
+func (r ImplementationGuideDefinitionTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Time")
 }
-func (r ImplementationGuideDefinitionTemplate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to DateTime")
+func (r ImplementationGuideDefinitionTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to DateTime")
 }
-func (r ImplementationGuideDefinitionTemplate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideDefinitionTemplate to Quantity")
+func (r ImplementationGuideDefinitionTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Quantity")
 }
-func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideDefinitionTemplate
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionTemplate:
@@ -10380,29 +10284,17 @@ func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _no
 	case *ImplementationGuideDefinitionTemplate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideDefinitionTemplate
-	switch other := other.(type) {
-	case ImplementationGuideDefinitionTemplate:
-		o = &other
-	case *ImplementationGuideDefinitionTemplate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideDefinitionTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10503,31 +10395,31 @@ func (r ImplementationGuideManifest) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ImplementationGuideManifest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to Boolean")
+func (r ImplementationGuideManifest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideManifest to Boolean")
 }
-func (r ImplementationGuideManifest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to String")
+func (r ImplementationGuideManifest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideManifest to String")
 }
-func (r ImplementationGuideManifest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to Integer")
+func (r ImplementationGuideManifest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideManifest to Integer")
 }
-func (r ImplementationGuideManifest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to Decimal")
+func (r ImplementationGuideManifest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifest to Decimal")
 }
-func (r ImplementationGuideManifest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to Date")
+func (r ImplementationGuideManifest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideManifest to Date")
 }
-func (r ImplementationGuideManifest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to Time")
+func (r ImplementationGuideManifest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideManifest to Time")
 }
-func (r ImplementationGuideManifest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to DateTime")
+func (r ImplementationGuideManifest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideManifest to DateTime")
 }
-func (r ImplementationGuideManifest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifest to Quantity")
+func (r ImplementationGuideManifest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifest to Quantity")
 }
-func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideManifest
 	switch other := other.(type) {
 	case ImplementationGuideManifest:
@@ -10535,29 +10427,17 @@ func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTyp
 	case *ImplementationGuideManifest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideManifest
-	switch other := other.(type) {
-	case ImplementationGuideManifest:
-		o = &other
-	case *ImplementationGuideManifest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideManifest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10660,31 +10540,31 @@ func (r ImplementationGuideManifestResource) Children(name ...string) fhirpath.C
 	}
 	return children
 }
-func (r ImplementationGuideManifestResource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to Boolean")
+func (r ImplementationGuideManifestResource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideManifestResource to Boolean")
 }
-func (r ImplementationGuideManifestResource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to String")
+func (r ImplementationGuideManifestResource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideManifestResource to String")
 }
-func (r ImplementationGuideManifestResource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to Integer")
+func (r ImplementationGuideManifestResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideManifestResource to Integer")
 }
-func (r ImplementationGuideManifestResource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to Decimal")
+func (r ImplementationGuideManifestResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestResource to Decimal")
 }
-func (r ImplementationGuideManifestResource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to Date")
+func (r ImplementationGuideManifestResource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideManifestResource to Date")
 }
-func (r ImplementationGuideManifestResource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to Time")
+func (r ImplementationGuideManifestResource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideManifestResource to Time")
 }
-func (r ImplementationGuideManifestResource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to DateTime")
+func (r ImplementationGuideManifestResource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideManifestResource to DateTime")
 }
-func (r ImplementationGuideManifestResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestResource to Quantity")
+func (r ImplementationGuideManifestResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestResource to Quantity")
 }
-func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideManifestResource
 	switch other := other.(type) {
 	case ImplementationGuideManifestResource:
@@ -10692,29 +10572,17 @@ func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noRe
 	case *ImplementationGuideManifestResource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideManifestResource
-	switch other := other.(type) {
-	case ImplementationGuideManifestResource:
-		o = &other
-	case *ImplementationGuideManifestResource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideManifestResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -10803,31 +10671,31 @@ func (r ImplementationGuideManifestPage) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r ImplementationGuideManifestPage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to Boolean")
+func (r ImplementationGuideManifestPage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideManifestPage to Boolean")
 }
-func (r ImplementationGuideManifestPage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to String")
+func (r ImplementationGuideManifestPage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideManifestPage to String")
 }
-func (r ImplementationGuideManifestPage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to Integer")
+func (r ImplementationGuideManifestPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideManifestPage to Integer")
 }
-func (r ImplementationGuideManifestPage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to Decimal")
+func (r ImplementationGuideManifestPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestPage to Decimal")
 }
-func (r ImplementationGuideManifestPage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to Date")
+func (r ImplementationGuideManifestPage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideManifestPage to Date")
 }
-func (r ImplementationGuideManifestPage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to Time")
+func (r ImplementationGuideManifestPage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideManifestPage to Time")
 }
-func (r ImplementationGuideManifestPage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to DateTime")
+func (r ImplementationGuideManifestPage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideManifestPage to DateTime")
 }
-func (r ImplementationGuideManifestPage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImplementationGuideManifestPage to Quantity")
+func (r ImplementationGuideManifestPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestPage to Quantity")
 }
-func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImplementationGuideManifestPage
 	switch other := other.(type) {
 	case ImplementationGuideManifestPage:
@@ -10835,29 +10703,17 @@ func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noRevers
 	case *ImplementationGuideManifestPage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImplementationGuideManifestPage
-	switch other := other.(type) {
-	case ImplementationGuideManifestPage:
-		o = &other
-	case *ImplementationGuideManifestPage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImplementationGuideManifestPage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

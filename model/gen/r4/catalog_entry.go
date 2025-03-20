@@ -2050,31 +2050,31 @@ func (r CatalogEntry) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CatalogEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CatalogEntry to Boolean")
+func (r CatalogEntry) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CatalogEntry to Boolean")
 }
-func (r CatalogEntry) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CatalogEntry to String")
+func (r CatalogEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CatalogEntry to String")
 }
-func (r CatalogEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CatalogEntry to Integer")
+func (r CatalogEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CatalogEntry to Integer")
 }
-func (r CatalogEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CatalogEntry to Decimal")
+func (r CatalogEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CatalogEntry to Decimal")
 }
-func (r CatalogEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CatalogEntry to Date")
+func (r CatalogEntry) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CatalogEntry to Date")
 }
-func (r CatalogEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CatalogEntry to Time")
+func (r CatalogEntry) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CatalogEntry to Time")
 }
-func (r CatalogEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CatalogEntry to DateTime")
+func (r CatalogEntry) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CatalogEntry to DateTime")
 }
-func (r CatalogEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CatalogEntry to Quantity")
+func (r CatalogEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CatalogEntry to Quantity")
 }
-func (r CatalogEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CatalogEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CatalogEntry
 	switch other := other.(type) {
 	case CatalogEntry:
@@ -2082,29 +2082,17 @@ func (r CatalogEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *CatalogEntry:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CatalogEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CatalogEntry
-	switch other := other.(type) {
-	case CatalogEntry:
-		o = &other
-	case *CatalogEntry:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CatalogEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -2291,31 +2279,31 @@ func (r CatalogEntryRelatedEntry) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CatalogEntryRelatedEntry) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Boolean")
+func (r CatalogEntryRelatedEntry) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CatalogEntryRelatedEntry to Boolean")
 }
-func (r CatalogEntryRelatedEntry) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to String")
+func (r CatalogEntryRelatedEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CatalogEntryRelatedEntry to String")
 }
-func (r CatalogEntryRelatedEntry) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Integer")
+func (r CatalogEntryRelatedEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CatalogEntryRelatedEntry to Integer")
 }
-func (r CatalogEntryRelatedEntry) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Decimal")
+func (r CatalogEntryRelatedEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CatalogEntryRelatedEntry to Decimal")
 }
-func (r CatalogEntryRelatedEntry) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Date")
+func (r CatalogEntryRelatedEntry) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CatalogEntryRelatedEntry to Date")
 }
-func (r CatalogEntryRelatedEntry) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Time")
+func (r CatalogEntryRelatedEntry) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CatalogEntryRelatedEntry to Time")
 }
-func (r CatalogEntryRelatedEntry) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to DateTime")
+func (r CatalogEntryRelatedEntry) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CatalogEntryRelatedEntry to DateTime")
 }
-func (r CatalogEntryRelatedEntry) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CatalogEntryRelatedEntry to Quantity")
+func (r CatalogEntryRelatedEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CatalogEntryRelatedEntry to Quantity")
 }
-func (r CatalogEntryRelatedEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CatalogEntryRelatedEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CatalogEntryRelatedEntry
 	switch other := other.(type) {
 	case CatalogEntryRelatedEntry:
@@ -2323,29 +2311,17 @@ func (r CatalogEntryRelatedEntry) Equal(other fhirpath.Element, _noReverseTypeCo
 	case *CatalogEntryRelatedEntry:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CatalogEntryRelatedEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CatalogEntryRelatedEntry
-	switch other := other.(type) {
-	case CatalogEntryRelatedEntry:
-		o = &other
-	case *CatalogEntryRelatedEntry:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CatalogEntryRelatedEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

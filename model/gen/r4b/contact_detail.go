@@ -408,31 +408,31 @@ func (r ContactDetail) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ContactDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ContactDetail to Boolean")
+func (r ContactDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ContactDetail to Boolean")
 }
-func (r ContactDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ContactDetail to String")
+func (r ContactDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ContactDetail to String")
 }
-func (r ContactDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ContactDetail to Integer")
+func (r ContactDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ContactDetail to Integer")
 }
-func (r ContactDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ContactDetail to Decimal")
+func (r ContactDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ContactDetail to Decimal")
 }
-func (r ContactDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ContactDetail to Date")
+func (r ContactDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ContactDetail to Date")
 }
-func (r ContactDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ContactDetail to Time")
+func (r ContactDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ContactDetail to Time")
 }
-func (r ContactDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ContactDetail to DateTime")
+func (r ContactDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ContactDetail to DateTime")
 }
-func (r ContactDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ContactDetail to Quantity")
+func (r ContactDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ContactDetail to Quantity")
 }
-func (r ContactDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContactDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ContactDetail
 	switch other := other.(type) {
 	case ContactDetail:
@@ -440,29 +440,17 @@ func (r ContactDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	case *ContactDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ContactDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ContactDetail
-	switch other := other.(type) {
-	case ContactDetail:
-		o = &other
-	case *ContactDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ContactDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

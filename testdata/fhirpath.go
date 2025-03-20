@@ -8,7 +8,6 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"github.com/cockroachdb/apd/v3"
 	"io"
 	"log"
@@ -112,7 +111,7 @@ func (o FHIRPathTestOutput) Children(name ...string) fhirpath.Collection {
 	return nil
 }
 
-func (o FHIRPathTestOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
+func (o FHIRPathTestOutput) ToBoolean(explicit bool) (v fhirpath.Boolean, ok bool, err error) {
 	if o.Type != "boolean" {
 		panic("not a boolean")
 	}
@@ -120,17 +119,17 @@ func (o FHIRPathTestOutput) ToBoolean(explicit bool) (*fhirpath.Boolean, error) 
 	if err != nil {
 		panic(err)
 	}
-	return utils.Ptr(fhirpath.Boolean(b)), nil
+	return fhirpath.Boolean(b), true, nil
 }
 
-func (o FHIRPathTestOutput) ToString(explicit bool) (*fhirpath.String, error) {
+func (o FHIRPathTestOutput) ToString(explicit bool) (v fhirpath.String, ok bool, err error) {
 	if o.Type != "string" && o.Type != "code" {
 		panic("not a string")
 	}
-	return (*fhirpath.String)(&o.Output), nil
+	return fhirpath.String(o.Output), true, nil
 }
 
-func (o FHIRPathTestOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) {
+func (o FHIRPathTestOutput) ToInteger(explicit bool) (v fhirpath.Integer, ok bool, err error) {
 	if o.Type != "integer" {
 		panic("not an integer")
 	}
@@ -138,10 +137,10 @@ func (o FHIRPathTestOutput) ToInteger(explicit bool) (*fhirpath.Integer, error) 
 	if err != nil {
 		panic(err)
 	}
-	return utils.Ptr(fhirpath.Integer(i)), nil
+	return fhirpath.Integer(i), true, nil
 }
 
-func (o FHIRPathTestOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+func (o FHIRPathTestOutput) ToDecimal(explicit bool) (v fhirpath.Decimal, ok bool, err error) {
 	if o.Type != "decimal" {
 		panic("not a decimal")
 	}
@@ -149,10 +148,10 @@ func (o FHIRPathTestOutput) ToDecimal(explicit bool) (*fhirpath.Decimal, error) 
 	if err != nil {
 		panic(err)
 	}
-	return &fhirpath.Decimal{Value: d}, nil
+	return fhirpath.Decimal{Value: d}, true, nil
 }
 
-func (o FHIRPathTestOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
+func (o FHIRPathTestOutput) ToDate(explicit bool) (v fhirpath.Date, ok bool, err error) {
 	if o.Type != "date" {
 		panic("not a date")
 	}
@@ -160,10 +159,10 @@ func (o FHIRPathTestOutput) ToDate(explicit bool) (*fhirpath.Date, error) {
 	if err != nil {
 		panic(err)
 	}
-	return &d, nil
+	return d, true, nil
 }
 
-func (o FHIRPathTestOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
+func (o FHIRPathTestOutput) ToTime(explicit bool) (v fhirpath.Time, ok bool, err error) {
 	if o.Type != "time" {
 		panic("not a time")
 	}
@@ -171,10 +170,10 @@ func (o FHIRPathTestOutput) ToTime(explicit bool) (*fhirpath.Time, error) {
 	if err != nil {
 		panic(err)
 	}
-	return &t, nil
+	return t, true, nil
 }
 
-func (o FHIRPathTestOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
+func (o FHIRPathTestOutput) ToDateTime(explicit bool) (v fhirpath.DateTime, ok bool, err error) {
 	if o.Type != "dateTime" {
 		panic("not a dateTime")
 	}
@@ -182,10 +181,10 @@ func (o FHIRPathTestOutput) ToDateTime(explicit bool) (*fhirpath.DateTime, error
 	if err != nil {
 		panic(err)
 	}
-	return &dt, nil
+	return dt, true, nil
 }
 
-func (o FHIRPathTestOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
+func (o FHIRPathTestOutput) ToQuantity(explicit bool) (v fhirpath.Quantity, ok bool, err error) {
 	if o.Type != "Quantity" {
 		panic("not a Quantity")
 	}
@@ -193,26 +192,28 @@ func (o FHIRPathTestOutput) ToQuantity(explicit bool) (*fhirpath.Quantity, error
 	if err != nil {
 		panic(err)
 	}
-	return &q, nil
+	return q, true, nil
 }
 
-func (o FHIRPathTestOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	e, err := o.toElement()
-	if err != nil {
-		return false
+func (o FHIRPathTestOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+	e, ok, err := o.toElement()
+	if err != nil || !ok {
+		return false, true
 	}
-	if e.Equal(other) {
-		return true
+	eq, ok = e.Equal(other)
+	if eq && ok {
+		return true, true
 	} else if _, ok := e.(*fhirpath.Boolean); ok {
 		// the test cases seem to assume implicit conversion to booleans to check presence
-		return other != nil
+		return other != nil, true
 	} else {
-		return false
+		return false, true
 	}
 }
 
 func (o FHIRPathTestOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	return o.Equal(other)
+	eq, _ := o.Equal(other)
+	return eq
 }
 
 func (o FHIRPathTestOutput) TypeInfo() fhirpath.TypeInfo {
@@ -223,14 +224,11 @@ func (o FHIRPathTestOutput) TypeInfo() fhirpath.TypeInfo {
 }
 
 func (o FHIRPathTestOutput) String() string {
-	e, err := o.toElement()
-	if err != nil {
-		return err.Error()
-	}
+	e, _, _ := o.toElement()
 	return e.String()
 }
 
-func (o FHIRPathTestOutput) toElement() (fhirpath.Element, error) {
+func (o FHIRPathTestOutput) toElement() (v fhirpath.Element, ok bool, err error) {
 	switch o.Type {
 	case "boolean":
 		return o.ToBoolean(false)

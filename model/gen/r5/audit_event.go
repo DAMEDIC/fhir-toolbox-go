@@ -5821,31 +5821,31 @@ func (r AuditEvent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AuditEvent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AuditEvent to Boolean")
+func (r AuditEvent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AuditEvent to Boolean")
 }
-func (r AuditEvent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AuditEvent to String")
+func (r AuditEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AuditEvent to String")
 }
-func (r AuditEvent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AuditEvent to Integer")
+func (r AuditEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AuditEvent to Integer")
 }
-func (r AuditEvent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AuditEvent to Decimal")
+func (r AuditEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEvent to Decimal")
 }
-func (r AuditEvent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AuditEvent to Date")
+func (r AuditEvent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AuditEvent to Date")
 }
-func (r AuditEvent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AuditEvent to Time")
+func (r AuditEvent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AuditEvent to Time")
 }
-func (r AuditEvent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AuditEvent to DateTime")
+func (r AuditEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AuditEvent to DateTime")
 }
-func (r AuditEvent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AuditEvent to Quantity")
+func (r AuditEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEvent to Quantity")
 }
-func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AuditEvent
 	switch other := other.(type) {
 	case AuditEvent:
@@ -5853,29 +5853,17 @@ func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *AuditEvent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AuditEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AuditEvent
-	switch other := other.(type) {
-	case AuditEvent:
-		o = &other
-	case *AuditEvent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AuditEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6071,31 +6059,31 @@ func (r AuditEventOutcome) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AuditEventOutcome) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to Boolean")
+func (r AuditEventOutcome) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AuditEventOutcome to Boolean")
 }
-func (r AuditEventOutcome) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to String")
+func (r AuditEventOutcome) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AuditEventOutcome to String")
 }
-func (r AuditEventOutcome) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to Integer")
+func (r AuditEventOutcome) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AuditEventOutcome to Integer")
 }
-func (r AuditEventOutcome) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to Decimal")
+func (r AuditEventOutcome) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventOutcome to Decimal")
 }
-func (r AuditEventOutcome) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to Date")
+func (r AuditEventOutcome) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AuditEventOutcome to Date")
 }
-func (r AuditEventOutcome) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to Time")
+func (r AuditEventOutcome) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AuditEventOutcome to Time")
 }
-func (r AuditEventOutcome) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to DateTime")
+func (r AuditEventOutcome) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AuditEventOutcome to DateTime")
 }
-func (r AuditEventOutcome) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AuditEventOutcome to Quantity")
+func (r AuditEventOutcome) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventOutcome to Quantity")
 }
-func (r AuditEventOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AuditEventOutcome
 	switch other := other.(type) {
 	case AuditEventOutcome:
@@ -6103,29 +6091,17 @@ func (r AuditEventOutcome) Equal(other fhirpath.Element, _noReverseTypeConversio
 	case *AuditEventOutcome:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AuditEventOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AuditEventOutcome
-	switch other := other.(type) {
-	case AuditEventOutcome:
-		o = &other
-	case *AuditEventOutcome:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AuditEventOutcome) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6232,31 +6208,31 @@ func (r AuditEventAgent) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AuditEventAgent) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AuditEventAgent to Boolean")
+func (r AuditEventAgent) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AuditEventAgent to Boolean")
 }
-func (r AuditEventAgent) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AuditEventAgent to String")
+func (r AuditEventAgent) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AuditEventAgent to String")
 }
-func (r AuditEventAgent) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AuditEventAgent to Integer")
+func (r AuditEventAgent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AuditEventAgent to Integer")
 }
-func (r AuditEventAgent) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AuditEventAgent to Decimal")
+func (r AuditEventAgent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventAgent to Decimal")
 }
-func (r AuditEventAgent) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AuditEventAgent to Date")
+func (r AuditEventAgent) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AuditEventAgent to Date")
 }
-func (r AuditEventAgent) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AuditEventAgent to Time")
+func (r AuditEventAgent) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AuditEventAgent to Time")
 }
-func (r AuditEventAgent) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AuditEventAgent to DateTime")
+func (r AuditEventAgent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AuditEventAgent to DateTime")
 }
-func (r AuditEventAgent) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AuditEventAgent to Quantity")
+func (r AuditEventAgent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventAgent to Quantity")
 }
-func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AuditEventAgent
 	switch other := other.(type) {
 	case AuditEventAgent:
@@ -6264,29 +6240,17 @@ func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	case *AuditEventAgent:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AuditEventAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AuditEventAgent
-	switch other := other.(type) {
-	case AuditEventAgent:
-		o = &other
-	case *AuditEventAgent:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AuditEventAgent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6410,31 +6374,31 @@ func (r AuditEventSource) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AuditEventSource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AuditEventSource to Boolean")
+func (r AuditEventSource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AuditEventSource to Boolean")
 }
-func (r AuditEventSource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AuditEventSource to String")
+func (r AuditEventSource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AuditEventSource to String")
 }
-func (r AuditEventSource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AuditEventSource to Integer")
+func (r AuditEventSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AuditEventSource to Integer")
 }
-func (r AuditEventSource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AuditEventSource to Decimal")
+func (r AuditEventSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventSource to Decimal")
 }
-func (r AuditEventSource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AuditEventSource to Date")
+func (r AuditEventSource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AuditEventSource to Date")
 }
-func (r AuditEventSource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AuditEventSource to Time")
+func (r AuditEventSource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AuditEventSource to Time")
 }
-func (r AuditEventSource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AuditEventSource to DateTime")
+func (r AuditEventSource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AuditEventSource to DateTime")
 }
-func (r AuditEventSource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AuditEventSource to Quantity")
+func (r AuditEventSource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventSource to Quantity")
 }
-func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AuditEventSource
 	switch other := other.(type) {
 	case AuditEventSource:
@@ -6442,29 +6406,17 @@ func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *AuditEventSource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AuditEventSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AuditEventSource
-	switch other := other.(type) {
-	case AuditEventSource:
-		o = &other
-	case *AuditEventSource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AuditEventSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6570,31 +6522,31 @@ func (r AuditEventEntity) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AuditEventEntity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AuditEventEntity to Boolean")
+func (r AuditEventEntity) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AuditEventEntity to Boolean")
 }
-func (r AuditEventEntity) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AuditEventEntity to String")
+func (r AuditEventEntity) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AuditEventEntity to String")
 }
-func (r AuditEventEntity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AuditEventEntity to Integer")
+func (r AuditEventEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AuditEventEntity to Integer")
 }
-func (r AuditEventEntity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AuditEventEntity to Decimal")
+func (r AuditEventEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventEntity to Decimal")
 }
-func (r AuditEventEntity) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AuditEventEntity to Date")
+func (r AuditEventEntity) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AuditEventEntity to Date")
 }
-func (r AuditEventEntity) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AuditEventEntity to Time")
+func (r AuditEventEntity) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AuditEventEntity to Time")
 }
-func (r AuditEventEntity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AuditEventEntity to DateTime")
+func (r AuditEventEntity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AuditEventEntity to DateTime")
 }
-func (r AuditEventEntity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AuditEventEntity to Quantity")
+func (r AuditEventEntity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventEntity to Quantity")
 }
-func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AuditEventEntity
 	switch other := other.(type) {
 	case AuditEventEntity:
@@ -6602,29 +6554,17 @@ func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	case *AuditEventEntity:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AuditEventEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AuditEventEntity
-	switch other := other.(type) {
-	case AuditEventEntity:
-		o = &other
-	case *AuditEventEntity:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AuditEventEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6727,31 +6667,31 @@ func (r AuditEventEntityDetail) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AuditEventEntityDetail) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to Boolean")
+func (r AuditEventEntityDetail) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AuditEventEntityDetail to Boolean")
 }
-func (r AuditEventEntityDetail) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to String")
+func (r AuditEventEntityDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AuditEventEntityDetail to String")
 }
-func (r AuditEventEntityDetail) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to Integer")
+func (r AuditEventEntityDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AuditEventEntityDetail to Integer")
 }
-func (r AuditEventEntityDetail) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to Decimal")
+func (r AuditEventEntityDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventEntityDetail to Decimal")
 }
-func (r AuditEventEntityDetail) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to Date")
+func (r AuditEventEntityDetail) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AuditEventEntityDetail to Date")
 }
-func (r AuditEventEntityDetail) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to Time")
+func (r AuditEventEntityDetail) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AuditEventEntityDetail to Time")
 }
-func (r AuditEventEntityDetail) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to DateTime")
+func (r AuditEventEntityDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AuditEventEntityDetail to DateTime")
 }
-func (r AuditEventEntityDetail) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AuditEventEntityDetail to Quantity")
+func (r AuditEventEntityDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventEntityDetail to Quantity")
 }
-func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AuditEventEntityDetail
 	switch other := other.(type) {
 	case AuditEventEntityDetail:
@@ -6759,29 +6699,17 @@ func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *AuditEventEntityDetail:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AuditEventEntityDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AuditEventEntityDetail
-	switch other := other.(type) {
-	case AuditEventEntityDetail:
-		o = &other
-	case *AuditEventEntityDetail:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AuditEventEntityDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

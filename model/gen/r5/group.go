@@ -2785,31 +2785,31 @@ func (r Group) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Group) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Group to Boolean")
+func (r Group) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Group to Boolean")
 }
-func (r Group) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Group to String")
+func (r Group) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Group to String")
 }
-func (r Group) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Group to Integer")
+func (r Group) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Group to Integer")
 }
-func (r Group) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Group to Decimal")
+func (r Group) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Group to Decimal")
 }
-func (r Group) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Group to Date")
+func (r Group) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Group to Date")
 }
-func (r Group) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Group to Time")
+func (r Group) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Group to Time")
 }
-func (r Group) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Group to DateTime")
+func (r Group) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Group to DateTime")
 }
-func (r Group) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Group to Quantity")
+func (r Group) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Group to Quantity")
 }
-func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Group
 	switch other := other.(type) {
 	case Group:
@@ -2817,29 +2817,17 @@ func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) b
 	case *Group:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Group) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Group
-	switch other := other.(type) {
-	case Group:
-		o = &other
-	case *Group:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Group) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3020,31 +3008,31 @@ func (r GroupCharacteristic) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r GroupCharacteristic) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to Boolean")
+func (r GroupCharacteristic) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GroupCharacteristic to Boolean")
 }
-func (r GroupCharacteristic) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to String")
+func (r GroupCharacteristic) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GroupCharacteristic to String")
 }
-func (r GroupCharacteristic) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to Integer")
+func (r GroupCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GroupCharacteristic to Integer")
 }
-func (r GroupCharacteristic) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to Decimal")
+func (r GroupCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GroupCharacteristic to Decimal")
 }
-func (r GroupCharacteristic) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to Date")
+func (r GroupCharacteristic) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GroupCharacteristic to Date")
 }
-func (r GroupCharacteristic) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to Time")
+func (r GroupCharacteristic) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GroupCharacteristic to Time")
 }
-func (r GroupCharacteristic) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to DateTime")
+func (r GroupCharacteristic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GroupCharacteristic to DateTime")
 }
-func (r GroupCharacteristic) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GroupCharacteristic to Quantity")
+func (r GroupCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GroupCharacteristic to Quantity")
 }
-func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GroupCharacteristic
 	switch other := other.(type) {
 	case GroupCharacteristic:
@@ -3052,29 +3040,17 @@ func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *GroupCharacteristic:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GroupCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GroupCharacteristic
-	switch other := other.(type) {
-	case GroupCharacteristic:
-		o = &other
-	case *GroupCharacteristic:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GroupCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3170,31 +3146,31 @@ func (r GroupMember) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r GroupMember) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GroupMember to Boolean")
+func (r GroupMember) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GroupMember to Boolean")
 }
-func (r GroupMember) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GroupMember to String")
+func (r GroupMember) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GroupMember to String")
 }
-func (r GroupMember) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GroupMember to Integer")
+func (r GroupMember) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GroupMember to Integer")
 }
-func (r GroupMember) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GroupMember to Decimal")
+func (r GroupMember) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GroupMember to Decimal")
 }
-func (r GroupMember) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GroupMember to Date")
+func (r GroupMember) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GroupMember to Date")
 }
-func (r GroupMember) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GroupMember to Time")
+func (r GroupMember) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GroupMember to Time")
 }
-func (r GroupMember) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GroupMember to DateTime")
+func (r GroupMember) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GroupMember to DateTime")
 }
-func (r GroupMember) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GroupMember to Quantity")
+func (r GroupMember) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GroupMember to Quantity")
 }
-func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GroupMember
 	switch other := other.(type) {
 	case GroupMember:
@@ -3202,29 +3178,17 @@ func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	case *GroupMember:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GroupMember) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GroupMember
-	switch other := other.(type) {
-	case GroupMember:
-		o = &other
-	case *GroupMember:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GroupMember) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

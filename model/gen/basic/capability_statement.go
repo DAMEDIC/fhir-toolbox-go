@@ -6888,31 +6888,31 @@ func (r CapabilityStatement) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CapabilityStatement) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatement to Boolean")
+func (r CapabilityStatement) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatement to Boolean")
 }
-func (r CapabilityStatement) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatement to String")
+func (r CapabilityStatement) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatement to String")
 }
-func (r CapabilityStatement) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatement to Integer")
+func (r CapabilityStatement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatement to Integer")
 }
-func (r CapabilityStatement) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatement to Decimal")
+func (r CapabilityStatement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatement to Decimal")
 }
-func (r CapabilityStatement) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatement to Date")
+func (r CapabilityStatement) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatement to Date")
 }
-func (r CapabilityStatement) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatement to Time")
+func (r CapabilityStatement) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatement to Time")
 }
-func (r CapabilityStatement) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatement to DateTime")
+func (r CapabilityStatement) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatement to DateTime")
 }
-func (r CapabilityStatement) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatement to Quantity")
+func (r CapabilityStatement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatement to Quantity")
 }
-func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatement
 	switch other := other.(type) {
 	case CapabilityStatement:
@@ -6920,29 +6920,17 @@ func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	case *CapabilityStatement:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatement
-	switch other := other.(type) {
-	case CapabilityStatement:
-		o = &other
-	case *CapabilityStatement:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7227,31 +7215,31 @@ func (r CapabilityStatementSoftware) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r CapabilityStatementSoftware) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to Boolean")
+func (r CapabilityStatementSoftware) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementSoftware to Boolean")
 }
-func (r CapabilityStatementSoftware) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to String")
+func (r CapabilityStatementSoftware) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementSoftware to String")
 }
-func (r CapabilityStatementSoftware) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to Integer")
+func (r CapabilityStatementSoftware) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementSoftware to Integer")
 }
-func (r CapabilityStatementSoftware) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to Decimal")
+func (r CapabilityStatementSoftware) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementSoftware to Decimal")
 }
-func (r CapabilityStatementSoftware) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to Date")
+func (r CapabilityStatementSoftware) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementSoftware to Date")
 }
-func (r CapabilityStatementSoftware) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to Time")
+func (r CapabilityStatementSoftware) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementSoftware to Time")
 }
-func (r CapabilityStatementSoftware) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to DateTime")
+func (r CapabilityStatementSoftware) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementSoftware to DateTime")
 }
-func (r CapabilityStatementSoftware) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementSoftware to Quantity")
+func (r CapabilityStatementSoftware) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementSoftware to Quantity")
 }
-func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementSoftware
 	switch other := other.(type) {
 	case CapabilityStatementSoftware:
@@ -7259,29 +7247,17 @@ func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTyp
 	case *CapabilityStatementSoftware:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementSoftware
-	switch other := other.(type) {
-	case CapabilityStatementSoftware:
-		o = &other
-	case *CapabilityStatementSoftware:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementSoftware) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7370,31 +7346,31 @@ func (r CapabilityStatementImplementation) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r CapabilityStatementImplementation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to Boolean")
+func (r CapabilityStatementImplementation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementImplementation to Boolean")
 }
-func (r CapabilityStatementImplementation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to String")
+func (r CapabilityStatementImplementation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementImplementation to String")
 }
-func (r CapabilityStatementImplementation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to Integer")
+func (r CapabilityStatementImplementation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementImplementation to Integer")
 }
-func (r CapabilityStatementImplementation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to Decimal")
+func (r CapabilityStatementImplementation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementImplementation to Decimal")
 }
-func (r CapabilityStatementImplementation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to Date")
+func (r CapabilityStatementImplementation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementImplementation to Date")
 }
-func (r CapabilityStatementImplementation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to Time")
+func (r CapabilityStatementImplementation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementImplementation to Time")
 }
-func (r CapabilityStatementImplementation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to DateTime")
+func (r CapabilityStatementImplementation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementImplementation to DateTime")
 }
-func (r CapabilityStatementImplementation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementImplementation to Quantity")
+func (r CapabilityStatementImplementation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementImplementation to Quantity")
 }
-func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementImplementation
 	switch other := other.(type) {
 	case CapabilityStatementImplementation:
@@ -7402,29 +7378,17 @@ func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReve
 	case *CapabilityStatementImplementation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementImplementation
-	switch other := other.(type) {
-	case CapabilityStatementImplementation:
-		o = &other
-	case *CapabilityStatementImplementation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementImplementation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7538,31 +7502,31 @@ func (r CapabilityStatementRest) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r CapabilityStatementRest) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to Boolean")
+func (r CapabilityStatementRest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementRest to Boolean")
 }
-func (r CapabilityStatementRest) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to String")
+func (r CapabilityStatementRest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementRest to String")
 }
-func (r CapabilityStatementRest) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to Integer")
+func (r CapabilityStatementRest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementRest to Integer")
 }
-func (r CapabilityStatementRest) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to Decimal")
+func (r CapabilityStatementRest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRest to Decimal")
 }
-func (r CapabilityStatementRest) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to Date")
+func (r CapabilityStatementRest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementRest to Date")
 }
-func (r CapabilityStatementRest) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to Time")
+func (r CapabilityStatementRest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementRest to Time")
 }
-func (r CapabilityStatementRest) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to DateTime")
+func (r CapabilityStatementRest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementRest to DateTime")
 }
-func (r CapabilityStatementRest) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementRest to Quantity")
+func (r CapabilityStatementRest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRest to Quantity")
 }
-func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementRest
 	switch other := other.(type) {
 	case CapabilityStatementRest:
@@ -7570,29 +7534,17 @@ func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeCon
 	case *CapabilityStatementRest:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementRest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementRest
-	switch other := other.(type) {
-	case CapabilityStatementRest:
-		o = &other
-	case *CapabilityStatementRest:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementRest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7718,31 +7670,31 @@ func (r CapabilityStatementRestSecurity) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r CapabilityStatementRestSecurity) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Boolean")
+func (r CapabilityStatementRestSecurity) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementRestSecurity to Boolean")
 }
-func (r CapabilityStatementRestSecurity) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to String")
+func (r CapabilityStatementRestSecurity) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementRestSecurity to String")
 }
-func (r CapabilityStatementRestSecurity) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Integer")
+func (r CapabilityStatementRestSecurity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementRestSecurity to Integer")
 }
-func (r CapabilityStatementRestSecurity) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Decimal")
+func (r CapabilityStatementRestSecurity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestSecurity to Decimal")
 }
-func (r CapabilityStatementRestSecurity) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Date")
+func (r CapabilityStatementRestSecurity) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementRestSecurity to Date")
 }
-func (r CapabilityStatementRestSecurity) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Time")
+func (r CapabilityStatementRestSecurity) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementRestSecurity to Time")
 }
-func (r CapabilityStatementRestSecurity) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to DateTime")
+func (r CapabilityStatementRestSecurity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementRestSecurity to DateTime")
 }
-func (r CapabilityStatementRestSecurity) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestSecurity to Quantity")
+func (r CapabilityStatementRestSecurity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestSecurity to Quantity")
 }
-func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementRestSecurity
 	switch other := other.(type) {
 	case CapabilityStatementRestSecurity:
@@ -7750,29 +7702,17 @@ func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noRevers
 	case *CapabilityStatementRestSecurity:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementRestSecurity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementRestSecurity
-	switch other := other.(type) {
-	case CapabilityStatementRestSecurity:
-		o = &other
-	case *CapabilityStatementRestSecurity:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementRestSecurity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7931,31 +7871,31 @@ func (r CapabilityStatementRestResource) Children(name ...string) fhirpath.Colle
 	}
 	return children
 }
-func (r CapabilityStatementRestResource) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to Boolean")
+func (r CapabilityStatementRestResource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementRestResource to Boolean")
 }
-func (r CapabilityStatementRestResource) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to String")
+func (r CapabilityStatementRestResource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementRestResource to String")
 }
-func (r CapabilityStatementRestResource) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to Integer")
+func (r CapabilityStatementRestResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementRestResource to Integer")
 }
-func (r CapabilityStatementRestResource) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to Decimal")
+func (r CapabilityStatementRestResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResource to Decimal")
 }
-func (r CapabilityStatementRestResource) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to Date")
+func (r CapabilityStatementRestResource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementRestResource to Date")
 }
-func (r CapabilityStatementRestResource) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to Time")
+func (r CapabilityStatementRestResource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementRestResource to Time")
 }
-func (r CapabilityStatementRestResource) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to DateTime")
+func (r CapabilityStatementRestResource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementRestResource to DateTime")
 }
-func (r CapabilityStatementRestResource) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResource to Quantity")
+func (r CapabilityStatementRestResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResource to Quantity")
 }
-func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementRestResource
 	switch other := other.(type) {
 	case CapabilityStatementRestResource:
@@ -7963,29 +7903,17 @@ func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noRevers
 	case *CapabilityStatementRestResource:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementRestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementRestResource
-	switch other := other.(type) {
-	case CapabilityStatementRestResource:
-		o = &other
-	case *CapabilityStatementRestResource:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementRestResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8167,31 +8095,31 @@ func (r CapabilityStatementRestResourceInteraction) Children(name ...string) fhi
 	}
 	return children
 }
-func (r CapabilityStatementRestResourceInteraction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Boolean")
+func (r CapabilityStatementRestResourceInteraction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Boolean")
 }
-func (r CapabilityStatementRestResourceInteraction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to String")
+func (r CapabilityStatementRestResourceInteraction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementRestResourceInteraction to String")
 }
-func (r CapabilityStatementRestResourceInteraction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Integer")
+func (r CapabilityStatementRestResourceInteraction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Integer")
 }
-func (r CapabilityStatementRestResourceInteraction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Decimal")
+func (r CapabilityStatementRestResourceInteraction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Decimal")
 }
-func (r CapabilityStatementRestResourceInteraction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Date")
+func (r CapabilityStatementRestResourceInteraction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Date")
 }
-func (r CapabilityStatementRestResourceInteraction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Time")
+func (r CapabilityStatementRestResourceInteraction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Time")
 }
-func (r CapabilityStatementRestResourceInteraction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to DateTime")
+func (r CapabilityStatementRestResourceInteraction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to DateTime")
 }
-func (r CapabilityStatementRestResourceInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceInteraction to Quantity")
+func (r CapabilityStatementRestResourceInteraction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Quantity")
 }
-func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementRestResourceInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceInteraction:
@@ -8199,29 +8127,17 @@ func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element
 	case *CapabilityStatementRestResourceInteraction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementRestResourceInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementRestResourceInteraction
-	switch other := other.(type) {
-	case CapabilityStatementRestResourceInteraction:
-		o = &other
-	case *CapabilityStatementRestResourceInteraction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementRestResourceInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8306,31 +8222,31 @@ func (r CapabilityStatementRestResourceSearchParam) Children(name ...string) fhi
 	}
 	return children
 }
-func (r CapabilityStatementRestResourceSearchParam) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Boolean")
+func (r CapabilityStatementRestResourceSearchParam) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Boolean")
 }
-func (r CapabilityStatementRestResourceSearchParam) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to String")
+func (r CapabilityStatementRestResourceSearchParam) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to String")
 }
-func (r CapabilityStatementRestResourceSearchParam) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Integer")
+func (r CapabilityStatementRestResourceSearchParam) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Integer")
 }
-func (r CapabilityStatementRestResourceSearchParam) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Decimal")
+func (r CapabilityStatementRestResourceSearchParam) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Decimal")
 }
-func (r CapabilityStatementRestResourceSearchParam) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Date")
+func (r CapabilityStatementRestResourceSearchParam) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Date")
 }
-func (r CapabilityStatementRestResourceSearchParam) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Time")
+func (r CapabilityStatementRestResourceSearchParam) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Time")
 }
-func (r CapabilityStatementRestResourceSearchParam) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to DateTime")
+func (r CapabilityStatementRestResourceSearchParam) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to DateTime")
 }
-func (r CapabilityStatementRestResourceSearchParam) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Quantity")
+func (r CapabilityStatementRestResourceSearchParam) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Quantity")
 }
-func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementRestResourceSearchParam
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceSearchParam:
@@ -8338,29 +8254,17 @@ func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element
 	case *CapabilityStatementRestResourceSearchParam:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementRestResourceSearchParam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementRestResourceSearchParam
-	switch other := other.(type) {
-	case CapabilityStatementRestResourceSearchParam:
-		o = &other
-	case *CapabilityStatementRestResourceSearchParam:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementRestResourceSearchParam) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8454,31 +8358,31 @@ func (r CapabilityStatementRestResourceOperation) Children(name ...string) fhirp
 	}
 	return children
 }
-func (r CapabilityStatementRestResourceOperation) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Boolean")
+func (r CapabilityStatementRestResourceOperation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Boolean")
 }
-func (r CapabilityStatementRestResourceOperation) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to String")
+func (r CapabilityStatementRestResourceOperation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementRestResourceOperation to String")
 }
-func (r CapabilityStatementRestResourceOperation) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Integer")
+func (r CapabilityStatementRestResourceOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Integer")
 }
-func (r CapabilityStatementRestResourceOperation) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Decimal")
+func (r CapabilityStatementRestResourceOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Decimal")
 }
-func (r CapabilityStatementRestResourceOperation) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Date")
+func (r CapabilityStatementRestResourceOperation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Date")
 }
-func (r CapabilityStatementRestResourceOperation) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Time")
+func (r CapabilityStatementRestResourceOperation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Time")
 }
-func (r CapabilityStatementRestResourceOperation) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to DateTime")
+func (r CapabilityStatementRestResourceOperation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementRestResourceOperation to DateTime")
 }
-func (r CapabilityStatementRestResourceOperation) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestResourceOperation to Quantity")
+func (r CapabilityStatementRestResourceOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Quantity")
 }
-func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementRestResourceOperation
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceOperation:
@@ -8486,29 +8390,17 @@ func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, 
 	case *CapabilityStatementRestResourceOperation:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementRestResourceOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementRestResourceOperation
-	switch other := other.(type) {
-	case CapabilityStatementRestResourceOperation:
-		o = &other
-	case *CapabilityStatementRestResourceOperation:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementRestResourceOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8592,31 +8484,31 @@ func (r CapabilityStatementRestInteraction) Children(name ...string) fhirpath.Co
 	}
 	return children
 }
-func (r CapabilityStatementRestInteraction) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Boolean")
+func (r CapabilityStatementRestInteraction) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementRestInteraction to Boolean")
 }
-func (r CapabilityStatementRestInteraction) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to String")
+func (r CapabilityStatementRestInteraction) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementRestInteraction to String")
 }
-func (r CapabilityStatementRestInteraction) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Integer")
+func (r CapabilityStatementRestInteraction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementRestInteraction to Integer")
 }
-func (r CapabilityStatementRestInteraction) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Decimal")
+func (r CapabilityStatementRestInteraction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestInteraction to Decimal")
 }
-func (r CapabilityStatementRestInteraction) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Date")
+func (r CapabilityStatementRestInteraction) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementRestInteraction to Date")
 }
-func (r CapabilityStatementRestInteraction) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Time")
+func (r CapabilityStatementRestInteraction) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementRestInteraction to Time")
 }
-func (r CapabilityStatementRestInteraction) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to DateTime")
+func (r CapabilityStatementRestInteraction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementRestInteraction to DateTime")
 }
-func (r CapabilityStatementRestInteraction) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementRestInteraction to Quantity")
+func (r CapabilityStatementRestInteraction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestInteraction to Quantity")
 }
-func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementRestInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestInteraction:
@@ -8624,29 +8516,17 @@ func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noRev
 	case *CapabilityStatementRestInteraction:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementRestInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementRestInteraction
-	switch other := other.(type) {
-	case CapabilityStatementRestInteraction:
-		o = &other
-	case *CapabilityStatementRestInteraction:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementRestInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8735,31 +8615,31 @@ func (r CapabilityStatementMessaging) Children(name ...string) fhirpath.Collecti
 	}
 	return children
 }
-func (r CapabilityStatementMessaging) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to Boolean")
+func (r CapabilityStatementMessaging) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementMessaging to Boolean")
 }
-func (r CapabilityStatementMessaging) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to String")
+func (r CapabilityStatementMessaging) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementMessaging to String")
 }
-func (r CapabilityStatementMessaging) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to Integer")
+func (r CapabilityStatementMessaging) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementMessaging to Integer")
 }
-func (r CapabilityStatementMessaging) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to Decimal")
+func (r CapabilityStatementMessaging) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementMessaging to Decimal")
 }
-func (r CapabilityStatementMessaging) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to Date")
+func (r CapabilityStatementMessaging) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementMessaging to Date")
 }
-func (r CapabilityStatementMessaging) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to Time")
+func (r CapabilityStatementMessaging) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementMessaging to Time")
 }
-func (r CapabilityStatementMessaging) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to DateTime")
+func (r CapabilityStatementMessaging) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementMessaging to DateTime")
 }
-func (r CapabilityStatementMessaging) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessaging to Quantity")
+func (r CapabilityStatementMessaging) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementMessaging to Quantity")
 }
-func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementMessaging
 	switch other := other.(type) {
 	case CapabilityStatementMessaging:
@@ -8767,29 +8647,17 @@ func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTy
 	case *CapabilityStatementMessaging:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementMessaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementMessaging
-	switch other := other.(type) {
-	case CapabilityStatementMessaging:
-		o = &other
-	case *CapabilityStatementMessaging:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementMessaging) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -8878,31 +8746,31 @@ func (r CapabilityStatementMessagingEndpoint) Children(name ...string) fhirpath.
 	}
 	return children
 }
-func (r CapabilityStatementMessagingEndpoint) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Boolean")
+func (r CapabilityStatementMessagingEndpoint) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Boolean")
 }
-func (r CapabilityStatementMessagingEndpoint) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to String")
+func (r CapabilityStatementMessagingEndpoint) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementMessagingEndpoint to String")
 }
-func (r CapabilityStatementMessagingEndpoint) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Integer")
+func (r CapabilityStatementMessagingEndpoint) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Integer")
 }
-func (r CapabilityStatementMessagingEndpoint) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Decimal")
+func (r CapabilityStatementMessagingEndpoint) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Decimal")
 }
-func (r CapabilityStatementMessagingEndpoint) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Date")
+func (r CapabilityStatementMessagingEndpoint) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Date")
 }
-func (r CapabilityStatementMessagingEndpoint) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Time")
+func (r CapabilityStatementMessagingEndpoint) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Time")
 }
-func (r CapabilityStatementMessagingEndpoint) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to DateTime")
+func (r CapabilityStatementMessagingEndpoint) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to DateTime")
 }
-func (r CapabilityStatementMessagingEndpoint) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingEndpoint to Quantity")
+func (r CapabilityStatementMessagingEndpoint) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Quantity")
 }
-func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementMessagingEndpoint
 	switch other := other.(type) {
 	case CapabilityStatementMessagingEndpoint:
@@ -8910,29 +8778,17 @@ func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noR
 	case *CapabilityStatementMessagingEndpoint:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementMessagingEndpoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementMessagingEndpoint
-	switch other := other.(type) {
-	case CapabilityStatementMessagingEndpoint:
-		o = &other
-	case *CapabilityStatementMessagingEndpoint:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementMessagingEndpoint) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9007,31 +8863,31 @@ func (r CapabilityStatementMessagingSupportedMessage) Children(name ...string) f
 	}
 	return children
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Boolean")
+func (r CapabilityStatementMessagingSupportedMessage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Boolean")
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to String")
+func (r CapabilityStatementMessagingSupportedMessage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to String")
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Integer")
+func (r CapabilityStatementMessagingSupportedMessage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Integer")
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Decimal")
+func (r CapabilityStatementMessagingSupportedMessage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Decimal")
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Date")
+func (r CapabilityStatementMessagingSupportedMessage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Date")
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Time")
+func (r CapabilityStatementMessagingSupportedMessage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Time")
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to DateTime")
+func (r CapabilityStatementMessagingSupportedMessage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to DateTime")
 }
-func (r CapabilityStatementMessagingSupportedMessage) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Quantity")
+func (r CapabilityStatementMessagingSupportedMessage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Quantity")
 }
-func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementMessagingSupportedMessage
 	switch other := other.(type) {
 	case CapabilityStatementMessagingSupportedMessage:
@@ -9039,29 +8895,17 @@ func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Eleme
 	case *CapabilityStatementMessagingSupportedMessage:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementMessagingSupportedMessage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementMessagingSupportedMessage
-	switch other := other.(type) {
-	case CapabilityStatementMessagingSupportedMessage:
-		o = &other
-	case *CapabilityStatementMessagingSupportedMessage:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementMessagingSupportedMessage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -9141,31 +8985,31 @@ func (r CapabilityStatementDocument) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r CapabilityStatementDocument) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to Boolean")
+func (r CapabilityStatementDocument) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert CapabilityStatementDocument to Boolean")
 }
-func (r CapabilityStatementDocument) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to String")
+func (r CapabilityStatementDocument) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert CapabilityStatementDocument to String")
 }
-func (r CapabilityStatementDocument) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to Integer")
+func (r CapabilityStatementDocument) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert CapabilityStatementDocument to Integer")
 }
-func (r CapabilityStatementDocument) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to Decimal")
+func (r CapabilityStatementDocument) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementDocument to Decimal")
 }
-func (r CapabilityStatementDocument) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to Date")
+func (r CapabilityStatementDocument) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert CapabilityStatementDocument to Date")
 }
-func (r CapabilityStatementDocument) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to Time")
+func (r CapabilityStatementDocument) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert CapabilityStatementDocument to Time")
 }
-func (r CapabilityStatementDocument) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to DateTime")
+func (r CapabilityStatementDocument) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert CapabilityStatementDocument to DateTime")
 }
-func (r CapabilityStatementDocument) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert CapabilityStatementDocument to Quantity")
+func (r CapabilityStatementDocument) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementDocument to Quantity")
 }
-func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *CapabilityStatementDocument
 	switch other := other.(type) {
 	case CapabilityStatementDocument:
@@ -9173,29 +9017,17 @@ func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTyp
 	case *CapabilityStatementDocument:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r CapabilityStatementDocument) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *CapabilityStatementDocument
-	switch other := other.(type) {
-	case CapabilityStatementDocument:
-		o = &other
-	case *CapabilityStatementDocument:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r CapabilityStatementDocument) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

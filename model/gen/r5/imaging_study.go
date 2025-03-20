@@ -4012,31 +4012,31 @@ func (r ImagingStudy) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImagingStudy) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingStudy to Boolean")
+func (r ImagingStudy) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingStudy to Boolean")
 }
-func (r ImagingStudy) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingStudy to String")
+func (r ImagingStudy) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingStudy to String")
 }
-func (r ImagingStudy) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingStudy to Integer")
+func (r ImagingStudy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingStudy to Integer")
 }
-func (r ImagingStudy) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingStudy to Decimal")
+func (r ImagingStudy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudy to Decimal")
 }
-func (r ImagingStudy) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingStudy to Date")
+func (r ImagingStudy) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingStudy to Date")
 }
-func (r ImagingStudy) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingStudy to Time")
+func (r ImagingStudy) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingStudy to Time")
 }
-func (r ImagingStudy) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingStudy to DateTime")
+func (r ImagingStudy) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingStudy to DateTime")
 }
-func (r ImagingStudy) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingStudy to Quantity")
+func (r ImagingStudy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudy to Quantity")
 }
-func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingStudy
 	switch other := other.(type) {
 	case ImagingStudy:
@@ -4044,29 +4044,17 @@ func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	case *ImagingStudy:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingStudy
-	switch other := other.(type) {
-	case ImagingStudy:
-		o = &other
-	case *ImagingStudy:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingStudy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4338,31 +4326,31 @@ func (r ImagingStudySeries) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r ImagingStudySeries) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to Boolean")
+func (r ImagingStudySeries) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingStudySeries to Boolean")
 }
-func (r ImagingStudySeries) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to String")
+func (r ImagingStudySeries) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingStudySeries to String")
 }
-func (r ImagingStudySeries) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to Integer")
+func (r ImagingStudySeries) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingStudySeries to Integer")
 }
-func (r ImagingStudySeries) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to Decimal")
+func (r ImagingStudySeries) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudySeries to Decimal")
 }
-func (r ImagingStudySeries) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to Date")
+func (r ImagingStudySeries) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingStudySeries to Date")
 }
-func (r ImagingStudySeries) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to Time")
+func (r ImagingStudySeries) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingStudySeries to Time")
 }
-func (r ImagingStudySeries) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to DateTime")
+func (r ImagingStudySeries) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingStudySeries to DateTime")
 }
-func (r ImagingStudySeries) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingStudySeries to Quantity")
+func (r ImagingStudySeries) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudySeries to Quantity")
 }
-func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingStudySeries
 	switch other := other.(type) {
 	case ImagingStudySeries:
@@ -4370,29 +4358,17 @@ func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversi
 	case *ImagingStudySeries:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingStudySeries) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingStudySeries
-	switch other := other.(type) {
-	case ImagingStudySeries:
-		o = &other
-	case *ImagingStudySeries:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingStudySeries) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4539,31 +4515,31 @@ func (r ImagingStudySeriesPerformer) Children(name ...string) fhirpath.Collectio
 	}
 	return children
 }
-func (r ImagingStudySeriesPerformer) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Boolean")
+func (r ImagingStudySeriesPerformer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingStudySeriesPerformer to Boolean")
 }
-func (r ImagingStudySeriesPerformer) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to String")
+func (r ImagingStudySeriesPerformer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingStudySeriesPerformer to String")
 }
-func (r ImagingStudySeriesPerformer) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Integer")
+func (r ImagingStudySeriesPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingStudySeriesPerformer to Integer")
 }
-func (r ImagingStudySeriesPerformer) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Decimal")
+func (r ImagingStudySeriesPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudySeriesPerformer to Decimal")
 }
-func (r ImagingStudySeriesPerformer) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Date")
+func (r ImagingStudySeriesPerformer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingStudySeriesPerformer to Date")
 }
-func (r ImagingStudySeriesPerformer) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Time")
+func (r ImagingStudySeriesPerformer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingStudySeriesPerformer to Time")
 }
-func (r ImagingStudySeriesPerformer) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to DateTime")
+func (r ImagingStudySeriesPerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingStudySeriesPerformer to DateTime")
 }
-func (r ImagingStudySeriesPerformer) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesPerformer to Quantity")
+func (r ImagingStudySeriesPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudySeriesPerformer to Quantity")
 }
-func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingStudySeriesPerformer
 	switch other := other.(type) {
 	case ImagingStudySeriesPerformer:
@@ -4571,29 +4547,17 @@ func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTyp
 	case *ImagingStudySeriesPerformer:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingStudySeriesPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingStudySeriesPerformer
-	switch other := other.(type) {
-	case ImagingStudySeriesPerformer:
-		o = &other
-	case *ImagingStudySeriesPerformer:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingStudySeriesPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -4678,31 +4642,31 @@ func (r ImagingStudySeriesInstance) Children(name ...string) fhirpath.Collection
 	}
 	return children
 }
-func (r ImagingStudySeriesInstance) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to Boolean")
+func (r ImagingStudySeriesInstance) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImagingStudySeriesInstance to Boolean")
 }
-func (r ImagingStudySeriesInstance) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to String")
+func (r ImagingStudySeriesInstance) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImagingStudySeriesInstance to String")
 }
-func (r ImagingStudySeriesInstance) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to Integer")
+func (r ImagingStudySeriesInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImagingStudySeriesInstance to Integer")
 }
-func (r ImagingStudySeriesInstance) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to Decimal")
+func (r ImagingStudySeriesInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudySeriesInstance to Decimal")
 }
-func (r ImagingStudySeriesInstance) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to Date")
+func (r ImagingStudySeriesInstance) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImagingStudySeriesInstance to Date")
 }
-func (r ImagingStudySeriesInstance) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to Time")
+func (r ImagingStudySeriesInstance) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImagingStudySeriesInstance to Time")
 }
-func (r ImagingStudySeriesInstance) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to DateTime")
+func (r ImagingStudySeriesInstance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImagingStudySeriesInstance to DateTime")
 }
-func (r ImagingStudySeriesInstance) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert ImagingStudySeriesInstance to Quantity")
+func (r ImagingStudySeriesInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudySeriesInstance to Quantity")
 }
-func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *ImagingStudySeriesInstance
 	switch other := other.(type) {
 	case ImagingStudySeriesInstance:
@@ -4710,29 +4674,17 @@ func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseType
 	case *ImagingStudySeriesInstance:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r ImagingStudySeriesInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *ImagingStudySeriesInstance
-	switch other := other.(type) {
-	case ImagingStudySeriesInstance:
-		o = &other
-	case *ImagingStudySeriesInstance:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r ImagingStudySeriesInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

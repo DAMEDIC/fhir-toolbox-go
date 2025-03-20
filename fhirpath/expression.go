@@ -170,14 +170,14 @@ func evalExpression(
 		if err != nil {
 			return nil, false, err
 		}
-		index, err := Singleton[Integer](indexCollection)
+		index, ok, err := Singleton[Integer](indexCollection)
 		if err != nil {
 			return nil, false, err
 		}
-		if index == nil {
+		if !ok {
 			return nil, false, fmt.Errorf("can not index with null index")
 		}
-		i := int(*index)
+		i := int(index)
 		if i >= len(expr) {
 			return nil, false, nil
 		} else {
@@ -301,30 +301,30 @@ func evalExpression(
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
-		cmp, err := left.Cmp(right)
+		cmp, ok, err := left.Cmp(right)
 		if err != nil {
 			return nil, false, err
 		}
-		if cmp == nil {
+		if !ok {
 			return nil, false, nil
 		}
 
 		result = Collection{Boolean(false)}
 		switch op {
 		case "<=":
-			if *cmp <= 0 {
+			if cmp <= 0 {
 				result, err = Collection{Boolean(true)}, nil
 			}
 		case "<":
-			if *cmp < 0 {
+			if cmp < 0 {
 				result, err = Collection{Boolean(true)}, nil
 			}
 		case ">":
-			if *cmp > 0 {
+			if cmp > 0 {
 				result, err = Collection{Boolean(true)}, nil
 			}
 		case ">=":
-			if *cmp >= 0 {
+			if cmp >= 0 {
 				result, err = Collection{Boolean(true)}, nil
 			}
 		}
@@ -347,27 +347,23 @@ func evalExpression(
 
 		switch op {
 		case "=":
-			eq := left.Equal(right)
-			if eq != nil {
-				result, err = Collection{Boolean(*eq)}, nil
+			eq, ok := left.Equal(right)
+			if ok {
+				result, err = Collection{Boolean(eq)}, nil
 			}
 		case "~":
 			eq := left.Equivalent(right)
-			if eq != nil {
-				result, err = Collection{Boolean(*eq)}, nil
-			}
+			result, err = Collection{Boolean(eq)}, nil
 		case "!=":
-			eq := left.Equal(right)
-			if eq != nil {
-				result, err = Collection{Boolean(!*eq)}, nil
+			eq, ok := left.Equal(right)
+			if ok {
+				result, err = Collection{Boolean(!eq)}, nil
 			}
 		case "!~":
 			eq := left.Equivalent(right)
-			if eq != nil {
-				result, err = Collection{Boolean(!*eq)}, nil
-			}
+			result, err = Collection{Boolean(!eq)}, nil
 		}
-		return nil, true, err
+		return result, true, err
 	case *parser.MembershipExpressionContext:
 		left, _, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
@@ -407,21 +403,21 @@ func evalExpression(
 			return nil, false, err
 		}
 
-		leftSingle, err := Singleton[Boolean](left)
+		leftSingle, leftOk, err := Singleton[Boolean](left)
 		if err != nil {
 			return nil, false, err
 		}
-		rightSingle, err := Singleton[Boolean](right)
+		rightSingle, rightOk, err := Singleton[Boolean](right)
 		if err != nil {
 			return nil, false, err
 		}
 
-		if leftSingle != nil && *leftSingle == true &&
-			rightSingle != nil && *rightSingle == true {
+		if leftOk && leftSingle == true &&
+			rightOk && rightSingle == true {
 			result, err = Collection{Boolean(true)}, nil
-		} else if leftSingle != nil && *leftSingle == false {
+		} else if leftOk && leftSingle == false {
 			result, err = Collection{Boolean(false)}, nil
-		} else if rightSingle != nil && *rightSingle == false {
+		} else if rightOk && rightSingle == false {
 			result, err = Collection{Boolean(false)}, nil
 		}
 		return result, true, err
@@ -437,31 +433,31 @@ func evalExpression(
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
-		leftSingle, err := Singleton[Boolean](left)
+		leftSingle, leftOk, err := Singleton[Boolean](left)
 		if err != nil {
 			return nil, false, err
 		}
-		rightSingle, err := Singleton[Boolean](right)
+		rightSingle, rightOk, err := Singleton[Boolean](right)
 		if err != nil {
 			return nil, false, err
 		}
 
 		switch op {
 		case "or":
-			if leftSingle != nil && *leftSingle == false &&
-				rightSingle != nil && *rightSingle == false {
+			if leftOk && leftSingle == false &&
+				rightOk && rightSingle == false {
 				result, err = Collection{Boolean(false)}, nil
-			} else if leftSingle != nil && *leftSingle == true {
+			} else if leftOk && leftSingle == true {
 				result, err = Collection{Boolean(true)}, nil
-			} else if rightSingle != nil && *rightSingle == true {
+			} else if rightOk && rightSingle == true {
 				result, err = Collection{Boolean(true)}, nil
 			}
 		case "xor":
-			if (leftSingle != nil && *leftSingle == true && rightSingle != nil && *rightSingle == false) ||
-				(leftSingle != nil && *leftSingle == false && rightSingle != nil && *rightSingle == true) {
+			if (leftOk && leftSingle == true && rightOk && rightSingle == false) ||
+				(leftOk && leftSingle == false && rightOk && rightSingle == true) {
 				result, err = Collection{Boolean(true)}, nil
-			} else if leftSingle != nil && rightSingle != nil &&
-				*rightSingle == *leftSingle {
+			} else if leftOk && rightOk &&
+				rightSingle == leftSingle {
 				result, err = Collection{Boolean(false)}, nil
 			}
 		}
@@ -477,20 +473,20 @@ func evalExpression(
 			return nil, false, err
 		}
 
-		leftSingle, err := Singleton[Boolean](left)
+		leftSingle, leftOk, err := Singleton[Boolean](left)
 		if err != nil {
 			return nil, false, err
 		}
-		rightSingle, err := Singleton[Boolean](right)
+		rightSingle, rightOk, err := Singleton[Boolean](right)
 		if err != nil {
 			return nil, false, err
 		}
 
-		if leftSingle != nil && *leftSingle == true && rightSingle != nil {
-			result, err = Collection{*rightSingle}, nil
-		} else if leftSingle != nil && *leftSingle == false {
+		if leftOk && leftSingle == true && rightOk {
+			result, err = Collection{rightSingle}, nil
+		} else if leftOk && leftSingle == false {
 			result, err = Collection{Boolean(true)}, nil
-		} else if leftSingle == nil && rightSingle != nil && *rightSingle == true {
+		} else if leftOk && rightOk && rightSingle == true {
 			result, err = Collection{Boolean(true)}, nil
 		}
 		return result, true, err
@@ -588,21 +584,20 @@ func evalExternalConstant(
 	return Collection{value}, true, nil
 }
 
-func Singleton[T Element](c Collection) (*T, error) {
+func Singleton[T Element](c Collection) (v T, ok bool, err error) {
 	if len(c) == 0 {
-		return nil, nil
+		return v, false, nil
 	} else if len(c) > 1 {
-		return nil, fmt.Errorf("can not convert to singleton: collection contains > 1 values")
+		return v, false, fmt.Errorf("can not convert to singleton: collection contains > 1 values")
 	}
 
 	// convert to input type
-	v, err := elementTo[T](c[0], false)
+	v, ok, err = elementTo[T](c[0], false)
 
 	// if not convertible but contains a single value, evaluate to true
-	if _, wantBool := any(v).(*Boolean); err != nil && wantBool {
-		b := Boolean(true)
-		return any(&b).(*T), nil
+	if _, wantBool := any(v).(Boolean); err != nil && wantBool {
+		return any(Boolean(true)).(T), true, nil
 	}
 
-	return v, err
+	return v, ok, err
 }

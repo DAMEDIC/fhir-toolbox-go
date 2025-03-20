@@ -6540,31 +6540,31 @@ func (r Appointment) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Appointment) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Appointment to Boolean")
+func (r Appointment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Appointment to Boolean")
 }
-func (r Appointment) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Appointment to String")
+func (r Appointment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Appointment to String")
 }
-func (r Appointment) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Appointment to Integer")
+func (r Appointment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Appointment to Integer")
 }
-func (r Appointment) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Appointment to Decimal")
+func (r Appointment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Appointment to Decimal")
 }
-func (r Appointment) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Appointment to Date")
+func (r Appointment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Appointment to Date")
 }
-func (r Appointment) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Appointment to Time")
+func (r Appointment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Appointment to Time")
 }
-func (r Appointment) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Appointment to DateTime")
+func (r Appointment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Appointment to DateTime")
 }
-func (r Appointment) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Appointment to Quantity")
+func (r Appointment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Appointment to Quantity")
 }
-func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Appointment
 	switch other := other.(type) {
 	case Appointment:
@@ -6572,29 +6572,17 @@ func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	case *Appointment:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Appointment
-	switch other := other.(type) {
-	case Appointment:
-		o = &other
-	case *Appointment:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Appointment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -6931,31 +6919,31 @@ func (r AppointmentParticipant) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r AppointmentParticipant) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to Boolean")
+func (r AppointmentParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentParticipant to Boolean")
 }
-func (r AppointmentParticipant) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to String")
+func (r AppointmentParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentParticipant to String")
 }
-func (r AppointmentParticipant) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to Integer")
+func (r AppointmentParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentParticipant to Integer")
 }
-func (r AppointmentParticipant) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to Decimal")
+func (r AppointmentParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentParticipant to Decimal")
 }
-func (r AppointmentParticipant) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to Date")
+func (r AppointmentParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentParticipant to Date")
 }
-func (r AppointmentParticipant) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to Time")
+func (r AppointmentParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentParticipant to Time")
 }
-func (r AppointmentParticipant) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to DateTime")
+func (r AppointmentParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentParticipant to DateTime")
 }
-func (r AppointmentParticipant) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AppointmentParticipant to Quantity")
+func (r AppointmentParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentParticipant to Quantity")
 }
-func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AppointmentParticipant
 	switch other := other.(type) {
 	case AppointmentParticipant:
@@ -6963,29 +6951,17 @@ func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConv
 	case *AppointmentParticipant:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AppointmentParticipant
-	switch other := other.(type) {
-	case AppointmentParticipant:
-		o = &other
-	case *AppointmentParticipant:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7123,31 +7099,31 @@ func (r AppointmentRecurrenceTemplate) Children(name ...string) fhirpath.Collect
 	}
 	return children
 }
-func (r AppointmentRecurrenceTemplate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to Boolean")
+func (r AppointmentRecurrenceTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplate to Boolean")
 }
-func (r AppointmentRecurrenceTemplate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to String")
+func (r AppointmentRecurrenceTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplate to String")
 }
-func (r AppointmentRecurrenceTemplate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to Integer")
+func (r AppointmentRecurrenceTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplate to Integer")
 }
-func (r AppointmentRecurrenceTemplate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to Decimal")
+func (r AppointmentRecurrenceTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Decimal")
 }
-func (r AppointmentRecurrenceTemplate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to Date")
+func (r AppointmentRecurrenceTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Date")
 }
-func (r AppointmentRecurrenceTemplate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to Time")
+func (r AppointmentRecurrenceTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Time")
 }
-func (r AppointmentRecurrenceTemplate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to DateTime")
+func (r AppointmentRecurrenceTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to DateTime")
 }
-func (r AppointmentRecurrenceTemplate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplate to Quantity")
+func (r AppointmentRecurrenceTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AppointmentRecurrenceTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplate:
@@ -7155,29 +7131,17 @@ func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseT
 	case *AppointmentRecurrenceTemplate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AppointmentRecurrenceTemplate
-	switch other := other.(type) {
-	case AppointmentRecurrenceTemplate:
-		o = &other
-	case *AppointmentRecurrenceTemplate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AppointmentRecurrenceTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7342,31 +7306,31 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) Children(name ...string) fh
 	}
 	return children
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Boolean")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Boolean")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to String")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to String")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Integer")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Integer")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Decimal")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Decimal")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Date")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Date")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Time")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Time")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to DateTime")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to DateTime")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Quantity")
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateWeeklyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateWeeklyTemplate:
@@ -7374,29 +7338,17 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Elemen
 	case *AppointmentRecurrenceTemplateWeeklyTemplate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AppointmentRecurrenceTemplateWeeklyTemplate
-	switch other := other.(type) {
-	case AppointmentRecurrenceTemplateWeeklyTemplate:
-		o = &other
-	case *AppointmentRecurrenceTemplateWeeklyTemplate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7525,31 +7477,31 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) Children(name ...string) f
 	}
 	return children
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Boolean")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Boolean")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to String")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to String")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Integer")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Integer")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Decimal")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Decimal")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Date")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Date")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Time")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Time")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to DateTime")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to DateTime")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Quantity")
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateMonthlyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateMonthlyTemplate:
@@ -7557,29 +7509,17 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Eleme
 	case *AppointmentRecurrenceTemplateMonthlyTemplate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AppointmentRecurrenceTemplateMonthlyTemplate
-	switch other := other.(type) {
-	case AppointmentRecurrenceTemplateMonthlyTemplate:
-		o = &other
-	case *AppointmentRecurrenceTemplateMonthlyTemplate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -7665,31 +7605,31 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) Children(name ...string) fh
 	}
 	return children
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Boolean")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Boolean")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to String")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to String")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Integer")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Integer")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Decimal")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Decimal")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Date")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Date")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Time")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Time")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to DateTime")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to DateTime")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Quantity")
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateYearlyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateYearlyTemplate:
@@ -7697,29 +7637,17 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Elemen
 	case *AppointmentRecurrenceTemplateYearlyTemplate:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *AppointmentRecurrenceTemplateYearlyTemplate
-	switch other := other.(type) {
-	case AppointmentRecurrenceTemplateYearlyTemplate:
-		o = &other
-	case *AppointmentRecurrenceTemplateYearlyTemplate:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

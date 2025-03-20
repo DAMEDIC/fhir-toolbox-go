@@ -1030,31 +1030,31 @@ func (r MedicinalProductUndesirableEffect) Children(name ...string) fhirpath.Col
 	}
 	return children
 }
-func (r MedicinalProductUndesirableEffect) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Boolean")
+func (r MedicinalProductUndesirableEffect) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MedicinalProductUndesirableEffect to Boolean")
 }
-func (r MedicinalProductUndesirableEffect) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to String")
+func (r MedicinalProductUndesirableEffect) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MedicinalProductUndesirableEffect to String")
 }
-func (r MedicinalProductUndesirableEffect) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Integer")
+func (r MedicinalProductUndesirableEffect) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MedicinalProductUndesirableEffect to Integer")
 }
-func (r MedicinalProductUndesirableEffect) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Decimal")
+func (r MedicinalProductUndesirableEffect) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductUndesirableEffect to Decimal")
 }
-func (r MedicinalProductUndesirableEffect) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Date")
+func (r MedicinalProductUndesirableEffect) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MedicinalProductUndesirableEffect to Date")
 }
-func (r MedicinalProductUndesirableEffect) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Time")
+func (r MedicinalProductUndesirableEffect) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MedicinalProductUndesirableEffect to Time")
 }
-func (r MedicinalProductUndesirableEffect) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to DateTime")
+func (r MedicinalProductUndesirableEffect) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MedicinalProductUndesirableEffect to DateTime")
 }
-func (r MedicinalProductUndesirableEffect) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert MedicinalProductUndesirableEffect to Quantity")
+func (r MedicinalProductUndesirableEffect) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductUndesirableEffect to Quantity")
 }
-func (r MedicinalProductUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *MedicinalProductUndesirableEffect
 	switch other := other.(type) {
 	case MedicinalProductUndesirableEffect:
@@ -1062,29 +1062,17 @@ func (r MedicinalProductUndesirableEffect) Equal(other fhirpath.Element, _noReve
 	case *MedicinalProductUndesirableEffect:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r MedicinalProductUndesirableEffect) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *MedicinalProductUndesirableEffect
-	switch other := other.(type) {
-	case MedicinalProductUndesirableEffect:
-		o = &other
-	case *MedicinalProductUndesirableEffect:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r MedicinalProductUndesirableEffect) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

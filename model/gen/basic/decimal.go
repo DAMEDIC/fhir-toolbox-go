@@ -88,68 +88,49 @@ func (r Decimal) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Decimal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Decimal to Boolean")
+func (r Decimal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Decimal to Boolean")
 }
-func (r Decimal) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Decimal to String")
+func (r Decimal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Decimal to String")
 }
-func (r Decimal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Decimal to Integer")
+func (r Decimal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Decimal to Integer")
 }
-func (r Decimal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
+func (r Decimal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	if r.Value != nil {
 		v := fhirpath.Decimal{Value: r.Value}
-		return &v, nil
+		return v, true, nil
 	} else {
-		return nil, nil
+		return fhirpath.Decimal{}, false, nil
 	}
 }
-func (r Decimal) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Decimal to Date")
+func (r Decimal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Decimal to Date")
 }
-func (r Decimal) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Decimal to Time")
+func (r Decimal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Decimal to Time")
 }
-func (r Decimal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Decimal to DateTime")
+func (r Decimal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Decimal to DateTime")
 }
-func (r Decimal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Decimal to Quantity")
+func (r Decimal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Decimal to Quantity")
 }
-func (r Decimal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToDecimal(false)
-	if err != nil {
-		return false
+func (r Decimal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToDecimal(false)
+	if err != nil || !ok {
+		return false, true
 	}
-	b, err := other.ToDecimal(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
+	b, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
+		return false, true
 	}
 	return a.Equal(b)
 }
 func (r Decimal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	a, err := r.ToDecimal(false)
-	if err != nil {
-		return false
-	}
-	b, err := other.ToDecimal(false)
-	if err != nil {
-		return false
-	}
-	if a == nil || b == nil {
-		return false
-	}
-	if a != nil && b != nil && *a != *b {
-		return false
-	}
-	return a.Equivalent(b)
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Decimal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -173,7 +154,7 @@ func (r Decimal) TypeInfo() fhirpath.TypeInfo {
 				Name:      "PrimitiveType",
 				Namespace: "FHIR",
 			},
-			Name:      "Decimal",
+			Name:      "decimal",
 			Namespace: "FHIR",
 		},
 	}

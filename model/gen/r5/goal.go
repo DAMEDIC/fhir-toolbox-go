@@ -3098,31 +3098,31 @@ func (r Goal) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r Goal) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert Goal to Boolean")
+func (r Goal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Goal to Boolean")
 }
-func (r Goal) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert Goal to String")
+func (r Goal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Goal to String")
 }
-func (r Goal) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert Goal to Integer")
+func (r Goal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Goal to Integer")
 }
-func (r Goal) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert Goal to Decimal")
+func (r Goal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Goal to Decimal")
 }
-func (r Goal) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert Goal to Date")
+func (r Goal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Goal to Date")
 }
-func (r Goal) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert Goal to Time")
+func (r Goal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Goal to Time")
 }
-func (r Goal) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert Goal to DateTime")
+func (r Goal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Goal to DateTime")
 }
-func (r Goal) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert Goal to Quantity")
+func (r Goal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Goal to Quantity")
 }
-func (r Goal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Goal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *Goal
 	switch other := other.(type) {
 	case Goal:
@@ -3130,29 +3130,17 @@ func (r Goal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bo
 	case *Goal:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r Goal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *Goal
-	switch other := other.(type) {
-	case Goal:
-		o = &other
-	case *Goal:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r Goal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -3369,31 +3357,31 @@ func (r GoalTarget) Children(name ...string) fhirpath.Collection {
 	}
 	return children
 }
-func (r GoalTarget) ToBoolean(explicit bool) (*fhirpath.Boolean, error) {
-	return nil, errors.New("can not convert GoalTarget to Boolean")
+func (r GoalTarget) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert GoalTarget to Boolean")
 }
-func (r GoalTarget) ToString(explicit bool) (*fhirpath.String, error) {
-	return nil, errors.New("can not convert GoalTarget to String")
+func (r GoalTarget) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert GoalTarget to String")
 }
-func (r GoalTarget) ToInteger(explicit bool) (*fhirpath.Integer, error) {
-	return nil, errors.New("can not convert GoalTarget to Integer")
+func (r GoalTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert GoalTarget to Integer")
 }
-func (r GoalTarget) ToDecimal(explicit bool) (*fhirpath.Decimal, error) {
-	return nil, errors.New("can not convert GoalTarget to Decimal")
+func (r GoalTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert GoalTarget to Decimal")
 }
-func (r GoalTarget) ToDate(explicit bool) (*fhirpath.Date, error) {
-	return nil, errors.New("can not convert GoalTarget to Date")
+func (r GoalTarget) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert GoalTarget to Date")
 }
-func (r GoalTarget) ToTime(explicit bool) (*fhirpath.Time, error) {
-	return nil, errors.New("can not convert GoalTarget to Time")
+func (r GoalTarget) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert GoalTarget to Time")
 }
-func (r GoalTarget) ToDateTime(explicit bool) (*fhirpath.DateTime, error) {
-	return nil, errors.New("can not convert GoalTarget to DateTime")
+func (r GoalTarget) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert GoalTarget to DateTime")
 }
-func (r GoalTarget) ToQuantity(explicit bool) (*fhirpath.Quantity, error) {
-	return nil, errors.New("can not convert GoalTarget to Quantity")
+func (r GoalTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert GoalTarget to Quantity")
 }
-func (r GoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
 	var o *GoalTarget
 	switch other := other.(type) {
 	case GoalTarget:
@@ -3401,29 +3389,17 @@ func (r GoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	case *GoalTarget:
 		o = other
 	default:
-		return false
+		return false, true
 	}
-	eq := r.Children().Equal(o.Children())
-	if eq == nil {
-		return true
+	if o == nil {
+		return false, true
 	}
-	return *eq
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
 }
 func (r GoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	var o *GoalTarget
-	switch other := other.(type) {
-	case GoalTarget:
-		o = &other
-	case *GoalTarget:
-		o = other
-	default:
-		return false
-	}
-	eq := r.Children().Equivalent(o.Children())
-	if eq == nil {
-		return true
-	}
-	return *eq
+	eq, ok := r.Equal(other)
+	return eq && ok
 }
 func (r GoalTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
