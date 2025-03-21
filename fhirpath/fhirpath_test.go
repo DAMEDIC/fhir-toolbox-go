@@ -43,6 +43,11 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Type: "boolean", Output: "true",
 		}},
 	},
+	"testIntegerBooleanNotTrue": {
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "boolean", Output: "false",
+		}},
+	},
 }
 
 func TestFHIRPathTestSuiteR4(t *testing.T) {

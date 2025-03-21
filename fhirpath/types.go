@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
 	"github.com/cockroachdb/apd/v3"
 	"maps"
 	"regexp"
@@ -1438,7 +1439,7 @@ func (d Decimal) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 }
 func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
 	o, ok, err := other.ToDecimal(false)
-	if err == nil && !ok {
+	if err == nil && ok {
 		return d.Value.Cmp(o.Value) == 0, true
 	}
 	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
@@ -1449,7 +1450,7 @@ func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool
 }
 func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
 	o, ok, err := other.ToDecimal(false)
-	if err == nil && !ok {
+	if err == nil && ok {
 		prec := uint32(min(d.Value.NumDigits(), o.Value.NumDigits()))
 		ctx := apd.BaseContext.WithPrecision(prec)
 		var a, b apd.Decimal
@@ -2617,23 +2618,44 @@ func (q Quantity) String() string {
 }
 
 func ParseQuantity(s string) (Quantity, error) {
-	parser, err := parse(s)
+	expr, err := Parse(s)
 	if err != nil {
-		return Quantity{}, err
+		return Quantity{}, fmt.Errorf("cannot parse quantity '%s': %v", s, err)
+	}
+	termCtx, ok := expr.tree.(*parser.TermExpressionContext)
+	if !ok {
+		return Quantity{}, fmt.Errorf("cannot parse quantity '%s'", s)
+	}
+	literalCtx, ok := termCtx.Term().(*parser.LiteralTermContext)
+	if !ok {
+		return Quantity{}, fmt.Errorf("cannot parse quantity '%s'", s)
 	}
 
-	q := parser.Quantity()
-	v, _, err := apd.NewFromString(q.NUMBER().GetText())
-	u := "1"
-	if q.Unit() != nil {
-		t := q.Unit().GetText()
-		u = strings.Trim(t, "'")
-	}
-	if err != nil {
-		return Quantity{}, err
-	}
+	switch lit := literalCtx.Literal().(type) {
+	case *parser.QuantityLiteralContext:
+		quantityCtx, ok := lit.Quantity().(*parser.QuantityContext)
+		if !ok {
+			return Quantity{}, fmt.Errorf("cannot parse quantity '%s'", s)
+		}
+		v, _, err := apd.NewFromString(quantityCtx.NUMBER().GetText())
+		if err != nil {
+			return Quantity{}, err
+		}
 
-	return Quantity{Value: Decimal{Value: v}, Unit: String(u)}, nil
+		t := quantityCtx.Unit().GetText()
+		u := strings.Trim(t, "'")
+
+		return Quantity{Value: Decimal{Value: v}, Unit: String(u)}, nil
+	case *parser.NumberLiteralContext:
+		v, _, err := apd.NewFromString(lit.NUMBER().GetText())
+		if err != nil {
+			return Quantity{}, err
+		}
+
+		return Quantity{Value: Decimal{Value: v}, Unit: "1"}, nil
+	default:
+		return Quantity{}, fmt.Errorf("cannot parse quantity '%s'", s)
+	}
 }
 
 type defaultConversionError[F any] struct {

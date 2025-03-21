@@ -33,18 +33,11 @@ func (e Expression) String() string {
 //	    // Handle error
 //	}
 func Parse(expr string) (Expression, error) {
-	parser, err := parse(expr)
+	tree, err := parse(expr)
 	if err != nil {
 		return Expression{}, err
 	}
-	entireExpr := parser.EntireExpression()
-	if entireExpr.EOF() == nil {
-		return Expression{}, fmt.Errorf(
-			"can not parse expression at index %v: %v",
-			len(entireExpr.Expression().GetText()), entireExpr.GetText(),
-		)
-	}
-	return Expression{entireExpr.Expression()}, nil
+	return Expression{tree}, nil
 }
 
 // MustParse parses a FHIRPath expression string and returns an Expression object.
@@ -90,7 +83,7 @@ func (c *SyntaxErrorListener) SyntaxError(
 	})
 }
 
-func parse(expr string) (*parser.FHIRPathParser, error) {
+func parse(expr string) (parser.IExpressionContext, error) {
 	errListener := SyntaxErrorListener{}
 	inputStream := antlr.NewInputStream(expr)
 
@@ -103,7 +96,15 @@ func parse(expr string) (*parser.FHIRPathParser, error) {
 	parser.RemoveErrorListeners()
 	parser.AddErrorListener(&errListener)
 
-	return parser, errors.Join(errListener.Errors...)
+	entireExpr := parser.EntireExpression()
+	if entireExpr.EOF() == nil {
+		return nil, fmt.Errorf(
+			"can not parse expression at index %v: %v",
+			len(entireExpr.Expression().GetText()), entireExpr.GetText(),
+		)
+	}
+
+	return entireExpr.Expression(), errors.Join(errListener.Errors...)
 }
 
 // Evaluate evaluates a FHIRPath expression against a target element and returns the resulting collection.
