@@ -2386,11 +2386,13 @@ func ParseDateTime(s string) (DateTime, error) {
 		return DateTime{}, fmt.Errorf("invalid DateTime format (time part): %s", s)
 	}
 
+	tv := t.Value.In(d.Value.Location())
+
 	dt := d.Value.Add(
-		time.Hour*time.Duration(t.Value.Hour()) +
-			time.Minute*time.Duration(t.Value.Minute()) +
-			time.Second*time.Duration(t.Value.Second()) +
-			time.Nanosecond*time.Duration(t.Value.Nanosecond()),
+		time.Hour*time.Duration(tv.Hour()) +
+			time.Minute*time.Duration(tv.Minute()) +
+			time.Second*time.Duration(tv.Second()) +
+			time.Nanosecond*time.Duration(tv.Nanosecond()),
 	)
 	return DateTime{Value: dt, Precision: DateTimePrecision(t.Precision)}, nil
 }

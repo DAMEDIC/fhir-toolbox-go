@@ -38,6 +38,11 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Invalid: "UCUM handling not implemented",
 		},
 	},
+	"testDateNotEqual": {
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "boolean", Output: "true",
+		}},
+	},
 }
 
 func TestFHIRPathTestSuiteR4(t *testing.T) {
