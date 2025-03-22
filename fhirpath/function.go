@@ -278,7 +278,7 @@ var defaultFunctions = Functions{
 			if err != nil {
 				return nil, false, err
 			}
-			if ok || !bool(b) {
+			if !ok || !bool(b) {
 				// Found at least one element that doesn't match the criteria
 				return Collection{Boolean(false)}, true, nil
 			}
