@@ -28,7 +28,7 @@ func evalInvocation(
 				if !subTypeOf(ctx, rootType, expectedType) {
 					return nil, false, fmt.Errorf("expected element of type %s, got %s", expectedType, rootType)
 				}
-				return target, inputOrdered, nil
+				return Collection{root}, inputOrdered, nil
 			}
 		}
 
@@ -155,7 +155,7 @@ func callFunc(
 			return evalExpression(ctx,
 				root, targetCollection,
 				true,
-				expr.tree, false,
+				expr.tree, true,
 			)
 		},
 	)
