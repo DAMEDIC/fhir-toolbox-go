@@ -14,6 +14,7 @@ type ResourceOrType struct {
 // Struct represent a resource, type or backbone element within another resource, type or backbone element.
 type Struct struct {
 	Name             string
+	MarshalName      string
 	IsResource       bool
 	IsDomainResource bool
 	IsPrimitive      bool
