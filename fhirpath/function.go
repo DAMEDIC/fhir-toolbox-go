@@ -632,10 +632,6 @@ var defaultFunctions = Functions{
 		var current = target
 		var newItems Collection
 
-		for _, elem := range current {
-			result = append(result, elem)
-		}
-
 		// Keep repeating the projection until no new items are found
 		for {
 			newItems = nil
@@ -647,11 +643,16 @@ var defaultFunctions = Functions{
 
 				// Check for new items
 				for _, item := range projection {
+					add := true
 					for _, seen := range result {
 						eq, ok := seen.Equal(item)
-						if !ok || !eq {
-							newItems = append(newItems, item)
+						if ok && eq {
+							add = false
+							break
 						}
+					}
+					if add {
+						newItems = append(newItems, item)
 					}
 				}
 			}
