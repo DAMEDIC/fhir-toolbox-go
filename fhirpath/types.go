@@ -703,7 +703,7 @@ func (c Collection) Equal(other Collection) (eq bool, ok bool) {
 	for i, e := range c {
 		eq, ok := e.Equal(other[i])
 		if !ok || !eq {
-			return false, true
+			return false, ok
 		}
 	}
 	return true, true
@@ -1112,9 +1112,9 @@ func (s String) Children(name ...string) Collection {
 
 func (s String) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 	if explicit {
-		if slices.Contains([]string{"true", "t", "yes", "y", "1", "1.0"}, string(s)) {
+		if slices.Contains([]string{"true", "t", "yes", "y", "1", "1.0"}, strings.ToLower(string(s))) {
 			return true, true, nil
-		} else if slices.Contains([]string{"false", "f", "no", "n", "0", "0.0"}, string(s)) {
+		} else if slices.Contains([]string{"false", "f", "no", "n", "0", "0.0"}, strings.ToLower(string(s))) {
 			return false, true, nil
 		} else {
 			return false, false, nil
@@ -1426,7 +1426,7 @@ func (d Decimal) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 	return false, false, implicitConversionError[Decimal, Boolean]()
 }
 func (d Decimal) ToString(explicit bool) (v String, ok bool, err error) {
-	return String(d.String()), false, nil
+	return String(d.String()), true, nil
 }
 func (d Decimal) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	return d, true, nil
@@ -2487,7 +2487,7 @@ func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) (eq boo
 		left := q.dateAsUCUM()
 		right := o.dateAsUCUM()
 		eq, ok := left.Value.Equal(right.Value)
-		return ok && eq && left.Unit == right.Unit, true
+		return ok && eq, left.Unit == right.Unit
 	}
 	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
 		return other.Equal(q, true)
