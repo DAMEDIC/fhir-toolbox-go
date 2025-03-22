@@ -432,8 +432,8 @@ func (r Quantity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 		return fhirpath.Quantity{}, false, nil
 	}
 	var unit string
-	if r.Unit != nil && r.Unit.Value != nil {
-		switch *r.Unit.Value {
+	if r.Code != nil && r.Code.Value != nil {
+		switch *r.Code.Value {
 		case "a":
 			unit = "year"
 		case "mo":
@@ -446,6 +446,8 @@ func (r Quantity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 			unit = "minute"
 		case "s":
 			unit = "second"
+		default:
+			unit = *r.Code.Value
 		}
 	}
 	return fhirpath.Quantity{
@@ -454,20 +456,15 @@ func (r Quantity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	}, true, nil
 }
 func (r Quantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	var o *Quantity
-	switch other := other.(type) {
-	case Quantity:
-		o = &other
-	case *Quantity:
-		o = other
-	default:
+	a, ok, err := r.ToQuantity(false)
+	if err != nil || !ok {
 		return false, true
 	}
-	if o == nil {
+	b, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
 		return false, true
 	}
-	eq, ok := r.Children().Equal(o.Children())
-	return eq && ok, true
+	return a.Equal(b)
 }
 func (r Quantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
 	eq, ok := r.Equal(other)

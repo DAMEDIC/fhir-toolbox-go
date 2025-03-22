@@ -337,15 +337,16 @@ func generateToQuantityFunc(f *File, s ir.Struct) {
 			)
 
 			g.Var().Id("unit").String()
-			g.If(Id("r").Dot("Unit").Op("!=").Nil().Op("&&").
-				Id("r").Dot("Unit").Dot("Value").Op("!=").Nil()).Block(
-				Switch(Op("*").Id("r").Dot("Unit").Dot("Value")).Block(
+			g.If(Id("r").Dot("Code").Op("!=").Nil().Op("&&").
+				Id("r").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
+				Switch(Op("*").Id("r").Dot("Code").Dot("Value")).Block(
 					Case(Lit("a")).Id("unit").Op("=").Lit("year"),
 					Case(Lit("mo")).Id("unit").Op("=").Lit("month"),
 					Case(Lit("d")).Id("unit").Op("=").Lit("day"),
 					Case(Lit("h")).Id("unit").Op("=").Lit("hour"),
 					Case(Lit("min")).Id("unit").Op("=").Lit("minute"),
 					Case(Lit("s")).Id("unit").Op("=").Lit("second"),
+					Default().Id("unit").Op("=").Op("*").Id("r").Dot("Code").Dot("Value"),
 				),
 			)
 
@@ -415,11 +416,6 @@ func generateEqualFunc(f *File, s ir.Struct) {
 				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToDateTime").Call(False())
 				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
-			} else if s.Name == "Quantity" {
-				g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToQuantity").Call(False())
-				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
-				g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToQuantity").Call(False())
-				g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 			} else if s.Name == "Xhtml" {
 				g.List(Id("o"), Id("ok")).Op(":=").Id("other").Dot("").Call(Id(s.Name))
 				g.If(Op("!").Id("ok")).Block(Return(False(), True()))
@@ -434,6 +430,13 @@ func generateEqualFunc(f *File, s ir.Struct) {
 				g.Return(Id("*r.Value").Op("==").Id("*o.Value"), True())
 				return
 			}
+
+			g.Return().Id("a").Dot("Equal").Call(Id("b"))
+		} else if s.Name == "Quantity" {
+			g.List(Id("a"), Id("ok"), Err()).Op(":=").Id("r").Dot("ToQuantity").Call(False())
+			g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
+			g.List(Id("b"), Id("ok"), Err()).Op(":=").Id("other").Dot("ToQuantity").Call(False())
+			g.If(Err().Op("!=").Nil().Op("||").Op("!").Id("ok")).Block(Return(False(), True()))
 
 			g.Return().Id("a").Dot("Equal").Call(Id("b"))
 		} else {

@@ -8,6 +8,7 @@ import (
 	"github.com/cockroachdb/apd/v3"
 	"github.com/pmezard/go-difflib/difflib"
 	"github.com/stretchr/testify/assert"
+	"regexp"
 	"testing"
 )
 
@@ -31,11 +32,21 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Type: "Quantity", Output: "1 'week'",
 		}},
 	},
-	"testDateNotEqual": {
-		// missing output in test
-		Output: []testdata.FHIRPathTestOutput{{
-			Type: "boolean", Output: "true",
-		}},
+	"testDateNotEqualTimezoneOffset(Before|After)": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testDateNotEqualUTC": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testDateTimeGreaterThanDate": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testNow1": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
 	},
 	"testIntegerBooleanNotTrue": {
 		// singleton evaluation of '0' is true
@@ -46,6 +57,12 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 	"testStringQuantityDayLiteralToQuantity": {
 		// proper ucum handling not implemented
 		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testEquality(7|23)": {
+		// missing output in test
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "boolean", Output: "false",
+		}},
 	},
 }
 
@@ -72,16 +89,18 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 					name = fmt.Sprintf("%s (%s)", name, test.Description)
 				}
 
-				override, ok := testOverrides[name]
-				if ok {
-					if override.Invalid != "" {
-						test.Invalid = override.Invalid
-					}
-					if override.Output != nil {
-						test.Output = override.Output
-					}
-					if override.Expression != (testdata.FHIRPathTestExpression{}) {
-						test.Expression = override.Expression
+				for r, o := range testOverrides {
+					if ok, _ := regexp.MatchString(r, test.Name); ok {
+						if o.Invalid != "" {
+							test.Invalid = o.Invalid
+						}
+						if o.Output != nil {
+							test.Output = o.Output
+						}
+						if o.Expression != (testdata.FHIRPathTestExpression{}) {
+							test.Expression = o.Expression
+						}
+						break
 					}
 				}
 

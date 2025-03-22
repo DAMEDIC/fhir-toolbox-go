@@ -676,13 +676,13 @@ func toPrimitive(e Element) (Element, bool) {
 	if p, ok, err := e.ToDecimal(false); err == nil && ok {
 		return p, true
 	}
+	if p, ok, err := e.ToDateTime(false); err == nil && ok {
+		return p, true
+	}
 	if p, ok, err := e.ToDate(false); err == nil && ok {
 		return p, true
 	}
 	if p, ok, err := e.ToTime(false); err == nil && ok {
-		return p, true
-	}
-	if p, ok, err := e.ToDateTime(false); err == nil && ok {
 		return p, true
 	}
 	if p, ok, err := e.ToQuantity(false); err == nil && ok {
@@ -1036,7 +1036,7 @@ func (b Boolean) ToString(explicit bool) (v String, ok bool, err error) {
 	if explicit {
 		return String(b.String()), true, nil
 	}
-	return "", false, implicitConversionError[Boolean, String]()
+	return "", false, implicitConversionError[Boolean, String](b)
 }
 func (b Boolean) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	if explicit {
@@ -1046,7 +1046,7 @@ func (b Boolean) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 			return 0, true, nil
 		}
 	}
-	return 0, false, implicitConversionError[Boolean, Integer]()
+	return 0, false, implicitConversionError[Boolean, Integer](b)
 }
 func (b Boolean) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	if explicit {
@@ -1056,7 +1056,7 @@ func (b Boolean) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 			return Decimal{Value: apd.New(00, -1)}, true, nil
 		}
 	}
-	return Decimal{}, false, implicitConversionError[Boolean, Decimal]()
+	return Decimal{}, false, implicitConversionError[Boolean, Decimal](b)
 }
 
 func (b Boolean) ToDate(explicit bool) (v Date, ok bool, err error) {
@@ -1120,7 +1120,7 @@ func (s String) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 			return false, false, nil
 		}
 	}
-	return false, false, implicitConversionError[String, Boolean]()
+	return false, false, implicitConversionError[String, Boolean](s)
 }
 func (s String) ToString(explicit bool) (v String, ok bool, err error) {
 	return s, true, nil
@@ -1133,7 +1133,7 @@ func (s String) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 		}
 		return Integer(i), true, nil
 	}
-	return 0, false, conversionError[String, Integer]()
+	return 0, false, implicitConversionError[String, Integer](s)
 }
 func (s String) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	if explicit {
@@ -1143,7 +1143,7 @@ func (s String) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 		}
 		return Decimal{Value: d}, true, nil
 	}
-	return Decimal{}, false, conversionError[String, Decimal]()
+	return Decimal{}, false, implicitConversionError[String, Decimal](s)
 }
 func (s String) ToDate(explicit bool) (v Date, ok bool, err error) {
 	if explicit {
@@ -1153,7 +1153,7 @@ func (s String) ToDate(explicit bool) (v Date, ok bool, err error) {
 		}
 		return d, true, nil
 	}
-	return Date{}, false, conversionError[String, Date]()
+	return Date{}, false, implicitConversionError[String, Date](s)
 }
 func (s String) ToTime(explicit bool) (v Time, ok bool, err error) {
 	if explicit {
@@ -1163,7 +1163,7 @@ func (s String) ToTime(explicit bool) (v Time, ok bool, err error) {
 		}
 		return d, true, nil
 	}
-	return Time{}, false, conversionError[String, Time]()
+	return Time{}, false, implicitConversionError[String, Time](s)
 }
 func (s String) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 	if explicit {
@@ -1173,7 +1173,7 @@ func (s String) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 		}
 		return d, true, nil
 	}
-	return DateTime{}, false, conversionError[String, DateTime]()
+	return DateTime{}, false, implicitConversionError[String, DateTime](s)
 }
 func (s String) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	q, err := ParseQuantity(string(s))
@@ -1268,7 +1268,7 @@ func (i Integer) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 			return false, false, nil
 		}
 	}
-	return false, false, implicitConversionError[Integer, Boolean]()
+	return false, false, implicitConversionError[Integer, Boolean](i)
 }
 func (i Integer) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(i.String()), true, nil
@@ -1423,7 +1423,7 @@ func (d Decimal) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
 			return false, false, nil
 		}
 	}
-	return false, false, implicitConversionError[Decimal, Boolean]()
+	return false, false, implicitConversionError[Decimal, Boolean](d)
 }
 func (d Decimal) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(d.String()), true, nil
@@ -1609,8 +1609,8 @@ func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, o
 	o, ok, err := other.ToDate(false)
 	if err == nil && ok {
 		cmp, ok, err := d.Cmp(o)
-		if err == nil && ok {
-			return cmp == 0, true
+		if err == nil {
+			return cmp == 0, ok
 		}
 	}
 	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
@@ -1660,6 +1660,9 @@ func (d Date) Cmp(other Element) (cmp int, ok bool, err error) {
 			return 0, true, nil
 		}
 	default:
+		if o.Precision != d.Precision {
+			return 0, false, nil
+		}
 		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
 			return -1, true, nil
 		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
@@ -1834,8 +1837,8 @@ func (t Time) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, o
 	o, ok, err := other.ToTime(false)
 	if err == nil && ok {
 		cmp, ok, err := t.Cmp(o)
-		if err == nil && ok {
-			return cmp == 0, true
+		if err == nil {
+			return cmp == 0, ok
 		}
 	}
 	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
@@ -1871,6 +1874,9 @@ func (t Time) Cmp(other Element) (cmp int, ok bool, err error) {
 		return t.Value.Truncate(time.Minute).Compare(
 			o.Value.In(t.Value.Location()).Truncate(time.Minute)), true, nil
 	default:
+		if o.Precision != t.Precision {
+			return 0, false, nil
+		}
 		return t.Value.Compare(o.Value.In(t.Value.Location())), true, nil
 	}
 }
@@ -2019,17 +2025,20 @@ func (dt DateTime) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(dt.String()), true, nil
 }
 func (dt DateTime) ToDate(explicit bool) (v Date, ok bool, err error) {
-	var precision DatePrecision
-	switch dt.Precision {
-	case DateTimePrecisionYear, DateTimePrecisionMonth:
-		precision = DatePrecision(dt.Precision)
-	default:
-		precision = DatePrecisionFull
+	if explicit {
+		var precision DatePrecision
+		switch dt.Precision {
+		case DateTimePrecisionYear, DateTimePrecisionMonth:
+			precision = DatePrecision(dt.Precision)
+		default:
+			precision = DatePrecisionFull
+		}
+		return Date{
+			Value:     dt.Value,
+			Precision: precision,
+		}, true, nil
 	}
-	return Date{
-		Value:     dt.Value,
-		Precision: precision,
-	}, true, nil
+	return Date{}, false, implicitConversionError[DateTime, Date](dt)
 }
 func (dt DateTime) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 	return dt, true, nil
@@ -2038,8 +2047,8 @@ func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) (eq bo
 	o, ok, err := other.ToDateTime(false)
 	if err == nil && ok {
 		cmp, ok, err := dt.Cmp(o)
-		if err == nil && ok {
-			return cmp == 0, true
+		if err == nil {
+			return cmp == 0, ok
 		}
 	}
 	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
@@ -2120,6 +2129,9 @@ func (dt DateTime) Cmp(other Element) (cmp int, ok bool, err error) {
 		return dt.Value.Truncate(time.Minute).Compare(
 			o.Value.In(dt.Value.Location()).Truncate(time.Minute)), true, nil
 	default:
+		if o.Precision != dt.Precision {
+			return 0, false, nil
+		}
 		return dt.Value.Compare(
 			o.Value.In(dt.Value.Location())), true, nil
 	}
@@ -2690,10 +2702,7 @@ func conversionError[F any, T Element]() error {
 	return fmt.Errorf("primitive %v of type %T can not be converted to type %T", f, f, t)
 }
 
-func implicitConversionError[F Element, T Element]() error {
-	var (
-		f F
-		t T
-	)
-	return fmt.Errorf("primitive %v of type %T can not be implicitly converted to type %T", f, f, t)
+func implicitConversionError[F Element, T Element](f F) error {
+	var t T
+	return fmt.Errorf("primitive %T %v can not be implicitly converted to %T", f, f, t)
 }
