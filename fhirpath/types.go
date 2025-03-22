@@ -1803,7 +1803,7 @@ func (d Date) String() string {
 	default:
 		ds = d.Value.Format(DateFormatFull)
 	}
-	return fmt.Sprintf("@%s", ds)
+	return fmt.Sprintf("%s", ds)
 }
 
 type Time struct {
@@ -1992,7 +1992,7 @@ func (t Time) String() string {
 	default:
 		ts = t.Value.Format(TimeFormatFull)
 	}
-	return fmt.Sprintf("@T%s", ts)
+	return fmt.Sprintf("%s", ts)
 }
 
 type DateTime struct {
@@ -2286,11 +2286,7 @@ func (dt DateTime) String() string {
 		ts = dt.Value.Format(TimeFormatFullTZ)
 	}
 
-	if ts == "" {
-		return fmt.Sprintf("@%sT", ds)
-	}
-
-	return fmt.Sprintf("@%sT%s", ds, ts)
+	return fmt.Sprintf("%sT%s", ds, ts)
 }
 
 const (
