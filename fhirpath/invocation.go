@@ -56,10 +56,10 @@ func evalInvocation(
 		if err != nil {
 			return nil, false, err
 		}
-		if scope.total == 0 {
+		if !scope.aggregate {
 			return nil, false, fmt.Errorf("$total not defined (only in aggregate)")
 		}
-		return Collection{Integer(scope.total)}, true, nil
+		return scope.total, true, nil
 	default:
 		return nil, false, fmt.Errorf("unexpected invocation %T", tree)
 	}
@@ -143,6 +143,7 @@ func callFunc(
 					index: fnScope[0].index,
 				}
 				if ident == "aggregate" {
+					scope.aggregate = true
 					scope.total = fnScope[0].total
 				}
 				ctx = withFunctionScope(ctx, scope)

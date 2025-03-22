@@ -57,7 +57,7 @@ type Function = func(
 	inputOrdered bool,
 	parameters []Expression,
 	evaluate EvaluateFunc,
-) (result Collection, resultresultOrdered bool, err error)
+) (result Collection, resultOrdered bool, err error)
 
 type EvaluateFunc = func(
 	ctx context.Context,
@@ -70,13 +70,14 @@ type functionCtxKey struct{}
 
 type FunctionScope struct {
 	index int
-	total int
+	total Collection
 }
 
 type functionScope struct {
-	this  Element
-	index int
-	total int
+	this      Element
+	index     int
+	aggregate bool
+	total     Collection
 }
 
 func withFunctionScope(
@@ -235,7 +236,7 @@ var defaultFunctions = Functions{
 
 		// With criteria, equivalent to where(criteria).exists()
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -269,7 +270,7 @@ var defaultFunctions = Functions{
 		}
 
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -563,7 +564,7 @@ var defaultFunctions = Functions{
 		}
 
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -598,7 +599,7 @@ var defaultFunctions = Functions{
 
 		resultOrdered = inputOrdered
 		for i, elem := range target {
-			projection, ordered, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+			projection, ordered, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -636,7 +637,7 @@ var defaultFunctions = Functions{
 		for {
 			newItems = nil
 			for i, elem := range current {
-				projection, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(current)})
+				projection, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
@@ -2555,7 +2556,7 @@ var defaultFunctions = Functions{
 		var logCollection Collection
 		if len(parameters) == 2 {
 			for i, elem := range target {
-				projection, _, err := evaluate(ctx, elem, parameters[1], FunctionScope{index: i, total: len(target)})
+				projection, _, err := evaluate(ctx, elem, parameters[1], FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
@@ -2588,22 +2589,22 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		total := Collection{}
+		totalOrdered := inputOrdered
+
 		if len(parameters) == 2 {
 			// If init value is provided, evaluate it
 			var err error
-			result, _, err = evaluate(ctx, nil, parameters[1])
+			total, totalOrdered, err = evaluate(ctx, nil, parameters[1])
 			if err != nil {
 				return nil, false, err
 			}
 		}
 
-		total := Collection{}
-		totalOrdered := inputOrdered
-
 		// Iterate over the target collection
 		for i, elem := range target {
 			var ordered bool
-			total, ordered, err = evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: len(target)})
+			total, ordered, err = evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: total})
 			if err != nil {
 				return nil, false, err
 			}
