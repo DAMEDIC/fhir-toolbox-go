@@ -14,7 +14,7 @@ import (
 
 func TestFHIRPathTestSuiteR4(t *testing.T) {
 	ctx := r4.Context()
-	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
+	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(8))
 
 	tests := testdata.GetFHIRPathTests()
 
