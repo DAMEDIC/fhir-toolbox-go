@@ -454,15 +454,16 @@ func ParseTypeSpecifier(s string) TypeSpecifier {
 		s = strings.TrimPrefix(s, "List<")
 		s = strings.TrimSuffix(s, ">")
 	}
+
 	split := strings.SplitN(s, ".", 2)
 	if len(split) == 1 {
 		return TypeSpecifier{
-			Name: split[0],
+			Name: strings.Trim(split[0], "`"),
 		}
 	} else {
 		return TypeSpecifier{
-			Namespace: split[0],
-			Name:      split[1],
+			Namespace: strings.Trim(split[0], "`"),
+			Name:      strings.Trim(split[1], "`"),
 		}
 	}
 }

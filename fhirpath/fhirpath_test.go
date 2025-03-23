@@ -168,4 +168,9 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Expression: "13.14159.round(3) = 13.142",
 		},
 	},
+	"testType22": {
+		Expression: testdata.FHIRPathTestExpression{
+			Invalid: "not existing type returns error",
+		},
+	},
 }
