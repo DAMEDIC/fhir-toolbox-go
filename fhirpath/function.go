@@ -2199,36 +2199,35 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected at most one precision parameter")
 		}
 
-		precision := 0
+		decimalPlaces := int64(0)
 		if len(parameters) == 1 {
-			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
+			c, _, err := evaluate(ctx, nil, parameters[0])
 			if err != nil {
 				return nil, false, err
 			}
 
-			// If the precision collection is empty, use default precision
-			if len(precisionCollection) > 0 {
-				precisionInt, ok, err := Singleton[Integer](precisionCollection)
-				if err != nil {
-					return nil, false, err
-				}
-				if !ok {
-					return nil, false, fmt.Errorf("expected integer precision parameter")
-				}
-
-				// Precision must be >= 0
-				if precisionInt < 0 {
-					return nil, false, fmt.Errorf("precision must be >= 0")
-				}
-
-				precision = int(precisionInt)
+			decimalPlacesValue, ok, err := Singleton[Integer](c)
+			if err != nil {
+				return nil, false, err
 			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected integer precision parameter")
+			}
+
+			if decimalPlacesValue < 0 {
+				return nil, false, fmt.Errorf("precision must be >= 0")
+			}
+
+			decimalPlaces = int64(decimalPlacesValue)
 		}
 
 		d, ok, err := Singleton[Decimal](target)
 		if err == nil && ok {
-			// Create a context with the specified precision
-			apdCtx := apdContext(ctx).WithPrecision(uint32(precision + 1))
+			var intPart apd.Decimal
+			_, err = apdContext(ctx).Floor(&intPart, d.Value)
+
+			// apd counts precision including places before the comma
+			apdCtx := apdContext(ctx).WithPrecision(uint32(intPart.NumDigits() + decimalPlaces))
 
 			// Round the decimal to the specified precision
 			var rounded apd.Decimal

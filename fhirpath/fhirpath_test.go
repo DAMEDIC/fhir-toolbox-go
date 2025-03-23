@@ -163,4 +163,9 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Type: "boolean", Output: "false",
 		}},
 	},
+	"testRound2": {
+		Expression: testdata.FHIRPathTestExpression{
+			Expression: "13.14159.round(3) = 13.142",
+		},
+	},
 }

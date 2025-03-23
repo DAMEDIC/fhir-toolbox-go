@@ -2548,8 +2548,17 @@ func (q Quantity) Multiply(ctx context.Context, other Element) (Element, error) 
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
-	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+
+	var unit String
+	if left.Unit == "1" {
+		unit = right.Unit
+	} else if right.Unit == "1" {
+		unit = left.Unit
+	} else {
+		unit = String(fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit))
+	}
+
+	return Quantity{Value: value.(Decimal), Unit: unit}, nil
 }
 func (q Quantity) Divide(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
