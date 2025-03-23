@@ -869,6 +869,9 @@ func (c Collection) Divide(ctx context.Context, other Collection) (Collection, e
 	if err != nil {
 		return nil, err
 	}
+	if res == nil {
+		return nil, nil
+	}
 	return Collection{res}, nil
 }
 
@@ -897,6 +900,9 @@ func (c Collection) Div(ctx context.Context, other Collection) (Collection, erro
 	if err != nil {
 		return nil, err
 	}
+	if res == nil {
+		return nil, nil
+	}
 	return Collection{res}, nil
 }
 
@@ -924,6 +930,9 @@ func (c Collection) Mod(ctx context.Context, other Collection) (Collection, erro
 	res, err := left.Mod(ctx, right)
 	if err != nil {
 		return nil, err
+	}
+	if res == nil {
+		return nil, nil
 	}
 	return Collection{res}, nil
 }
