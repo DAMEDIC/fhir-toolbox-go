@@ -12,60 +12,6 @@ import (
 	"testing"
 )
 
-// overrides for errors in the test xml
-var testOverrides = map[string]testdata.FHIRPathTest{
-	"testPrecedence3": {
-		// test expression has wrong precedence
-		Expression: testdata.FHIRPathTestExpression{
-			Expression: "(1 > 2) is Boolean",
-		},
-	},
-	"testPrecedence4": {
-		// test expression has wrong precedence
-		Expression: testdata.FHIRPathTestExpression{
-			Expression: "(1 | 1) is Integer",
-		},
-	},
-	"testQuantityLiteralWeekToString": {
-		// proper ucum handling not implemented
-		Output: []testdata.FHIRPathTestOutput{{
-			Type: "Quantity", Output: "1 'week'",
-		}},
-	},
-	"testDateNotEqualTimezoneOffset(Before|After)": {
-		// should be empty
-		Output: []testdata.FHIRPathTestOutput{},
-	},
-	"testDateNotEqualUTC": {
-		// should be empty
-		Output: []testdata.FHIRPathTestOutput{},
-	},
-	"testDateTimeGreaterThanDate": {
-		// should be empty
-		Output: []testdata.FHIRPathTestOutput{},
-	},
-	"testNow1": {
-		// should be empty
-		Output: []testdata.FHIRPathTestOutput{},
-	},
-	"testIntegerBooleanNotTrue": {
-		// singleton evaluation of '0' is true
-		Output: []testdata.FHIRPathTestOutput{{
-			Type: "boolean", Output: "false",
-		}},
-	},
-	"testStringQuantityDayLiteralToQuantity": {
-		// proper ucum handling not implemented
-		Output: []testdata.FHIRPathTestOutput{},
-	},
-	"testEquality(7|23)": {
-		// missing output in test
-		Output: []testdata.FHIRPathTestOutput{{
-			Type: "boolean", Output: "false",
-		}},
-	},
-}
-
 func TestFHIRPathTestSuiteR4(t *testing.T) {
 	ctx := r4.Context()
 	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
@@ -147,4 +93,74 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 			}
 		})
 	}
+}
+
+// overrides for errors in the test xml
+var testOverrides = map[string]testdata.FHIRPathTest{
+	"testPrecedence3": {
+		// test expression has wrong precedence
+		Expression: testdata.FHIRPathTestExpression{
+			Expression: "(1 > 2) is Boolean",
+		},
+	},
+	"testPrecedence4": {
+		// test expression has wrong precedence
+		Expression: testdata.FHIRPathTestExpression{
+			Expression: "(1 | 1) is Integer",
+		},
+	},
+	"testQuantityLiteralWeekToString": {
+		// proper ucum handling not implemented
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "Quantity", Output: "1 'week'",
+		}},
+	},
+	"testDateNotEqualTimezoneOffset(Before|After)": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testDateNotEqualUTC": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testDateTimeGreaterThanDate": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testNow1": {
+		// should be empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testIntegerBooleanNotTrue": {
+		// singleton evaluation of '0' is true
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "boolean", Output: "false",
+		}},
+	},
+	"testStringQuantityDayLiteralToQuantity": {
+		// proper ucum handling not implemented
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testEquality(7|23)": {
+		// missing output in test
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "boolean", Output: "false",
+		}},
+	},
+	"testNEquality17": {
+		// missing output in test
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "boolean", Output: "true",
+		}},
+	},
+	"testNEquality24": {
+		// different units yields empty
+		Output: []testdata.FHIRPathTestOutput{},
+	},
+	"testNotEquivalent19": {
+		// should be false
+		Output: []testdata.FHIRPathTestOutput{{
+			Type: "boolean", Output: "false",
+		}},
+	},
 }
