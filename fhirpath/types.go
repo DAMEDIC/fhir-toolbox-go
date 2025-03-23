@@ -760,22 +760,30 @@ func (c Collection) Union(other Collection) Collection {
 		return slices.Clone(c)
 	}
 
-	// Start with a clone of the input collection
-	union := slices.Clone(c)
+	var union Collection
 
-	// Add elements from the other collection that are not already in the union
-	for _, o := range other {
-		found := false
-		for _, e := range union {
-			eq, ok := o.Equal(e)
+	// add elements from the first collection
+outer1:
+	for _, e := range c {
+		for _, u := range union {
+			eq, ok := e.Equal(u)
 			if ok && eq {
-				found = true
-				break
+				break outer1
 			}
 		}
-		if !found {
-			union = append(union, o)
+		union = append(union, e)
+	}
+
+	// add elements from the second collection
+outer2:
+	for _, e := range other {
+		for _, u := range union {
+			eq, ok := e.Equal(u)
+			if ok && eq {
+				break outer2
+			}
 		}
+		union = append(union, e)
 	}
 
 	return union
