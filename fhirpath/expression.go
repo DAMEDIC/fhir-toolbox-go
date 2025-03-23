@@ -342,7 +342,10 @@ func evalExpression(
 		}
 		op := t.GetChild(1).(antlr.ParseTree).GetText()
 
-		if !leftOrdered || !rightOrdered {
+		// for equality check, order is important
+		if (op == "=" || op == "!=") &&
+			(len(left) > 1 || len(right) > 1) &&
+			(!leftOrdered || !rightOrdered) {
 			return nil, false, fmt.Errorf("expected ordered inputs for equality expression")
 		}
 
@@ -483,14 +486,19 @@ func evalExpression(
 			return nil, false, err
 		}
 
-		if leftOk && leftSingle == true && rightOk {
-			result, err = Collection{rightSingle}, nil
+		if leftOk && leftSingle == true {
+			if rightOk {
+				return Collection{rightSingle}, true, nil
+			} else {
+				return nil, true, nil
+			}
 		} else if leftOk && leftSingle == false {
-			result, err = Collection{Boolean(true)}, nil
-		} else if leftOk && rightOk && rightSingle == true {
-			result, err = Collection{Boolean(true)}, nil
+			return Collection{Boolean(true)}, true, nil
+		} else if rightOk && rightSingle == true {
+			return Collection{Boolean(true)}, true, nil
+		} else {
+			return nil, true, nil
 		}
-		return result, true, err
 
 	default:
 		panic(fmt.Sprintf("unexpected expression %T", tree))
