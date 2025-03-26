@@ -5689,7 +5689,13 @@ func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r CoverageEligibilityResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageEligibilityResponse)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageEligibilityResponse) TypeInfo() fhirpath.TypeInfo {
@@ -5939,7 +5945,13 @@ func (r CoverageEligibilityResponseEvent) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r CoverageEligibilityResponseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageEligibilityResponseEvent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageEligibilityResponseEvent) TypeInfo() fhirpath.TypeInfo {
@@ -6068,7 +6080,13 @@ func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r CoverageEligibilityResponseInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageEligibilityResponseInsurance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageEligibilityResponseInsurance) TypeInfo() fhirpath.TypeInfo {
@@ -6263,7 +6281,13 @@ func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r CoverageEligibilityResponseInsuranceItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageEligibilityResponseInsuranceItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageEligibilityResponseInsuranceItem) TypeInfo() fhirpath.TypeInfo {
@@ -6471,7 +6495,13 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.El
 	return eq && ok, true
 }
 func (r CoverageEligibilityResponseInsuranceItemBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageEligibilityResponseInsuranceItemBenefit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageEligibilityResponseInsuranceItemBenefit) TypeInfo() fhirpath.TypeInfo {
@@ -6597,7 +6627,13 @@ func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r CoverageEligibilityResponseError) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageEligibilityResponseError)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageEligibilityResponseError) TypeInfo() fhirpath.TypeInfo {

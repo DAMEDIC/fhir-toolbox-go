@@ -3754,7 +3754,13 @@ func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r QuestionnaireResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(QuestionnaireResponse)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r QuestionnaireResponse) TypeInfo() fhirpath.TypeInfo {
@@ -3986,7 +3992,13 @@ func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r QuestionnaireResponseItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(QuestionnaireResponseItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r QuestionnaireResponseItem) TypeInfo() fhirpath.TypeInfo {
@@ -4128,7 +4140,13 @@ func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r QuestionnaireResponseItemAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(QuestionnaireResponseItemAnswer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r QuestionnaireResponseItemAnswer) TypeInfo() fhirpath.TypeInfo {

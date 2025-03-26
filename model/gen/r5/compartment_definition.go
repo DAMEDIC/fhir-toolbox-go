@@ -2858,7 +2858,13 @@ func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r CompartmentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CompartmentDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CompartmentDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -3125,7 +3131,13 @@ func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r CompartmentDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CompartmentDefinitionResource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CompartmentDefinitionResource) TypeInfo() fhirpath.TypeInfo {

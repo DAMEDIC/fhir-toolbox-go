@@ -1103,7 +1103,13 @@ func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceAmount)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceAmount) TypeInfo() fhirpath.TypeInfo {
@@ -1233,7 +1239,13 @@ func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceAmountReferenceRange)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceAmountReferenceRange) TypeInfo() fhirpath.TypeInfo {

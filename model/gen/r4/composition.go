@@ -4096,7 +4096,13 @@ func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return eq && ok, true
 }
 func (r Composition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Composition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Composition) TypeInfo() fhirpath.TypeInfo {
@@ -4346,7 +4352,13 @@ func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r CompositionAttester) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CompositionAttester)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CompositionAttester) TypeInfo() fhirpath.TypeInfo {
@@ -4470,7 +4482,13 @@ func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r CompositionRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CompositionRelatesTo)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CompositionRelatesTo) TypeInfo() fhirpath.TypeInfo {
@@ -4596,7 +4614,13 @@ func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r CompositionEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CompositionEvent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CompositionEvent) TypeInfo() fhirpath.TypeInfo {
@@ -4764,7 +4788,13 @@ func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r CompositionSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CompositionSection)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CompositionSection) TypeInfo() fhirpath.TypeInfo {

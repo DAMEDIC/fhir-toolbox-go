@@ -2983,7 +2983,13 @@ func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BodyStructure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
@@ -3194,7 +3200,13 @@ func (r BodyStructureIncludedStructure) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r BodyStructureIncludedStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BodyStructureIncludedStructure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BodyStructureIncludedStructure) TypeInfo() fhirpath.TypeInfo {
@@ -3346,7 +3358,13 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equal(other fhirp
 	return eq && ok, true
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BodyStructureIncludedStructureBodyLandmarkOrientation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) TypeInfo() fhirpath.TypeInfo {
@@ -3481,7 +3499,13 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 	return eq && ok, true
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) TypeInfo() fhirpath.TypeInfo {

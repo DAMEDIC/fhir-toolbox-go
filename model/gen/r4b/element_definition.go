@@ -26137,7 +26137,13 @@ func (r ElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r ElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -26485,7 +26491,13 @@ func (r ElementDefinitionSlicing) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ElementDefinitionSlicing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionSlicing)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionSlicing) TypeInfo() fhirpath.TypeInfo {
@@ -26604,7 +26616,13 @@ func (r ElementDefinitionSlicingDiscriminator) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ElementDefinitionSlicingDiscriminator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionSlicingDiscriminator)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionSlicingDiscriminator) TypeInfo() fhirpath.TypeInfo {
@@ -26712,7 +26730,13 @@ func (r ElementDefinitionBase) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r ElementDefinitionBase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionBase)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionBase) TypeInfo() fhirpath.TypeInfo {
@@ -26841,7 +26865,13 @@ func (r ElementDefinitionType) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r ElementDefinitionType) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionType)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionType) TypeInfo() fhirpath.TypeInfo {
@@ -26967,7 +26997,13 @@ func (r ElementDefinitionExample) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ElementDefinitionExample) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionExample)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionExample) TypeInfo() fhirpath.TypeInfo {
@@ -27095,7 +27131,13 @@ func (r ElementDefinitionConstraint) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ElementDefinitionConstraint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionConstraint)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionConstraint) TypeInfo() fhirpath.TypeInfo {
@@ -27242,7 +27284,13 @@ func (r ElementDefinitionBinding) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ElementDefinitionBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionBinding)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionBinding) TypeInfo() fhirpath.TypeInfo {
@@ -27364,7 +27412,13 @@ func (r ElementDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ElementDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ElementDefinitionMapping)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ElementDefinitionMapping) TypeInfo() fhirpath.TypeInfo {

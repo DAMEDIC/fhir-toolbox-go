@@ -3886,7 +3886,13 @@ func (r Specimen) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r Specimen) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Specimen)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Specimen) TypeInfo() fhirpath.TypeInfo {
@@ -4144,7 +4150,13 @@ func (r SpecimenCollection) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r SpecimenCollection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenCollection)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenCollection) TypeInfo() fhirpath.TypeInfo {
@@ -4310,7 +4322,13 @@ func (r SpecimenProcessing) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r SpecimenProcessing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenProcessing)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenProcessing) TypeInfo() fhirpath.TypeInfo {
@@ -4465,7 +4483,13 @@ func (r SpecimenContainer) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r SpecimenContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenContainer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenContainer) TypeInfo() fhirpath.TypeInfo {

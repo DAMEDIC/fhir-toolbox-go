@@ -2633,7 +2633,13 @@ func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r DataRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DataRequirement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DataRequirement) TypeInfo() fhirpath.TypeInfo {
@@ -2794,7 +2800,13 @@ func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DataRequirementCodeFilter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DataRequirementCodeFilter) TypeInfo() fhirpath.TypeInfo {
@@ -2922,7 +2934,13 @@ func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DataRequirementDateFilter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DataRequirementDateFilter) TypeInfo() fhirpath.TypeInfo {
@@ -3034,7 +3052,13 @@ func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r DataRequirementSort) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DataRequirementSort)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DataRequirementSort) TypeInfo() fhirpath.TypeInfo {

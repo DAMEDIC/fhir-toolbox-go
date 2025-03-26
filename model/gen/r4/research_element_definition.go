@@ -5374,7 +5374,13 @@ func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ResearchElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchElementDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchElementDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -5795,7 +5801,13 @@ func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _
 	return eq && ok, true
 }
 func (r ResearchElementDefinitionCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchElementDefinitionCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchElementDefinitionCharacteristic) TypeInfo() fhirpath.TypeInfo {

@@ -3039,7 +3039,13 @@ func (r ArtifactAssessment) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ArtifactAssessment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ArtifactAssessment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ArtifactAssessment) TypeInfo() fhirpath.TypeInfo {
@@ -3298,7 +3304,13 @@ func (r ArtifactAssessmentContent) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ArtifactAssessmentContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ArtifactAssessmentContent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ArtifactAssessmentContent) TypeInfo() fhirpath.TypeInfo {

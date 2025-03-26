@@ -3210,7 +3210,13 @@ func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ClinicalImpression) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalImpression)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalImpression) TypeInfo() fhirpath.TypeInfo {
@@ -3490,7 +3496,13 @@ func (r ClinicalImpressionInvestigation) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r ClinicalImpressionInvestigation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalImpressionInvestigation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalImpressionInvestigation) TypeInfo() fhirpath.TypeInfo {
@@ -3616,7 +3628,13 @@ func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ClinicalImpressionFinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalImpressionFinding)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalImpressionFinding) TypeInfo() fhirpath.TypeInfo {

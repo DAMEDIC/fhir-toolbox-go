@@ -3140,7 +3140,13 @@ func (r Goal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	return eq && ok, true
 }
 func (r Goal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Goal)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Goal) TypeInfo() fhirpath.TypeInfo {
@@ -3399,7 +3405,13 @@ func (r GoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r GoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GoalTarget)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GoalTarget) TypeInfo() fhirpath.TypeInfo {

@@ -13500,7 +13500,13 @@ func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	return eq && ok, true
 }
 func (r Task) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Task)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Task) TypeInfo() fhirpath.TypeInfo {
@@ -13871,7 +13877,13 @@ func (r TaskPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r TaskPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TaskPerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TaskPerformer) TypeInfo() fhirpath.TypeInfo {
@@ -13997,7 +14009,13 @@ func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r TaskRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TaskRestriction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TaskRestriction) TypeInfo() fhirpath.TypeInfo {
@@ -14121,7 +14139,13 @@ func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return eq && ok, true
 }
 func (r TaskInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TaskInput)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TaskInput) TypeInfo() fhirpath.TypeInfo {
@@ -14238,7 +14262,13 @@ func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r TaskOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TaskOutput)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TaskOutput) TypeInfo() fhirpath.TypeInfo {

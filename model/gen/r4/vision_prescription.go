@@ -2952,7 +2952,13 @@ func (r VisionPrescription) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r VisionPrescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(VisionPrescription)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r VisionPrescription) TypeInfo() fhirpath.TypeInfo {
@@ -3206,7 +3212,13 @@ func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r VisionPrescriptionLensSpecification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(VisionPrescriptionLensSpecification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r VisionPrescriptionLensSpecification) TypeInfo() fhirpath.TypeInfo {
@@ -3407,7 +3419,13 @@ func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r VisionPrescriptionLensSpecificationPrism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(VisionPrescriptionLensSpecificationPrism)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r VisionPrescriptionLensSpecificationPrism) TypeInfo() fhirpath.TypeInfo {

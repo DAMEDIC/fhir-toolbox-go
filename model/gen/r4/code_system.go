@@ -6455,7 +6455,13 @@ func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r CodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CodeSystem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CodeSystem) TypeInfo() fhirpath.TypeInfo {
@@ -6785,7 +6791,13 @@ func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r CodeSystemFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CodeSystemFilter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CodeSystemFilter) TypeInfo() fhirpath.TypeInfo {
@@ -6926,7 +6938,13 @@ func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r CodeSystemProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CodeSystemProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CodeSystemProperty) TypeInfo() fhirpath.TypeInfo {
@@ -7079,7 +7097,13 @@ func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r CodeSystemConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CodeSystemConcept)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CodeSystemConcept) TypeInfo() fhirpath.TypeInfo {
@@ -7231,7 +7255,13 @@ func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r CodeSystemConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CodeSystemConceptDesignation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CodeSystemConceptDesignation) TypeInfo() fhirpath.TypeInfo {
@@ -7355,7 +7385,13 @@ func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r CodeSystemConceptProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CodeSystemConceptProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CodeSystemConceptProperty) TypeInfo() fhirpath.TypeInfo {

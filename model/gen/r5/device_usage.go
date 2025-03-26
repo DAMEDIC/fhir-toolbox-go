@@ -2458,7 +2458,13 @@ func (r DeviceUsage) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return eq && ok, true
 }
 func (r DeviceUsage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceUsage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceUsage) TypeInfo() fhirpath.TypeInfo {
@@ -2717,7 +2723,13 @@ func (r DeviceUsageAdherence) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r DeviceUsageAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceUsageAdherence)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceUsageAdherence) TypeInfo() fhirpath.TypeInfo {

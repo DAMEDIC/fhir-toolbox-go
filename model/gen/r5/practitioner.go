@@ -2741,7 +2741,13 @@ func (r Practitioner) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r Practitioner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Practitioner)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Practitioner) TypeInfo() fhirpath.TypeInfo {
@@ -2968,7 +2974,13 @@ func (r PractitionerQualification) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r PractitionerQualification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PractitionerQualification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PractitionerQualification) TypeInfo() fhirpath.TypeInfo {
@@ -3101,7 +3113,13 @@ func (r PractitionerCommunication) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r PractitionerCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PractitionerCommunication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PractitionerCommunication) TypeInfo() fhirpath.TypeInfo {

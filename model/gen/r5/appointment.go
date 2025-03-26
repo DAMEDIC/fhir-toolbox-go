@@ -6581,7 +6581,13 @@ func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return eq && ok, true
 }
 func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Appointment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Appointment) TypeInfo() fhirpath.TypeInfo {
@@ -6960,7 +6966,13 @@ func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AppointmentParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -7140,7 +7152,13 @@ func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AppointmentRecurrenceTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AppointmentRecurrenceTemplate) TypeInfo() fhirpath.TypeInfo {
@@ -7347,7 +7365,13 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AppointmentRecurrenceTemplateWeeklyTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) TypeInfo() fhirpath.TypeInfo {
@@ -7518,7 +7542,13 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Eleme
 	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AppointmentRecurrenceTemplateMonthlyTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) TypeInfo() fhirpath.TypeInfo {
@@ -7646,7 +7676,13 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AppointmentRecurrenceTemplateYearlyTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) TypeInfo() fhirpath.TypeInfo {

@@ -5959,7 +5959,13 @@ func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r SpecimenDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -6335,7 +6341,13 @@ func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenDefinitionTypeTested)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenDefinitionTypeTested) TypeInfo() fhirpath.TypeInfo {
@@ -6542,7 +6554,13 @@ func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenDefinitionTypeTestedContainer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenDefinitionTypeTestedContainer) TypeInfo() fhirpath.TypeInfo {
@@ -6698,7 +6716,13 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Elem
 	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenDefinitionTypeTestedContainerAdditive)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) TypeInfo() fhirpath.TypeInfo {
@@ -6822,7 +6846,13 @@ func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SpecimenDefinitionTypeTestedHandling)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SpecimenDefinitionTypeTestedHandling) TypeInfo() fhirpath.TypeInfo {

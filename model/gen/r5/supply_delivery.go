@@ -2166,7 +2166,13 @@ func (r SupplyDelivery) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r SupplyDelivery) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SupplyDelivery)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SupplyDelivery) TypeInfo() fhirpath.TypeInfo {
@@ -2385,7 +2391,13 @@ func (r SupplyDeliverySuppliedItem) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r SupplyDeliverySuppliedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SupplyDeliverySuppliedItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SupplyDeliverySuppliedItem) TypeInfo() fhirpath.TypeInfo {

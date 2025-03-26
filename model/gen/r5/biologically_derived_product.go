@@ -3256,7 +3256,13 @@ func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r BiologicallyDerivedProduct) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BiologicallyDerivedProduct)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BiologicallyDerivedProduct) TypeInfo() fhirpath.TypeInfo {
@@ -3494,7 +3500,13 @@ func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r BiologicallyDerivedProductCollection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BiologicallyDerivedProductCollection)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BiologicallyDerivedProductCollection) TypeInfo() fhirpath.TypeInfo {
@@ -3618,7 +3630,13 @@ func (r BiologicallyDerivedProductProperty) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r BiologicallyDerivedProductProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BiologicallyDerivedProductProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BiologicallyDerivedProductProperty) TypeInfo() fhirpath.TypeInfo {

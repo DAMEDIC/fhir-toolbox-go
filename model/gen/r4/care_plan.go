@@ -4993,7 +4993,13 @@ func (r CarePlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r CarePlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CarePlan)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CarePlan) TypeInfo() fhirpath.TypeInfo {
@@ -5311,7 +5317,13 @@ func (r CarePlanActivity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r CarePlanActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CarePlanActivity)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CarePlanActivity) TypeInfo() fhirpath.TypeInfo {
@@ -5526,7 +5538,13 @@ func (r CarePlanActivityDetail) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r CarePlanActivityDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CarePlanActivityDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CarePlanActivityDetail) TypeInfo() fhirpath.TypeInfo {

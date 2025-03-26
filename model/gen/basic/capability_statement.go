@@ -6929,7 +6929,13 @@ func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r CapabilityStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatement) TypeInfo() fhirpath.TypeInfo {
@@ -7256,7 +7262,13 @@ func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r CapabilityStatementSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementSoftware)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementSoftware) TypeInfo() fhirpath.TypeInfo {
@@ -7387,7 +7399,13 @@ func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r CapabilityStatementImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementImplementation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementImplementation) TypeInfo() fhirpath.TypeInfo {
@@ -7543,7 +7561,13 @@ func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r CapabilityStatementRest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementRest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementRest) TypeInfo() fhirpath.TypeInfo {
@@ -7711,7 +7735,13 @@ func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r CapabilityStatementRestSecurity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementRestSecurity)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementRestSecurity) TypeInfo() fhirpath.TypeInfo {
@@ -7912,7 +7942,13 @@ func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r CapabilityStatementRestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementRestResource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementRestResource) TypeInfo() fhirpath.TypeInfo {
@@ -8136,7 +8172,13 @@ func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r CapabilityStatementRestResourceInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementRestResourceInteraction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementRestResourceInteraction) TypeInfo() fhirpath.TypeInfo {
@@ -8263,7 +8305,13 @@ func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r CapabilityStatementRestResourceSearchParam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementRestResourceSearchParam)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementRestResourceSearchParam) TypeInfo() fhirpath.TypeInfo {
@@ -8399,7 +8447,13 @@ func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r CapabilityStatementRestResourceOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementRestResourceOperation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementRestResourceOperation) TypeInfo() fhirpath.TypeInfo {
@@ -8525,7 +8579,13 @@ func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r CapabilityStatementRestInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementRestInteraction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementRestInteraction) TypeInfo() fhirpath.TypeInfo {
@@ -8656,7 +8716,13 @@ func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r CapabilityStatementMessaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementMessaging)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementMessaging) TypeInfo() fhirpath.TypeInfo {
@@ -8787,7 +8853,13 @@ func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r CapabilityStatementMessagingEndpoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementMessagingEndpoint)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementMessagingEndpoint) TypeInfo() fhirpath.TypeInfo {
@@ -8904,7 +8976,13 @@ func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Eleme
 	return eq && ok, true
 }
 func (r CapabilityStatementMessagingSupportedMessage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementMessagingSupportedMessage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementMessagingSupportedMessage) TypeInfo() fhirpath.TypeInfo {
@@ -9026,7 +9104,13 @@ func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r CapabilityStatementDocument) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CapabilityStatementDocument)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CapabilityStatementDocument) TypeInfo() fhirpath.TypeInfo {

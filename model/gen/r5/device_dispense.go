@@ -2489,7 +2489,13 @@ func (r DeviceDispense) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r DeviceDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDispense)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDispense) TypeInfo() fhirpath.TypeInfo {
@@ -2776,7 +2782,13 @@ func (r DeviceDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r DeviceDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDispensePerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDispensePerformer) TypeInfo() fhirpath.TypeInfo {

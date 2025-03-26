@@ -3657,7 +3657,13 @@ func (r Ingredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r Ingredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Ingredient)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Ingredient) TypeInfo() fhirpath.TypeInfo {
@@ -3853,7 +3859,13 @@ func (r IngredientManufacturer) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r IngredientManufacturer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(IngredientManufacturer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r IngredientManufacturer) TypeInfo() fhirpath.TypeInfo {
@@ -3972,7 +3984,13 @@ func (r IngredientSubstance) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r IngredientSubstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(IngredientSubstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r IngredientSubstance) TypeInfo() fhirpath.TypeInfo {
@@ -4118,7 +4136,13 @@ func (r IngredientSubstanceStrength) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r IngredientSubstanceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(IngredientSubstanceStrength)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r IngredientSubstanceStrength) TypeInfo() fhirpath.TypeInfo {
@@ -4282,7 +4306,13 @@ func (r IngredientSubstanceStrengthReferenceStrength) Equal(other fhirpath.Eleme
 	return eq && ok, true
 }
 func (r IngredientSubstanceStrengthReferenceStrength) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(IngredientSubstanceStrengthReferenceStrength)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r IngredientSubstanceStrengthReferenceStrength) TypeInfo() fhirpath.TypeInfo {

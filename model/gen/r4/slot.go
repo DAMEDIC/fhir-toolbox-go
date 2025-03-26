@@ -1545,7 +1545,13 @@ func (r Slot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	return eq && ok, true
 }
 func (r Slot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Slot)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Slot) TypeInfo() fhirpath.TypeInfo {

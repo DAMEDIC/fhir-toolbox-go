@@ -3115,7 +3115,13 @@ func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Subscription)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Subscription) TypeInfo() fhirpath.TypeInfo {
@@ -3387,7 +3393,13 @@ func (r SubscriptionFilterBy) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r SubscriptionFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionFilterBy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionFilterBy) TypeInfo() fhirpath.TypeInfo {
@@ -3525,7 +3537,13 @@ func (r SubscriptionParameter) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r SubscriptionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionParameter) TypeInfo() fhirpath.TypeInfo {

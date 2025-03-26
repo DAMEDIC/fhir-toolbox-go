@@ -2884,7 +2884,13 @@ func (r MedicinalProductPackaged) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r MedicinalProductPackaged) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPackaged)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPackaged) TypeInfo() fhirpath.TypeInfo {
@@ -3087,7 +3093,13 @@ func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element, _
 	return eq && ok, true
 }
 func (r MedicinalProductPackagedBatchIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPackagedBatchIdentifier)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPackagedBatchIdentifier) TypeInfo() fhirpath.TypeInfo {
@@ -3254,7 +3266,13 @@ func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r MedicinalProductPackagedPackageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPackagedPackageItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPackagedPackageItem) TypeInfo() fhirpath.TypeInfo {

@@ -6146,7 +6146,13 @@ func (r MedicinalProductDefinition) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r MedicinalProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -6482,7 +6488,13 @@ func (r MedicinalProductDefinitionContact) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r MedicinalProductDefinitionContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinitionContact)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinitionContact) TypeInfo() fhirpath.TypeInfo {
@@ -6611,7 +6623,13 @@ func (r MedicinalProductDefinitionName) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r MedicinalProductDefinitionName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinitionName)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinitionName) TypeInfo() fhirpath.TypeInfo {
@@ -6742,7 +6760,13 @@ func (r MedicinalProductDefinitionNameNamePart) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r MedicinalProductDefinitionNameNamePart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinitionNameNamePart)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinitionNameNamePart) TypeInfo() fhirpath.TypeInfo {
@@ -6864,7 +6888,13 @@ func (r MedicinalProductDefinitionNameCountryLanguage) Equal(other fhirpath.Elem
 	return eq && ok, true
 }
 func (r MedicinalProductDefinitionNameCountryLanguage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinitionNameCountryLanguage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinitionNameCountryLanguage) TypeInfo() fhirpath.TypeInfo {
@@ -6990,7 +7020,13 @@ func (r MedicinalProductDefinitionCrossReference) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r MedicinalProductDefinitionCrossReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinitionCrossReference)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinitionCrossReference) TypeInfo() fhirpath.TypeInfo {
@@ -7121,7 +7157,13 @@ func (r MedicinalProductDefinitionOperation) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r MedicinalProductDefinitionOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinitionOperation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinitionOperation) TypeInfo() fhirpath.TypeInfo {
@@ -7254,7 +7296,13 @@ func (r MedicinalProductDefinitionCharacteristic) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r MedicinalProductDefinitionCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductDefinitionCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductDefinitionCharacteristic) TypeInfo() fhirpath.TypeInfo {

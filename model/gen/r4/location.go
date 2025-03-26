@@ -3180,7 +3180,13 @@ func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r Location) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Location)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Location) TypeInfo() fhirpath.TypeInfo {
@@ -3442,7 +3448,13 @@ func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r LocationPosition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(LocationPosition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r LocationPosition) TypeInfo() fhirpath.TypeInfo {
@@ -3580,7 +3592,13 @@ func (r LocationHoursOfOperation) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r LocationHoursOfOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(LocationHoursOfOperation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r LocationHoursOfOperation) TypeInfo() fhirpath.TypeInfo {

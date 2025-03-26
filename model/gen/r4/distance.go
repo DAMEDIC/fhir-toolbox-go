@@ -683,7 +683,13 @@ func (r Distance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r Distance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Distance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Distance) TypeInfo() fhirpath.TypeInfo {

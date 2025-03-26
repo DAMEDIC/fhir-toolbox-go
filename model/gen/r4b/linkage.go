@@ -1380,7 +1380,13 @@ func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return eq && ok, true
 }
 func (r Linkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Linkage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Linkage) TypeInfo() fhirpath.TypeInfo {
@@ -1539,7 +1545,13 @@ func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return eq && ok, true
 }
 func (r LinkageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(LinkageItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r LinkageItem) TypeInfo() fhirpath.TypeInfo {

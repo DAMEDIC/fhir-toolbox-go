@@ -6329,7 +6329,13 @@ func (r TestPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r TestPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlan)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlan) TypeInfo() fhirpath.TypeInfo {
@@ -6632,7 +6638,13 @@ func (r TestPlanDependency) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r TestPlanDependency) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlanDependency)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlanDependency) TypeInfo() fhirpath.TypeInfo {
@@ -6773,7 +6785,13 @@ func (r TestPlanTestCase) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r TestPlanTestCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlanTestCase)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlanTestCase) TypeInfo() fhirpath.TypeInfo {
@@ -6922,7 +6940,13 @@ func (r TestPlanTestCaseDependency) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r TestPlanTestCaseDependency) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlanTestCaseDependency)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlanTestCaseDependency) TypeInfo() fhirpath.TypeInfo {
@@ -7043,7 +7067,13 @@ func (r TestPlanTestCaseTestRun) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r TestPlanTestCaseTestRun) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlanTestCaseTestRun)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlanTestCaseTestRun) TypeInfo() fhirpath.TypeInfo {
@@ -7164,7 +7194,13 @@ func (r TestPlanTestCaseTestRunScript) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r TestPlanTestCaseTestRunScript) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlanTestCaseTestRunScript)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlanTestCaseTestRunScript) TypeInfo() fhirpath.TypeInfo {
@@ -7288,7 +7324,13 @@ func (r TestPlanTestCaseTestData) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r TestPlanTestCaseTestData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlanTestCaseTestData)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlanTestCaseTestData) TypeInfo() fhirpath.TypeInfo {
@@ -7421,7 +7463,13 @@ func (r TestPlanTestCaseAssertion) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r TestPlanTestCaseAssertion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestPlanTestCaseAssertion)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestPlanTestCaseAssertion) TypeInfo() fhirpath.TypeInfo {

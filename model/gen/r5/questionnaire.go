@@ -8588,7 +8588,13 @@ func (r Questionnaire) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r Questionnaire) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Questionnaire)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Questionnaire) TypeInfo() fhirpath.TypeInfo {
@@ -8974,7 +8980,13 @@ func (r QuestionnaireItem) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r QuestionnaireItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(QuestionnaireItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r QuestionnaireItem) TypeInfo() fhirpath.TypeInfo {
@@ -9206,7 +9218,13 @@ func (r QuestionnaireItemEnableWhen) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r QuestionnaireItemEnableWhen) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(QuestionnaireItemEnableWhen)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r QuestionnaireItemEnableWhen) TypeInfo() fhirpath.TypeInfo {
@@ -9332,7 +9350,13 @@ func (r QuestionnaireItemAnswerOption) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r QuestionnaireItemAnswerOption) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(QuestionnaireItemAnswerOption)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r QuestionnaireItemAnswerOption) TypeInfo() fhirpath.TypeInfo {
@@ -9446,7 +9470,13 @@ func (r QuestionnaireItemInitial) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r QuestionnaireItemInitial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(QuestionnaireItemInitial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r QuestionnaireItemInitial) TypeInfo() fhirpath.TypeInfo {

@@ -1928,7 +1928,13 @@ func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r SubstanceProtein) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceProtein)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceProtein) TypeInfo() fhirpath.TypeInfo {
@@ -2128,7 +2134,13 @@ func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceProteinSubunit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceProteinSubunit) TypeInfo() fhirpath.TypeInfo {

@@ -3754,7 +3754,13 @@ func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ManufacturedItemDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ManufacturedItemDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -3964,7 +3970,13 @@ func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ManufacturedItemDefinitionProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ManufacturedItemDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
@@ -4103,7 +4115,13 @@ func (r ManufacturedItemDefinitionComponent) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r ManufacturedItemDefinitionComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ManufacturedItemDefinitionComponent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ManufacturedItemDefinitionComponent) TypeInfo() fhirpath.TypeInfo {
@@ -4262,7 +4280,13 @@ func (r ManufacturedItemDefinitionComponentConstituent) Equal(other fhirpath.Ele
 	return eq && ok, true
 }
 func (r ManufacturedItemDefinitionComponentConstituent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ManufacturedItemDefinitionComponentConstituent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ManufacturedItemDefinitionComponentConstituent) TypeInfo() fhirpath.TypeInfo {

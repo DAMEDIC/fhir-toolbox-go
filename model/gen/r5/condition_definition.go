@@ -5192,7 +5192,13 @@ func (r ConditionDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r ConditionDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -5537,7 +5543,13 @@ func (r ConditionDefinitionObservation) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r ConditionDefinitionObservation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionDefinitionObservation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionDefinitionObservation) TypeInfo() fhirpath.TypeInfo {
@@ -5658,7 +5670,13 @@ func (r ConditionDefinitionMedication) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ConditionDefinitionMedication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionDefinitionMedication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionDefinitionMedication) TypeInfo() fhirpath.TypeInfo {
@@ -5780,7 +5798,13 @@ func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r ConditionDefinitionPrecondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionDefinitionPrecondition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionDefinitionPrecondition) TypeInfo() fhirpath.TypeInfo {
@@ -5904,7 +5928,13 @@ func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r ConditionDefinitionQuestionnaire) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionDefinitionQuestionnaire)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionDefinitionQuestionnaire) TypeInfo() fhirpath.TypeInfo {
@@ -6023,7 +6053,13 @@ func (r ConditionDefinitionPlan) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r ConditionDefinitionPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionDefinitionPlan)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionDefinitionPlan) TypeInfo() fhirpath.TypeInfo {

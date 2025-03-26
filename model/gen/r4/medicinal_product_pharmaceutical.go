@@ -3096,7 +3096,13 @@ func (r MedicinalProductPharmaceutical) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r MedicinalProductPharmaceutical) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPharmaceutical)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPharmaceutical) TypeInfo() fhirpath.TypeInfo {
@@ -3285,7 +3291,13 @@ func (r MedicinalProductPharmaceuticalCharacteristics) Equal(other fhirpath.Elem
 	return eq && ok, true
 }
 func (r MedicinalProductPharmaceuticalCharacteristics) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPharmaceuticalCharacteristics)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPharmaceuticalCharacteristics) TypeInfo() fhirpath.TypeInfo {
@@ -3429,7 +3441,13 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equal(other fhirpat
 	return eq && ok, true
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPharmaceuticalRouteOfAdministration)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) TypeInfo() fhirpath.TypeInfo {
@@ -3583,7 +3601,13 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equal(
 	return eq && ok, true
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) TypeInfo() fhirpath.TypeInfo {
@@ -3705,7 +3729,13 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdraw
 	return eq && ok, true
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) TypeInfo() fhirpath.TypeInfo {

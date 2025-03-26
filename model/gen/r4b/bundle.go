@@ -3812,7 +3812,13 @@ func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return eq && ok, true
 }
 func (r Bundle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Bundle)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Bundle) TypeInfo() fhirpath.TypeInfo {
@@ -3971,7 +3977,13 @@ func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r BundleLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BundleLink)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BundleLink) TypeInfo() fhirpath.TypeInfo {
@@ -4112,7 +4124,13 @@ func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return eq && ok, true
 }
 func (r BundleEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BundleEntry)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BundleEntry) TypeInfo() fhirpath.TypeInfo {
@@ -4261,7 +4279,13 @@ func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r BundleEntrySearch) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BundleEntrySearch)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BundleEntrySearch) TypeInfo() fhirpath.TypeInfo {
@@ -4398,7 +4422,13 @@ func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r BundleEntryRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BundleEntryRequest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BundleEntryRequest) TypeInfo() fhirpath.TypeInfo {
@@ -4560,7 +4590,13 @@ func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r BundleEntryResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BundleEntryResponse)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BundleEntryResponse) TypeInfo() fhirpath.TypeInfo {

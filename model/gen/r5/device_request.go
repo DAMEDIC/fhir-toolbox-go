@@ -3577,7 +3577,13 @@ func (r DeviceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r DeviceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceRequest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceRequest) TypeInfo() fhirpath.TypeInfo {
@@ -3901,7 +3907,13 @@ func (r DeviceRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r DeviceRequestParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceRequestParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceRequestParameter) TypeInfo() fhirpath.TypeInfo {

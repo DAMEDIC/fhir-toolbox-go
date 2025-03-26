@@ -6253,7 +6253,13 @@ func (r InsurancePlan) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r InsurancePlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlan)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlan) TypeInfo() fhirpath.TypeInfo {
@@ -6503,7 +6509,13 @@ func (r InsurancePlanContact) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r InsurancePlanContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanContact)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanContact) TypeInfo() fhirpath.TypeInfo {
@@ -6641,7 +6653,13 @@ func (r InsurancePlanCoverage) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r InsurancePlanCoverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanCoverage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanCoverage) TypeInfo() fhirpath.TypeInfo {
@@ -6772,7 +6790,13 @@ func (r InsurancePlanCoverageBenefit) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r InsurancePlanCoverageBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanCoverageBenefit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanCoverageBenefit) TypeInfo() fhirpath.TypeInfo {
@@ -6900,7 +6924,13 @@ func (r InsurancePlanCoverageBenefitLimit) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r InsurancePlanCoverageBenefitLimit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanCoverageBenefitLimit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanCoverageBenefitLimit) TypeInfo() fhirpath.TypeInfo {
@@ -7041,7 +7071,13 @@ func (r InsurancePlanPlan) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r InsurancePlanPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanPlan)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanPlan) TypeInfo() fhirpath.TypeInfo {
@@ -7200,7 +7236,13 @@ func (r InsurancePlanPlanGeneralCost) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r InsurancePlanPlanGeneralCost) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanPlanGeneralCost)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanPlanGeneralCost) TypeInfo() fhirpath.TypeInfo {
@@ -7333,7 +7375,13 @@ func (r InsurancePlanPlanSpecificCost) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r InsurancePlanPlanSpecificCost) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanPlanSpecificCost)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanPlanSpecificCost) TypeInfo() fhirpath.TypeInfo {
@@ -7452,7 +7500,13 @@ func (r InsurancePlanPlanSpecificCostBenefit) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r InsurancePlanPlanSpecificCostBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanPlanSpecificCostBenefit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanPlanSpecificCostBenefit) TypeInfo() fhirpath.TypeInfo {
@@ -7581,7 +7635,13 @@ func (r InsurancePlanPlanSpecificCostBenefitCost) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r InsurancePlanPlanSpecificCostBenefitCost) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InsurancePlanPlanSpecificCostBenefitCost)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InsurancePlanPlanSpecificCostBenefitCost) TypeInfo() fhirpath.TypeInfo {

@@ -2419,7 +2419,13 @@ func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r RegulatedAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RegulatedAuthorization)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RegulatedAuthorization) TypeInfo() fhirpath.TypeInfo {
@@ -2681,7 +2687,13 @@ func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r RegulatedAuthorizationCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RegulatedAuthorizationCase)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RegulatedAuthorizationCase) TypeInfo() fhirpath.TypeInfo {

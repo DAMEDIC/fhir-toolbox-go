@@ -6345,7 +6345,13 @@ func (r EffectEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r EffectEvidenceSynthesis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EffectEvidenceSynthesis)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EffectEvidenceSynthesis) TypeInfo() fhirpath.TypeInfo {
@@ -6723,7 +6729,13 @@ func (r EffectEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EffectEvidenceSynthesisSampleSize)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EffectEvidenceSynthesisSampleSize) TypeInfo() fhirpath.TypeInfo {
@@ -6859,7 +6871,13 @@ func (r EffectEvidenceSynthesisResultsByExposure) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisResultsByExposure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EffectEvidenceSynthesisResultsByExposure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EffectEvidenceSynthesisResultsByExposure) TypeInfo() fhirpath.TypeInfo {
@@ -7014,7 +7032,13 @@ func (r EffectEvidenceSynthesisEffectEstimate) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisEffectEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EffectEvidenceSynthesisEffectEstimate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EffectEvidenceSynthesisEffectEstimate) TypeInfo() fhirpath.TypeInfo {
@@ -7173,7 +7197,13 @@ func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Equal(other fhir
 	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EffectEvidenceSynthesisEffectEstimatePrecisionEstimate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) TypeInfo() fhirpath.TypeInfo {
@@ -7313,7 +7343,13 @@ func (r EffectEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EffectEvidenceSynthesisCertainty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EffectEvidenceSynthesisCertainty) TypeInfo() fhirpath.TypeInfo {
@@ -7446,7 +7482,13 @@ func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirp
 	return eq && ok, true
 }
 func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EffectEvidenceSynthesisCertaintyCertaintySubcomponent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) TypeInfo() fhirpath.TypeInfo {

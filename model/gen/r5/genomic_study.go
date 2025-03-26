@@ -5068,7 +5068,13 @@ func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r GenomicStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GenomicStudy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GenomicStudy) TypeInfo() fhirpath.TypeInfo {
@@ -5395,7 +5401,13 @@ func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GenomicStudyAnalysis)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GenomicStudyAnalysis) TypeInfo() fhirpath.TypeInfo {
@@ -5633,7 +5645,13 @@ func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GenomicStudyAnalysisInput)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GenomicStudyAnalysisInput) TypeInfo() fhirpath.TypeInfo {
@@ -5761,7 +5779,13 @@ func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GenomicStudyAnalysisOutput)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GenomicStudyAnalysisOutput) TypeInfo() fhirpath.TypeInfo {
@@ -5882,7 +5906,13 @@ func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GenomicStudyAnalysisPerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GenomicStudyAnalysisPerformer) TypeInfo() fhirpath.TypeInfo {
@@ -6003,7 +6033,13 @@ func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GenomicStudyAnalysisDevice)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GenomicStudyAnalysisDevice) TypeInfo() fhirpath.TypeInfo {

@@ -7069,7 +7069,13 @@ func (r ExampleScenario) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r ExampleScenario) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenario)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenario) TypeInfo() fhirpath.TypeInfo {
@@ -7336,7 +7342,13 @@ func (r ExampleScenarioActor) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ExampleScenarioActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioActor)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioActor) TypeInfo() fhirpath.TypeInfo {
@@ -7487,7 +7499,13 @@ func (r ExampleScenarioInstance) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r ExampleScenarioInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioInstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioInstance) TypeInfo() fhirpath.TypeInfo {
@@ -7632,7 +7650,13 @@ func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r ExampleScenarioInstanceVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioInstanceVersion)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioInstanceVersion) TypeInfo() fhirpath.TypeInfo {
@@ -7751,7 +7775,13 @@ func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r ExampleScenarioInstanceContainedInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioInstanceContainedInstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioInstanceContainedInstance) TypeInfo() fhirpath.TypeInfo {
@@ -7885,7 +7915,13 @@ func (r ExampleScenarioProcess) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r ExampleScenarioProcess) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioProcess)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioProcess) TypeInfo() fhirpath.TypeInfo {
@@ -8037,7 +8073,13 @@ func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r ExampleScenarioProcessStep) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioProcessStep)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioProcessStep) TypeInfo() fhirpath.TypeInfo {
@@ -8210,7 +8252,13 @@ func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r ExampleScenarioProcessStepOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioProcessStepOperation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioProcessStepOperation) TypeInfo() fhirpath.TypeInfo {
@@ -8390,7 +8438,13 @@ func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ExampleScenarioProcessStepAlternative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExampleScenarioProcessStepAlternative)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExampleScenarioProcessStepAlternative) TypeInfo() fhirpath.TypeInfo {

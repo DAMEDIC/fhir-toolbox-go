@@ -4220,7 +4220,13 @@ func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r ImagingSelection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingSelection)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingSelection) TypeInfo() fhirpath.TypeInfo {
@@ -4481,7 +4487,13 @@ func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingSelectionPerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingSelectionPerformer) TypeInfo() fhirpath.TypeInfo {
@@ -4620,7 +4632,13 @@ func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingSelectionInstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingSelectionInstance) TypeInfo() fhirpath.TypeInfo {
@@ -4767,7 +4785,13 @@ func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingSelectionInstanceImageRegion2D)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingSelectionInstanceImageRegion2D) TypeInfo() fhirpath.TypeInfo {
@@ -4886,7 +4910,13 @@ func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingSelectionInstanceImageRegion3D)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingSelectionInstanceImageRegion3D) TypeInfo() fhirpath.TypeInfo {

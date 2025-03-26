@@ -2750,7 +2750,13 @@ func (r Person) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return eq && ok, true
 }
 func (r Person) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Person)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Person) TypeInfo() fhirpath.TypeInfo {
@@ -2981,7 +2987,13 @@ func (r PersonCommunication) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r PersonCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PersonCommunication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PersonCommunication) TypeInfo() fhirpath.TypeInfo {
@@ -3100,7 +3112,13 @@ func (r PersonLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r PersonLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PersonLink)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PersonLink) TypeInfo() fhirpath.TypeInfo {

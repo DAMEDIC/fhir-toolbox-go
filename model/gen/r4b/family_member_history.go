@@ -3912,7 +3912,13 @@ func (r FamilyMemberHistory) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r FamilyMemberHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(FamilyMemberHistory)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r FamilyMemberHistory) TypeInfo() fhirpath.TypeInfo {
@@ -4193,7 +4199,13 @@ func (r FamilyMemberHistoryCondition) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r FamilyMemberHistoryCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(FamilyMemberHistoryCondition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r FamilyMemberHistoryCondition) TypeInfo() fhirpath.TypeInfo {

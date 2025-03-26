@@ -7497,7 +7497,13 @@ func (r EvidenceVariable) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r EvidenceVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceVariable)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceVariable) TypeInfo() fhirpath.TypeInfo {
@@ -7909,7 +7915,13 @@ func (r EvidenceVariableCharacteristic) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r EvidenceVariableCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceVariableCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceVariableCharacteristic) TypeInfo() fhirpath.TypeInfo {
@@ -8125,7 +8137,13 @@ func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Equal(other fhir
 	return eq && ok, true
 }
 func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceVariableCharacteristicDefinitionByTypeAndValue)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceVariableCharacteristicDefinitionByTypeAndValue) TypeInfo() fhirpath.TypeInfo {
@@ -8270,7 +8288,13 @@ func (r EvidenceVariableCharacteristicDefinitionByCombination) Equal(other fhirp
 	return eq && ok, true
 }
 func (r EvidenceVariableCharacteristicDefinitionByCombination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceVariableCharacteristicDefinitionByCombination)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceVariableCharacteristicDefinitionByCombination) TypeInfo() fhirpath.TypeInfo {
@@ -8413,7 +8437,13 @@ func (r EvidenceVariableCharacteristicTimeFromEvent) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r EvidenceVariableCharacteristicTimeFromEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceVariableCharacteristicTimeFromEvent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceVariableCharacteristicTimeFromEvent) TypeInfo() fhirpath.TypeInfo {
@@ -8555,7 +8585,13 @@ func (r EvidenceVariableCategory) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r EvidenceVariableCategory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceVariableCategory)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceVariableCategory) TypeInfo() fhirpath.TypeInfo {

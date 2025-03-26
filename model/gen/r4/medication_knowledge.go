@@ -9829,7 +9829,13 @@ func (r MedicationKnowledge) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r MedicationKnowledge) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledge)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledge) TypeInfo() fhirpath.TypeInfo {
@@ -10123,7 +10129,13 @@ func (r MedicationKnowledgeRelatedMedicationKnowledge) Equal(other fhirpath.Elem
 	return eq && ok, true
 }
 func (r MedicationKnowledgeRelatedMedicationKnowledge) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeRelatedMedicationKnowledge)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeRelatedMedicationKnowledge) TypeInfo() fhirpath.TypeInfo {
@@ -10244,7 +10256,13 @@ func (r MedicationKnowledgeMonograph) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r MedicationKnowledgeMonograph) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeMonograph)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeMonograph) TypeInfo() fhirpath.TypeInfo {
@@ -10368,7 +10386,13 @@ func (r MedicationKnowledgeIngredient) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r MedicationKnowledgeIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeIngredient)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeIngredient) TypeInfo() fhirpath.TypeInfo {
@@ -10497,7 +10521,13 @@ func (r MedicationKnowledgeCost) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r MedicationKnowledgeCost) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeCost)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeCost) TypeInfo() fhirpath.TypeInfo {
@@ -10625,7 +10655,13 @@ func (r MedicationKnowledgeMonitoringProgram) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r MedicationKnowledgeMonitoringProgram) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeMonitoringProgram)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeMonitoringProgram) TypeInfo() fhirpath.TypeInfo {
@@ -10751,7 +10787,13 @@ func (r MedicationKnowledgeAdministrationGuidelines) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r MedicationKnowledgeAdministrationGuidelines) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeAdministrationGuidelines)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeAdministrationGuidelines) TypeInfo() fhirpath.TypeInfo {
@@ -10877,7 +10919,13 @@ func (r MedicationKnowledgeAdministrationGuidelinesDosage) Equal(other fhirpath.
 	return eq && ok, true
 }
 func (r MedicationKnowledgeAdministrationGuidelinesDosage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeAdministrationGuidelinesDosage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeAdministrationGuidelinesDosage) TypeInfo() fhirpath.TypeInfo {
@@ -10996,7 +11044,13 @@ func (r MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics) Equal
 	return eq && ok, true
 }
 func (r MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics) TypeInfo() fhirpath.TypeInfo {
@@ -11115,7 +11169,13 @@ func (r MedicationKnowledgeMedicineClassification) Equal(other fhirpath.Element,
 	return eq && ok, true
 }
 func (r MedicationKnowledgeMedicineClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeMedicineClassification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeMedicineClassification) TypeInfo() fhirpath.TypeInfo {
@@ -11236,7 +11296,13 @@ func (r MedicationKnowledgePackaging) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r MedicationKnowledgePackaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgePackaging)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgePackaging) TypeInfo() fhirpath.TypeInfo {
@@ -11357,7 +11423,13 @@ func (r MedicationKnowledgeDrugCharacteristic) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r MedicationKnowledgeDrugCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeDrugCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeDrugCharacteristic) TypeInfo() fhirpath.TypeInfo {
@@ -11486,7 +11558,13 @@ func (r MedicationKnowledgeRegulatory) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r MedicationKnowledgeRegulatory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeRegulatory)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeRegulatory) TypeInfo() fhirpath.TypeInfo {
@@ -11617,7 +11695,13 @@ func (r MedicationKnowledgeRegulatorySubstitution) Equal(other fhirpath.Element,
 	return eq && ok, true
 }
 func (r MedicationKnowledgeRegulatorySubstitution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeRegulatorySubstitution)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeRegulatorySubstitution) TypeInfo() fhirpath.TypeInfo {
@@ -11731,7 +11815,13 @@ func (r MedicationKnowledgeRegulatorySchedule) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r MedicationKnowledgeRegulatorySchedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeRegulatorySchedule)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeRegulatorySchedule) TypeInfo() fhirpath.TypeInfo {
@@ -11843,7 +11933,13 @@ func (r MedicationKnowledgeRegulatoryMaxDispense) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r MedicationKnowledgeRegulatoryMaxDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeRegulatoryMaxDispense)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeRegulatoryMaxDispense) TypeInfo() fhirpath.TypeInfo {
@@ -11969,7 +12065,13 @@ func (r MedicationKnowledgeKinetics) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r MedicationKnowledgeKinetics) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationKnowledgeKinetics)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationKnowledgeKinetics) TypeInfo() fhirpath.TypeInfo {

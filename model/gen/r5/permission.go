@@ -3820,7 +3820,13 @@ func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r Permission) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Permission)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Permission) TypeInfo() fhirpath.TypeInfo {
@@ -4011,7 +4017,13 @@ func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r PermissionJustification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PermissionJustification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PermissionJustification) TypeInfo() fhirpath.TypeInfo {
@@ -4142,7 +4154,13 @@ func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r PermissionRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PermissionRule)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PermissionRule) TypeInfo() fhirpath.TypeInfo {
@@ -4287,7 +4305,13 @@ func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r PermissionRuleData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PermissionRuleData)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PermissionRuleData) TypeInfo() fhirpath.TypeInfo {
@@ -4418,7 +4442,13 @@ func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r PermissionRuleDataResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PermissionRuleDataResource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PermissionRuleDataResource) TypeInfo() fhirpath.TypeInfo {
@@ -4544,7 +4574,13 @@ func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r PermissionRuleActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PermissionRuleActivity)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PermissionRuleActivity) TypeInfo() fhirpath.TypeInfo {

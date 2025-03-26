@@ -1758,7 +1758,13 @@ func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r DeviceAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceAssociation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceAssociation) TypeInfo() fhirpath.TypeInfo {
@@ -1966,7 +1972,13 @@ func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r DeviceAssociationOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceAssociationOperation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceAssociationOperation) TypeInfo() fhirpath.TypeInfo {

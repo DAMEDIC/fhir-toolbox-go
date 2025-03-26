@@ -14087,7 +14087,13 @@ func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r Citation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Citation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Citation) TypeInfo() fhirpath.TypeInfo {
@@ -14444,7 +14450,13 @@ func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r CitationSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationSummary)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationSummary) TypeInfo() fhirpath.TypeInfo {
@@ -14565,7 +14577,13 @@ func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r CitationClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationClassification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationClassification) TypeInfo() fhirpath.TypeInfo {
@@ -14687,7 +14705,13 @@ func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r CitationStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationStatusDate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationStatusDate) TypeInfo() fhirpath.TypeInfo {
@@ -14880,7 +14904,13 @@ func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r CitationCitedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifact)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifact) TypeInfo() fhirpath.TypeInfo {
@@ -15090,7 +15120,13 @@ func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r CitationCitedArtifactVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactVersion)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactVersion) TypeInfo() fhirpath.TypeInfo {
@@ -15212,7 +15248,13 @@ func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r CitationCitedArtifactStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactStatusDate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactStatusDate) TypeInfo() fhirpath.TypeInfo {
@@ -15343,7 +15385,13 @@ func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r CitationCitedArtifactTitle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactTitle)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactTitle) TypeInfo() fhirpath.TypeInfo {
@@ -15479,7 +15527,13 @@ func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r CitationCitedArtifactAbstract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactAbstract)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactAbstract) TypeInfo() fhirpath.TypeInfo {
@@ -15619,7 +15673,13 @@ func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r CitationCitedArtifactPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactPart)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactPart) TypeInfo() fhirpath.TypeInfo {
@@ -15775,7 +15835,13 @@ func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r CitationCitedArtifactRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactRelatesTo)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactRelatesTo) TypeInfo() fhirpath.TypeInfo {
@@ -16003,7 +16069,13 @@ func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r CitationCitedArtifactPublicationForm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactPublicationForm)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactPublicationForm) TypeInfo() fhirpath.TypeInfo {
@@ -16230,7 +16302,13 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.El
 	return eq && ok, true
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactPublicationFormPublishedIn)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) TypeInfo() fhirpath.TypeInfo {
@@ -16372,7 +16450,13 @@ func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r CitationCitedArtifactWebLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactWebLocation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactWebLocation) TypeInfo() fhirpath.TypeInfo {
@@ -16498,7 +16582,13 @@ func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r CitationCitedArtifactClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactClassification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactClassification) TypeInfo() fhirpath.TypeInfo {
@@ -16631,7 +16721,13 @@ func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactContributorship)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactContributorship) TypeInfo() fhirpath.TypeInfo {
@@ -16787,7 +16883,13 @@ func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element,
 	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorshipEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactContributorshipEntry)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactContributorshipEntry) TypeInfo() fhirpath.TypeInfo {
@@ -16948,7 +17050,13 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(oth
 	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactContributorshipEntryContributionInstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) TypeInfo() fhirpath.TypeInfo {
@@ -17077,7 +17185,13 @@ func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r CitationCitedArtifactContributorshipSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CitationCitedArtifactContributorshipSummary)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CitationCitedArtifactContributorshipSummary) TypeInfo() fhirpath.TypeInfo {

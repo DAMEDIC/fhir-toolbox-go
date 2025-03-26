@@ -2159,7 +2159,13 @@ func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r BiologicallyDerivedProductDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BiologicallyDerivedProductDispense)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BiologicallyDerivedProductDispense) TypeInfo() fhirpath.TypeInfo {
@@ -2411,7 +2417,13 @@ func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r BiologicallyDerivedProductDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(BiologicallyDerivedProductDispensePerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r BiologicallyDerivedProductDispensePerformer) TypeInfo() fhirpath.TypeInfo {

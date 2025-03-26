@@ -2529,7 +2529,13 @@ func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r MedicationStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationStatement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationStatement) TypeInfo() fhirpath.TypeInfo {
@@ -2788,7 +2794,13 @@ func (r MedicationStatementAdherence) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r MedicationStatementAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationStatementAdherence)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationStatementAdherence) TypeInfo() fhirpath.TypeInfo {

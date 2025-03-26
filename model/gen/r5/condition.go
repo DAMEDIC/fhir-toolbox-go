@@ -3393,7 +3393,13 @@ func (r Condition) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return eq && ok, true
 }
 func (r Condition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Condition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Condition) TypeInfo() fhirpath.TypeInfo {
@@ -3645,7 +3651,13 @@ func (r ConditionParticipant) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ConditionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -3771,7 +3783,13 @@ func (r ConditionStage) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r ConditionStage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConditionStage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConditionStage) TypeInfo() fhirpath.TypeInfo {

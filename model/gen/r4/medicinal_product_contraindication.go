@@ -1731,7 +1731,13 @@ func (r MedicinalProductContraindication) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r MedicinalProductContraindication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductContraindication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductContraindication) TypeInfo() fhirpath.TypeInfo {
@@ -1918,7 +1924,13 @@ func (r MedicinalProductContraindicationOtherTherapy) Equal(other fhirpath.Eleme
 	return eq && ok, true
 }
 func (r MedicinalProductContraindicationOtherTherapy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductContraindicationOtherTherapy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductContraindicationOtherTherapy) TypeInfo() fhirpath.TypeInfo {

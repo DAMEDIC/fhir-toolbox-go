@@ -4937,7 +4937,13 @@ func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r PackagedProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PackagedProductDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PackagedProductDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -5177,7 +5183,13 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Eleme
 	return eq && ok, true
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PackagedProductDefinitionLegalStatusOfSupply)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) TypeInfo() fhirpath.TypeInfo {
@@ -5338,7 +5350,13 @@ func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PackagedProductDefinitionPackage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PackagedProductDefinitionPackage) TypeInfo() fhirpath.TypeInfo {
@@ -5520,7 +5538,13 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.E
 	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackageShelfLifeStorage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PackagedProductDefinitionPackageShelfLifeStorage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PackagedProductDefinitionPackageShelfLifeStorage) TypeInfo() fhirpath.TypeInfo {
@@ -5646,7 +5670,13 @@ func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackageProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PackagedProductDefinitionPackageProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PackagedProductDefinitionPackageProperty) TypeInfo() fhirpath.TypeInfo {
@@ -5765,7 +5795,13 @@ func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Elem
 	return eq && ok, true
 }
 func (r PackagedProductDefinitionPackageContainedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PackagedProductDefinitionPackageContainedItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PackagedProductDefinitionPackageContainedItem) TypeInfo() fhirpath.TypeInfo {

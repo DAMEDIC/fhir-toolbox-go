@@ -4001,7 +4001,13 @@ func (r NutritionProduct) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r NutritionProduct) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionProduct)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionProduct) TypeInfo() fhirpath.TypeInfo {
@@ -4213,7 +4219,13 @@ func (r NutritionProductNutrient) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r NutritionProductNutrient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionProductNutrient)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionProductNutrient) TypeInfo() fhirpath.TypeInfo {
@@ -4332,7 +4344,13 @@ func (r NutritionProductIngredient) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r NutritionProductIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionProductIngredient)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionProductIngredient) TypeInfo() fhirpath.TypeInfo {
@@ -4449,7 +4467,13 @@ func (r NutritionProductCharacteristic) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r NutritionProductCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionProductCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionProductCharacteristic) TypeInfo() fhirpath.TypeInfo {
@@ -4595,7 +4619,13 @@ func (r NutritionProductInstance) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r NutritionProductInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionProductInstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionProductInstance) TypeInfo() fhirpath.TypeInfo {

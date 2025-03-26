@@ -5449,7 +5449,13 @@ func (r TestReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r TestReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReport)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReport) TypeInfo() fhirpath.TypeInfo {
@@ -5676,7 +5682,13 @@ func (r TestReportParticipant) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r TestReportParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -5799,7 +5811,13 @@ func (r TestReportSetup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r TestReportSetup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportSetup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportSetup) TypeInfo() fhirpath.TypeInfo {
@@ -5913,7 +5931,13 @@ func (r TestReportSetupAction) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r TestReportSetupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportSetupAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportSetupAction) TypeInfo() fhirpath.TypeInfo {
@@ -6037,7 +6061,13 @@ func (r TestReportSetupActionOperation) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r TestReportSetupActionOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportSetupActionOperation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
@@ -6168,7 +6198,13 @@ func (r TestReportSetupActionAssert) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r TestReportSetupActionAssert) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportSetupActionAssert)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
@@ -6301,7 +6337,13 @@ func (r TestReportTest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r TestReportTest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportTest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportTest) TypeInfo() fhirpath.TypeInfo {
@@ -6429,7 +6471,13 @@ func (r TestReportTestAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r TestReportTestAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportTestAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportTestAction) TypeInfo() fhirpath.TypeInfo {
@@ -6545,7 +6593,13 @@ func (r TestReportTeardown) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r TestReportTeardown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportTeardown)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportTeardown) TypeInfo() fhirpath.TypeInfo {
@@ -6652,7 +6706,13 @@ func (r TestReportTeardownAction) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r TestReportTeardownAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestReportTeardownAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestReportTeardownAction) TypeInfo() fhirpath.TypeInfo {

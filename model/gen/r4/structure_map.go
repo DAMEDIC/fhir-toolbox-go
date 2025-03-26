@@ -12553,7 +12553,13 @@ func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r StructureMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMap)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMap) TypeInfo() fhirpath.TypeInfo {
@@ -12827,7 +12833,13 @@ func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r StructureMapStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapStructure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapStructure) TypeInfo() fhirpath.TypeInfo {
@@ -12978,7 +12990,13 @@ func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r StructureMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapGroup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapGroup) TypeInfo() fhirpath.TypeInfo {
@@ -13133,7 +13151,13 @@ func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r StructureMapGroupInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapGroupInput)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapGroupInput) TypeInfo() fhirpath.TypeInfo {
@@ -13286,7 +13310,13 @@ func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r StructureMapGroupRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapGroupRule)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapGroupRule) TypeInfo() fhirpath.TypeInfo {
@@ -13478,7 +13508,13 @@ func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r StructureMapGroupRuleSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapGroupRuleSource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapGroupRuleSource) TypeInfo() fhirpath.TypeInfo {
@@ -13692,7 +13728,13 @@ func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r StructureMapGroupRuleTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapGroupRuleTarget)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapGroupRuleTarget) TypeInfo() fhirpath.TypeInfo {
@@ -13848,7 +13890,13 @@ func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r StructureMapGroupRuleTargetParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapGroupRuleTargetParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapGroupRuleTargetParameter) TypeInfo() fhirpath.TypeInfo {
@@ -13960,7 +14008,13 @@ func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r StructureMapGroupRuleDependent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureMapGroupRuleDependent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureMapGroupRuleDependent) TypeInfo() fhirpath.TypeInfo {

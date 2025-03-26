@@ -3998,7 +3998,13 @@ func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return eq && ok, true
 }
 func (r Procedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Procedure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Procedure) TypeInfo() fhirpath.TypeInfo {
@@ -4339,7 +4345,13 @@ func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ProcedurePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ProcedurePerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ProcedurePerformer) TypeInfo() fhirpath.TypeInfo {
@@ -4465,7 +4477,13 @@ func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ProcedureFocalDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ProcedureFocalDevice)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ProcedureFocalDevice) TypeInfo() fhirpath.TypeInfo {

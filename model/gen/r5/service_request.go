@@ -5524,7 +5524,13 @@ func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ServiceRequest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
@@ -5897,7 +5903,13 @@ func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ServiceRequestOrderDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ServiceRequestOrderDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ServiceRequestOrderDetail) TypeInfo() fhirpath.TypeInfo {
@@ -6014,7 +6026,13 @@ func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r ServiceRequestOrderDetailParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ServiceRequestOrderDetailParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ServiceRequestOrderDetailParameter) TypeInfo() fhirpath.TypeInfo {
@@ -6130,7 +6148,13 @@ func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r ServiceRequestPatientInstruction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ServiceRequestPatientInstruction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ServiceRequestPatientInstruction) TypeInfo() fhirpath.TypeInfo {

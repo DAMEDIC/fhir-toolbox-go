@@ -5510,7 +5510,13 @@ func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r InventoryItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryItem) TypeInfo() fhirpath.TypeInfo {
@@ -5749,7 +5755,13 @@ func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r InventoryItemName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryItemName)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryItemName) TypeInfo() fhirpath.TypeInfo {
@@ -5873,7 +5885,13 @@ func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r InventoryItemResponsibleOrganization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryItemResponsibleOrganization)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryItemResponsibleOrganization) TypeInfo() fhirpath.TypeInfo {
@@ -5994,7 +6012,13 @@ func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r InventoryItemDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryItemDescription)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryItemDescription) TypeInfo() fhirpath.TypeInfo {
@@ -6114,7 +6138,13 @@ func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r InventoryItemAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryItemAssociation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryItemAssociation) TypeInfo() fhirpath.TypeInfo {
@@ -6238,7 +6268,13 @@ func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r InventoryItemCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryItemCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryItemCharacteristic) TypeInfo() fhirpath.TypeInfo {
@@ -6374,7 +6410,13 @@ func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r InventoryItemInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryItemInstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryItemInstance) TypeInfo() fhirpath.TypeInfo {

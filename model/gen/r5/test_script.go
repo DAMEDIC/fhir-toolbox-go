@@ -14583,7 +14583,13 @@ func (r TestScript) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r TestScript) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScript)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScript) TypeInfo() fhirpath.TypeInfo {
@@ -14915,7 +14921,13 @@ func (r TestScriptOrigin) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r TestScriptOrigin) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptOrigin)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptOrigin) TypeInfo() fhirpath.TypeInfo {
@@ -15044,7 +15056,13 @@ func (r TestScriptDestination) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r TestScriptDestination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptDestination)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptDestination) TypeInfo() fhirpath.TypeInfo {
@@ -15172,7 +15190,13 @@ func (r TestScriptMetadata) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r TestScriptMetadata) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptMetadata)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptMetadata) TypeInfo() fhirpath.TypeInfo {
@@ -15291,7 +15315,13 @@ func (r TestScriptMetadataLink) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r TestScriptMetadataLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptMetadataLink)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptMetadataLink) TypeInfo() fhirpath.TypeInfo {
@@ -15431,7 +15461,13 @@ func (r TestScriptMetadataCapability) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r TestScriptMetadataCapability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptMetadataCapability)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptMetadataCapability) TypeInfo() fhirpath.TypeInfo {
@@ -15590,7 +15626,13 @@ func (r TestScriptScope) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r TestScriptScope) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptScope)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptScope) TypeInfo() fhirpath.TypeInfo {
@@ -15719,7 +15761,13 @@ func (r TestScriptFixture) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r TestScriptFixture) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptFixture)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptFixture) TypeInfo() fhirpath.TypeInfo {
@@ -15875,7 +15923,13 @@ func (r TestScriptVariable) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r TestScriptVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptVariable)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptVariable) TypeInfo() fhirpath.TypeInfo {
@@ -16033,7 +16087,13 @@ func (r TestScriptSetup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r TestScriptSetup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptSetup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptSetup) TypeInfo() fhirpath.TypeInfo {
@@ -16147,7 +16207,13 @@ func (r TestScriptSetupAction) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r TestScriptSetupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptSetupAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptSetupAction) TypeInfo() fhirpath.TypeInfo {
@@ -16341,7 +16407,13 @@ func (r TestScriptSetupActionOperation) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r TestScriptSetupActionOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptSetupActionOperation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
@@ -16563,7 +16635,13 @@ func (r TestScriptSetupActionOperationRequestHeader) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r TestScriptSetupActionOperationRequestHeader) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptSetupActionOperationRequestHeader)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptSetupActionOperationRequestHeader) TypeInfo() fhirpath.TypeInfo {
@@ -16795,7 +16873,13 @@ func (r TestScriptSetupActionAssert) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r TestScriptSetupActionAssert) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptSetupActionAssert)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
@@ -17072,7 +17156,13 @@ func (r TestScriptSetupActionAssertRequirement) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r TestScriptSetupActionAssertRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptSetupActionAssertRequirement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptSetupActionAssertRequirement) TypeInfo() fhirpath.TypeInfo {
@@ -17191,7 +17281,13 @@ func (r TestScriptTest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r TestScriptTest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptTest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptTest) TypeInfo() fhirpath.TypeInfo {
@@ -17319,7 +17415,13 @@ func (r TestScriptTestAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r TestScriptTestAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptTestAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptTestAction) TypeInfo() fhirpath.TypeInfo {
@@ -17435,7 +17537,13 @@ func (r TestScriptTeardown) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r TestScriptTeardown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptTeardown)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptTeardown) TypeInfo() fhirpath.TypeInfo {
@@ -17542,7 +17650,13 @@ func (r TestScriptTeardownAction) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r TestScriptTeardownAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TestScriptTeardownAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TestScriptTeardownAction) TypeInfo() fhirpath.TypeInfo {

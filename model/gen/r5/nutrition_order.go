@@ -7893,7 +7893,13 @@ func (r NutritionOrder) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r NutritionOrder) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrder)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrder) TypeInfo() fhirpath.TypeInfo {
@@ -8216,7 +8222,13 @@ func (r NutritionOrderOralDiet) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r NutritionOrderOralDiet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderOralDiet)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderOralDiet) TypeInfo() fhirpath.TypeInfo {
@@ -8370,7 +8382,13 @@ func (r NutritionOrderOralDietSchedule) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r NutritionOrderOralDietSchedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderOralDietSchedule)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderOralDietSchedule) TypeInfo() fhirpath.TypeInfo {
@@ -8498,7 +8516,13 @@ func (r NutritionOrderOralDietNutrient) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r NutritionOrderOralDietNutrient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderOralDietNutrient)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderOralDietNutrient) TypeInfo() fhirpath.TypeInfo {
@@ -8619,7 +8643,13 @@ func (r NutritionOrderOralDietTexture) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r NutritionOrderOralDietTexture) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderOralDietTexture)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderOralDietTexture) TypeInfo() fhirpath.TypeInfo {
@@ -8755,7 +8785,13 @@ func (r NutritionOrderSupplement) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r NutritionOrderSupplement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderSupplement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderSupplement) TypeInfo() fhirpath.TypeInfo {
@@ -8902,7 +8938,13 @@ func (r NutritionOrderSupplementSchedule) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r NutritionOrderSupplementSchedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderSupplementSchedule)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderSupplementSchedule) TypeInfo() fhirpath.TypeInfo {
@@ -9065,7 +9107,13 @@ func (r NutritionOrderEnteralFormula) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r NutritionOrderEnteralFormula) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderEnteralFormula)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderEnteralFormula) TypeInfo() fhirpath.TypeInfo {
@@ -9240,7 +9288,13 @@ func (r NutritionOrderEnteralFormulaAdditive) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r NutritionOrderEnteralFormulaAdditive) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderEnteralFormulaAdditive)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderEnteralFormulaAdditive) TypeInfo() fhirpath.TypeInfo {
@@ -9373,7 +9427,13 @@ func (r NutritionOrderEnteralFormulaAdministration) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r NutritionOrderEnteralFormulaAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderEnteralFormulaAdministration)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderEnteralFormulaAdministration) TypeInfo() fhirpath.TypeInfo {
@@ -9506,7 +9566,13 @@ func (r NutritionOrderEnteralFormulaAdministrationSchedule) Equal(other fhirpath
 	return eq && ok, true
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionOrderEnteralFormulaAdministrationSchedule)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) TypeInfo() fhirpath.TypeInfo {

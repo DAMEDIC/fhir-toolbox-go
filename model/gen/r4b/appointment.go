@@ -3042,7 +3042,13 @@ func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return eq && ok, true
 }
 func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Appointment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Appointment) TypeInfo() fhirpath.TypeInfo {
@@ -3351,7 +3357,13 @@ func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AppointmentParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {

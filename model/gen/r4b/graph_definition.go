@@ -3984,7 +3984,13 @@ func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r GraphDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GraphDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GraphDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -4251,7 +4257,13 @@ func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r GraphDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GraphDefinitionLink)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GraphDefinitionLink) TypeInfo() fhirpath.TypeInfo {
@@ -4413,7 +4425,13 @@ func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r GraphDefinitionLinkTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GraphDefinitionLinkTarget)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GraphDefinitionLinkTarget) TypeInfo() fhirpath.TypeInfo {
@@ -4564,7 +4582,13 @@ func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r GraphDefinitionLinkTargetCompartment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(GraphDefinitionLinkTargetCompartment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r GraphDefinitionLinkTargetCompartment) TypeInfo() fhirpath.TypeInfo {

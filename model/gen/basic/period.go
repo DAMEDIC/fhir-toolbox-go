@@ -290,7 +290,13 @@ func (r Period) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return eq && ok, true
 }
 func (r Period) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Period)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Period) TypeInfo() fhirpath.TypeInfo {

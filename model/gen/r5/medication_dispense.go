@@ -3451,7 +3451,13 @@ func (r MedicationDispense) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r MedicationDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationDispense)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationDispense) TypeInfo() fhirpath.TypeInfo {
@@ -3780,7 +3786,13 @@ func (r MedicationDispensePerformer) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r MedicationDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationDispensePerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationDispensePerformer) TypeInfo() fhirpath.TypeInfo {
@@ -3909,7 +3921,13 @@ func (r MedicationDispenseSubstitution) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r MedicationDispenseSubstitution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicationDispenseSubstitution)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicationDispenseSubstitution) TypeInfo() fhirpath.TypeInfo {

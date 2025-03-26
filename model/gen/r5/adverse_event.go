@@ -5618,7 +5618,13 @@ func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r AdverseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEvent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEvent) TypeInfo() fhirpath.TypeInfo {
@@ -5926,7 +5932,13 @@ func (r AdverseEventParticipant) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r AdverseEventParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEventParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEventParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -6045,7 +6057,13 @@ func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEventSuspectEntity)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEventSuspectEntity) TypeInfo() fhirpath.TypeInfo {
@@ -6171,7 +6189,13 @@ func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEventSuspectEntityCausality)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEventSuspectEntityCausality) TypeInfo() fhirpath.TypeInfo {
@@ -6292,7 +6316,13 @@ func (r AdverseEventContributingFactor) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r AdverseEventContributingFactor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEventContributingFactor)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEventContributingFactor) TypeInfo() fhirpath.TypeInfo {
@@ -6399,7 +6429,13 @@ func (r AdverseEventPreventiveAction) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r AdverseEventPreventiveAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEventPreventiveAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEventPreventiveAction) TypeInfo() fhirpath.TypeInfo {
@@ -6506,7 +6542,13 @@ func (r AdverseEventMitigatingAction) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r AdverseEventMitigatingAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEventMitigatingAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEventMitigatingAction) TypeInfo() fhirpath.TypeInfo {
@@ -6613,7 +6655,13 @@ func (r AdverseEventSupportingInfo) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r AdverseEventSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdverseEventSupportingInfo)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdverseEventSupportingInfo) TypeInfo() fhirpath.TypeInfo {

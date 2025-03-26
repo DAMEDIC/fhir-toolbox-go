@@ -1961,7 +1961,13 @@ func (r EncounterHistory) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r EncounterHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterHistory)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterHistory) TypeInfo() fhirpath.TypeInfo {
@@ -2192,7 +2198,13 @@ func (r EncounterHistoryLocation) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r EncounterHistoryLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterHistoryLocation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterHistoryLocation) TypeInfo() fhirpath.TypeInfo {

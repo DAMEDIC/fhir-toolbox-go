@@ -4913,7 +4913,13 @@ func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r StructureDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -5266,7 +5272,13 @@ func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r StructureDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureDefinitionMapping)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
@@ -5397,7 +5409,13 @@ func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r StructureDefinitionContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureDefinitionContext)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureDefinitionContext) TypeInfo() fhirpath.TypeInfo {
@@ -5513,7 +5531,13 @@ func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r StructureDefinitionSnapshot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureDefinitionSnapshot)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureDefinitionSnapshot) TypeInfo() fhirpath.TypeInfo {
@@ -5622,7 +5646,13 @@ func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r StructureDefinitionDifferential) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(StructureDefinitionDifferential)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r StructureDefinitionDifferential) TypeInfo() fhirpath.TypeInfo {

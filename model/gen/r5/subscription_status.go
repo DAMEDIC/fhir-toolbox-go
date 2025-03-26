@@ -1834,7 +1834,13 @@ func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r SubscriptionStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionStatus)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionStatus) TypeInfo() fhirpath.TypeInfo {
@@ -2033,7 +2039,13 @@ func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r SubscriptionStatusNotificationEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionStatusNotificationEvent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionStatusNotificationEvent) TypeInfo() fhirpath.TypeInfo {

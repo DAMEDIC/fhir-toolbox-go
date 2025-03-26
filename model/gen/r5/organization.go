@@ -2107,7 +2107,13 @@ func (r Organization) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r Organization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Organization)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Organization) TypeInfo() fhirpath.TypeInfo {
@@ -2327,7 +2333,13 @@ func (r OrganizationQualification) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r OrganizationQualification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(OrganizationQualification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r OrganizationQualification) TypeInfo() fhirpath.TypeInfo {

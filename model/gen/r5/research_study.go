@@ -6841,7 +6841,13 @@ func (r ResearchStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r ResearchStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudy) TypeInfo() fhirpath.TypeInfo {
@@ -7207,7 +7213,13 @@ func (r ResearchStudyLabel) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ResearchStudyLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudyLabel)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudyLabel) TypeInfo() fhirpath.TypeInfo {
@@ -7341,7 +7353,13 @@ func (r ResearchStudyAssociatedParty) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ResearchStudyAssociatedParty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudyAssociatedParty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudyAssociatedParty) TypeInfo() fhirpath.TypeInfo {
@@ -7486,7 +7504,13 @@ func (r ResearchStudyProgressStatus) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ResearchStudyProgressStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudyProgressStatus)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudyProgressStatus) TypeInfo() fhirpath.TypeInfo {
@@ -7624,7 +7648,13 @@ func (r ResearchStudyRecruitment) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ResearchStudyRecruitment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudyRecruitment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudyRecruitment) TypeInfo() fhirpath.TypeInfo {
@@ -7777,7 +7807,13 @@ func (r ResearchStudyComparisonGroup) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ResearchStudyComparisonGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudyComparisonGroup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudyComparisonGroup) TypeInfo() fhirpath.TypeInfo {
@@ -7931,7 +7967,13 @@ func (r ResearchStudyObjective) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r ResearchStudyObjective) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudyObjective)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudyObjective) TypeInfo() fhirpath.TypeInfo {
@@ -8069,7 +8111,13 @@ func (r ResearchStudyOutcomeMeasure) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ResearchStudyOutcomeMeasure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ResearchStudyOutcomeMeasure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ResearchStudyOutcomeMeasure) TypeInfo() fhirpath.TypeInfo {

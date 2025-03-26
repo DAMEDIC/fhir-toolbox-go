@@ -5077,7 +5077,13 @@ func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r ClinicalUseDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -5311,7 +5317,13 @@ func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ClinicalUseDefinitionContraindication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinitionContraindication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinitionContraindication) TypeInfo() fhirpath.TypeInfo {
@@ -5449,7 +5461,13 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.
 	return eq && ok, true
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinitionContraindicationOtherTherapy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) TypeInfo() fhirpath.TypeInfo {
@@ -5595,7 +5613,13 @@ func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r ClinicalUseDefinitionIndication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinitionIndication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinitionIndication) TypeInfo() fhirpath.TypeInfo {
@@ -5766,7 +5790,13 @@ func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r ClinicalUseDefinitionInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinitionInteraction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinitionInteraction) TypeInfo() fhirpath.TypeInfo {
@@ -5901,7 +5931,13 @@ func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r ClinicalUseDefinitionInteractionInteractant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinitionInteractionInteractant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinitionInteractionInteractant) TypeInfo() fhirpath.TypeInfo {
@@ -6020,7 +6056,13 @@ func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r ClinicalUseDefinitionUndesirableEffect) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinitionUndesirableEffect)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinitionUndesirableEffect) TypeInfo() fhirpath.TypeInfo {
@@ -6148,7 +6190,13 @@ func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ClinicalUseDefinitionWarning) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClinicalUseDefinitionWarning)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClinicalUseDefinitionWarning) TypeInfo() fhirpath.TypeInfo {

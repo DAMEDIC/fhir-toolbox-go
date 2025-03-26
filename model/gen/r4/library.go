@@ -3211,7 +3211,13 @@ func (r Library) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return eq && ok, true
 }
 func (r Library) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Library)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Library) TypeInfo() fhirpath.TypeInfo {

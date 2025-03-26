@@ -2625,7 +2625,13 @@ func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r DiagnosticReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DiagnosticReport)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DiagnosticReport) TypeInfo() fhirpath.TypeInfo {
@@ -2891,7 +2897,13 @@ func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r DiagnosticReportMedia) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DiagnosticReportMedia)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DiagnosticReportMedia) TypeInfo() fhirpath.TypeInfo {

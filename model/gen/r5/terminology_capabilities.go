@@ -7898,7 +7898,13 @@ func (r TerminologyCapabilities) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r TerminologyCapabilities) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilities)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilities) TypeInfo() fhirpath.TypeInfo {
@@ -8227,7 +8233,13 @@ func (r TerminologyCapabilitiesSoftware) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesSoftware)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesSoftware) TypeInfo() fhirpath.TypeInfo {
@@ -8346,7 +8358,13 @@ func (r TerminologyCapabilitiesImplementation) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesImplementation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesImplementation) TypeInfo() fhirpath.TypeInfo {
@@ -8475,7 +8493,13 @@ func (r TerminologyCapabilitiesCodeSystem) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesCodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesCodeSystem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesCodeSystem) TypeInfo() fhirpath.TypeInfo {
@@ -8630,7 +8654,13 @@ func (r TerminologyCapabilitiesCodeSystemVersion) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesCodeSystemVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesCodeSystemVersion)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesCodeSystemVersion) TypeInfo() fhirpath.TypeInfo {
@@ -8777,7 +8807,13 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equal(other fhirpath.Ele
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesCodeSystemVersionFilter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) TypeInfo() fhirpath.TypeInfo {
@@ -8913,7 +8949,13 @@ func (r TerminologyCapabilitiesExpansion) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesExpansion)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesExpansion) TypeInfo() fhirpath.TypeInfo {
@@ -9053,7 +9095,13 @@ func (r TerminologyCapabilitiesExpansionParameter) Equal(other fhirpath.Element,
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesExpansionParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesExpansionParameter) TypeInfo() fhirpath.TypeInfo {
@@ -9167,7 +9215,13 @@ func (r TerminologyCapabilitiesValidateCode) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesValidateCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesValidateCode)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesValidateCode) TypeInfo() fhirpath.TypeInfo {
@@ -9274,7 +9328,13 @@ func (r TerminologyCapabilitiesTranslation) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesTranslation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesTranslation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesTranslation) TypeInfo() fhirpath.TypeInfo {
@@ -9383,7 +9443,13 @@ func (r TerminologyCapabilitiesClosure) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r TerminologyCapabilitiesClosure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(TerminologyCapabilitiesClosure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r TerminologyCapabilitiesClosure) TypeInfo() fhirpath.TypeInfo {

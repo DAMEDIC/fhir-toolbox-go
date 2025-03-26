@@ -2999,7 +2999,13 @@ func (r AllergyIntolerance) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r AllergyIntolerance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AllergyIntolerance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AllergyIntolerance) TypeInfo() fhirpath.TypeInfo {
@@ -3278,7 +3284,13 @@ func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r AllergyIntoleranceReaction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AllergyIntoleranceReaction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AllergyIntoleranceReaction) TypeInfo() fhirpath.TypeInfo {

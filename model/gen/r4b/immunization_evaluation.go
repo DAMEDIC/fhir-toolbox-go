@@ -1981,7 +1981,13 @@ func (r ImmunizationEvaluation) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r ImmunizationEvaluation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationEvaluation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationEvaluation) TypeInfo() fhirpath.TypeInfo {

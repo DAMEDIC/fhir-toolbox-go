@@ -4310,7 +4310,13 @@ func (r SubstancePolymer) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r SubstancePolymer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstancePolymer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstancePolymer) TypeInfo() fhirpath.TypeInfo {
@@ -4501,7 +4507,13 @@ func (r SubstancePolymerMonomerSet) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r SubstancePolymerMonomerSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstancePolymerMonomerSet)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstancePolymerMonomerSet) TypeInfo() fhirpath.TypeInfo {
@@ -4632,7 +4644,13 @@ func (r SubstancePolymerMonomerSetStartingMaterial) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstancePolymerMonomerSetStartingMaterial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) TypeInfo() fhirpath.TypeInfo {
@@ -4772,7 +4790,13 @@ func (r SubstancePolymerRepeat) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r SubstancePolymerRepeat) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstancePolymerRepeat)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstancePolymerRepeat) TypeInfo() fhirpath.TypeInfo {
@@ -4915,7 +4939,13 @@ func (r SubstancePolymerRepeatRepeatUnit) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r SubstancePolymerRepeatRepeatUnit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstancePolymerRepeatRepeatUnit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstancePolymerRepeatRepeatUnit) TypeInfo() fhirpath.TypeInfo {
@@ -5067,7 +5097,13 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equal(other fhir
 	return eq && ok, true
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) TypeInfo() fhirpath.TypeInfo {
@@ -5212,7 +5248,13 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equal(other fh
 	return eq && ok, true
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstancePolymerRepeatRepeatUnitStructuralRepresentation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) TypeInfo() fhirpath.TypeInfo {

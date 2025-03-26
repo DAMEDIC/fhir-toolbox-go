@@ -1851,7 +1851,13 @@ func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r DeviceMetric) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceMetric)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceMetric) TypeInfo() fhirpath.TypeInfo {
@@ -2061,7 +2067,13 @@ func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r DeviceMetricCalibration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceMetricCalibration)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceMetricCalibration) TypeInfo() fhirpath.TypeInfo {

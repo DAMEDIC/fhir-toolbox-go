@@ -2947,7 +2947,13 @@ func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r CommunicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CommunicationRequest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CommunicationRequest) TypeInfo() fhirpath.TypeInfo {
@@ -3236,7 +3242,13 @@ func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r CommunicationRequestPayload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CommunicationRequestPayload)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CommunicationRequestPayload) TypeInfo() fhirpath.TypeInfo {

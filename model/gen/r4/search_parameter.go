@@ -3609,7 +3609,13 @@ func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r SearchParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SearchParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SearchParameter) TypeInfo() fhirpath.TypeInfo {
@@ -3929,7 +3935,13 @@ func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r SearchParameterComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SearchParameterComponent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SearchParameterComponent) TypeInfo() fhirpath.TypeInfo {

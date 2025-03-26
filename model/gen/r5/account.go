@@ -5080,7 +5080,13 @@ func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return eq && ok, true
 }
 func (r Account) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Account)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Account) TypeInfo() fhirpath.TypeInfo {
@@ -5339,7 +5345,13 @@ func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r AccountCoverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AccountCoverage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AccountCoverage) TypeInfo() fhirpath.TypeInfo {
@@ -5463,7 +5475,13 @@ func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r AccountGuarantor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AccountGuarantor)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AccountGuarantor) TypeInfo() fhirpath.TypeInfo {
@@ -5609,7 +5627,13 @@ func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r AccountDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AccountDiagnosis)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AccountDiagnosis) TypeInfo() fhirpath.TypeInfo {
@@ -5776,7 +5800,13 @@ func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r AccountProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AccountProcedure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AccountProcedure) TypeInfo() fhirpath.TypeInfo {
@@ -5923,7 +5953,13 @@ func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r AccountRelatedAccount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AccountRelatedAccount)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AccountRelatedAccount) TypeInfo() fhirpath.TypeInfo {
@@ -6052,7 +6088,13 @@ func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r AccountBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AccountBalance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AccountBalance) TypeInfo() fhirpath.TypeInfo {

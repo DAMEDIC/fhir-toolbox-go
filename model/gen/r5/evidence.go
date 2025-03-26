@@ -8169,7 +8169,13 @@ func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r Evidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Evidence)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Evidence) TypeInfo() fhirpath.TypeInfo {
@@ -8546,7 +8552,13 @@ func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r EvidenceVariableDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceVariableDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceVariableDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -8735,7 +8747,13 @@ func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r EvidenceStatistic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceStatistic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceStatistic) TypeInfo() fhirpath.TypeInfo {
@@ -8927,7 +8945,13 @@ func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r EvidenceStatisticSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceStatisticSampleSize)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceStatisticSampleSize) TypeInfo() fhirpath.TypeInfo {
@@ -9094,7 +9118,13 @@ func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r EvidenceStatisticAttributeEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceStatisticAttributeEstimate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceStatisticAttributeEstimate) TypeInfo() fhirpath.TypeInfo {
@@ -9258,7 +9288,13 @@ func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r EvidenceStatisticModelCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceStatisticModelCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceStatisticModelCharacteristic) TypeInfo() fhirpath.TypeInfo {
@@ -9406,7 +9442,13 @@ func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Eleme
 	return eq && ok, true
 }
 func (r EvidenceStatisticModelCharacteristicVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceStatisticModelCharacteristicVariable)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceStatisticModelCharacteristicVariable) TypeInfo() fhirpath.TypeInfo {
@@ -9568,7 +9610,13 @@ func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r EvidenceCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceCertainty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceCertainty) TypeInfo() fhirpath.TypeInfo {

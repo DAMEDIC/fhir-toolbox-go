@@ -2340,7 +2340,13 @@ func (r InventoryReport) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r InventoryReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryReport)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryReport) TypeInfo() fhirpath.TypeInfo {
@@ -2562,7 +2568,13 @@ func (r InventoryReportInventoryListing) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r InventoryReportInventoryListing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryReportInventoryListing)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryReportInventoryListing) TypeInfo() fhirpath.TypeInfo {
@@ -2698,7 +2710,13 @@ func (r InventoryReportInventoryListingItem) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r InventoryReportInventoryListingItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(InventoryReportInventoryListingItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r InventoryReportInventoryListingItem) TypeInfo() fhirpath.TypeInfo {

@@ -9542,7 +9542,13 @@ func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r PlanDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -9924,7 +9930,13 @@ func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinitionGoal)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinitionGoal) TypeInfo() fhirpath.TypeInfo {
@@ -10085,7 +10097,13 @@ func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinitionGoalTarget)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinitionGoalTarget) TypeInfo() fhirpath.TypeInfo {
@@ -10338,7 +10356,13 @@ func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r PlanDefinitionAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinitionAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinitionAction) TypeInfo() fhirpath.TypeInfo {
@@ -10632,7 +10656,13 @@ func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinitionActionCondition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinitionActionCondition) TypeInfo() fhirpath.TypeInfo {
@@ -10754,7 +10784,13 @@ func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinitionActionRelatedAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinitionActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
@@ -10880,7 +10916,13 @@ func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinitionActionParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinitionActionParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -11001,7 +11043,13 @@ func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PlanDefinitionActionDynamicValue)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PlanDefinitionActionDynamicValue) TypeInfo() fhirpath.TypeInfo {

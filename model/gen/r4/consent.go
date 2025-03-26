@@ -4461,7 +4461,13 @@ func (r Consent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return eq && ok, true
 }
 func (r Consent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Consent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Consent) TypeInfo() fhirpath.TypeInfo {
@@ -4694,7 +4700,13 @@ func (r ConsentPolicy) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r ConsentPolicy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConsentPolicy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConsentPolicy) TypeInfo() fhirpath.TypeInfo {
@@ -4818,7 +4830,13 @@ func (r ConsentVerification) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r ConsentVerification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConsentVerification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConsentVerification) TypeInfo() fhirpath.TypeInfo {
@@ -4991,7 +5009,13 @@ func (r ConsentProvision) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r ConsentProvision) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConsentProvision)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConsentProvision) TypeInfo() fhirpath.TypeInfo {
@@ -5171,7 +5195,13 @@ func (r ConsentProvisionActor) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r ConsentProvisionActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConsentProvisionActor)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConsentProvisionActor) TypeInfo() fhirpath.TypeInfo {
@@ -5288,7 +5318,13 @@ func (r ConsentProvisionData) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ConsentProvisionData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConsentProvisionData)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConsentProvisionData) TypeInfo() fhirpath.TypeInfo {

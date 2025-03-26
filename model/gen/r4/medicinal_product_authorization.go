@@ -2986,7 +2986,13 @@ func (r MedicinalProductAuthorization) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r MedicinalProductAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductAuthorization)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductAuthorization) TypeInfo() fhirpath.TypeInfo {
@@ -3255,7 +3261,13 @@ func (r MedicinalProductAuthorizationJurisdictionalAuthorization) Equal(other fh
 	return eq && ok, true
 }
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductAuthorizationJurisdictionalAuthorization)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) TypeInfo() fhirpath.TypeInfo {
@@ -3405,7 +3417,13 @@ func (r MedicinalProductAuthorizationProcedure) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r MedicinalProductAuthorizationProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MedicinalProductAuthorizationProcedure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MedicinalProductAuthorizationProcedure) TypeInfo() fhirpath.TypeInfo {

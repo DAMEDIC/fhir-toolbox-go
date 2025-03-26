@@ -445,7 +445,15 @@ func (r Coding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	return eq && ok, true
 }
 func (r Coding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Coding)
+	if !ok {
+		return false
+	}
+	eq, ok := r.Code.Equal(o.Code)
+	if !ok || !eq {
+		return false
+	}
+	eq, ok = r.System.Equal(o.System)
 	return eq && ok
 }
 func (r Coding) TypeInfo() fhirpath.TypeInfo {

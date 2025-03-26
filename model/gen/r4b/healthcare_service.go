@@ -4111,7 +4111,13 @@ func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r HealthcareService) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(HealthcareService)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r HealthcareService) TypeInfo() fhirpath.TypeInfo {
@@ -4421,7 +4427,13 @@ func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r HealthcareServiceEligibility) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(HealthcareServiceEligibility)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r HealthcareServiceEligibility) TypeInfo() fhirpath.TypeInfo {
@@ -4552,7 +4564,13 @@ func (r HealthcareServiceAvailableTime) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r HealthcareServiceAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(HealthcareServiceAvailableTime)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r HealthcareServiceAvailableTime) TypeInfo() fhirpath.TypeInfo {
@@ -4685,7 +4703,13 @@ func (r HealthcareServiceNotAvailable) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r HealthcareServiceNotAvailable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(HealthcareServiceNotAvailable)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r HealthcareServiceNotAvailable) TypeInfo() fhirpath.TypeInfo {

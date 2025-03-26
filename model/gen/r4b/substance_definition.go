@@ -9053,7 +9053,13 @@ func (r SubstanceDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r SubstanceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -9358,7 +9364,13 @@ func (r SubstanceDefinitionMoiety) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r SubstanceDefinitionMoiety) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionMoiety)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionMoiety) TypeInfo() fhirpath.TypeInfo {
@@ -9519,7 +9531,13 @@ func (r SubstanceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r SubstanceDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
@@ -9643,7 +9661,13 @@ func (r SubstanceDefinitionMolecularWeight) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r SubstanceDefinitionMolecularWeight) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionMolecularWeight)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionMolecularWeight) TypeInfo() fhirpath.TypeInfo {
@@ -9801,7 +9825,13 @@ func (r SubstanceDefinitionStructure) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r SubstanceDefinitionStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionStructure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionStructure) TypeInfo() fhirpath.TypeInfo {
@@ -9974,7 +10004,13 @@ func (r SubstanceDefinitionStructureRepresentation) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r SubstanceDefinitionStructureRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionStructureRepresentation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionStructureRepresentation) TypeInfo() fhirpath.TypeInfo {
@@ -10124,7 +10160,13 @@ func (r SubstanceDefinitionCode) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r SubstanceDefinitionCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionCode)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionCode) TypeInfo() fhirpath.TypeInfo {
@@ -10309,7 +10351,13 @@ func (r SubstanceDefinitionName) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r SubstanceDefinitionName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionName)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionName) TypeInfo() fhirpath.TypeInfo {
@@ -10498,7 +10546,13 @@ func (r SubstanceDefinitionNameOfficial) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r SubstanceDefinitionNameOfficial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionNameOfficial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionNameOfficial) TypeInfo() fhirpath.TypeInfo {
@@ -10649,7 +10703,13 @@ func (r SubstanceDefinitionRelationship) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r SubstanceDefinitionRelationship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionRelationship)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionRelationship) TypeInfo() fhirpath.TypeInfo {
@@ -10820,7 +10880,13 @@ func (r SubstanceDefinitionSourceMaterial) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r SubstanceDefinitionSourceMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceDefinitionSourceMaterial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceDefinitionSourceMaterial) TypeInfo() fhirpath.TypeInfo {

@@ -449,8 +449,19 @@ func (r CodeableConcept) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r CodeableConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+	o, ok := other.(CodeableConcept)
+	if !ok {
+		return false
+	}
+	var leftCollection fhirpath.Collection
+	for _, c := range r.Coding {
+		leftCollection = append(leftCollection, c)
+	}
+	var rightCollection fhirpath.Collection
+	for _, c := range o.Coding {
+		rightCollection = append(leftCollection, c)
+	}
+	return len(leftCollection.Union(rightCollection)) > 0
 }
 func (r CodeableConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

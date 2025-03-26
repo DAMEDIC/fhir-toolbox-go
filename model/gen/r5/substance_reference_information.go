@@ -2870,7 +2870,13 @@ func (r SubstanceReferenceInformation) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r SubstanceReferenceInformation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceReferenceInformation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceReferenceInformation) TypeInfo() fhirpath.TypeInfo {
@@ -3045,7 +3051,13 @@ func (r SubstanceReferenceInformationGene) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r SubstanceReferenceInformationGene) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceReferenceInformationGene)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceReferenceInformationGene) TypeInfo() fhirpath.TypeInfo {
@@ -3178,7 +3190,13 @@ func (r SubstanceReferenceInformationGeneElement) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r SubstanceReferenceInformationGeneElement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceReferenceInformationGeneElement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceReferenceInformationGeneElement) TypeInfo() fhirpath.TypeInfo {
@@ -3336,7 +3354,13 @@ func (r SubstanceReferenceInformationTarget) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r SubstanceReferenceInformationTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceReferenceInformationTarget)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceReferenceInformationTarget) TypeInfo() fhirpath.TypeInfo {

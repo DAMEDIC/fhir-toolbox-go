@@ -1066,7 +1066,13 @@ func (r Basic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (
 	return eq && ok, true
 }
 func (r Basic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Basic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Basic) TypeInfo() fhirpath.TypeInfo {

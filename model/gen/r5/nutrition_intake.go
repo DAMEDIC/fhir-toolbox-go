@@ -3973,7 +3973,13 @@ func (r NutritionIntake) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r NutritionIntake) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionIntake)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionIntake) TypeInfo() fhirpath.TypeInfo {
@@ -4276,7 +4282,13 @@ func (r NutritionIntakeConsumedItem) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r NutritionIntakeConsumedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionIntakeConsumedItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionIntakeConsumedItem) TypeInfo() fhirpath.TypeInfo {
@@ -4428,7 +4440,13 @@ func (r NutritionIntakeIngredientLabel) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r NutritionIntakeIngredientLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionIntakeIngredientLabel)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionIntakeIngredientLabel) TypeInfo() fhirpath.TypeInfo {
@@ -4547,7 +4565,13 @@ func (r NutritionIntakePerformer) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r NutritionIntakePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(NutritionIntakePerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r NutritionIntakePerformer) TypeInfo() fhirpath.TypeInfo {

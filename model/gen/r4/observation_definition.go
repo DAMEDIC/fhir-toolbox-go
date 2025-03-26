@@ -2926,7 +2926,13 @@ func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r ObservationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ObservationDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ObservationDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -3169,7 +3175,13 @@ func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r ObservationDefinitionQuantitativeDetails) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ObservationDefinitionQuantitativeDetails)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ObservationDefinitionQuantitativeDetails) TypeInfo() fhirpath.TypeInfo {
@@ -3334,7 +3346,13 @@ func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r ObservationDefinitionQualifiedInterval) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ObservationDefinitionQualifiedInterval)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ObservationDefinitionQualifiedInterval) TypeInfo() fhirpath.TypeInfo {

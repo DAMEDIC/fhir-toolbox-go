@@ -20498,7 +20498,13 @@ func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ExplanationOfBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefit) TypeInfo() fhirpath.TypeInfo {
@@ -20946,7 +20952,13 @@ func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitRelated)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitRelated) TypeInfo() fhirpath.TypeInfo {
@@ -21074,7 +21086,13 @@ func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitPayee) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitPayee)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitPayee) TypeInfo() fhirpath.TypeInfo {
@@ -21206,7 +21224,13 @@ func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitCareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitCareTeam)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitCareTeam) TypeInfo() fhirpath.TypeInfo {
@@ -21364,7 +21388,13 @@ func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitSupportingInfo)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitSupportingInfo) TypeInfo() fhirpath.TypeInfo {
@@ -21524,7 +21554,13 @@ func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitDiagnosis)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitDiagnosis) TypeInfo() fhirpath.TypeInfo {
@@ -21677,7 +21713,13 @@ func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitProcedure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitProcedure) TypeInfo() fhirpath.TypeInfo {
@@ -21820,7 +21862,13 @@ func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitInsurance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitInsurance) TypeInfo() fhirpath.TypeInfo {
@@ -21953,7 +22001,13 @@ func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitAccident) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitAccident)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitAccident) TypeInfo() fhirpath.TypeInfo {
@@ -22182,7 +22236,13 @@ func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitItem) TypeInfo() fhirpath.TypeInfo {
@@ -22458,7 +22518,13 @@ func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitItemAdjudication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitItemAdjudication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitItemAdjudication) TypeInfo() fhirpath.TypeInfo {
@@ -22649,7 +22715,13 @@ func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitItemDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitItemDetail) TypeInfo() fhirpath.TypeInfo {
@@ -22905,7 +22977,13 @@ func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitItemDetailSubDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
@@ -23181,7 +23259,13 @@ func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitAddItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitAddItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitAddItem) TypeInfo() fhirpath.TypeInfo {
@@ -23447,7 +23531,13 @@ func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitAddItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitAddItemDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitAddItemDetail) TypeInfo() fhirpath.TypeInfo {
@@ -23645,7 +23735,13 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitAddItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitAddItemDetailSubDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitAddItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
@@ -23804,7 +23900,13 @@ func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitTotal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitTotal)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitTotal) TypeInfo() fhirpath.TypeInfo {
@@ -23945,7 +24047,13 @@ func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitPayment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitPayment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitPayment) TypeInfo() fhirpath.TypeInfo {
@@ -24104,7 +24212,13 @@ func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitProcessNote)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitProcessNote) TypeInfo() fhirpath.TypeInfo {
@@ -24267,7 +24381,13 @@ func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitBenefitBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitBenefitBalance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitBenefitBalance) TypeInfo() fhirpath.TypeInfo {
@@ -24433,7 +24553,13 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Elemen
 	return eq && ok, true
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ExplanationOfBenefitBenefitBalanceFinancial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) TypeInfo() fhirpath.TypeInfo {

@@ -3672,7 +3672,13 @@ func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(VerificationResult)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
@@ -3937,7 +3943,13 @@ func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(VerificationResultPrimarySource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
@@ -4123,7 +4135,13 @@ func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(VerificationResultAttestation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
@@ -4289,7 +4307,13 @@ func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(VerificationResultValidator)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {

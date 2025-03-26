@@ -3737,7 +3737,13 @@ func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r AdministrableProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdministrableProductDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdministrableProductDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -3952,7 +3958,13 @@ func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r AdministrableProductDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdministrableProductDefinitionProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdministrableProductDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
@@ -4103,7 +4115,13 @@ func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpat
 	return eq && ok, true
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdministrableProductDefinitionRouteOfAdministration)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) TypeInfo() fhirpath.TypeInfo {
@@ -4257,7 +4275,13 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(
 	return eq && ok, true
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdministrableProductDefinitionRouteOfAdministrationTargetSpecies)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) TypeInfo() fhirpath.TypeInfo {
@@ -4379,7 +4403,13 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 	return eq && ok, true
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) TypeInfo() fhirpath.TypeInfo {

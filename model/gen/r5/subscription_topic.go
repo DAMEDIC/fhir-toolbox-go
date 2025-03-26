@@ -6329,7 +6329,13 @@ func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r SubscriptionTopic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionTopic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionTopic) TypeInfo() fhirpath.TypeInfo {
@@ -6659,7 +6665,13 @@ func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionTopicResourceTrigger)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionTopicResourceTrigger) TypeInfo() fhirpath.TypeInfo {
@@ -6816,7 +6828,13 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Elem
 	return eq && ok, true
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionTopicResourceTriggerQueryCriteria)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) TypeInfo() fhirpath.TypeInfo {
@@ -6959,7 +6977,13 @@ func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionTopicEventTrigger)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionTopicEventTrigger) TypeInfo() fhirpath.TypeInfo {
@@ -7105,7 +7129,13 @@ func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionTopicCanFilterBy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionTopicCanFilterBy) TypeInfo() fhirpath.TypeInfo {
@@ -7257,7 +7287,13 @@ func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubscriptionTopicNotificationShape)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubscriptionTopicNotificationShape) TypeInfo() fhirpath.TypeInfo {

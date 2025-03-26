@@ -2885,7 +2885,13 @@ func (r EpisodeOfCare) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r EpisodeOfCare) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EpisodeOfCare)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EpisodeOfCare) TypeInfo() fhirpath.TypeInfo {
@@ -3114,7 +3120,13 @@ func (r EpisodeOfCareStatusHistory) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r EpisodeOfCareStatusHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EpisodeOfCareStatusHistory)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EpisodeOfCareStatusHistory) TypeInfo() fhirpath.TypeInfo {
@@ -3235,7 +3247,13 @@ func (r EpisodeOfCareReason) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r EpisodeOfCareReason) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EpisodeOfCareReason)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EpisodeOfCareReason) TypeInfo() fhirpath.TypeInfo {
@@ -3356,7 +3374,13 @@ func (r EpisodeOfCareDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r EpisodeOfCareDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EpisodeOfCareDiagnosis)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EpisodeOfCareDiagnosis) TypeInfo() fhirpath.TypeInfo {

@@ -8591,7 +8591,13 @@ func (r Measure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	return eq && ok, true
 }
 func (r Measure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Measure)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Measure) TypeInfo() fhirpath.TypeInfo {
@@ -9048,7 +9054,13 @@ func (r MeasureTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	return eq && ok, true
 }
 func (r MeasureTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MeasureTerm)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MeasureTerm) TypeInfo() fhirpath.TypeInfo {
@@ -9224,7 +9236,13 @@ func (r MeasureGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r MeasureGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MeasureGroup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MeasureGroup) TypeInfo() fhirpath.TypeInfo {
@@ -9447,7 +9465,13 @@ func (r MeasureGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r MeasureGroupPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MeasureGroupPopulation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MeasureGroupPopulation) TypeInfo() fhirpath.TypeInfo {
@@ -9623,7 +9647,13 @@ func (r MeasureGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r MeasureGroupStratifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MeasureGroupStratifier)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MeasureGroupStratifier) TypeInfo() fhirpath.TypeInfo {
@@ -9787,7 +9817,13 @@ func (r MeasureGroupStratifierComponent) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r MeasureGroupStratifierComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MeasureGroupStratifierComponent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MeasureGroupStratifierComponent) TypeInfo() fhirpath.TypeInfo {
@@ -9942,7 +9978,13 @@ func (r MeasureSupplementalData) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r MeasureSupplementalData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MeasureSupplementalData)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MeasureSupplementalData) TypeInfo() fhirpath.TypeInfo {

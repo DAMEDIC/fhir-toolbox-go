@@ -4053,7 +4053,13 @@ func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r ImagingStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingStudy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingStudy) TypeInfo() fhirpath.TypeInfo {
@@ -4367,7 +4373,13 @@ func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ImagingStudySeries) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingStudySeries)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingStudySeries) TypeInfo() fhirpath.TypeInfo {
@@ -4556,7 +4568,13 @@ func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ImagingStudySeriesPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingStudySeriesPerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingStudySeriesPerformer) TypeInfo() fhirpath.TypeInfo {
@@ -4683,7 +4701,13 @@ func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r ImagingStudySeriesInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImagingStudySeriesInstance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImagingStudySeriesInstance) TypeInfo() fhirpath.TypeInfo {

@@ -2940,7 +2940,13 @@ func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r SubstanceNucleicAcid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceNucleicAcid)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceNucleicAcid) TypeInfo() fhirpath.TypeInfo {
@@ -3147,7 +3153,13 @@ func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r SubstanceNucleicAcidSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceNucleicAcidSubunit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceNucleicAcidSubunit) TypeInfo() fhirpath.TypeInfo {
@@ -3320,7 +3332,13 @@ func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r SubstanceNucleicAcidSubunitLinkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceNucleicAcidSubunitLinkage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceNucleicAcidSubunitLinkage) TypeInfo() fhirpath.TypeInfo {
@@ -3460,7 +3478,13 @@ func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r SubstanceNucleicAcidSubunitSugar) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceNucleicAcidSubunitSugar)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceNucleicAcidSubunitSugar) TypeInfo() fhirpath.TypeInfo {

@@ -2636,7 +2636,13 @@ func (r DetectedIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r DetectedIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DetectedIssue)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DetectedIssue) TypeInfo() fhirpath.TypeInfo {
@@ -2862,7 +2868,13 @@ func (r DetectedIssueEvidence) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r DetectedIssueEvidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DetectedIssueEvidence)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DetectedIssueEvidence) TypeInfo() fhirpath.TypeInfo {
@@ -2986,7 +2998,13 @@ func (r DetectedIssueMitigation) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r DetectedIssueMitigation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DetectedIssueMitigation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DetectedIssueMitigation) TypeInfo() fhirpath.TypeInfo {

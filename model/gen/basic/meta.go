@@ -541,7 +541,13 @@ func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	return eq && ok, true
 }
 func (r Meta) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Meta)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Meta) TypeInfo() fhirpath.TypeInfo {

@@ -5206,7 +5206,13 @@ func (r Encounter) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return eq && ok, true
 }
 func (r Encounter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Encounter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Encounter) TypeInfo() fhirpath.TypeInfo {
@@ -5505,7 +5511,13 @@ func (r EncounterStatusHistory) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r EncounterStatusHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterStatusHistory)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterStatusHistory) TypeInfo() fhirpath.TypeInfo {
@@ -5622,7 +5634,13 @@ func (r EncounterClassHistory) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r EncounterClassHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterClassHistory)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterClassHistory) TypeInfo() fhirpath.TypeInfo {
@@ -5748,7 +5766,13 @@ func (r EncounterParticipant) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r EncounterParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -5879,7 +5903,13 @@ func (r EncounterDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r EncounterDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterDiagnosis)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterDiagnosis) TypeInfo() fhirpath.TypeInfo {
@@ -6042,7 +6072,13 @@ func (r EncounterHospitalization) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r EncounterHospitalization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterHospitalization)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterHospitalization) TypeInfo() fhirpath.TypeInfo {
@@ -6220,7 +6256,13 @@ func (r EncounterLocation) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r EncounterLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EncounterLocation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EncounterLocation) TypeInfo() fhirpath.TypeInfo {

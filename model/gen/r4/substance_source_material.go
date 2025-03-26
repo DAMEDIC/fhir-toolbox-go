@@ -4746,7 +4746,13 @@ func (r SubstanceSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r SubstanceSourceMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceSourceMaterial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceSourceMaterial) TypeInfo() fhirpath.TypeInfo {
@@ -4979,7 +4985,13 @@ func (r SubstanceSourceMaterialFractionDescription) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r SubstanceSourceMaterialFractionDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceSourceMaterialFractionDescription)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceSourceMaterialFractionDescription) TypeInfo() fhirpath.TypeInfo {
@@ -5130,7 +5142,13 @@ func (r SubstanceSourceMaterialOrganism) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r SubstanceSourceMaterialOrganism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceSourceMaterialOrganism)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceSourceMaterialOrganism) TypeInfo() fhirpath.TypeInfo {
@@ -5293,7 +5311,13 @@ func (r SubstanceSourceMaterialOrganismAuthor) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r SubstanceSourceMaterialOrganismAuthor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceSourceMaterialOrganismAuthor)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceSourceMaterialOrganismAuthor) TypeInfo() fhirpath.TypeInfo {
@@ -5429,7 +5453,13 @@ func (r SubstanceSourceMaterialOrganismHybrid) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r SubstanceSourceMaterialOrganismHybrid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceSourceMaterialOrganismHybrid)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceSourceMaterialOrganismHybrid) TypeInfo() fhirpath.TypeInfo {
@@ -5581,7 +5611,13 @@ func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equal(other fhirpath.Ele
 	return eq && ok, true
 }
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceSourceMaterialOrganismOrganismGeneral)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) TypeInfo() fhirpath.TypeInfo {
@@ -5716,7 +5752,13 @@ func (r SubstanceSourceMaterialPartDescription) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r SubstanceSourceMaterialPartDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(SubstanceSourceMaterialPartDescription)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r SubstanceSourceMaterialPartDescription) TypeInfo() fhirpath.TypeInfo {

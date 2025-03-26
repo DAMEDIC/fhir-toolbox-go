@@ -5370,7 +5370,13 @@ func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r OperationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(OperationDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r OperationDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -5731,7 +5737,13 @@ func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r OperationDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(OperationDefinitionParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r OperationDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
@@ -5911,7 +5923,13 @@ func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r OperationDefinitionParameterBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(OperationDefinitionParameterBinding)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r OperationDefinitionParameterBinding) TypeInfo() fhirpath.TypeInfo {
@@ -6030,7 +6048,13 @@ func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element
 	return eq && ok, true
 }
 func (r OperationDefinitionParameterReferencedFrom) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(OperationDefinitionParameterReferencedFrom)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r OperationDefinitionParameterReferencedFrom) TypeInfo() fhirpath.TypeInfo {
@@ -6151,7 +6175,13 @@ func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r OperationDefinitionOverload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(OperationDefinitionOverload)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r OperationDefinitionOverload) TypeInfo() fhirpath.TypeInfo {

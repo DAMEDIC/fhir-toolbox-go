@@ -3289,7 +3289,13 @@ func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r DocumentReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DocumentReference)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DocumentReference) TypeInfo() fhirpath.TypeInfo {
@@ -3539,7 +3545,13 @@ func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r DocumentReferenceRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DocumentReferenceRelatesTo)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DocumentReferenceRelatesTo) TypeInfo() fhirpath.TypeInfo {
@@ -3658,7 +3670,13 @@ func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r DocumentReferenceContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DocumentReferenceContent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DocumentReferenceContent) TypeInfo() fhirpath.TypeInfo {
@@ -3804,7 +3822,13 @@ func (r DocumentReferenceContext) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r DocumentReferenceContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DocumentReferenceContext)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DocumentReferenceContext) TypeInfo() fhirpath.TypeInfo {

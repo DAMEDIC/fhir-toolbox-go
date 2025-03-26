@@ -2091,7 +2091,13 @@ func (r CatalogEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r CatalogEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CatalogEntry)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CatalogEntry) TypeInfo() fhirpath.TypeInfo {
@@ -2320,7 +2326,13 @@ func (r CatalogEntryRelatedEntry) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r CatalogEntryRelatedEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CatalogEntryRelatedEntry)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CatalogEntryRelatedEntry) TypeInfo() fhirpath.TypeInfo {

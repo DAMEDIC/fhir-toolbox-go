@@ -2990,7 +2990,13 @@ func (r ImmunizationRecommendation) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r ImmunizationRecommendation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationRecommendation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationRecommendation) TypeInfo() fhirpath.TypeInfo {
@@ -3215,7 +3221,13 @@ func (r ImmunizationRecommendationRecommendation) Equal(other fhirpath.Element, 
 	return eq && ok, true
 }
 func (r ImmunizationRecommendationRecommendation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationRecommendationRecommendation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationRecommendationRecommendation) TypeInfo() fhirpath.TypeInfo {
@@ -3402,7 +3414,13 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) Equal(other fhirp
 	return eq && ok, true
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationRecommendationRecommendationDateCriterion)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) TypeInfo() fhirpath.TypeInfo {

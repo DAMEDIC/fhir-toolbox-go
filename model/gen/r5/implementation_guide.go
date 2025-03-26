@@ -9735,7 +9735,13 @@ func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r ImplementationGuide) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuide)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuide) TypeInfo() fhirpath.TypeInfo {
@@ -10053,7 +10059,13 @@ func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideDependsOn)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideDependsOn) TypeInfo() fhirpath.TypeInfo {
@@ -10184,7 +10196,13 @@ func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideGlobal)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideGlobal) TypeInfo() fhirpath.TypeInfo {
@@ -10320,7 +10338,13 @@ func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -10460,7 +10484,13 @@ func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideDefinitionGrouping)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideDefinitionGrouping) TypeInfo() fhirpath.TypeInfo {
@@ -10604,7 +10634,13 @@ func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideDefinitionResource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideDefinitionResource) TypeInfo() fhirpath.TypeInfo {
@@ -10769,7 +10805,13 @@ func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideDefinitionPage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideDefinitionPage) TypeInfo() fhirpath.TypeInfo {
@@ -10907,7 +10949,13 @@ func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideDefinitionParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
@@ -11029,7 +11077,13 @@ func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideDefinitionTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideDefinitionTemplate) TypeInfo() fhirpath.TypeInfo {
@@ -11172,7 +11226,13 @@ func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideManifest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideManifest) TypeInfo() fhirpath.TypeInfo {
@@ -11322,7 +11382,13 @@ func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideManifestResource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideManifestResource) TypeInfo() fhirpath.TypeInfo {
@@ -11460,7 +11526,13 @@ func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImplementationGuideManifestPage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImplementationGuideManifestPage) TypeInfo() fhirpath.TypeInfo {

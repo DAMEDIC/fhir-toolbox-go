@@ -4026,7 +4026,13 @@ func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ChargeItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ChargeItemDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ChargeItemDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -4355,7 +4361,13 @@ func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r ChargeItemDefinitionApplicability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ChargeItemDefinitionApplicability)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ChargeItemDefinitionApplicability) TypeInfo() fhirpath.TypeInfo {
@@ -4483,7 +4495,13 @@ func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r ChargeItemDefinitionPropertyGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ChargeItemDefinitionPropertyGroup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ChargeItemDefinitionPropertyGroup) TypeInfo() fhirpath.TypeInfo {

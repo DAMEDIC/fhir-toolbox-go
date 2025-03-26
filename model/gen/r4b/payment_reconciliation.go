@@ -2864,7 +2864,13 @@ func (r PaymentReconciliation) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r PaymentReconciliation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PaymentReconciliation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PaymentReconciliation) TypeInfo() fhirpath.TypeInfo {
@@ -3149,7 +3155,13 @@ func (r PaymentReconciliationDetail) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r PaymentReconciliationDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PaymentReconciliationDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PaymentReconciliationDetail) TypeInfo() fhirpath.TypeInfo {
@@ -3326,7 +3338,13 @@ func (r PaymentReconciliationProcessNote) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r PaymentReconciliationProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PaymentReconciliationProcessNote)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PaymentReconciliationProcessNote) TypeInfo() fhirpath.TypeInfo {

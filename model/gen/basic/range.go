@@ -252,7 +252,13 @@ func (r Range) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (
 	return eq && ok, true
 }
 func (r Range) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Range)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Range) TypeInfo() fhirpath.TypeInfo {

@@ -14290,7 +14290,13 @@ func (r ClaimResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r ClaimResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponse)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponse) TypeInfo() fhirpath.TypeInfo {
@@ -14652,7 +14658,13 @@ func (r ClaimResponseEvent) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ClaimResponseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseEvent)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseEvent) TypeInfo() fhirpath.TypeInfo {
@@ -14791,7 +14803,13 @@ func (r ClaimResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r ClaimResponseItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseItem) TypeInfo() fhirpath.TypeInfo {
@@ -14950,7 +14968,13 @@ func (r ClaimResponseItemReviewOutcome) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r ClaimResponseItemReviewOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseItemReviewOutcome)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseItemReviewOutcome) TypeInfo() fhirpath.TypeInfo {
@@ -15093,7 +15117,13 @@ func (r ClaimResponseItemAdjudication) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ClaimResponseItemAdjudication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseItemAdjudication)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseItemAdjudication) TypeInfo() fhirpath.TypeInfo {
@@ -15246,7 +15276,13 @@ func (r ClaimResponseItemDetail) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r ClaimResponseItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseItemDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseItemDetail) TypeInfo() fhirpath.TypeInfo {
@@ -15408,7 +15444,13 @@ func (r ClaimResponseItemDetailSubDetail) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r ClaimResponseItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseItemDetailSubDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
@@ -15655,7 +15697,13 @@ func (r ClaimResponseAddItem) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ClaimResponseAddItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseAddItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseAddItem) TypeInfo() fhirpath.TypeInfo {
@@ -15923,7 +15971,13 @@ func (r ClaimResponseAddItemBodySite) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ClaimResponseAddItemBodySite) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseAddItemBodySite)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseAddItemBodySite) TypeInfo() fhirpath.TypeInfo {
@@ -16104,7 +16158,13 @@ func (r ClaimResponseAddItemDetail) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r ClaimResponseAddItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseAddItemDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseAddItemDetail) TypeInfo() fhirpath.TypeInfo {
@@ -16364,7 +16424,13 @@ func (r ClaimResponseAddItemDetailSubDetail) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r ClaimResponseAddItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseAddItemDetailSubDetail)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseAddItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
@@ -16558,7 +16624,13 @@ func (r ClaimResponseTotal) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ClaimResponseTotal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseTotal)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseTotal) TypeInfo() fhirpath.TypeInfo {
@@ -16695,7 +16767,13 @@ func (r ClaimResponsePayment) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ClaimResponsePayment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponsePayment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponsePayment) TypeInfo() fhirpath.TypeInfo {
@@ -16852,7 +16930,13 @@ func (r ClaimResponseProcessNote) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ClaimResponseProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseProcessNote)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseProcessNote) TypeInfo() fhirpath.TypeInfo {
@@ -16996,7 +17080,13 @@ func (r ClaimResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r ClaimResponseInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseInsurance)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseInsurance) TypeInfo() fhirpath.TypeInfo {
@@ -17151,7 +17241,13 @@ func (r ClaimResponseError) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ClaimResponseError) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ClaimResponseError)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ClaimResponseError) TypeInfo() fhirpath.TypeInfo {

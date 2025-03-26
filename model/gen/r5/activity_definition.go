@@ -6474,7 +6474,13 @@ func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ActivityDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ActivityDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ActivityDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -6974,7 +6980,13 @@ func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ActivityDefinitionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ActivityDefinitionParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ActivityDefinitionParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -7112,7 +7124,13 @@ func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r ActivityDefinitionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ActivityDefinitionDynamicValue)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ActivityDefinitionDynamicValue) TypeInfo() fhirpath.TypeInfo {

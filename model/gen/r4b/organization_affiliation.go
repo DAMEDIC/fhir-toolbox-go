@@ -1632,7 +1632,13 @@ func (r OrganizationAffiliation) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r OrganizationAffiliation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(OrganizationAffiliation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r OrganizationAffiliation) TypeInfo() fhirpath.TypeInfo {

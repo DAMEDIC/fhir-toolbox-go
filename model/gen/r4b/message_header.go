@@ -3141,7 +3141,13 @@ func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r MessageHeader) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MessageHeader)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MessageHeader) TypeInfo() fhirpath.TypeInfo {
@@ -3368,7 +3374,13 @@ func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r MessageHeaderDestination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MessageHeaderDestination)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MessageHeaderDestination) TypeInfo() fhirpath.TypeInfo {
@@ -3516,7 +3528,13 @@ func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConvers
 	return eq && ok, true
 }
 func (r MessageHeaderSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MessageHeaderSource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MessageHeaderSource) TypeInfo() fhirpath.TypeInfo {
@@ -3659,7 +3677,13 @@ func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r MessageHeaderResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MessageHeaderResponse)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MessageHeaderResponse) TypeInfo() fhirpath.TypeInfo {

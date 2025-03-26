@@ -9911,7 +9911,13 @@ func (r ConceptMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	return eq && ok, true
 }
 func (r ConceptMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMap)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMap) TypeInfo() fhirpath.TypeInfo {
@@ -10281,7 +10287,13 @@ func (r ConceptMapProperty) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ConceptMapProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapProperty) TypeInfo() fhirpath.TypeInfo {
@@ -10429,7 +10441,13 @@ func (r ConceptMapAdditionalAttribute) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r ConceptMapAdditionalAttribute) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapAdditionalAttribute)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapAdditionalAttribute) TypeInfo() fhirpath.TypeInfo {
@@ -10574,7 +10592,13 @@ func (r ConceptMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	return eq && ok, true
 }
 func (r ConceptMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapGroup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapGroup) TypeInfo() fhirpath.TypeInfo {
@@ -10724,7 +10748,13 @@ func (r ConceptMapGroupElement) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r ConceptMapGroupElement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapGroupElement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapGroupElement) TypeInfo() fhirpath.TypeInfo {
@@ -10894,7 +10924,13 @@ func (r ConceptMapGroupElementTarget) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r ConceptMapGroupElementTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapGroupElementTarget)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapGroupElementTarget) TypeInfo() fhirpath.TypeInfo {
@@ -11053,7 +11089,13 @@ func (r ConceptMapGroupElementTargetProperty) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r ConceptMapGroupElementTargetProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapGroupElementTargetProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapGroupElementTargetProperty) TypeInfo() fhirpath.TypeInfo {
@@ -11177,7 +11219,13 @@ func (r ConceptMapGroupElementTargetDependsOn) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r ConceptMapGroupElementTargetDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapGroupElementTargetDependsOn)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapGroupElementTargetDependsOn) TypeInfo() fhirpath.TypeInfo {
@@ -11323,7 +11371,13 @@ func (r ConceptMapGroupUnmapped) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r ConceptMapGroupUnmapped) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ConceptMapGroupUnmapped)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ConceptMapGroupUnmapped) TypeInfo() fhirpath.TypeInfo {

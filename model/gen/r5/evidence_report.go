@@ -5468,7 +5468,13 @@ func (r EvidenceReport) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r EvidenceReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceReport)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceReport) TypeInfo() fhirpath.TypeInfo {
@@ -5736,7 +5742,13 @@ func (r EvidenceReportSubject) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r EvidenceReportSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceReportSubject)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceReportSubject) TypeInfo() fhirpath.TypeInfo {
@@ -5863,7 +5875,13 @@ func (r EvidenceReportSubjectCharacteristic) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r EvidenceReportSubjectCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceReportSubjectCharacteristic)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceReportSubjectCharacteristic) TypeInfo() fhirpath.TypeInfo {
@@ -5994,7 +6012,13 @@ func (r EvidenceReportRelatesTo) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r EvidenceReportRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceReportRelatesTo)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceReportRelatesTo) TypeInfo() fhirpath.TypeInfo {
@@ -6125,7 +6149,13 @@ func (r EvidenceReportRelatesToTarget) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r EvidenceReportRelatesToTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceReportRelatesToTarget)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceReportRelatesToTarget) TypeInfo() fhirpath.TypeInfo {
@@ -6310,7 +6340,13 @@ func (r EvidenceReportSection) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r EvidenceReportSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(EvidenceReportSection)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r EvidenceReportSection) TypeInfo() fhirpath.TypeInfo {

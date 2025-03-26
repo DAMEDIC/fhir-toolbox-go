@@ -1381,7 +1381,13 @@ func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r Availability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Availability)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Availability) TypeInfo() fhirpath.TypeInfo {
@@ -1500,7 +1506,13 @@ func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AvailabilityAvailableTime)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AvailabilityAvailableTime) TypeInfo() fhirpath.TypeInfo {
@@ -1623,7 +1635,13 @@ func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(AvailabilityNotAvailableTime)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r AvailabilityNotAvailableTime) TypeInfo() fhirpath.TypeInfo {

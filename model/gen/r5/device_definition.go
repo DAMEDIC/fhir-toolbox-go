@@ -11337,7 +11337,13 @@ func (r DeviceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r DeviceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -11665,7 +11671,13 @@ func (r DeviceDefinitionUdiDeviceIdentifier) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r DeviceDefinitionUdiDeviceIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionUdiDeviceIdentifier)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionUdiDeviceIdentifier) TypeInfo() fhirpath.TypeInfo {
@@ -11796,7 +11808,13 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equal(other fhirp
 	return eq && ok, true
 }
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionUdiDeviceIdentifierMarketDistribution)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) TypeInfo() fhirpath.TypeInfo {
@@ -11919,7 +11937,13 @@ func (r DeviceDefinitionRegulatoryIdentifier) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r DeviceDefinitionRegulatoryIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionRegulatoryIdentifier)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionRegulatoryIdentifier) TypeInfo() fhirpath.TypeInfo {
@@ -12050,7 +12074,13 @@ func (r DeviceDefinitionDeviceName) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r DeviceDefinitionDeviceName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionDeviceName)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionDeviceName) TypeInfo() fhirpath.TypeInfo {
@@ -12169,7 +12199,13 @@ func (r DeviceDefinitionClassification) Equal(other fhirpath.Element, _noReverse
 	return eq && ok, true
 }
 func (r DeviceDefinitionClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionClassification)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionClassification) TypeInfo() fhirpath.TypeInfo {
@@ -12298,7 +12334,13 @@ func (r DeviceDefinitionConformsTo) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r DeviceDefinitionConformsTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionConformsTo)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionConformsTo) TypeInfo() fhirpath.TypeInfo {
@@ -12431,7 +12473,13 @@ func (r DeviceDefinitionHasPart) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r DeviceDefinitionHasPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionHasPart)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionHasPart) TypeInfo() fhirpath.TypeInfo {
@@ -12572,7 +12620,13 @@ func (r DeviceDefinitionPackaging) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r DeviceDefinitionPackaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionPackaging)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionPackaging) TypeInfo() fhirpath.TypeInfo {
@@ -12721,7 +12775,13 @@ func (r DeviceDefinitionPackagingDistributor) Equal(other fhirpath.Element, _noR
 	return eq && ok, true
 }
 func (r DeviceDefinitionPackagingDistributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionPackagingDistributor)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionPackagingDistributor) TypeInfo() fhirpath.TypeInfo {
@@ -12845,7 +12905,13 @@ func (r DeviceDefinitionVersion) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r DeviceDefinitionVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionVersion)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionVersion) TypeInfo() fhirpath.TypeInfo {
@@ -12969,7 +13035,13 @@ func (r DeviceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r DeviceDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionProperty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
@@ -13086,7 +13158,13 @@ func (r DeviceDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r DeviceDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionLink)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionLink) TypeInfo() fhirpath.TypeInfo {
@@ -13210,7 +13288,13 @@ func (r DeviceDefinitionMaterial) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r DeviceDefinitionMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionMaterial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionMaterial) TypeInfo() fhirpath.TypeInfo {
@@ -13363,7 +13447,13 @@ func (r DeviceDefinitionGuideline) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r DeviceDefinitionGuideline) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionGuideline)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionGuideline) TypeInfo() fhirpath.TypeInfo {
@@ -13520,7 +13610,13 @@ func (r DeviceDefinitionCorrectiveAction) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r DeviceDefinitionCorrectiveAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionCorrectiveAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionCorrectiveAction) TypeInfo() fhirpath.TypeInfo {
@@ -13654,7 +13750,13 @@ func (r DeviceDefinitionChargeItem) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r DeviceDefinitionChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DeviceDefinitionChargeItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DeviceDefinitionChargeItem) TypeInfo() fhirpath.TypeInfo {

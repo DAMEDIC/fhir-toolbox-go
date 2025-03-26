@@ -467,10 +467,38 @@ func generateEquivalentFunc(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("Equivalent").Params(
 		Id("other").Qual(fhirpathModuleName, "Element"),
 		Id("_noReverseTypeConversion").Op("...").Bool(),
-	).Params(Bool()).Block(
-		List(Id("eq"), Id("ok")).Op(":=").Id("r").Dot("Equal").Call(Id("other")),
-		Return(Id("eq").Op("&&").Id("ok")),
-	)
+	).Params(Bool()).BlockFunc(func(g *Group) {
+		if !s.IsPrimitive && s.Name != "Quantity" {
+			g.List(Id("o"), Id("ok")).Op(":=").Id("other.").Call(Id(s.Name))
+			g.If(Op("!").Id("ok")).Block(Return(False()))
+		}
+
+		if s.Name == "Coding" {
+			g.List(Id("eq"), Id("ok")).Op(":=").Id("r.Code").Dot("Equal").Call(Id("o.Code"))
+			g.If(Op("!").Id("ok").Op("||").Op("!").Id("eq")).Block(Return(False()))
+			g.List(Id("eq"), Id("ok")).Op("=").Id("r.System").Dot("Equal").Call(Id("o.System"))
+			g.Return(Id("eq").Op("&&").Id("ok"))
+		} else if s.Name == "CodeableConcept" {
+			g.Var().Id("leftCollection").Qual(fhirpathModuleName, "Collection")
+			g.For(List(Id("_"), Id("c").Op(":=").Range().Id("r.Coding"))).Block(
+				Id("leftCollection").Op("=").Append(Id("leftCollection"), Id("c")),
+			)
+			g.Var().Id("rightCollection").Qual(fhirpathModuleName, "Collection")
+			g.For(List(Id("_"), Id("c").Op(":=").Range().Id("o.Coding"))).Block(
+				Id("rightCollection").Op("=").Append(Id("leftCollection"), Id("c")),
+			)
+			g.Return().Len(Id("leftCollection").Dot("Union").Call(Id("rightCollection"))).Op(">").Lit(0)
+		} else if s.IsPrimitive || s.Name == "Quantity" {
+			g.List(Id("eq"), Id("ok")).Op(":=").Id("r").Dot("Equal").Call(Id("other"))
+			g.Return(Id("eq").Op("&&").Id("ok"))
+		} else {
+			// set id to nil, equivalence requires all child properties to be equal, except for "id" elements.
+			g.Id("r.Id").Op("=").Nil()
+			g.Id("o.Id").Op("=").Nil()
+			g.List(Id("eq"), Id("ok")).Op(":=").Id("r").Dot("Equal").Call(Id("o"))
+			g.Return(Id("eq").Op("&&").Id("ok"))
+		}
+	})
 }
 
 func (g FHIRPathGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {

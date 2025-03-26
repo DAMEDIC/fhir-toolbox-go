@@ -3997,7 +3997,13 @@ func (r Coverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r Coverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Coverage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Coverage) TypeInfo() fhirpath.TypeInfo {
@@ -4277,7 +4283,13 @@ func (r CoveragePaymentBy) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r CoveragePaymentBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoveragePaymentBy)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoveragePaymentBy) TypeInfo() fhirpath.TypeInfo {
@@ -4399,7 +4411,13 @@ func (r CoverageClass) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r CoverageClass) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageClass)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageClass) TypeInfo() fhirpath.TypeInfo {
@@ -4552,7 +4570,13 @@ func (r CoverageCostToBeneficiary) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r CoverageCostToBeneficiary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageCostToBeneficiary)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageCostToBeneficiary) TypeInfo() fhirpath.TypeInfo {
@@ -4706,7 +4730,13 @@ func (r CoverageCostToBeneficiaryException) Equal(other fhirpath.Element, _noRev
 	return eq && ok, true
 }
 func (r CoverageCostToBeneficiaryException) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(CoverageCostToBeneficiaryException)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r CoverageCostToBeneficiaryException) TypeInfo() fhirpath.TypeInfo {

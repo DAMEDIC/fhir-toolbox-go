@@ -2870,7 +2870,13 @@ func (r PractitionerRole) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r PractitionerRole) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PractitionerRole)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PractitionerRole) TypeInfo() fhirpath.TypeInfo {
@@ -3120,7 +3126,13 @@ func (r PractitionerRoleAvailableTime) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r PractitionerRoleAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PractitionerRoleAvailableTime)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PractitionerRoleAvailableTime) TypeInfo() fhirpath.TypeInfo {
@@ -3253,7 +3265,13 @@ func (r PractitionerRoleNotAvailable) Equal(other fhirpath.Element, _noReverseTy
 	return eq && ok, true
 }
 func (r PractitionerRoleNotAvailable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(PractitionerRoleNotAvailable)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r PractitionerRoleNotAvailable) TypeInfo() fhirpath.TypeInfo {

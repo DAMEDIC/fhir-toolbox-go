@@ -5259,7 +5259,13 @@ func (r Immunization) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r Immunization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Immunization)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Immunization) TypeInfo() fhirpath.TypeInfo {
@@ -5595,7 +5601,13 @@ func (r ImmunizationPerformer) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r ImmunizationPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationPerformer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationPerformer) TypeInfo() fhirpath.TypeInfo {
@@ -5726,7 +5738,13 @@ func (r ImmunizationEducation) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r ImmunizationEducation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationEducation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationEducation) TypeInfo() fhirpath.TypeInfo {
@@ -5866,7 +5884,13 @@ func (r ImmunizationReaction) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r ImmunizationReaction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationReaction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationReaction) TypeInfo() fhirpath.TypeInfo {
@@ -6007,7 +6031,13 @@ func (r ImmunizationProtocolApplied) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ImmunizationProtocolApplied) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ImmunizationProtocolApplied)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ImmunizationProtocolApplied) TypeInfo() fhirpath.TypeInfo {

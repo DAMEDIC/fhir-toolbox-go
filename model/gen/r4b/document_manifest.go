@@ -1995,7 +1995,13 @@ func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r DocumentManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DocumentManifest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DocumentManifest) TypeInfo() fhirpath.TypeInfo {
@@ -2221,7 +2227,13 @@ func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r DocumentManifestRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(DocumentManifestRelated)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r DocumentManifestRelated) TypeInfo() fhirpath.TypeInfo {

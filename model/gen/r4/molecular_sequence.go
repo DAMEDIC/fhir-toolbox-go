@@ -8241,7 +8241,13 @@ func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r MolecularSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequence)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequence) TypeInfo() fhirpath.TypeInfo {
@@ -8530,7 +8536,13 @@ func (r MolecularSequenceReferenceSeq) Equal(other fhirpath.Element, _noReverseT
 	return eq && ok, true
 }
 func (r MolecularSequenceReferenceSeq) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceReferenceSeq)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceReferenceSeq) TypeInfo() fhirpath.TypeInfo {
@@ -8720,7 +8732,13 @@ func (r MolecularSequenceVariant) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r MolecularSequenceVariant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceVariant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceVariant) TypeInfo() fhirpath.TypeInfo {
@@ -8932,7 +8950,13 @@ func (r MolecularSequenceQuality) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r MolecularSequenceQuality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceQuality)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceQuality) TypeInfo() fhirpath.TypeInfo {
@@ -9169,7 +9193,13 @@ func (r MolecularSequenceQualityRoc) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r MolecularSequenceQualityRoc) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceQualityRoc)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceQualityRoc) TypeInfo() fhirpath.TypeInfo {
@@ -9343,7 +9373,13 @@ func (r MolecularSequenceRepository) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r MolecularSequenceRepository) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceRepository)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceRepository) TypeInfo() fhirpath.TypeInfo {
@@ -9507,7 +9543,13 @@ func (r MolecularSequenceStructureVariant) Equal(other fhirpath.Element, _noReve
 	return eq && ok, true
 }
 func (r MolecularSequenceStructureVariant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceStructureVariant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceStructureVariant) TypeInfo() fhirpath.TypeInfo {
@@ -9649,7 +9691,13 @@ func (r MolecularSequenceStructureVariantOuter) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r MolecularSequenceStructureVariantOuter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceStructureVariantOuter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceStructureVariantOuter) TypeInfo() fhirpath.TypeInfo {
@@ -9770,7 +9818,13 @@ func (r MolecularSequenceStructureVariantInner) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r MolecularSequenceStructureVariantInner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(MolecularSequenceStructureVariantInner)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r MolecularSequenceStructureVariantInner) TypeInfo() fhirpath.TypeInfo {

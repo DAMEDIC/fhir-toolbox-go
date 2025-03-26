@@ -5144,7 +5144,13 @@ func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r RequestGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestGroup)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestGroup) TypeInfo() fhirpath.TypeInfo {
@@ -5497,7 +5503,13 @@ func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r RequestGroupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestGroupAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestGroupAction) TypeInfo() fhirpath.TypeInfo {
@@ -5735,7 +5747,13 @@ func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r RequestGroupActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestGroupActionCondition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestGroupActionCondition) TypeInfo() fhirpath.TypeInfo {
@@ -5857,7 +5875,13 @@ func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r RequestGroupActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestGroupActionRelatedAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestGroupActionRelatedAction) TypeInfo() fhirpath.TypeInfo {

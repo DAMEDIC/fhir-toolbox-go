@@ -4063,7 +4063,13 @@ func (r Requirements) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r Requirements) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Requirements)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Requirements) TypeInfo() fhirpath.TypeInfo {
@@ -4388,7 +4394,13 @@ func (r RequirementsStatement) Equal(other fhirpath.Element, _noReverseTypeConve
 	return eq && ok, true
 }
 func (r RequirementsStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequirementsStatement)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequirementsStatement) TypeInfo() fhirpath.TypeInfo {

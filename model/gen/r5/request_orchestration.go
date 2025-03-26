@@ -8120,7 +8120,13 @@ func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConver
 	return eq && ok, true
 }
 func (r RequestOrchestration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestration)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestration) TypeInfo() fhirpath.TypeInfo {
@@ -8513,7 +8519,13 @@ func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseType
 	return eq && ok, true
 }
 func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestrationAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestrationAction) TypeInfo() fhirpath.TypeInfo {
@@ -8807,7 +8819,13 @@ func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noRe
 	return eq && ok, true
 }
 func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestrationActionCondition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestrationActionCondition) TypeInfo() fhirpath.TypeInfo {
@@ -8933,7 +8951,13 @@ func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noRevers
 	return eq && ok, true
 }
 func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestrationActionInput)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestrationActionInput) TypeInfo() fhirpath.TypeInfo {
@@ -9066,7 +9090,13 @@ func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noRever
 	return eq && ok, true
 }
 func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestrationActionOutput)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestrationActionOutput) TypeInfo() fhirpath.TypeInfo {
@@ -9200,7 +9230,13 @@ func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _
 	return eq && ok, true
 }
 func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestrationActionRelatedAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestrationActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
@@ -9355,7 +9391,13 @@ func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _no
 	return eq && ok, true
 }
 func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestrationActionParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestrationActionParticipant) TypeInfo() fhirpath.TypeInfo {
@@ -9504,7 +9546,13 @@ func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _n
 	return eq && ok, true
 }
 func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(RequestOrchestrationActionDynamicValue)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r RequestOrchestrationActionDynamicValue) TypeInfo() fhirpath.TypeInfo {

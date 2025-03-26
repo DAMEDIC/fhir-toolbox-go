@@ -2139,7 +2139,13 @@ func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	return eq && ok, true
 }
 func (r List) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(List)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r List) TypeInfo() fhirpath.TypeInfo {
@@ -2380,7 +2386,13 @@ func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	return eq && ok, true
 }
 func (r ListEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ListEntry)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ListEntry) TypeInfo() fhirpath.TypeInfo {

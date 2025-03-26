@@ -16345,7 +16345,13 @@ func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	return eq && ok, true
 }
 func (r Contract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(Contract)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r Contract) TypeInfo() fhirpath.TypeInfo {
@@ -16734,7 +16740,13 @@ func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ContractContentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractContentDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractContentDefinition) TypeInfo() fhirpath.TypeInfo {
@@ -16931,7 +16943,13 @@ func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r ContractTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTerm)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTerm) TypeInfo() fhirpath.TypeInfo {
@@ -17130,7 +17148,13 @@ func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermSecurityLabel)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermSecurityLabel) TypeInfo() fhirpath.TypeInfo {
@@ -17305,7 +17329,13 @@ func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r ContractTermOffer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermOffer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermOffer) TypeInfo() fhirpath.TypeInfo {
@@ -17480,7 +17510,13 @@ func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConv
 	return eq && ok, true
 }
 func (r ContractTermOfferParty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermOfferParty)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermOfferParty) TypeInfo() fhirpath.TypeInfo {
@@ -17594,7 +17630,13 @@ func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeCon
 	return eq && ok, true
 }
 func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermOfferAnswer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermOfferAnswer) TypeInfo() fhirpath.TypeInfo {
@@ -17773,7 +17815,13 @@ func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversio
 	return eq && ok, true
 }
 func (r ContractTermAsset) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermAsset)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermAsset) TypeInfo() fhirpath.TypeInfo {
@@ -17990,7 +18038,13 @@ func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeCo
 	return eq && ok, true
 }
 func (r ContractTermAssetContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermAssetContext)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermAssetContext) TypeInfo() fhirpath.TypeInfo {
@@ -18178,7 +18232,13 @@ func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTyp
 	return eq && ok, true
 }
 func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermAssetValuedItem)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermAssetValuedItem) TypeInfo() fhirpath.TypeInfo {
@@ -18462,7 +18522,13 @@ func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	return eq && ok, true
 }
 func (r ContractTermAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermAction)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermAction) TypeInfo() fhirpath.TypeInfo {
@@ -18702,7 +18768,13 @@ func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeC
 	return eq && ok, true
 }
 func (r ContractTermActionSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractTermActionSubject)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractTermActionSubject) TypeInfo() fhirpath.TypeInfo {
@@ -18824,7 +18896,13 @@ func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	return eq && ok, true
 }
 func (r ContractSigner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractSigner)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractSigner) TypeInfo() fhirpath.TypeInfo {
@@ -18945,7 +19023,13 @@ func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion
 	return eq && ok, true
 }
 func (r ContractFriendly) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractFriendly)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractFriendly) TypeInfo() fhirpath.TypeInfo {
@@ -19052,7 +19136,13 @@ func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	return eq && ok, true
 }
 func (r ContractLegal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractLegal)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractLegal) TypeInfo() fhirpath.TypeInfo {
@@ -19159,7 +19249,13 @@ func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	return eq && ok, true
 }
 func (r ContractRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
+	o, ok := other.(ContractRule)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
 	return eq && ok
 }
 func (r ContractRule) TypeInfo() fhirpath.TypeInfo {
