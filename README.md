@@ -25,12 +25,14 @@ This includes model types and interfaces modeling capabilities that you can use 
     - generated from the FHIR® specification
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
-        - alternatively: generic API for building wrappers
+        - alternatively: generic API for building adapters
         - automatic CapabilityStatement generation
     - Interactions: `read`,  `search` (adding the remaining interactions is definitely on the agenda)
     - Cursor-based pagination
 - FHIRPath evaluation
-    - see [FHIRPath Implementation Status](#fhirpath-implementation-status) below
+  - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
+    
+    see [below for more information](#fhirpath)
 
 ## Getting Started
 
@@ -111,58 +113,13 @@ and vice versa:
 concreteAPI := wrap.ConcreteR4(genericAPI)
 ```
 
-## Roadmap
+## FHIRPath
 
-- proper handling of `_include` and `_revinclude`
-- managed search parameters
-- resource validation
-- remaining interactions (`vread`, `create`, `update`, `patch`, `delete`, `history`)
+The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented with the exception of full UCUM support.
+For quantity comparisons and operations, the unit is only asserted for equality.
 
-## FHIRPath Implementation Status
-
-The project includes a work-in-progress implementation for [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/).
-Refer to the following table outlining the implementation statuses of different parts of the specification.
-
-| Section of the specification             | Implementation Status                                         |
-|------------------------------------------|---------------------------------------------------------------|
-| **1. Background**                        | not applicable                                                |
-| **2. Navigation model**                  | complete                                                      |
-| **3. Path selection**                    | complete                                                      |
-| 3.1. Collections                         | complete                                                      |
-| 3.2. Paths and polymorphic items         | complete                                                      |
-| **4. Expressions**                       | complete                                                      |
-| 4.1. Literals                            | complete                                                      |
-| 4.2. Operators                           | see "6. Operations"                                           |
-| 4.3. Function Invocations                | complete                                                      |
-| 4.4. Null and empty                      | complete                                                      |
-| 4.5. Singleton Evaluation of Collections | complete                                                      |
-| **5. Functions**                         | complete                                                      |
-| 5.1. Existence                           | complete                                                      |
-| 5.2. Filtering and projection            | complete                                                      |
-| 5.3. Subsetting                          | complete                                                      |
-| 5.4. Combining                           | complete                                                      |
-| 5.5. Conversion                          | complete                                                      |
-| 5.6. String Manipulation                 | complete                                                      |
-| 5.7. Math                                | complete                                                      |
-| 5.8. Tree navigation                     | complete                                                      |
-| 5.9. Utility functions                   | complete                                                      |
-| **6. Operations**                        | complete; no full UCUM support (unit equality is asserted)    |
-| 6.1. Equality                            | complete                                                      |
-| 6.2. Comparison                          | complete                                                      |
-| 6.3. Types                               | complete                                                      |
-| 6.4. Collections                         | complete                                                      |
-| 6.5. Boolean logic                       | complete                                                      |
-| 6.6. Math                                | complete                                                      |
-| 6.7. Date/Time Arithmetic                | complete                                                      |
-| 6.8. Operator precedence                 | handled by ANTLR                                              |
-| **7. Aggregates**                        | complete                                                      |
-| **8. Lexical Elements**                  | handled by ANTLR                                              |
-| **9. Environment variables**             | complete                                                      |
-| **10. Types and Reflection**             | complete                                                      |
-| 10.1. Models                             | complete                                                      |
-| 10.2. Reflection                         | complete                                                      |
-
-`todo`: in scope, but has not a very high priority at the moment.
+The additional functions defined in the FHIR specification are not implemented (yet).
+Mostly, because they require validation which is not implemented by the Go module.
 
 ### Decimal precision
 
@@ -171,12 +128,33 @@ Precision of decimal operations can be set by supplying
 an [apd.Context](https://pkg.go.dev/github.com/cockroachdb/apd#Context)
 
 ```Go
+// Setup context
 ctx := r4.Context()
+// with defined precision for decimal operations.
 ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
+
+expr, err := fhirpath.Parse("Observation.value / 3")
+if err != nil {
+    // Handle error
+}
+
+// Evaluate the expression against a FHIR resource
+result, err := fhirpath.Evaluate(r4.Context(), observation, expr)
+if err != nil {
+    // Handle error
+}
 ```
 
 > **Attention**: By default the precision is set to `0`.
 
+
+## Roadmap
+
+- proper handling of `_include` and `_revinclude`
+- value sets
+- managed search parameters
+- resource validation
+- remaining interactions (`vread`, `create`, `update`, `patch`, `delete`, `history`)
 
 ## Packages
 
