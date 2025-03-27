@@ -81,6 +81,10 @@ type apdContextKey struct{}
 // By default, the precision is set to 0, which means that the precision is determined
 // by the operands. To set a specific precision, use apd.BaseContext.WithPrecision(n).
 //
+// # Attention
+//
+// By default the precision is set to 0.
+//
 // Example:
 //
 //	// Set precision to 10 digits
