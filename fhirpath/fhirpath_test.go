@@ -173,4 +173,9 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Invalid: "not existing type returns error",
 		},
 	},
+	"testVariables4": {
+		Expression: testdata.FHIRPathTestExpression{
+			Invalid: "%vs- value set variables are currently not supported",
+		},
+	},
 }

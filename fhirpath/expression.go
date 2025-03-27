@@ -130,6 +130,8 @@ func parse(expr string) (parser.IExpressionContext, error) {
 func Evaluate(ctx context.Context, target Element, expr Expression) (Collection, error) {
 	ctx = WithEnv(ctx, "context", target)
 	ctx = WithEnv(ctx, "ucum", String("http://unitsofmeasure.org"))
+	ctx = WithEnv(ctx, "loinc", String("http://loinc.org"))
+	ctx = WithEnv(ctx, "sct", String("http://snomed.info/sct"))
 
 	result, _, err := evalExpression(
 		ctx,
