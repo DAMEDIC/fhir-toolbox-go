@@ -183,4 +183,9 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Invalid: "%ext- extension variables are currently not supported",
 		},
 	},
+	"testConformsTo": {
+		Expression: testdata.FHIRPathTestExpression{
+			Invalid: "testConformsTo function not implemented yet",
+		},
+	},
 }
