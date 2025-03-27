@@ -532,7 +532,7 @@ func generateWithContext(contextFile *File) *Statement {
 		),
 		Id("ctx").Op("=").Qual(fhirpathModuleName, "WithFunctions").Call(
 			Id("ctx"),
-			Id("fhirFunctions"),
+			Qual(fhirpathModuleName, "FHIRFunctions"),
 		),
 		Return(Id("ctx")),
 	)

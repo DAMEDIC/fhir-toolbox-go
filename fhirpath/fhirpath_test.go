@@ -178,4 +178,9 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Invalid: "%vs- value set variables are currently not supported",
 		},
 	},
+	"testExtension2": {
+		Expression: testdata.FHIRPathTestExpression{
+			Invalid: "%ext- extension variables are currently not supported",
+		},
+	},
 }

@@ -2666,3 +2666,42 @@ var defaultFunctions = Functions{
 		return Collection{d}, inputOrdered, nil
 	},
 }
+
+var FHIRFunctions = Functions{
+	"extension": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected a single extension parameter")
+		}
+
+		extCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		extUrl, ok, err := Singleton[String](extCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected extension parameter string")
+		}
+
+		var foundExtensions Collection
+		for _, v := range target {
+			for _, e := range v.Children("extension") {
+				url, ok, err := Singleton[String](e.Children("url"))
+				if err == nil && ok && url == extUrl {
+					foundExtensions = append(foundExtensions, e)
+					break
+				}
+			}
+		}
+		return foundExtensions, inputOrdered, nil
+	},
+}

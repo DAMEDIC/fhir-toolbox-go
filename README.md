@@ -118,8 +118,12 @@ concreteAPI := wrap.ConcreteR4(genericAPI)
 The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented with the exception of full UCUM support.
 For quantity comparisons and operations, the unit is only asserted for equality.
 
-The additional functions defined in the FHIR specification are not implemented (yet).
-Mostly, because they require validation which is not implemented by the Go module.
+From the additional functions defined in the FHIR specification, only
+* `extension(url : string) : collection`
+
+is implemented.
+
+Mostly, because they require validation which is not implemented by the fhir-toolbox-go, yet.
 
 ### Decimal precision
 

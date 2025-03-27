@@ -11,7 +11,7 @@ func Context() context.Context {
 func WithContext(ctx context.Context) context.Context {
 	ctx = fhirpath.WithNamespace(ctx, "FHIR")
 	ctx = fhirpath.WithTypes(ctx, allFHIRPathTypes)
-	ctx = fhirpath.WithFunctions(ctx, fhirFunctions)
+	ctx = fhirpath.WithFunctions(ctx, fhirpath.FHIRFunctions)
 	return ctx
 }
 
