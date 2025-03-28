@@ -1,4 +1,5 @@
 # fhir-toolbox-go
+
 [![Go Reference](https://pkg.go.dev/badge/github.com/DAMEDIC/fhir-toolbox-go.svg)](https://pkg.go.dev/github.com/DAMEDIC/fhir-toolbox-go)
 
 > FHIR® is the registered trademark of HL7® and is used with the permission of HL7®.
@@ -18,23 +19,22 @@ A **FHIRPath** implementation is work-in-progress (~90% done) on branch [fhirpat
 ## Features
 
 - FHIR® model types with JSON and XML (un)marshalling
-  - R4, R4B & R5
-    
-    use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific versions
-    
-  - generated from the FHIR® specification
+    - R4, R4B & R5
+
+      use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
+      versions
+
+    - generated from the FHIR® specification
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
-        - alternatively: generic API for building wrappers
+        - alternatively: generic API for building adapters
         - automatic CapabilityStatement generation
     - Interactions: `read`,  `search` (adding the remaining interactions is definitely on the agenda)
     - Cursor-based pagination
-
-### Roadmap
 - FHIRPath evaluation
-- proper handling of `_include` and `_revinclude`
-- resource validation
-- remaining interactions (`vread`, `create`, `update`, `patch`, `delete`, `history`)
+  - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
+
+    see [below for more information](#fhirpath)
 
 ## Getting Started
 
@@ -115,6 +115,59 @@ and vice versa:
 concreteAPI := wrap.ConcreteR4(genericAPI)
 ```
 
+## FHIRPath
+
+The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented with the exception of full UCUM support.
+For quantity comparisons and operations, the unit is only asserted for equality.
+
+From the additional functions defined in the FHIR specification, only
+* `extension(url : string) : collection`
+
+is implemented.
+
+Mostly, because they require validation which is not implemented by the fhir-toolbox-go, yet.
+
+### Decimal precision
+
+The FHIRPath evaluation engine uses [apd.Decimal](https://pkg.go.dev/github.com/cockroachdb/apd#Decimal) under the hood.
+Precision of decimal operations can be set by supplying
+an [apd.Context](https://pkg.go.dev/github.com/cockroachdb/apd#Context)
+
+```Go
+// Setup context
+ctx := r4.Context()
+// with defined precision for decimal operations.
+ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
+
+expr, err := fhirpath.Parse("Observation.value / 3")
+if err != nil {
+    // Handle error
+}
+
+// Evaluate the expression against a FHIR resource
+result, err := fhirpath.Evaluate(r4.Context(), observation, expr)
+if err != nil {
+    // Handle error
+}
+```
+
+> **Attention**: By default the precision is set to `0`.
+
+### Testing Approach
+
+The FHIRPath implementation is tested against the FHIRPath test suite.
+Tests are downloaded on first execution and cached afterward into the `build` folder.
+As the test cases XML has some inconsistencies and features not supported yet,
+the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpath/fhirpath_test.go)
+
+## Roadmap
+
+- proper handling of `_include` and `_revinclude`
+- value sets
+- managed search parameters
+- resource validation
+- remaining interactions (`vread`, `create`, `update`, `patch`, `delete`, `history`)
+
 ## Packages
 
 | Package              | Description                                                                   |
@@ -123,6 +176,7 @@ concreteAPI := wrap.ConcreteR4(genericAPI)
 | `capabilities/..`    | Interfaces modeling capabilities a server can provide or a client can consume |
 | `capabilites/search` | Types and helper functions for implementing search capabilities               |
 | `capabilites/wrap`   | Conversion between the concrete and generic capabilities API                  |
+| `fhirpath`           | FHIRPath execution engine                                                     |                                                     
 | `rest`               | FHIR® REST server implementation                                              |
 | `testdata`           | Utils for loading test data and writing tests                                 |
 | `examples`           | Examples on what you can do with this module                                  |
