@@ -31,7 +31,7 @@ This includes model types and interfaces modeling capabilities that you can use 
     - Cursor-based pagination
 - FHIRPath evaluation
   - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
-    
+
     see [below for more information](#fhirpath)
 
 ## Getting Started
@@ -151,6 +151,12 @@ if err != nil {
 
 > **Attention**: By default the precision is set to `0`.
 
+### Testing Approach
+
+The FHIRPath implementation is tested against the FHIRPath test suite.
+Tests are downloaded on first execution and cached afterward into the `build` folder.
+As the test cases XML has some inconsistencies and features not supported yet,
+the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpath/fhirpath_test.go)
 
 ## Roadmap
 
