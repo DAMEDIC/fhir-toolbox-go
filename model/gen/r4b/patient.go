@@ -3870,6 +3870,10 @@ func (r Patient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...
 }
 func (r Patient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4039,14 +4043,8 @@ func (r Patient) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Patient",
-			Namespace: "FHIR",
-		},
+		Name:      "Patient",
+		Namespace: "FHIR",
 	}
 }
 func (r PatientContact) Children(name ...string) fhirpath.Collection {
@@ -4155,6 +4153,10 @@ func (r PatientContact) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r PatientContact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4226,14 +4228,8 @@ func (r PatientContact) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PatientContact",
-			Namespace: "FHIR",
-		},
+		Name:      "PatientContact",
+		Namespace: "FHIR",
 	}
 }
 func (r PatientCommunication) Children(name ...string) fhirpath.Collection {
@@ -4315,6 +4311,10 @@ func (r PatientCommunication) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r PatientCommunication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4351,14 +4351,8 @@ func (r PatientCommunication) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PatientCommunication",
-			Namespace: "FHIR",
-		},
+		Name:      "PatientCommunication",
+		Namespace: "FHIR",
 	}
 }
 func (r PatientLink) Children(name ...string) fhirpath.Collection {
@@ -4438,6 +4432,10 @@ func (r PatientLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r PatientLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4474,13 +4472,7 @@ func (r PatientLink) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PatientLink",
-			Namespace: "FHIR",
-		},
+		Name:      "PatientLink",
+		Namespace: "FHIR",
 	}
 }

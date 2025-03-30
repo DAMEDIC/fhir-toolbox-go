@@ -65,64 +65,52 @@ func generateType(g *Group, s ir.Struct) {
 	})
 
 	g.Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
-			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit(s.MarshalName),
-			Id("BaseType"):  base,
-		}),
-		Id("Element"): elements,
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit(s.MarshalName),
+		Id("BaseType"):  base,
+		Id("Element"):   elements,
 	})
 }
 
 var baseTypes = []Code{
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("Base"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+			Id("Namespace"): Lit("System"),
+			Id("Name"):      Lit("Any"),
+		}),
+	}),
+	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("Element"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
 			Id("Name"):      Lit("Base"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("System"),
-				Id("Name"):      Lit("Any"),
-			}),
 		}),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("DataType"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
 			Id("Name"):      Lit("Element"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("FHIR"),
-				Id("Name"):      Lit("Base"),
-			}),
 		}),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("PrimitiveType"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
 			Id("Name"):      Lit("DataType"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("FHIR"),
-				Id("Name"):      Lit("Element"),
-			}),
 		}),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("BackboneElement"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit("PrimitiveType"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("FHIR"),
-				Id("Name"):      Lit("DataType"),
-			}),
-		}),
-	}),
-	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
-			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit("BackboneElement"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("FHIR"),
-				Id("Name"):      Lit("Element"),
-			}),
+			Id("Name"):      Lit("Element"),
 		}),
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(Values(Dict{
 			Id("Name"): Lit("modifierExtension"),
@@ -134,13 +122,11 @@ var baseTypes = []Code{
 		})),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("BackboneType"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit("BackboneType"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("FHIR"),
-				Id("Name"):      Lit("DataType"),
-			}),
+			Id("Name"):      Lit("DataType"),
 		}),
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(Values(Dict{
 			Id("Name"): Lit("modifierExtension"),
@@ -152,13 +138,11 @@ var baseTypes = []Code{
 		})),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("Resource"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit("Resource"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("FHIR"),
-				Id("Name"):      Lit("Base"),
-			}),
+			Id("Name"):      Lit("Base"),
 		}),
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(
 			Values(Dict{
@@ -192,13 +176,11 @@ var baseTypes = []Code{
 		),
 	}),
 	Qual(fhirpathModuleName, "ClassInfo").Values(Dict{
-		Id("SimpleTypeInfo"): Qual(fhirpathModuleName, "SimpleTypeInfo").Values(Dict{
+		Id("Namespace"): Lit("FHIR"),
+		Id("Name"):      Lit("DomainResource"),
+		Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit("DomainResource"),
-			Id("BaseType"): Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-				Id("Namespace"): Lit("FHIR"),
-				Id("Name"):      Lit("Resource"),
-			}),
+			Id("Name"):      Lit("Resource"),
 		}),
 		Id("Element"): Index().Qual(fhirpathModuleName, "ClassInfoElement").Values(
 			Values(Dict{

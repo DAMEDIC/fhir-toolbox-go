@@ -4266,6 +4266,10 @@ func (r Procedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 }
 func (r Procedure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4519,14 +4523,8 @@ func (r Procedure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Procedure",
-			Namespace: "FHIR",
-		},
+		Name:      "Procedure",
+		Namespace: "FHIR",
 	}
 }
 func (r ProcedurePerformer) Children(name ...string) fhirpath.Collection {
@@ -4618,6 +4616,10 @@ func (r ProcedurePerformer) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ProcedurePerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4668,14 +4670,8 @@ func (r ProcedurePerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ProcedurePerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "ProcedurePerformer",
+		Namespace: "FHIR",
 	}
 }
 func (r ProcedureFocalDevice) Children(name ...string) fhirpath.Collection {
@@ -4757,6 +4753,10 @@ func (r ProcedureFocalDevice) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ProcedureFocalDevice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4793,13 +4793,7 @@ func (r ProcedureFocalDevice) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ProcedureFocalDevice",
-			Namespace: "FHIR",
-		},
+		Name:      "ProcedureFocalDevice",
+		Namespace: "FHIR",
 	}
 }

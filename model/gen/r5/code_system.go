@@ -7506,6 +7506,10 @@ func (r CodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r CodeSystem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7822,14 +7826,8 @@ func (r CodeSystem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "CodeSystem",
-			Namespace: "FHIR",
-		},
+		Name:      "CodeSystem",
+		Namespace: "FHIR",
 	}
 }
 func (r CodeSystemFilter) Children(name ...string) fhirpath.Collection {
@@ -7919,6 +7917,10 @@ func (r CodeSystemFilter) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r CodeSystemFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7969,14 +7971,8 @@ func (r CodeSystemFilter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CodeSystemFilter",
-			Namespace: "FHIR",
-		},
+		Name:      "CodeSystemFilter",
+		Namespace: "FHIR",
 	}
 }
 func (r CodeSystemProperty) Children(name ...string) fhirpath.Collection {
@@ -8066,6 +8062,10 @@ func (r CodeSystemProperty) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r CodeSystemProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8116,14 +8116,8 @@ func (r CodeSystemProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CodeSystemProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "CodeSystemProperty",
+		Namespace: "FHIR",
 	}
 }
 func (r CodeSystemConcept) Children(name ...string) fhirpath.Collection {
@@ -8225,6 +8219,10 @@ func (r CodeSystemConcept) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r CodeSystemConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8289,14 +8287,8 @@ func (r CodeSystemConcept) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CodeSystemConcept",
-			Namespace: "FHIR",
-		},
+		Name:      "CodeSystemConcept",
+		Namespace: "FHIR",
 	}
 }
 func (r CodeSystemConceptDesignation) Children(name ...string) fhirpath.Collection {
@@ -8388,6 +8380,10 @@ func (r CodeSystemConceptDesignation) Equivalent(other fhirpath.Element, _noReve
 }
 func (r CodeSystemConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8438,14 +8434,8 @@ func (r CodeSystemConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CodeSystemConceptDesignation",
-			Namespace: "FHIR",
-		},
+		Name:      "CodeSystemConceptDesignation",
+		Namespace: "FHIR",
 	}
 }
 func (r CodeSystemConceptProperty) Children(name ...string) fhirpath.Collection {
@@ -8525,6 +8515,10 @@ func (r CodeSystemConceptProperty) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r CodeSystemConceptProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8561,13 +8555,7 @@ func (r CodeSystemConceptProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CodeSystemConceptProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "CodeSystemConceptProperty",
+		Namespace: "FHIR",
 	}
 }

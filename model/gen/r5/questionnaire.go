@@ -8599,6 +8599,10 @@ func (r Questionnaire) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r Questionnaire) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8824,14 +8828,8 @@ func (r Questionnaire) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Questionnaire",
-			Namespace: "FHIR",
-		},
+		Name:      "Questionnaire",
+		Namespace: "FHIR",
 	}
 }
 func (r QuestionnaireItem) Children(name ...string) fhirpath.Collection {
@@ -8991,6 +8989,10 @@ func (r QuestionnaireItem) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r QuestionnaireItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9139,14 +9141,8 @@ func (r QuestionnaireItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "QuestionnaireItem",
-			Namespace: "FHIR",
-		},
+		Name:      "QuestionnaireItem",
+		Namespace: "FHIR",
 	}
 }
 func (r QuestionnaireItemEnableWhen) Children(name ...string) fhirpath.Collection {
@@ -9229,6 +9225,10 @@ func (r QuestionnaireItemEnableWhen) Equivalent(other fhirpath.Element, _noRever
 }
 func (r QuestionnaireItemEnableWhen) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9272,14 +9272,8 @@ func (r QuestionnaireItemEnableWhen) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "QuestionnaireItemEnableWhen",
-			Namespace: "FHIR",
-		},
+		Name:      "QuestionnaireItemEnableWhen",
+		Namespace: "FHIR",
 	}
 }
 func (r QuestionnaireItemAnswerOption) Children(name ...string) fhirpath.Collection {
@@ -9361,6 +9355,10 @@ func (r QuestionnaireItemAnswerOption) Equivalent(other fhirpath.Element, _noRev
 }
 func (r QuestionnaireItemAnswerOption) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9397,14 +9395,8 @@ func (r QuestionnaireItemAnswerOption) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "QuestionnaireItemAnswerOption",
-			Namespace: "FHIR",
-		},
+		Name:      "QuestionnaireItemAnswerOption",
+		Namespace: "FHIR",
 	}
 }
 func (r QuestionnaireItemInitial) Children(name ...string) fhirpath.Collection {
@@ -9481,6 +9473,10 @@ func (r QuestionnaireItemInitial) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r QuestionnaireItemInitial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9510,13 +9506,7 @@ func (r QuestionnaireItemInitial) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "QuestionnaireItemInitial",
-			Namespace: "FHIR",
-		},
+		Name:      "QuestionnaireItemInitial",
+		Namespace: "FHIR",
 	}
 }

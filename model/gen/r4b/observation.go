@@ -5760,6 +5760,10 @@ func (r Observation) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r Observation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5985,14 +5989,8 @@ func (r Observation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Observation",
-			Namespace: "FHIR",
-		},
+		Name:      "Observation",
+		Namespace: "FHIR",
 	}
 }
 func (r ObservationReferenceRange) Children(name ...string) fhirpath.Collection {
@@ -6096,6 +6094,10 @@ func (r ObservationReferenceRange) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ObservationReferenceRange) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6160,14 +6162,8 @@ func (r ObservationReferenceRange) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ObservationReferenceRange",
-			Namespace: "FHIR",
-		},
+		Name:      "ObservationReferenceRange",
+		Namespace: "FHIR",
 	}
 }
 func (r ObservationComponent) Children(name ...string) fhirpath.Collection {
@@ -6264,6 +6260,10 @@ func (r ObservationComponent) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ObservationComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6321,13 +6321,7 @@ func (r ObservationComponent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ObservationComponent",
-			Namespace: "FHIR",
-		},
+		Name:      "ObservationComponent",
+		Namespace: "FHIR",
 	}
 }

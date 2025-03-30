@@ -4642,6 +4642,10 @@ func (r StructureDefinition) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r StructureDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4888,14 +4892,8 @@ func (r StructureDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureDefinitionMapping) Children(name ...string) fhirpath.Collection {
@@ -4987,6 +4985,10 @@ func (r StructureDefinitionMapping) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r StructureDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5037,14 +5039,8 @@ func (r StructureDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureDefinitionMapping",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureDefinitionMapping",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureDefinitionContext) Children(name ...string) fhirpath.Collection {
@@ -5124,6 +5120,10 @@ func (r StructureDefinitionContext) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r StructureDefinitionContext) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5160,14 +5160,8 @@ func (r StructureDefinitionContext) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureDefinitionContext",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureDefinitionContext",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureDefinitionSnapshot) Children(name ...string) fhirpath.Collection {
@@ -5246,6 +5240,10 @@ func (r StructureDefinitionSnapshot) Equivalent(other fhirpath.Element, _noRever
 }
 func (r StructureDefinitionSnapshot) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5275,14 +5273,8 @@ func (r StructureDefinitionSnapshot) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureDefinitionSnapshot",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureDefinitionSnapshot",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureDefinitionDifferential) Children(name ...string) fhirpath.Collection {
@@ -5361,6 +5353,10 @@ func (r StructureDefinitionDifferential) Equivalent(other fhirpath.Element, _noR
 }
 func (r StructureDefinitionDifferential) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5390,13 +5386,7 @@ func (r StructureDefinitionDifferential) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureDefinitionDifferential",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureDefinitionDifferential",
+		Namespace: "FHIR",
 	}
 }

@@ -5155,6 +5155,10 @@ func (r RequestGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r RequestGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5338,14 +5342,8 @@ func (r RequestGroup) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestGroup",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestGroup",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestGroupAction) Children(name ...string) fhirpath.Collection {
@@ -5514,6 +5512,10 @@ func (r RequestGroupAction) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r RequestGroupAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5669,14 +5671,8 @@ func (r RequestGroupAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestGroupAction",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestGroupAction",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestGroupActionCondition) Children(name ...string) fhirpath.Collection {
@@ -5758,6 +5754,10 @@ func (r RequestGroupActionCondition) Equivalent(other fhirpath.Element, _noRever
 }
 func (r RequestGroupActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5794,14 +5794,8 @@ func (r RequestGroupActionCondition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestGroupActionCondition",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestGroupActionCondition",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestGroupActionRelatedAction) Children(name ...string) fhirpath.Collection {
@@ -5886,6 +5880,10 @@ func (r RequestGroupActionRelatedAction) Equivalent(other fhirpath.Element, _noR
 }
 func (r RequestGroupActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5929,13 +5927,7 @@ func (r RequestGroupActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestGroupActionRelatedAction",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestGroupActionRelatedAction",
+		Namespace: "FHIR",
 	}
 }

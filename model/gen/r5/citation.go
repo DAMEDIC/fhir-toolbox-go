@@ -14098,6 +14098,10 @@ func (r Citation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r Citation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14372,14 +14376,8 @@ func (r Citation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Citation",
-			Namespace: "FHIR",
-		},
+		Name:      "Citation",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationSummary) Children(name ...string) fhirpath.Collection {
@@ -14461,6 +14459,10 @@ func (r CitationSummary) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r CitationSummary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14497,14 +14499,8 @@ func (r CitationSummary) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationSummary",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationSummary",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationClassification) Children(name ...string) fhirpath.Collection {
@@ -14588,6 +14584,10 @@ func (r CitationClassification) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r CitationClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14624,14 +14624,8 @@ func (r CitationClassification) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationClassification",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationClassification",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationStatusDate) Children(name ...string) fhirpath.Collection {
@@ -14716,6 +14710,10 @@ func (r CitationStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r CitationStatusDate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14759,14 +14757,8 @@ func (r CitationStatusDate) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationStatusDate",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationStatusDate",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifact) Children(name ...string) fhirpath.Collection {
@@ -14915,6 +14907,10 @@ func (r CitationCitedArtifact) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r CitationCitedArtifact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15042,14 +15038,8 @@ func (r CitationCitedArtifact) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifact",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifact",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactVersion) Children(name ...string) fhirpath.Collection {
@@ -15131,6 +15121,10 @@ func (r CitationCitedArtifactVersion) Equivalent(other fhirpath.Element, _noReve
 }
 func (r CitationCitedArtifactVersion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15167,14 +15161,8 @@ func (r CitationCitedArtifactVersion) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactVersion",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactVersion",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactStatusDate) Children(name ...string) fhirpath.Collection {
@@ -15259,6 +15247,10 @@ func (r CitationCitedArtifactStatusDate) Equivalent(other fhirpath.Element, _noR
 }
 func (r CitationCitedArtifactStatusDate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15302,14 +15294,8 @@ func (r CitationCitedArtifactStatusDate) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactStatusDate",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactStatusDate",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactTitle) Children(name ...string) fhirpath.Collection {
@@ -15396,6 +15382,10 @@ func (r CitationCitedArtifactTitle) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r CitationCitedArtifactTitle) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15439,14 +15429,8 @@ func (r CitationCitedArtifactTitle) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactTitle",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactTitle",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactAbstract) Children(name ...string) fhirpath.Collection {
@@ -15538,6 +15522,10 @@ func (r CitationCitedArtifactAbstract) Equivalent(other fhirpath.Element, _noRev
 }
 func (r CitationCitedArtifactAbstract) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15588,14 +15576,8 @@ func (r CitationCitedArtifactAbstract) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactAbstract",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactAbstract",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactPart) Children(name ...string) fhirpath.Collection {
@@ -15684,6 +15666,10 @@ func (r CitationCitedArtifactPart) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r CitationCitedArtifactPart) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15727,14 +15713,8 @@ func (r CitationCitedArtifactPart) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactPart",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactPart",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactRelatesTo) Children(name ...string) fhirpath.Collection {
@@ -15846,6 +15826,10 @@ func (r CitationCitedArtifactRelatesTo) Equivalent(other fhirpath.Element, _noRe
 }
 func (r CitationCitedArtifactRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15924,14 +15908,8 @@ func (r CitationCitedArtifactRelatesTo) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactRelatesTo",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactRelatesTo",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactPublicationForm) Children(name ...string) fhirpath.Collection {
@@ -16080,6 +16058,10 @@ func (r CitationCitedArtifactPublicationForm) Equivalent(other fhirpath.Element,
 }
 func (r CitationCitedArtifactPublicationForm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16207,14 +16189,8 @@ func (r CitationCitedArtifactPublicationForm) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactPublicationForm",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactPublicationForm",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) Children(name ...string) fhirpath.Collection {
@@ -16313,6 +16289,10 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) Equivalent(other fhirpa
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16370,14 +16350,8 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) TypeInfo() fhirpath.Typ
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactPublicationFormPublishedIn",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactPublicationFormPublishedIn",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactWebLocation) Children(name ...string) fhirpath.Collection {
@@ -16461,6 +16435,10 @@ func (r CitationCitedArtifactWebLocation) Equivalent(other fhirpath.Element, _no
 }
 func (r CitationCitedArtifactWebLocation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16497,14 +16475,8 @@ func (r CitationCitedArtifactWebLocation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactWebLocation",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactWebLocation",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactClassification) Children(name ...string) fhirpath.Collection {
@@ -16593,6 +16565,10 @@ func (r CitationCitedArtifactClassification) Equivalent(other fhirpath.Element, 
 }
 func (r CitationCitedArtifactClassification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16636,14 +16612,8 @@ func (r CitationCitedArtifactClassification) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactClassification",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactClassification",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactContributorship) Children(name ...string) fhirpath.Collection {
@@ -16732,6 +16702,10 @@ func (r CitationCitedArtifactContributorship) Equivalent(other fhirpath.Element,
 }
 func (r CitationCitedArtifactContributorship) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16775,14 +16749,8 @@ func (r CitationCitedArtifactContributorship) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactContributorship",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactContributorship",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactContributorshipEntry) Children(name ...string) fhirpath.Collection {
@@ -16894,6 +16862,10 @@ func (r CitationCitedArtifactContributorshipEntry) Equivalent(other fhirpath.Ele
 }
 func (r CitationCitedArtifactContributorshipEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16972,14 +16944,8 @@ func (r CitationCitedArtifactContributorshipEntry) TypeInfo() fhirpath.TypeInfo 
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactContributorshipEntry",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactContributorshipEntry",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) Children(name ...string) fhirpath.Collection {
@@ -17061,6 +17027,10 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equivalen
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17097,14 +17067,8 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) TypeInfo(
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactContributorshipEntryContributionInstance",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactContributorshipEntryContributionInstance",
+		Namespace: "FHIR",
 	}
 }
 func (r CitationCitedArtifactContributorshipSummary) Children(name ...string) fhirpath.Collection {
@@ -17196,6 +17160,10 @@ func (r CitationCitedArtifactContributorshipSummary) Equivalent(other fhirpath.E
 }
 func (r CitationCitedArtifactContributorshipSummary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17246,13 +17214,7 @@ func (r CitationCitedArtifactContributorshipSummary) TypeInfo() fhirpath.TypeInf
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CitationCitedArtifactContributorshipSummary",
-			Namespace: "FHIR",
-		},
+		Name:      "CitationCitedArtifactContributorshipSummary",
+		Namespace: "FHIR",
 	}
 }

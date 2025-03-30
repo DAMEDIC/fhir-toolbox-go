@@ -2078,6 +2078,10 @@ func (r RelatedPerson) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r RelatedPerson) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2219,14 +2223,8 @@ func (r RelatedPerson) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "RelatedPerson",
-			Namespace: "FHIR",
-		},
+		Name:      "RelatedPerson",
+		Namespace: "FHIR",
 	}
 }
 func (r RelatedPersonCommunication) Children(name ...string) fhirpath.Collection {
@@ -2308,6 +2306,10 @@ func (r RelatedPersonCommunication) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r RelatedPersonCommunication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2344,13 +2346,7 @@ func (r RelatedPersonCommunication) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RelatedPersonCommunication",
-			Namespace: "FHIR",
-		},
+		Name:      "RelatedPersonCommunication",
+		Namespace: "FHIR",
 	}
 }

@@ -5049,6 +5049,10 @@ func (r EvidenceReport) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r EvidenceReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5232,14 +5236,8 @@ func (r EvidenceReport) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceReport",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceReport",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceReportSubject) Children(name ...string) fhirpath.Collection {
@@ -5323,6 +5321,10 @@ func (r EvidenceReportSubject) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r EvidenceReportSubject) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5359,14 +5361,8 @@ func (r EvidenceReportSubject) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceReportSubject",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceReportSubject",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceReportSubjectCharacteristic) Children(name ...string) fhirpath.Collection {
@@ -5456,6 +5452,10 @@ func (r EvidenceReportSubjectCharacteristic) Equivalent(other fhirpath.Element, 
 }
 func (r EvidenceReportSubjectCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5506,14 +5506,8 @@ func (r EvidenceReportSubjectCharacteristic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceReportSubjectCharacteristic",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceReportSubjectCharacteristic",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceReportRelatesTo) Children(name ...string) fhirpath.Collection {
@@ -5593,6 +5587,10 @@ func (r EvidenceReportRelatesTo) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r EvidenceReportRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5629,14 +5627,8 @@ func (r EvidenceReportRelatesTo) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceReportRelatesTo",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceReportRelatesTo",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceReportSection) Children(name ...string) fhirpath.Collection {
@@ -5770,6 +5762,10 @@ func (r EvidenceReportSection) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r EvidenceReportSection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5876,13 +5872,7 @@ func (r EvidenceReportSection) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceReportSection",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceReportSection",
+		Namespace: "FHIR",
 	}
 }

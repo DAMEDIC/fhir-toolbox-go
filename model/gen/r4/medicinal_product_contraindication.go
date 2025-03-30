@@ -1742,6 +1742,10 @@ func (r MedicinalProductContraindication) Equivalent(other fhirpath.Element, _no
 }
 func (r MedicinalProductContraindication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1848,14 +1852,8 @@ func (r MedicinalProductContraindication) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicinalProductContraindication",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicinalProductContraindication",
+		Namespace: "FHIR",
 	}
 }
 func (r MedicinalProductContraindicationOtherTherapy) Children(name ...string) fhirpath.Collection {
@@ -1935,6 +1933,10 @@ func (r MedicinalProductContraindicationOtherTherapy) Equivalent(other fhirpath.
 }
 func (r MedicinalProductContraindicationOtherTherapy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1971,13 +1973,7 @@ func (r MedicinalProductContraindicationOtherTherapy) TypeInfo() fhirpath.TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicinalProductContraindicationOtherTherapy",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicinalProductContraindicationOtherTherapy",
+		Namespace: "FHIR",
 	}
 }

@@ -5109,6 +5109,10 @@ func (r Encounter) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 }
 func (r Encounter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5362,14 +5366,8 @@ func (r Encounter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Encounter",
-			Namespace: "FHIR",
-		},
+		Name:      "Encounter",
+		Namespace: "FHIR",
 	}
 }
 func (r EncounterParticipant) Children(name ...string) fhirpath.Collection {
@@ -5458,6 +5456,10 @@ func (r EncounterParticipant) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r EncounterParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5501,14 +5503,8 @@ func (r EncounterParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EncounterParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "EncounterParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r EncounterReason) Children(name ...string) fhirpath.Collection {
@@ -5592,6 +5588,10 @@ func (r EncounterReason) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r EncounterReason) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5628,14 +5628,8 @@ func (r EncounterReason) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EncounterReason",
-			Namespace: "FHIR",
-		},
+		Name:      "EncounterReason",
+		Namespace: "FHIR",
 	}
 }
 func (r EncounterDiagnosis) Children(name ...string) fhirpath.Collection {
@@ -5719,6 +5713,10 @@ func (r EncounterDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r EncounterDiagnosis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5755,14 +5753,8 @@ func (r EncounterDiagnosis) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EncounterDiagnosis",
-			Namespace: "FHIR",
-		},
+		Name:      "EncounterDiagnosis",
+		Namespace: "FHIR",
 	}
 }
 func (r EncounterAdmission) Children(name ...string) fhirpath.Collection {
@@ -5866,6 +5858,10 @@ func (r EncounterAdmission) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r EncounterAdmission) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5930,14 +5926,8 @@ func (r EncounterAdmission) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EncounterAdmission",
-			Namespace: "FHIR",
-		},
+		Name:      "EncounterAdmission",
+		Namespace: "FHIR",
 	}
 }
 func (r EncounterLocation) Children(name ...string) fhirpath.Collection {
@@ -6029,6 +6019,10 @@ func (r EncounterLocation) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r EncounterLocation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6079,13 +6073,7 @@ func (r EncounterLocation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EncounterLocation",
-			Namespace: "FHIR",
-		},
+		Name:      "EncounterLocation",
+		Namespace: "FHIR",
 	}
 }

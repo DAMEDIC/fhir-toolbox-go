@@ -3050,6 +3050,10 @@ func (r ArtifactAssessment) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ArtifactAssessment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3184,14 +3188,8 @@ func (r ArtifactAssessment) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ArtifactAssessment",
-			Namespace: "FHIR",
-		},
+		Name:      "ArtifactAssessment",
+		Namespace: "FHIR",
 	}
 }
 func (r ArtifactAssessmentContent) Children(name ...string) fhirpath.Collection {
@@ -3315,6 +3313,10 @@ func (r ArtifactAssessmentContent) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ArtifactAssessmentContent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3407,13 +3409,7 @@ func (r ArtifactAssessmentContent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ArtifactAssessmentContent",
-			Namespace: "FHIR",
-		},
+		Name:      "ArtifactAssessmentContent",
+		Namespace: "FHIR",
 	}
 }

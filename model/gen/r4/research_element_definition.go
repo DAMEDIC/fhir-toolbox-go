@@ -5385,6 +5385,10 @@ func (r ResearchElementDefinition) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ResearchElementDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5673,14 +5677,8 @@ func (r ResearchElementDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ResearchElementDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "ResearchElementDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r ResearchElementDefinitionCharacteristic) Children(name ...string) fhirpath.Collection {
@@ -5812,6 +5810,10 @@ func (r ResearchElementDefinitionCharacteristic) Equivalent(other fhirpath.Eleme
 }
 func (r ResearchElementDefinitionCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5918,13 +5920,7 @@ func (r ResearchElementDefinitionCharacteristic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ResearchElementDefinitionCharacteristic",
-			Namespace: "FHIR",
-		},
+		Name:      "ResearchElementDefinitionCharacteristic",
+		Namespace: "FHIR",
 	}
 }

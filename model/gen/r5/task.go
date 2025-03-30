@@ -13511,6 +13511,10 @@ func (r Task) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...boo
 }
 func (r Task) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13799,14 +13803,8 @@ func (r Task) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Task",
-			Namespace: "FHIR",
-		},
+		Name:      "Task",
+		Namespace: "FHIR",
 	}
 }
 func (r TaskPerformer) Children(name ...string) fhirpath.Collection {
@@ -13888,6 +13886,10 @@ func (r TaskPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r TaskPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13924,14 +13926,8 @@ func (r TaskPerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TaskPerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "TaskPerformer",
+		Namespace: "FHIR",
 	}
 }
 func (r TaskRestriction) Children(name ...string) fhirpath.Collection {
@@ -14020,6 +14016,10 @@ func (r TaskRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r TaskRestriction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14063,14 +14063,8 @@ func (r TaskRestriction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TaskRestriction",
-			Namespace: "FHIR",
-		},
+		Name:      "TaskRestriction",
+		Namespace: "FHIR",
 	}
 }
 func (r TaskInput) Children(name ...string) fhirpath.Collection {
@@ -14150,6 +14144,10 @@ func (r TaskInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 }
 func (r TaskInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14186,14 +14184,8 @@ func (r TaskInput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TaskInput",
-			Namespace: "FHIR",
-		},
+		Name:      "TaskInput",
+		Namespace: "FHIR",
 	}
 }
 func (r TaskOutput) Children(name ...string) fhirpath.Collection {
@@ -14273,6 +14265,10 @@ func (r TaskOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r TaskOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14309,13 +14305,7 @@ func (r TaskOutput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TaskOutput",
-			Namespace: "FHIR",
-		},
+		Name:      "TaskOutput",
+		Namespace: "FHIR",
 	}
 }

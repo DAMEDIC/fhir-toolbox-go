@@ -13020,6 +13020,10 @@ func (r Transport) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 }
 func (r Transport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13301,14 +13305,8 @@ func (r Transport) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Transport",
-			Namespace: "FHIR",
-		},
+		Name:      "Transport",
+		Namespace: "FHIR",
 	}
 }
 func (r TransportRestriction) Children(name ...string) fhirpath.Collection {
@@ -13397,6 +13395,10 @@ func (r TransportRestriction) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r TransportRestriction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13440,14 +13442,8 @@ func (r TransportRestriction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TransportRestriction",
-			Namespace: "FHIR",
-		},
+		Name:      "TransportRestriction",
+		Namespace: "FHIR",
 	}
 }
 func (r TransportInput) Children(name ...string) fhirpath.Collection {
@@ -13527,6 +13523,10 @@ func (r TransportInput) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r TransportInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13563,14 +13563,8 @@ func (r TransportInput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TransportInput",
-			Namespace: "FHIR",
-		},
+		Name:      "TransportInput",
+		Namespace: "FHIR",
 	}
 }
 func (r TransportOutput) Children(name ...string) fhirpath.Collection {
@@ -13650,6 +13644,10 @@ func (r TransportOutput) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r TransportOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13686,13 +13684,7 @@ func (r TransportOutput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TransportOutput",
-			Namespace: "FHIR",
-		},
+		Name:      "TransportOutput",
+		Namespace: "FHIR",
 	}
 }

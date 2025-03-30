@@ -684,6 +684,10 @@ func (r Expression) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r Expression) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -734,13 +738,7 @@ func (r Expression) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "Expression",
-			Namespace: "FHIR",
-		},
+		Name:      "Expression",
+		Namespace: "FHIR",
 	}
 }

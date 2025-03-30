@@ -2341,6 +2341,10 @@ func (r Medication) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r Medication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2461,14 +2465,8 @@ func (r Medication) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Medication",
-			Namespace: "FHIR",
-		},
+		Name:      "Medication",
+		Namespace: "FHIR",
 	}
 }
 func (r MedicationIngredient) Children(name ...string) fhirpath.Collection {
@@ -2555,6 +2553,10 @@ func (r MedicationIngredient) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r MedicationIngredient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2598,14 +2600,8 @@ func (r MedicationIngredient) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicationIngredient",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicationIngredient",
+		Namespace: "FHIR",
 	}
 }
 func (r MedicationBatch) Children(name ...string) fhirpath.Collection {
@@ -2689,6 +2685,10 @@ func (r MedicationBatch) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r MedicationBatch) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2725,13 +2725,7 @@ func (r MedicationBatch) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicationBatch",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicationBatch",
+		Namespace: "FHIR",
 	}
 }

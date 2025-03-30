@@ -3241,6 +3241,10 @@ func (r Invoice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...
 }
 func (r Invoice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3424,14 +3428,8 @@ func (r Invoice) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Invoice",
-			Namespace: "FHIR",
-		},
+		Name:      "Invoice",
+		Namespace: "FHIR",
 	}
 }
 func (r InvoiceParticipant) Children(name ...string) fhirpath.Collection {
@@ -3513,6 +3511,10 @@ func (r InvoiceParticipant) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r InvoiceParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3549,14 +3551,8 @@ func (r InvoiceParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InvoiceParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "InvoiceParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r InvoiceLineItem) Children(name ...string) fhirpath.Collection {
@@ -3648,6 +3644,10 @@ func (r InvoiceLineItem) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r InvoiceLineItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3698,13 +3698,7 @@ func (r InvoiceLineItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InvoiceLineItem",
-			Namespace: "FHIR",
-		},
+		Name:      "InvoiceLineItem",
+		Namespace: "FHIR",
 	}
 }

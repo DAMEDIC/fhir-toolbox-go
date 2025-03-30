@@ -2169,6 +2169,10 @@ func (r MedicationStatement) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r MedicationStatement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2345,13 +2349,7 @@ func (r MedicationStatement) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicationStatement",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicationStatement",
+		Namespace: "FHIR",
 	}
 }

@@ -4140,6 +4140,10 @@ func (r SearchParameter) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r SearchParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4414,14 +4418,8 @@ func (r SearchParameter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "SearchParameter",
-			Namespace: "FHIR",
-		},
+		Name:      "SearchParameter",
+		Namespace: "FHIR",
 	}
 }
 func (r SearchParameterComponent) Children(name ...string) fhirpath.Collection {
@@ -4501,6 +4499,10 @@ func (r SearchParameterComponent) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r SearchParameterComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4537,13 +4539,7 @@ func (r SearchParameterComponent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SearchParameterComponent",
-			Namespace: "FHIR",
-		},
+		Name:      "SearchParameterComponent",
+		Namespace: "FHIR",
 	}
 }

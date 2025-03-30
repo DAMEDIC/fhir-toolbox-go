@@ -7481,6 +7481,10 @@ func (r TerminologyCapabilities) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r TerminologyCapabilities) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7706,14 +7710,8 @@ func (r TerminologyCapabilities) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilities",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilities",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesSoftware) Children(name ...string) fhirpath.Collection {
@@ -7795,6 +7793,10 @@ func (r TerminologyCapabilitiesSoftware) Equivalent(other fhirpath.Element, _noR
 }
 func (r TerminologyCapabilitiesSoftware) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7831,14 +7833,8 @@ func (r TerminologyCapabilitiesSoftware) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesSoftware",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesSoftware",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesImplementation) Children(name ...string) fhirpath.Collection {
@@ -7920,6 +7916,10 @@ func (r TerminologyCapabilitiesImplementation) Equivalent(other fhirpath.Element
 }
 func (r TerminologyCapabilitiesImplementation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7956,14 +7956,8 @@ func (r TerminologyCapabilitiesImplementation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesImplementation",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesImplementation",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesCodeSystem) Children(name ...string) fhirpath.Collection {
@@ -8052,6 +8046,10 @@ func (r TerminologyCapabilitiesCodeSystem) Equivalent(other fhirpath.Element, _n
 }
 func (r TerminologyCapabilitiesCodeSystem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8095,14 +8093,8 @@ func (r TerminologyCapabilitiesCodeSystem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesCodeSystem",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesCodeSystem",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesCodeSystemVersion) Children(name ...string) fhirpath.Collection {
@@ -8206,6 +8198,10 @@ func (r TerminologyCapabilitiesCodeSystemVersion) Equivalent(other fhirpath.Elem
 }
 func (r TerminologyCapabilitiesCodeSystemVersion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8270,14 +8266,8 @@ func (r TerminologyCapabilitiesCodeSystemVersion) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesCodeSystemVersion",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesCodeSystemVersion",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) Children(name ...string) fhirpath.Collection {
@@ -8359,6 +8349,10 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equivalent(other fhirpat
 }
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8395,14 +8389,8 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) TypeInfo() fhirpath.Type
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesCodeSystemVersionFilter",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesCodeSystemVersionFilter",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesExpansion) Children(name ...string) fhirpath.Collection {
@@ -8501,6 +8489,10 @@ func (r TerminologyCapabilitiesExpansion) Equivalent(other fhirpath.Element, _no
 }
 func (r TerminologyCapabilitiesExpansion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8558,14 +8550,8 @@ func (r TerminologyCapabilitiesExpansion) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesExpansion",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesExpansion",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesExpansionParameter) Children(name ...string) fhirpath.Collection {
@@ -8647,6 +8633,10 @@ func (r TerminologyCapabilitiesExpansionParameter) Equivalent(other fhirpath.Ele
 }
 func (r TerminologyCapabilitiesExpansionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8683,14 +8673,8 @@ func (r TerminologyCapabilitiesExpansionParameter) TypeInfo() fhirpath.TypeInfo 
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesExpansionParameter",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesExpansionParameter",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesValidateCode) Children(name ...string) fhirpath.Collection {
@@ -8767,6 +8751,10 @@ func (r TerminologyCapabilitiesValidateCode) Equivalent(other fhirpath.Element, 
 }
 func (r TerminologyCapabilitiesValidateCode) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8796,14 +8784,8 @@ func (r TerminologyCapabilitiesValidateCode) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesValidateCode",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesValidateCode",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesTranslation) Children(name ...string) fhirpath.Collection {
@@ -8880,6 +8862,10 @@ func (r TerminologyCapabilitiesTranslation) Equivalent(other fhirpath.Element, _
 }
 func (r TerminologyCapabilitiesTranslation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8909,14 +8895,8 @@ func (r TerminologyCapabilitiesTranslation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesTranslation",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesTranslation",
+		Namespace: "FHIR",
 	}
 }
 func (r TerminologyCapabilitiesClosure) Children(name ...string) fhirpath.Collection {
@@ -8995,6 +8975,10 @@ func (r TerminologyCapabilitiesClosure) Equivalent(other fhirpath.Element, _noRe
 }
 func (r TerminologyCapabilitiesClosure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9024,13 +9008,7 @@ func (r TerminologyCapabilitiesClosure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TerminologyCapabilitiesClosure",
-			Namespace: "FHIR",
-		},
+		Name:      "TerminologyCapabilitiesClosure",
+		Namespace: "FHIR",
 	}
 }

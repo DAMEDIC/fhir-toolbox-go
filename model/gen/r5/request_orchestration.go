@@ -8131,6 +8131,10 @@ func (r RequestOrchestration) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r RequestOrchestration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8314,14 +8318,8 @@ func (r RequestOrchestration) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestration",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestration",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestOrchestrationAction) Children(name ...string) fhirpath.Collection {
@@ -8530,6 +8528,10 @@ func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r RequestOrchestrationAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8741,14 +8743,8 @@ func (r RequestOrchestrationAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestrationAction",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestrationAction",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestOrchestrationActionCondition) Children(name ...string) fhirpath.Collection {
@@ -8830,6 +8826,10 @@ func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element, 
 }
 func (r RequestOrchestrationActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8866,14 +8866,8 @@ func (r RequestOrchestrationActionCondition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestrationActionCondition",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestrationActionCondition",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestOrchestrationActionInput) Children(name ...string) fhirpath.Collection {
@@ -8962,6 +8956,10 @@ func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element, _noR
 }
 func (r RequestOrchestrationActionInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9005,14 +9003,8 @@ func (r RequestOrchestrationActionInput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestrationActionInput",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestrationActionInput",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestOrchestrationActionOutput) Children(name ...string) fhirpath.Collection {
@@ -9101,6 +9093,10 @@ func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element, _no
 }
 func (r RequestOrchestrationActionOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9144,14 +9140,8 @@ func (r RequestOrchestrationActionOutput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestrationActionOutput",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestrationActionOutput",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestOrchestrationActionRelatedAction) Children(name ...string) fhirpath.Collection {
@@ -9241,6 +9231,10 @@ func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Eleme
 }
 func (r RequestOrchestrationActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9291,14 +9285,8 @@ func (r RequestOrchestrationActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestrationActionRelatedAction",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestrationActionRelatedAction",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestOrchestrationActionParticipant) Children(name ...string) fhirpath.Collection {
@@ -9402,6 +9390,10 @@ func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element
 }
 func (r RequestOrchestrationActionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9466,14 +9458,8 @@ func (r RequestOrchestrationActionParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestrationActionParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestrationActionParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r RequestOrchestrationActionDynamicValue) Children(name ...string) fhirpath.Collection {
@@ -9557,6 +9543,10 @@ func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Elemen
 }
 func (r RequestOrchestrationActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9593,13 +9583,7 @@ func (r RequestOrchestrationActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RequestOrchestrationActionDynamicValue",
-			Namespace: "FHIR",
-		},
+		Name:      "RequestOrchestrationActionDynamicValue",
+		Namespace: "FHIR",
 	}
 }

@@ -2006,6 +2006,10 @@ func (r DocumentManifest) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r DocumentManifest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2147,14 +2151,8 @@ func (r DocumentManifest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "DocumentManifest",
-			Namespace: "FHIR",
-		},
+		Name:      "DocumentManifest",
+		Namespace: "FHIR",
 	}
 }
 func (r DocumentManifestRelated) Children(name ...string) fhirpath.Collection {
@@ -2238,6 +2236,10 @@ func (r DocumentManifestRelated) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r DocumentManifestRelated) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2274,13 +2276,7 @@ func (r DocumentManifestRelated) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DocumentManifestRelated",
-			Namespace: "FHIR",
-		},
+		Name:      "DocumentManifestRelated",
+		Namespace: "FHIR",
 	}
 }

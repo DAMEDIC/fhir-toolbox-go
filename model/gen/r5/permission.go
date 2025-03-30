@@ -3831,6 +3831,10 @@ func (r Permission) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r Permission) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3937,14 +3941,8 @@ func (r Permission) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Permission",
-			Namespace: "FHIR",
-		},
+		Name:      "Permission",
+		Namespace: "FHIR",
 	}
 }
 func (r PermissionJustification) Children(name ...string) fhirpath.Collection {
@@ -4028,6 +4026,10 @@ func (r PermissionJustification) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r PermissionJustification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4064,14 +4066,8 @@ func (r PermissionJustification) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PermissionJustification",
-			Namespace: "FHIR",
-		},
+		Name:      "PermissionJustification",
+		Namespace: "FHIR",
 	}
 }
 func (r PermissionRule) Children(name ...string) fhirpath.Collection {
@@ -4165,6 +4161,10 @@ func (r PermissionRule) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r PermissionRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4215,14 +4215,8 @@ func (r PermissionRule) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PermissionRule",
-			Namespace: "FHIR",
-		},
+		Name:      "PermissionRule",
+		Namespace: "FHIR",
 	}
 }
 func (r PermissionRuleData) Children(name ...string) fhirpath.Collection {
@@ -4316,6 +4310,10 @@ func (r PermissionRuleData) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r PermissionRuleData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4366,14 +4364,8 @@ func (r PermissionRuleData) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PermissionRuleData",
-			Namespace: "FHIR",
-		},
+		Name:      "PermissionRuleData",
+		Namespace: "FHIR",
 	}
 }
 func (r PermissionRuleDataResource) Children(name ...string) fhirpath.Collection {
@@ -4453,6 +4445,10 @@ func (r PermissionRuleDataResource) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r PermissionRuleDataResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4489,14 +4485,8 @@ func (r PermissionRuleDataResource) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PermissionRuleDataResource",
-			Namespace: "FHIR",
-		},
+		Name:      "PermissionRuleDataResource",
+		Namespace: "FHIR",
 	}
 }
 func (r PermissionRuleActivity) Children(name ...string) fhirpath.Collection {
@@ -4585,6 +4575,10 @@ func (r PermissionRuleActivity) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r PermissionRuleActivity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4628,13 +4622,7 @@ func (r PermissionRuleActivity) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PermissionRuleActivity",
-			Namespace: "FHIR",
-		},
+		Name:      "PermissionRuleActivity",
+		Namespace: "FHIR",
 	}
 }

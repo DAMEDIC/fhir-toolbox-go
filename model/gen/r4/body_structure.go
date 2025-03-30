@@ -1314,6 +1314,10 @@ func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1427,13 +1431,7 @@ func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "BodyStructure",
-			Namespace: "FHIR",
-		},
+		Name:      "BodyStructure",
+		Namespace: "FHIR",
 	}
 }

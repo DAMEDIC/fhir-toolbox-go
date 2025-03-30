@@ -2075,6 +2075,10 @@ func (r Practitioner) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r Practitioner) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2202,14 +2206,8 @@ func (r Practitioner) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Practitioner",
-			Namespace: "FHIR",
-		},
+		Name:      "Practitioner",
+		Namespace: "FHIR",
 	}
 }
 func (r PractitionerQualification) Children(name ...string) fhirpath.Collection {
@@ -2301,6 +2299,10 @@ func (r PractitionerQualification) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r PractitionerQualification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2351,13 +2353,7 @@ func (r PractitionerQualification) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PractitionerQualification",
-			Namespace: "FHIR",
-		},
+		Name:      "PractitionerQualification",
+		Namespace: "FHIR",
 	}
 }

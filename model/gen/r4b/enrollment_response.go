@@ -1318,6 +1318,10 @@ func (r EnrollmentResponse) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r EnrollmentResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1431,13 +1435,7 @@ func (r EnrollmentResponse) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "EnrollmentResponse",
-			Namespace: "FHIR",
-		},
+		Name:      "EnrollmentResponse",
+		Namespace: "FHIR",
 	}
 }

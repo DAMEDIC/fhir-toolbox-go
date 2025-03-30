@@ -4332,6 +4332,10 @@ func (r Specimen) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r Specimen) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4501,14 +4505,8 @@ func (r Specimen) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Specimen",
-			Namespace: "FHIR",
-		},
+		Name:      "Specimen",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenFeature) Children(name ...string) fhirpath.Collection {
@@ -4588,6 +4586,10 @@ func (r SpecimenFeature) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r SpecimenFeature) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4624,14 +4626,8 @@ func (r SpecimenFeature) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenFeature",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenFeature",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenCollection) Children(name ...string) fhirpath.Collection {
@@ -4750,6 +4746,10 @@ func (r SpecimenCollection) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r SpecimenCollection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4835,14 +4835,8 @@ func (r SpecimenCollection) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenCollection",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenCollection",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenProcessing) Children(name ...string) fhirpath.Collection {
@@ -4936,6 +4930,10 @@ func (r SpecimenProcessing) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r SpecimenProcessing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4986,14 +4984,8 @@ func (r SpecimenProcessing) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenProcessing",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenProcessing",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenContainer) Children(name ...string) fhirpath.Collection {
@@ -5080,6 +5072,10 @@ func (r SpecimenContainer) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r SpecimenContainer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5123,13 +5119,7 @@ func (r SpecimenContainer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenContainer",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenContainer",
+		Namespace: "FHIR",
 	}
 }

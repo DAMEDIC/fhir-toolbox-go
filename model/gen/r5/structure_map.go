@@ -9465,6 +9465,10 @@ func (r StructureMap) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r StructureMap) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9669,14 +9673,8 @@ func (r StructureMap) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMap",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMap",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapStructure) Children(name ...string) fhirpath.Collection {
@@ -9766,6 +9764,10 @@ func (r StructureMapStructure) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r StructureMapStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9816,14 +9818,8 @@ func (r StructureMapStructure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapStructure",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapStructure",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapConst) Children(name ...string) fhirpath.Collection {
@@ -9907,6 +9903,10 @@ func (r StructureMapConst) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r StructureMapConst) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9943,14 +9943,8 @@ func (r StructureMapConst) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapConst",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapConst",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapGroup) Children(name ...string) fhirpath.Collection {
@@ -10052,6 +10046,10 @@ func (r StructureMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r StructureMapGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10116,14 +10114,8 @@ func (r StructureMapGroup) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapGroup",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapGroup",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapGroupInput) Children(name ...string) fhirpath.Collection {
@@ -10213,6 +10205,10 @@ func (r StructureMapGroupInput) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r StructureMapGroupInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10263,14 +10259,8 @@ func (r StructureMapGroupInput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapGroupInput",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapGroupInput",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapGroupRule) Children(name ...string) fhirpath.Collection {
@@ -10374,6 +10364,10 @@ func (r StructureMapGroupRule) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r StructureMapGroupRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10438,14 +10432,8 @@ func (r StructureMapGroupRule) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapGroupRule",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapGroupRule",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapGroupRuleSource) Children(name ...string) fhirpath.Collection {
@@ -10572,6 +10560,10 @@ func (r StructureMapGroupRuleSource) Equivalent(other fhirpath.Element, _noRever
 }
 func (r StructureMapGroupRuleSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10671,14 +10663,8 @@ func (r StructureMapGroupRuleSource) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapGroupRuleSource",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapGroupRuleSource",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapGroupRuleTarget) Children(name ...string) fhirpath.Collection {
@@ -10787,6 +10773,10 @@ func (r StructureMapGroupRuleTarget) Equivalent(other fhirpath.Element, _noRever
 }
 func (r StructureMapGroupRuleTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10858,14 +10848,8 @@ func (r StructureMapGroupRuleTarget) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapGroupRuleTarget",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapGroupRuleTarget",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapGroupRuleTargetParameter) Children(name ...string) fhirpath.Collection {
@@ -10942,6 +10926,10 @@ func (r StructureMapGroupRuleTargetParameter) Equivalent(other fhirpath.Element,
 }
 func (r StructureMapGroupRuleTargetParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10971,14 +10959,8 @@ func (r StructureMapGroupRuleTargetParameter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapGroupRuleTargetParameter",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapGroupRuleTargetParameter",
+		Namespace: "FHIR",
 	}
 }
 func (r StructureMapGroupRuleDependent) Children(name ...string) fhirpath.Collection {
@@ -11060,6 +11042,10 @@ func (r StructureMapGroupRuleDependent) Equivalent(other fhirpath.Element, _noRe
 }
 func (r StructureMapGroupRuleDependent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11096,13 +11082,7 @@ func (r StructureMapGroupRuleDependent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "StructureMapGroupRuleDependent",
-			Namespace: "FHIR",
-		},
+		Name:      "StructureMapGroupRuleDependent",
+		Namespace: "FHIR",
 	}
 }

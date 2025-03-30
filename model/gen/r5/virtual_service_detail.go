@@ -1049,6 +1049,10 @@ func (r VirtualServiceDetail) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r VirtualServiceDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1099,13 +1103,7 @@ func (r VirtualServiceDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "VirtualServiceDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "VirtualServiceDetail",
+		Namespace: "FHIR",
 	}
 }

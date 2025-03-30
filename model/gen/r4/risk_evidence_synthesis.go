@@ -5794,6 +5794,10 @@ func (r RiskEvidenceSynthesis) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r RiskEvidenceSynthesis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6068,14 +6072,8 @@ func (r RiskEvidenceSynthesis) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskEvidenceSynthesis",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskEvidenceSynthesis",
+		Namespace: "FHIR",
 	}
 }
 func (r RiskEvidenceSynthesisSampleSize) Children(name ...string) fhirpath.Collection {
@@ -6164,6 +6162,10 @@ func (r RiskEvidenceSynthesisSampleSize) Equivalent(other fhirpath.Element, _noR
 }
 func (r RiskEvidenceSynthesisSampleSize) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6207,14 +6209,8 @@ func (r RiskEvidenceSynthesisSampleSize) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskEvidenceSynthesisSampleSize",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskEvidenceSynthesisSampleSize",
+		Namespace: "FHIR",
 	}
 }
 func (r RiskEvidenceSynthesisRiskEstimate) Children(name ...string) fhirpath.Collection {
@@ -6323,6 +6319,10 @@ func (r RiskEvidenceSynthesisRiskEstimate) Equivalent(other fhirpath.Element, _n
 }
 func (r RiskEvidenceSynthesisRiskEstimate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6394,14 +6394,8 @@ func (r RiskEvidenceSynthesisRiskEstimate) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskEvidenceSynthesisRiskEstimate",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskEvidenceSynthesisRiskEstimate",
+		Namespace: "FHIR",
 	}
 }
 func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Children(name ...string) fhirpath.Collection {
@@ -6495,6 +6489,10 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equivalent(other fhi
 }
 func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6545,14 +6543,8 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) TypeInfo() fhirpath.
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskEvidenceSynthesisRiskEstimatePrecisionEstimate",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskEvidenceSynthesisRiskEstimatePrecisionEstimate",
+		Namespace: "FHIR",
 	}
 }
 func (r RiskEvidenceSynthesisCertainty) Children(name ...string) fhirpath.Collection {
@@ -6641,6 +6633,10 @@ func (r RiskEvidenceSynthesisCertainty) Equivalent(other fhirpath.Element, _noRe
 }
 func (r RiskEvidenceSynthesisCertainty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6684,14 +6680,8 @@ func (r RiskEvidenceSynthesisCertainty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskEvidenceSynthesisCertainty",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskEvidenceSynthesisCertainty",
+		Namespace: "FHIR",
 	}
 }
 func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Children(name ...string) fhirpath.Collection {
@@ -6780,6 +6770,10 @@ func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equivalent(other fh
 }
 func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6823,13 +6817,7 @@ func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) TypeInfo() fhirpath
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskEvidenceSynthesisCertaintyCertaintySubcomponent",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskEvidenceSynthesisCertaintyCertaintySubcomponent",
+		Namespace: "FHIR",
 	}
 }

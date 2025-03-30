@@ -5203,6 +5203,10 @@ func (r ConditionDefinition) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r ConditionDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5463,14 +5467,8 @@ func (r ConditionDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionDefinitionObservation) Children(name ...string) fhirpath.Collection {
@@ -5554,6 +5552,10 @@ func (r ConditionDefinitionObservation) Equivalent(other fhirpath.Element, _noRe
 }
 func (r ConditionDefinitionObservation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5590,14 +5592,8 @@ func (r ConditionDefinitionObservation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionDefinitionObservation",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionDefinitionObservation",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionDefinitionMedication) Children(name ...string) fhirpath.Collection {
@@ -5681,6 +5677,10 @@ func (r ConditionDefinitionMedication) Equivalent(other fhirpath.Element, _noRev
 }
 func (r ConditionDefinitionMedication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5717,14 +5717,8 @@ func (r ConditionDefinitionMedication) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionDefinitionMedication",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionDefinitionMedication",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionDefinitionPrecondition) Children(name ...string) fhirpath.Collection {
@@ -5809,6 +5803,10 @@ func (r ConditionDefinitionPrecondition) Equivalent(other fhirpath.Element, _noR
 }
 func (r ConditionDefinitionPrecondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5852,14 +5850,8 @@ func (r ConditionDefinitionPrecondition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionDefinitionPrecondition",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionDefinitionPrecondition",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionDefinitionQuestionnaire) Children(name ...string) fhirpath.Collection {
@@ -5939,6 +5931,10 @@ func (r ConditionDefinitionQuestionnaire) Equivalent(other fhirpath.Element, _no
 }
 func (r ConditionDefinitionQuestionnaire) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5975,14 +5971,8 @@ func (r ConditionDefinitionQuestionnaire) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionDefinitionQuestionnaire",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionDefinitionQuestionnaire",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionDefinitionPlan) Children(name ...string) fhirpath.Collection {
@@ -6064,6 +6054,10 @@ func (r ConditionDefinitionPlan) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r ConditionDefinitionPlan) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6100,13 +6094,7 @@ func (r ConditionDefinitionPlan) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionDefinitionPlan",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionDefinitionPlan",
+		Namespace: "FHIR",
 	}
 }

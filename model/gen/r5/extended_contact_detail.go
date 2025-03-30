@@ -641,6 +641,10 @@ func (r ExtendedContactDetail) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r ExtendedContactDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -698,13 +702,7 @@ func (r ExtendedContactDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExtendedContactDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "ExtendedContactDetail",
+		Namespace: "FHIR",
 	}
 }

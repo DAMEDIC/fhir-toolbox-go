@@ -5629,6 +5629,10 @@ func (r AdverseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r AdverseEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5854,14 +5858,8 @@ func (r AdverseEvent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEvent",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEvent",
+		Namespace: "FHIR",
 	}
 }
 func (r AdverseEventParticipant) Children(name ...string) fhirpath.Collection {
@@ -5943,6 +5941,10 @@ func (r AdverseEventParticipant) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r AdverseEventParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5979,14 +5981,8 @@ func (r AdverseEventParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEventParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEventParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r AdverseEventSuspectEntity) Children(name ...string) fhirpath.Collection {
@@ -6068,6 +6064,10 @@ func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r AdverseEventSuspectEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6104,14 +6104,8 @@ func (r AdverseEventSuspectEntity) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEventSuspectEntity",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEventSuspectEntity",
+		Namespace: "FHIR",
 	}
 }
 func (r AdverseEventSuspectEntityCausality) Children(name ...string) fhirpath.Collection {
@@ -6200,6 +6194,10 @@ func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element, _
 }
 func (r AdverseEventSuspectEntityCausality) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6243,14 +6241,8 @@ func (r AdverseEventSuspectEntityCausality) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEventSuspectEntityCausality",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEventSuspectEntityCausality",
+		Namespace: "FHIR",
 	}
 }
 func (r AdverseEventContributingFactor) Children(name ...string) fhirpath.Collection {
@@ -6327,6 +6319,10 @@ func (r AdverseEventContributingFactor) Equivalent(other fhirpath.Element, _noRe
 }
 func (r AdverseEventContributingFactor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6356,14 +6352,8 @@ func (r AdverseEventContributingFactor) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEventContributingFactor",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEventContributingFactor",
+		Namespace: "FHIR",
 	}
 }
 func (r AdverseEventPreventiveAction) Children(name ...string) fhirpath.Collection {
@@ -6440,6 +6430,10 @@ func (r AdverseEventPreventiveAction) Equivalent(other fhirpath.Element, _noReve
 }
 func (r AdverseEventPreventiveAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6469,14 +6463,8 @@ func (r AdverseEventPreventiveAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEventPreventiveAction",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEventPreventiveAction",
+		Namespace: "FHIR",
 	}
 }
 func (r AdverseEventMitigatingAction) Children(name ...string) fhirpath.Collection {
@@ -6553,6 +6541,10 @@ func (r AdverseEventMitigatingAction) Equivalent(other fhirpath.Element, _noReve
 }
 func (r AdverseEventMitigatingAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6582,14 +6574,8 @@ func (r AdverseEventMitigatingAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEventMitigatingAction",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEventMitigatingAction",
+		Namespace: "FHIR",
 	}
 }
 func (r AdverseEventSupportingInfo) Children(name ...string) fhirpath.Collection {
@@ -6666,6 +6652,10 @@ func (r AdverseEventSupportingInfo) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r AdverseEventSupportingInfo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6695,13 +6685,7 @@ func (r AdverseEventSupportingInfo) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdverseEventSupportingInfo",
-			Namespace: "FHIR",
-		},
+		Name:      "AdverseEventSupportingInfo",
+		Namespace: "FHIR",
 	}
 }

@@ -2326,6 +2326,10 @@ func (r Timing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...b
 }
 func (r Timing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2369,14 +2373,8 @@ func (r Timing) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "Timing",
-			Namespace: "FHIR",
-		},
+		Name:      "Timing",
+		Namespace: "FHIR",
 	}
 }
 func (r TimingRepeat) Children(name ...string) fhirpath.Collection {
@@ -2520,6 +2518,10 @@ func (r TimingRepeat) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r TimingRepeat) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2640,13 +2642,7 @@ func (r TimingRepeat) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TimingRepeat",
-			Namespace: "FHIR",
-		},
+		Name:      "TimingRepeat",
+		Namespace: "FHIR",
 	}
 }

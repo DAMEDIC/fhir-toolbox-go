@@ -7546,6 +7546,10 @@ func (r Evidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r Evidence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7778,14 +7782,8 @@ func (r Evidence) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Evidence",
-			Namespace: "FHIR",
-		},
+		Name:      "Evidence",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceVariableDefinition) Children(name ...string) fhirpath.Collection {
@@ -7887,6 +7885,10 @@ func (r EvidenceVariableDefinition) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r EvidenceVariableDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7951,14 +7953,8 @@ func (r EvidenceVariableDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceVariableDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceVariableDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceStatistic) Children(name ...string) fhirpath.Collection {
@@ -8082,6 +8078,10 @@ func (r EvidenceStatistic) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r EvidenceStatistic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8174,14 +8174,8 @@ func (r EvidenceStatistic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceStatistic",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceStatistic",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceStatisticSampleSize) Children(name ...string) fhirpath.Collection {
@@ -8280,6 +8274,10 @@ func (r EvidenceStatisticSampleSize) Equivalent(other fhirpath.Element, _noRever
 }
 func (r EvidenceStatisticSampleSize) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8337,14 +8335,8 @@ func (r EvidenceStatisticSampleSize) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceStatisticSampleSize",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceStatisticSampleSize",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceStatisticAttributeEstimate) Children(name ...string) fhirpath.Collection {
@@ -8453,6 +8445,10 @@ func (r EvidenceStatisticAttributeEstimate) Equivalent(other fhirpath.Element, _
 }
 func (r EvidenceStatisticAttributeEstimate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8524,14 +8520,8 @@ func (r EvidenceStatisticAttributeEstimate) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceStatisticAttributeEstimate",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceStatisticAttributeEstimate",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceStatisticModelCharacteristic) Children(name ...string) fhirpath.Collection {
@@ -8623,6 +8613,10 @@ func (r EvidenceStatisticModelCharacteristic) Equivalent(other fhirpath.Element,
 }
 func (r EvidenceStatisticModelCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8673,14 +8667,8 @@ func (r EvidenceStatisticModelCharacteristic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceStatisticModelCharacteristic",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceStatisticModelCharacteristic",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceStatisticModelCharacteristicVariable) Children(name ...string) fhirpath.Collection {
@@ -8777,6 +8765,10 @@ func (r EvidenceStatisticModelCharacteristicVariable) Equivalent(other fhirpath.
 }
 func (r EvidenceStatisticModelCharacteristicVariable) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8834,14 +8826,8 @@ func (r EvidenceStatisticModelCharacteristicVariable) TypeInfo() fhirpath.TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceStatisticModelCharacteristicVariable",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceStatisticModelCharacteristicVariable",
+		Namespace: "FHIR",
 	}
 }
 func (r EvidenceCertainty) Children(name ...string) fhirpath.Collection {
@@ -8945,6 +8931,10 @@ func (r EvidenceCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r EvidenceCertainty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9009,13 +8999,7 @@ func (r EvidenceCertainty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "EvidenceCertainty",
-			Namespace: "FHIR",
-		},
+		Name:      "EvidenceCertainty",
+		Namespace: "FHIR",
 	}
 }

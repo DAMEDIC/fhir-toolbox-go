@@ -2123,6 +2123,10 @@ func (r Organization) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r Organization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2250,14 +2254,8 @@ func (r Organization) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Organization",
-			Namespace: "FHIR",
-		},
+		Name:      "Organization",
+		Namespace: "FHIR",
 	}
 }
 func (r OrganizationContact) Children(name ...string) fhirpath.Collection {
@@ -2351,6 +2349,10 @@ func (r OrganizationContact) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r OrganizationContact) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2401,13 +2403,7 @@ func (r OrganizationContact) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "OrganizationContact",
-			Namespace: "FHIR",
-		},
+		Name:      "OrganizationContact",
+		Namespace: "FHIR",
 	}
 }

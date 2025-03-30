@@ -3340,6 +3340,10 @@ func (r AllergyIntolerance) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r AllergyIntolerance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3502,14 +3506,8 @@ func (r AllergyIntolerance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "AllergyIntolerance",
-			Namespace: "FHIR",
-		},
+		Name:      "AllergyIntolerance",
+		Namespace: "FHIR",
 	}
 }
 func (r AllergyIntoleranceParticipant) Children(name ...string) fhirpath.Collection {
@@ -3591,6 +3589,10 @@ func (r AllergyIntoleranceParticipant) Equivalent(other fhirpath.Element, _noRev
 }
 func (r AllergyIntoleranceParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3627,14 +3629,8 @@ func (r AllergyIntoleranceParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AllergyIntoleranceParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "AllergyIntoleranceParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r AllergyIntoleranceReaction) Children(name ...string) fhirpath.Collection {
@@ -3743,6 +3739,10 @@ func (r AllergyIntoleranceReaction) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r AllergyIntoleranceReaction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3814,13 +3814,7 @@ func (r AllergyIntoleranceReaction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AllergyIntoleranceReaction",
-			Namespace: "FHIR",
-		},
+		Name:      "AllergyIntoleranceReaction",
+		Namespace: "FHIR",
 	}
 }

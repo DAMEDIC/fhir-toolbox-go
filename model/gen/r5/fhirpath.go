@@ -15,35 +15,39 @@ func WithContext(ctx context.Context) context.Context {
 	return ctx
 }
 
-var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{
 	BaseType: fhirpath.TypeSpecifier{
 		Name:      "Any",
 		Namespace: "System",
 	},
 	Name:      "Base",
 	Namespace: "FHIR",
-}}, fhirpath.ClassInfo{SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+}, fhirpath.ClassInfo{
 	BaseType: fhirpath.TypeSpecifier{
 		Name:      "Base",
 		Namespace: "FHIR",
 	},
 	Name:      "Element",
 	Namespace: "FHIR",
-}}, fhirpath.ClassInfo{SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+}, fhirpath.ClassInfo{
 	BaseType: fhirpath.TypeSpecifier{
 		Name:      "Element",
 		Namespace: "FHIR",
 	},
 	Name:      "DataType",
 	Namespace: "FHIR",
-}}, fhirpath.ClassInfo{SimpleTypeInfo: fhirpath.SimpleTypeInfo{
+}, fhirpath.ClassInfo{
 	BaseType: fhirpath.TypeSpecifier{
 		Name:      "DataType",
 		Namespace: "FHIR",
 	},
 	Name:      "PrimitiveType",
 	Namespace: "FHIR",
-}}, fhirpath.ClassInfo{
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "Element",
+		Namespace: "FHIR",
+	},
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "modifierExtension",
 		Type: fhirpath.TypeSpecifier{
@@ -52,15 +56,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "Element",
-			Namespace: "FHIR",
-		},
-		Name:      "BackboneElement",
+	Name:      "BackboneElement",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "modifierExtension",
 		Type: fhirpath.TypeSpecifier{
@@ -69,15 +71,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "BackboneType",
+	Name:      "BackboneType",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "Base",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "id",
 		Type: fhirpath.TypeSpecifier{
@@ -103,15 +103,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "Base",
-			Namespace: "FHIR",
-		},
+	Name:      "Resource",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
 		Name:      "Resource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "id",
 		Type: fhirpath.TypeSpecifier{
@@ -164,15 +162,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "Resource",
-			Namespace: "FHIR",
-		},
-		Name:      "DomainResource",
+	Name:      "DomainResource",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -188,15 +184,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "base64Binary",
+	Name:      "base64Binary",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -212,15 +206,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "boolean",
+	Name:      "boolean",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -236,15 +228,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "canonical",
+	Name:      "canonical",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -260,15 +250,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "code",
+	Name:      "code",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -284,15 +272,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "date",
+	Name:      "date",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -308,15 +294,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "dateTime",
+	Name:      "dateTime",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -332,15 +316,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "decimal",
+	Name:      "decimal",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -356,15 +338,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "id",
+	Name:      "id",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -380,15 +360,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "instant",
+	Name:      "instant",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -404,15 +382,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "integer",
+	Name:      "integer",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -428,15 +404,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "integer64",
+	Name:      "integer64",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -452,15 +426,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "markdown",
+	Name:      "markdown",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -476,15 +448,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "oid",
+	Name:      "oid",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -500,15 +470,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "positiveInt",
+	Name:      "positiveInt",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -524,15 +492,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "string",
+	Name:      "string",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -548,15 +514,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "time",
+	Name:      "time",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -572,15 +536,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "unsignedInt",
+	Name:      "unsignedInt",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -596,15 +558,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "uri",
+	Name:      "uri",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -620,15 +580,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "url",
+	Name:      "url",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -644,15 +602,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "uuid",
+	Name:      "uuid",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "PrimitiveType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -661,15 +617,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
-			Namespace: "FHIR",
-		},
-		Name:      "xhtml",
+	Name:      "xhtml",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -755,15 +709,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Address",
+	Name:      "Address",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -814,15 +766,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Age",
+	Name:      "Age",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -859,15 +809,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Annotation",
+	Name:      "Annotation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -974,15 +922,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Attachment",
+	Name:      "Attachment",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1012,15 +958,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Availability",
+	Name:      "Availability",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1050,15 +994,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "CodeableConcept",
+	Name:      "CodeableConcept",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1088,15 +1030,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "CodeableReference",
+	Name:      "CodeableReference",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1147,15 +1087,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Coding",
+	Name:      "Coding",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1185,15 +1123,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "ContactDetail",
+	Name:      "ContactDetail",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1244,15 +1180,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "ContactPoint",
+	Name:      "ContactPoint",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1289,15 +1223,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Contributor",
+	Name:      "Contributor",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1348,15 +1280,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Count",
+	Name:      "Count",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1435,15 +1365,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "DataRequirement",
+	Name:      "DataRequirement",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1494,15 +1422,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Distance",
+	Name:      "Distance",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1623,15 +1549,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Dosage",
+	Name:      "Dosage",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1682,15 +1606,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Duration",
+	Name:      "Duration",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -1965,15 +1887,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "ElementDefinition",
+	Name:      "ElementDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2024,15 +1944,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Expression",
+	Name:      "Expression",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2090,15 +2008,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "ExtendedContactDetail",
+	Name:      "ExtendedContactDetail",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2128,15 +2044,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Extension",
+	Name:      "Extension",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2201,15 +2115,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "HumanName",
+	Name:      "HumanName",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2267,15 +2179,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Identifier",
+	Name:      "Identifier",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2333,15 +2243,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "MarketingStatus",
+	Name:      "MarketingStatus",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2399,15 +2307,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Meta",
+	Name:      "Meta",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2451,15 +2357,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "MonetaryComponent",
+	Name:      "MonetaryComponent",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2489,15 +2393,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Money",
+	Name:      "Money",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2527,15 +2429,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Narrative",
+	Name:      "Narrative",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2600,15 +2500,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "ParameterDefinition",
+	Name:      "ParameterDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2638,15 +2536,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Period",
+	Name:      "Period",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2690,15 +2586,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "ProductShelfLife",
+	Name:      "ProductShelfLife",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2749,15 +2643,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Quantity",
+	Name:      "Quantity",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2787,15 +2679,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Range",
+	Name:      "Range",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2825,15 +2715,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Ratio",
+	Name:      "Ratio",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2870,15 +2758,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "RatioRange",
+	Name:      "RatioRange",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -2922,15 +2808,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Reference",
+	Name:      "Reference",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3016,15 +2900,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "RelatedArtifact",
+	Name:      "RelatedArtifact",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3110,15 +2992,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "SampledData",
+	Name:      "SampledData",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3183,15 +3063,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Signature",
+	Name:      "Signature",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3235,15 +3113,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "Timing",
+	Name:      "Timing",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3308,15 +3184,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "TriggerDefinition",
+	Name:      "TriggerDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3346,15 +3220,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "UsageContext",
+	Name:      "UsageContext",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3405,15 +3277,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "VirtualServiceDetail",
+	Name:      "VirtualServiceDetail",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3464,15 +3334,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "MoneyQuantity",
+	Name:      "MoneyQuantity",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DataType",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3516,15 +3384,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
-			Namespace: "FHIR",
-		},
-		Name:      "SimpleQuantity",
+	Name:      "SimpleQuantity",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -3701,15 +3567,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Account",
+	Name:      "Account",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -4110,15 +3974,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ActivityDefinition",
+	Name:      "ActivityDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -4330,15 +4192,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ActorDefinition",
+	Name:      "ActorDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -4473,15 +4333,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "AdministrableProductDefinition",
+	Name:      "AdministrableProductDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -4707,15 +4565,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "AdverseEvent",
+	Name:      "AdverseEvent",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -4878,15 +4734,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "AllergyIntolerance",
+	Name:      "AllergyIntolerance",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -5168,15 +5022,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Appointment",
+	Name:      "Appointment",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -5318,15 +5170,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "AppointmentResponse",
+	Name:      "AppointmentResponse",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -5461,15 +5311,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ArtifactAssessment",
+	Name:      "ArtifactAssessment",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -5625,15 +5473,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "AuditEvent",
+	Name:      "AuditEvent",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -5726,15 +5572,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Basic",
+	Name:      "Basic",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -5785,15 +5629,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Binary",
+	Name:      "Binary",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -5942,15 +5784,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "BiologicallyDerivedProduct",
+	Name:      "BiologicallyDerivedProduct",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -6120,15 +5960,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "BiologicallyDerivedProductDispense",
+	Name:      "BiologicallyDerivedProductDispense",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -6242,15 +6080,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "BodyStructure",
+	Name:      "BodyStructure",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -6336,15 +6172,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Bundle",
+	Name:      "Bundle",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -6612,15 +6446,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CapabilityStatement",
+	Name:      "CapabilityStatement",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -6839,15 +6671,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CarePlan",
+	Name:      "CarePlan",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -6982,15 +6812,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CareTeam",
+	Name:      "CareTeam",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -7230,15 +7058,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ChargeItem",
+	Name:      "ChargeItem",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -7478,15 +7304,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ChargeItemDefinition",
+	Name:      "ChargeItemDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -7761,15 +7585,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Citation",
+	Name:      "Citation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -8051,15 +7873,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Claim",
+	Name:      "Claim",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -8341,15 +8161,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ClaimResponse",
+	Name:      "ClaimResponse",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -8540,15 +8358,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ClinicalImpression",
+	Name:      "ClinicalImpression",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -8690,15 +8506,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ClinicalUseDefinition",
+	Name:      "ClinicalUseDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -9015,15 +8829,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CodeSystem",
+	Name:      "CodeSystem",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -9235,15 +9047,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Communication",
+	Name:      "Communication",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -9455,15 +9265,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CommunicationRequest",
+	Name:      "CommunicationRequest",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -9633,15 +9441,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CompartmentDefinition",
+	Name:      "CompartmentDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -9832,15 +9638,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Composition",
+	Name:      "Composition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -10115,15 +9919,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ConceptMap",
+	Name:      "ConceptMap",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -10293,15 +10095,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Condition",
+	Name:      "Condition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -10562,15 +10362,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ConditionDefinition",
+	Name:      "ConditionDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -10754,15 +10552,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Consent",
+	Name:      "Consent",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -11051,15 +10847,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Contract",
+	Name:      "Contract",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -11257,15 +11051,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Coverage",
+	Name:      "Coverage",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -11428,15 +11220,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CoverageEligibilityRequest",
+	Name:      "CoverageEligibilityRequest",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -11606,15 +11396,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "CoverageEligibilityResponse",
+	Name:      "CoverageEligibilityResponse",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -11770,15 +11558,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DetectedIssue",
+	Name:      "DetectedIssue",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -12060,15 +11846,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Device",
+	Name:      "Device",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -12189,15 +11973,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DeviceAssociation",
+	Name:      "DeviceAssociation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -12437,15 +12219,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DeviceDefinition",
+	Name:      "DeviceDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -12650,15 +12430,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DeviceDispense",
+	Name:      "DeviceDispense",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -12779,15 +12557,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DeviceMetric",
+	Name:      "DeviceMetric",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -13027,15 +12803,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DeviceRequest",
+	Name:      "DeviceRequest",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -13212,15 +12986,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DeviceUsage",
+	Name:      "DeviceUsage",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -13425,15 +13197,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DiagnosticReport",
+	Name:      "DiagnosticReport",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -13652,15 +13422,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "DocumentReference",
+	Name:      "DocumentReference",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -13914,15 +13682,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Encounter",
+	Name:      "Encounter",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -14071,15 +13837,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "EncounterHistory",
+	Name:      "EncounterHistory",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -14221,15 +13985,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Endpoint",
+	Name:      "Endpoint",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -14336,15 +14098,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "EnrollmentRequest",
+	Name:      "EnrollmentRequest",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -14458,15 +14218,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "EnrollmentResponse",
+	Name:      "EnrollmentResponse",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -14615,15 +14373,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "EpisodeOfCare",
+	Name:      "EpisodeOfCare",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -14891,15 +14647,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "EventDefinition",
+	Name:      "EventDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -15174,15 +14928,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Evidence",
+	Name:      "Evidence",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -15366,15 +15118,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "EvidenceReport",
+	Name:      "EvidenceReport",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -15642,15 +15392,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "EvidenceVariable",
+	Name:      "EvidenceVariable",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -15848,15 +15596,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ExampleScenario",
+	Name:      "ExampleScenario",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -16257,15 +16003,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ExplanationOfBenefit",
+	Name:      "ExplanationOfBenefit",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -16456,15 +16200,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "FamilyMemberHistory",
+	Name:      "FamilyMemberHistory",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -16578,15 +16320,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Flag",
+	Name:      "Flag",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -16665,15 +16405,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "FormularyItem",
+	Name:      "FormularyItem",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -16836,15 +16574,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "GenomicStudy",
+	Name:      "GenomicStudy",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -17014,15 +16750,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Goal",
+	Name:      "Goal",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -17220,15 +16954,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "GraphDefinition",
+	Name:      "GraphDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -17363,15 +17095,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Group",
+	Name:      "Group",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -17527,15 +17257,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "GuidanceResponse",
+	Name:      "GuidanceResponse",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -17754,15 +17482,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "HealthcareService",
+	Name:      "HealthcareService",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -17939,15 +17665,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ImagingSelection",
+	Name:      "ImagingSelection",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -18131,15 +17855,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ImagingStudy",
+	Name:      "ImagingStudy",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -18393,15 +18115,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Immunization",
+	Name:      "Immunization",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -18550,15 +18270,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ImmunizationEvaluation",
+	Name:      "ImmunizationEvaluation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -18651,15 +18369,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ImmunizationRecommendation",
+	Name:      "ImmunizationRecommendation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -18885,15 +18601,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ImplementationGuide",
+	Name:      "ImplementationGuide",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -19021,15 +18735,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Ingredient",
+	Name:      "Ingredient",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -19185,15 +18897,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "InsurancePlan",
+	Name:      "InsurancePlan",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -19349,15 +19059,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "InventoryItem",
+	Name:      "InventoryItem",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -19485,15 +19193,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "InventoryReport",
+	Name:      "InventoryReport",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -19677,15 +19383,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Invoice",
+	Name:      "Invoice",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -19974,15 +19678,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Library",
+	Name:      "Library",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -20061,15 +19763,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Linkage",
+	Name:      "Linkage",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -20218,15 +19918,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "List",
+	Name:      "List",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -20410,15 +20108,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Location",
+	Name:      "Location",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -20546,15 +20242,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ManufacturedItemDefinition",
+	Name:      "ManufacturedItemDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -20927,15 +20621,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Measure",
+	Name:      "Measure",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -21112,15 +20804,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MeasureReport",
+	Name:      "MeasureReport",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -21241,15 +20931,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Medication",
+	Name:      "Medication",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -21454,15 +21142,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MedicationAdministration",
+	Name:      "MedicationAdministration",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -21709,15 +21395,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MedicationDispense",
+	Name:      "MedicationDispense",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -21915,15 +21599,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MedicationKnowledge",
+	Name:      "MedicationKnowledge",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -22212,15 +21894,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MedicationRequest",
+	Name:      "MedicationRequest",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -22397,15 +22077,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MedicationStatement",
+	Name:      "MedicationStatement",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -22666,15 +22344,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MedicinalProductDefinition",
+	Name:      "MedicinalProductDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -22914,15 +22590,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MessageDefinition",
+	Name:      "MessageDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -23050,15 +22724,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MessageHeader",
+	Name:      "MessageHeader",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -23186,15 +22858,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "MolecularSequence",
+	Name:      "MolecularSequence",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -23469,15 +23139,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "NamingSystem",
+	Name:      "NamingSystem",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -23675,15 +23343,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "NutritionIntake",
+	Name:      "NutritionIntake",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -23902,15 +23568,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "NutritionOrder",
+	Name:      "NutritionOrder",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -24038,15 +23702,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "NutritionProduct",
+	Name:      "NutritionProduct",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -24293,15 +23955,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Observation",
+	Name:      "Observation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -24618,15 +24278,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ObservationDefinition",
+	Name:      "ObservationDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -24894,15 +24552,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "OperationDefinition",
+	Name:      "OperationDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -24967,15 +24623,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "OperationOutcome",
+	Name:      "OperationOutcome",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -25103,15 +24757,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Organization",
+	Name:      "Organization",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -25253,15 +24905,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "OrganizationAffiliation",
+	Name:      "OrganizationAffiliation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -25424,15 +25074,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "PackagedProductDefinition",
+	Name:      "PackagedProductDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -25469,15 +25117,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Parameters",
+	Name:      "Parameters",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -25647,15 +25293,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Patient",
+	Name:      "Patient",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -25797,15 +25441,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "PaymentNotice",
+	Name:      "PaymentNotice",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -26066,15 +25708,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "PaymentReconciliation",
+	Name:      "PaymentReconciliation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -26181,15 +25821,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Permission",
+	Name:      "Permission",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -26338,15 +25976,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Person",
+	Name:      "Person",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -26649,15 +26285,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "PlanDefinition",
+	Name:      "PlanDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -26792,15 +26426,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Practitioner",
+	Name:      "Practitioner",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -26956,15 +26588,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "PractitionerRole",
+	Name:      "PractitionerRole",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -27218,15 +26848,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Procedure",
+	Name:      "Procedure",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -27375,15 +27003,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Provenance",
+	Name:      "Provenance",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -27609,15 +27235,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Questionnaire",
+	Name:      "Questionnaire",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -27752,15 +27376,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "QuestionnaireResponse",
+	Name:      "QuestionnaireResponse",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -27923,15 +27545,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "RegulatedAuthorization",
+	Name:      "RegulatedAuthorization",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -28073,15 +27693,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "RelatedPerson",
+	Name:      "RelatedPerson",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -28265,15 +27883,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "RequestOrchestration",
+	Name:      "RequestOrchestration",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -28478,15 +28094,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Requirements",
+	Name:      "Requirements",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -28768,15 +28382,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ResearchStudy",
+	Name:      "ResearchStudy",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -28897,15 +28509,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ResearchSubject",
+	Name:      "ResearchSubject",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -29075,15 +28685,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "RiskAssessment",
+	Name:      "RiskAssessment",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -29204,15 +28812,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Schedule",
+	Name:      "Schedule",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -29487,15 +29093,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SearchParameter",
+	Name:      "SearchParameter",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -29784,15 +29388,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ServiceRequest",
+	Name:      "ServiceRequest",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -29927,15 +29529,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Slot",
+	Name:      "Slot",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -30105,15 +29705,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Specimen",
+	Name:      "Specimen",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -30367,15 +29965,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SpecimenDefinition",
+	Name:      "SpecimenDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -30636,15 +30232,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "StructureDefinition",
+	Name:      "StructureDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -30849,15 +30443,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "StructureMap",
+	Name:      "StructureMap",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -31034,15 +30626,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Subscription",
+	Name:      "Subscription",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -31149,15 +30739,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubscriptionStatus",
+	Name:      "SubscriptionStatus",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -31390,15 +30978,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubscriptionTopic",
+	Name:      "SubscriptionTopic",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -31519,15 +31105,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Substance",
+	Name:      "Substance",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -31753,15 +31337,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubstanceDefinition",
+	Name:      "SubstanceDefinition",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -31854,15 +31436,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubstanceNucleicAcid",
+	Name:      "SubstanceNucleicAcid",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -31969,15 +31549,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubstancePolymer",
+	Name:      "SubstancePolymer",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -32063,15 +31641,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubstanceProtein",
+	Name:      "SubstanceProtein",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -32157,15 +31733,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubstanceReferenceInformation",
+	Name:      "SubstanceReferenceInformation",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -32314,15 +31888,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SubstanceSourceMaterial",
+	Name:      "SubstanceSourceMaterial",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -32457,15 +32029,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SupplyDelivery",
+	Name:      "SupplyDelivery",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -32635,15 +32205,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "SupplyRequest",
+	Name:      "SupplyRequest",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -32932,15 +32500,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Task",
+	Name:      "Task",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -33187,15 +32753,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "TerminologyCapabilities",
+	Name:      "TerminologyCapabilities",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -33414,15 +32978,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "TestPlan",
+	Name:      "TestPlan",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -33564,15 +33126,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "TestReport",
+	Name:      "TestReport",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -33819,15 +33379,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "TestScript",
+	Name:      "TestScript",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -34109,15 +33667,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "Transport",
+	Name:      "Transport",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -34385,15 +33941,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "ValueSet",
+	Name:      "ValueSet",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -34549,15 +34103,13 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "VerificationResult",
+	Name:      "VerificationResult",
+	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
 		Namespace: "FHIR",
 	},
-}, fhirpath.ClassInfo{
 	Element: []fhirpath.ClassInfoElement{{
 		Name: "Id",
 		Type: fhirpath.TypeSpecifier{
@@ -34671,13 +34223,7 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{SimpleTypeInfo: fh
 			Namespace: "FHIR",
 		},
 	}},
-	SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DomainResource",
-			Namespace: "FHIR",
-		},
-		Name:      "VisionPrescription",
-		Namespace: "FHIR",
-	},
+	Name:      "VisionPrescription",
+	Namespace: "FHIR",
 }}
 var fhirFunctions = fhirpath.Functions{}

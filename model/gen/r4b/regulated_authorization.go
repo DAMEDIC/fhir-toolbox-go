@@ -2315,6 +2315,10 @@ func (r RegulatedAuthorization) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r RegulatedAuthorization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2470,14 +2474,8 @@ func (r RegulatedAuthorization) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "RegulatedAuthorization",
-			Namespace: "FHIR",
-		},
+		Name:      "RegulatedAuthorization",
+		Namespace: "FHIR",
 	}
 }
 func (r RegulatedAuthorizationCase) Children(name ...string) fhirpath.Collection {
@@ -2576,6 +2574,10 @@ func (r RegulatedAuthorizationCase) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r RegulatedAuthorizationCase) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2633,13 +2635,7 @@ func (r RegulatedAuthorizationCase) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RegulatedAuthorizationCase",
-			Namespace: "FHIR",
-		},
+		Name:      "RegulatedAuthorizationCase",
+		Namespace: "FHIR",
 	}
 }

@@ -436,6 +436,10 @@ func (r RatioRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r RatioRange) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -472,13 +476,7 @@ func (r RatioRange) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RatioRange",
-			Namespace: "FHIR",
-		},
+		Name:      "RatioRange",
+		Namespace: "FHIR",
 	}
 }

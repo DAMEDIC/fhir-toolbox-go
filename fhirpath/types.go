@@ -33,6 +33,7 @@ type Element interface {
 	Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool)
 	Equivalent(other Element, _noReverseTypeConversion ...bool) bool
 	TypeInfo() TypeInfo
+	json.Marshaler
 	fmt.Stringer
 }
 
@@ -116,9 +117,9 @@ type TypeInfo interface {
 
 type SimpleTypeInfo struct {
 	defaultConversionError[SimpleTypeInfo]
-	Namespace string
-	Name      string
-	BaseType  TypeSpecifier
+	Namespace string        `json:"namespace"`
+	Name      string        `json:"name"`
+	BaseType  TypeSpecifier `json:"baseType"`
 }
 
 func (i SimpleTypeInfo) QualifiedName() (TypeSpecifier, bool) {
@@ -149,17 +150,19 @@ func (i SimpleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bo
 }
 func (i SimpleTypeInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
-		SimpleTypeInfo: SimpleTypeInfo{
-			Namespace: "System",
-			Name:      "SimpleTypeInfo",
-			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
-		},
+		Namespace: "System",
+		Name:      "SimpleTypeInfo",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 		Element: []ClassInfoElement{
 			{Name: "namespace", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
 			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
 			{Name: "baseType", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
 		},
 	}
+}
+func (i SimpleTypeInfo) MarshalJSON() ([]byte, error) {
+	type alias SimpleTypeInfo
+	return json.Marshal(alias(i))
 }
 func (i SimpleTypeInfo) String() string {
 	buf, err := json.MarshalIndent(i, "", "  ")
@@ -171,8 +174,10 @@ func (i SimpleTypeInfo) String() string {
 
 type ClassInfo struct {
 	defaultConversionError[ClassInfo]
-	SimpleTypeInfo
-	Element []ClassInfoElement
+	Namespace string             `json:"namespace"`
+	Name      string             `json:"name"`
+	BaseType  TypeSpecifier      `json:"baseType"`
+	Element   []ClassInfoElement `json:"element"`
 }
 
 func (i ClassInfo) QualifiedName() (TypeSpecifier, bool) {
@@ -204,7 +209,13 @@ func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bo
 	if !ok {
 		return false, true
 	}
-	if i.SimpleTypeInfo != o.SimpleTypeInfo {
+	if i.Namespace != o.Namespace {
+		return false, true
+	}
+	if i.Name != o.Name {
+		return false, true
+	}
+	if i.BaseType != o.BaseType {
 		return false, true
 	}
 	if len(i.Element) != len(o.Element) {
@@ -223,11 +234,9 @@ func (i ClassInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) b
 }
 func (i ClassInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
-		SimpleTypeInfo: SimpleTypeInfo{
-			Namespace: "System",
-			Name:      "ClassInfo",
-			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
-		},
+		Namespace: "System",
+		Name:      "ClassInfo",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 		Element: []ClassInfoElement{
 			{Name: "namespace", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
 			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
@@ -235,6 +244,10 @@ func (i ClassInfo) TypeInfo() TypeInfo {
 			{Name: "element", Type: TypeSpecifier{Namespace: "System", Name: "ClassInfoElement"}},
 		},
 	}
+}
+func (i ClassInfo) MarshalJSON() ([]byte, error) {
+	type alias ClassInfo
+	return json.Marshal(alias(i))
 }
 func (i ClassInfo) String() string {
 	buf, err := json.MarshalIndent(i, "", "  ")
@@ -246,9 +259,9 @@ func (i ClassInfo) String() string {
 
 type ClassInfoElement struct {
 	defaultConversionError[ClassInfoElement]
-	Name       string
-	Type       TypeSpecifier
-	IsOneBased bool
+	Name       string        `json:"name"`
+	Type       TypeSpecifier `json:"type"`
+	IsOneBased bool          `json:"isOneBased"`
 }
 
 func (i ClassInfoElement) Children(name ...string) Collection {
@@ -273,17 +286,19 @@ func (i ClassInfoElement) Equivalent(other Element, _noReverseTypeConversion ...
 }
 func (i ClassInfoElement) TypeInfo() TypeInfo {
 	return ClassInfo{
-		SimpleTypeInfo: SimpleTypeInfo{
-			Namespace: "System",
-			Name:      "ClassInfoElement",
-			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
-		},
+		Namespace: "System",
+		Name:      "ClassInfoElement",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 		Element: []ClassInfoElement{
 			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
 			{Name: "type", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
 			{Name: "isOneBased", Type: TypeSpecifier{Namespace: "System", Name: "Boolean"}},
 		},
 	}
+}
+func (i ClassInfoElement) MarshalJSON() ([]byte, error) {
+	type alias ClassInfoElement
+	return json.Marshal(alias(i))
 }
 func (i ClassInfoElement) String() string {
 	buf, err := json.MarshalIndent(i, "", "  ")
@@ -295,7 +310,7 @@ func (i ClassInfoElement) String() string {
 
 type ListTypeInfo struct {
 	defaultConversionError[ListTypeInfo]
-	ElementType TypeSpecifier
+	ElementType TypeSpecifier `json:"elementType"`
 }
 
 func (i ListTypeInfo) QualifiedName() (TypeSpecifier, bool) {
@@ -320,15 +335,17 @@ func (i ListTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool
 }
 func (i ListTypeInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
-		SimpleTypeInfo: SimpleTypeInfo{
-			Namespace: "System",
-			Name:      "ListTypeInfo",
-			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
-		},
+		Namespace: "System",
+		Name:      "ListTypeInfo",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 		Element: []ClassInfoElement{
 			{Name: "elementType", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
 		},
 	}
+}
+func (i ListTypeInfo) MarshalJSON() ([]byte, error) {
+	type alias ListTypeInfo
+	return json.Marshal(alias(i))
 }
 func (i ListTypeInfo) String() string {
 	buf, err := json.MarshalIndent(i, "", "  ")
@@ -340,7 +357,7 @@ func (i ListTypeInfo) String() string {
 
 type TupleTypeInfo struct {
 	defaultConversionError[TupleTypeInfo]
-	Element []TupleTypeInfoElement
+	Element []TupleTypeInfoElement `json:"element"`
 }
 
 func (i TupleTypeInfo) QualifiedName() (TypeSpecifier, bool) {
@@ -379,15 +396,17 @@ func (i TupleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...boo
 }
 func (i TupleTypeInfo) TypeInfo() TypeInfo {
 	return ClassInfo{
-		SimpleTypeInfo: SimpleTypeInfo{
-			Namespace: "System",
-			Name:      "TupleTypeInfo",
-			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
-		},
+		Namespace: "System",
+		Name:      "TupleTypeInfo",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 		Element: []ClassInfoElement{
 			{Name: "element", Type: TypeSpecifier{Namespace: "System", Name: "TupleTypeInfoElement"}},
 		},
 	}
+}
+func (i TupleTypeInfo) MarshalJSON() ([]byte, error) {
+	type alias TupleTypeInfo
+	return json.Marshal(alias(i))
 }
 func (i TupleTypeInfo) String() string {
 	buf, err := json.MarshalIndent(i, "", "  ")
@@ -399,9 +418,9 @@ func (i TupleTypeInfo) String() string {
 
 type TupleTypeInfoElement struct {
 	defaultConversionError[TupleTypeInfoElement]
-	Name       string
-	Type       TypeSpecifier
-	IsOneBased bool
+	Name       string        `json:"name"`
+	Type       TypeSpecifier `json:"type"`
+	IsOneBased bool          `json:"isOneBased"`
 }
 
 func (i TupleTypeInfoElement) Children(name ...string) Collection {
@@ -426,17 +445,19 @@ func (i TupleTypeInfoElement) Equivalent(other Element, _noReverseTypeConversion
 }
 func (i TupleTypeInfoElement) TypeInfo() TypeInfo {
 	return ClassInfo{
-		SimpleTypeInfo: SimpleTypeInfo{
-			Namespace: "System",
-			Name:      "TupleTypeInfoElement",
-			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
-		},
+		Namespace: "System",
+		Name:      "TupleTypeInfoElement",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 		Element: []ClassInfoElement{
 			{Name: "name", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
 			{Name: "type", Type: TypeSpecifier{Namespace: "System", Name: "TypeSpecifier"}},
 			{Name: "isOneBased", Type: TypeSpecifier{Namespace: "System", Name: "Boolean"}},
 		},
 	}
+}
+func (i TupleTypeInfoElement) MarshalJSON() ([]byte, error) {
+	type alias TupleTypeInfoElement
+	return json.Marshal(alias(i))
 }
 func (i TupleTypeInfoElement) String() string {
 	buf, err := json.MarshalIndent(i, "", "  ")
@@ -489,7 +510,9 @@ func (t TypeSpecifier) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
-
+func (t TypeSpecifier) MarshalJSON() ([]byte, error) {
+	return json.Marshal(t.String())
+}
 func (t TypeSpecifier) String() string {
 	var s string
 	if t.Namespace != "" {
@@ -1122,6 +1145,9 @@ func (b Boolean) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
+func (b Boolean) MarshalJSON() ([]byte, error) {
+	return json.Marshal(bool(b))
+}
 func (b Boolean) String() string {
 	return strconv.FormatBool(bool(b))
 }
@@ -1253,6 +1279,9 @@ func (s String) TypeInfo() TypeInfo {
 		Name:      "String",
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
+}
+func (s String) MarshalJSON() ([]byte, error) {
+	return json.Marshal(string(s))
 }
 func (s String) String() string {
 	return fmt.Sprintf("'%s'", string(s))
@@ -1421,6 +1450,9 @@ func (i Integer) TypeInfo() TypeInfo {
 		Name:      "Integer",
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
+}
+func (i Integer) MarshalJSON() ([]byte, error) {
+	return json.Marshal(int32(i))
 }
 func (i Integer) String() string {
 	return strconv.Itoa(int(i))
@@ -1593,6 +1625,9 @@ func (d Decimal) TypeInfo() TypeInfo {
 		Name:      "Decimal",
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
+}
+func (d Decimal) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.Value)
 }
 func (d Decimal) String() string {
 	return d.Value.Text('f')
@@ -1818,6 +1853,9 @@ func (d Date) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
+func (d Date) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.String())
+}
 func (d Date) String() string {
 	var ds string
 	switch d.Precision {
@@ -2009,6 +2047,9 @@ func (t Time) TypeInfo() TypeInfo {
 		Name:      "Time",
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
+}
+func (t Time) MarshalJSON() ([]byte, error) {
+	return json.Marshal(t.String())
 }
 func (t Time) String() string {
 	var ts string
@@ -2300,6 +2341,9 @@ func (dt DateTime) TypeInfo() TypeInfo {
 		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
+func (d DateTime) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.String())
+}
 func (dt DateTime) String() string {
 	var ds, ts string
 	switch dt.Precision {
@@ -2496,14 +2540,7 @@ type Quantity struct {
 }
 
 func (q Quantity) Children(name ...string) Collection {
-	var children Collection
-	if len(name) == 0 || slices.Contains(name, "value") {
-		children = append(children, q.Value)
-	}
-	if len(name) == 0 || slices.Contains(name, "unit") {
-		children = append(children, q.Unit)
-	}
-	return children
+	return nil
 }
 func (q Quantity) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(q.String()), true, nil
@@ -2640,17 +2677,14 @@ func (q Quantity) dateAsUCUM() Quantity {
 	return q
 }
 func (q Quantity) TypeInfo() TypeInfo {
-	return ClassInfo{
-		SimpleTypeInfo: SimpleTypeInfo{
-			Namespace: "System",
-			Name:      "Quantity",
-			BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
-		},
-		Element: []ClassInfoElement{
-			{Name: "Value", Type: TypeSpecifier{Namespace: "System", Name: "Decimal"}},
-			{Name: "Unit", Type: TypeSpecifier{Namespace: "System", Name: "String"}},
-		},
+	return SimpleTypeInfo{
+		Namespace: "System",
+		Name:      "Quantity",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
+}
+func (q Quantity) MarshalJSON() ([]byte, error) {
+	return json.Marshal(q.String())
 }
 func (q Quantity) String() string {
 	return fmt.Sprintf("%s %s", q.Value.String(), q.Unit)

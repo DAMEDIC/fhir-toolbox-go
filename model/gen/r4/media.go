@@ -2331,6 +2331,10 @@ func (r Media) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bo
 }
 func (r Media) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2542,13 +2546,7 @@ func (r Media) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Media",
-			Namespace: "FHIR",
-		},
+		Name:      "Media",
+		Namespace: "FHIR",
 	}
 }

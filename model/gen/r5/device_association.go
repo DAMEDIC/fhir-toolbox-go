@@ -1769,6 +1769,10 @@ func (r DeviceAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r DeviceAssociation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1889,14 +1893,8 @@ func (r DeviceAssociation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceAssociation",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceAssociation",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceAssociationOperation) Children(name ...string) fhirpath.Collection {
@@ -1983,6 +1981,10 @@ func (r DeviceAssociationOperation) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r DeviceAssociationOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2026,13 +2028,7 @@ func (r DeviceAssociationOperation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceAssociationOperation",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceAssociationOperation",
+		Namespace: "FHIR",
 	}
 }

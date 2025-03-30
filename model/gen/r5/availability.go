@@ -1392,6 +1392,10 @@ func (r Availability) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r Availability) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1421,14 +1425,8 @@ func (r Availability) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "Availability",
-			Namespace: "FHIR",
-		},
+		Name:      "Availability",
+		Namespace: "FHIR",
 	}
 }
 func (r AvailabilityAvailableTime) Children(name ...string) fhirpath.Collection {
@@ -1517,6 +1515,10 @@ func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r AvailabilityAvailableTime) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1560,14 +1562,8 @@ func (r AvailabilityAvailableTime) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AvailabilityAvailableTime",
-			Namespace: "FHIR",
-		},
+		Name:      "AvailabilityAvailableTime",
+		Namespace: "FHIR",
 	}
 }
 func (r AvailabilityNotAvailableTime) Children(name ...string) fhirpath.Collection {
@@ -1646,6 +1642,10 @@ func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element, _noReve
 }
 func (r AvailabilityNotAvailableTime) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1675,13 +1675,7 @@ func (r AvailabilityNotAvailableTime) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AvailabilityNotAvailableTime",
-			Namespace: "FHIR",
-		},
+		Name:      "AvailabilityNotAvailableTime",
+		Namespace: "FHIR",
 	}
 }

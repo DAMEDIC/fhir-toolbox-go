@@ -8602,6 +8602,10 @@ func (r Measure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...
 }
 func (r Measure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8974,14 +8978,8 @@ func (r Measure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Measure",
-			Namespace: "FHIR",
-		},
+		Name:      "Measure",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureTerm) Children(name ...string) fhirpath.Collection {
@@ -9065,6 +9063,10 @@ func (r MeasureTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r MeasureTerm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9101,14 +9103,8 @@ func (r MeasureTerm) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureTerm",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureTerm",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureGroup) Children(name ...string) fhirpath.Collection {
@@ -9247,6 +9243,10 @@ func (r MeasureGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r MeasureGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9360,14 +9360,8 @@ func (r MeasureGroup) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureGroup",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureGroup",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureGroupPopulation) Children(name ...string) fhirpath.Collection {
@@ -9476,6 +9470,10 @@ func (r MeasureGroupPopulation) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r MeasureGroupPopulation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9547,14 +9545,8 @@ func (r MeasureGroupPopulation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureGroupPopulation",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureGroupPopulation",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureGroupStratifier) Children(name ...string) fhirpath.Collection {
@@ -9658,6 +9650,10 @@ func (r MeasureGroupStratifier) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r MeasureGroupStratifier) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9722,14 +9718,8 @@ func (r MeasureGroupStratifier) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureGroupStratifier",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureGroupStratifier",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureGroupStratifierComponent) Children(name ...string) fhirpath.Collection {
@@ -9828,6 +9818,10 @@ func (r MeasureGroupStratifierComponent) Equivalent(other fhirpath.Element, _noR
 }
 func (r MeasureGroupStratifierComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9885,14 +9879,8 @@ func (r MeasureGroupStratifierComponent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureGroupStratifierComponent",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureGroupStratifierComponent",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureSupplementalData) Children(name ...string) fhirpath.Collection {
@@ -9989,6 +9977,10 @@ func (r MeasureSupplementalData) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r MeasureSupplementalData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10046,13 +10038,7 @@ func (r MeasureSupplementalData) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureSupplementalData",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureSupplementalData",
+		Namespace: "FHIR",
 	}
 }

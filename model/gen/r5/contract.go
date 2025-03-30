@@ -16356,6 +16356,10 @@ func (r Contract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r Contract) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16644,14 +16648,8 @@ func (r Contract) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Contract",
-			Namespace: "FHIR",
-		},
+		Name:      "Contract",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractContentDefinition) Children(name ...string) fhirpath.Collection {
@@ -16751,6 +16749,10 @@ func (r ContractContentDefinition) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ContractContentDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16815,14 +16817,8 @@ func (r ContractContentDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractContentDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractContentDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTerm) Children(name ...string) fhirpath.Collection {
@@ -16954,6 +16950,10 @@ func (r ContractTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r ContractTerm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17060,14 +17060,8 @@ func (r ContractTerm) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTerm",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTerm",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermSecurityLabel) Children(name ...string) fhirpath.Collection {
@@ -17159,6 +17153,10 @@ func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ContractTermSecurityLabel) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17209,14 +17207,8 @@ func (r ContractTermSecurityLabel) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermSecurityLabel",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermSecurityLabel",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermOffer) Children(name ...string) fhirpath.Collection {
@@ -17340,6 +17332,10 @@ func (r ContractTermOffer) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r ContractTermOffer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17432,14 +17428,8 @@ func (r ContractTermOffer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermOffer",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermOffer",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermOfferParty) Children(name ...string) fhirpath.Collection {
@@ -17521,6 +17511,10 @@ func (r ContractTermOfferParty) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r ContractTermOfferParty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17557,14 +17551,8 @@ func (r ContractTermOfferParty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermOfferParty",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermOfferParty",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermOfferAnswer) Children(name ...string) fhirpath.Collection {
@@ -17641,6 +17629,10 @@ func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r ContractTermOfferAnswer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17670,14 +17662,8 @@ func (r ContractTermOfferAnswer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermOfferAnswer",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermOfferAnswer",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermAsset) Children(name ...string) fhirpath.Collection {
@@ -17826,6 +17812,10 @@ func (r ContractTermAsset) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r ContractTermAsset) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17953,14 +17943,8 @@ func (r ContractTermAsset) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermAsset",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermAsset",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermAssetContext) Children(name ...string) fhirpath.Collection {
@@ -18049,6 +18033,10 @@ func (r ContractTermAssetContext) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r ContractTermAssetContext) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -18092,14 +18080,8 @@ func (r ContractTermAssetContext) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermAssetContext",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermAssetContext",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermAssetValuedItem) Children(name ...string) fhirpath.Collection {
@@ -18243,6 +18225,10 @@ func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element, _noRever
 }
 func (r ContractTermAssetValuedItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -18363,14 +18349,8 @@ func (r ContractTermAssetValuedItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermAssetValuedItem",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermAssetValuedItem",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermAction) Children(name ...string) fhirpath.Collection {
@@ -18533,6 +18513,10 @@ func (r ContractTermAction) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ContractTermAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -18688,14 +18672,8 @@ func (r ContractTermAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermAction",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermAction",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractTermActionSubject) Children(name ...string) fhirpath.Collection {
@@ -18779,6 +18757,10 @@ func (r ContractTermActionSubject) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ContractTermActionSubject) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -18815,14 +18797,8 @@ func (r ContractTermActionSubject) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractTermActionSubject",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractTermActionSubject",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractSigner) Children(name ...string) fhirpath.Collection {
@@ -18907,6 +18883,10 @@ func (r ContractSigner) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r ContractSigner) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -18950,14 +18930,8 @@ func (r ContractSigner) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractSigner",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractSigner",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractFriendly) Children(name ...string) fhirpath.Collection {
@@ -19034,6 +19008,10 @@ func (r ContractFriendly) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r ContractFriendly) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -19063,14 +19041,8 @@ func (r ContractFriendly) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractFriendly",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractFriendly",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractLegal) Children(name ...string) fhirpath.Collection {
@@ -19147,6 +19119,10 @@ func (r ContractLegal) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r ContractLegal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -19176,14 +19152,8 @@ func (r ContractLegal) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractLegal",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractLegal",
+		Namespace: "FHIR",
 	}
 }
 func (r ContractRule) Children(name ...string) fhirpath.Collection {
@@ -19260,6 +19230,10 @@ func (r ContractRule) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r ContractRule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -19289,13 +19263,7 @@ func (r ContractRule) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ContractRule",
-			Namespace: "FHIR",
-		},
+		Name:      "ContractRule",
+		Namespace: "FHIR",
 	}
 }

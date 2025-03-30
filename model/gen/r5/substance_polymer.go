@@ -4321,6 +4321,10 @@ func (r SubstancePolymer) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r SubstancePolymer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4427,14 +4431,8 @@ func (r SubstancePolymer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstancePolymer",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstancePolymer",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstancePolymerMonomerSet) Children(name ...string) fhirpath.Collection {
@@ -4518,6 +4516,10 @@ func (r SubstancePolymerMonomerSet) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r SubstancePolymerMonomerSet) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4554,14 +4556,8 @@ func (r SubstancePolymerMonomerSet) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstancePolymerMonomerSet",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstancePolymerMonomerSet",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) Children(name ...string) fhirpath.Collection {
@@ -4655,6 +4651,10 @@ func (r SubstancePolymerMonomerSetStartingMaterial) Equivalent(other fhirpath.El
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4705,14 +4705,8 @@ func (r SubstancePolymerMonomerSetStartingMaterial) TypeInfo() fhirpath.TypeInfo
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstancePolymerMonomerSetStartingMaterial",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstancePolymerMonomerSetStartingMaterial",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstancePolymerRepeat) Children(name ...string) fhirpath.Collection {
@@ -4801,6 +4795,10 @@ func (r SubstancePolymerRepeat) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r SubstancePolymerRepeat) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4844,14 +4842,8 @@ func (r SubstancePolymerRepeat) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstancePolymerRepeat",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstancePolymerRepeat",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstancePolymerRepeatRepeatUnit) Children(name ...string) fhirpath.Collection {
@@ -4950,6 +4942,10 @@ func (r SubstancePolymerRepeatRepeatUnit) Equivalent(other fhirpath.Element, _no
 }
 func (r SubstancePolymerRepeatRepeatUnit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5007,14 +5003,8 @@ func (r SubstancePolymerRepeatRepeatUnit) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstancePolymerRepeatRepeatUnit",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstancePolymerRepeatRepeatUnit",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Children(name ...string) fhirpath.Collection {
@@ -5108,6 +5098,10 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equivalent(other
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5158,14 +5152,8 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) TypeInfo() fhirp
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Children(name ...string) fhirpath.Collection {
@@ -5259,6 +5247,10 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equivalent(oth
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5309,13 +5301,7 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) TypeInfo() fhi
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstancePolymerRepeatRepeatUnitStructuralRepresentation",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstancePolymerRepeatRepeatUnitStructuralRepresentation",
+		Namespace: "FHIR",
 	}
 }

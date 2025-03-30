@@ -4110,6 +4110,10 @@ func (r PaymentReconciliation) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r PaymentReconciliation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4370,14 +4374,8 @@ func (r PaymentReconciliation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "PaymentReconciliation",
-			Namespace: "FHIR",
-		},
+		Name:      "PaymentReconciliation",
+		Namespace: "FHIR",
 	}
 }
 func (r PaymentReconciliationAllocation) Children(name ...string) fhirpath.Collection {
@@ -4516,6 +4514,10 @@ func (r PaymentReconciliationAllocation) Equivalent(other fhirpath.Element, _noR
 }
 func (r PaymentReconciliationAllocation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4629,14 +4631,8 @@ func (r PaymentReconciliationAllocation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PaymentReconciliationAllocation",
-			Namespace: "FHIR",
-		},
+		Name:      "PaymentReconciliationAllocation",
+		Namespace: "FHIR",
 	}
 }
 func (r PaymentReconciliationProcessNote) Children(name ...string) fhirpath.Collection {
@@ -4720,6 +4716,10 @@ func (r PaymentReconciliationProcessNote) Equivalent(other fhirpath.Element, _no
 }
 func (r PaymentReconciliationProcessNote) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4756,13 +4756,7 @@ func (r PaymentReconciliationProcessNote) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PaymentReconciliationProcessNote",
-			Namespace: "FHIR",
-		},
+		Name:      "PaymentReconciliationProcessNote",
+		Namespace: "FHIR",
 	}
 }

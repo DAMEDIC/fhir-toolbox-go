@@ -2881,6 +2881,10 @@ func (r PractitionerRole) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r PractitionerRole) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3036,14 +3040,8 @@ func (r PractitionerRole) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "PractitionerRole",
-			Namespace: "FHIR",
-		},
+		Name:      "PractitionerRole",
+		Namespace: "FHIR",
 	}
 }
 func (r PractitionerRoleAvailableTime) Children(name ...string) fhirpath.Collection {
@@ -3137,6 +3135,10 @@ func (r PractitionerRoleAvailableTime) Equivalent(other fhirpath.Element, _noRev
 }
 func (r PractitionerRoleAvailableTime) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3187,14 +3189,8 @@ func (r PractitionerRoleAvailableTime) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PractitionerRoleAvailableTime",
-			Namespace: "FHIR",
-		},
+		Name:      "PractitionerRoleAvailableTime",
+		Namespace: "FHIR",
 	}
 }
 func (r PractitionerRoleNotAvailable) Children(name ...string) fhirpath.Collection {
@@ -3276,6 +3272,10 @@ func (r PractitionerRoleNotAvailable) Equivalent(other fhirpath.Element, _noReve
 }
 func (r PractitionerRoleNotAvailable) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3312,13 +3312,7 @@ func (r PractitionerRoleNotAvailable) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PractitionerRoleNotAvailable",
-			Namespace: "FHIR",
-		},
+		Name:      "PractitionerRoleNotAvailable",
+		Namespace: "FHIR",
 	}
 }

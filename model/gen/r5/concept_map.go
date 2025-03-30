@@ -9922,6 +9922,10 @@ func (r ConceptMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r ConceptMap) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10196,14 +10200,8 @@ func (r ConceptMap) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMap",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMap",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapProperty) Children(name ...string) fhirpath.Collection {
@@ -10298,6 +10296,10 @@ func (r ConceptMapProperty) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ConceptMapProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10355,14 +10357,8 @@ func (r ConceptMapProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapProperty",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapAdditionalAttribute) Children(name ...string) fhirpath.Collection {
@@ -10452,6 +10448,10 @@ func (r ConceptMapAdditionalAttribute) Equivalent(other fhirpath.Element, _noRev
 }
 func (r ConceptMapAdditionalAttribute) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10502,14 +10502,8 @@ func (r ConceptMapAdditionalAttribute) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapAdditionalAttribute",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapAdditionalAttribute",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapGroup) Children(name ...string) fhirpath.Collection {
@@ -10603,6 +10597,10 @@ func (r ConceptMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r ConceptMapGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10653,14 +10651,8 @@ func (r ConceptMapGroup) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapGroup",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapGroup",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapGroupElement) Children(name ...string) fhirpath.Collection {
@@ -10759,6 +10751,10 @@ func (r ConceptMapGroupElement) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r ConceptMapGroupElement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10816,14 +10812,8 @@ func (r ConceptMapGroupElement) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapGroupElement",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapGroupElement",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapGroupElementTarget) Children(name ...string) fhirpath.Collection {
@@ -10935,6 +10925,10 @@ func (r ConceptMapGroupElementTarget) Equivalent(other fhirpath.Element, _noReve
 }
 func (r ConceptMapGroupElementTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11013,14 +11007,8 @@ func (r ConceptMapGroupElementTarget) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapGroupElementTarget",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapGroupElementTarget",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapGroupElementTargetProperty) Children(name ...string) fhirpath.Collection {
@@ -11100,6 +11088,10 @@ func (r ConceptMapGroupElementTargetProperty) Equivalent(other fhirpath.Element,
 }
 func (r ConceptMapGroupElementTargetProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11136,14 +11128,8 @@ func (r ConceptMapGroupElementTargetProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapGroupElementTargetProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapGroupElementTargetProperty",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapGroupElementTargetDependsOn) Children(name ...string) fhirpath.Collection {
@@ -11230,6 +11216,10 @@ func (r ConceptMapGroupElementTargetDependsOn) Equivalent(other fhirpath.Element
 }
 func (r ConceptMapGroupElementTargetDependsOn) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11273,14 +11263,8 @@ func (r ConceptMapGroupElementTargetDependsOn) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapGroupElementTargetDependsOn",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapGroupElementTargetDependsOn",
+		Namespace: "FHIR",
 	}
 }
 func (r ConceptMapGroupUnmapped) Children(name ...string) fhirpath.Collection {
@@ -11382,6 +11366,10 @@ func (r ConceptMapGroupUnmapped) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r ConceptMapGroupUnmapped) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11446,13 +11434,7 @@ func (r ConceptMapGroupUnmapped) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConceptMapGroupUnmapped",
-			Namespace: "FHIR",
-		},
+		Name:      "ConceptMapGroupUnmapped",
+		Namespace: "FHIR",
 	}
 }

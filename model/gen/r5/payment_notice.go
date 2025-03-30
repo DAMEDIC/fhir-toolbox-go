@@ -1432,6 +1432,10 @@ func (r PaymentNotice) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r PaymentNotice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1573,13 +1577,7 @@ func (r PaymentNotice) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "PaymentNotice",
-			Namespace: "FHIR",
-		},
+		Name:      "PaymentNotice",
+		Namespace: "FHIR",
 	}
 }

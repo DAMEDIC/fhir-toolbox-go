@@ -5521,6 +5521,10 @@ func (r InventoryItem) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r InventoryItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5676,14 +5680,8 @@ func (r InventoryItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryItem",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryItem",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryItemName) Children(name ...string) fhirpath.Collection {
@@ -5766,6 +5764,10 @@ func (r InventoryItemName) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r InventoryItemName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5809,14 +5811,8 @@ func (r InventoryItemName) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryItemName",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryItemName",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryItemResponsibleOrganization) Children(name ...string) fhirpath.Collection {
@@ -5896,6 +5892,10 @@ func (r InventoryItemResponsibleOrganization) Equivalent(other fhirpath.Element,
 }
 func (r InventoryItemResponsibleOrganization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5932,14 +5932,8 @@ func (r InventoryItemResponsibleOrganization) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryItemResponsibleOrganization",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryItemResponsibleOrganization",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryItemDescription) Children(name ...string) fhirpath.Collection {
@@ -6023,6 +6017,10 @@ func (r InventoryItemDescription) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r InventoryItemDescription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6059,14 +6057,8 @@ func (r InventoryItemDescription) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryItemDescription",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryItemDescription",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryItemAssociation) Children(name ...string) fhirpath.Collection {
@@ -6149,6 +6141,10 @@ func (r InventoryItemAssociation) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r InventoryItemAssociation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6192,14 +6188,8 @@ func (r InventoryItemAssociation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryItemAssociation",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryItemAssociation",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryItemCharacteristic) Children(name ...string) fhirpath.Collection {
@@ -6279,6 +6269,10 @@ func (r InventoryItemCharacteristic) Equivalent(other fhirpath.Element, _noRever
 }
 func (r InventoryItemCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6315,14 +6309,8 @@ func (r InventoryItemCharacteristic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryItemCharacteristic",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryItemCharacteristic",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryItemInstance) Children(name ...string) fhirpath.Collection {
@@ -6421,6 +6409,10 @@ func (r InventoryItemInstance) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r InventoryItemInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6478,13 +6470,7 @@ func (r InventoryItemInstance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryItemInstance",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryItemInstance",
+		Namespace: "FHIR",
 	}
 }

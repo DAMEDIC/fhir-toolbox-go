@@ -4189,6 +4189,10 @@ func (r ImagingStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r ImagingStudy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4386,14 +4390,8 @@ func (r ImagingStudy) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingStudy",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingStudy",
+		Namespace: "FHIR",
 	}
 }
 func (r ImagingStudySeries) Children(name ...string) fhirpath.Collection {
@@ -4523,6 +4521,10 @@ func (r ImagingStudySeries) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ImagingStudySeries) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4629,14 +4631,8 @@ func (r ImagingStudySeries) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingStudySeries",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingStudySeries",
+		Namespace: "FHIR",
 	}
 }
 func (r ImagingStudySeriesPerformer) Children(name ...string) fhirpath.Collection {
@@ -4718,6 +4714,10 @@ func (r ImagingStudySeriesPerformer) Equivalent(other fhirpath.Element, _noRever
 }
 func (r ImagingStudySeriesPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4754,14 +4754,8 @@ func (r ImagingStudySeriesPerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingStudySeriesPerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingStudySeriesPerformer",
+		Namespace: "FHIR",
 	}
 }
 func (r ImagingStudySeriesInstance) Children(name ...string) fhirpath.Collection {
@@ -4851,6 +4845,10 @@ func (r ImagingStudySeriesInstance) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r ImagingStudySeriesInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4901,13 +4899,7 @@ func (r ImagingStudySeriesInstance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingStudySeriesInstance",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingStudySeriesInstance",
+		Namespace: "FHIR",
 	}
 }

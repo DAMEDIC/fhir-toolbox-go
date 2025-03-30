@@ -454,6 +454,10 @@ func (r Age) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool
 }
 func (r Age) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -504,13 +508,7 @@ func (r Age) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "Age",
-			Namespace: "FHIR",
-		},
+		Name:      "Age",
+		Namespace: "FHIR",
 	}
 }

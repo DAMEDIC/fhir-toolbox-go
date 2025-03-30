@@ -4265,6 +4265,10 @@ func (r MeasureReport) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r MeasureReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4399,14 +4403,8 @@ func (r MeasureReport) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureReport",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureReport",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureReportGroup) Children(name ...string) fhirpath.Collection {
@@ -4500,6 +4498,10 @@ func (r MeasureReportGroup) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r MeasureReportGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4550,14 +4552,8 @@ func (r MeasureReportGroup) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureReportGroup",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureReportGroup",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureReportGroupPopulation) Children(name ...string) fhirpath.Collection {
@@ -4646,6 +4642,10 @@ func (r MeasureReportGroupPopulation) Equivalent(other fhirpath.Element, _noReve
 }
 func (r MeasureReportGroupPopulation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4689,14 +4689,8 @@ func (r MeasureReportGroupPopulation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureReportGroupPopulation",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureReportGroupPopulation",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureReportGroupStratifier) Children(name ...string) fhirpath.Collection {
@@ -4780,6 +4774,10 @@ func (r MeasureReportGroupStratifier) Equivalent(other fhirpath.Element, _noReve
 }
 func (r MeasureReportGroupStratifier) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4816,14 +4814,8 @@ func (r MeasureReportGroupStratifier) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureReportGroupStratifier",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureReportGroupStratifier",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureReportGroupStratifierStratum) Children(name ...string) fhirpath.Collection {
@@ -4917,6 +4909,10 @@ func (r MeasureReportGroupStratifierStratum) Equivalent(other fhirpath.Element, 
 }
 func (r MeasureReportGroupStratifierStratum) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4967,14 +4963,8 @@ func (r MeasureReportGroupStratifierStratum) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureReportGroupStratifierStratum",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureReportGroupStratifierStratum",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureReportGroupStratifierStratumComponent) Children(name ...string) fhirpath.Collection {
@@ -5054,6 +5044,10 @@ func (r MeasureReportGroupStratifierStratumComponent) Equivalent(other fhirpath.
 }
 func (r MeasureReportGroupStratifierStratumComponent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5090,14 +5084,8 @@ func (r MeasureReportGroupStratifierStratumComponent) TypeInfo() fhirpath.TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureReportGroupStratifierStratumComponent",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureReportGroupStratifierStratumComponent",
+		Namespace: "FHIR",
 	}
 }
 func (r MeasureReportGroupStratifierStratumPopulation) Children(name ...string) fhirpath.Collection {
@@ -5186,6 +5174,10 @@ func (r MeasureReportGroupStratifierStratumPopulation) Equivalent(other fhirpath
 }
 func (r MeasureReportGroupStratifierStratumPopulation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5229,13 +5221,7 @@ func (r MeasureReportGroupStratifierStratumPopulation) TypeInfo() fhirpath.TypeI
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MeasureReportGroupStratifierStratumPopulation",
-			Namespace: "FHIR",
-		},
+		Name:      "MeasureReportGroupStratifierStratumPopulation",
+		Namespace: "FHIR",
 	}
 }

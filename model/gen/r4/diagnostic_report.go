@@ -2636,6 +2636,10 @@ func (r DiagnosticReport) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r DiagnosticReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2819,14 +2823,8 @@ func (r DiagnosticReport) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "DiagnosticReport",
-			Namespace: "FHIR",
-		},
+		Name:      "DiagnosticReport",
+		Namespace: "FHIR",
 	}
 }
 func (r DiagnosticReportMedia) Children(name ...string) fhirpath.Collection {
@@ -2908,6 +2906,10 @@ func (r DiagnosticReportMedia) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r DiagnosticReportMedia) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2944,13 +2946,7 @@ func (r DiagnosticReportMedia) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DiagnosticReportMedia",
-			Namespace: "FHIR",
-		},
+		Name:      "DiagnosticReportMedia",
+		Namespace: "FHIR",
 	}
 }

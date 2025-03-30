@@ -11947,6 +11947,10 @@ func (r CapabilityStatement) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r CapabilityStatement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -12214,14 +12218,8 @@ func (r CapabilityStatement) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatement",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatement",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementSoftware) Children(name ...string) fhirpath.Collection {
@@ -12308,6 +12306,10 @@ func (r CapabilityStatementSoftware) Equivalent(other fhirpath.Element, _noRever
 }
 func (r CapabilityStatementSoftware) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -12351,14 +12353,8 @@ func (r CapabilityStatementSoftware) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementSoftware",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementSoftware",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementImplementation) Children(name ...string) fhirpath.Collection {
@@ -12445,6 +12441,10 @@ func (r CapabilityStatementImplementation) Equivalent(other fhirpath.Element, _n
 }
 func (r CapabilityStatementImplementation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -12488,14 +12488,8 @@ func (r CapabilityStatementImplementation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementImplementation",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementImplementation",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementRest) Children(name ...string) fhirpath.Collection {
@@ -12607,6 +12601,10 @@ func (r CapabilityStatementRest) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r CapabilityStatementRest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -12685,14 +12683,8 @@ func (r CapabilityStatementRest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementRest",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementRest",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementRestSecurity) Children(name ...string) fhirpath.Collection {
@@ -12781,6 +12773,10 @@ func (r CapabilityStatementRestSecurity) Equivalent(other fhirpath.Element, _noR
 }
 func (r CapabilityStatementRestSecurity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -12824,14 +12820,8 @@ func (r CapabilityStatementRestSecurity) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementRestSecurity",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementRestSecurity",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementRestResource) Children(name ...string) fhirpath.Collection {
@@ -12993,6 +12983,10 @@ func (r CapabilityStatementRestResource) Equivalent(other fhirpath.Element, _noR
 }
 func (r CapabilityStatementRestResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13141,14 +13135,8 @@ func (r CapabilityStatementRestResource) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementRestResource",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementRestResource",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementRestResourceInteraction) Children(name ...string) fhirpath.Collection {
@@ -13230,6 +13218,10 @@ func (r CapabilityStatementRestResourceInteraction) Equivalent(other fhirpath.El
 }
 func (r CapabilityStatementRestResourceInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13266,14 +13258,8 @@ func (r CapabilityStatementRestResourceInteraction) TypeInfo() fhirpath.TypeInfo
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementRestResourceInteraction",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementRestResourceInteraction",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementRestResourceSearchParam) Children(name ...string) fhirpath.Collection {
@@ -13363,6 +13349,10 @@ func (r CapabilityStatementRestResourceSearchParam) Equivalent(other fhirpath.El
 }
 func (r CapabilityStatementRestResourceSearchParam) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13413,14 +13403,8 @@ func (r CapabilityStatementRestResourceSearchParam) TypeInfo() fhirpath.TypeInfo
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementRestResourceSearchParam",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementRestResourceSearchParam",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementRestResourceOperation) Children(name ...string) fhirpath.Collection {
@@ -13505,6 +13489,10 @@ func (r CapabilityStatementRestResourceOperation) Equivalent(other fhirpath.Elem
 }
 func (r CapabilityStatementRestResourceOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13548,14 +13536,8 @@ func (r CapabilityStatementRestResourceOperation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementRestResourceOperation",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementRestResourceOperation",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementRestInteraction) Children(name ...string) fhirpath.Collection {
@@ -13637,6 +13619,10 @@ func (r CapabilityStatementRestInteraction) Equivalent(other fhirpath.Element, _
 }
 func (r CapabilityStatementRestInteraction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13673,14 +13659,8 @@ func (r CapabilityStatementRestInteraction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementRestInteraction",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementRestInteraction",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementMessaging) Children(name ...string) fhirpath.Collection {
@@ -13774,6 +13754,10 @@ func (r CapabilityStatementMessaging) Equivalent(other fhirpath.Element, _noReve
 }
 func (r CapabilityStatementMessaging) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13824,14 +13808,8 @@ func (r CapabilityStatementMessaging) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementMessaging",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementMessaging",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementMessagingEndpoint) Children(name ...string) fhirpath.Collection {
@@ -13911,6 +13889,10 @@ func (r CapabilityStatementMessagingEndpoint) Equivalent(other fhirpath.Element,
 }
 func (r CapabilityStatementMessagingEndpoint) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13947,14 +13929,8 @@ func (r CapabilityStatementMessagingEndpoint) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementMessagingEndpoint",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementMessagingEndpoint",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementMessagingSupportedMessage) Children(name ...string) fhirpath.Collection {
@@ -14034,6 +14010,10 @@ func (r CapabilityStatementMessagingSupportedMessage) Equivalent(other fhirpath.
 }
 func (r CapabilityStatementMessagingSupportedMessage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14070,14 +14050,8 @@ func (r CapabilityStatementMessagingSupportedMessage) TypeInfo() fhirpath.TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementMessagingSupportedMessage",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementMessagingSupportedMessage",
+		Namespace: "FHIR",
 	}
 }
 func (r CapabilityStatementDocument) Children(name ...string) fhirpath.Collection {
@@ -14162,6 +14136,10 @@ func (r CapabilityStatementDocument) Equivalent(other fhirpath.Element, _noRever
 }
 func (r CapabilityStatementDocument) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14205,13 +14183,7 @@ func (r CapabilityStatementDocument) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CapabilityStatementDocument",
-			Namespace: "FHIR",
-		},
+		Name:      "CapabilityStatementDocument",
+		Namespace: "FHIR",
 	}
 }

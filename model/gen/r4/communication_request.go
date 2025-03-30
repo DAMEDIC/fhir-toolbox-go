@@ -3000,6 +3000,10 @@ func (r CommunicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r CommunicationRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3211,14 +3215,8 @@ func (r CommunicationRequest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "CommunicationRequest",
-			Namespace: "FHIR",
-		},
+		Name:      "CommunicationRequest",
+		Namespace: "FHIR",
 	}
 }
 func (r CommunicationRequestPayload) Children(name ...string) fhirpath.Collection {
@@ -3295,6 +3293,10 @@ func (r CommunicationRequestPayload) Equivalent(other fhirpath.Element, _noRever
 }
 func (r CommunicationRequestPayload) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3324,13 +3326,7 @@ func (r CommunicationRequestPayload) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CommunicationRequestPayload",
-			Namespace: "FHIR",
-		},
+		Name:      "CommunicationRequestPayload",
+		Namespace: "FHIR",
 	}
 }

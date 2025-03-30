@@ -2748,6 +2748,10 @@ func (r RiskAssessment) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r RiskAssessment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2917,14 +2921,8 @@ func (r RiskAssessment) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskAssessment",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskAssessment",
+		Namespace: "FHIR",
 	}
 }
 func (r RiskAssessmentPrediction) Children(name ...string) fhirpath.Collection {
@@ -3028,6 +3026,10 @@ func (r RiskAssessmentPrediction) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r RiskAssessmentPrediction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3092,13 +3094,7 @@ func (r RiskAssessmentPrediction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "RiskAssessmentPrediction",
-			Namespace: "FHIR",
-		},
+		Name:      "RiskAssessmentPrediction",
+		Namespace: "FHIR",
 	}
 }

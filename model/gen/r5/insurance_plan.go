@@ -5771,6 +5771,10 @@ func (r InsurancePlan) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r InsurancePlan) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5926,14 +5930,8 @@ func (r InsurancePlan) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlan",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlan",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanCoverage) Children(name ...string) fhirpath.Collection {
@@ -6020,6 +6018,10 @@ func (r InsurancePlanCoverage) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r InsurancePlanCoverage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6063,14 +6065,8 @@ func (r InsurancePlanCoverage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanCoverage",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanCoverage",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanCoverageBenefit) Children(name ...string) fhirpath.Collection {
@@ -6157,6 +6153,10 @@ func (r InsurancePlanCoverageBenefit) Equivalent(other fhirpath.Element, _noReve
 }
 func (r InsurancePlanCoverageBenefit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6200,14 +6200,8 @@ func (r InsurancePlanCoverageBenefit) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanCoverageBenefit",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanCoverageBenefit",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanCoverageBenefitLimit) Children(name ...string) fhirpath.Collection {
@@ -6291,6 +6285,10 @@ func (r InsurancePlanCoverageBenefitLimit) Equivalent(other fhirpath.Element, _n
 }
 func (r InsurancePlanCoverageBenefitLimit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6327,14 +6325,8 @@ func (r InsurancePlanCoverageBenefitLimit) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanCoverageBenefitLimit",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanCoverageBenefitLimit",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanPlan) Children(name ...string) fhirpath.Collection {
@@ -6438,6 +6430,10 @@ func (r InsurancePlanPlan) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r InsurancePlanPlan) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6502,14 +6498,8 @@ func (r InsurancePlanPlan) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanPlan",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanPlan",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanPlanGeneralCost) Children(name ...string) fhirpath.Collection {
@@ -6603,6 +6593,10 @@ func (r InsurancePlanPlanGeneralCost) Equivalent(other fhirpath.Element, _noReve
 }
 func (r InsurancePlanPlanGeneralCost) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6653,14 +6647,8 @@ func (r InsurancePlanPlanGeneralCost) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanPlanGeneralCost",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanPlanGeneralCost",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanPlanSpecificCost) Children(name ...string) fhirpath.Collection {
@@ -6742,6 +6730,10 @@ func (r InsurancePlanPlanSpecificCost) Equivalent(other fhirpath.Element, _noRev
 }
 func (r InsurancePlanPlanSpecificCost) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6778,14 +6770,8 @@ func (r InsurancePlanPlanSpecificCost) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanPlanSpecificCost",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanPlanSpecificCost",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanPlanSpecificCostBenefit) Children(name ...string) fhirpath.Collection {
@@ -6867,6 +6853,10 @@ func (r InsurancePlanPlanSpecificCostBenefit) Equivalent(other fhirpath.Element,
 }
 func (r InsurancePlanPlanSpecificCostBenefit) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6903,14 +6893,8 @@ func (r InsurancePlanPlanSpecificCostBenefit) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanPlanSpecificCostBenefit",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanPlanSpecificCostBenefit",
+		Namespace: "FHIR",
 	}
 }
 func (r InsurancePlanPlanSpecificCostBenefitCost) Children(name ...string) fhirpath.Collection {
@@ -7002,6 +6986,10 @@ func (r InsurancePlanPlanSpecificCostBenefitCost) Equivalent(other fhirpath.Elem
 }
 func (r InsurancePlanPlanSpecificCostBenefitCost) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7052,13 +7040,7 @@ func (r InsurancePlanPlanSpecificCostBenefitCost) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InsurancePlanPlanSpecificCostBenefitCost",
-			Namespace: "FHIR",
-		},
+		Name:      "InsurancePlanPlanSpecificCostBenefitCost",
+		Namespace: "FHIR",
 	}
 }

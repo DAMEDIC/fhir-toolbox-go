@@ -8252,6 +8252,10 @@ func (r MolecularSequence) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r MolecularSequence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8421,14 +8425,8 @@ func (r MolecularSequence) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequence",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequence",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceReferenceSeq) Children(name ...string) fhirpath.Collection {
@@ -8547,6 +8545,10 @@ func (r MolecularSequenceReferenceSeq) Equivalent(other fhirpath.Element, _noRev
 }
 func (r MolecularSequenceReferenceSeq) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8632,14 +8634,8 @@ func (r MolecularSequenceReferenceSeq) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceReferenceSeq",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceReferenceSeq",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceVariant) Children(name ...string) fhirpath.Collection {
@@ -8743,6 +8739,10 @@ func (r MolecularSequenceVariant) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r MolecularSequenceVariant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8807,14 +8807,8 @@ func (r MolecularSequenceVariant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceVariant",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceVariant",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceQuality) Children(name ...string) fhirpath.Collection {
@@ -8961,6 +8955,10 @@ func (r MolecularSequenceQuality) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r MolecularSequenceQuality) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9088,14 +9086,8 @@ func (r MolecularSequenceQuality) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceQuality",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceQuality",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceQualityRoc) Children(name ...string) fhirpath.Collection {
@@ -9204,6 +9196,10 @@ func (r MolecularSequenceQualityRoc) Equivalent(other fhirpath.Element, _noRever
 }
 func (r MolecularSequenceQualityRoc) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9275,14 +9271,8 @@ func (r MolecularSequenceQualityRoc) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceQualityRoc",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceQualityRoc",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceRepository) Children(name ...string) fhirpath.Collection {
@@ -9384,6 +9374,10 @@ func (r MolecularSequenceRepository) Equivalent(other fhirpath.Element, _noRever
 }
 func (r MolecularSequenceRepository) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9448,14 +9442,8 @@ func (r MolecularSequenceRepository) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceRepository",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceRepository",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceStructureVariant) Children(name ...string) fhirpath.Collection {
@@ -9554,6 +9542,10 @@ func (r MolecularSequenceStructureVariant) Equivalent(other fhirpath.Element, _n
 }
 func (r MolecularSequenceStructureVariant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9611,14 +9603,8 @@ func (r MolecularSequenceStructureVariant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceStructureVariant",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceStructureVariant",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceStructureVariantOuter) Children(name ...string) fhirpath.Collection {
@@ -9702,6 +9688,10 @@ func (r MolecularSequenceStructureVariantOuter) Equivalent(other fhirpath.Elemen
 }
 func (r MolecularSequenceStructureVariantOuter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9738,14 +9728,8 @@ func (r MolecularSequenceStructureVariantOuter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceStructureVariantOuter",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceStructureVariantOuter",
+		Namespace: "FHIR",
 	}
 }
 func (r MolecularSequenceStructureVariantInner) Children(name ...string) fhirpath.Collection {
@@ -9829,6 +9813,10 @@ func (r MolecularSequenceStructureVariantInner) Equivalent(other fhirpath.Elemen
 }
 func (r MolecularSequenceStructureVariantInner) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9865,13 +9853,7 @@ func (r MolecularSequenceStructureVariantInner) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MolecularSequenceStructureVariantInner",
-			Namespace: "FHIR",
-		},
+		Name:      "MolecularSequenceStructureVariantInner",
+		Namespace: "FHIR",
 	}
 }

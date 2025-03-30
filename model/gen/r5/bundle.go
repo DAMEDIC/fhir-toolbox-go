@@ -3879,6 +3879,10 @@ func (r Bundle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...b
 }
 func (r Bundle) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3964,14 +3968,8 @@ func (r Bundle) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Bundle",
-			Namespace: "FHIR",
-		},
+		Name:      "Bundle",
+		Namespace: "FHIR",
 	}
 }
 func (r BundleLink) Children(name ...string) fhirpath.Collection {
@@ -4051,6 +4049,10 @@ func (r BundleLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r BundleLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4087,14 +4089,8 @@ func (r BundleLink) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BundleLink",
-			Namespace: "FHIR",
-		},
+		Name:      "BundleLink",
+		Namespace: "FHIR",
 	}
 }
 func (r BundleEntry) Children(name ...string) fhirpath.Collection {
@@ -4198,6 +4194,10 @@ func (r BundleEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r BundleEntry) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4262,14 +4262,8 @@ func (r BundleEntry) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BundleEntry",
-			Namespace: "FHIR",
-		},
+		Name:      "BundleEntry",
+		Namespace: "FHIR",
 	}
 }
 func (r BundleEntrySearch) Children(name ...string) fhirpath.Collection {
@@ -4353,6 +4347,10 @@ func (r BundleEntrySearch) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r BundleEntrySearch) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4389,14 +4387,8 @@ func (r BundleEntrySearch) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BundleEntrySearch",
-			Namespace: "FHIR",
-		},
+		Name:      "BundleEntrySearch",
+		Namespace: "FHIR",
 	}
 }
 func (r BundleEntryRequest) Children(name ...string) fhirpath.Collection {
@@ -4496,6 +4488,10 @@ func (r BundleEntryRequest) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r BundleEntryRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4560,14 +4556,8 @@ func (r BundleEntryRequest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BundleEntryRequest",
-			Namespace: "FHIR",
-		},
+		Name:      "BundleEntryRequest",
+		Namespace: "FHIR",
 	}
 }
 func (r BundleEntryResponse) Children(name ...string) fhirpath.Collection {
@@ -4664,6 +4654,10 @@ func (r BundleEntryResponse) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r BundleEntryResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4721,13 +4715,7 @@ func (r BundleEntryResponse) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BundleEntryResponse",
-			Namespace: "FHIR",
-		},
+		Name:      "BundleEntryResponse",
+		Namespace: "FHIR",
 	}
 }

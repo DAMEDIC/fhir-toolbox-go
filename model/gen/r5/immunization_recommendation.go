@@ -2655,6 +2655,10 @@ func (r ImmunizationRecommendation) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r ImmunizationRecommendation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2747,14 +2751,8 @@ func (r ImmunizationRecommendation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ImmunizationRecommendation",
-			Namespace: "FHIR",
-		},
+		Name:      "ImmunizationRecommendation",
+		Namespace: "FHIR",
 	}
 }
 func (r ImmunizationRecommendationRecommendation) Children(name ...string) fhirpath.Collection {
@@ -2886,6 +2884,10 @@ func (r ImmunizationRecommendationRecommendation) Equivalent(other fhirpath.Elem
 }
 func (r ImmunizationRecommendationRecommendation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2992,14 +2994,8 @@ func (r ImmunizationRecommendationRecommendation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImmunizationRecommendationRecommendation",
-			Namespace: "FHIR",
-		},
+		Name:      "ImmunizationRecommendationRecommendation",
+		Namespace: "FHIR",
 	}
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) Children(name ...string) fhirpath.Collection {
@@ -3079,6 +3075,10 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) Equivalent(other 
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3115,13 +3115,7 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) TypeInfo() fhirpa
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImmunizationRecommendationRecommendationDateCriterion",
-			Namespace: "FHIR",
-		},
+		Name:      "ImmunizationRecommendationRecommendationDateCriterion",
+		Namespace: "FHIR",
 	}
 }

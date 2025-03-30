@@ -5535,6 +5535,10 @@ func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5823,14 +5827,8 @@ func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ServiceRequest",
-			Namespace: "FHIR",
-		},
+		Name:      "ServiceRequest",
+		Namespace: "FHIR",
 	}
 }
 func (r ServiceRequestOrderDetail) Children(name ...string) fhirpath.Collection {
@@ -5914,6 +5912,10 @@ func (r ServiceRequestOrderDetail) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ServiceRequestOrderDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5950,14 +5952,8 @@ func (r ServiceRequestOrderDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ServiceRequestOrderDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "ServiceRequestOrderDetail",
+		Namespace: "FHIR",
 	}
 }
 func (r ServiceRequestOrderDetailParameter) Children(name ...string) fhirpath.Collection {
@@ -6037,6 +6033,10 @@ func (r ServiceRequestOrderDetailParameter) Equivalent(other fhirpath.Element, _
 }
 func (r ServiceRequestOrderDetailParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6073,14 +6073,8 @@ func (r ServiceRequestOrderDetailParameter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ServiceRequestOrderDetailParameter",
-			Namespace: "FHIR",
-		},
+		Name:      "ServiceRequestOrderDetailParameter",
+		Namespace: "FHIR",
 	}
 }
 func (r ServiceRequestPatientInstruction) Children(name ...string) fhirpath.Collection {
@@ -6159,6 +6153,10 @@ func (r ServiceRequestPatientInstruction) Equivalent(other fhirpath.Element, _no
 }
 func (r ServiceRequestPatientInstruction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6188,13 +6186,7 @@ func (r ServiceRequestPatientInstruction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ServiceRequestPatientInstruction",
-			Namespace: "FHIR",
-		},
+		Name:      "ServiceRequestPatientInstruction",
+		Namespace: "FHIR",
 	}
 }

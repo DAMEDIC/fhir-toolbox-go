@@ -3923,6 +3923,10 @@ func (r FamilyMemberHistory) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r FamilyMemberHistory) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4106,14 +4110,8 @@ func (r FamilyMemberHistory) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "FamilyMemberHistory",
-			Namespace: "FHIR",
-		},
+		Name:      "FamilyMemberHistory",
+		Namespace: "FHIR",
 	}
 }
 func (r FamilyMemberHistoryCondition) Children(name ...string) fhirpath.Collection {
@@ -4210,6 +4208,10 @@ func (r FamilyMemberHistoryCondition) Equivalent(other fhirpath.Element, _noReve
 }
 func (r FamilyMemberHistoryCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4267,13 +4269,7 @@ func (r FamilyMemberHistoryCondition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "FamilyMemberHistoryCondition",
-			Namespace: "FHIR",
-		},
+		Name:      "FamilyMemberHistoryCondition",
+		Namespace: "FHIR",
 	}
 }

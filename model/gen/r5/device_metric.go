@@ -1862,6 +1862,10 @@ func (r DeviceMetric) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r DeviceMetric) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1982,14 +1986,8 @@ func (r DeviceMetric) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceMetric",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceMetric",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceMetricCalibration) Children(name ...string) fhirpath.Collection {
@@ -2078,6 +2076,10 @@ func (r DeviceMetricCalibration) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r DeviceMetricCalibration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2121,13 +2123,7 @@ func (r DeviceMetricCalibration) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceMetricCalibration",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceMetricCalibration",
+		Namespace: "FHIR",
 	}
 }

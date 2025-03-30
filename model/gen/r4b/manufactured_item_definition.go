@@ -2034,6 +2034,10 @@ func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r ManufacturedItemDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2140,14 +2144,8 @@ func (r ManufacturedItemDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ManufacturedItemDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "ManufacturedItemDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r ManufacturedItemDefinitionProperty) Children(name ...string) fhirpath.Collection {
@@ -2229,6 +2227,10 @@ func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _
 }
 func (r ManufacturedItemDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2265,13 +2267,7 @@ func (r ManufacturedItemDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ManufacturedItemDefinitionProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "ManufacturedItemDefinitionProperty",
+		Namespace: "FHIR",
 	}
 }

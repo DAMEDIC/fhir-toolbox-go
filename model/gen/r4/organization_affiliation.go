@@ -1643,6 +1643,10 @@ func (r OrganizationAffiliation) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r OrganizationAffiliation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1784,13 +1788,7 @@ func (r OrganizationAffiliation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "OrganizationAffiliation",
-			Namespace: "FHIR",
-		},
+		Name:      "OrganizationAffiliation",
+		Namespace: "FHIR",
 	}
 }

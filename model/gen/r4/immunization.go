@@ -5270,6 +5270,10 @@ func (r Immunization) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r Immunization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5523,14 +5527,8 @@ func (r Immunization) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Immunization",
-			Namespace: "FHIR",
-		},
+		Name:      "Immunization",
+		Namespace: "FHIR",
 	}
 }
 func (r ImmunizationPerformer) Children(name ...string) fhirpath.Collection {
@@ -5612,6 +5610,10 @@ func (r ImmunizationPerformer) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r ImmunizationPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5648,14 +5650,8 @@ func (r ImmunizationPerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImmunizationPerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "ImmunizationPerformer",
+		Namespace: "FHIR",
 	}
 }
 func (r ImmunizationEducation) Children(name ...string) fhirpath.Collection {
@@ -5749,6 +5745,10 @@ func (r ImmunizationEducation) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r ImmunizationEducation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5799,14 +5799,8 @@ func (r ImmunizationEducation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImmunizationEducation",
-			Namespace: "FHIR",
-		},
+		Name:      "ImmunizationEducation",
+		Namespace: "FHIR",
 	}
 }
 func (r ImmunizationReaction) Children(name ...string) fhirpath.Collection {
@@ -5895,6 +5889,10 @@ func (r ImmunizationReaction) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ImmunizationReaction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5938,14 +5936,8 @@ func (r ImmunizationReaction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImmunizationReaction",
-			Namespace: "FHIR",
-		},
+		Name:      "ImmunizationReaction",
+		Namespace: "FHIR",
 	}
 }
 func (r ImmunizationProtocolApplied) Children(name ...string) fhirpath.Collection {
@@ -6042,6 +6034,10 @@ func (r ImmunizationProtocolApplied) Equivalent(other fhirpath.Element, _noRever
 }
 func (r ImmunizationProtocolApplied) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6099,13 +6095,7 @@ func (r ImmunizationProtocolApplied) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImmunizationProtocolApplied",
-			Namespace: "FHIR",
-		},
+		Name:      "ImmunizationProtocolApplied",
+		Namespace: "FHIR",
 	}
 }

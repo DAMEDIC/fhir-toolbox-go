@@ -5381,6 +5381,10 @@ func (r OperationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r OperationDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5620,14 +5624,8 @@ func (r OperationDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "OperationDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "OperationDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r OperationDefinitionParameter) Children(name ...string) fhirpath.Collection {
@@ -5748,6 +5746,10 @@ func (r OperationDefinitionParameter) Equivalent(other fhirpath.Element, _noReve
 }
 func (r OperationDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5847,14 +5849,8 @@ func (r OperationDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "OperationDefinitionParameter",
-			Namespace: "FHIR",
-		},
+		Name:      "OperationDefinitionParameter",
+		Namespace: "FHIR",
 	}
 }
 func (r OperationDefinitionParameterBinding) Children(name ...string) fhirpath.Collection {
@@ -5934,6 +5930,10 @@ func (r OperationDefinitionParameterBinding) Equivalent(other fhirpath.Element, 
 }
 func (r OperationDefinitionParameterBinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5970,14 +5970,8 @@ func (r OperationDefinitionParameterBinding) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "OperationDefinitionParameterBinding",
-			Namespace: "FHIR",
-		},
+		Name:      "OperationDefinitionParameterBinding",
+		Namespace: "FHIR",
 	}
 }
 func (r OperationDefinitionParameterReferencedFrom) Children(name ...string) fhirpath.Collection {
@@ -6059,6 +6053,10 @@ func (r OperationDefinitionParameterReferencedFrom) Equivalent(other fhirpath.El
 }
 func (r OperationDefinitionParameterReferencedFrom) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6095,14 +6093,8 @@ func (r OperationDefinitionParameterReferencedFrom) TypeInfo() fhirpath.TypeInfo
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "OperationDefinitionParameterReferencedFrom",
-			Namespace: "FHIR",
-		},
+		Name:      "OperationDefinitionParameterReferencedFrom",
+		Namespace: "FHIR",
 	}
 }
 func (r OperationDefinitionOverload) Children(name ...string) fhirpath.Collection {
@@ -6186,6 +6178,10 @@ func (r OperationDefinitionOverload) Equivalent(other fhirpath.Element, _noRever
 }
 func (r OperationDefinitionOverload) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6222,13 +6218,7 @@ func (r OperationDefinitionOverload) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "OperationDefinitionOverload",
-			Namespace: "FHIR",
-		},
+		Name:      "OperationDefinitionOverload",
+		Namespace: "FHIR",
 	}
 }

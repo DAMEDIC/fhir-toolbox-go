@@ -645,6 +645,10 @@ func (r TriggerDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r TriggerDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -695,13 +699,7 @@ func (r TriggerDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TriggerDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "TriggerDefinition",
+		Namespace: "FHIR",
 	}
 }

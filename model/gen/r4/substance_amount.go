@@ -1114,6 +1114,10 @@ func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r SubstanceAmount) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1164,14 +1168,8 @@ func (r SubstanceAmount) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceAmount",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceAmount",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceAmountReferenceRange) Children(name ...string) fhirpath.Collection {
@@ -1250,6 +1248,10 @@ func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element, _noRev
 }
 func (r SubstanceAmountReferenceRange) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1279,13 +1281,7 @@ func (r SubstanceAmountReferenceRange) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceAmountReferenceRange",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceAmountReferenceRange",
+		Namespace: "FHIR",
 	}
 }

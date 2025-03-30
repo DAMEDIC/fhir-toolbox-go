@@ -7811,6 +7811,10 @@ func (r ExampleScenario) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r ExampleScenario) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8008,14 +8012,8 @@ func (r ExampleScenario) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenario",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenario",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioActor) Children(name ...string) fhirpath.Collection {
@@ -8103,6 +8101,10 @@ func (r ExampleScenarioActor) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ExampleScenarioActor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8153,14 +8155,8 @@ func (r ExampleScenarioActor) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioActor",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioActor",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioInstance) Children(name ...string) fhirpath.Collection {
@@ -8273,6 +8269,10 @@ func (r ExampleScenarioInstance) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r ExampleScenarioInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8358,14 +8358,8 @@ func (r ExampleScenarioInstance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioInstance",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioInstance",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioInstanceVersion) Children(name ...string) fhirpath.Collection {
@@ -8455,6 +8449,10 @@ func (r ExampleScenarioInstanceVersion) Equivalent(other fhirpath.Element, _noRe
 }
 func (r ExampleScenarioInstanceVersion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8505,14 +8503,8 @@ func (r ExampleScenarioInstanceVersion) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioInstanceVersion",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioInstanceVersion",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioInstanceContainedInstance) Children(name ...string) fhirpath.Collection {
@@ -8594,6 +8586,10 @@ func (r ExampleScenarioInstanceContainedInstance) Equivalent(other fhirpath.Elem
 }
 func (r ExampleScenarioInstanceContainedInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8630,14 +8626,8 @@ func (r ExampleScenarioInstanceContainedInstance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioInstanceContainedInstance",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioInstanceContainedInstance",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioProcess) Children(name ...string) fhirpath.Collection {
@@ -8734,6 +8724,10 @@ func (r ExampleScenarioProcess) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r ExampleScenarioProcess) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8791,14 +8785,8 @@ func (r ExampleScenarioProcess) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioProcess",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioProcess",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioProcessStep) Children(name ...string) fhirpath.Collection {
@@ -8902,6 +8890,10 @@ func (r ExampleScenarioProcessStep) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r ExampleScenarioProcessStep) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8966,14 +8958,8 @@ func (r ExampleScenarioProcessStep) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioProcessStep",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioProcessStep",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioProcessStepOperation) Children(name ...string) fhirpath.Collection {
@@ -9090,6 +9076,10 @@ func (r ExampleScenarioProcessStepOperation) Equivalent(other fhirpath.Element, 
 }
 func (r ExampleScenarioProcessStepOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9175,14 +9165,8 @@ func (r ExampleScenarioProcessStepOperation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioProcessStepOperation",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioProcessStepOperation",
+		Namespace: "FHIR",
 	}
 }
 func (r ExampleScenarioProcessStepAlternative) Children(name ...string) fhirpath.Collection {
@@ -9269,6 +9253,10 @@ func (r ExampleScenarioProcessStepAlternative) Equivalent(other fhirpath.Element
 }
 func (r ExampleScenarioProcessStepAlternative) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9312,13 +9300,7 @@ func (r ExampleScenarioProcessStepAlternative) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ExampleScenarioProcessStepAlternative",
-			Namespace: "FHIR",
-		},
+		Name:      "ExampleScenarioProcessStepAlternative",
+		Namespace: "FHIR",
 	}
 }

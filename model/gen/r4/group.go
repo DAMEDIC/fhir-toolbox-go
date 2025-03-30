@@ -2755,6 +2755,10 @@ func (r Group) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bo
 }
 func (r Group) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2882,14 +2886,8 @@ func (r Group) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Group",
-			Namespace: "FHIR",
-		},
+		Name:      "Group",
+		Namespace: "FHIR",
 	}
 }
 func (r GroupCharacteristic) Children(name ...string) fhirpath.Collection {
@@ -2977,6 +2975,10 @@ func (r GroupCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r GroupCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3027,14 +3029,8 @@ func (r GroupCharacteristic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GroupCharacteristic",
-			Namespace: "FHIR",
-		},
+		Name:      "GroupCharacteristic",
+		Namespace: "FHIR",
 	}
 }
 func (r GroupMember) Children(name ...string) fhirpath.Collection {
@@ -3121,6 +3117,10 @@ func (r GroupMember) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r GroupMember) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3164,13 +3164,7 @@ func (r GroupMember) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GroupMember",
-			Namespace: "FHIR",
-		},
+		Name:      "GroupMember",
+		Namespace: "FHIR",
 	}
 }

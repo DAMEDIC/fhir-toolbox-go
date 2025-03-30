@@ -3765,6 +3765,10 @@ func (r QuestionnaireResponse) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r QuestionnaireResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3899,14 +3903,8 @@ func (r QuestionnaireResponse) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "QuestionnaireResponse",
-			Namespace: "FHIR",
-		},
+		Name:      "QuestionnaireResponse",
+		Namespace: "FHIR",
 	}
 }
 func (r QuestionnaireResponseItem) Children(name ...string) fhirpath.Collection {
@@ -4003,6 +4001,10 @@ func (r QuestionnaireResponseItem) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r QuestionnaireResponseItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4060,14 +4062,8 @@ func (r QuestionnaireResponseItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "QuestionnaireResponseItem",
-			Namespace: "FHIR",
-		},
+		Name:      "QuestionnaireResponseItem",
+		Namespace: "FHIR",
 	}
 }
 func (r QuestionnaireResponseItemAnswer) Children(name ...string) fhirpath.Collection {
@@ -4151,6 +4147,10 @@ func (r QuestionnaireResponseItemAnswer) Equivalent(other fhirpath.Element, _noR
 }
 func (r QuestionnaireResponseItemAnswer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4187,13 +4187,7 @@ func (r QuestionnaireResponseItemAnswer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "QuestionnaireResponseItemAnswer",
-			Namespace: "FHIR",
-		},
+		Name:      "QuestionnaireResponseItemAnswer",
+		Namespace: "FHIR",
 	}
 }

@@ -5079,6 +5079,10 @@ func (r GenomicStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r GenomicStudy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5241,14 +5245,8 @@ func (r GenomicStudy) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "GenomicStudy",
-			Namespace: "FHIR",
-		},
+		Name:      "GenomicStudy",
+		Namespace: "FHIR",
 	}
 }
 func (r GenomicStudyAnalysis) Children(name ...string) fhirpath.Collection {
@@ -5412,6 +5410,10 @@ func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r GenomicStudyAnalysis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5560,14 +5562,8 @@ func (r GenomicStudyAnalysis) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GenomicStudyAnalysis",
-			Namespace: "FHIR",
-		},
+		Name:      "GenomicStudyAnalysis",
+		Namespace: "FHIR",
 	}
 }
 func (r GenomicStudyAnalysisInput) Children(name ...string) fhirpath.Collection {
@@ -5656,6 +5652,10 @@ func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r GenomicStudyAnalysisInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5699,14 +5699,8 @@ func (r GenomicStudyAnalysisInput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GenomicStudyAnalysisInput",
-			Namespace: "FHIR",
-		},
+		Name:      "GenomicStudyAnalysisInput",
+		Namespace: "FHIR",
 	}
 }
 func (r GenomicStudyAnalysisOutput) Children(name ...string) fhirpath.Collection {
@@ -5790,6 +5784,10 @@ func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r GenomicStudyAnalysisOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5826,14 +5824,8 @@ func (r GenomicStudyAnalysisOutput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GenomicStudyAnalysisOutput",
-			Namespace: "FHIR",
-		},
+		Name:      "GenomicStudyAnalysisOutput",
+		Namespace: "FHIR",
 	}
 }
 func (r GenomicStudyAnalysisPerformer) Children(name ...string) fhirpath.Collection {
@@ -5917,6 +5909,10 @@ func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element, _noRev
 }
 func (r GenomicStudyAnalysisPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5953,14 +5949,8 @@ func (r GenomicStudyAnalysisPerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GenomicStudyAnalysisPerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "GenomicStudyAnalysisPerformer",
+		Namespace: "FHIR",
 	}
 }
 func (r GenomicStudyAnalysisDevice) Children(name ...string) fhirpath.Collection {
@@ -6044,6 +6034,10 @@ func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r GenomicStudyAnalysisDevice) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6080,13 +6074,7 @@ func (r GenomicStudyAnalysisDevice) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GenomicStudyAnalysisDevice",
-			Namespace: "FHIR",
-		},
+		Name:      "GenomicStudyAnalysisDevice",
+		Namespace: "FHIR",
 	}
 }

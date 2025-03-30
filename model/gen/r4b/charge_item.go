@@ -3300,6 +3300,10 @@ func (r ChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r ChargeItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3539,14 +3543,8 @@ func (r ChargeItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ChargeItem",
-			Namespace: "FHIR",
-		},
+		Name:      "ChargeItem",
+		Namespace: "FHIR",
 	}
 }
 func (r ChargeItemPerformer) Children(name ...string) fhirpath.Collection {
@@ -3628,6 +3626,10 @@ func (r ChargeItemPerformer) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r ChargeItemPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3664,13 +3666,7 @@ func (r ChargeItemPerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ChargeItemPerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "ChargeItemPerformer",
+		Namespace: "FHIR",
 	}
 }

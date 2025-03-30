@@ -5312,6 +5312,10 @@ func (r DeviceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r DeviceDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5523,14 +5527,8 @@ func (r DeviceDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceDefinitionUdiDeviceIdentifier) Children(name ...string) fhirpath.Collection {
@@ -5613,6 +5611,10 @@ func (r DeviceDefinitionUdiDeviceIdentifier) Equivalent(other fhirpath.Element, 
 }
 func (r DeviceDefinitionUdiDeviceIdentifier) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5656,14 +5658,8 @@ func (r DeviceDefinitionUdiDeviceIdentifier) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceDefinitionUdiDeviceIdentifier",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceDefinitionUdiDeviceIdentifier",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceDefinitionDeviceName) Children(name ...string) fhirpath.Collection {
@@ -5743,6 +5739,10 @@ func (r DeviceDefinitionDeviceName) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r DeviceDefinitionDeviceName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5779,14 +5779,8 @@ func (r DeviceDefinitionDeviceName) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceDefinitionDeviceName",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceDefinitionDeviceName",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceDefinitionSpecialization) Children(name ...string) fhirpath.Collection {
@@ -5868,6 +5862,10 @@ func (r DeviceDefinitionSpecialization) Equivalent(other fhirpath.Element, _noRe
 }
 func (r DeviceDefinitionSpecialization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5904,14 +5902,8 @@ func (r DeviceDefinitionSpecialization) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceDefinitionSpecialization",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceDefinitionSpecialization",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceDefinitionCapability) Children(name ...string) fhirpath.Collection {
@@ -5993,6 +5985,10 @@ func (r DeviceDefinitionCapability) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r DeviceDefinitionCapability) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6029,14 +6025,8 @@ func (r DeviceDefinitionCapability) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceDefinitionCapability",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceDefinitionCapability",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceDefinitionProperty) Children(name ...string) fhirpath.Collection {
@@ -6123,6 +6113,10 @@ func (r DeviceDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r DeviceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6166,14 +6160,8 @@ func (r DeviceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceDefinitionProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceDefinitionProperty",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceDefinitionMaterial) Children(name ...string) fhirpath.Collection {
@@ -6260,6 +6248,10 @@ func (r DeviceDefinitionMaterial) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r DeviceDefinitionMaterial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6303,13 +6295,7 @@ func (r DeviceDefinitionMaterial) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceDefinitionMaterial",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceDefinitionMaterial",
+		Namespace: "FHIR",
 	}
 }

@@ -9851,6 +9851,10 @@ func (r SubstanceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r SubstanceDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10076,14 +10080,8 @@ func (r SubstanceDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionMoiety) Children(name ...string) fhirpath.Collection {
@@ -10197,6 +10195,10 @@ func (r SubstanceDefinitionMoiety) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r SubstanceDefinitionMoiety) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10275,14 +10277,8 @@ func (r SubstanceDefinitionMoiety) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionMoiety",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionMoiety",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionCharacterization) Children(name ...string) fhirpath.Collection {
@@ -10376,6 +10372,10 @@ func (r SubstanceDefinitionCharacterization) Equivalent(other fhirpath.Element, 
 }
 func (r SubstanceDefinitionCharacterization) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10426,14 +10426,8 @@ func (r SubstanceDefinitionCharacterization) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionCharacterization",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionCharacterization",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionProperty) Children(name ...string) fhirpath.Collection {
@@ -10515,6 +10509,10 @@ func (r SubstanceDefinitionProperty) Equivalent(other fhirpath.Element, _noRever
 }
 func (r SubstanceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10551,14 +10549,8 @@ func (r SubstanceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionProperty",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionMolecularWeight) Children(name ...string) fhirpath.Collection {
@@ -10645,6 +10637,10 @@ func (r SubstanceDefinitionMolecularWeight) Equivalent(other fhirpath.Element, _
 }
 func (r SubstanceDefinitionMolecularWeight) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10688,14 +10684,8 @@ func (r SubstanceDefinitionMolecularWeight) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionMolecularWeight",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionMolecularWeight",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionStructure) Children(name ...string) fhirpath.Collection {
@@ -10809,6 +10799,10 @@ func (r SubstanceDefinitionStructure) Equivalent(other fhirpath.Element, _noReve
 }
 func (r SubstanceDefinitionStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -10887,14 +10881,8 @@ func (r SubstanceDefinitionStructure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionStructure",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionStructure",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionStructureRepresentation) Children(name ...string) fhirpath.Collection {
@@ -10988,6 +10976,10 @@ func (r SubstanceDefinitionStructureRepresentation) Equivalent(other fhirpath.El
 }
 func (r SubstanceDefinitionStructureRepresentation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11038,14 +11030,8 @@ func (r SubstanceDefinitionStructureRepresentation) TypeInfo() fhirpath.TypeInfo
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionStructureRepresentation",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionStructureRepresentation",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionCode) Children(name ...string) fhirpath.Collection {
@@ -11144,6 +11130,10 @@ func (r SubstanceDefinitionCode) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r SubstanceDefinitionCode) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11201,14 +11191,8 @@ func (r SubstanceDefinitionCode) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionCode",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionCode",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionName) Children(name ...string) fhirpath.Collection {
@@ -11335,6 +11319,10 @@ func (r SubstanceDefinitionName) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r SubstanceDefinitionName) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11434,14 +11422,8 @@ func (r SubstanceDefinitionName) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionName",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionName",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionNameOfficial) Children(name ...string) fhirpath.Collection {
@@ -11530,6 +11512,10 @@ func (r SubstanceDefinitionNameOfficial) Equivalent(other fhirpath.Element, _noR
 }
 func (r SubstanceDefinitionNameOfficial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11573,14 +11559,8 @@ func (r SubstanceDefinitionNameOfficial) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionNameOfficial",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionNameOfficial",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionRelationship) Children(name ...string) fhirpath.Collection {
@@ -11687,6 +11667,10 @@ func (r SubstanceDefinitionRelationship) Equivalent(other fhirpath.Element, _noR
 }
 func (r SubstanceDefinitionRelationship) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11758,14 +11742,8 @@ func (r SubstanceDefinitionRelationship) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionRelationship",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionRelationship",
+		Namespace: "FHIR",
 	}
 }
 func (r SubstanceDefinitionSourceMaterial) Children(name ...string) fhirpath.Collection {
@@ -11864,6 +11842,10 @@ func (r SubstanceDefinitionSourceMaterial) Equivalent(other fhirpath.Element, _n
 }
 func (r SubstanceDefinitionSourceMaterial) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -11921,13 +11903,7 @@ func (r SubstanceDefinitionSourceMaterial) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubstanceDefinitionSourceMaterial",
-			Namespace: "FHIR",
-		},
+		Name:      "SubstanceDefinitionSourceMaterial",
+		Namespace: "FHIR",
 	}
 }

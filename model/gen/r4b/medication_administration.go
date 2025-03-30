@@ -3409,6 +3409,10 @@ func (r MedicationAdministration) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r MedicationAdministration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3599,14 +3603,8 @@ func (r MedicationAdministration) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicationAdministration",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicationAdministration",
+		Namespace: "FHIR",
 	}
 }
 func (r MedicationAdministrationPerformer) Children(name ...string) fhirpath.Collection {
@@ -3688,6 +3686,10 @@ func (r MedicationAdministrationPerformer) Equivalent(other fhirpath.Element, _n
 }
 func (r MedicationAdministrationPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3724,14 +3726,8 @@ func (r MedicationAdministrationPerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicationAdministrationPerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicationAdministrationPerformer",
+		Namespace: "FHIR",
 	}
 }
 func (r MedicationAdministrationDosage) Children(name ...string) fhirpath.Collection {
@@ -3835,6 +3831,10 @@ func (r MedicationAdministrationDosage) Equivalent(other fhirpath.Element, _noRe
 }
 func (r MedicationAdministrationDosage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3899,13 +3899,7 @@ func (r MedicationAdministrationDosage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MedicationAdministrationDosage",
-			Namespace: "FHIR",
-		},
+		Name:      "MedicationAdministrationDosage",
+		Namespace: "FHIR",
 	}
 }

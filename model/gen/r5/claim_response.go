@@ -14301,6 +14301,10 @@ func (r ClaimResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r ClaimResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14582,14 +14586,8 @@ func (r ClaimResponse) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponse",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponse",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseEvent) Children(name ...string) fhirpath.Collection {
@@ -14669,6 +14667,10 @@ func (r ClaimResponseEvent) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ClaimResponseEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14705,14 +14707,8 @@ func (r ClaimResponseEvent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseEvent",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseEvent",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseItem) Children(name ...string) fhirpath.Collection {
@@ -14814,6 +14810,10 @@ func (r ClaimResponseItem) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r ClaimResponseItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14878,14 +14878,8 @@ func (r ClaimResponseItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseItem",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseItem",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseItemReviewOutcome) Children(name ...string) fhirpath.Collection {
@@ -14979,6 +14973,10 @@ func (r ClaimResponseItemReviewOutcome) Equivalent(other fhirpath.Element, _noRe
 }
 func (r ClaimResponseItemReviewOutcome) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15029,14 +15027,8 @@ func (r ClaimResponseItemReviewOutcome) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseItemReviewOutcome",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseItemReviewOutcome",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseItemAdjudication) Children(name ...string) fhirpath.Collection {
@@ -15128,6 +15120,10 @@ func (r ClaimResponseItemAdjudication) Equivalent(other fhirpath.Element, _noRev
 }
 func (r ClaimResponseItemAdjudication) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15178,14 +15174,8 @@ func (r ClaimResponseItemAdjudication) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseItemAdjudication",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseItemAdjudication",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseItemDetail) Children(name ...string) fhirpath.Collection {
@@ -15287,6 +15277,10 @@ func (r ClaimResponseItemDetail) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r ClaimResponseItemDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15351,14 +15345,8 @@ func (r ClaimResponseItemDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseItemDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseItemDetail",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseItemDetailSubDetail) Children(name ...string) fhirpath.Collection {
@@ -15455,6 +15443,10 @@ func (r ClaimResponseItemDetailSubDetail) Equivalent(other fhirpath.Element, _no
 }
 func (r ClaimResponseItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15512,14 +15504,8 @@ func (r ClaimResponseItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseItemDetailSubDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseItemDetailSubDetail",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseAddItem) Children(name ...string) fhirpath.Collection {
@@ -15708,6 +15694,10 @@ func (r ClaimResponseAddItem) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ClaimResponseAddItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -15891,14 +15881,8 @@ func (r ClaimResponseAddItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseAddItem",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseAddItem",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseAddItemBodySite) Children(name ...string) fhirpath.Collection {
@@ -15982,6 +15966,10 @@ func (r ClaimResponseAddItemBodySite) Equivalent(other fhirpath.Element, _noReve
 }
 func (r ClaimResponseAddItemBodySite) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16018,14 +16006,8 @@ func (r ClaimResponseAddItemBodySite) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseAddItemBodySite",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseAddItemBodySite",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseAddItemDetail) Children(name ...string) fhirpath.Collection {
@@ -16169,6 +16151,10 @@ func (r ClaimResponseAddItemDetail) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r ClaimResponseAddItemDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16289,14 +16275,8 @@ func (r ClaimResponseAddItemDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseAddItemDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseAddItemDetail",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseAddItemDetailSubDetail) Children(name ...string) fhirpath.Collection {
@@ -16435,6 +16415,10 @@ func (r ClaimResponseAddItemDetailSubDetail) Equivalent(other fhirpath.Element, 
 }
 func (r ClaimResponseAddItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16548,14 +16532,8 @@ func (r ClaimResponseAddItemDetailSubDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseAddItemDetailSubDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseAddItemDetailSubDetail",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseTotal) Children(name ...string) fhirpath.Collection {
@@ -16635,6 +16613,10 @@ func (r ClaimResponseTotal) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ClaimResponseTotal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16671,14 +16653,8 @@ func (r ClaimResponseTotal) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseTotal",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseTotal",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponsePayment) Children(name ...string) fhirpath.Collection {
@@ -16778,6 +16754,10 @@ func (r ClaimResponsePayment) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ClaimResponsePayment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16842,14 +16822,8 @@ func (r ClaimResponsePayment) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponsePayment",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponsePayment",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseProcessNote) Children(name ...string) fhirpath.Collection {
@@ -16941,6 +16915,10 @@ func (r ClaimResponseProcessNote) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r ClaimResponseProcessNote) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -16991,14 +16969,8 @@ func (r ClaimResponseProcessNote) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseProcessNote",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseProcessNote",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseInsurance) Children(name ...string) fhirpath.Collection {
@@ -17091,6 +17063,10 @@ func (r ClaimResponseInsurance) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r ClaimResponseInsurance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17148,14 +17124,8 @@ func (r ClaimResponseInsurance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseInsurance",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseInsurance",
+		Namespace: "FHIR",
 	}
 }
 func (r ClaimResponseError) Children(name ...string) fhirpath.Collection {
@@ -17252,6 +17222,10 @@ func (r ClaimResponseError) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ClaimResponseError) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -17309,13 +17283,7 @@ func (r ClaimResponseError) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClaimResponseError",
-			Namespace: "FHIR",
-		},
+		Name:      "ClaimResponseError",
+		Namespace: "FHIR",
 	}
 }

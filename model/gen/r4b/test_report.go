@@ -5460,6 +5460,10 @@ func (r TestReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r TestReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5601,14 +5605,8 @@ func (r TestReport) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReport",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReport",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportParticipant) Children(name ...string) fhirpath.Collection {
@@ -5693,6 +5691,10 @@ func (r TestReportParticipant) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r TestReportParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5736,14 +5738,8 @@ func (r TestReportParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportSetup) Children(name ...string) fhirpath.Collection {
@@ -5822,6 +5818,10 @@ func (r TestReportSetup) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r TestReportSetup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5851,14 +5851,8 @@ func (r TestReportSetup) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportSetup",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportSetup",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportSetupAction) Children(name ...string) fhirpath.Collection {
@@ -5942,6 +5936,10 @@ func (r TestReportSetupAction) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r TestReportSetupAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5978,14 +5976,8 @@ func (r TestReportSetupAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportSetupAction",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportSetupAction",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportSetupActionOperation) Children(name ...string) fhirpath.Collection {
@@ -6072,6 +6064,10 @@ func (r TestReportSetupActionOperation) Equivalent(other fhirpath.Element, _noRe
 }
 func (r TestReportSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6115,14 +6111,8 @@ func (r TestReportSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportSetupActionOperation",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportSetupActionOperation",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportSetupActionAssert) Children(name ...string) fhirpath.Collection {
@@ -6209,6 +6199,10 @@ func (r TestReportSetupActionAssert) Equivalent(other fhirpath.Element, _noRever
 }
 func (r TestReportSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6252,14 +6246,8 @@ func (r TestReportSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportSetupActionAssert",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportSetupActionAssert",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportTest) Children(name ...string) fhirpath.Collection {
@@ -6348,6 +6336,10 @@ func (r TestReportTest) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r TestReportTest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6391,14 +6383,8 @@ func (r TestReportTest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportTest",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportTest",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportTestAction) Children(name ...string) fhirpath.Collection {
@@ -6482,6 +6468,10 @@ func (r TestReportTestAction) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r TestReportTestAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6518,14 +6508,8 @@ func (r TestReportTestAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportTestAction",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportTestAction",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportTeardown) Children(name ...string) fhirpath.Collection {
@@ -6604,6 +6588,10 @@ func (r TestReportTeardown) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r TestReportTeardown) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6633,14 +6621,8 @@ func (r TestReportTeardown) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportTeardown",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportTeardown",
+		Namespace: "FHIR",
 	}
 }
 func (r TestReportTeardownAction) Children(name ...string) fhirpath.Collection {
@@ -6717,6 +6699,10 @@ func (r TestReportTeardownAction) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r TestReportTeardownAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6746,13 +6732,7 @@ func (r TestReportTeardownAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestReportTeardownAction",
-			Namespace: "FHIR",
-		},
+		Name:      "TestReportTeardownAction",
+		Namespace: "FHIR",
 	}
 }

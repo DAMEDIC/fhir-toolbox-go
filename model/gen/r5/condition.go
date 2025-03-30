@@ -3404,6 +3404,10 @@ func (r Condition) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 }
 func (r Condition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3573,14 +3577,8 @@ func (r Condition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Condition",
-			Namespace: "FHIR",
-		},
+		Name:      "Condition",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionParticipant) Children(name ...string) fhirpath.Collection {
@@ -3662,6 +3660,10 @@ func (r ConditionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ConditionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3698,14 +3700,8 @@ func (r ConditionParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionStage) Children(name ...string) fhirpath.Collection {
@@ -3794,6 +3790,10 @@ func (r ConditionStage) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r ConditionStage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3837,13 +3837,7 @@ func (r ConditionStage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionStage",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionStage",
+		Namespace: "FHIR",
 	}
 }

@@ -3767,6 +3767,10 @@ func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4055,13 +4059,7 @@ func (r ServiceRequest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ServiceRequest",
-			Namespace: "FHIR",
-		},
+		Name:      "ServiceRequest",
+		Namespace: "FHIR",
 	}
 }

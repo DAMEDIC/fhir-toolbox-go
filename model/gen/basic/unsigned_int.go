@@ -140,6 +140,10 @@ func (r UnsignedInt) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r UnsignedInt) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -155,13 +159,7 @@ func (r UnsignedInt) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "PrimitiveType",
-				Namespace: "FHIR",
-			},
-			Name:      "unsignedInt",
-			Namespace: "FHIR",
-		},
+		Name:      "unsignedInt",
+		Namespace: "FHIR",
 	}
 }

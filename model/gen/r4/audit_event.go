@@ -4939,6 +4939,10 @@ func (r AuditEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r AuditEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5073,14 +5077,8 @@ func (r AuditEvent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "AuditEvent",
-			Namespace: "FHIR",
-		},
+		Name:      "AuditEvent",
+		Namespace: "FHIR",
 	}
 }
 func (r AuditEventAgent) Children(name ...string) fhirpath.Collection {
@@ -5207,6 +5205,10 @@ func (r AuditEventAgent) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r AuditEventAgent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5306,14 +5308,8 @@ func (r AuditEventAgent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AuditEventAgent",
-			Namespace: "FHIR",
-		},
+		Name:      "AuditEventAgent",
+		Namespace: "FHIR",
 	}
 }
 func (r AuditEventAgentNetwork) Children(name ...string) fhirpath.Collection {
@@ -5397,6 +5393,10 @@ func (r AuditEventAgentNetwork) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r AuditEventAgentNetwork) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5433,14 +5433,8 @@ func (r AuditEventAgentNetwork) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AuditEventAgentNetwork",
-			Namespace: "FHIR",
-		},
+		Name:      "AuditEventAgentNetwork",
+		Namespace: "FHIR",
 	}
 }
 func (r AuditEventSource) Children(name ...string) fhirpath.Collection {
@@ -5527,6 +5521,10 @@ func (r AuditEventSource) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r AuditEventSource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5570,14 +5568,8 @@ func (r AuditEventSource) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AuditEventSource",
-			Namespace: "FHIR",
-		},
+		Name:      "AuditEventSource",
+		Namespace: "FHIR",
 	}
 }
 func (r AuditEventEntity) Children(name ...string) fhirpath.Collection {
@@ -5696,6 +5688,10 @@ func (r AuditEventEntity) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r AuditEventEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5781,14 +5777,8 @@ func (r AuditEventEntity) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AuditEventEntity",
-			Namespace: "FHIR",
-		},
+		Name:      "AuditEventEntity",
+		Namespace: "FHIR",
 	}
 }
 func (r AuditEventEntityDetail) Children(name ...string) fhirpath.Collection {
@@ -5868,6 +5858,10 @@ func (r AuditEventEntityDetail) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r AuditEventEntityDetail) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5904,13 +5898,7 @@ func (r AuditEventEntityDetail) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AuditEventEntityDetail",
-			Namespace: "FHIR",
-		},
+		Name:      "AuditEventEntityDetail",
+		Namespace: "FHIR",
 	}
 }

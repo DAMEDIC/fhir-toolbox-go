@@ -3191,6 +3191,10 @@ func (r Location) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r Location) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3367,14 +3371,8 @@ func (r Location) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Location",
-			Namespace: "FHIR",
-		},
+		Name:      "Location",
+		Namespace: "FHIR",
 	}
 }
 func (r LocationPosition) Children(name ...string) fhirpath.Collection {
@@ -3459,6 +3457,10 @@ func (r LocationPosition) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r LocationPosition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3502,14 +3504,8 @@ func (r LocationPosition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "LocationPosition",
-			Namespace: "FHIR",
-		},
+		Name:      "LocationPosition",
+		Namespace: "FHIR",
 	}
 }
 func (r LocationHoursOfOperation) Children(name ...string) fhirpath.Collection {
@@ -3603,6 +3599,10 @@ func (r LocationHoursOfOperation) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r LocationHoursOfOperation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3653,13 +3653,7 @@ func (r LocationHoursOfOperation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "LocationHoursOfOperation",
-			Namespace: "FHIR",
-		},
+		Name:      "LocationHoursOfOperation",
+		Namespace: "FHIR",
 	}
 }

@@ -6592,6 +6592,10 @@ func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r Appointment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6873,14 +6877,8 @@ func (r Appointment) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Appointment",
-			Namespace: "FHIR",
-		},
+		Name:      "Appointment",
+		Namespace: "FHIR",
 	}
 }
 func (r AppointmentParticipant) Children(name ...string) fhirpath.Collection {
@@ -6977,6 +6975,10 @@ func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7034,14 +7036,8 @@ func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AppointmentParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "AppointmentParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r AppointmentRecurrenceTemplate) Children(name ...string) fhirpath.Collection {
@@ -7163,6 +7159,10 @@ func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element, _noRev
 }
 func (r AppointmentRecurrenceTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7255,14 +7255,8 @@ func (r AppointmentRecurrenceTemplate) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AppointmentRecurrenceTemplate",
-			Namespace: "FHIR",
-		},
+		Name:      "AppointmentRecurrenceTemplate",
+		Namespace: "FHIR",
 	}
 }
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) Children(name ...string) fhirpath.Collection {
@@ -7376,6 +7370,10 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.E
 }
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7454,14 +7452,8 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) TypeInfo() fhirpath.TypeInf
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AppointmentRecurrenceTemplateWeeklyTemplate",
-			Namespace: "FHIR",
-		},
+		Name:      "AppointmentRecurrenceTemplateWeeklyTemplate",
+		Namespace: "FHIR",
 	}
 }
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) Children(name ...string) fhirpath.Collection {
@@ -7553,6 +7545,10 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.
 }
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7603,14 +7599,8 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) TypeInfo() fhirpath.TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AppointmentRecurrenceTemplateMonthlyTemplate",
-			Namespace: "FHIR",
-		},
+		Name:      "AppointmentRecurrenceTemplateMonthlyTemplate",
+		Namespace: "FHIR",
 	}
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) Children(name ...string) fhirpath.Collection {
@@ -7687,6 +7677,10 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.E
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7716,13 +7710,7 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) TypeInfo() fhirpath.TypeInf
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AppointmentRecurrenceTemplateYearlyTemplate",
-			Namespace: "FHIR",
-		},
+		Name:      "AppointmentRecurrenceTemplateYearlyTemplate",
+		Namespace: "FHIR",
 	}
 }

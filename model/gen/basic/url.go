@@ -133,6 +133,10 @@ func (r Url) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool
 }
 func (r Url) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -148,13 +152,7 @@ func (r Url) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "PrimitiveType",
-				Namespace: "FHIR",
-			},
-			Name:      "url",
-			Namespace: "FHIR",
-		},
+		Name:      "url",
+		Namespace: "FHIR",
 	}
 }

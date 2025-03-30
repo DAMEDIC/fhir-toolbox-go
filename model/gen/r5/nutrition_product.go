@@ -4012,6 +4012,10 @@ func (r NutritionProduct) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r NutritionProduct) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4139,14 +4143,8 @@ func (r NutritionProduct) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionProduct",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionProduct",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionProductNutrient) Children(name ...string) fhirpath.Collection {
@@ -4230,6 +4228,10 @@ func (r NutritionProductNutrient) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r NutritionProductNutrient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4266,14 +4268,8 @@ func (r NutritionProductNutrient) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionProductNutrient",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionProductNutrient",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionProductIngredient) Children(name ...string) fhirpath.Collection {
@@ -4355,6 +4351,10 @@ func (r NutritionProductIngredient) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r NutritionProductIngredient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4391,14 +4391,8 @@ func (r NutritionProductIngredient) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionProductIngredient",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionProductIngredient",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionProductCharacteristic) Children(name ...string) fhirpath.Collection {
@@ -4478,6 +4472,10 @@ func (r NutritionProductCharacteristic) Equivalent(other fhirpath.Element, _noRe
 }
 func (r NutritionProductCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4514,14 +4512,8 @@ func (r NutritionProductCharacteristic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionProductCharacteristic",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionProductCharacteristic",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionProductInstance) Children(name ...string) fhirpath.Collection {
@@ -4630,6 +4622,10 @@ func (r NutritionProductInstance) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r NutritionProductInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4701,13 +4697,7 @@ func (r NutritionProductInstance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionProductInstance",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionProductInstance",
+		Namespace: "FHIR",
 	}
 }

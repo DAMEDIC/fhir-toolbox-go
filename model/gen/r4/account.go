@@ -2372,6 +2372,10 @@ func (r Account) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...
 }
 func (r Account) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2506,14 +2510,8 @@ func (r Account) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Account",
-			Namespace: "FHIR",
-		},
+		Name:      "Account",
+		Namespace: "FHIR",
 	}
 }
 func (r AccountCoverage) Children(name ...string) fhirpath.Collection {
@@ -2595,6 +2593,10 @@ func (r AccountCoverage) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r AccountCoverage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2631,14 +2633,8 @@ func (r AccountCoverage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AccountCoverage",
-			Namespace: "FHIR",
-		},
+		Name:      "AccountCoverage",
+		Namespace: "FHIR",
 	}
 }
 func (r AccountGuarantor) Children(name ...string) fhirpath.Collection {
@@ -2725,6 +2721,10 @@ func (r AccountGuarantor) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r AccountGuarantor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2768,13 +2768,7 @@ func (r AccountGuarantor) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AccountGuarantor",
-			Namespace: "FHIR",
-		},
+		Name:      "AccountGuarantor",
+		Namespace: "FHIR",
 	}
 }

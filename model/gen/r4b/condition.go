@@ -3494,6 +3494,10 @@ func (r Condition) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 }
 func (r Condition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3670,14 +3674,8 @@ func (r Condition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Condition",
-			Namespace: "FHIR",
-		},
+		Name:      "Condition",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionStage) Children(name ...string) fhirpath.Collection {
@@ -3766,6 +3764,10 @@ func (r ConditionStage) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r ConditionStage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3809,14 +3811,8 @@ func (r ConditionStage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionStage",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionStage",
+		Namespace: "FHIR",
 	}
 }
 func (r ConditionEvidence) Children(name ...string) fhirpath.Collection {
@@ -3900,6 +3896,10 @@ func (r ConditionEvidence) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r ConditionEvidence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3936,13 +3936,7 @@ func (r ConditionEvidence) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConditionEvidence",
-			Namespace: "FHIR",
-		},
+		Name:      "ConditionEvidence",
+		Namespace: "FHIR",
 	}
 }

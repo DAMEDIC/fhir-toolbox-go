@@ -2439,6 +2439,10 @@ func (r CompartmentDefinition) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r CompartmentDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2594,14 +2598,8 @@ func (r CompartmentDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "CompartmentDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "CompartmentDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r CompartmentDefinitionResource) Children(name ...string) fhirpath.Collection {
@@ -2688,6 +2686,10 @@ func (r CompartmentDefinitionResource) Equivalent(other fhirpath.Element, _noRev
 }
 func (r CompartmentDefinitionResource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2731,13 +2733,7 @@ func (r CompartmentDefinitionResource) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CompartmentDefinitionResource",
-			Namespace: "FHIR",
-		},
+		Name:      "CompartmentDefinitionResource",
+		Namespace: "FHIR",
 	}
 }

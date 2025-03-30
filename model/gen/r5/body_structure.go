@@ -2994,6 +2994,10 @@ func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3107,14 +3111,8 @@ func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "BodyStructure",
-			Namespace: "FHIR",
-		},
+		Name:      "BodyStructure",
+		Namespace: "FHIR",
 	}
 }
 func (r BodyStructureIncludedStructure) Children(name ...string) fhirpath.Collection {
@@ -3211,6 +3209,10 @@ func (r BodyStructureIncludedStructure) Equivalent(other fhirpath.Element, _noRe
 }
 func (r BodyStructureIncludedStructure) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3268,14 +3270,8 @@ func (r BodyStructureIncludedStructure) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BodyStructureIncludedStructure",
-			Namespace: "FHIR",
-		},
+		Name:      "BodyStructureIncludedStructure",
+		Namespace: "FHIR",
 	}
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Children(name ...string) fhirpath.Collection {
@@ -3369,6 +3365,10 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equivalent(other 
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3419,14 +3419,8 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) TypeInfo() fhirpa
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BodyStructureIncludedStructureBodyLandmarkOrientation",
-			Namespace: "FHIR",
-		},
+		Name:      "BodyStructureIncludedStructureBodyLandmarkOrientation",
+		Namespace: "FHIR",
 	}
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Children(name ...string) fhirpath.Collection {
@@ -3510,6 +3504,10 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3546,13 +3544,7 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark",
-			Namespace: "FHIR",
-		},
+		Name:      "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark",
+		Namespace: "FHIR",
 	}
 }

@@ -1229,6 +1229,10 @@ func (r Flag) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...boo
 }
 func (r Flag) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1342,13 +1346,7 @@ func (r Flag) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Flag",
-			Namespace: "FHIR",
-		},
+		Name:      "Flag",
+		Namespace: "FHIR",
 	}
 }

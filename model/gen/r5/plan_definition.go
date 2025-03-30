@@ -12778,6 +12778,10 @@ func (r PlanDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r PlanDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13080,14 +13084,8 @@ func (r PlanDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionGoal) Children(name ...string) fhirpath.Collection {
@@ -13194,6 +13192,10 @@ func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r PlanDefinitionGoal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13265,14 +13267,8 @@ func (r PlanDefinitionGoal) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionGoal",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionGoal",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionGoalTarget) Children(name ...string) fhirpath.Collection {
@@ -13361,6 +13357,10 @@ func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r PlanDefinitionGoalTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13404,14 +13404,8 @@ func (r PlanDefinitionGoalTarget) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionGoalTarget",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionGoalTarget",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActor) Children(name ...string) fhirpath.Collection {
@@ -13500,6 +13494,10 @@ func (r PlanDefinitionActor) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r PlanDefinitionActor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13543,14 +13541,8 @@ func (r PlanDefinitionActor) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActor",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActor",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActorOption) Children(name ...string) fhirpath.Collection {
@@ -13644,6 +13636,10 @@ func (r PlanDefinitionActorOption) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r PlanDefinitionActorOption) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -13694,14 +13690,8 @@ func (r PlanDefinitionActorOption) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActorOption",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActorOption",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionAction) Children(name ...string) fhirpath.Collection {
@@ -13920,6 +13910,10 @@ func (r PlanDefinitionAction) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r PlanDefinitionAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14145,14 +14139,8 @@ func (r PlanDefinitionAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionAction",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionAction",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActionCondition) Children(name ...string) fhirpath.Collection {
@@ -14234,6 +14222,10 @@ func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element, _noRev
 }
 func (r PlanDefinitionActionCondition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14270,14 +14262,8 @@ func (r PlanDefinitionActionCondition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActionCondition",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActionCondition",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActionInput) Children(name ...string) fhirpath.Collection {
@@ -14366,6 +14352,10 @@ func (r PlanDefinitionActionInput) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r PlanDefinitionActionInput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14409,14 +14399,8 @@ func (r PlanDefinitionActionInput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActionInput",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActionInput",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActionOutput) Children(name ...string) fhirpath.Collection {
@@ -14505,6 +14489,10 @@ func (r PlanDefinitionActionOutput) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r PlanDefinitionActionOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14548,14 +14536,8 @@ func (r PlanDefinitionActionOutput) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActionOutput",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActionOutput",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActionRelatedAction) Children(name ...string) fhirpath.Collection {
@@ -14645,6 +14627,10 @@ func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element, _n
 }
 func (r PlanDefinitionActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14695,14 +14681,8 @@ func (r PlanDefinitionActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActionRelatedAction",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActionRelatedAction",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActionParticipant) Children(name ...string) fhirpath.Collection {
@@ -14806,6 +14786,10 @@ func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element, _noR
 }
 func (r PlanDefinitionActionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14870,14 +14854,8 @@ func (r PlanDefinitionActionParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActionParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActionParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r PlanDefinitionActionDynamicValue) Children(name ...string) fhirpath.Collection {
@@ -14961,6 +14939,10 @@ func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element, _no
 }
 func (r PlanDefinitionActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -14997,13 +14979,7 @@ func (r PlanDefinitionActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PlanDefinitionActionDynamicValue",
-			Namespace: "FHIR",
-		},
+		Name:      "PlanDefinitionActionDynamicValue",
+		Namespace: "FHIR",
 	}
 }

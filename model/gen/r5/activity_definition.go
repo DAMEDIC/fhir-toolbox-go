@@ -6485,6 +6485,10 @@ func (r ActivityDefinition) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ActivityDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6885,14 +6889,8 @@ func (r ActivityDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ActivityDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "ActivityDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r ActivityDefinitionParticipant) Children(name ...string) fhirpath.Collection {
@@ -6991,6 +6989,10 @@ func (r ActivityDefinitionParticipant) Equivalent(other fhirpath.Element, _noRev
 }
 func (r ActivityDefinitionParticipant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7048,14 +7050,8 @@ func (r ActivityDefinitionParticipant) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ActivityDefinitionParticipant",
-			Namespace: "FHIR",
-		},
+		Name:      "ActivityDefinitionParticipant",
+		Namespace: "FHIR",
 	}
 }
 func (r ActivityDefinitionDynamicValue) Children(name ...string) fhirpath.Collection {
@@ -7135,6 +7131,10 @@ func (r ActivityDefinitionDynamicValue) Equivalent(other fhirpath.Element, _noRe
 }
 func (r ActivityDefinitionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7171,13 +7171,7 @@ func (r ActivityDefinitionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ActivityDefinitionDynamicValue",
-			Namespace: "FHIR",
-		},
+		Name:      "ActivityDefinitionDynamicValue",
+		Namespace: "FHIR",
 	}
 }

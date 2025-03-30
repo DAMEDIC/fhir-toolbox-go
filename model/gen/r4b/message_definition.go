@@ -4052,6 +4052,10 @@ func (r MessageDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r MessageDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4277,14 +4281,8 @@ func (r MessageDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "MessageDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "MessageDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r MessageDefinitionFocus) Children(name ...string) fhirpath.Collection {
@@ -4374,6 +4372,10 @@ func (r MessageDefinitionFocus) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r MessageDefinitionFocus) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4424,14 +4426,8 @@ func (r MessageDefinitionFocus) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MessageDefinitionFocus",
-			Namespace: "FHIR",
-		},
+		Name:      "MessageDefinitionFocus",
+		Namespace: "FHIR",
 	}
 }
 func (r MessageDefinitionAllowedResponse) Children(name ...string) fhirpath.Collection {
@@ -4513,6 +4509,10 @@ func (r MessageDefinitionAllowedResponse) Equivalent(other fhirpath.Element, _no
 }
 func (r MessageDefinitionAllowedResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4549,13 +4549,7 @@ func (r MessageDefinitionAllowedResponse) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "MessageDefinitionAllowedResponse",
-			Namespace: "FHIR",
-		},
+		Name:      "MessageDefinitionAllowedResponse",
+		Namespace: "FHIR",
 	}
 }

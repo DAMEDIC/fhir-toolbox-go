@@ -4648,6 +4648,10 @@ func (r GraphDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r GraphDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4845,14 +4849,8 @@ func (r GraphDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "GraphDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "GraphDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r GraphDefinitionNode) Children(name ...string) fhirpath.Collection {
@@ -4942,6 +4940,10 @@ func (r GraphDefinitionNode) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r GraphDefinitionNode) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4992,14 +4994,8 @@ func (r GraphDefinitionNode) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GraphDefinitionNode",
-			Namespace: "FHIR",
-		},
+		Name:      "GraphDefinitionNode",
+		Namespace: "FHIR",
 	}
 }
 func (r GraphDefinitionLink) Children(name ...string) fhirpath.Collection {
@@ -5114,6 +5110,10 @@ func (r GraphDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r GraphDefinitionLink) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5199,14 +5199,8 @@ func (r GraphDefinitionLink) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GraphDefinitionLink",
-			Namespace: "FHIR",
-		},
+		Name:      "GraphDefinitionLink",
+		Namespace: "FHIR",
 	}
 }
 func (r GraphDefinitionLinkCompartment) Children(name ...string) fhirpath.Collection {
@@ -5299,6 +5293,10 @@ func (r GraphDefinitionLinkCompartment) Equivalent(other fhirpath.Element, _noRe
 }
 func (r GraphDefinitionLinkCompartment) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5356,13 +5354,7 @@ func (r GraphDefinitionLinkCompartment) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GraphDefinitionLinkCompartment",
-			Namespace: "FHIR",
-		},
+		Name:      "GraphDefinitionLinkCompartment",
+		Namespace: "FHIR",
 	}
 }

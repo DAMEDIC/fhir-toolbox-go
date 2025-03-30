@@ -2692,6 +2692,10 @@ func (r ClinicalImpression) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ClinicalImpression) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2882,14 +2886,8 @@ func (r ClinicalImpression) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ClinicalImpression",
-			Namespace: "FHIR",
-		},
+		Name:      "ClinicalImpression",
+		Namespace: "FHIR",
 	}
 }
 func (r ClinicalImpressionFinding) Children(name ...string) fhirpath.Collection {
@@ -2973,6 +2971,10 @@ func (r ClinicalImpressionFinding) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ClinicalImpressionFinding) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3009,13 +3011,7 @@ func (r ClinicalImpressionFinding) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ClinicalImpressionFinding",
-			Namespace: "FHIR",
-		},
+		Name:      "ClinicalImpressionFinding",
+		Namespace: "FHIR",
 	}
 }

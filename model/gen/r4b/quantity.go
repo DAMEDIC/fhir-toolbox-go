@@ -712,6 +712,10 @@ func (r Quantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r Quantity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -762,13 +766,7 @@ func (r Quantity) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "Quantity",
-			Namespace: "FHIR",
-		},
+		Name:      "Quantity",
+		Namespace: "FHIR",
 	}
 }

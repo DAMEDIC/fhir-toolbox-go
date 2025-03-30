@@ -3374,6 +3374,10 @@ func (r ResearchStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r ResearchStudy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3599,14 +3603,8 @@ func (r ResearchStudy) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ResearchStudy",
-			Namespace: "FHIR",
-		},
+		Name:      "ResearchStudy",
+		Namespace: "FHIR",
 	}
 }
 func (r ResearchStudyArm) Children(name ...string) fhirpath.Collection {
@@ -3693,6 +3691,10 @@ func (r ResearchStudyArm) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r ResearchStudyArm) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3736,14 +3738,8 @@ func (r ResearchStudyArm) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ResearchStudyArm",
-			Namespace: "FHIR",
-		},
+		Name:      "ResearchStudyArm",
+		Namespace: "FHIR",
 	}
 }
 func (r ResearchStudyObjective) Children(name ...string) fhirpath.Collection {
@@ -3827,6 +3823,10 @@ func (r ResearchStudyObjective) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r ResearchStudyObjective) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3863,13 +3863,7 @@ func (r ResearchStudyObjective) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ResearchStudyObjective",
-			Namespace: "FHIR",
-		},
+		Name:      "ResearchStudyObjective",
+		Namespace: "FHIR",
 	}
 }

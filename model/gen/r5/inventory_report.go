@@ -2351,6 +2351,10 @@ func (r InventoryReport) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r InventoryReport) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2478,14 +2482,8 @@ func (r InventoryReport) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryReport",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryReport",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryReportInventoryListing) Children(name ...string) fhirpath.Collection {
@@ -2579,6 +2577,10 @@ func (r InventoryReportInventoryListing) Equivalent(other fhirpath.Element, _noR
 }
 func (r InventoryReportInventoryListing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2629,14 +2631,8 @@ func (r InventoryReportInventoryListing) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryReportInventoryListing",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryReportInventoryListing",
+		Namespace: "FHIR",
 	}
 }
 func (r InventoryReportInventoryListingItem) Children(name ...string) fhirpath.Collection {
@@ -2721,6 +2717,10 @@ func (r InventoryReportInventoryListingItem) Equivalent(other fhirpath.Element, 
 }
 func (r InventoryReportInventoryListingItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2764,13 +2764,7 @@ func (r InventoryReportInventoryListingItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "InventoryReportInventoryListingItem",
-			Namespace: "FHIR",
-		},
+		Name:      "InventoryReportInventoryListingItem",
+		Namespace: "FHIR",
 	}
 }

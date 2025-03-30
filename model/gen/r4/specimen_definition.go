@@ -3779,6 +3779,10 @@ func (r SpecimenDefinition) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r SpecimenDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3878,14 +3882,8 @@ func (r SpecimenDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenDefinitionTypeTested) Children(name ...string) fhirpath.Collection {
@@ -3997,6 +3995,10 @@ func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element, _noReve
 }
 func (r SpecimenDefinitionTypeTested) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4075,14 +4077,8 @@ func (r SpecimenDefinitionTypeTested) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenDefinitionTypeTested",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenDefinitionTypeTested",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenDefinitionTypeTestedContainer) Children(name ...string) fhirpath.Collection {
@@ -4196,6 +4192,10 @@ func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element
 }
 func (r SpecimenDefinitionTypeTestedContainer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4274,14 +4274,8 @@ func (r SpecimenDefinitionTypeTestedContainer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenDefinitionTypeTestedContainer",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenDefinitionTypeTestedContainer",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) Children(name ...string) fhirpath.Collection {
@@ -4358,6 +4352,10 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath
 }
 func (r SpecimenDefinitionTypeTestedContainerAdditive) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4387,14 +4385,8 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) TypeInfo() fhirpath.TypeI
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenDefinitionTypeTestedContainerAdditive",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenDefinitionTypeTestedContainerAdditive",
+		Namespace: "FHIR",
 	}
 }
 func (r SpecimenDefinitionTypeTestedHandling) Children(name ...string) fhirpath.Collection {
@@ -4488,6 +4480,10 @@ func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element,
 }
 func (r SpecimenDefinitionTypeTestedHandling) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4538,13 +4534,7 @@ func (r SpecimenDefinitionTypeTestedHandling) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SpecimenDefinitionTypeTestedHandling",
-			Namespace: "FHIR",
-		},
+		Name:      "SpecimenDefinitionTypeTestedHandling",
+		Namespace: "FHIR",
 	}
 }

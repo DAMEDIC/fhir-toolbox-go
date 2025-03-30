@@ -3683,6 +3683,10 @@ func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3838,14 +3842,8 @@ func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "VerificationResult",
-			Namespace: "FHIR",
-		},
+		Name:      "VerificationResult",
+		Namespace: "FHIR",
 	}
 }
 func (r VerificationResultPrimarySource) Children(name ...string) fhirpath.Collection {
@@ -3954,6 +3952,10 @@ func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noR
 }
 func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4025,14 +4027,8 @@ func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "VerificationResultPrimarySource",
-			Namespace: "FHIR",
-		},
+		Name:      "VerificationResultPrimarySource",
+		Namespace: "FHIR",
 	}
 }
 func (r VerificationResultAttestation) Children(name ...string) fhirpath.Collection {
@@ -4146,6 +4142,10 @@ func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noRev
 }
 func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4224,14 +4224,8 @@ func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "VerificationResultAttestation",
-			Namespace: "FHIR",
-		},
+		Name:      "VerificationResultAttestation",
+		Namespace: "FHIR",
 	}
 }
 func (r VerificationResultValidator) Children(name ...string) fhirpath.Collection {
@@ -4318,6 +4312,10 @@ func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noRever
 }
 func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4361,13 +4359,7 @@ func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "VerificationResultValidator",
-			Namespace: "FHIR",
-		},
+		Name:      "VerificationResultValidator",
+		Namespace: "FHIR",
 	}
 }

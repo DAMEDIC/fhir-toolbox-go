@@ -2963,6 +2963,10 @@ func (r VisionPrescription) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r VisionPrescription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3076,14 +3080,8 @@ func (r VisionPrescription) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "VisionPrescription",
-			Namespace: "FHIR",
-		},
+		Name:      "VisionPrescription",
+		Namespace: "FHIR",
 	}
 }
 func (r VisionPrescriptionLensSpecification) Children(name ...string) fhirpath.Collection {
@@ -3223,6 +3221,10 @@ func (r VisionPrescriptionLensSpecification) Equivalent(other fhirpath.Element, 
 }
 func (r VisionPrescriptionLensSpecification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3343,14 +3345,8 @@ func (r VisionPrescriptionLensSpecification) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "VisionPrescriptionLensSpecification",
-			Namespace: "FHIR",
-		},
+		Name:      "VisionPrescriptionLensSpecification",
+		Namespace: "FHIR",
 	}
 }
 func (r VisionPrescriptionLensSpecificationPrism) Children(name ...string) fhirpath.Collection {
@@ -3430,6 +3426,10 @@ func (r VisionPrescriptionLensSpecificationPrism) Equivalent(other fhirpath.Elem
 }
 func (r VisionPrescriptionLensSpecificationPrism) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3466,13 +3466,7 @@ func (r VisionPrescriptionLensSpecificationPrism) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "VisionPrescriptionLensSpecificationPrism",
-			Namespace: "FHIR",
-		},
+		Name:      "VisionPrescriptionLensSpecificationPrism",
+		Namespace: "FHIR",
 	}
 }

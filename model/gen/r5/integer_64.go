@@ -198,6 +198,10 @@ func (r Integer64) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 }
 func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -213,13 +217,7 @@ func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "PrimitiveType",
-				Namespace: "FHIR",
-			},
-			Name:      "integer64",
-			Namespace: "FHIR",
-		},
+		Name:      "integer64",
+		Namespace: "FHIR",
 	}
 }

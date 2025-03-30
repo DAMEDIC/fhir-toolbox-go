@@ -4107,6 +4107,10 @@ func (r Composition) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r Composition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4269,14 +4273,8 @@ func (r Composition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Composition",
-			Namespace: "FHIR",
-		},
+		Name:      "Composition",
+		Namespace: "FHIR",
 	}
 }
 func (r CompositionAttester) Children(name ...string) fhirpath.Collection {
@@ -4363,6 +4361,10 @@ func (r CompositionAttester) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r CompositionAttester) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4406,14 +4408,8 @@ func (r CompositionAttester) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CompositionAttester",
-			Namespace: "FHIR",
-		},
+		Name:      "CompositionAttester",
+		Namespace: "FHIR",
 	}
 }
 func (r CompositionRelatesTo) Children(name ...string) fhirpath.Collection {
@@ -4493,6 +4489,10 @@ func (r CompositionRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r CompositionRelatesTo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4529,14 +4529,8 @@ func (r CompositionRelatesTo) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CompositionRelatesTo",
-			Namespace: "FHIR",
-		},
+		Name:      "CompositionRelatesTo",
+		Namespace: "FHIR",
 	}
 }
 func (r CompositionEvent) Children(name ...string) fhirpath.Collection {
@@ -4625,6 +4619,10 @@ func (r CompositionEvent) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r CompositionEvent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4668,14 +4666,8 @@ func (r CompositionEvent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CompositionEvent",
-			Namespace: "FHIR",
-		},
+		Name:      "CompositionEvent",
+		Namespace: "FHIR",
 	}
 }
 func (r CompositionSection) Children(name ...string) fhirpath.Collection {
@@ -4799,6 +4791,10 @@ func (r CompositionSection) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r CompositionSection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4891,13 +4887,7 @@ func (r CompositionSection) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CompositionSection",
-			Namespace: "FHIR",
-		},
+		Name:      "CompositionSection",
+		Namespace: "FHIR",
 	}
 }

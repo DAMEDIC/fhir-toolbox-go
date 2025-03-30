@@ -139,6 +139,10 @@ func (r DateTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r DateTime) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -154,13 +158,7 @@ func (r DateTime) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "PrimitiveType",
-				Namespace: "FHIR",
-			},
-			Name:      "dateTime",
-			Namespace: "FHIR",
-		},
+		Name:      "dateTime",
+		Namespace: "FHIR",
 	}
 }

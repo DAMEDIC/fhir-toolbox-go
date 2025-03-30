@@ -769,6 +769,10 @@ func (r ProdCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r ProdCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -868,13 +872,7 @@ func (r ProdCharacteristic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ProdCharacteristic",
-			Namespace: "FHIR",
-		},
+		Name:      "ProdCharacteristic",
+		Namespace: "FHIR",
 	}
 }

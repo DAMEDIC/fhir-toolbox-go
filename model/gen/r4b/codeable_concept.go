@@ -465,6 +465,10 @@ func (r CodeableConcept) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r CodeableConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -494,13 +498,7 @@ func (r CodeableConcept) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CodeableConcept",
-			Namespace: "FHIR",
-		},
+		Name:      "CodeableConcept",
+		Namespace: "FHIR",
 	}
 }

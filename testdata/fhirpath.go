@@ -3,6 +3,7 @@ package testdata
 import (
 	"archive/zip"
 	"bytes"
+	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
@@ -221,6 +222,11 @@ func (o FHIRPathTestOutput) TypeInfo() fhirpath.TypeInfo {
 		Namespace: "System",
 		Name:      strings.Title(o.Output),
 	}
+}
+
+func (o FHIRPathTestOutput) MarshalJSON() (out []byte, err error) {
+	e, _, _ := o.toElement()
+	return json.Marshal(e)
 }
 
 func (o FHIRPathTestOutput) String() string {

@@ -3424,6 +3424,10 @@ func (r DataRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r DataRequirement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3502,14 +3506,8 @@ func (r DataRequirement) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DataRequirement",
-			Namespace: "FHIR",
-		},
+		Name:      "DataRequirement",
+		Namespace: "FHIR",
 	}
 }
 func (r DataRequirementCodeFilter) Children(name ...string) fhirpath.Collection {
@@ -3598,6 +3596,10 @@ func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r DataRequirementCodeFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3641,14 +3643,8 @@ func (r DataRequirementCodeFilter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DataRequirementCodeFilter",
-			Namespace: "FHIR",
-		},
+		Name:      "DataRequirementCodeFilter",
+		Namespace: "FHIR",
 	}
 }
 func (r DataRequirementDateFilter) Children(name ...string) fhirpath.Collection {
@@ -3732,6 +3728,10 @@ func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r DataRequirementDateFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3768,14 +3768,8 @@ func (r DataRequirementDateFilter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DataRequirementDateFilter",
-			Namespace: "FHIR",
-		},
+		Name:      "DataRequirementDateFilter",
+		Namespace: "FHIR",
 	}
 }
 func (r DataRequirementValueFilter) Children(name ...string) fhirpath.Collection {
@@ -3864,6 +3858,10 @@ func (r DataRequirementValueFilter) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r DataRequirementValueFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3907,14 +3905,8 @@ func (r DataRequirementValueFilter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DataRequirementValueFilter",
-			Namespace: "FHIR",
-		},
+		Name:      "DataRequirementValueFilter",
+		Namespace: "FHIR",
 	}
 }
 func (r DataRequirementSort) Children(name ...string) fhirpath.Collection {
@@ -3989,6 +3981,10 @@ func (r DataRequirementSort) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r DataRequirementSort) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4018,13 +4014,7 @@ func (r DataRequirementSort) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DataRequirementSort",
-			Namespace: "FHIR",
-		},
+		Name:      "DataRequirementSort",
+		Namespace: "FHIR",
 	}
 }

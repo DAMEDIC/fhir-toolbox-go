@@ -7850,6 +7850,10 @@ func (r ValueSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r ValueSet) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8033,14 +8037,8 @@ func (r ValueSet) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSet",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSet",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetCompose) Children(name ...string) fhirpath.Collection {
@@ -8134,6 +8132,10 @@ func (r ValueSetCompose) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r ValueSetCompose) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8184,14 +8186,8 @@ func (r ValueSetCompose) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetCompose",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetCompose",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetComposeInclude) Children(name ...string) fhirpath.Collection {
@@ -8290,6 +8286,10 @@ func (r ValueSetComposeInclude) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r ValueSetComposeInclude) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8347,14 +8347,8 @@ func (r ValueSetComposeInclude) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetComposeInclude",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetComposeInclude",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetComposeIncludeConcept) Children(name ...string) fhirpath.Collection {
@@ -8441,6 +8435,10 @@ func (r ValueSetComposeIncludeConcept) Equivalent(other fhirpath.Element, _noRev
 }
 func (r ValueSetComposeIncludeConcept) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8484,14 +8482,8 @@ func (r ValueSetComposeIncludeConcept) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetComposeIncludeConcept",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetComposeIncludeConcept",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetComposeIncludeConceptDesignation) Children(name ...string) fhirpath.Collection {
@@ -8578,6 +8570,10 @@ func (r ValueSetComposeIncludeConceptDesignation) Equivalent(other fhirpath.Elem
 }
 func (r ValueSetComposeIncludeConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8621,14 +8617,8 @@ func (r ValueSetComposeIncludeConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetComposeIncludeConceptDesignation",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetComposeIncludeConceptDesignation",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetComposeIncludeFilter) Children(name ...string) fhirpath.Collection {
@@ -8711,6 +8701,10 @@ func (r ValueSetComposeIncludeFilter) Equivalent(other fhirpath.Element, _noReve
 }
 func (r ValueSetComposeIncludeFilter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8754,14 +8748,8 @@ func (r ValueSetComposeIncludeFilter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetComposeIncludeFilter",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetComposeIncludeFilter",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetExpansion) Children(name ...string) fhirpath.Collection {
@@ -8863,6 +8851,10 @@ func (r ValueSetExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r ValueSetExpansion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8927,14 +8919,8 @@ func (r ValueSetExpansion) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetExpansion",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetExpansion",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetExpansionParameter) Children(name ...string) fhirpath.Collection {
@@ -9016,6 +9002,10 @@ func (r ValueSetExpansionParameter) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r ValueSetExpansionParameter) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9052,14 +9042,8 @@ func (r ValueSetExpansionParameter) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetExpansionParameter",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetExpansionParameter",
+		Namespace: "FHIR",
 	}
 }
 func (r ValueSetExpansionContains) Children(name ...string) fhirpath.Collection {
@@ -9173,6 +9157,10 @@ func (r ValueSetExpansionContains) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ValueSetExpansionContains) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9251,13 +9239,7 @@ func (r ValueSetExpansionContains) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ValueSetExpansionContains",
-			Namespace: "FHIR",
-		},
+		Name:      "ValueSetExpansionContains",
+		Namespace: "FHIR",
 	}
 }

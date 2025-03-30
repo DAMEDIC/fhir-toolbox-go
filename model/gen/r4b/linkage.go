@@ -1391,6 +1391,10 @@ func (r Linkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...
 }
 func (r Linkage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1469,14 +1473,8 @@ func (r Linkage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Linkage",
-			Namespace: "FHIR",
-		},
+		Name:      "Linkage",
+		Namespace: "FHIR",
 	}
 }
 func (r LinkageItem) Children(name ...string) fhirpath.Collection {
@@ -1556,6 +1554,10 @@ func (r LinkageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r LinkageItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -1592,13 +1594,7 @@ func (r LinkageItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "LinkageItem",
-			Namespace: "FHIR",
-		},
+		Name:      "LinkageItem",
+		Namespace: "FHIR",
 	}
 }

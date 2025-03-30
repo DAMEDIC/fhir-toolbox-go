@@ -2847,6 +2847,10 @@ func (r DetectedIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r DetectedIssue) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3002,14 +3006,8 @@ func (r DetectedIssue) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "DetectedIssue",
-			Namespace: "FHIR",
-		},
+		Name:      "DetectedIssue",
+		Namespace: "FHIR",
 	}
 }
 func (r DetectedIssueEvidence) Children(name ...string) fhirpath.Collection {
@@ -3093,6 +3091,10 @@ func (r DetectedIssueEvidence) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r DetectedIssueEvidence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3129,14 +3131,8 @@ func (r DetectedIssueEvidence) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DetectedIssueEvidence",
-			Namespace: "FHIR",
-		},
+		Name:      "DetectedIssueEvidence",
+		Namespace: "FHIR",
 	}
 }
 func (r DetectedIssueMitigation) Children(name ...string) fhirpath.Collection {
@@ -3228,6 +3224,10 @@ func (r DetectedIssueMitigation) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r DetectedIssueMitigation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3278,13 +3278,7 @@ func (r DetectedIssueMitigation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DetectedIssueMitigation",
-			Namespace: "FHIR",
-		},
+		Name:      "DetectedIssueMitigation",
+		Namespace: "FHIR",
 	}
 }

@@ -301,6 +301,10 @@ func (r Period) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...b
 }
 func (r Period) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -330,13 +334,7 @@ func (r Period) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "Period",
-			Namespace: "FHIR",
-		},
+		Name:      "Period",
+		Namespace: "FHIR",
 	}
 }

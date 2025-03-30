@@ -5824,6 +5824,10 @@ func (r SubscriptionTopic) Equivalent(other fhirpath.Element, _noReverseTypeConv
 }
 func (r SubscriptionTopic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6035,14 +6039,8 @@ func (r SubscriptionTopic) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "SubscriptionTopic",
-			Namespace: "FHIR",
-		},
+		Name:      "SubscriptionTopic",
+		Namespace: "FHIR",
 	}
 }
 func (r SubscriptionTopicResourceTrigger) Children(name ...string) fhirpath.Collection {
@@ -6139,6 +6137,10 @@ func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element, _no
 }
 func (r SubscriptionTopicResourceTrigger) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6196,14 +6198,8 @@ func (r SubscriptionTopicResourceTrigger) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubscriptionTopicResourceTrigger",
-			Namespace: "FHIR",
-		},
+		Name:      "SubscriptionTopicResourceTrigger",
+		Namespace: "FHIR",
 	}
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) Children(name ...string) fhirpath.Collection {
@@ -6302,6 +6298,10 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6359,14 +6359,8 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) TypeInfo() fhirpath.TypeI
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubscriptionTopicResourceTriggerQueryCriteria",
-			Namespace: "FHIR",
-		},
+		Name:      "SubscriptionTopicResourceTriggerQueryCriteria",
+		Namespace: "FHIR",
 	}
 }
 func (r SubscriptionTopicEventTrigger) Children(name ...string) fhirpath.Collection {
@@ -6451,6 +6445,10 @@ func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element, _noRev
 }
 func (r SubscriptionTopicEventTrigger) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6494,14 +6492,8 @@ func (r SubscriptionTopicEventTrigger) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubscriptionTopicEventTrigger",
-			Namespace: "FHIR",
-		},
+		Name:      "SubscriptionTopicEventTrigger",
+		Namespace: "FHIR",
 	}
 }
 func (r SubscriptionTopicCanFilterBy) Children(name ...string) fhirpath.Collection {
@@ -6598,6 +6590,10 @@ func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element, _noReve
 }
 func (r SubscriptionTopicCanFilterBy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6655,14 +6651,8 @@ func (r SubscriptionTopicCanFilterBy) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubscriptionTopicCanFilterBy",
-			Namespace: "FHIR",
-		},
+		Name:      "SubscriptionTopicCanFilterBy",
+		Namespace: "FHIR",
 	}
 }
 func (r SubscriptionTopicNotificationShape) Children(name ...string) fhirpath.Collection {
@@ -6749,6 +6739,10 @@ func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element, _
 }
 func (r SubscriptionTopicNotificationShape) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6792,13 +6786,7 @@ func (r SubscriptionTopicNotificationShape) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubscriptionTopicNotificationShape",
-			Namespace: "FHIR",
-		},
+		Name:      "SubscriptionTopicNotificationShape",
+		Namespace: "FHIR",
 	}
 }

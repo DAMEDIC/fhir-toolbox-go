@@ -1938,6 +1938,10 @@ func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversio
 }
 func (r Subscription) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2044,14 +2048,8 @@ func (r Subscription) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Subscription",
-			Namespace: "FHIR",
-		},
+		Name:      "Subscription",
+		Namespace: "FHIR",
 	}
 }
 func (r SubscriptionChannel) Children(name ...string) fhirpath.Collection {
@@ -2143,6 +2141,10 @@ func (r SubscriptionChannel) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r SubscriptionChannel) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2193,13 +2195,7 @@ func (r SubscriptionChannel) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "SubscriptionChannel",
-			Namespace: "FHIR",
-		},
+		Name:      "SubscriptionChannel",
+		Namespace: "FHIR",
 	}
 }

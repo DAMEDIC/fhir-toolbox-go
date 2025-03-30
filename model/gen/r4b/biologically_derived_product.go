@@ -3916,6 +3916,10 @@ func (r BiologicallyDerivedProduct) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r BiologicallyDerivedProduct) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4050,14 +4054,8 @@ func (r BiologicallyDerivedProduct) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "BiologicallyDerivedProduct",
-			Namespace: "FHIR",
-		},
+		Name:      "BiologicallyDerivedProduct",
+		Namespace: "FHIR",
 	}
 }
 func (r BiologicallyDerivedProductCollection) Children(name ...string) fhirpath.Collection {
@@ -4146,6 +4144,10 @@ func (r BiologicallyDerivedProductCollection) Equivalent(other fhirpath.Element,
 }
 func (r BiologicallyDerivedProductCollection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4189,14 +4191,8 @@ func (r BiologicallyDerivedProductCollection) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BiologicallyDerivedProductCollection",
-			Namespace: "FHIR",
-		},
+		Name:      "BiologicallyDerivedProductCollection",
+		Namespace: "FHIR",
 	}
 }
 func (r BiologicallyDerivedProductProcessing) Children(name ...string) fhirpath.Collection {
@@ -4290,6 +4286,10 @@ func (r BiologicallyDerivedProductProcessing) Equivalent(other fhirpath.Element,
 }
 func (r BiologicallyDerivedProductProcessing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4340,14 +4340,8 @@ func (r BiologicallyDerivedProductProcessing) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BiologicallyDerivedProductProcessing",
-			Namespace: "FHIR",
-		},
+		Name:      "BiologicallyDerivedProductProcessing",
+		Namespace: "FHIR",
 	}
 }
 func (r BiologicallyDerivedProductManipulation) Children(name ...string) fhirpath.Collection {
@@ -4431,6 +4425,10 @@ func (r BiologicallyDerivedProductManipulation) Equivalent(other fhirpath.Elemen
 }
 func (r BiologicallyDerivedProductManipulation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4467,14 +4465,8 @@ func (r BiologicallyDerivedProductManipulation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BiologicallyDerivedProductManipulation",
-			Namespace: "FHIR",
-		},
+		Name:      "BiologicallyDerivedProductManipulation",
+		Namespace: "FHIR",
 	}
 }
 func (r BiologicallyDerivedProductStorage) Children(name ...string) fhirpath.Collection {
@@ -4568,6 +4560,10 @@ func (r BiologicallyDerivedProductStorage) Equivalent(other fhirpath.Element, _n
 }
 func (r BiologicallyDerivedProductStorage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4618,13 +4614,7 @@ func (r BiologicallyDerivedProductStorage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "BiologicallyDerivedProductStorage",
-			Namespace: "FHIR",
-		},
+		Name:      "BiologicallyDerivedProductStorage",
+		Namespace: "FHIR",
 	}
 }

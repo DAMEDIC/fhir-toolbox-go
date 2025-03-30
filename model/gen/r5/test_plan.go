@@ -6340,6 +6340,10 @@ func (r TestPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ..
 }
 func (r TestPlan) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6558,14 +6562,8 @@ func (r TestPlan) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlan",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlan",
+		Namespace: "FHIR",
 	}
 }
 func (r TestPlanDependency) Children(name ...string) fhirpath.Collection {
@@ -6649,6 +6647,10 @@ func (r TestPlanDependency) Equivalent(other fhirpath.Element, _noReverseTypeCon
 }
 func (r TestPlanDependency) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6685,14 +6687,8 @@ func (r TestPlanDependency) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlanDependency",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlanDependency",
+		Namespace: "FHIR",
 	}
 }
 func (r TestPlanTestCase) Children(name ...string) fhirpath.Collection {
@@ -6796,6 +6792,10 @@ func (r TestPlanTestCase) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r TestPlanTestCase) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6860,14 +6860,8 @@ func (r TestPlanTestCase) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlanTestCase",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlanTestCase",
+		Namespace: "FHIR",
 	}
 }
 func (r TestPlanTestCaseDependency) Children(name ...string) fhirpath.Collection {
@@ -6951,6 +6945,10 @@ func (r TestPlanTestCaseDependency) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r TestPlanTestCaseDependency) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -6987,14 +6985,8 @@ func (r TestPlanTestCaseDependency) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlanTestCaseDependency",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlanTestCaseDependency",
+		Namespace: "FHIR",
 	}
 }
 func (r TestPlanTestCaseTestRun) Children(name ...string) fhirpath.Collection {
@@ -7078,6 +7070,10 @@ func (r TestPlanTestCaseTestRun) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r TestPlanTestCaseTestRun) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7114,14 +7110,8 @@ func (r TestPlanTestCaseTestRun) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlanTestCaseTestRun",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlanTestCaseTestRun",
+		Namespace: "FHIR",
 	}
 }
 func (r TestPlanTestCaseTestRunScript) Children(name ...string) fhirpath.Collection {
@@ -7205,6 +7195,10 @@ func (r TestPlanTestCaseTestRunScript) Equivalent(other fhirpath.Element, _noRev
 }
 func (r TestPlanTestCaseTestRunScript) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7241,14 +7235,8 @@ func (r TestPlanTestCaseTestRunScript) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlanTestCaseTestRunScript",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlanTestCaseTestRunScript",
+		Namespace: "FHIR",
 	}
 }
 func (r TestPlanTestCaseTestData) Children(name ...string) fhirpath.Collection {
@@ -7335,6 +7323,10 @@ func (r TestPlanTestCaseTestData) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r TestPlanTestCaseTestData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7378,14 +7370,8 @@ func (r TestPlanTestCaseTestData) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlanTestCaseTestData",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlanTestCaseTestData",
+		Namespace: "FHIR",
 	}
 }
 func (r TestPlanTestCaseAssertion) Children(name ...string) fhirpath.Collection {
@@ -7474,6 +7460,10 @@ func (r TestPlanTestCaseAssertion) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r TestPlanTestCaseAssertion) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -7517,13 +7507,7 @@ func (r TestPlanTestCaseAssertion) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "TestPlanTestCaseAssertion",
-			Namespace: "FHIR",
-		},
+		Name:      "TestPlanTestCaseAssertion",
+		Namespace: "FHIR",
 	}
 }

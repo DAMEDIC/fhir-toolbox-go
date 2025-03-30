@@ -1932,6 +1932,10 @@ func (r GuidanceResponse) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r GuidanceResponse) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2087,13 +2091,7 @@ func (r GuidanceResponse) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "GuidanceResponse",
-			Namespace: "FHIR",
-		},
+		Name:      "GuidanceResponse",
+		Namespace: "FHIR",
 	}
 }

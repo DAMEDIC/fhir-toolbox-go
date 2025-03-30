@@ -1983,6 +1983,10 @@ func (r ResearchSubject) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r ResearchSubject) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2103,14 +2107,8 @@ func (r ResearchSubject) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ResearchSubject",
-			Namespace: "FHIR",
-		},
+		Name:      "ResearchSubject",
+		Namespace: "FHIR",
 	}
 }
 func (r ResearchSubjectProgress) Children(name ...string) fhirpath.Collection {
@@ -2214,6 +2212,10 @@ func (r ResearchSubjectProgress) Equivalent(other fhirpath.Element, _noReverseTy
 }
 func (r ResearchSubjectProgress) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2278,13 +2280,7 @@ func (r ResearchSubjectProgress) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ResearchSubjectProgress",
-			Namespace: "FHIR",
-		},
+		Name:      "ResearchSubjectProgress",
+		Namespace: "FHIR",
 	}
 }

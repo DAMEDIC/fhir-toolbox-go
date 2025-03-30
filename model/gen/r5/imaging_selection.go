@@ -4231,6 +4231,10 @@ func (r ImagingSelection) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r ImagingSelection) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4407,14 +4411,8 @@ func (r ImagingSelection) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingSelection",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingSelection",
+		Namespace: "FHIR",
 	}
 }
 func (r ImagingSelectionPerformer) Children(name ...string) fhirpath.Collection {
@@ -4498,6 +4496,10 @@ func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r ImagingSelectionPerformer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4534,14 +4536,8 @@ func (r ImagingSelectionPerformer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingSelectionPerformer",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingSelectionPerformer",
+		Namespace: "FHIR",
 	}
 }
 func (r ImagingSelectionInstance) Children(name ...string) fhirpath.Collection {
@@ -4643,6 +4639,10 @@ func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r ImagingSelectionInstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4707,14 +4707,8 @@ func (r ImagingSelectionInstance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingSelectionInstance",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingSelectionInstance",
+		Namespace: "FHIR",
 	}
 }
 func (r ImagingSelectionInstanceImageRegion2D) Children(name ...string) fhirpath.Collection {
@@ -4796,6 +4790,10 @@ func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element
 }
 func (r ImagingSelectionInstanceImageRegion2D) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4832,14 +4830,8 @@ func (r ImagingSelectionInstanceImageRegion2D) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingSelectionInstanceImageRegion2D",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingSelectionInstanceImageRegion2D",
+		Namespace: "FHIR",
 	}
 }
 func (r ImagingSelectionInstanceImageRegion3D) Children(name ...string) fhirpath.Collection {
@@ -4921,6 +4913,10 @@ func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element
 }
 func (r ImagingSelectionInstanceImageRegion3D) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4957,13 +4953,7 @@ func (r ImagingSelectionInstanceImageRegion3D) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ImagingSelectionInstanceImageRegion3D",
-			Namespace: "FHIR",
-		},
+		Name:      "ImagingSelectionInstanceImageRegion3D",
+		Namespace: "FHIR",
 	}
 }

@@ -3668,6 +3668,10 @@ func (r Ingredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r Ingredient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3781,14 +3785,8 @@ func (r Ingredient) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Ingredient",
-			Namespace: "FHIR",
-		},
+		Name:      "Ingredient",
+		Namespace: "FHIR",
 	}
 }
 func (r IngredientManufacturer) Children(name ...string) fhirpath.Collection {
@@ -3870,6 +3868,10 @@ func (r IngredientManufacturer) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r IngredientManufacturer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3906,14 +3908,8 @@ func (r IngredientManufacturer) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "IngredientManufacturer",
-			Namespace: "FHIR",
-		},
+		Name:      "IngredientManufacturer",
+		Namespace: "FHIR",
 	}
 }
 func (r IngredientSubstance) Children(name ...string) fhirpath.Collection {
@@ -3995,6 +3991,10 @@ func (r IngredientSubstance) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r IngredientSubstance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4031,14 +4031,8 @@ func (r IngredientSubstance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "IngredientSubstance",
-			Namespace: "FHIR",
-		},
+		Name:      "IngredientSubstance",
+		Namespace: "FHIR",
 	}
 }
 func (r IngredientSubstanceStrength) Children(name ...string) fhirpath.Collection {
@@ -4147,6 +4141,10 @@ func (r IngredientSubstanceStrength) Equivalent(other fhirpath.Element, _noRever
 }
 func (r IngredientSubstanceStrength) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4218,14 +4216,8 @@ func (r IngredientSubstanceStrength) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "IngredientSubstanceStrength",
-			Namespace: "FHIR",
-		},
+		Name:      "IngredientSubstanceStrength",
+		Namespace: "FHIR",
 	}
 }
 func (r IngredientSubstanceStrengthReferenceStrength) Children(name ...string) fhirpath.Collection {
@@ -4317,6 +4309,10 @@ func (r IngredientSubstanceStrengthReferenceStrength) Equivalent(other fhirpath.
 }
 func (r IngredientSubstanceStrengthReferenceStrength) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4367,13 +4363,7 @@ func (r IngredientSubstanceStrengthReferenceStrength) TypeInfo() fhirpath.TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "IngredientSubstanceStrengthReferenceStrength",
-			Namespace: "FHIR",
-		},
+		Name:      "IngredientSubstanceStrengthReferenceStrength",
+		Namespace: "FHIR",
 	}
 }

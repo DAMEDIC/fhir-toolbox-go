@@ -2673,6 +2673,10 @@ func (r Provenance) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r Provenance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2800,14 +2804,8 @@ func (r Provenance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Provenance",
-			Namespace: "FHIR",
-		},
+		Name:      "Provenance",
+		Namespace: "FHIR",
 	}
 }
 func (r ProvenanceAgent) Children(name ...string) fhirpath.Collection {
@@ -2899,6 +2897,10 @@ func (r ProvenanceAgent) Equivalent(other fhirpath.Element, _noReverseTypeConver
 }
 func (r ProvenanceAgent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2949,14 +2951,8 @@ func (r ProvenanceAgent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ProvenanceAgent",
-			Namespace: "FHIR",
-		},
+		Name:      "ProvenanceAgent",
+		Namespace: "FHIR",
 	}
 }
 func (r ProvenanceEntity) Children(name ...string) fhirpath.Collection {
@@ -3041,6 +3037,10 @@ func (r ProvenanceEntity) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r ProvenanceEntity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3084,13 +3084,7 @@ func (r ProvenanceEntity) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ProvenanceEntity",
-			Namespace: "FHIR",
-		},
+		Name:      "ProvenanceEntity",
+		Namespace: "FHIR",
 	}
 }

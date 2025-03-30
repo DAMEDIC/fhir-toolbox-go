@@ -2937,6 +2937,10 @@ func (r ObservationDefinition) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r ObservationDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3085,14 +3089,8 @@ func (r ObservationDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ObservationDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "ObservationDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r ObservationDefinitionQuantitativeDetails) Children(name ...string) fhirpath.Collection {
@@ -3186,6 +3184,10 @@ func (r ObservationDefinitionQuantitativeDetails) Equivalent(other fhirpath.Elem
 }
 func (r ObservationDefinitionQuantitativeDetails) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3236,14 +3238,8 @@ func (r ObservationDefinitionQuantitativeDetails) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ObservationDefinitionQuantitativeDetails",
-			Namespace: "FHIR",
-		},
+		Name:      "ObservationDefinitionQuantitativeDetails",
+		Namespace: "FHIR",
 	}
 }
 func (r ObservationDefinitionQualifiedInterval) Children(name ...string) fhirpath.Collection {
@@ -3357,6 +3353,10 @@ func (r ObservationDefinitionQualifiedInterval) Equivalent(other fhirpath.Elemen
 }
 func (r ObservationDefinitionQualifiedInterval) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3435,13 +3435,7 @@ func (r ObservationDefinitionQualifiedInterval) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ObservationDefinitionQualifiedInterval",
-			Namespace: "FHIR",
-		},
+		Name:      "ObservationDefinitionQualifiedInterval",
+		Namespace: "FHIR",
 	}
 }

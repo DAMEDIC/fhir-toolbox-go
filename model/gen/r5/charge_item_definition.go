@@ -4037,6 +4037,10 @@ func (r ChargeItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ChargeItemDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4276,14 +4280,8 @@ func (r ChargeItemDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "ChargeItemDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "ChargeItemDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r ChargeItemDefinitionApplicability) Children(name ...string) fhirpath.Collection {
@@ -4372,6 +4370,10 @@ func (r ChargeItemDefinitionApplicability) Equivalent(other fhirpath.Element, _n
 }
 func (r ChargeItemDefinitionApplicability) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4415,14 +4417,8 @@ func (r ChargeItemDefinitionApplicability) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ChargeItemDefinitionApplicability",
-			Namespace: "FHIR",
-		},
+		Name:      "ChargeItemDefinitionApplicability",
+		Namespace: "FHIR",
 	}
 }
 func (r ChargeItemDefinitionPropertyGroup) Children(name ...string) fhirpath.Collection {
@@ -4506,6 +4502,10 @@ func (r ChargeItemDefinitionPropertyGroup) Equivalent(other fhirpath.Element, _n
 }
 func (r ChargeItemDefinitionPropertyGroup) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4542,13 +4542,7 @@ func (r ChargeItemDefinitionPropertyGroup) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ChargeItemDefinitionPropertyGroup",
-			Namespace: "FHIR",
-		},
+		Name:      "ChargeItemDefinitionPropertyGroup",
+		Namespace: "FHIR",
 	}
 }

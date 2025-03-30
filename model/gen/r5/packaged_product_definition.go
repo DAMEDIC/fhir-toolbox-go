@@ -4491,6 +4491,10 @@ func (r PackagedProductDefinition) Equivalent(other fhirpath.Element, _noReverse
 }
 func (r PackagedProductDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4653,14 +4657,8 @@ func (r PackagedProductDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "PackagedProductDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "PackagedProductDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) Children(name ...string) fhirpath.Collection {
@@ -4744,6 +4742,10 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.
 }
 func (r PackagedProductDefinitionLegalStatusOfSupply) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4780,14 +4782,8 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) TypeInfo() fhirpath.TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PackagedProductDefinitionLegalStatusOfSupply",
-			Namespace: "FHIR",
-		},
+		Name:      "PackagedProductDefinitionLegalStatusOfSupply",
+		Namespace: "FHIR",
 	}
 }
 func (r PackagedProductDefinitionPackaging) Children(name ...string) fhirpath.Collection {
@@ -4916,6 +4912,10 @@ func (r PackagedProductDefinitionPackaging) Equivalent(other fhirpath.Element, _
 }
 func (r PackagedProductDefinitionPackaging) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5015,14 +5015,8 @@ func (r PackagedProductDefinitionPackaging) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PackagedProductDefinitionPackaging",
-			Namespace: "FHIR",
-		},
+		Name:      "PackagedProductDefinitionPackaging",
+		Namespace: "FHIR",
 	}
 }
 func (r PackagedProductDefinitionPackagingProperty) Children(name ...string) fhirpath.Collection {
@@ -5104,6 +5098,10 @@ func (r PackagedProductDefinitionPackagingProperty) Equivalent(other fhirpath.El
 }
 func (r PackagedProductDefinitionPackagingProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5140,14 +5138,8 @@ func (r PackagedProductDefinitionPackagingProperty) TypeInfo() fhirpath.TypeInfo
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PackagedProductDefinitionPackagingProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "PackagedProductDefinitionPackagingProperty",
+		Namespace: "FHIR",
 	}
 }
 func (r PackagedProductDefinitionPackagingContainedItem) Children(name ...string) fhirpath.Collection {
@@ -5229,6 +5221,10 @@ func (r PackagedProductDefinitionPackagingContainedItem) Equivalent(other fhirpa
 }
 func (r PackagedProductDefinitionPackagingContainedItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5265,13 +5261,7 @@ func (r PackagedProductDefinitionPackagingContainedItem) TypeInfo() fhirpath.Typ
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "PackagedProductDefinitionPackagingContainedItem",
-			Namespace: "FHIR",
-		},
+		Name:      "PackagedProductDefinitionPackagingContainedItem",
+		Namespace: "FHIR",
 	}
 }

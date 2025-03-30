@@ -2469,6 +2469,10 @@ func (r DeviceUsage) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 }
 func (r DeviceUsage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2645,14 +2649,8 @@ func (r DeviceUsage) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceUsage",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceUsage",
+		Namespace: "FHIR",
 	}
 }
 func (r DeviceUsageAdherence) Children(name ...string) fhirpath.Collection {
@@ -2734,6 +2732,10 @@ func (r DeviceUsageAdherence) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r DeviceUsageAdherence) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -2770,13 +2772,7 @@ func (r DeviceUsageAdherence) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "DeviceUsageAdherence",
-			Namespace: "FHIR",
-		},
+		Name:      "DeviceUsageAdherence",
+		Namespace: "FHIR",
 	}
 }

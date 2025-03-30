@@ -4169,6 +4169,10 @@ func (r CoverageEligibilityRequest) Equivalent(other fhirpath.Element, _noRevers
 }
 func (r CoverageEligibilityRequest) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4324,14 +4328,8 @@ func (r CoverageEligibilityRequest) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "CoverageEligibilityRequest",
-			Namespace: "FHIR",
-		},
+		Name:      "CoverageEligibilityRequest",
+		Namespace: "FHIR",
 	}
 }
 func (r CoverageEligibilityRequestSupportingInfo) Children(name ...string) fhirpath.Collection {
@@ -4416,6 +4414,10 @@ func (r CoverageEligibilityRequestSupportingInfo) Equivalent(other fhirpath.Elem
 }
 func (r CoverageEligibilityRequestSupportingInfo) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4459,14 +4461,8 @@ func (r CoverageEligibilityRequestSupportingInfo) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CoverageEligibilityRequestSupportingInfo",
-			Namespace: "FHIR",
-		},
+		Name:      "CoverageEligibilityRequestSupportingInfo",
+		Namespace: "FHIR",
 	}
 }
 func (r CoverageEligibilityRequestInsurance) Children(name ...string) fhirpath.Collection {
@@ -4553,6 +4549,10 @@ func (r CoverageEligibilityRequestInsurance) Equivalent(other fhirpath.Element, 
 }
 func (r CoverageEligibilityRequestInsurance) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4596,14 +4596,8 @@ func (r CoverageEligibilityRequestInsurance) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CoverageEligibilityRequestInsurance",
-			Namespace: "FHIR",
-		},
+		Name:      "CoverageEligibilityRequestInsurance",
+		Namespace: "FHIR",
 	}
 }
 func (r CoverageEligibilityRequestItem) Children(name ...string) fhirpath.Collection {
@@ -4727,6 +4721,10 @@ func (r CoverageEligibilityRequestItem) Equivalent(other fhirpath.Element, _noRe
 }
 func (r CoverageEligibilityRequestItem) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4819,14 +4817,8 @@ func (r CoverageEligibilityRequestItem) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CoverageEligibilityRequestItem",
-			Namespace: "FHIR",
-		},
+		Name:      "CoverageEligibilityRequestItem",
+		Namespace: "FHIR",
 	}
 }
 func (r CoverageEligibilityRequestItemDiagnosis) Children(name ...string) fhirpath.Collection {
@@ -4905,6 +4897,10 @@ func (r CoverageEligibilityRequestItemDiagnosis) Equivalent(other fhirpath.Eleme
 }
 func (r CoverageEligibilityRequestItemDiagnosis) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4934,13 +4930,7 @@ func (r CoverageEligibilityRequestItemDiagnosis) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "CoverageEligibilityRequestItemDiagnosis",
-			Namespace: "FHIR",
-		},
+		Name:      "CoverageEligibilityRequestItemDiagnosis",
+		Namespace: "FHIR",
 	}
 }

@@ -7904,6 +7904,10 @@ func (r NutritionOrder) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 }
 func (r NutritionOrder) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8122,14 +8126,8 @@ func (r NutritionOrder) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrder",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrder",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderOralDiet) Children(name ...string) fhirpath.Collection {
@@ -8233,6 +8231,10 @@ func (r NutritionOrderOralDiet) Equivalent(other fhirpath.Element, _noReverseTyp
 }
 func (r NutritionOrderOralDiet) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8297,14 +8299,8 @@ func (r NutritionOrderOralDiet) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderOralDiet",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderOralDiet",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderOralDietSchedule) Children(name ...string) fhirpath.Collection {
@@ -8393,6 +8389,10 @@ func (r NutritionOrderOralDietSchedule) Equivalent(other fhirpath.Element, _noRe
 }
 func (r NutritionOrderOralDietSchedule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8436,14 +8436,8 @@ func (r NutritionOrderOralDietSchedule) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderOralDietSchedule",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderOralDietSchedule",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderOralDietNutrient) Children(name ...string) fhirpath.Collection {
@@ -8527,6 +8521,10 @@ func (r NutritionOrderOralDietNutrient) Equivalent(other fhirpath.Element, _noRe
 }
 func (r NutritionOrderOralDietNutrient) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8563,14 +8561,8 @@ func (r NutritionOrderOralDietNutrient) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderOralDietNutrient",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderOralDietNutrient",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderOralDietTexture) Children(name ...string) fhirpath.Collection {
@@ -8654,6 +8646,10 @@ func (r NutritionOrderOralDietTexture) Equivalent(other fhirpath.Element, _noRev
 }
 func (r NutritionOrderOralDietTexture) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8690,14 +8686,8 @@ func (r NutritionOrderOralDietTexture) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderOralDietTexture",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderOralDietTexture",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderSupplement) Children(name ...string) fhirpath.Collection {
@@ -8796,6 +8786,10 @@ func (r NutritionOrderSupplement) Equivalent(other fhirpath.Element, _noReverseT
 }
 func (r NutritionOrderSupplement) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8853,14 +8847,8 @@ func (r NutritionOrderSupplement) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderSupplement",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderSupplement",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderSupplementSchedule) Children(name ...string) fhirpath.Collection {
@@ -8949,6 +8937,10 @@ func (r NutritionOrderSupplementSchedule) Equivalent(other fhirpath.Element, _no
 }
 func (r NutritionOrderSupplementSchedule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -8992,14 +8984,8 @@ func (r NutritionOrderSupplementSchedule) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderSupplementSchedule",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderSupplementSchedule",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderEnteralFormula) Children(name ...string) fhirpath.Collection {
@@ -9118,6 +9104,10 @@ func (r NutritionOrderEnteralFormula) Equivalent(other fhirpath.Element, _noReve
 }
 func (r NutritionOrderEnteralFormula) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9203,14 +9193,8 @@ func (r NutritionOrderEnteralFormula) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderEnteralFormula",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderEnteralFormula",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderEnteralFormulaAdditive) Children(name ...string) fhirpath.Collection {
@@ -9299,6 +9283,10 @@ func (r NutritionOrderEnteralFormulaAdditive) Equivalent(other fhirpath.Element,
 }
 func (r NutritionOrderEnteralFormulaAdditive) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9342,14 +9330,8 @@ func (r NutritionOrderEnteralFormulaAdditive) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderEnteralFormulaAdditive",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderEnteralFormulaAdditive",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderEnteralFormulaAdministration) Children(name ...string) fhirpath.Collection {
@@ -9438,6 +9420,10 @@ func (r NutritionOrderEnteralFormulaAdministration) Equivalent(other fhirpath.El
 }
 func (r NutritionOrderEnteralFormulaAdministration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9481,14 +9467,8 @@ func (r NutritionOrderEnteralFormulaAdministration) TypeInfo() fhirpath.TypeInfo
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderEnteralFormulaAdministration",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderEnteralFormulaAdministration",
+		Namespace: "FHIR",
 	}
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) Children(name ...string) fhirpath.Collection {
@@ -9577,6 +9557,10 @@ func (r NutritionOrderEnteralFormulaAdministrationSchedule) Equivalent(other fhi
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -9620,13 +9604,7 @@ func (r NutritionOrderEnteralFormulaAdministrationSchedule) TypeInfo() fhirpath.
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "NutritionOrderEnteralFormulaAdministrationSchedule",
-			Namespace: "FHIR",
-		},
+		Name:      "NutritionOrderEnteralFormulaAdministrationSchedule",
+		Namespace: "FHIR",
 	}
 }

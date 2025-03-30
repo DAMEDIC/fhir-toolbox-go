@@ -650,6 +650,10 @@ func (r Annotation) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r Annotation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -686,13 +690,7 @@ func (r Annotation) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "Annotation",
-			Namespace: "FHIR",
-		},
+		Name:      "Annotation",
+		Namespace: "FHIR",
 	}
 }

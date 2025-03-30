@@ -4011,6 +4011,10 @@ func (r AdministrableProductDefinition) Equivalent(other fhirpath.Element, _noRe
 }
 func (r AdministrableProductDefinition) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4145,14 +4149,8 @@ func (r AdministrableProductDefinition) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "AdministrableProductDefinition",
-			Namespace: "FHIR",
-		},
+		Name:      "AdministrableProductDefinition",
+		Namespace: "FHIR",
 	}
 }
 func (r AdministrableProductDefinitionProperty) Children(name ...string) fhirpath.Collection {
@@ -4239,6 +4237,10 @@ func (r AdministrableProductDefinitionProperty) Equivalent(other fhirpath.Elemen
 }
 func (r AdministrableProductDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4282,14 +4284,8 @@ func (r AdministrableProductDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdministrableProductDefinitionProperty",
-			Namespace: "FHIR",
-		},
+		Name:      "AdministrableProductDefinitionProperty",
+		Namespace: "FHIR",
 	}
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) Children(name ...string) fhirpath.Collection {
@@ -4396,6 +4392,10 @@ func (r AdministrableProductDefinitionRouteOfAdministration) Equivalent(other fh
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4467,14 +4467,8 @@ func (r AdministrableProductDefinitionRouteOfAdministration) TypeInfo() fhirpath
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdministrableProductDefinitionRouteOfAdministration",
-			Namespace: "FHIR",
-		},
+		Name:      "AdministrableProductDefinitionRouteOfAdministration",
+		Namespace: "FHIR",
 	}
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Children(name ...string) fhirpath.Collection {
@@ -4556,6 +4550,10 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equiva
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4592,14 +4590,8 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) TypeIn
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdministrableProductDefinitionRouteOfAdministrationTargetSpecies",
-			Namespace: "FHIR",
-		},
+		Name:      "AdministrableProductDefinitionRouteOfAdministrationTargetSpecies",
+		Namespace: "FHIR",
 	}
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Children(name ...string) fhirpath.Collection {
@@ -4684,6 +4676,10 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4727,13 +4723,7 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod",
-			Namespace: "FHIR",
-		},
+		Name:      "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod",
+		Namespace: "FHIR",
 	}
 }

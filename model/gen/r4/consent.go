@@ -4472,6 +4472,10 @@ func (r Consent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...
 }
 func (r Consent) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4620,14 +4624,8 @@ func (r Consent) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Consent",
-			Namespace: "FHIR",
-		},
+		Name:      "Consent",
+		Namespace: "FHIR",
 	}
 }
 func (r ConsentPolicy) Children(name ...string) fhirpath.Collection {
@@ -4711,6 +4709,10 @@ func (r ConsentPolicy) Equivalent(other fhirpath.Element, _noReverseTypeConversi
 }
 func (r ConsentPolicy) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4747,14 +4749,8 @@ func (r ConsentPolicy) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConsentPolicy",
-			Namespace: "FHIR",
-		},
+		Name:      "ConsentPolicy",
+		Namespace: "FHIR",
 	}
 }
 func (r ConsentVerification) Children(name ...string) fhirpath.Collection {
@@ -4841,6 +4837,10 @@ func (r ConsentVerification) Equivalent(other fhirpath.Element, _noReverseTypeCo
 }
 func (r ConsentVerification) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -4884,14 +4884,8 @@ func (r ConsentVerification) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConsentVerification",
-			Namespace: "FHIR",
-		},
+		Name:      "ConsentVerification",
+		Namespace: "FHIR",
 	}
 }
 func (r ConsentProvision) Children(name ...string) fhirpath.Collection {
@@ -5020,6 +5014,10 @@ func (r ConsentProvision) Equivalent(other fhirpath.Element, _noReverseTypeConve
 }
 func (r ConsentProvision) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5119,14 +5117,8 @@ func (r ConsentProvision) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConsentProvision",
-			Namespace: "FHIR",
-		},
+		Name:      "ConsentProvision",
+		Namespace: "FHIR",
 	}
 }
 func (r ConsentProvisionActor) Children(name ...string) fhirpath.Collection {
@@ -5206,6 +5198,10 @@ func (r ConsentProvisionActor) Equivalent(other fhirpath.Element, _noReverseType
 }
 func (r ConsentProvisionActor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5242,14 +5238,8 @@ func (r ConsentProvisionActor) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConsentProvisionActor",
-			Namespace: "FHIR",
-		},
+		Name:      "ConsentProvisionActor",
+		Namespace: "FHIR",
 	}
 }
 func (r ConsentProvisionData) Children(name ...string) fhirpath.Collection {
@@ -5329,6 +5319,10 @@ func (r ConsentProvisionData) Equivalent(other fhirpath.Element, _noReverseTypeC
 }
 func (r ConsentProvisionData) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -5365,13 +5359,7 @@ func (r ConsentProvisionData) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "ConsentProvisionData",
-			Namespace: "FHIR",
-		},
+		Name:      "ConsentProvisionData",
+		Namespace: "FHIR",
 	}
 }

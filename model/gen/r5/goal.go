@@ -3150,6 +3150,10 @@ func (r Goal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...boo
 }
 func (r Goal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3319,14 +3323,8 @@ func (r Goal) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DomainResource",
-				Namespace: "FHIR",
-			},
-			Name:      "Goal",
-			Namespace: "FHIR",
-		},
+		Name:      "Goal",
+		Namespace: "FHIR",
 	}
 }
 func (r GoalTarget) Children(name ...string) fhirpath.Collection {
@@ -3415,6 +3413,10 @@ func (r GoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 }
 func (r GoalTarget) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
 		Element: []fhirpath.ClassInfoElement{{
 			Name: "Id",
 			Type: fhirpath.TypeSpecifier{
@@ -3458,13 +3460,7 @@ func (r GoalTarget) TypeInfo() fhirpath.TypeInfo {
 				Namespace: "FHIR",
 			},
 		}},
-		SimpleTypeInfo: fhirpath.SimpleTypeInfo{
-			BaseType: fhirpath.TypeSpecifier{
-				Name:      "DataType",
-				Namespace: "FHIR",
-			},
-			Name:      "GoalTarget",
-			Namespace: "FHIR",
-		},
+		Name:      "GoalTarget",
+		Namespace: "FHIR",
 	}
 }
