@@ -1,15 +1,17 @@
 package main
 
 import (
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/json"
-	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/xml"
 	"log"
 	"os"
 	"path/filepath"
 	"slices"
 	"strings"
+
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/fhirpath"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/json"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/xml"
 )
 
 var (
@@ -47,6 +49,7 @@ func main() {
 			json.UnmarshalGenerator{},
 			xml.MarshalGenerator{ContainedResource: true},
 			xml.UnmarshalGenerator{},
+			fhirpath.FHIRPathGenerator{},
 		)
 
 		generate.GenerateAll(releaseTypes[r], genDir(capabilitiesGenTarget, r), r,
@@ -66,6 +69,7 @@ func main() {
 		generate.StringerGenerator{ContainedResource: false},
 		json.MarshalGenerator{ContainedResource: false},
 		xml.MarshalGenerator{ContainedResource: false},
+		fhirpath.FHIRPathGenerator{},
 	)
 
 	log.Println("Code generation done.")

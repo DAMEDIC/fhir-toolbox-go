@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -705,6 +708,83 @@ func (r ImplementationGuideManifestPage) MemSize() int {
 	return s
 }
 func (r ImplementationGuide) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideDependsOn) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideGlobal) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideDefinition) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideDefinitionGrouping) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideDefinitionResource) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideDefinitionPage) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideDefinitionParameter) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideDefinitionTemplate) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideManifest) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideManifestResource) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r ImplementationGuideManifestPage) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
 		return "null"
@@ -9456,5 +9536,2033 @@ func (r *ImplementationGuideManifestPage) UnmarshalXML(d *xml.Decoder, start xml
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r ImplementationGuide) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		children = append(children, r.Url)
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "versionAlgorithm") {
+		if r.VersionAlgorithm != nil {
+			children = append(children, r.VersionAlgorithm)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "experimental") {
+		if r.Experimental != nil {
+			children = append(children, *r.Experimental)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "publisher") {
+		if r.Publisher != nil {
+			children = append(children, *r.Publisher)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contact") {
+		for _, v := range r.Contact {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "useContext") {
+		for _, v := range r.UseContext {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "jurisdiction") {
+		for _, v := range r.Jurisdiction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "purpose") {
+		if r.Purpose != nil {
+			children = append(children, *r.Purpose)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyright") {
+		if r.Copyright != nil {
+			children = append(children, *r.Copyright)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copyrightLabel") {
+		if r.CopyrightLabel != nil {
+			children = append(children, *r.CopyrightLabel)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "packageId") {
+		children = append(children, r.PackageId)
+	}
+	if len(name) == 0 || slices.Contains(name, "license") {
+		if r.License != nil {
+			children = append(children, *r.License)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fhirVersion") {
+		for _, v := range r.FhirVersion {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dependsOn") {
+		for _, v := range r.DependsOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "global") {
+		for _, v := range r.Global {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "definition") {
+		if r.Definition != nil {
+			children = append(children, *r.Definition)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "manifest") {
+		if r.Manifest != nil {
+			children = append(children, *r.Manifest)
+		}
+	}
+	return children
+}
+func (r ImplementationGuide) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuide to Boolean")
+}
+func (r ImplementationGuide) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuide to String")
+}
+func (r ImplementationGuide) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuide to Integer")
+}
+func (r ImplementationGuide) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuide to Decimal")
+}
+func (r ImplementationGuide) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuide to Date")
+}
+func (r ImplementationGuide) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuide to Time")
+}
+func (r ImplementationGuide) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuide to DateTime")
+}
+func (r ImplementationGuide) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuide to Quantity")
+}
+func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuide
+	switch other := other.(type) {
+	case ImplementationGuide:
+		o = &other
+	case *ImplementationGuide:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuide) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuide)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuide) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Meta",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Meta",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ImplicitRules",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Language",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Text",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Narrative",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Contained",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Url",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Identifier",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Identifier",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Version",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "VersionAlgorithm",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Name",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Title",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Status",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Experimental",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Date",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Publisher",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Contact",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ContactDetail",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Description",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "UseContext",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "UsageContext",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Jurisdiction",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Purpose",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Copyright",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CopyrightLabel",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "PackageId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "License",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "FhirVersion",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "DependsOn",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideDependsOn",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Global",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideGlobal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Definition",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "ImplementationGuideDefinition",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Manifest",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "ImplementationGuideManifest",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuide",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideDependsOn) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "uri") {
+		children = append(children, r.Uri)
+	}
+	if len(name) == 0 || slices.Contains(name, "packageId") {
+		if r.PackageId != nil {
+			children = append(children, *r.PackageId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "version") {
+		if r.Version != nil {
+			children = append(children, *r.Version)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		if r.Reason != nil {
+			children = append(children, *r.Reason)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideDependsOn) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDependsOn to Boolean")
+}
+func (r ImplementationGuideDependsOn) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDependsOn to String")
+}
+func (r ImplementationGuideDependsOn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDependsOn to Integer")
+}
+func (r ImplementationGuideDependsOn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDependsOn to Decimal")
+}
+func (r ImplementationGuideDependsOn) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDependsOn to Date")
+}
+func (r ImplementationGuideDependsOn) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDependsOn to Time")
+}
+func (r ImplementationGuideDependsOn) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDependsOn to DateTime")
+}
+func (r ImplementationGuideDependsOn) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDependsOn to Quantity")
+}
+func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideDependsOn
+	switch other := other.(type) {
+	case ImplementationGuideDependsOn:
+		o = &other
+	case *ImplementationGuideDependsOn:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideDependsOn)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideDependsOn) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Uri",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "PackageId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Version",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Reason",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideDependsOn",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideGlobal) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		children = append(children, r.Profile)
+	}
+	return children
+}
+func (r ImplementationGuideGlobal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideGlobal to Boolean")
+}
+func (r ImplementationGuideGlobal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideGlobal to String")
+}
+func (r ImplementationGuideGlobal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideGlobal to Integer")
+}
+func (r ImplementationGuideGlobal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideGlobal to Decimal")
+}
+func (r ImplementationGuideGlobal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideGlobal to Date")
+}
+func (r ImplementationGuideGlobal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideGlobal to Time")
+}
+func (r ImplementationGuideGlobal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideGlobal to DateTime")
+}
+func (r ImplementationGuideGlobal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideGlobal to Quantity")
+}
+func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideGlobal
+	switch other := other.(type) {
+	case ImplementationGuideGlobal:
+		o = &other
+	case *ImplementationGuideGlobal:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideGlobal)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideGlobal) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Profile",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideGlobal",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideDefinition) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "grouping") {
+		for _, v := range r.Grouping {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		for _, v := range r.Resource {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "page") {
+		if r.Page != nil {
+			children = append(children, *r.Page)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "parameter") {
+		for _, v := range r.Parameter {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "template") {
+		for _, v := range r.Template {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideDefinition) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinition to Boolean")
+}
+func (r ImplementationGuideDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinition to String")
+}
+func (r ImplementationGuideDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinition to Integer")
+}
+func (r ImplementationGuideDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinition to Decimal")
+}
+func (r ImplementationGuideDefinition) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinition to Date")
+}
+func (r ImplementationGuideDefinition) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinition to Time")
+}
+func (r ImplementationGuideDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinition to DateTime")
+}
+func (r ImplementationGuideDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinition to Quantity")
+}
+func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideDefinition
+	switch other := other.(type) {
+	case ImplementationGuideDefinition:
+		o = &other
+	case *ImplementationGuideDefinition:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideDefinition)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideDefinition) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Grouping",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideDefinitionGrouping",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Resource",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideDefinitionResource",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Page",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "ImplementationGuideDefinitionPage",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Parameter",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideDefinitionParameter",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Template",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideDefinitionTemplate",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideDefinition",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideDefinitionGrouping) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideDefinitionGrouping) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Boolean")
+}
+func (r ImplementationGuideDefinitionGrouping) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionGrouping to String")
+}
+func (r ImplementationGuideDefinitionGrouping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Integer")
+}
+func (r ImplementationGuideDefinitionGrouping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Decimal")
+}
+func (r ImplementationGuideDefinitionGrouping) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Date")
+}
+func (r ImplementationGuideDefinitionGrouping) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Time")
+}
+func (r ImplementationGuideDefinitionGrouping) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to DateTime")
+}
+func (r ImplementationGuideDefinitionGrouping) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Quantity")
+}
+func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideDefinitionGrouping
+	switch other := other.(type) {
+	case ImplementationGuideDefinitionGrouping:
+		o = &other
+	case *ImplementationGuideDefinitionGrouping:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideDefinitionGrouping)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideDefinitionGrouping) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Name",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Description",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideDefinitionGrouping",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideDefinitionResource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		children = append(children, r.Reference)
+	}
+	if len(name) == 0 || slices.Contains(name, "fhirVersion") {
+		for _, v := range r.FhirVersion {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isExample") {
+		if r.IsExample != nil {
+			children = append(children, *r.IsExample)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		for _, v := range r.Profile {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "groupingId") {
+		if r.GroupingId != nil {
+			children = append(children, *r.GroupingId)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideDefinitionResource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionResource to Boolean")
+}
+func (r ImplementationGuideDefinitionResource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionResource to String")
+}
+func (r ImplementationGuideDefinitionResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionResource to Integer")
+}
+func (r ImplementationGuideDefinitionResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Decimal")
+}
+func (r ImplementationGuideDefinitionResource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Date")
+}
+func (r ImplementationGuideDefinitionResource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Time")
+}
+func (r ImplementationGuideDefinitionResource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to DateTime")
+}
+func (r ImplementationGuideDefinitionResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Quantity")
+}
+func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideDefinitionResource
+	switch other := other.(type) {
+	case ImplementationGuideDefinitionResource:
+		o = &other
+	case *ImplementationGuideDefinitionResource:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideDefinitionResource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideDefinitionResource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Reference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "FhirVersion",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Name",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Description",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Markdown",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "IsExample",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Profile",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "GroupingId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideDefinitionResource",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideDefinitionPage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		if r.Source != nil {
+			children = append(children, r.Source)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		children = append(children, r.Title)
+	}
+	if len(name) == 0 || slices.Contains(name, "generation") {
+		children = append(children, r.Generation)
+	}
+	if len(name) == 0 || slices.Contains(name, "page") {
+		for _, v := range r.Page {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideDefinitionPage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionPage to Boolean")
+}
+func (r ImplementationGuideDefinitionPage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionPage to String")
+}
+func (r ImplementationGuideDefinitionPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionPage to Integer")
+}
+func (r ImplementationGuideDefinitionPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Decimal")
+}
+func (r ImplementationGuideDefinitionPage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Date")
+}
+func (r ImplementationGuideDefinitionPage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Time")
+}
+func (r ImplementationGuideDefinitionPage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to DateTime")
+}
+func (r ImplementationGuideDefinitionPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Quantity")
+}
+func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideDefinitionPage
+	switch other := other.(type) {
+	case ImplementationGuideDefinitionPage:
+		o = &other
+	case *ImplementationGuideDefinitionPage:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideDefinitionPage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideDefinitionPage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Source",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Name",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Url",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Title",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Generation",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Page",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideDefinitionPage",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideDefinitionPage",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideDefinitionParameter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "value") {
+		children = append(children, r.Value)
+	}
+	return children
+}
+func (r ImplementationGuideDefinitionParameter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Boolean")
+}
+func (r ImplementationGuideDefinitionParameter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionParameter to String")
+}
+func (r ImplementationGuideDefinitionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Integer")
+}
+func (r ImplementationGuideDefinitionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Decimal")
+}
+func (r ImplementationGuideDefinitionParameter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Date")
+}
+func (r ImplementationGuideDefinitionParameter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Time")
+}
+func (r ImplementationGuideDefinitionParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to DateTime")
+}
+func (r ImplementationGuideDefinitionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Quantity")
+}
+func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideDefinitionParameter
+	switch other := other.(type) {
+	case ImplementationGuideDefinitionParameter:
+		o = &other
+	case *ImplementationGuideDefinitionParameter:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideDefinitionParameter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Coding",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Value",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideDefinitionParameter",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideDefinitionTemplate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "code") {
+		children = append(children, r.Code)
+	}
+	if len(name) == 0 || slices.Contains(name, "source") {
+		children = append(children, r.Source)
+	}
+	if len(name) == 0 || slices.Contains(name, "scope") {
+		if r.Scope != nil {
+			children = append(children, *r.Scope)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideDefinitionTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Boolean")
+}
+func (r ImplementationGuideDefinitionTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideDefinitionTemplate to String")
+}
+func (r ImplementationGuideDefinitionTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Integer")
+}
+func (r ImplementationGuideDefinitionTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Decimal")
+}
+func (r ImplementationGuideDefinitionTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Date")
+}
+func (r ImplementationGuideDefinitionTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Time")
+}
+func (r ImplementationGuideDefinitionTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to DateTime")
+}
+func (r ImplementationGuideDefinitionTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Quantity")
+}
+func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideDefinitionTemplate
+	switch other := other.(type) {
+	case ImplementationGuideDefinitionTemplate:
+		o = &other
+	case *ImplementationGuideDefinitionTemplate:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideDefinitionTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideDefinitionTemplate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Code",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Source",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Scope",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideDefinitionTemplate",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideManifest) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "rendering") {
+		if r.Rendering != nil {
+			children = append(children, *r.Rendering)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "resource") {
+		for _, v := range r.Resource {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "page") {
+		for _, v := range r.Page {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "image") {
+		for _, v := range r.Image {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "other") {
+		for _, v := range r.Other {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideManifest) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideManifest to Boolean")
+}
+func (r ImplementationGuideManifest) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideManifest to String")
+}
+func (r ImplementationGuideManifest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideManifest to Integer")
+}
+func (r ImplementationGuideManifest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifest to Decimal")
+}
+func (r ImplementationGuideManifest) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideManifest to Date")
+}
+func (r ImplementationGuideManifest) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideManifest to Time")
+}
+func (r ImplementationGuideManifest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideManifest to DateTime")
+}
+func (r ImplementationGuideManifest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifest to Quantity")
+}
+func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideManifest
+	switch other := other.(type) {
+	case ImplementationGuideManifest:
+		o = &other
+	case *ImplementationGuideManifest:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideManifest)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideManifest) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Rendering",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Url",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Resource",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideManifestResource",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Page",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "ImplementationGuideManifestPage",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Image",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Other",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideManifest",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideManifestResource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reference") {
+		children = append(children, r.Reference)
+	}
+	if len(name) == 0 || slices.Contains(name, "isExample") {
+		if r.IsExample != nil {
+			children = append(children, *r.IsExample)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "profile") {
+		for _, v := range r.Profile {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "relativePath") {
+		if r.RelativePath != nil {
+			children = append(children, *r.RelativePath)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideManifestResource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideManifestResource to Boolean")
+}
+func (r ImplementationGuideManifestResource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideManifestResource to String")
+}
+func (r ImplementationGuideManifestResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideManifestResource to Integer")
+}
+func (r ImplementationGuideManifestResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestResource to Decimal")
+}
+func (r ImplementationGuideManifestResource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideManifestResource to Date")
+}
+func (r ImplementationGuideManifestResource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideManifestResource to Time")
+}
+func (r ImplementationGuideManifestResource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideManifestResource to DateTime")
+}
+func (r ImplementationGuideManifestResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestResource to Quantity")
+}
+func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideManifestResource
+	switch other := other.(type) {
+	case ImplementationGuideManifestResource:
+		o = &other
+	case *ImplementationGuideManifestResource:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideManifestResource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideManifestResource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Reference",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "IsExample",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Profile",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Canonical",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RelativePath",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Url",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideManifestResource",
+		Namespace: "FHIR",
+	}
+}
+func (r ImplementationGuideManifestPage) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		children = append(children, r.Name)
+	}
+	if len(name) == 0 || slices.Contains(name, "title") {
+		if r.Title != nil {
+			children = append(children, *r.Title)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "anchor") {
+		for _, v := range r.Anchor {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r ImplementationGuideManifestPage) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert ImplementationGuideManifestPage to Boolean")
+}
+func (r ImplementationGuideManifestPage) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert ImplementationGuideManifestPage to String")
+}
+func (r ImplementationGuideManifestPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert ImplementationGuideManifestPage to Integer")
+}
+func (r ImplementationGuideManifestPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestPage to Decimal")
+}
+func (r ImplementationGuideManifestPage) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert ImplementationGuideManifestPage to Date")
+}
+func (r ImplementationGuideManifestPage) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert ImplementationGuideManifestPage to Time")
+}
+func (r ImplementationGuideManifestPage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert ImplementationGuideManifestPage to DateTime")
+}
+func (r ImplementationGuideManifestPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestPage to Quantity")
+}
+func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *ImplementationGuideManifestPage
+	switch other := other.(type) {
+	case ImplementationGuideManifestPage:
+		o = &other
+	case *ImplementationGuideManifestPage:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(ImplementationGuideManifestPage)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r ImplementationGuideManifestPage) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Name",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Title",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Anchor",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "ImplementationGuideManifestPage",
+		Namespace: "FHIR",
 	}
 }

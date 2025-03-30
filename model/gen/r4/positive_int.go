@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -32,6 +35,13 @@ func (r PositiveInt) MemSize() int {
 		s += int(unsafe.Sizeof(*r.Value))
 	}
 	return s
+}
+func (r PositiveInt) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r PositiveInt) MarshalJSON() ([]byte, error) {
 	v := r.Value
@@ -122,5 +132,88 @@ func (r *PositiveInt) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r PositiveInt) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r PositiveInt) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert PositiveInt to Boolean")
+}
+func (r PositiveInt) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert PositiveInt to String")
+}
+func (r PositiveInt) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	if r.Value != nil {
+		v := fhirpath.Integer(*r.Value)
+		return v, true, nil
+	} else {
+		return 0, false, nil
+	}
+}
+func (r PositiveInt) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert PositiveInt to Decimal")
+}
+func (r PositiveInt) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert PositiveInt to Date")
+}
+func (r PositiveInt) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert PositiveInt to Time")
+}
+func (r PositiveInt) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert PositiveInt to DateTime")
+}
+func (r PositiveInt) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert PositiveInt to Quantity")
+}
+func (r PositiveInt) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToInteger(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	b, ok, err := other.ToInteger(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return a.Equal(b)
+}
+func (r PositiveInt) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	eq, ok := r.Equal(other)
+	return eq && ok
+}
+func (r PositiveInt) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "positiveInt",
+		Namespace: "FHIR",
 	}
 }

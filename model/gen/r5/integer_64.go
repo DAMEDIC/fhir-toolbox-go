@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -32,6 +35,13 @@ func (r Integer64) MemSize() int {
 		s += int(unsafe.Sizeof(*r.Value))
 	}
 	return s
+}
+func (r Integer64) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Integer64) MarshalJSON() ([]byte, error) {
 	var v *string
@@ -132,5 +142,82 @@ func (r *Integer64) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Integer64) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Integer64) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Integer64 to Boolean")
+}
+func (r Integer64) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Integer64 to String")
+}
+func (r Integer64) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Integer64 to Integer")
+}
+func (r Integer64) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Integer64 to Decimal")
+}
+func (r Integer64) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Integer64 to Date")
+}
+func (r Integer64) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Integer64 to Time")
+}
+func (r Integer64) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Integer64 to DateTime")
+}
+func (r Integer64) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Integer64 to Quantity")
+}
+func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	o, ok := other.(Integer64)
+	if !ok {
+		return false, true
+	}
+	if r.Value == nil || o.Value == nil {
+		return false, true
+	}
+	return *r.Value == *o.Value, true
+}
+func (r Integer64) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	eq, ok := r.Equal(other)
+	return eq && ok
+}
+func (r Integer64) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "integer64",
+		Namespace: "FHIR",
 	}
 }

@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"unsafe"
 )
 
@@ -30,6 +33,13 @@ func (r Markdown) MemSize() int {
 		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
 	}
 	return s
+}
+func (r Markdown) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Markdown) MarshalJSON() ([]byte, error) {
 	v := r.Value
@@ -68,4 +78,87 @@ func (r Markdown) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r Markdown) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Markdown) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Markdown to Boolean")
+}
+func (r Markdown) ToString(explicit bool) (fhirpath.String, bool, error) {
+	if r.Value != nil {
+		v := fhirpath.String(*r.Value)
+		return v, true, nil
+	} else {
+		return "", false, nil
+	}
+}
+func (r Markdown) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Markdown to Integer")
+}
+func (r Markdown) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Markdown to Decimal")
+}
+func (r Markdown) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Markdown to Date")
+}
+func (r Markdown) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Markdown to Time")
+}
+func (r Markdown) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Markdown to DateTime")
+}
+func (r Markdown) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Markdown to Quantity")
+}
+func (r Markdown) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	b, ok, err := other.ToString(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return a.Equal(b)
+}
+func (r Markdown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	eq, ok := r.Equal(other)
+	return eq && ok
+}
+func (r Markdown) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "markdown",
+		Namespace: "FHIR",
+	}
 }

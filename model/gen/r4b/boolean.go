@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -32,6 +35,13 @@ func (r Boolean) MemSize() int {
 		s += int(unsafe.Sizeof(*r.Value))
 	}
 	return s
+}
+func (r Boolean) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Boolean) MarshalJSON() ([]byte, error) {
 	v := r.Value
@@ -125,5 +135,88 @@ func (r *Boolean) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Boolean) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Boolean) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	if r.Value != nil {
+		v := fhirpath.Boolean(*r.Value)
+		return v, true, nil
+	} else {
+		return false, false, nil
+	}
+}
+func (r Boolean) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Boolean to String")
+}
+func (r Boolean) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Boolean to Integer")
+}
+func (r Boolean) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Boolean to Decimal")
+}
+func (r Boolean) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Boolean to Date")
+}
+func (r Boolean) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Boolean to Time")
+}
+func (r Boolean) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Boolean to DateTime")
+}
+func (r Boolean) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Boolean to Quantity")
+}
+func (r Boolean) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToBoolean(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	b, ok, err := other.ToBoolean(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return a.Equal(b)
+}
+func (r Boolean) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	eq, ok := r.Equal(other)
+	return eq && ok
+}
+func (r Boolean) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "boolean",
+		Namespace: "FHIR",
 	}
 }

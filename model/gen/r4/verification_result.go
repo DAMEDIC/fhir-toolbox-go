@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -322,6 +325,27 @@ func (r VerificationResultValidator) MemSize() int {
 	return s
 }
 func (r VerificationResult) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r VerificationResultPrimarySource) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r VerificationResultAttestation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r VerificationResultValidator) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
 		return "null"
@@ -3493,5 +3517,849 @@ func (r *VerificationResultValidator) UnmarshalXML(d *xml.Decoder, start xml.Sta
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r VerificationResult) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "target") {
+		for _, v := range r.Target {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "targetLocation") {
+		for _, v := range r.TargetLocation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "need") {
+		if r.Need != nil {
+			children = append(children, *r.Need)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "statusDate") {
+		if r.StatusDate != nil {
+			children = append(children, *r.StatusDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationType") {
+		if r.ValidationType != nil {
+			children = append(children, *r.ValidationType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationProcess") {
+		for _, v := range r.ValidationProcess {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "frequency") {
+		if r.Frequency != nil {
+			children = append(children, *r.Frequency)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lastPerformed") {
+		if r.LastPerformed != nil {
+			children = append(children, *r.LastPerformed)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nextScheduled") {
+		if r.NextScheduled != nil {
+			children = append(children, *r.NextScheduled)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "failureAction") {
+		if r.FailureAction != nil {
+			children = append(children, *r.FailureAction)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "primarySource") {
+		for _, v := range r.PrimarySource {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "attestation") {
+		if r.Attestation != nil {
+			children = append(children, *r.Attestation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validator") {
+		for _, v := range r.Validator {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r VerificationResult) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResult to Boolean")
+}
+func (r VerificationResult) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResult to String")
+}
+func (r VerificationResult) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResult to Integer")
+}
+func (r VerificationResult) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResult to Decimal")
+}
+func (r VerificationResult) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResult to Date")
+}
+func (r VerificationResult) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResult to Time")
+}
+func (r VerificationResult) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResult to DateTime")
+}
+func (r VerificationResult) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResult to Quantity")
+}
+func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *VerificationResult
+	switch other := other.(type) {
+	case VerificationResult:
+		o = &other
+	case *VerificationResult:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(VerificationResult)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Meta",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Meta",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ImplicitRules",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Language",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Text",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Narrative",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Contained",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Target",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "TargetLocation",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Need",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Status",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "StatusDate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ValidationType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ValidationProcess",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Frequency",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Timing",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "LastPerformed",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "NextScheduled",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "FailureAction",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "PrimarySource",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "VerificationResultPrimarySource",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Attestation",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "VerificationResultAttestation",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Validator",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "VerificationResultValidator",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "VerificationResult",
+		Namespace: "FHIR",
+	}
+}
+func (r VerificationResultPrimarySource) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "who") {
+		if r.Who != nil {
+			children = append(children, *r.Who)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "communicationMethod") {
+		for _, v := range r.CommunicationMethod {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationStatus") {
+		if r.ValidationStatus != nil {
+			children = append(children, *r.ValidationStatus)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "validationDate") {
+		if r.ValidationDate != nil {
+			children = append(children, *r.ValidationDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "canPushUpdates") {
+		if r.CanPushUpdates != nil {
+			children = append(children, *r.CanPushUpdates)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "pushTypeAvailable") {
+		for _, v := range r.PushTypeAvailable {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r VerificationResultPrimarySource) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResultPrimarySource to Boolean")
+}
+func (r VerificationResultPrimarySource) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResultPrimarySource to String")
+}
+func (r VerificationResultPrimarySource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResultPrimarySource to Integer")
+}
+func (r VerificationResultPrimarySource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultPrimarySource to Decimal")
+}
+func (r VerificationResultPrimarySource) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResultPrimarySource to Date")
+}
+func (r VerificationResultPrimarySource) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResultPrimarySource to Time")
+}
+func (r VerificationResultPrimarySource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResultPrimarySource to DateTime")
+}
+func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultPrimarySource to Quantity")
+}
+func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *VerificationResultPrimarySource
+	switch other := other.(type) {
+	case VerificationResultPrimarySource:
+		o = &other
+	case *VerificationResultPrimarySource:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(VerificationResultPrimarySource)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Who",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CommunicationMethod",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ValidationStatus",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ValidationDate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CanPushUpdates",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "PushTypeAvailable",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "VerificationResultPrimarySource",
+		Namespace: "FHIR",
+	}
+}
+func (r VerificationResultAttestation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "who") {
+		if r.Who != nil {
+			children = append(children, *r.Who)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "onBehalfOf") {
+		if r.OnBehalfOf != nil {
+			children = append(children, *r.OnBehalfOf)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "communicationMethod") {
+		if r.CommunicationMethod != nil {
+			children = append(children, *r.CommunicationMethod)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "date") {
+		if r.Date != nil {
+			children = append(children, *r.Date)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceIdentityCertificate") {
+		if r.SourceIdentityCertificate != nil {
+			children = append(children, *r.SourceIdentityCertificate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "proxyIdentityCertificate") {
+		if r.ProxyIdentityCertificate != nil {
+			children = append(children, *r.ProxyIdentityCertificate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "proxySignature") {
+		if r.ProxySignature != nil {
+			children = append(children, *r.ProxySignature)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sourceSignature") {
+		if r.SourceSignature != nil {
+			children = append(children, *r.SourceSignature)
+		}
+	}
+	return children
+}
+func (r VerificationResultAttestation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResultAttestation to Boolean")
+}
+func (r VerificationResultAttestation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResultAttestation to String")
+}
+func (r VerificationResultAttestation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResultAttestation to Integer")
+}
+func (r VerificationResultAttestation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultAttestation to Decimal")
+}
+func (r VerificationResultAttestation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResultAttestation to Date")
+}
+func (r VerificationResultAttestation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResultAttestation to Time")
+}
+func (r VerificationResultAttestation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResultAttestation to DateTime")
+}
+func (r VerificationResultAttestation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultAttestation to Quantity")
+}
+func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *VerificationResultAttestation
+	switch other := other.(type) {
+	case VerificationResultAttestation:
+		o = &other
+	case *VerificationResultAttestation:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(VerificationResultAttestation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Who",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "OnBehalfOf",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CommunicationMethod",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Date",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "SourceIdentityCertificate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ProxyIdentityCertificate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ProxySignature",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Signature",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "SourceSignature",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Signature",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "VerificationResultAttestation",
+		Namespace: "FHIR",
+	}
+}
+func (r VerificationResultValidator) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "organization") {
+		children = append(children, r.Organization)
+	}
+	if len(name) == 0 || slices.Contains(name, "identityCertificate") {
+		if r.IdentityCertificate != nil {
+			children = append(children, *r.IdentityCertificate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "attestationSignature") {
+		if r.AttestationSignature != nil {
+			children = append(children, *r.AttestationSignature)
+		}
+	}
+	return children
+}
+func (r VerificationResultValidator) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert VerificationResultValidator to Boolean")
+}
+func (r VerificationResultValidator) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert VerificationResultValidator to String")
+}
+func (r VerificationResultValidator) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert VerificationResultValidator to Integer")
+}
+func (r VerificationResultValidator) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultValidator to Decimal")
+}
+func (r VerificationResultValidator) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert VerificationResultValidator to Date")
+}
+func (r VerificationResultValidator) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert VerificationResultValidator to Time")
+}
+func (r VerificationResultValidator) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert VerificationResultValidator to DateTime")
+}
+func (r VerificationResultValidator) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultValidator to Quantity")
+}
+func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *VerificationResultValidator
+	switch other := other.(type) {
+	case VerificationResultValidator:
+		o = &other
+	case *VerificationResultValidator:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(VerificationResultValidator)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Organization",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "IdentityCertificate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "AttestationSignature",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Signature",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "VerificationResultValidator",
+		Namespace: "FHIR",
 	}
 }

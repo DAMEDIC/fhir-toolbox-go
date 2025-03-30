@@ -4,6 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"strconv"
 	"unsafe"
 )
@@ -31,6 +34,13 @@ func (r UnsignedInt) MemSize() int {
 		s += int(unsafe.Sizeof(*r.Value))
 	}
 	return s
+}
+func (r UnsignedInt) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r UnsignedInt) MarshalJSON() ([]byte, error) {
 	v := r.Value
@@ -69,4 +79,87 @@ func (r UnsignedInt) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r UnsignedInt) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r UnsignedInt) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert UnsignedInt to Boolean")
+}
+func (r UnsignedInt) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert UnsignedInt to String")
+}
+func (r UnsignedInt) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	if r.Value != nil {
+		v := fhirpath.Integer(*r.Value)
+		return v, true, nil
+	} else {
+		return 0, false, nil
+	}
+}
+func (r UnsignedInt) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert UnsignedInt to Decimal")
+}
+func (r UnsignedInt) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert UnsignedInt to Date")
+}
+func (r UnsignedInt) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert UnsignedInt to Time")
+}
+func (r UnsignedInt) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert UnsignedInt to DateTime")
+}
+func (r UnsignedInt) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert UnsignedInt to Quantity")
+}
+func (r UnsignedInt) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToInteger(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	b, ok, err := other.ToInteger(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return a.Equal(b)
+}
+func (r UnsignedInt) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	eq, ok := r.Equal(other)
+	return eq && ok
+}
+func (r UnsignedInt) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "unsignedInt",
+		Namespace: "FHIR",
+	}
 }

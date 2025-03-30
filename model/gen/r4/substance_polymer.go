@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -377,6 +380,48 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) MemSize() int 
 	return s
 }
 func (r SubstancePolymer) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstancePolymerMonomerSet) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstancePolymerRepeat) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstancePolymerRepeatRepeatUnit) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
 		return "null"
@@ -4002,5 +4047,1084 @@ func (r *SubstancePolymerRepeatRepeatUnitStructuralRepresentation) UnmarshalXML(
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r SubstancePolymer) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "class") {
+		if r.Class != nil {
+			children = append(children, *r.Class)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "geometry") {
+		if r.Geometry != nil {
+			children = append(children, *r.Geometry)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "copolymerConnectivity") {
+		for _, v := range r.CopolymerConnectivity {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modification") {
+		for _, v := range r.Modification {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "monomerSet") {
+		for _, v := range r.MonomerSet {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "repeat") {
+		for _, v := range r.Repeat {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstancePolymer) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstancePolymer to Boolean")
+}
+func (r SubstancePolymer) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstancePolymer to String")
+}
+func (r SubstancePolymer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstancePolymer to Integer")
+}
+func (r SubstancePolymer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymer to Decimal")
+}
+func (r SubstancePolymer) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstancePolymer to Date")
+}
+func (r SubstancePolymer) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstancePolymer to Time")
+}
+func (r SubstancePolymer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstancePolymer to DateTime")
+}
+func (r SubstancePolymer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymer to Quantity")
+}
+func (r SubstancePolymer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstancePolymer
+	switch other := other.(type) {
+	case SubstancePolymer:
+		o = &other
+	case *SubstancePolymer:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstancePolymer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstancePolymer)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstancePolymer) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Meta",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Meta",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ImplicitRules",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Language",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Text",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Narrative",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Contained",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Class",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Geometry",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CopolymerConnectivity",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Modification",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "MonomerSet",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "SubstancePolymerMonomerSet",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Repeat",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "SubstancePolymerRepeat",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstancePolymer",
+		Namespace: "FHIR",
+	}
+}
+func (r SubstancePolymerMonomerSet) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "ratioType") {
+		if r.RatioType != nil {
+			children = append(children, *r.RatioType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "startingMaterial") {
+		for _, v := range r.StartingMaterial {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstancePolymerMonomerSet) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstancePolymerMonomerSet to Boolean")
+}
+func (r SubstancePolymerMonomerSet) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstancePolymerMonomerSet to String")
+}
+func (r SubstancePolymerMonomerSet) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstancePolymerMonomerSet to Integer")
+}
+func (r SubstancePolymerMonomerSet) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerMonomerSet to Decimal")
+}
+func (r SubstancePolymerMonomerSet) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstancePolymerMonomerSet to Date")
+}
+func (r SubstancePolymerMonomerSet) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstancePolymerMonomerSet to Time")
+}
+func (r SubstancePolymerMonomerSet) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstancePolymerMonomerSet to DateTime")
+}
+func (r SubstancePolymerMonomerSet) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerMonomerSet to Quantity")
+}
+func (r SubstancePolymerMonomerSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstancePolymerMonomerSet
+	switch other := other.(type) {
+	case SubstancePolymerMonomerSet:
+		o = &other
+	case *SubstancePolymerMonomerSet:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstancePolymerMonomerSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstancePolymerMonomerSet)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstancePolymerMonomerSet) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RatioType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "StartingMaterial",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "SubstancePolymerMonomerSetStartingMaterial",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstancePolymerMonomerSet",
+		Namespace: "FHIR",
+	}
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "material") {
+		if r.Material != nil {
+			children = append(children, *r.Material)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "isDefining") {
+		if r.IsDefining != nil {
+			children = append(children, *r.IsDefining)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, *r.Amount)
+		}
+	}
+	return children
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Boolean")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to String")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Integer")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Decimal")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Date")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Time")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to DateTime")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Quantity")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstancePolymerMonomerSetStartingMaterial
+	switch other := other.(type) {
+	case SubstancePolymerMonomerSetStartingMaterial:
+		o = &other
+	case *SubstancePolymerMonomerSetStartingMaterial:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstancePolymerMonomerSetStartingMaterial)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Material",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "IsDefining",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Amount",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "SubstanceAmount",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstancePolymerMonomerSetStartingMaterial",
+		Namespace: "FHIR",
+	}
+}
+func (r SubstancePolymerRepeat) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numberOfUnits") {
+		if r.NumberOfUnits != nil {
+			children = append(children, *r.NumberOfUnits)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "averageMolecularFormula") {
+		if r.AverageMolecularFormula != nil {
+			children = append(children, *r.AverageMolecularFormula)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "repeatUnitAmountType") {
+		if r.RepeatUnitAmountType != nil {
+			children = append(children, *r.RepeatUnitAmountType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "repeatUnit") {
+		for _, v := range r.RepeatUnit {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstancePolymerRepeat) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstancePolymerRepeat to Boolean")
+}
+func (r SubstancePolymerRepeat) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstancePolymerRepeat to String")
+}
+func (r SubstancePolymerRepeat) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstancePolymerRepeat to Integer")
+}
+func (r SubstancePolymerRepeat) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeat to Decimal")
+}
+func (r SubstancePolymerRepeat) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstancePolymerRepeat to Date")
+}
+func (r SubstancePolymerRepeat) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstancePolymerRepeat to Time")
+}
+func (r SubstancePolymerRepeat) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstancePolymerRepeat to DateTime")
+}
+func (r SubstancePolymerRepeat) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeat to Quantity")
+}
+func (r SubstancePolymerRepeat) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstancePolymerRepeat
+	switch other := other.(type) {
+	case SubstancePolymerRepeat:
+		o = &other
+	case *SubstancePolymerRepeat:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstancePolymerRepeat) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstancePolymerRepeat)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstancePolymerRepeat) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "NumberOfUnits",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "AverageMolecularFormula",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RepeatUnitAmountType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RepeatUnit",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "SubstancePolymerRepeatRepeatUnit",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstancePolymerRepeat",
+		Namespace: "FHIR",
+	}
+}
+func (r SubstancePolymerRepeatRepeatUnit) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "orientationOfPolymerisation") {
+		if r.OrientationOfPolymerisation != nil {
+			children = append(children, *r.OrientationOfPolymerisation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "repeatUnit") {
+		if r.RepeatUnit != nil {
+			children = append(children, *r.RepeatUnit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, *r.Amount)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "degreeOfPolymerisation") {
+		for _, v := range r.DegreeOfPolymerisation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "structuralRepresentation") {
+		for _, v := range r.StructuralRepresentation {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Boolean")
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to String")
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Integer")
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Decimal")
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Date")
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Time")
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to DateTime")
+}
+func (r SubstancePolymerRepeatRepeatUnit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Quantity")
+}
+func (r SubstancePolymerRepeatRepeatUnit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstancePolymerRepeatRepeatUnit
+	switch other := other.(type) {
+	case SubstancePolymerRepeatRepeatUnit:
+		o = &other
+	case *SubstancePolymerRepeatRepeatUnit:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstancePolymerRepeatRepeatUnit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstancePolymerRepeatRepeatUnit)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstancePolymerRepeatRepeatUnit) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "OrientationOfPolymerisation",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RepeatUnit",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Amount",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "SubstanceAmount",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "DegreeOfPolymerisation",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "StructuralRepresentation",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "SubstancePolymerRepeatRepeatUnitStructuralRepresentation",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstancePolymerRepeatRepeatUnit",
+		Namespace: "FHIR",
+	}
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "degree") {
+		if r.Degree != nil {
+			children = append(children, *r.Degree)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, *r.Amount)
+		}
+	}
+	return children
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Boolean")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to String")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Integer")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Decimal")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Date")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Time")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to DateTime")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Quantity")
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
+	switch other := other.(type) {
+	case SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation:
+		o = &other
+	case *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Degree",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Amount",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "SubstanceAmount",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation",
+		Namespace: "FHIR",
+	}
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "representation") {
+		if r.Representation != nil {
+			children = append(children, *r.Representation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "attachment") {
+		if r.Attachment != nil {
+			children = append(children, *r.Attachment)
+		}
+	}
+	return children
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Boolean")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to String")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Integer")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Decimal")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Date")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Time")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to DateTime")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Quantity")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstancePolymerRepeatRepeatUnitStructuralRepresentation
+	switch other := other.(type) {
+	case SubstancePolymerRepeatRepeatUnitStructuralRepresentation:
+		o = &other
+	case *SubstancePolymerRepeatRepeatUnitStructuralRepresentation:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstancePolymerRepeatRepeatUnitStructuralRepresentation)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Representation",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Attachment",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Attachment",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstancePolymerRepeatRepeatUnitStructuralRepresentation",
+		Namespace: "FHIR",
 	}
 }

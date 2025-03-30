@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -95,6 +98,13 @@ func (r SubstanceAmountReferenceRange) MemSize() int {
 	return s
 }
 func (r SubstanceAmount) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r SubstanceAmountReferenceRange) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
 		return "null"
@@ -1011,5 +1021,267 @@ func (r *SubstanceAmountReferenceRange) UnmarshalXML(d *xml.Decoder, start xml.S
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r SubstanceAmount) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amount") {
+		if r.Amount != nil {
+			children = append(children, r.Amount)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amountType") {
+		if r.AmountType != nil {
+			children = append(children, *r.AmountType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "amountText") {
+		if r.AmountText != nil {
+			children = append(children, *r.AmountText)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceRange") {
+		if r.ReferenceRange != nil {
+			children = append(children, *r.ReferenceRange)
+		}
+	}
+	return children
+}
+func (r SubstanceAmount) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceAmount to Boolean")
+}
+func (r SubstanceAmount) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceAmount to String")
+}
+func (r SubstanceAmount) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceAmount to Integer")
+}
+func (r SubstanceAmount) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceAmount to Decimal")
+}
+func (r SubstanceAmount) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceAmount to Date")
+}
+func (r SubstanceAmount) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceAmount to Time")
+}
+func (r SubstanceAmount) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceAmount to DateTime")
+}
+func (r SubstanceAmount) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceAmount to Quantity")
+}
+func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstanceAmount
+	switch other := other.(type) {
+	case SubstanceAmount:
+		o = &other
+	case *SubstanceAmount:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstanceAmount)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstanceAmount) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Amount",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PrimitiveElement",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "AmountType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "AmountText",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReferenceRange",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "SubstanceAmountReferenceRange",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstanceAmount",
+		Namespace: "FHIR",
+	}
+}
+func (r SubstanceAmountReferenceRange) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "lowLimit") {
+		if r.LowLimit != nil {
+			children = append(children, *r.LowLimit)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "highLimit") {
+		if r.HighLimit != nil {
+			children = append(children, *r.HighLimit)
+		}
+	}
+	return children
+}
+func (r SubstanceAmountReferenceRange) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert SubstanceAmountReferenceRange to Boolean")
+}
+func (r SubstanceAmountReferenceRange) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert SubstanceAmountReferenceRange to String")
+}
+func (r SubstanceAmountReferenceRange) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert SubstanceAmountReferenceRange to Integer")
+}
+func (r SubstanceAmountReferenceRange) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Decimal")
+}
+func (r SubstanceAmountReferenceRange) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Date")
+}
+func (r SubstanceAmountReferenceRange) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Time")
+}
+func (r SubstanceAmountReferenceRange) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert SubstanceAmountReferenceRange to DateTime")
+}
+func (r SubstanceAmountReferenceRange) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Quantity")
+}
+func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *SubstanceAmountReferenceRange
+	switch other := other.(type) {
+	case SubstanceAmountReferenceRange:
+		o = &other
+	case *SubstanceAmountReferenceRange:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(SubstanceAmountReferenceRange)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r SubstanceAmountReferenceRange) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "LowLimit",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Quantity",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "HighLimit",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Quantity",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "SubstanceAmountReferenceRange",
+		Namespace: "FHIR",
 	}
 }

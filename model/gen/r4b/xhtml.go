@@ -4,7 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"slices"
 	"unsafe"
 )
 
@@ -23,6 +26,13 @@ func (r Xhtml) MemSize() int {
 	}
 	s += len(r.Value)
 	return s
+}
+func (r Xhtml) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Xhtml) MarshalJSON() ([]byte, error) {
 	v := r.Value
@@ -87,4 +97,66 @@ func (r *Xhtml) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	}
 	r.Value = v.V
 	return nil
+}
+func (r Xhtml) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	return children
+}
+func (r Xhtml) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Xhtml to Boolean")
+}
+func (r Xhtml) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Xhtml to String")
+}
+func (r Xhtml) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Xhtml to Integer")
+}
+func (r Xhtml) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Xhtml to Decimal")
+}
+func (r Xhtml) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Xhtml to Date")
+}
+func (r Xhtml) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Xhtml to Time")
+}
+func (r Xhtml) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Xhtml to DateTime")
+}
+func (r Xhtml) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Xhtml to Quantity")
+}
+func (r Xhtml) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	o, ok := other.(Xhtml)
+	if !ok {
+		return false, true
+	}
+	return r.Value == o.Value, true
+}
+func (r Xhtml) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	eq, ok := r.Equal(other)
+	return eq && ok
+}
+func (r Xhtml) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "xhtml",
+		Namespace: "FHIR",
+	}
 }

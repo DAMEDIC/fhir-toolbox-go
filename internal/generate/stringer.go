@@ -12,8 +12,8 @@ type StringerGenerator struct {
 }
 
 func (g StringerGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
-	if !rt.IsPrimitive {
-		f.Func().Params(Id("r").Id(rt.Name)).Id("String").Params().String().Block(
+	for _, s := range rt.Structs {
+		f.Func().Params(Id("r").Id(s.Name)).Id("String").Params().String().Block(
 			List(Id("buf"), Id("err")).Op(":=").Qual("encoding/json", "MarshalIndent").Params(Id("r"), Lit(""), Lit("  ")),
 			If(Id("err").Op("!=").Nil()).Block(
 				Return(Lit("null")),

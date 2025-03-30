@@ -1,9 +1,13 @@
 package r4b
 
 import (
+	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/cockroachdb/apd/v3"
+	"slices"
 	"unsafe"
 )
 
@@ -30,6 +34,13 @@ func (r Decimal) MemSize() int {
 		s += int(r.Value.Size())
 	}
 	return s
+}
+func (r Decimal) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
 }
 func (r Decimal) MarshalJSON() ([]byte, error) {
 	if r.Value == nil {
@@ -114,5 +125,88 @@ func (r *Decimal) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Decimal) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Decimal) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Decimal to Boolean")
+}
+func (r Decimal) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Decimal to String")
+}
+func (r Decimal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Decimal to Integer")
+}
+func (r Decimal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	if r.Value != nil {
+		v := fhirpath.Decimal{Value: r.Value}
+		return v, true, nil
+	} else {
+		return fhirpath.Decimal{}, false, nil
+	}
+}
+func (r Decimal) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Decimal to Date")
+}
+func (r Decimal) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Decimal to Time")
+}
+func (r Decimal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Decimal to DateTime")
+}
+func (r Decimal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Decimal to Quantity")
+}
+func (r Decimal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	a, ok, err := r.ToDecimal(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	b, ok, err := other.ToDecimal(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return a.Equal(b)
+}
+func (r Decimal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	eq, ok := r.Equal(other)
+	return eq && ok
+}
+func (r Decimal) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "PrimitiveType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "decimal",
+		Namespace: "FHIR",
 	}
 }

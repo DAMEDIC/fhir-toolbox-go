@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -525,6 +528,41 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) MemSize() int {
 	return s
 }
 func (r Appointment) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AppointmentParticipant) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AppointmentRecurrenceTemplate) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
 		return "null"
@@ -6298,5 +6336,1381 @@ func (r *AppointmentRecurrenceTemplateYearlyTemplate) UnmarshalXML(d *xml.Decode
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r Appointment) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	if len(name) == 0 || slices.Contains(name, "cancellationReason") {
+		if r.CancellationReason != nil {
+			children = append(children, *r.CancellationReason)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "class") {
+		for _, v := range r.Class {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "serviceCategory") {
+		for _, v := range r.ServiceCategory {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "serviceType") {
+		for _, v := range r.ServiceType {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specialty") {
+		for _, v := range r.Specialty {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "appointmentType") {
+		if r.AppointmentType != nil {
+			children = append(children, *r.AppointmentType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "reason") {
+		for _, v := range r.Reason {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "priority") {
+		if r.Priority != nil {
+			children = append(children, *r.Priority)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "description") {
+		if r.Description != nil {
+			children = append(children, *r.Description)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "replaces") {
+		for _, v := range r.Replaces {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "virtualService") {
+		for _, v := range r.VirtualService {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "supportingInformation") {
+		for _, v := range r.SupportingInformation {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "previousAppointment") {
+		if r.PreviousAppointment != nil {
+			children = append(children, *r.PreviousAppointment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "originatingAppointment") {
+		if r.OriginatingAppointment != nil {
+			children = append(children, *r.OriginatingAppointment)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "start") {
+		if r.Start != nil {
+			children = append(children, *r.Start)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "end") {
+		if r.End != nil {
+			children = append(children, *r.End)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "minutesDuration") {
+		if r.MinutesDuration != nil {
+			children = append(children, *r.MinutesDuration)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "requestedPeriod") {
+		for _, v := range r.RequestedPeriod {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "slot") {
+		for _, v := range r.Slot {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "account") {
+		for _, v := range r.Account {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "created") {
+		if r.Created != nil {
+			children = append(children, *r.Created)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cancellationDate") {
+		if r.CancellationDate != nil {
+			children = append(children, *r.CancellationDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "note") {
+		for _, v := range r.Note {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "patientInstruction") {
+		for _, v := range r.PatientInstruction {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "basedOn") {
+		for _, v := range r.BasedOn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "subject") {
+		if r.Subject != nil {
+			children = append(children, *r.Subject)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "participant") {
+		for _, v := range r.Participant {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recurrenceId") {
+		if r.RecurrenceId != nil {
+			children = append(children, *r.RecurrenceId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrenceChanged") {
+		if r.OccurrenceChanged != nil {
+			children = append(children, *r.OccurrenceChanged)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recurrenceTemplate") {
+		for _, v := range r.RecurrenceTemplate {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r Appointment) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert Appointment to Boolean")
+}
+func (r Appointment) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert Appointment to String")
+}
+func (r Appointment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert Appointment to Integer")
+}
+func (r Appointment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert Appointment to Decimal")
+}
+func (r Appointment) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert Appointment to Date")
+}
+func (r Appointment) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert Appointment to Time")
+}
+func (r Appointment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert Appointment to DateTime")
+}
+func (r Appointment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert Appointment to Quantity")
+}
+func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *Appointment
+	switch other := other.(type) {
+	case Appointment:
+		o = &other
+	case *Appointment:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(Appointment)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r Appointment) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Meta",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Meta",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ImplicitRules",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Language",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Text",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Narrative",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Contained",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Identifier",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Identifier",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Status",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CancellationReason",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Class",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ServiceCategory",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ServiceType",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableReference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Specialty",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "AppointmentType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Reason",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableReference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Priority",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Description",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Replaces",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "VirtualService",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "VirtualServiceDetail",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "SupportingInformation",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "PreviousAppointment",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "OriginatingAppointment",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Start",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Instant",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "End",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Instant",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "MinutesDuration",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RequestedPeriod",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Period",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Slot",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Account",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Created",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CancellationDate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "DateTime",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Note",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Annotation",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "PatientInstruction",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableReference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "BasedOn",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Subject",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Participant",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "AppointmentParticipant",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RecurrenceId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "OccurrenceChanged",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RecurrenceTemplate",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "AppointmentRecurrenceTemplate",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "Appointment",
+		Namespace: "FHIR",
+	}
+}
+func (r AppointmentParticipant) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		for _, v := range r.Type {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "period") {
+		if r.Period != nil {
+			children = append(children, *r.Period)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "actor") {
+		if r.Actor != nil {
+			children = append(children, *r.Actor)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "required") {
+		if r.Required != nil {
+			children = append(children, *r.Required)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "status") {
+		children = append(children, r.Status)
+	}
+	return children
+}
+func (r AppointmentParticipant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentParticipant to Boolean")
+}
+func (r AppointmentParticipant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentParticipant to String")
+}
+func (r AppointmentParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentParticipant to Integer")
+}
+func (r AppointmentParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentParticipant to Decimal")
+}
+func (r AppointmentParticipant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentParticipant to Date")
+}
+func (r AppointmentParticipant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentParticipant to Time")
+}
+func (r AppointmentParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentParticipant to DateTime")
+}
+func (r AppointmentParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentParticipant to Quantity")
+}
+func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *AppointmentParticipant
+	switch other := other.(type) {
+	case AppointmentParticipant:
+		o = &other
+	case *AppointmentParticipant:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(AppointmentParticipant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Period",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Period",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Actor",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Required",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Status",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "AppointmentParticipant",
+		Namespace: "FHIR",
+	}
+}
+func (r AppointmentRecurrenceTemplate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "timezone") {
+		if r.Timezone != nil {
+			children = append(children, *r.Timezone)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recurrenceType") {
+		children = append(children, r.RecurrenceType)
+	}
+	if len(name) == 0 || slices.Contains(name, "lastOccurrenceDate") {
+		if r.LastOccurrenceDate != nil {
+			children = append(children, *r.LastOccurrenceDate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrenceCount") {
+		if r.OccurrenceCount != nil {
+			children = append(children, *r.OccurrenceCount)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "occurrenceDate") {
+		for _, v := range r.OccurrenceDate {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "weeklyTemplate") {
+		if r.WeeklyTemplate != nil {
+			children = append(children, *r.WeeklyTemplate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "monthlyTemplate") {
+		if r.MonthlyTemplate != nil {
+			children = append(children, *r.MonthlyTemplate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "yearlyTemplate") {
+		if r.YearlyTemplate != nil {
+			children = append(children, *r.YearlyTemplate)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "excludingDate") {
+		for _, v := range r.ExcludingDate {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "excludingRecurrenceId") {
+		for _, v := range r.ExcludingRecurrenceId {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r AppointmentRecurrenceTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplate to Boolean")
+}
+func (r AppointmentRecurrenceTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplate to String")
+}
+func (r AppointmentRecurrenceTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplate to Integer")
+}
+func (r AppointmentRecurrenceTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Decimal")
+}
+func (r AppointmentRecurrenceTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Date")
+}
+func (r AppointmentRecurrenceTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Time")
+}
+func (r AppointmentRecurrenceTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to DateTime")
+}
+func (r AppointmentRecurrenceTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Quantity")
+}
+func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *AppointmentRecurrenceTemplate
+	switch other := other.(type) {
+	case AppointmentRecurrenceTemplate:
+		o = &other
+	case *AppointmentRecurrenceTemplate:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(AppointmentRecurrenceTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r AppointmentRecurrenceTemplate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Timezone",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "RecurrenceType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "LastOccurrenceDate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "OccurrenceCount",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "OccurrenceDate",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "WeeklyTemplate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "AppointmentRecurrenceTemplateWeeklyTemplate",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "MonthlyTemplate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "AppointmentRecurrenceTemplateMonthlyTemplate",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "YearlyTemplate",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "AppointmentRecurrenceTemplateYearlyTemplate",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ExcludingDate",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Date",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ExcludingRecurrenceId",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "AppointmentRecurrenceTemplate",
+		Namespace: "FHIR",
+	}
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "monday") {
+		if r.Monday != nil {
+			children = append(children, *r.Monday)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "tuesday") {
+		if r.Tuesday != nil {
+			children = append(children, *r.Tuesday)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "wednesday") {
+		if r.Wednesday != nil {
+			children = append(children, *r.Wednesday)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "thursday") {
+		if r.Thursday != nil {
+			children = append(children, *r.Thursday)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "friday") {
+		if r.Friday != nil {
+			children = append(children, *r.Friday)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "saturday") {
+		if r.Saturday != nil {
+			children = append(children, *r.Saturday)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sunday") {
+		if r.Sunday != nil {
+			children = append(children, *r.Sunday)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "weekInterval") {
+		if r.WeekInterval != nil {
+			children = append(children, *r.WeekInterval)
+		}
+	}
+	return children
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Boolean")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to String")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Integer")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Decimal")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Date")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Time")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to DateTime")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Quantity")
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *AppointmentRecurrenceTemplateWeeklyTemplate
+	switch other := other.(type) {
+	case AppointmentRecurrenceTemplateWeeklyTemplate:
+		o = &other
+	case *AppointmentRecurrenceTemplateWeeklyTemplate:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(AppointmentRecurrenceTemplateWeeklyTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Monday",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Tuesday",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Wednesday",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Thursday",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Friday",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Saturday",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Sunday",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "WeekInterval",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "AppointmentRecurrenceTemplateWeeklyTemplate",
+		Namespace: "FHIR",
+	}
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dayOfMonth") {
+		if r.DayOfMonth != nil {
+			children = append(children, *r.DayOfMonth)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "nthWeekOfMonth") {
+		if r.NthWeekOfMonth != nil {
+			children = append(children, *r.NthWeekOfMonth)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "dayOfWeek") {
+		if r.DayOfWeek != nil {
+			children = append(children, *r.DayOfWeek)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "monthInterval") {
+		children = append(children, r.MonthInterval)
+	}
+	return children
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Boolean")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to String")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Integer")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Decimal")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Date")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Time")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to DateTime")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Quantity")
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *AppointmentRecurrenceTemplateMonthlyTemplate
+	switch other := other.(type) {
+	case AppointmentRecurrenceTemplateMonthlyTemplate:
+		o = &other
+	case *AppointmentRecurrenceTemplateMonthlyTemplate:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(AppointmentRecurrenceTemplateMonthlyTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "DayOfMonth",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "NthWeekOfMonth",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Coding",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "DayOfWeek",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Coding",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "MonthInterval",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "AppointmentRecurrenceTemplateMonthlyTemplate",
+		Namespace: "FHIR",
+	}
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "yearInterval") {
+		children = append(children, r.YearInterval)
+	}
+	return children
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Boolean")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to String")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Integer")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Decimal")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Date")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Time")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to DateTime")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Quantity")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *AppointmentRecurrenceTemplateYearlyTemplate
+	switch other := other.(type) {
+	case AppointmentRecurrenceTemplateYearlyTemplate:
+		o = &other
+	case *AppointmentRecurrenceTemplateYearlyTemplate:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(AppointmentRecurrenceTemplateYearlyTemplate)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "YearInterval",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "AppointmentRecurrenceTemplateYearlyTemplate",
+		Namespace: "FHIR",
 	}
 }

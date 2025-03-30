@@ -1,5 +1,7 @@
 package model
 
+import "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+
 // Resource is any FHIR Resource.
 type Resource interface {
 	Element
@@ -11,5 +13,6 @@ type Resource interface {
 //
 // This includes Resources, Datatypes and BackboneElements.
 type Element interface {
+	fhirpath.Element
 	MemSize() int
 }

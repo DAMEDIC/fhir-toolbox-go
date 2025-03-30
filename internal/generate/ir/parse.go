@@ -98,6 +98,7 @@ func parseStructs(
 
 	parsedStructs := []Struct{{
 		Name:             structName,
+		MarshalName:      name,
 		IsResource:       isResource,
 		IsDomainResource: isDomainResource,
 		IsPrimitive:      slices.Contains(primitives, name),

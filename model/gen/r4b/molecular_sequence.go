@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"slices"
 	"unsafe"
 )
 
@@ -640,6 +643,62 @@ func (r MolecularSequenceStructureVariantInner) MemSize() int {
 	return s
 }
 func (r MolecularSequence) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceReferenceSeq) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceVariant) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceQuality) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceQualityRoc) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceRepository) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceStructureVariant) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceStructureVariantOuter) String() string {
+	buf, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "null"
+	}
+	return string(buf)
+}
+func (r MolecularSequenceStructureVariantInner) String() string {
 	buf, err := json.MarshalIndent(r, "", "  ")
 	if err != nil {
 		return "null"
@@ -8017,5 +8076,1784 @@ func (r *MolecularSequenceStructureVariantInner) UnmarshalXML(d *xml.Decoder, st
 		case xml.EndElement:
 			return nil
 		}
+	}
+}
+func (r MolecularSequence) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, *r.Id)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "meta") {
+		if r.Meta != nil {
+			children = append(children, *r.Meta)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "implicitRules") {
+		if r.ImplicitRules != nil {
+			children = append(children, *r.ImplicitRules)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "language") {
+		if r.Language != nil {
+			children = append(children, *r.Language)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "text") {
+		if r.Text != nil {
+			children = append(children, *r.Text)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "contained") {
+		for _, v := range r.Contained {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "identifier") {
+		for _, v := range r.Identifier {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		if r.Type != nil {
+			children = append(children, *r.Type)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "coordinateSystem") {
+		children = append(children, r.CoordinateSystem)
+	}
+	if len(name) == 0 || slices.Contains(name, "patient") {
+		if r.Patient != nil {
+			children = append(children, *r.Patient)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "specimen") {
+		if r.Specimen != nil {
+			children = append(children, *r.Specimen)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "device") {
+		if r.Device != nil {
+			children = append(children, *r.Device)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "performer") {
+		if r.Performer != nil {
+			children = append(children, *r.Performer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quantity") {
+		if r.Quantity != nil {
+			children = append(children, *r.Quantity)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceSeq") {
+		if r.ReferenceSeq != nil {
+			children = append(children, *r.ReferenceSeq)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variant") {
+		for _, v := range r.Variant {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "observedSeq") {
+		if r.ObservedSeq != nil {
+			children = append(children, *r.ObservedSeq)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "quality") {
+		for _, v := range r.Quality {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "readCoverage") {
+		if r.ReadCoverage != nil {
+			children = append(children, *r.ReadCoverage)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "repository") {
+		for _, v := range r.Repository {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "pointer") {
+		for _, v := range r.Pointer {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "structureVariant") {
+		for _, v := range r.StructureVariant {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MolecularSequence) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequence to Boolean")
+}
+func (r MolecularSequence) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequence to String")
+}
+func (r MolecularSequence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequence to Integer")
+}
+func (r MolecularSequence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequence to Decimal")
+}
+func (r MolecularSequence) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequence to Date")
+}
+func (r MolecularSequence) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequence to Time")
+}
+func (r MolecularSequence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequence to DateTime")
+}
+func (r MolecularSequence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequence to Quantity")
+}
+func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequence
+	switch other := other.(type) {
+	case MolecularSequence:
+		o = &other
+	case *MolecularSequence:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequence)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequence) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DomainResource",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Id",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Meta",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Meta",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ImplicitRules",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Language",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Text",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Narrative",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Contained",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Identifier",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Identifier",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "CoordinateSystem",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Patient",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Specimen",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Device",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Performer",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Quantity",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Quantity",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReferenceSeq",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "MolecularSequenceReferenceSeq",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Variant",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "MolecularSequenceVariant",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ObservedSeq",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Quality",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "MolecularSequenceQuality",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReadCoverage",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Repository",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "MolecularSequenceRepository",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Pointer",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "StructureVariant",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "MolecularSequenceStructureVariant",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequence",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceReferenceSeq) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "chromosome") {
+		if r.Chromosome != nil {
+			children = append(children, *r.Chromosome)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "genomeBuild") {
+		if r.GenomeBuild != nil {
+			children = append(children, *r.GenomeBuild)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "orientation") {
+		if r.Orientation != nil {
+			children = append(children, *r.Orientation)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceSeqId") {
+		if r.ReferenceSeqId != nil {
+			children = append(children, *r.ReferenceSeqId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceSeqPointer") {
+		if r.ReferenceSeqPointer != nil {
+			children = append(children, *r.ReferenceSeqPointer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceSeqString") {
+		if r.ReferenceSeqString != nil {
+			children = append(children, *r.ReferenceSeqString)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "strand") {
+		if r.Strand != nil {
+			children = append(children, *r.Strand)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "windowStart") {
+		if r.WindowStart != nil {
+			children = append(children, *r.WindowStart)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "windowEnd") {
+		if r.WindowEnd != nil {
+			children = append(children, *r.WindowEnd)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceReferenceSeq) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceReferenceSeq to Boolean")
+}
+func (r MolecularSequenceReferenceSeq) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceReferenceSeq to String")
+}
+func (r MolecularSequenceReferenceSeq) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceReferenceSeq to Integer")
+}
+func (r MolecularSequenceReferenceSeq) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceReferenceSeq to Decimal")
+}
+func (r MolecularSequenceReferenceSeq) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceReferenceSeq to Date")
+}
+func (r MolecularSequenceReferenceSeq) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceReferenceSeq to Time")
+}
+func (r MolecularSequenceReferenceSeq) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceReferenceSeq to DateTime")
+}
+func (r MolecularSequenceReferenceSeq) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceReferenceSeq to Quantity")
+}
+func (r MolecularSequenceReferenceSeq) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceReferenceSeq
+	switch other := other.(type) {
+	case MolecularSequenceReferenceSeq:
+		o = &other
+	case *MolecularSequenceReferenceSeq:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceReferenceSeq) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceReferenceSeq)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceReferenceSeq) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Chromosome",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "GenomeBuild",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Orientation",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReferenceSeqId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReferenceSeqPointer",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReferenceSeqString",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Strand",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "WindowStart",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "WindowEnd",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceReferenceSeq",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceVariant) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "start") {
+		if r.Start != nil {
+			children = append(children, *r.Start)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "end") {
+		if r.End != nil {
+			children = append(children, *r.End)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "observedAllele") {
+		if r.ObservedAllele != nil {
+			children = append(children, *r.ObservedAllele)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "referenceAllele") {
+		if r.ReferenceAllele != nil {
+			children = append(children, *r.ReferenceAllele)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "cigar") {
+		if r.Cigar != nil {
+			children = append(children, *r.Cigar)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variantPointer") {
+		if r.VariantPointer != nil {
+			children = append(children, *r.VariantPointer)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceVariant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceVariant to Boolean")
+}
+func (r MolecularSequenceVariant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceVariant to String")
+}
+func (r MolecularSequenceVariant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceVariant to Integer")
+}
+func (r MolecularSequenceVariant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceVariant to Decimal")
+}
+func (r MolecularSequenceVariant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceVariant to Date")
+}
+func (r MolecularSequenceVariant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceVariant to Time")
+}
+func (r MolecularSequenceVariant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceVariant to DateTime")
+}
+func (r MolecularSequenceVariant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceVariant to Quantity")
+}
+func (r MolecularSequenceVariant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceVariant
+	switch other := other.(type) {
+	case MolecularSequenceVariant:
+		o = &other
+	case *MolecularSequenceVariant:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceVariant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceVariant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceVariant) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Start",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "End",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ObservedAllele",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReferenceAllele",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Cigar",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "VariantPointer",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Reference",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceVariant",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceQuality) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "standardSequence") {
+		if r.StandardSequence != nil {
+			children = append(children, *r.StandardSequence)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "start") {
+		if r.Start != nil {
+			children = append(children, *r.Start)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "end") {
+		if r.End != nil {
+			children = append(children, *r.End)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "score") {
+		if r.Score != nil {
+			children = append(children, *r.Score)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "method") {
+		if r.Method != nil {
+			children = append(children, *r.Method)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "truthTP") {
+		if r.TruthTp != nil {
+			children = append(children, *r.TruthTp)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "queryTP") {
+		if r.QueryTp != nil {
+			children = append(children, *r.QueryTp)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "truthFN") {
+		if r.TruthFn != nil {
+			children = append(children, *r.TruthFn)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "queryFP") {
+		if r.QueryFp != nil {
+			children = append(children, *r.QueryFp)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "gtFP") {
+		if r.GtFp != nil {
+			children = append(children, *r.GtFp)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "precision") {
+		if r.Precision != nil {
+			children = append(children, *r.Precision)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "recall") {
+		if r.Recall != nil {
+			children = append(children, *r.Recall)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fScore") {
+		if r.FScore != nil {
+			children = append(children, *r.FScore)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "roc") {
+		if r.Roc != nil {
+			children = append(children, *r.Roc)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceQuality) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceQuality to Boolean")
+}
+func (r MolecularSequenceQuality) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceQuality to String")
+}
+func (r MolecularSequenceQuality) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceQuality to Integer")
+}
+func (r MolecularSequenceQuality) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceQuality to Decimal")
+}
+func (r MolecularSequenceQuality) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceQuality to Date")
+}
+func (r MolecularSequenceQuality) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceQuality to Time")
+}
+func (r MolecularSequenceQuality) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceQuality to DateTime")
+}
+func (r MolecularSequenceQuality) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceQuality to Quantity")
+}
+func (r MolecularSequenceQuality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceQuality
+	switch other := other.(type) {
+	case MolecularSequenceQuality:
+		o = &other
+	case *MolecularSequenceQuality:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceQuality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceQuality)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceQuality) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "StandardSequence",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Start",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "End",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Score",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Quantity",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Method",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "TruthTp",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "QueryTp",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "TruthFn",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "QueryFp",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "GtFp",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Precision",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Recall",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "FScore",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Roc",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "MolecularSequenceQualityRoc",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceQuality",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceQualityRoc) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "score") {
+		for _, v := range r.Score {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numTP") {
+		for _, v := range r.NumTp {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numFP") {
+		for _, v := range r.NumFp {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "numFN") {
+		for _, v := range r.NumFn {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "precision") {
+		for _, v := range r.Precision {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "sensitivity") {
+		for _, v := range r.Sensitivity {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "fMeasure") {
+		for _, v := range r.FMeasure {
+			children = append(children, v)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceQualityRoc) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceQualityRoc to Boolean")
+}
+func (r MolecularSequenceQualityRoc) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceQualityRoc to String")
+}
+func (r MolecularSequenceQualityRoc) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceQualityRoc to Integer")
+}
+func (r MolecularSequenceQualityRoc) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceQualityRoc to Decimal")
+}
+func (r MolecularSequenceQualityRoc) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceQualityRoc to Date")
+}
+func (r MolecularSequenceQualityRoc) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceQualityRoc to Time")
+}
+func (r MolecularSequenceQualityRoc) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceQualityRoc to DateTime")
+}
+func (r MolecularSequenceQualityRoc) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceQualityRoc to Quantity")
+}
+func (r MolecularSequenceQualityRoc) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceQualityRoc
+	switch other := other.(type) {
+	case MolecularSequenceQualityRoc:
+		o = &other
+	case *MolecularSequenceQualityRoc:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceQualityRoc) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceQualityRoc)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceQualityRoc) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Score",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "NumTp",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "NumFp",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "NumFn",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Precision",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Sensitivity",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "FMeasure",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Decimal",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceQualityRoc",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceRepository) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "type") {
+		children = append(children, r.Type)
+	}
+	if len(name) == 0 || slices.Contains(name, "url") {
+		if r.Url != nil {
+			children = append(children, *r.Url)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "name") {
+		if r.Name != nil {
+			children = append(children, *r.Name)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "datasetId") {
+		if r.DatasetId != nil {
+			children = append(children, *r.DatasetId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variantsetId") {
+		if r.VariantsetId != nil {
+			children = append(children, *r.VariantsetId)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "readsetId") {
+		if r.ReadsetId != nil {
+			children = append(children, *r.ReadsetId)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceRepository) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceRepository to Boolean")
+}
+func (r MolecularSequenceRepository) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceRepository to String")
+}
+func (r MolecularSequenceRepository) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceRepository to Integer")
+}
+func (r MolecularSequenceRepository) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRepository to Decimal")
+}
+func (r MolecularSequenceRepository) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceRepository to Date")
+}
+func (r MolecularSequenceRepository) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceRepository to Time")
+}
+func (r MolecularSequenceRepository) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceRepository to DateTime")
+}
+func (r MolecularSequenceRepository) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceRepository to Quantity")
+}
+func (r MolecularSequenceRepository) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceRepository
+	switch other := other.(type) {
+	case MolecularSequenceRepository:
+		o = &other
+	case *MolecularSequenceRepository:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceRepository) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceRepository)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceRepository) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Type",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Code",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Url",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Uri",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Name",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "DatasetId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "VariantsetId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ReadsetId",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceRepository",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceStructureVariant) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "variantType") {
+		if r.VariantType != nil {
+			children = append(children, *r.VariantType)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "exact") {
+		if r.Exact != nil {
+			children = append(children, *r.Exact)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "length") {
+		if r.Length != nil {
+			children = append(children, *r.Length)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "outer") {
+		if r.Outer != nil {
+			children = append(children, *r.Outer)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "inner") {
+		if r.Inner != nil {
+			children = append(children, *r.Inner)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceStructureVariant) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceStructureVariant to Boolean")
+}
+func (r MolecularSequenceStructureVariant) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceStructureVariant to String")
+}
+func (r MolecularSequenceStructureVariant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceStructureVariant to Integer")
+}
+func (r MolecularSequenceStructureVariant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceStructureVariant to Decimal")
+}
+func (r MolecularSequenceStructureVariant) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceStructureVariant to Date")
+}
+func (r MolecularSequenceStructureVariant) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceStructureVariant to Time")
+}
+func (r MolecularSequenceStructureVariant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceStructureVariant to DateTime")
+}
+func (r MolecularSequenceStructureVariant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceStructureVariant to Quantity")
+}
+func (r MolecularSequenceStructureVariant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceStructureVariant
+	switch other := other.(type) {
+	case MolecularSequenceStructureVariant:
+		o = &other
+	case *MolecularSequenceStructureVariant:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceStructureVariant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceStructureVariant)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceStructureVariant) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "VariantType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Exact",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Boolean",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Length",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Outer",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "MolecularSequenceStructureVariantOuter",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Inner",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "MolecularSequenceStructureVariantInner",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceStructureVariant",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceStructureVariantOuter) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "start") {
+		if r.Start != nil {
+			children = append(children, *r.Start)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "end") {
+		if r.End != nil {
+			children = append(children, *r.End)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceStructureVariantOuter) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Boolean")
+}
+func (r MolecularSequenceStructureVariantOuter) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceStructureVariantOuter to String")
+}
+func (r MolecularSequenceStructureVariantOuter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Integer")
+}
+func (r MolecularSequenceStructureVariantOuter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Decimal")
+}
+func (r MolecularSequenceStructureVariantOuter) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Date")
+}
+func (r MolecularSequenceStructureVariantOuter) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Time")
+}
+func (r MolecularSequenceStructureVariantOuter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to DateTime")
+}
+func (r MolecularSequenceStructureVariantOuter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Quantity")
+}
+func (r MolecularSequenceStructureVariantOuter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceStructureVariantOuter
+	switch other := other.(type) {
+	case MolecularSequenceStructureVariantOuter:
+		o = &other
+	case *MolecularSequenceStructureVariantOuter:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceStructureVariantOuter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceStructureVariantOuter)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceStructureVariantOuter) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Start",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "End",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceStructureVariantOuter",
+		Namespace: "FHIR",
+	}
+}
+func (r MolecularSequenceStructureVariantInner) Children(name ...string) fhirpath.Collection {
+	var children fhirpath.Collection
+	if len(name) == 0 || slices.Contains(name, "id") {
+		if r.Id != nil {
+			children = append(children, fhirpath.String(*r.Id))
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "extension") {
+		for _, v := range r.Extension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "modifierExtension") {
+		for _, v := range r.ModifierExtension {
+			children = append(children, v)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "start") {
+		if r.Start != nil {
+			children = append(children, *r.Start)
+		}
+	}
+	if len(name) == 0 || slices.Contains(name, "end") {
+		if r.End != nil {
+			children = append(children, *r.End)
+		}
+	}
+	return children
+}
+func (r MolecularSequenceStructureVariantInner) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
+	return false, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Boolean")
+}
+func (r MolecularSequenceStructureVariantInner) ToString(explicit bool) (fhirpath.String, bool, error) {
+	return "", false, errors.New("can not convert MolecularSequenceStructureVariantInner to String")
+}
+func (r MolecularSequenceStructureVariantInner) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
+	return 0, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Integer")
+}
+func (r MolecularSequenceStructureVariantInner) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
+	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Decimal")
+}
+func (r MolecularSequenceStructureVariantInner) ToDate(explicit bool) (fhirpath.Date, bool, error) {
+	return fhirpath.Date{}, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Date")
+}
+func (r MolecularSequenceStructureVariantInner) ToTime(explicit bool) (fhirpath.Time, bool, error) {
+	return fhirpath.Time{}, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Time")
+}
+func (r MolecularSequenceStructureVariantInner) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
+	return fhirpath.DateTime{}, false, errors.New("can not convert MolecularSequenceStructureVariantInner to DateTime")
+}
+func (r MolecularSequenceStructureVariantInner) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
+	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Quantity")
+}
+func (r MolecularSequenceStructureVariantInner) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+	var o *MolecularSequenceStructureVariantInner
+	switch other := other.(type) {
+	case MolecularSequenceStructureVariantInner:
+		o = &other
+	case *MolecularSequenceStructureVariantInner:
+		o = other
+	default:
+		return false, true
+	}
+	if o == nil {
+		return false, true
+	}
+	eq, ok := r.Children().Equal(o.Children())
+	return eq && ok, true
+}
+func (r MolecularSequenceStructureVariantInner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+	o, ok := other.(MolecularSequenceStructureVariantInner)
+	if !ok {
+		return false
+	}
+	r.Id = nil
+	o.Id = nil
+	eq, ok := r.Equal(o)
+	return eq && ok
+}
+func (r MolecularSequenceStructureVariantInner) TypeInfo() fhirpath.TypeInfo {
+	return fhirpath.ClassInfo{
+		BaseType: fhirpath.TypeSpecifier{
+			Name:      "DataType",
+			Namespace: "FHIR",
+		},
+		Element: []fhirpath.ClassInfoElement{{
+			Name: "Id",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "string",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Extension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "ModifierExtension",
+			Type: fhirpath.TypeSpecifier{
+				List:      true,
+				Name:      "Extension",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "Start",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "End",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "Integer",
+				Namespace: "FHIR",
+			},
+		}},
+		Name:      "MolecularSequenceStructureVariantInner",
+		Namespace: "FHIR",
 	}
 }
