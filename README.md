@@ -51,7 +51,7 @@ The [`proxy`](./examples/proxy/main.go) example uses the generic API to forward 
 go run ./examples/proxy https://server.fire.ly/
 ```
 
-This starts a simple mock-facade that forwards all requests to the HAPI test-server.
+This starts a simple mock-facade that forwards all requests to a test-server.
 
 From another terminal, run
 
