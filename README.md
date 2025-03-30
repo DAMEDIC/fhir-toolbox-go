@@ -125,7 +125,9 @@ From the additional functions defined in the FHIR specification, only
 
 is implemented.
 
-Mostly, because they require validation which is not implemented by the fhir-toolbox-go, yet.
+Mostly, because these require validation which is not implemented by `fhir-toolbox-go`, yet.
+
+For a quick usaage example see  [`./examples/fhirpath`](./examples/fhirpath/main.go).
 
 ### Decimal precision
 
