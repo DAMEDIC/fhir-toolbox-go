@@ -11,41 +11,41 @@ import (
 	"time"
 )
 
-// TraceLogger defines the interface for logging trace messages
-type TraceLogger interface {
+// Tracer defines the interface for logging trace messages
+type Tracer interface {
 	// Log logs a trace message with the given name and collection
 	Log(name string, collection Collection) error
 }
 
-// StdoutTraceLogger writes traces to io.Stdout.
-type StdoutTraceLogger struct{}
+// StdoutTracer writes traces to io.Stdout.
+type StdoutTracer struct{}
 
-func (w StdoutTraceLogger) Log(name string, collection Collection) error {
+func (w StdoutTracer) Log(name string, collection Collection) error {
 	_, err := fmt.Printf("%s: %v\n", name, collection)
 	return err
 }
 
-type traceLoggerKey struct{}
+type tracerKey struct{}
 
-// WithTraceLogger installs the given trace logger into the context.
+// WithTracer installs the given trace logger into the context.
 //
 // By default, traces are logged to stdout.
 // To redirect trace logs to a custom output, use:
 //
-//	ctx = fhirpath.WithTraceLogger(ctx, MyCustomTraceLogger(true, file))
-func WithTraceLogger(ctx context.Context, logger TraceLogger) context.Context {
-	return context.WithValue(ctx, traceLoggerKey{}, logger)
+//	ctx = fhirpath.WithTracer(ctx, MyCustomTraceLogger(true, file))
+func WithTracer(ctx context.Context, logger Tracer) context.Context {
+	return context.WithValue(ctx, tracerKey{}, logger)
 }
 
 // GetTraceLogger gets the trace logger from the context
 // If no trace logger is found, a NoOpTraceLogger is returned
-func traceLogger(ctx context.Context) (TraceLogger, error) {
-	logger, ok := ctx.Value(traceLoggerKey{}).(TraceLogger)
+func tracer(ctx context.Context) (Tracer, error) {
+	logger, ok := ctx.Value(tracerKey{}).(Tracer)
 	if !ok {
-		return StdoutTraceLogger{}, nil
+		return StdoutTracer{}, nil
 	}
 	if logger == nil {
-		return StdoutTraceLogger{}, fmt.Errorf("no trace logger provided")
+		return StdoutTracer{}, fmt.Errorf("no trace logger provided")
 	}
 	return logger, nil
 }
@@ -2532,7 +2532,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected one or two parameters")
 		}
 
-		logger, err := traceLogger(ctx)
+		logger, err := tracer(ctx)
 		if err != nil {
 			return nil, false, err
 		}

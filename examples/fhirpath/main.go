@@ -98,6 +98,6 @@ func main() {
 
 	// Tracing
 	fmt.Println("\n# Tracing")
-	ctx = fhirpath.WithTraceLogger(ctx, fhirpath.StdoutTraceLogger{})
+	ctx = fhirpath.WithTracer(ctx, fhirpath.StdoutTracer{})
 	evaluateAndPrint(ctx, patient, "Patient.name.trace('names').given", "Result after tracing: %v\n")
 }
