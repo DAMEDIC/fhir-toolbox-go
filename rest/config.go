@@ -8,10 +8,10 @@ import (
 
 type Config struct {
 	// Base path of the FHIR server, used e.g. for building bundles.
-	Base *url.URL `json:"base"`
+	Base *url.URL
 	// Timezone used for parsing date parameters without timezones.
 	// Defaults to current server timezone.
-	Timezone string `json:"timezone"`
+	Timezone *time.Location
 	// Date of last capability change, used for building the CapabilityStatement.
 	// Defaults to current time.
 	Date string `json:"date"`
@@ -28,7 +28,7 @@ type Config struct {
 
 // DefaultConfig sets reasonable defaults that can be used by the package user.
 var DefaultConfig = Config{
-	Timezone:      time.Now().Location().String(),
+	Timezone:      time.Now().Location(),
 	Date:          time.Now().Format(time.RFC3339),
 	MaxCount:      500,
 	DefaultCount:  500,
@@ -36,7 +36,8 @@ var DefaultConfig = Config{
 }
 
 type jsonConfig struct {
-	Base string `json:"base"`
+	Base     string `json:"base"`
+	Timezone string `json:"timezone"`
 	jsonConfigInner
 }
 
@@ -46,6 +47,7 @@ type jsonConfigInner Config
 func (c Config) MarshalJSON() ([]byte, error) {
 	return json.Marshal(jsonConfig{
 		Base:            c.Base.String(),
+		Timezone:        c.Timezone.String(),
 		jsonConfigInner: jsonConfigInner(c),
 	})
 }
@@ -61,6 +63,11 @@ func (c *Config) UnmarshalJSON(b []byte) error {
 	}
 
 	c.Base, err = url.Parse(jc.Base)
+	if err != nil {
+		return err
+	}
+
+	c.Timezone, err = time.LoadLocation(jc.Timezone)
 	if err != nil {
 		return err
 	}

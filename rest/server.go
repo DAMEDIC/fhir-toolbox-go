@@ -71,19 +71,14 @@ func registerRoutes[R model.Release](
 	backend capabilities.GenericAPI,
 	config Config,
 ) error {
-	tz, err := time.LoadLocation(config.Timezone)
-	if err != nil {
-		return fmt.Errorf("unable to load timezone: %w", err)
-	}
-
-	date, _, err := search.ParseDate(config.Date, tz)
+	date, _, err := search.ParseDate(config.Date, config.Timezone)
 	if err != nil {
 		return fmt.Errorf("error parsing date '%s': %w", config.Date, err)
 	}
 
 	mux.Handle("GET /metadata", metadataHandler[R](backend, config, date))
 	mux.Handle("GET /{type}/{id}", readHandler(backend, config))
-	mux.Handle("GET /{type}", searchHandler(backend, config, tz))
+	mux.Handle("GET /{type}", searchHandler(backend, config, config.Timezone))
 
 	return nil
 }
