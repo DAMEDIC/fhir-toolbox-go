@@ -108,6 +108,10 @@ func (p ParameterKey) String() string {
 	}
 }
 
+func (p ParameterKey) MarshalText() ([]byte, error) {
+	return []byte(p.String()), nil
+}
+
 // ParameterType is the type of the parameter
 type ParameterType string
 

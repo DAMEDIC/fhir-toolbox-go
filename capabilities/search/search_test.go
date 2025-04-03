@@ -1,6 +1,7 @@
 package search
 
 import (
+	"encoding/json"
 	"github.com/cockroachdb/apd/v3"
 	"github.com/stretchr/testify/assert"
 	"net/url"
@@ -211,6 +212,30 @@ func TestParseAndToString(t *testing.T) {
 			assert.NoError(t, err)
 
 			assert.Equal(t, wantValues, gotValues)
+		})
+	}
+}
+
+func TestParametersMarshalJSON(t *testing.T) {
+	tests := []struct {
+		name      string
+		parameter Parameters
+		expected  string
+	}{
+		{"No Modifier",
+			Parameters{ParameterKey{Name: "exampleName"}: All{{Number{Value: apd.New(100, -3)}}}},
+			`{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
+		{"Modifier",
+			Parameters{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: All{{Number{Value: apd.New(100, -3)}}}},
+			`{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			data, err := json.Marshal(tt.parameter)
+
+			assert.NoError(t, err, "MarshalJSON should not return an error")
+			assert.JSONEq(t, tt.expected, string(data), "JSON output does not match expected")
 		})
 	}
 }
