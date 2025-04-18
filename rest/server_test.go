@@ -16,8 +16,6 @@ import (
 	"net/url"
 	"strings"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestCapabilityStatement(t *testing.T) {
@@ -231,7 +229,9 @@ func TestCapabilityStatement(t *testing.T) {
 			config.Date = tt.date
 
 			server, err := rest.NewServer[model.R4](mockBackend{}, config)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to create server: %v", err)
+			}
 
 			req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
 			req.Header.Set("Accept", tt.format)
@@ -239,13 +239,21 @@ func TestCapabilityStatement(t *testing.T) {
 			rr := httptest.NewRecorder()
 			server.ServeHTTP(rr, req)
 
-			assert.Equal(t, tt.expectedStatus, rr.Code)
+			if rr.Code != tt.expectedStatus {
+				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
+			}
 
 			if strings.Contains(tt.format, "json") {
-				assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
+				contentType := rr.Header().Get("Content-Type")
+				if contentType != "application/fhir+json" {
+					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
+				}
 				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
 			} else {
-				assert.Equal(t, "application/fhir+xml", rr.Header().Get("Content-Type"))
+				contentType := rr.Header().Get("Content-Type")
+				if contentType != "application/fhir+xml" {
+					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
+				}
 				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
 			}
 		})
@@ -420,7 +428,9 @@ func TestHandleRead(t *testing.T) {
 			config.Base, _ = url.Parse("http://example.com")
 
 			server, err := rest.NewServer[model.R4](tt.backend, config)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to create server: %v", err)
+			}
 
 			requestURL := fmt.Sprintf("http://example.com/%s/%s", tt.resourceType, tt.resourceID)
 			req := httptest.NewRequest("GET", requestURL, nil)
@@ -429,13 +439,21 @@ func TestHandleRead(t *testing.T) {
 			rr := httptest.NewRecorder()
 			server.ServeHTTP(rr, req)
 
-			assert.Equal(t, tt.expectedStatus, rr.Code)
+			if rr.Code != tt.expectedStatus {
+				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
+			}
 
 			if strings.Contains(tt.format, "json") {
-				assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
+				contentType := rr.Header().Get("Content-Type")
+				if contentType != "application/fhir+json" {
+					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
+				}
 				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
 			} else {
-				assert.Equal(t, "application/fhir+xml", rr.Header().Get("Content-Type"))
+				contentType := rr.Header().Get("Content-Type")
+				if contentType != "application/fhir+xml" {
+					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
+				}
 				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
 			}
 		})
@@ -952,7 +970,9 @@ func TestHandleSearch(t *testing.T) {
 			config.Base, _ = url.Parse("http://example.com")
 
 			server, err := rest.NewServer[model.R4](tt.backend, config)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to create server: %v", err)
+			}
 
 			requestURL := fmt.Sprintf("http://example.com/%s?%s", tt.resourceType, tt.queryString)
 			req := httptest.NewRequest("GET", requestURL, nil)
@@ -961,8 +981,15 @@ func TestHandleSearch(t *testing.T) {
 			rr := httptest.NewRecorder()
 			server.ServeHTTP(rr, req)
 
-			assert.Equal(t, tt.expectedStatus, rr.Code)
-			assert.Equal(t, "application/fhir+json", rr.Header().Get("Content-Type"))
+			if rr.Code != tt.expectedStatus {
+				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
+			}
+
+			contentType := rr.Header().Get("Content-Type")
+			if contentType != "application/fhir+json" {
+				t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
+			}
+
 			assertjson.Equal(t, tt.expectedBody, rr.Body.String())
 		})
 	}

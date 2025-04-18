@@ -14,8 +14,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
 )
 
@@ -77,10 +75,14 @@ func TestRoundtripJSON(t *testing.T) {
 						err = json.Unmarshal(jsonIn, &r5)
 						r = r5
 					}
-					assert.NoError(t, err)
+					if err != nil {
+						t.Fatalf("Failed to unmarshal JSON: %v", err)
+					}
 
 					jsonOut, err := json.Marshal(r)
-					assert.NoError(t, err)
+					if err != nil {
+						t.Fatalf("Failed to marshal JSON: %v", err)
+					}
 
 					assertjson.Equal(t, string(jsonIn), string(jsonOut))
 				})
@@ -127,10 +129,14 @@ func TestRoundtripXML(t *testing.T) {
 						err = xml.Unmarshal(xmlIn, &r5)
 						r = r5
 					}
-					assert.NoError(t, err)
+					if err != nil {
+						t.Fatalf("Failed to unmarshal XML: %v", err)
+					}
 
 					xmlOut, err := xml.Marshal(r)
-					assert.NoError(t, err)
+					if err != nil {
+						t.Fatalf("Failed to marshal XML: %v", err)
+					}
 
 					// marshalled decimals look a bit different, but are semantically identical
 					if name == "observation-decimal(decimal).xml" {

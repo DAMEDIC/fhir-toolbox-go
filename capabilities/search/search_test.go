@@ -3,7 +3,8 @@ package search
 import (
 	"encoding/json"
 	"github.com/cockroachdb/apd/v3"
-	"github.com/stretchr/testify/assert"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"net/url"
 	"testing"
 	"time"
@@ -197,21 +198,31 @@ func TestParseAndToString(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			wantValues, err := url.ParseQuery(tt.want)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to parse query: %v", err)
+			}
 
 			// test parse
 			parsedOpts, err := ParseOptions(tt.capabilities, wantValues, time.UTC, 500, tt.options.Count)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to parse options: %v", err)
+			}
 
 			tt.options.Count = min(tt.options.Count, 500)
 
-			assert.Equal(t, parsedOpts, tt.options)
+			if !cmp.Equal(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("ParseOptions() = %v, want %v, diff: %s", parsedOpts, tt.options, cmp.Diff(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})))
+			}
 
 			// test to string
 			gotValues, err := url.ParseQuery(tt.options.QueryString())
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to parse query string: %v", err)
+			}
 
-			assert.Equal(t, wantValues, gotValues)
+			if !cmp.Equal(wantValues, gotValues, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("QueryString() = %v, want %v, diff: %s", gotValues, wantValues, cmp.Diff(wantValues, gotValues, cmpopts.EquateComparable(apd.Decimal{})))
+			}
 		})
 	}
 }
@@ -222,20 +233,35 @@ func TestParametersMarshalJSON(t *testing.T) {
 		parameter Parameters
 		expected  string
 	}{
-		{"No Modifier",
-			Parameters{ParameterKey{Name: "exampleName"}: All{{Number{Value: apd.New(100, -3)}}}},
-			`{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
-		{"Modifier",
-			Parameters{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: All{{Number{Value: apd.New(100, -3)}}}},
-			`{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
+		{
+			name:      "No Modifier",
+			parameter: Parameters{ParameterKey{Name: "exampleName"}: All{{Number{Value: apd.New(100, -3)}}}},
+			expected:  `{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
+		{
+			name:      "Modifier",
+			parameter: Parameters{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: All{{Number{Value: apd.New(100, -3)}}}},
+			expected:  `{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			data, err := json.Marshal(tt.parameter)
+			if err != nil {
+				t.Fatalf("MarshalJSON should not return an error: %v", err)
+			}
 
-			assert.NoError(t, err, "MarshalJSON should not return an error")
-			assert.JSONEq(t, tt.expected, string(data), "JSON output does not match expected")
+			// Compare JSON by unmarshaling both strings to ensure they're equivalent
+			var expected, actual interface{}
+			if err := json.Unmarshal([]byte(tt.expected), &expected); err != nil {
+				t.Fatalf("Failed to unmarshal expected JSON: %v", err)
+			}
+			if err := json.Unmarshal(data, &actual); err != nil {
+				t.Fatalf("Failed to unmarshal actual JSON: %v", err)
+			}
+
+			if !cmp.Equal(expected, actual, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("JSON output does not match expected.\nExpected: %s\nActual: %s\nDiff: %s", tt.expected, string(data), cmp.Diff(expected, actual, cmpopts.EquateComparable(apd.Decimal{})))
+			}
 		})
 	}
 }

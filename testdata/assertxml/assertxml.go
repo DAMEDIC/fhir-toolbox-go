@@ -3,13 +3,16 @@ package assertxml
 import (
 	"bytes"
 	"encoding/xml"
-	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 )
 
 func Equal(t *testing.T, expected, actual string) {
-	assert.Equal(t, format(expected), format(actual))
+	expectedFormatted := format(expected)
+	actualFormatted := format(actual)
+	if expectedFormatted != actualFormatted {
+		t.Errorf("XML not equal:\nexpected: %s\nactual: %s", expectedFormatted, actualFormatted)
+	}
 }
 
 func format(input string) string {
