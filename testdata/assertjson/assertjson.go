@@ -49,18 +49,3 @@ func (v Value) MarshalJSON() ([]byte, error) {
 	}
 	return json.Marshal(v.Raw)
 }
-
-func (v *Value) UnmarshalJSON(data []byte) error {
-	err := json.Unmarshal(data, &v.Map)
-	if err == nil {
-		return nil
-	}
-
-	// can not handle string as raw message because of escaping
-	err = json.Unmarshal(data, &v.String)
-	if err == nil {
-		return nil
-	}
-
-	return json.Unmarshal(data, &v.Raw)
-}

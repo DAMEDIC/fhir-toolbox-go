@@ -3,8 +3,9 @@ package search
 import (
 	"encoding/json"
 	"github.com/cockroachdb/apd/v3"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"net/url"
-	"reflect"
 	"testing"
 	"time"
 )
@@ -209,8 +210,8 @@ func TestParseAndToString(t *testing.T) {
 
 			tt.options.Count = min(tt.options.Count, 500)
 
-			if !reflect.DeepEqual(parsedOpts, tt.options) {
-				t.Errorf("ParseOptions() = %v, want %v", parsedOpts, tt.options)
+			if !cmp.Equal(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("ParseOptions() = %v, want %v, diff: %s", parsedOpts, tt.options, cmp.Diff(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})))
 			}
 
 			// test to string
@@ -219,8 +220,8 @@ func TestParseAndToString(t *testing.T) {
 				t.Fatalf("Failed to parse query string: %v", err)
 			}
 
-			if !reflect.DeepEqual(wantValues, gotValues) {
-				t.Errorf("QueryString() = %v, want %v", gotValues, wantValues)
+			if !cmp.Equal(wantValues, gotValues, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("QueryString() = %v, want %v, diff: %s", gotValues, wantValues, cmp.Diff(wantValues, gotValues, cmpopts.EquateComparable(apd.Decimal{})))
 			}
 		})
 	}
@@ -258,8 +259,8 @@ func TestParametersMarshalJSON(t *testing.T) {
 				t.Fatalf("Failed to unmarshal actual JSON: %v", err)
 			}
 
-			if !reflect.DeepEqual(expected, actual) {
-				t.Errorf("JSON output does not match expected.\nExpected: %s\nActual: %s", tt.expected, string(data))
+			if !cmp.Equal(expected, actual, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("JSON output does not match expected.\nExpected: %s\nActual: %s\nDiff: %s", tt.expected, string(data), cmp.Diff(expected, actual, cmpopts.EquateComparable(apd.Decimal{})))
 			}
 		})
 	}

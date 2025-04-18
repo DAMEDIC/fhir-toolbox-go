@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/cockroachdb/apd/v3"
-	"reflect"
 	"testing"
 	"time"
 )
@@ -131,7 +130,7 @@ func TestDateArithmetic(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Unexpected error: %v", err)
 			}
-			if !reflect.DeepEqual(tt.wantAdd, got) {
+			if got != tt.wantAdd {
 				t.Errorf("Add() = %v, want %v", got, tt.wantAdd)
 			}
 
@@ -146,7 +145,7 @@ func TestDateArithmetic(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Unexpected error: %v", err)
 			}
-			if !reflect.DeepEqual(tt.wantSub, got) {
+			if got != tt.wantSub {
 				t.Errorf("Subtract() = %v, want %v", got, tt.wantSub)
 			}
 		})
@@ -275,7 +274,7 @@ func TestTimeArithmetic(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Unexpected error: %v", err)
 			}
-			if !reflect.DeepEqual(tt.wantAdd, got) {
+			if got != tt.wantAdd {
 				t.Errorf("Add() = %v, want %v", got, tt.wantAdd)
 			}
 
@@ -290,7 +289,7 @@ func TestTimeArithmetic(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Unexpected error: %v", err)
 			}
-			if !reflect.DeepEqual(tt.wantSub, got) {
+			if got != tt.wantSub {
 				t.Errorf("Subtract() = %v, want %v", got, tt.wantSub)
 			}
 		})
@@ -426,7 +425,7 @@ func TestDateTimeArithmetic(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Unexpected error: %v", err)
 			}
-			if !reflect.DeepEqual(tt.wantAdd, got) {
+			if got != tt.wantAdd {
 				t.Errorf("Add() = %v, want %v", got, tt.wantAdd)
 			}
 
@@ -441,7 +440,7 @@ func TestDateTimeArithmetic(t *testing.T) {
 			if err != nil {
 				t.Fatalf("Unexpected error: %v", err)
 			}
-			if !reflect.DeepEqual(tt.wantSub, got) {
+			if got != tt.wantSub {
 				t.Errorf("Subtract() = %v, want %v", got, tt.wantSub)
 			}
 		})
