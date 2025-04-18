@@ -222,12 +222,14 @@ func TestParametersMarshalJSON(t *testing.T) {
 		parameter Parameters
 		expected  string
 	}{
-		{"No Modifier",
-			Parameters{ParameterKey{Name: "exampleName"}: All{{Number{Value: apd.New(100, -3)}}}},
-			`{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
-		{"Modifier",
-			Parameters{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: All{{Number{Value: apd.New(100, -3)}}}},
-			`{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
+		{
+			name:      "No Modifier",
+			parameter: Parameters{ParameterKey{Name: "exampleName"}: All{{Number{Value: apd.New(100, -3)}}}},
+			expected:  `{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
+		{
+			name:      "Modifier",
+			parameter: Parameters{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: All{{Number{Value: apd.New(100, -3)}}}},
+			expected:  `{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
 	}
 
 	for _, tt := range tests {
