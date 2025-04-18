@@ -7,7 +7,6 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
 	"github.com/cockroachdb/apd/v3"
 	"github.com/pmezard/go-difflib/difflib"
-	"github.com/stretchr/testify/assert"
 	"regexp"
 	"testing"
 )
@@ -70,12 +69,18 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 					if err != nil && test.Expression.Invalid != "" {
 						return
 					}
-					assert.NoError(t, err)
+					if err != nil {
+						t.Fatalf("Unexpected error: %v", err)
+					}
 
 					if test.Predicate {
 						v, ok, err := fhirpath.Singleton[fhirpath.Boolean](result)
-						assert.NoError(t, err)
-						assert.True(t, ok, "expected boolean value to exist")
+						if err != nil {
+							t.Fatalf("Unexpected error: %v", err)
+						}
+						if !ok {
+							t.Fatalf("expected boolean value to exist")
+						}
 						result = fhirpath.Collection{v}
 					}
 
@@ -88,7 +93,9 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 						Context:  1,
 					})
 					// use equivalence to have empty results { } ~ { } result in true
-					assert.True(t, expected.Equivalent(result), diff)
+					if !expected.Equivalent(result) {
+						t.Errorf("Results not equivalent:\n%s", diff)
+					}
 				})
 			}
 		})

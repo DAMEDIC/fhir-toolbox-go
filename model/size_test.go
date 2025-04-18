@@ -4,7 +4,6 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"unsafe"
 )
@@ -69,7 +68,7 @@ func TestMemSizeR4(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.element.MemSize(); got != tt.want {
-				assert.Equal(t, tt.want, got, "MemSize() should return the size of the element")
+				t.Errorf("MemSize() = %v, want %v, MemSize() should return the size of the element", got, tt.want)
 			}
 		})
 	}

@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/cockroachdb/apd/v3"
-	"github.com/stretchr/testify/assert"
+	"reflect"
 	"testing"
 	"time"
 )
@@ -123,20 +123,32 @@ func TestDateArithmetic(t *testing.T) {
 			// Test addition
 			got, err := tt.date.Add(ctx, tt.quantity)
 			if tt.wantErr {
-				assert.Error(t, err)
+				if err == nil {
+					t.Error("Expected error but got nil")
+				}
 				return
 			}
-			assert.NoError(t, err)
-			assert.Equal(t, tt.wantAdd, got)
+			if err != nil {
+				t.Fatalf("Unexpected error: %v", err)
+			}
+			if !reflect.DeepEqual(tt.wantAdd, got) {
+				t.Errorf("Add() = %v, want %v", got, tt.wantAdd)
+			}
 
 			// Test subtraction
 			got, err = tt.date.Subtract(ctx, tt.quantity)
 			if tt.wantErr {
-				assert.Error(t, err)
+				if err == nil {
+					t.Error("Expected error but got nil")
+				}
 				return
 			}
-			assert.NoError(t, err)
-			assert.Equal(t, tt.wantSub, got)
+			if err != nil {
+				t.Fatalf("Unexpected error: %v", err)
+			}
+			if !reflect.DeepEqual(tt.wantSub, got) {
+				t.Errorf("Subtract() = %v, want %v", got, tt.wantSub)
+			}
 		})
 	}
 }
@@ -255,20 +267,32 @@ func TestTimeArithmetic(t *testing.T) {
 			// Test addition
 			got, err := tt.time.Add(ctx, tt.quantity)
 			if tt.wantErr {
-				assert.Error(t, err)
+				if err == nil {
+					t.Error("Expected error but got nil")
+				}
 				return
 			}
-			assert.NoError(t, err)
-			assert.Equal(t, tt.wantAdd, got)
+			if err != nil {
+				t.Fatalf("Unexpected error: %v", err)
+			}
+			if !reflect.DeepEqual(tt.wantAdd, got) {
+				t.Errorf("Add() = %v, want %v", got, tt.wantAdd)
+			}
 
 			// Test subtraction
 			got, err = tt.time.Subtract(ctx, tt.quantity)
 			if tt.wantErr {
-				assert.Error(t, err)
+				if err == nil {
+					t.Error("Expected error but got nil")
+				}
 				return
 			}
-			assert.NoError(t, err)
-			assert.Equal(t, tt.wantSub, got)
+			if err != nil {
+				t.Fatalf("Unexpected error: %v", err)
+			}
+			if !reflect.DeepEqual(tt.wantSub, got) {
+				t.Errorf("Subtract() = %v, want %v", got, tt.wantSub)
+			}
 		})
 	}
 }
@@ -394,20 +418,32 @@ func TestDateTimeArithmetic(t *testing.T) {
 			// Test addition
 			got, err := tt.datetime.Add(ctx, tt.quantity)
 			if tt.wantErr {
-				assert.Error(t, err)
+				if err == nil {
+					t.Error("Expected error but got nil")
+				}
 				return
 			}
-			assert.NoError(t, err)
-			assert.Equal(t, tt.wantAdd, got)
+			if err != nil {
+				t.Fatalf("Unexpected error: %v", err)
+			}
+			if !reflect.DeepEqual(tt.wantAdd, got) {
+				t.Errorf("Add() = %v, want %v", got, tt.wantAdd)
+			}
 
 			// Test subtraction
 			got, err = tt.datetime.Subtract(ctx, tt.quantity)
 			if tt.wantErr {
-				assert.Error(t, err)
+				if err == nil {
+					t.Error("Expected error but got nil")
+				}
 				return
 			}
-			assert.NoError(t, err)
-			assert.Equal(t, tt.wantSub, got)
+			if err != nil {
+				t.Fatalf("Unexpected error: %v", err)
+			}
+			if !reflect.DeepEqual(tt.wantSub, got) {
+				t.Errorf("Subtract() = %v, want %v", got, tt.wantSub)
+			}
 		})
 	}
 }

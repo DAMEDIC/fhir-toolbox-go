@@ -3,8 +3,8 @@ package search
 import (
 	"encoding/json"
 	"github.com/cockroachdb/apd/v3"
-	"github.com/stretchr/testify/assert"
 	"net/url"
+	"reflect"
 	"testing"
 	"time"
 )
@@ -197,21 +197,31 @@ func TestParseAndToString(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			wantValues, err := url.ParseQuery(tt.want)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to parse query: %v", err)
+			}
 
 			// test parse
 			parsedOpts, err := ParseOptions(tt.capabilities, wantValues, time.UTC, 500, tt.options.Count)
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to parse options: %v", err)
+			}
 
 			tt.options.Count = min(tt.options.Count, 500)
 
-			assert.Equal(t, parsedOpts, tt.options)
+			if !reflect.DeepEqual(parsedOpts, tt.options) {
+				t.Errorf("ParseOptions() = %v, want %v", parsedOpts, tt.options)
+			}
 
 			// test to string
 			gotValues, err := url.ParseQuery(tt.options.QueryString())
-			assert.NoError(t, err)
+			if err != nil {
+				t.Fatalf("Failed to parse query string: %v", err)
+			}
 
-			assert.Equal(t, wantValues, gotValues)
+			if !reflect.DeepEqual(wantValues, gotValues) {
+				t.Errorf("QueryString() = %v, want %v", gotValues, wantValues)
+			}
 		})
 	}
 }
@@ -235,9 +245,22 @@ func TestParametersMarshalJSON(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			data, err := json.Marshal(tt.parameter)
+			if err != nil {
+				t.Fatalf("MarshalJSON should not return an error: %v", err)
+			}
 
-			assert.NoError(t, err, "MarshalJSON should not return an error")
-			assert.JSONEq(t, tt.expected, string(data), "JSON output does not match expected")
+			// Compare JSON by unmarshaling both strings to ensure they're equivalent
+			var expected, actual interface{}
+			if err := json.Unmarshal([]byte(tt.expected), &expected); err != nil {
+				t.Fatalf("Failed to unmarshal expected JSON: %v", err)
+			}
+			if err := json.Unmarshal(data, &actual); err != nil {
+				t.Fatalf("Failed to unmarshal actual JSON: %v", err)
+			}
+
+			if !reflect.DeepEqual(expected, actual) {
+				t.Errorf("JSON output does not match expected.\nExpected: %s\nActual: %s", tt.expected, string(data))
+			}
 		})
 	}
 }

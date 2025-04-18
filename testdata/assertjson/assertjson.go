@@ -3,12 +3,15 @@ package assertjson
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func Equal(t *testing.T, expected, actual string) {
-	assert.Equal(t, format(expected), format(actual))
+	expectedFormatted := format(expected)
+	actualFormatted := format(actual)
+	if expectedFormatted != actualFormatted {
+		t.Errorf("JSON not equal:\nexpected: %s\nactual: %s", expectedFormatted, actualFormatted)
+	}
 }
 
 func format(input string) string {
