@@ -18,7 +18,7 @@ A **FHIRPath** implementation is work-in-progress (~90% done) on branch [fhirpat
 
 ## Features
 
-- FHIR® model types with JSON and XML (un)marshalling
+- FHIR® model types with JSON and XML (un)marshaling
     - R4, R4B & R5
 
       use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
