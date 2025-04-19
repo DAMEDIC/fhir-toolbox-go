@@ -13,53 +13,48 @@ type CapabilitiesGenerator struct {
 }
 
 func (g CapabilitiesGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	generateCapability(f("read", "capabilities"+release), ir.FilterResources(rt), release, "read", readParams, readReturn)
-	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search", searchParams, searchReturn)
+	generateCapability(f("read", "capabilities"+release), ir.FilterResources(rt), release, "read")
+	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search")
 
 	generateAllCapabilitiesFn(f("capabilities", "capabilities"+release), release, ir.FilterResources(rt))
 }
 
-var (
-	readParams = map[Code]Code{
-		Id("id"): String(),
-	}
-	searchParams = map[Code]Code{
-		Id("options"): Qual(moduleName+"/capabilities/search", "Options"),
-	}
-	searchCapabilitiesReturn = Qual(moduleName+"/capabilities/search", "Capabilities")
-)
-
-type returnTypeFunc = func(typeName, releaseLower string) *Statement
-
-func readReturn(typeName, release string) *Statement {
-	return Qual(moduleName+"/model/gen/"+strings.ToLower(release), typeName)
-}
-
-func searchReturn(_, _ string) *Statement {
-	return Qual(moduleName+"/capabilities/search", "Result")
-}
-
-func generateCapability(f *File, resources []ir.ResourceOrType, release, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateCapability(f *File, resources []ir.ResourceOrType, release, interaction string) {
 	interactionName := strcase.ToCamel(interaction)
 
-	allParams := []Code{Id("ctx").Qual("context", "Context")}
-	for k, v := range params {
-		allParams = append(allParams, &Statement{k, v})
+	params := []Code{Id("ctx").Qual("context", "Context")}
+	switch interaction {
+	case "read":
+		params = append(params, Id("id").String())
+	case "search":
+		params = append(params, Id("options").Qual(moduleName+"/capabilities/search", "Options"))
 	}
 
 	for _, r := range resources {
 		f.Type().Id(r.Name + interactionName).InterfaceFunc(func(g *Group) {
-			if interaction == "search" {
-				g.Id("SearchCapabilities" + r.Name).Params().Params(searchCapabilitiesReturn)
+			var returnType Code
+			switch interaction {
+			case "read":
+				returnType = Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)
+			case "search":
+				returnType = Qual(moduleName+"/capabilities/search", "Result")
+				g.Id("SearchCapabilities"+r.Name).Params().Params(
+					Qual(moduleName+"/capabilities/search", "Capabilities"),
+					Qual(moduleName+"/capabilities", "FHIRError"),
+				)
 			}
 
-			g.Id(interactionName+r.Name).Params(allParams...).Params(returnFunc(r.Name, release), Qual(moduleName+"/capabilities", "FHIRError"))
+			g.Id(interactionName+r.Name).Params(params...).Params(returnType, Qual(moduleName+"/capabilities", "FHIRError"))
 		})
 	}
 }
 
 func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceOrType) {
-	f.Func().Id("AllCapabilities").Params(Id("api").Any()).Params(Qual(moduleName+"/capabilities", "Capabilities")).BlockFunc(func(g *Group) {
+	f.Func().Id("AllCapabilities").Params(Id("api").Any()).Params(
+		Qual(moduleName+"/capabilities", "Capabilities"),
+		Qual(moduleName+"/capabilities", "FHIRError"),
+	).BlockFunc(func(g *Group) {
+		g.Var().Id("errs").Index().Qual(moduleName+"/capabilities", "FHIRError")
 		g.Id("read").Op(":=").Index().String().Values()
 		g.Id("search").Op(":=").Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities").Values()
 
@@ -79,13 +74,21 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 				),
 				Id("ok"),
 			).Block(
-				Id("search").Index(Lit(r.Name)).Op("=").Id("c").Dot("SearchCapabilities" + r.Name).Call(),
+				List(Id("capability"), Err()).Op(":=").Id("c").Dot("SearchCapabilities"+r.Name).Call(),
+				If(Err().Op("!=").Nil()).Block(
+					Id("errs").Op("=").Append(List(Id("errs"), Err())),
+				).Else().Block(
+					Id("search").Index(Lit(r.Name)).Op("=").Id("capability"),
+				),
 			)
 		}
 
-		g.Return(Qual(moduleName+"/capabilities", "Capabilities").Values(Dict{
-			Id("ReadInteractions"):   Id("read"),
-			Id("SearchCapabilities"): Id("search"),
-		}))
+		g.Return(
+			Qual(moduleName+"/capabilities", "Capabilities").Values(Dict{
+				Id("ReadInteractions"):   Id("read"),
+				Id("SearchCapabilities"): Id("search"),
+			}),
+			Qual(moduleName+"/capabilities", "JoinErrors").Call(Id("errs")),
+		)
 	})
 }

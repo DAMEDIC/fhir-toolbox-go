@@ -15,7 +15,7 @@ type Generic struct {
 	Concrete any
 }
 
-func (w Generic) AllCapabilities() capabilities.Capabilities {
+func (w Generic) AllCapabilities() (capabilities.Capabilities, capabilities.FHIRError) {
 	return AllCapabilities(w.Concrete)
 }
 func (w Generic) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
@@ -907,877 +907,877 @@ func (w Generic) SearchCapabilities(resourceType string) (search.Capabilities, c
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Account"}
 		}
-		return impl.SearchCapabilitiesAccount(), nil
+		return impl.SearchCapabilitiesAccount()
 	case "ActivityDefinition":
 		impl, ok := w.Concrete.(ActivityDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ActivityDefinition"}
 		}
-		return impl.SearchCapabilitiesActivityDefinition(), nil
+		return impl.SearchCapabilitiesActivityDefinition()
 	case "AdverseEvent":
 		impl, ok := w.Concrete.(AdverseEventSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AdverseEvent"}
 		}
-		return impl.SearchCapabilitiesAdverseEvent(), nil
+		return impl.SearchCapabilitiesAdverseEvent()
 	case "AllergyIntolerance":
 		impl, ok := w.Concrete.(AllergyIntoleranceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AllergyIntolerance"}
 		}
-		return impl.SearchCapabilitiesAllergyIntolerance(), nil
+		return impl.SearchCapabilitiesAllergyIntolerance()
 	case "Appointment":
 		impl, ok := w.Concrete.(AppointmentSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Appointment"}
 		}
-		return impl.SearchCapabilitiesAppointment(), nil
+		return impl.SearchCapabilitiesAppointment()
 	case "AppointmentResponse":
 		impl, ok := w.Concrete.(AppointmentResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AppointmentResponse"}
 		}
-		return impl.SearchCapabilitiesAppointmentResponse(), nil
+		return impl.SearchCapabilitiesAppointmentResponse()
 	case "AuditEvent":
 		impl, ok := w.Concrete.(AuditEventSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AuditEvent"}
 		}
-		return impl.SearchCapabilitiesAuditEvent(), nil
+		return impl.SearchCapabilitiesAuditEvent()
 	case "Basic":
 		impl, ok := w.Concrete.(BasicSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Basic"}
 		}
-		return impl.SearchCapabilitiesBasic(), nil
+		return impl.SearchCapabilitiesBasic()
 	case "Binary":
 		impl, ok := w.Concrete.(BinarySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Binary"}
 		}
-		return impl.SearchCapabilitiesBinary(), nil
+		return impl.SearchCapabilitiesBinary()
 	case "BiologicallyDerivedProduct":
 		impl, ok := w.Concrete.(BiologicallyDerivedProductSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BiologicallyDerivedProduct"}
 		}
-		return impl.SearchCapabilitiesBiologicallyDerivedProduct(), nil
+		return impl.SearchCapabilitiesBiologicallyDerivedProduct()
 	case "BodyStructure":
 		impl, ok := w.Concrete.(BodyStructureSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BodyStructure"}
 		}
-		return impl.SearchCapabilitiesBodyStructure(), nil
+		return impl.SearchCapabilitiesBodyStructure()
 	case "Bundle":
 		impl, ok := w.Concrete.(BundleSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Bundle"}
 		}
-		return impl.SearchCapabilitiesBundle(), nil
+		return impl.SearchCapabilitiesBundle()
 	case "CapabilityStatement":
 		impl, ok := w.Concrete.(CapabilityStatementSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CapabilityStatement"}
 		}
-		return impl.SearchCapabilitiesCapabilityStatement(), nil
+		return impl.SearchCapabilitiesCapabilityStatement()
 	case "CarePlan":
 		impl, ok := w.Concrete.(CarePlanSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CarePlan"}
 		}
-		return impl.SearchCapabilitiesCarePlan(), nil
+		return impl.SearchCapabilitiesCarePlan()
 	case "CareTeam":
 		impl, ok := w.Concrete.(CareTeamSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CareTeam"}
 		}
-		return impl.SearchCapabilitiesCareTeam(), nil
+		return impl.SearchCapabilitiesCareTeam()
 	case "CatalogEntry":
 		impl, ok := w.Concrete.(CatalogEntrySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CatalogEntry"}
 		}
-		return impl.SearchCapabilitiesCatalogEntry(), nil
+		return impl.SearchCapabilitiesCatalogEntry()
 	case "ChargeItem":
 		impl, ok := w.Concrete.(ChargeItemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItem"}
 		}
-		return impl.SearchCapabilitiesChargeItem(), nil
+		return impl.SearchCapabilitiesChargeItem()
 	case "ChargeItemDefinition":
 		impl, ok := w.Concrete.(ChargeItemDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItemDefinition"}
 		}
-		return impl.SearchCapabilitiesChargeItemDefinition(), nil
+		return impl.SearchCapabilitiesChargeItemDefinition()
 	case "Claim":
 		impl, ok := w.Concrete.(ClaimSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Claim"}
 		}
-		return impl.SearchCapabilitiesClaim(), nil
+		return impl.SearchCapabilitiesClaim()
 	case "ClaimResponse":
 		impl, ok := w.Concrete.(ClaimResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClaimResponse"}
 		}
-		return impl.SearchCapabilitiesClaimResponse(), nil
+		return impl.SearchCapabilitiesClaimResponse()
 	case "ClinicalImpression":
 		impl, ok := w.Concrete.(ClinicalImpressionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClinicalImpression"}
 		}
-		return impl.SearchCapabilitiesClinicalImpression(), nil
+		return impl.SearchCapabilitiesClinicalImpression()
 	case "CodeSystem":
 		impl, ok := w.Concrete.(CodeSystemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CodeSystem"}
 		}
-		return impl.SearchCapabilitiesCodeSystem(), nil
+		return impl.SearchCapabilitiesCodeSystem()
 	case "Communication":
 		impl, ok := w.Concrete.(CommunicationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Communication"}
 		}
-		return impl.SearchCapabilitiesCommunication(), nil
+		return impl.SearchCapabilitiesCommunication()
 	case "CommunicationRequest":
 		impl, ok := w.Concrete.(CommunicationRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CommunicationRequest"}
 		}
-		return impl.SearchCapabilitiesCommunicationRequest(), nil
+		return impl.SearchCapabilitiesCommunicationRequest()
 	case "CompartmentDefinition":
 		impl, ok := w.Concrete.(CompartmentDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CompartmentDefinition"}
 		}
-		return impl.SearchCapabilitiesCompartmentDefinition(), nil
+		return impl.SearchCapabilitiesCompartmentDefinition()
 	case "Composition":
 		impl, ok := w.Concrete.(CompositionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Composition"}
 		}
-		return impl.SearchCapabilitiesComposition(), nil
+		return impl.SearchCapabilitiesComposition()
 	case "ConceptMap":
 		impl, ok := w.Concrete.(ConceptMapSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ConceptMap"}
 		}
-		return impl.SearchCapabilitiesConceptMap(), nil
+		return impl.SearchCapabilitiesConceptMap()
 	case "Condition":
 		impl, ok := w.Concrete.(ConditionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Condition"}
 		}
-		return impl.SearchCapabilitiesCondition(), nil
+		return impl.SearchCapabilitiesCondition()
 	case "Consent":
 		impl, ok := w.Concrete.(ConsentSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Consent"}
 		}
-		return impl.SearchCapabilitiesConsent(), nil
+		return impl.SearchCapabilitiesConsent()
 	case "Contract":
 		impl, ok := w.Concrete.(ContractSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Contract"}
 		}
-		return impl.SearchCapabilitiesContract(), nil
+		return impl.SearchCapabilitiesContract()
 	case "Coverage":
 		impl, ok := w.Concrete.(CoverageSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Coverage"}
 		}
-		return impl.SearchCapabilitiesCoverage(), nil
+		return impl.SearchCapabilitiesCoverage()
 	case "CoverageEligibilityRequest":
 		impl, ok := w.Concrete.(CoverageEligibilityRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityRequest"}
 		}
-		return impl.SearchCapabilitiesCoverageEligibilityRequest(), nil
+		return impl.SearchCapabilitiesCoverageEligibilityRequest()
 	case "CoverageEligibilityResponse":
 		impl, ok := w.Concrete.(CoverageEligibilityResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityResponse"}
 		}
-		return impl.SearchCapabilitiesCoverageEligibilityResponse(), nil
+		return impl.SearchCapabilitiesCoverageEligibilityResponse()
 	case "DetectedIssue":
 		impl, ok := w.Concrete.(DetectedIssueSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DetectedIssue"}
 		}
-		return impl.SearchCapabilitiesDetectedIssue(), nil
+		return impl.SearchCapabilitiesDetectedIssue()
 	case "Device":
 		impl, ok := w.Concrete.(DeviceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Device"}
 		}
-		return impl.SearchCapabilitiesDevice(), nil
+		return impl.SearchCapabilitiesDevice()
 	case "DeviceDefinition":
 		impl, ok := w.Concrete.(DeviceDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceDefinition"}
 		}
-		return impl.SearchCapabilitiesDeviceDefinition(), nil
+		return impl.SearchCapabilitiesDeviceDefinition()
 	case "DeviceMetric":
 		impl, ok := w.Concrete.(DeviceMetricSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceMetric"}
 		}
-		return impl.SearchCapabilitiesDeviceMetric(), nil
+		return impl.SearchCapabilitiesDeviceMetric()
 	case "DeviceRequest":
 		impl, ok := w.Concrete.(DeviceRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceRequest"}
 		}
-		return impl.SearchCapabilitiesDeviceRequest(), nil
+		return impl.SearchCapabilitiesDeviceRequest()
 	case "DeviceUseStatement":
 		impl, ok := w.Concrete.(DeviceUseStatementSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceUseStatement"}
 		}
-		return impl.SearchCapabilitiesDeviceUseStatement(), nil
+		return impl.SearchCapabilitiesDeviceUseStatement()
 	case "DiagnosticReport":
 		impl, ok := w.Concrete.(DiagnosticReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DiagnosticReport"}
 		}
-		return impl.SearchCapabilitiesDiagnosticReport(), nil
+		return impl.SearchCapabilitiesDiagnosticReport()
 	case "DocumentManifest":
 		impl, ok := w.Concrete.(DocumentManifestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DocumentManifest"}
 		}
-		return impl.SearchCapabilitiesDocumentManifest(), nil
+		return impl.SearchCapabilitiesDocumentManifest()
 	case "DocumentReference":
 		impl, ok := w.Concrete.(DocumentReferenceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DocumentReference"}
 		}
-		return impl.SearchCapabilitiesDocumentReference(), nil
+		return impl.SearchCapabilitiesDocumentReference()
 	case "EffectEvidenceSynthesis":
 		impl, ok := w.Concrete.(EffectEvidenceSynthesisSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EffectEvidenceSynthesis"}
 		}
-		return impl.SearchCapabilitiesEffectEvidenceSynthesis(), nil
+		return impl.SearchCapabilitiesEffectEvidenceSynthesis()
 	case "Encounter":
 		impl, ok := w.Concrete.(EncounterSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Encounter"}
 		}
-		return impl.SearchCapabilitiesEncounter(), nil
+		return impl.SearchCapabilitiesEncounter()
 	case "Endpoint":
 		impl, ok := w.Concrete.(EndpointSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Endpoint"}
 		}
-		return impl.SearchCapabilitiesEndpoint(), nil
+		return impl.SearchCapabilitiesEndpoint()
 	case "EnrollmentRequest":
 		impl, ok := w.Concrete.(EnrollmentRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentRequest"}
 		}
-		return impl.SearchCapabilitiesEnrollmentRequest(), nil
+		return impl.SearchCapabilitiesEnrollmentRequest()
 	case "EnrollmentResponse":
 		impl, ok := w.Concrete.(EnrollmentResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentResponse"}
 		}
-		return impl.SearchCapabilitiesEnrollmentResponse(), nil
+		return impl.SearchCapabilitiesEnrollmentResponse()
 	case "EpisodeOfCare":
 		impl, ok := w.Concrete.(EpisodeOfCareSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EpisodeOfCare"}
 		}
-		return impl.SearchCapabilitiesEpisodeOfCare(), nil
+		return impl.SearchCapabilitiesEpisodeOfCare()
 	case "EventDefinition":
 		impl, ok := w.Concrete.(EventDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EventDefinition"}
 		}
-		return impl.SearchCapabilitiesEventDefinition(), nil
+		return impl.SearchCapabilitiesEventDefinition()
 	case "Evidence":
 		impl, ok := w.Concrete.(EvidenceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Evidence"}
 		}
-		return impl.SearchCapabilitiesEvidence(), nil
+		return impl.SearchCapabilitiesEvidence()
 	case "EvidenceVariable":
 		impl, ok := w.Concrete.(EvidenceVariableSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EvidenceVariable"}
 		}
-		return impl.SearchCapabilitiesEvidenceVariable(), nil
+		return impl.SearchCapabilitiesEvidenceVariable()
 	case "ExampleScenario":
 		impl, ok := w.Concrete.(ExampleScenarioSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExampleScenario"}
 		}
-		return impl.SearchCapabilitiesExampleScenario(), nil
+		return impl.SearchCapabilitiesExampleScenario()
 	case "ExplanationOfBenefit":
 		impl, ok := w.Concrete.(ExplanationOfBenefitSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExplanationOfBenefit"}
 		}
-		return impl.SearchCapabilitiesExplanationOfBenefit(), nil
+		return impl.SearchCapabilitiesExplanationOfBenefit()
 	case "FamilyMemberHistory":
 		impl, ok := w.Concrete.(FamilyMemberHistorySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "FamilyMemberHistory"}
 		}
-		return impl.SearchCapabilitiesFamilyMemberHistory(), nil
+		return impl.SearchCapabilitiesFamilyMemberHistory()
 	case "Flag":
 		impl, ok := w.Concrete.(FlagSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Flag"}
 		}
-		return impl.SearchCapabilitiesFlag(), nil
+		return impl.SearchCapabilitiesFlag()
 	case "Goal":
 		impl, ok := w.Concrete.(GoalSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Goal"}
 		}
-		return impl.SearchCapabilitiesGoal(), nil
+		return impl.SearchCapabilitiesGoal()
 	case "GraphDefinition":
 		impl, ok := w.Concrete.(GraphDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GraphDefinition"}
 		}
-		return impl.SearchCapabilitiesGraphDefinition(), nil
+		return impl.SearchCapabilitiesGraphDefinition()
 	case "Group":
 		impl, ok := w.Concrete.(GroupSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Group"}
 		}
-		return impl.SearchCapabilitiesGroup(), nil
+		return impl.SearchCapabilitiesGroup()
 	case "GuidanceResponse":
 		impl, ok := w.Concrete.(GuidanceResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GuidanceResponse"}
 		}
-		return impl.SearchCapabilitiesGuidanceResponse(), nil
+		return impl.SearchCapabilitiesGuidanceResponse()
 	case "HealthcareService":
 		impl, ok := w.Concrete.(HealthcareServiceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "HealthcareService"}
 		}
-		return impl.SearchCapabilitiesHealthcareService(), nil
+		return impl.SearchCapabilitiesHealthcareService()
 	case "ImagingStudy":
 		impl, ok := w.Concrete.(ImagingStudySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImagingStudy"}
 		}
-		return impl.SearchCapabilitiesImagingStudy(), nil
+		return impl.SearchCapabilitiesImagingStudy()
 	case "Immunization":
 		impl, ok := w.Concrete.(ImmunizationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Immunization"}
 		}
-		return impl.SearchCapabilitiesImmunization(), nil
+		return impl.SearchCapabilitiesImmunization()
 	case "ImmunizationEvaluation":
 		impl, ok := w.Concrete.(ImmunizationEvaluationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationEvaluation"}
 		}
-		return impl.SearchCapabilitiesImmunizationEvaluation(), nil
+		return impl.SearchCapabilitiesImmunizationEvaluation()
 	case "ImmunizationRecommendation":
 		impl, ok := w.Concrete.(ImmunizationRecommendationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationRecommendation"}
 		}
-		return impl.SearchCapabilitiesImmunizationRecommendation(), nil
+		return impl.SearchCapabilitiesImmunizationRecommendation()
 	case "ImplementationGuide":
 		impl, ok := w.Concrete.(ImplementationGuideSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImplementationGuide"}
 		}
-		return impl.SearchCapabilitiesImplementationGuide(), nil
+		return impl.SearchCapabilitiesImplementationGuide()
 	case "InsurancePlan":
 		impl, ok := w.Concrete.(InsurancePlanSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "InsurancePlan"}
 		}
-		return impl.SearchCapabilitiesInsurancePlan(), nil
+		return impl.SearchCapabilitiesInsurancePlan()
 	case "Invoice":
 		impl, ok := w.Concrete.(InvoiceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Invoice"}
 		}
-		return impl.SearchCapabilitiesInvoice(), nil
+		return impl.SearchCapabilitiesInvoice()
 	case "Library":
 		impl, ok := w.Concrete.(LibrarySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Library"}
 		}
-		return impl.SearchCapabilitiesLibrary(), nil
+		return impl.SearchCapabilitiesLibrary()
 	case "Linkage":
 		impl, ok := w.Concrete.(LinkageSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Linkage"}
 		}
-		return impl.SearchCapabilitiesLinkage(), nil
+		return impl.SearchCapabilitiesLinkage()
 	case "List":
 		impl, ok := w.Concrete.(ListSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "List"}
 		}
-		return impl.SearchCapabilitiesList(), nil
+		return impl.SearchCapabilitiesList()
 	case "Location":
 		impl, ok := w.Concrete.(LocationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Location"}
 		}
-		return impl.SearchCapabilitiesLocation(), nil
+		return impl.SearchCapabilitiesLocation()
 	case "Measure":
 		impl, ok := w.Concrete.(MeasureSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Measure"}
 		}
-		return impl.SearchCapabilitiesMeasure(), nil
+		return impl.SearchCapabilitiesMeasure()
 	case "MeasureReport":
 		impl, ok := w.Concrete.(MeasureReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MeasureReport"}
 		}
-		return impl.SearchCapabilitiesMeasureReport(), nil
+		return impl.SearchCapabilitiesMeasureReport()
 	case "Media":
 		impl, ok := w.Concrete.(MediaSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Media"}
 		}
-		return impl.SearchCapabilitiesMedia(), nil
+		return impl.SearchCapabilitiesMedia()
 	case "Medication":
 		impl, ok := w.Concrete.(MedicationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Medication"}
 		}
-		return impl.SearchCapabilitiesMedication(), nil
+		return impl.SearchCapabilitiesMedication()
 	case "MedicationAdministration":
 		impl, ok := w.Concrete.(MedicationAdministrationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationAdministration"}
 		}
-		return impl.SearchCapabilitiesMedicationAdministration(), nil
+		return impl.SearchCapabilitiesMedicationAdministration()
 	case "MedicationDispense":
 		impl, ok := w.Concrete.(MedicationDispenseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationDispense"}
 		}
-		return impl.SearchCapabilitiesMedicationDispense(), nil
+		return impl.SearchCapabilitiesMedicationDispense()
 	case "MedicationKnowledge":
 		impl, ok := w.Concrete.(MedicationKnowledgeSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationKnowledge"}
 		}
-		return impl.SearchCapabilitiesMedicationKnowledge(), nil
+		return impl.SearchCapabilitiesMedicationKnowledge()
 	case "MedicationRequest":
 		impl, ok := w.Concrete.(MedicationRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationRequest"}
 		}
-		return impl.SearchCapabilitiesMedicationRequest(), nil
+		return impl.SearchCapabilitiesMedicationRequest()
 	case "MedicationStatement":
 		impl, ok := w.Concrete.(MedicationStatementSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationStatement"}
 		}
-		return impl.SearchCapabilitiesMedicationStatement(), nil
+		return impl.SearchCapabilitiesMedicationStatement()
 	case "MedicinalProduct":
 		impl, ok := w.Concrete.(MedicinalProductSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProduct"}
 		}
-		return impl.SearchCapabilitiesMedicinalProduct(), nil
+		return impl.SearchCapabilitiesMedicinalProduct()
 	case "MedicinalProductAuthorization":
 		impl, ok := w.Concrete.(MedicinalProductAuthorizationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductAuthorization"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductAuthorization(), nil
+		return impl.SearchCapabilitiesMedicinalProductAuthorization()
 	case "MedicinalProductContraindication":
 		impl, ok := w.Concrete.(MedicinalProductContraindicationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductContraindication"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductContraindication(), nil
+		return impl.SearchCapabilitiesMedicinalProductContraindication()
 	case "MedicinalProductIndication":
 		impl, ok := w.Concrete.(MedicinalProductIndicationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductIndication"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductIndication(), nil
+		return impl.SearchCapabilitiesMedicinalProductIndication()
 	case "MedicinalProductIngredient":
 		impl, ok := w.Concrete.(MedicinalProductIngredientSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductIngredient"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductIngredient(), nil
+		return impl.SearchCapabilitiesMedicinalProductIngredient()
 	case "MedicinalProductInteraction":
 		impl, ok := w.Concrete.(MedicinalProductInteractionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductInteraction"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductInteraction(), nil
+		return impl.SearchCapabilitiesMedicinalProductInteraction()
 	case "MedicinalProductManufactured":
 		impl, ok := w.Concrete.(MedicinalProductManufacturedSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductManufactured"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductManufactured(), nil
+		return impl.SearchCapabilitiesMedicinalProductManufactured()
 	case "MedicinalProductPackaged":
 		impl, ok := w.Concrete.(MedicinalProductPackagedSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductPackaged"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductPackaged(), nil
+		return impl.SearchCapabilitiesMedicinalProductPackaged()
 	case "MedicinalProductPharmaceutical":
 		impl, ok := w.Concrete.(MedicinalProductPharmaceuticalSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductPharmaceutical"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductPharmaceutical(), nil
+		return impl.SearchCapabilitiesMedicinalProductPharmaceutical()
 	case "MedicinalProductUndesirableEffect":
 		impl, ok := w.Concrete.(MedicinalProductUndesirableEffectSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductUndesirableEffect"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductUndesirableEffect(), nil
+		return impl.SearchCapabilitiesMedicinalProductUndesirableEffect()
 	case "MessageDefinition":
 		impl, ok := w.Concrete.(MessageDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageDefinition"}
 		}
-		return impl.SearchCapabilitiesMessageDefinition(), nil
+		return impl.SearchCapabilitiesMessageDefinition()
 	case "MessageHeader":
 		impl, ok := w.Concrete.(MessageHeaderSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageHeader"}
 		}
-		return impl.SearchCapabilitiesMessageHeader(), nil
+		return impl.SearchCapabilitiesMessageHeader()
 	case "MolecularSequence":
 		impl, ok := w.Concrete.(MolecularSequenceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MolecularSequence"}
 		}
-		return impl.SearchCapabilitiesMolecularSequence(), nil
+		return impl.SearchCapabilitiesMolecularSequence()
 	case "NamingSystem":
 		impl, ok := w.Concrete.(NamingSystemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NamingSystem"}
 		}
-		return impl.SearchCapabilitiesNamingSystem(), nil
+		return impl.SearchCapabilitiesNamingSystem()
 	case "NutritionOrder":
 		impl, ok := w.Concrete.(NutritionOrderSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionOrder"}
 		}
-		return impl.SearchCapabilitiesNutritionOrder(), nil
+		return impl.SearchCapabilitiesNutritionOrder()
 	case "Observation":
 		impl, ok := w.Concrete.(ObservationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Observation"}
 		}
-		return impl.SearchCapabilitiesObservation(), nil
+		return impl.SearchCapabilitiesObservation()
 	case "ObservationDefinition":
 		impl, ok := w.Concrete.(ObservationDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ObservationDefinition"}
 		}
-		return impl.SearchCapabilitiesObservationDefinition(), nil
+		return impl.SearchCapabilitiesObservationDefinition()
 	case "OperationDefinition":
 		impl, ok := w.Concrete.(OperationDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationDefinition"}
 		}
-		return impl.SearchCapabilitiesOperationDefinition(), nil
+		return impl.SearchCapabilitiesOperationDefinition()
 	case "OperationOutcome":
 		impl, ok := w.Concrete.(OperationOutcomeSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationOutcome"}
 		}
-		return impl.SearchCapabilitiesOperationOutcome(), nil
+		return impl.SearchCapabilitiesOperationOutcome()
 	case "Organization":
 		impl, ok := w.Concrete.(OrganizationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Organization"}
 		}
-		return impl.SearchCapabilitiesOrganization(), nil
+		return impl.SearchCapabilitiesOrganization()
 	case "OrganizationAffiliation":
 		impl, ok := w.Concrete.(OrganizationAffiliationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OrganizationAffiliation"}
 		}
-		return impl.SearchCapabilitiesOrganizationAffiliation(), nil
+		return impl.SearchCapabilitiesOrganizationAffiliation()
 	case "Parameters":
 		impl, ok := w.Concrete.(ParametersSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Parameters"}
 		}
-		return impl.SearchCapabilitiesParameters(), nil
+		return impl.SearchCapabilitiesParameters()
 	case "Patient":
 		impl, ok := w.Concrete.(PatientSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Patient"}
 		}
-		return impl.SearchCapabilitiesPatient(), nil
+		return impl.SearchCapabilitiesPatient()
 	case "PaymentNotice":
 		impl, ok := w.Concrete.(PaymentNoticeSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentNotice"}
 		}
-		return impl.SearchCapabilitiesPaymentNotice(), nil
+		return impl.SearchCapabilitiesPaymentNotice()
 	case "PaymentReconciliation":
 		impl, ok := w.Concrete.(PaymentReconciliationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentReconciliation"}
 		}
-		return impl.SearchCapabilitiesPaymentReconciliation(), nil
+		return impl.SearchCapabilitiesPaymentReconciliation()
 	case "Person":
 		impl, ok := w.Concrete.(PersonSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Person"}
 		}
-		return impl.SearchCapabilitiesPerson(), nil
+		return impl.SearchCapabilitiesPerson()
 	case "PlanDefinition":
 		impl, ok := w.Concrete.(PlanDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PlanDefinition"}
 		}
-		return impl.SearchCapabilitiesPlanDefinition(), nil
+		return impl.SearchCapabilitiesPlanDefinition()
 	case "Practitioner":
 		impl, ok := w.Concrete.(PractitionerSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Practitioner"}
 		}
-		return impl.SearchCapabilitiesPractitioner(), nil
+		return impl.SearchCapabilitiesPractitioner()
 	case "PractitionerRole":
 		impl, ok := w.Concrete.(PractitionerRoleSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PractitionerRole"}
 		}
-		return impl.SearchCapabilitiesPractitionerRole(), nil
+		return impl.SearchCapabilitiesPractitionerRole()
 	case "Procedure":
 		impl, ok := w.Concrete.(ProcedureSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Procedure"}
 		}
-		return impl.SearchCapabilitiesProcedure(), nil
+		return impl.SearchCapabilitiesProcedure()
 	case "Provenance":
 		impl, ok := w.Concrete.(ProvenanceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Provenance"}
 		}
-		return impl.SearchCapabilitiesProvenance(), nil
+		return impl.SearchCapabilitiesProvenance()
 	case "Questionnaire":
 		impl, ok := w.Concrete.(QuestionnaireSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Questionnaire"}
 		}
-		return impl.SearchCapabilitiesQuestionnaire(), nil
+		return impl.SearchCapabilitiesQuestionnaire()
 	case "QuestionnaireResponse":
 		impl, ok := w.Concrete.(QuestionnaireResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "QuestionnaireResponse"}
 		}
-		return impl.SearchCapabilitiesQuestionnaireResponse(), nil
+		return impl.SearchCapabilitiesQuestionnaireResponse()
 	case "RelatedPerson":
 		impl, ok := w.Concrete.(RelatedPersonSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RelatedPerson"}
 		}
-		return impl.SearchCapabilitiesRelatedPerson(), nil
+		return impl.SearchCapabilitiesRelatedPerson()
 	case "RequestGroup":
 		impl, ok := w.Concrete.(RequestGroupSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RequestGroup"}
 		}
-		return impl.SearchCapabilitiesRequestGroup(), nil
+		return impl.SearchCapabilitiesRequestGroup()
 	case "ResearchDefinition":
 		impl, ok := w.Concrete.(ResearchDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchDefinition"}
 		}
-		return impl.SearchCapabilitiesResearchDefinition(), nil
+		return impl.SearchCapabilitiesResearchDefinition()
 	case "ResearchElementDefinition":
 		impl, ok := w.Concrete.(ResearchElementDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchElementDefinition"}
 		}
-		return impl.SearchCapabilitiesResearchElementDefinition(), nil
+		return impl.SearchCapabilitiesResearchElementDefinition()
 	case "ResearchStudy":
 		impl, ok := w.Concrete.(ResearchStudySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchStudy"}
 		}
-		return impl.SearchCapabilitiesResearchStudy(), nil
+		return impl.SearchCapabilitiesResearchStudy()
 	case "ResearchSubject":
 		impl, ok := w.Concrete.(ResearchSubjectSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchSubject"}
 		}
-		return impl.SearchCapabilitiesResearchSubject(), nil
+		return impl.SearchCapabilitiesResearchSubject()
 	case "RiskAssessment":
 		impl, ok := w.Concrete.(RiskAssessmentSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RiskAssessment"}
 		}
-		return impl.SearchCapabilitiesRiskAssessment(), nil
+		return impl.SearchCapabilitiesRiskAssessment()
 	case "RiskEvidenceSynthesis":
 		impl, ok := w.Concrete.(RiskEvidenceSynthesisSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RiskEvidenceSynthesis"}
 		}
-		return impl.SearchCapabilitiesRiskEvidenceSynthesis(), nil
+		return impl.SearchCapabilitiesRiskEvidenceSynthesis()
 	case "Schedule":
 		impl, ok := w.Concrete.(ScheduleSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Schedule"}
 		}
-		return impl.SearchCapabilitiesSchedule(), nil
+		return impl.SearchCapabilitiesSchedule()
 	case "SearchParameter":
 		impl, ok := w.Concrete.(SearchParameterSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SearchParameter"}
 		}
-		return impl.SearchCapabilitiesSearchParameter(), nil
+		return impl.SearchCapabilitiesSearchParameter()
 	case "ServiceRequest":
 		impl, ok := w.Concrete.(ServiceRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ServiceRequest"}
 		}
-		return impl.SearchCapabilitiesServiceRequest(), nil
+		return impl.SearchCapabilitiesServiceRequest()
 	case "Slot":
 		impl, ok := w.Concrete.(SlotSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Slot"}
 		}
-		return impl.SearchCapabilitiesSlot(), nil
+		return impl.SearchCapabilitiesSlot()
 	case "Specimen":
 		impl, ok := w.Concrete.(SpecimenSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Specimen"}
 		}
-		return impl.SearchCapabilitiesSpecimen(), nil
+		return impl.SearchCapabilitiesSpecimen()
 	case "SpecimenDefinition":
 		impl, ok := w.Concrete.(SpecimenDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SpecimenDefinition"}
 		}
-		return impl.SearchCapabilitiesSpecimenDefinition(), nil
+		return impl.SearchCapabilitiesSpecimenDefinition()
 	case "StructureDefinition":
 		impl, ok := w.Concrete.(StructureDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureDefinition"}
 		}
-		return impl.SearchCapabilitiesStructureDefinition(), nil
+		return impl.SearchCapabilitiesStructureDefinition()
 	case "StructureMap":
 		impl, ok := w.Concrete.(StructureMapSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureMap"}
 		}
-		return impl.SearchCapabilitiesStructureMap(), nil
+		return impl.SearchCapabilitiesStructureMap()
 	case "Subscription":
 		impl, ok := w.Concrete.(SubscriptionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Subscription"}
 		}
-		return impl.SearchCapabilitiesSubscription(), nil
+		return impl.SearchCapabilitiesSubscription()
 	case "Substance":
 		impl, ok := w.Concrete.(SubstanceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Substance"}
 		}
-		return impl.SearchCapabilitiesSubstance(), nil
+		return impl.SearchCapabilitiesSubstance()
 	case "SubstanceNucleicAcid":
 		impl, ok := w.Concrete.(SubstanceNucleicAcidSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceNucleicAcid"}
 		}
-		return impl.SearchCapabilitiesSubstanceNucleicAcid(), nil
+		return impl.SearchCapabilitiesSubstanceNucleicAcid()
 	case "SubstancePolymer":
 		impl, ok := w.Concrete.(SubstancePolymerSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstancePolymer"}
 		}
-		return impl.SearchCapabilitiesSubstancePolymer(), nil
+		return impl.SearchCapabilitiesSubstancePolymer()
 	case "SubstanceProtein":
 		impl, ok := w.Concrete.(SubstanceProteinSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceProtein"}
 		}
-		return impl.SearchCapabilitiesSubstanceProtein(), nil
+		return impl.SearchCapabilitiesSubstanceProtein()
 	case "SubstanceReferenceInformation":
 		impl, ok := w.Concrete.(SubstanceReferenceInformationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceReferenceInformation"}
 		}
-		return impl.SearchCapabilitiesSubstanceReferenceInformation(), nil
+		return impl.SearchCapabilitiesSubstanceReferenceInformation()
 	case "SubstanceSourceMaterial":
 		impl, ok := w.Concrete.(SubstanceSourceMaterialSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceSourceMaterial"}
 		}
-		return impl.SearchCapabilitiesSubstanceSourceMaterial(), nil
+		return impl.SearchCapabilitiesSubstanceSourceMaterial()
 	case "SubstanceSpecification":
 		impl, ok := w.Concrete.(SubstanceSpecificationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceSpecification"}
 		}
-		return impl.SearchCapabilitiesSubstanceSpecification(), nil
+		return impl.SearchCapabilitiesSubstanceSpecification()
 	case "SupplyDelivery":
 		impl, ok := w.Concrete.(SupplyDeliverySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyDelivery"}
 		}
-		return impl.SearchCapabilitiesSupplyDelivery(), nil
+		return impl.SearchCapabilitiesSupplyDelivery()
 	case "SupplyRequest":
 		impl, ok := w.Concrete.(SupplyRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyRequest"}
 		}
-		return impl.SearchCapabilitiesSupplyRequest(), nil
+		return impl.SearchCapabilitiesSupplyRequest()
 	case "Task":
 		impl, ok := w.Concrete.(TaskSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Task"}
 		}
-		return impl.SearchCapabilitiesTask(), nil
+		return impl.SearchCapabilitiesTask()
 	case "TerminologyCapabilities":
 		impl, ok := w.Concrete.(TerminologyCapabilitiesSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TerminologyCapabilities"}
 		}
-		return impl.SearchCapabilitiesTerminologyCapabilities(), nil
+		return impl.SearchCapabilitiesTerminologyCapabilities()
 	case "TestReport":
 		impl, ok := w.Concrete.(TestReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestReport"}
 		}
-		return impl.SearchCapabilitiesTestReport(), nil
+		return impl.SearchCapabilitiesTestReport()
 	case "TestScript":
 		impl, ok := w.Concrete.(TestScriptSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestScript"}
 		}
-		return impl.SearchCapabilitiesTestScript(), nil
+		return impl.SearchCapabilitiesTestScript()
 	case "ValueSet":
 		impl, ok := w.Concrete.(ValueSetSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ValueSet"}
 		}
-		return impl.SearchCapabilitiesValueSet(), nil
+		return impl.SearchCapabilitiesValueSet()
 	case "VerificationResult":
 		impl, ok := w.Concrete.(VerificationResultSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VerificationResult"}
 		}
-		return impl.SearchCapabilitiesVerificationResult(), nil
+		return impl.SearchCapabilitiesVerificationResult()
 	case "VisionPrescription":
 		impl, ok := w.Concrete.(VisionPrescriptionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VisionPrescription"}
 		}
-		return impl.SearchCapabilitiesVisionPrescription(), nil
+		return impl.SearchCapabilitiesVisionPrescription()
 	default:
 		return search.Capabilities{}, capabilities.UnknownResourceError{ResourceType: resourceType}
 	}

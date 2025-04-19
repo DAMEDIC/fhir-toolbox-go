@@ -25,7 +25,7 @@ func (e MissingIdError) StatusCode() int {
 	return 500
 }
 
-func (e MissingIdError) OperationOutcome() model.Resource {
+func (e MissingIdError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{

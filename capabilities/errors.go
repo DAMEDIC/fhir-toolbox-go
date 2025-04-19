@@ -2,9 +2,9 @@ package capabilities
 
 import (
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"strings"
 )
 
 // FHIRError is an error that can be returned by an operation.
@@ -13,7 +13,7 @@ import (
 type FHIRError interface {
 	error
 	StatusCode() int
-	OperationOutcome() model.Resource
+	OperationOutcome() basic.OperationOutcome
 }
 
 // NotImplementedError means that the requested Interaction is not supported on requested ResourceType.
@@ -30,7 +30,7 @@ func (e NotImplementedError) StatusCode() int {
 	return 404
 }
 
-func (e NotImplementedError) OperationOutcome() model.Resource {
+func (e NotImplementedError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
@@ -55,7 +55,7 @@ func (e UnknownResourceError) StatusCode() int {
 	return 404
 }
 
-func (e UnknownResourceError) OperationOutcome() model.Resource {
+func (e UnknownResourceError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
@@ -80,7 +80,7 @@ func (e InvalidResourceError) StatusCode() int {
 	return 404
 }
 
-func (e InvalidResourceError) OperationOutcome() model.Resource {
+func (e InvalidResourceError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
@@ -106,7 +106,7 @@ func (e NotFoundError) StatusCode() int {
 	return 404
 }
 
-func (e NotFoundError) OperationOutcome() model.Resource {
+func (e NotFoundError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
@@ -135,7 +135,7 @@ func (e SearchError) StatusCode() int {
 	return 500
 }
 
-func (e SearchError) OperationOutcome() model.Resource {
+func (e SearchError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
@@ -145,4 +145,58 @@ func (e SearchError) OperationOutcome() model.Resource {
 			},
 		},
 	}
+}
+
+type joinError struct {
+	errors []FHIRError
+}
+
+func (e joinError) Error() string {
+	// Since Join returns nil if every value in errors is nil,
+	// e.errors cannot be empty.
+	if len(e.errors) == 1 {
+		return e.errors[0].Error()
+	}
+
+	var b strings.Builder
+	b.WriteString(e.errors[0].Error())
+	for _, err := range e.errors[1:] {
+		b.WriteRune('\n')
+		b.WriteString(err.Error())
+	}
+	return b.String()
+}
+
+func (e joinError) StatusCode() int {
+	maxCode := 0
+	for _, err := range e.errors {
+		if err.StatusCode() > maxCode {
+			maxCode = err.StatusCode()
+		}
+	}
+	if maxCode >= 400 && maxCode < 500 {
+		return 400
+	} else {
+		return 500
+	}
+}
+
+func (e joinError) OperationOutcome() basic.OperationOutcome {
+	var issues []basic.OperationOutcomeIssue
+	for _, err := range e.errors {
+		issues = append(issues, err.OperationOutcome().Issue...)
+	}
+	return basic.OperationOutcome{
+		Issue: issues,
+	}
+}
+
+func JoinErrors(errs []FHIRError) FHIRError {
+	if len(errs) == 0 {
+		return nil
+	}
+	if len(errs) == 1 {
+		return errs[0]
+	}
+	return joinError{errors: errs}
 }

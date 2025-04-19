@@ -14,7 +14,7 @@ type GenericAPI interface {
 	GenericRead
 	GenericSearch
 
-	AllCapabilities() Capabilities
+	AllCapabilities() (Capabilities, FHIRError)
 }
 
 // The GenericRead interface provides a generic read capability by passing the `resourceType` as string.

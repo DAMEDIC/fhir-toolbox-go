@@ -11,8 +11,8 @@ import (
 	"time"
 )
 
-// CapabilityStatement building from provided capabilities.
-func CapabilityStatement[R model.Release](
+// capabilityStatement building from provided capabilities.
+func capabilityStatement[R model.Release](
 	baseURL *url.URL,
 	capabilities capabilities.Capabilities,
 	date time.Time,

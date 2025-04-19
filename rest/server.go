@@ -88,10 +88,17 @@ func metadataHandler[R model.Release](
 	config Config,
 	date time.Time,
 ) http.Handler {
-	capabilityStatement := CapabilityStatement[R](config.Base, backend.AllCapabilities(), date)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		format := detectFormat(r, config.DefaultFormat)
+
+		capabilities, err := backend.AllCapabilities()
+		if err != nil {
+			returnResult(w, format, err.StatusCode(), err.OperationOutcome())
+			return
+		}
+
+		capabilityStatement := capabilityStatement[R](config.Base, capabilities, date)
 		returnResult(w, format, http.StatusOK, capabilityStatement)
 	})
 }
@@ -161,6 +168,9 @@ func dispatchSearch(
 	tz *time.Location,
 ) (int, model.Resource) {
 	searchCapabilities, err := backend.SearchCapabilities(resourceType)
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
 
 	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {

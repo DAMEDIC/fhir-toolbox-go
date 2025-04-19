@@ -17,14 +17,14 @@ type CapabilitiesWrapperGenerator struct {
 
 func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
 	generateGenericWrapperStruct(f("generic", "capabilities"+release))
-	generateWrapperAllCapabilities(f("generic", "capabilities"+release), release)
-	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
-	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
+	generateWrapperAllCapabilities(f("generic", "capabilities"+release))
+	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "read")
+	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "search")
 
 	generateConcreteIface(f("concrete", "capabilities"+release), ir.FilterResources(rt))
 	generateConcreteWrapperStruct(f("concrete", "capabilities"+release))
-	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "read", readParams, anyReadReturn)
-	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "search", searchParams, searchReturn)
+	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "read")
+	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "search")
 }
 
 func generateGenericWrapperStruct(f *File) {
@@ -33,30 +33,27 @@ func generateGenericWrapperStruct(f *File) {
 	)
 }
 
-func anyReadReturn(_, _ string) *Statement {
-	return Qual(moduleName+"/model", "Resource")
-}
-
-func generateGeneric(f *File, release string, resources []ir.ResourceOrType, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateGeneric(f *File, release string, resources []ir.ResourceOrType, interaction string) {
 	interactionName := strcase.ToCamel(interaction)
 
-	allParams := []Code{Id("ctx").Qual("context", "Context"), Id("resourceType").String()}
-	for k, v := range params {
-		allParams = append(allParams, &Statement{k, v})
-	}
-
+	params := []Code{Id("ctx").Qual("context", "Context")}
 	passParams := []Code{Id("ctx")}
-	for k := range params {
-		passParams = append(passParams, k)
-	}
-
-	if interaction == "search" {
-		f.Add(generateGenericSearchCapabilities(release, resources))
+	var returnType *Statement
+	switch interaction {
+	case "read":
+		params = append(params, Id("resourceType").String(), Id("id").String())
+		passParams = append(passParams, Id("id"))
+		returnType = Qual(moduleName+"/model", "Resource")
+	case "search":
+		params = append(params, Id("resourceType").String(), Id("options").Qual(moduleName+"/capabilities/search", "Options"))
+		passParams = append(passParams, Id("options"))
+		returnType = Qual(moduleName+"/capabilities/search", "Result")
+		f.Add(generateGenericSearchCapabilities(resources))
 	}
 
 	f.Func().Params(Id("w").Id(genericWrapperName)).Id(interactionName).
-		Params(allParams...).
-		Params(returnFunc("", ""), Qual(moduleName+"/capabilities", "FHIRError")).
+		Params(params...).
+		Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
@@ -64,7 +61,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 						g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
 
 						if interaction == "search" {
-							g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name, returnFunc("", "").Block()))
+							g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name, returnType.Clone().Block()))
 						} else {
 							g.If(Op("!").Id("ok")).Block(returnNotImplementedError(interactionName, r.Name, Nil()))
 						}
@@ -74,7 +71,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 				}
 
 				if interaction == "search" {
-					g.Default().Block(returnUnknownError("resourceType", returnFunc("", "").Block()))
+					g.Default().Block(returnUnknownError("resourceType", returnType.Clone().Block()))
 				} else {
 					g.Default().Block(returnUnknownError("resourceType", Nil()))
 				}
@@ -82,30 +79,33 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		)
 }
 
-func generateGenericSearchCapabilities(release string, resources []ir.ResourceOrType) Code {
+func generateGenericSearchCapabilities(resources []ir.ResourceOrType) Code {
 	return Func().Params(Id("w").Id(genericWrapperName)).Id("SearchCapabilities").
 		Params(Id("resourceType").String()).
-		Params(searchCapabilitiesReturn, Qual(moduleName+"/capabilities", "FHIRError")).
+		Params(Qual(moduleName+"/capabilities/search", "Capabilities"), Qual(moduleName+"/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
 					g.Case(Lit(r.Name)).Block(
 						List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name+"Search")),
 						If(Op("!").Id("ok")).Block(
-							returnNotImplementedError("search", r.Name, searchCapabilitiesReturn.Clone().Block()),
+							returnNotImplementedError("search", r.Name, Qual(moduleName+"/capabilities/search", "Capabilities").Block()),
 						),
-						Return(Id("impl.SearchCapabilities"+r.Name).Call(), Nil()),
+						Return(Id("impl.SearchCapabilities"+r.Name).Call()),
 					)
 				}
 
-				g.Default().Block(returnUnknownError("resourceType", searchCapabilitiesReturn.Clone().Block()))
+				g.Default().Block(returnUnknownError("resourceType", Qual(moduleName+"/capabilities/search", "Capabilities").Block()))
 			}),
 		)
 }
 
-func generateWrapperAllCapabilities(f *File, release string) {
+func generateWrapperAllCapabilities(f *File) {
 	f.Func().Params(Id("w").Id(genericWrapperName)).Id("AllCapabilities").Params().
-		Params(Qual(moduleName+"/capabilities", "Capabilities")).
+		Params(
+			Qual(moduleName+"/capabilities", "Capabilities"),
+			Qual(moduleName+"/capabilities", "FHIRError"),
+		).
 		Block(
 			Return(Id("AllCapabilities").
 				Call(Id("w").Dot("Concrete"))),
@@ -127,37 +127,36 @@ func generateConcreteWrapperStruct(f *File) {
 	)
 }
 
-func generateConcrete(f *File, release string, resources []ir.ResourceOrType, interaction string, params map[Code]Code, returnFunc returnTypeFunc) {
+func generateConcrete(f *File, release string, resources []ir.ResourceOrType, interaction string) {
 	interactionName := strcase.ToCamel(interaction)
 
-	allParams := []Code{Id("ctx").Qual("context", "Context")}
-	for k, v := range params {
-		allParams = append(allParams, &Statement{k, v})
+	params := []Code{Id("ctx").Qual("context", "Context")}
+	switch interaction {
+	case "read":
+		params = append(params, Id("id").String())
+	case "search":
+		params = append(params, Id("options").Qual(moduleName+"/capabilities/search", "Options"))
 	}
 
 	for _, r := range resources {
 		passParams := []Code{Id("ctx"), Lit(r.Name)}
-		for k := range params {
-			passParams = append(passParams, k)
-		}
-
-		var returnTypeId *Statement
-		if interaction == "search" {
-			returnTypeId = Qual(moduleName+"/capabilities/search", "Result")
-		} else {
-			returnTypeId = Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)
-		}
-
-		if interaction == "search" {
+		var returnType *Statement
+		switch interaction {
+		case "read":
+			passParams = append(passParams, Id("id"))
+			returnType = Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)
+		case "search":
+			passParams = append(passParams, Id("options"))
+			returnType = Qual(moduleName+"/capabilities/search", "Result")
 			f.Add(generateConcreteSearchCapabilities(r))
 		}
 
 		f.Func().Params(Id("w").Id(concreteWrapperName)).Id(interactionName+r.Name).
-			Params(allParams...).
-			Params(returnTypeId, Qual(moduleName+"/capabilities", "FHIRError")).
+			Params(params...).
+			Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
 			BlockFunc(func(g *Group) {
 				g.List(Id("v"), Id("err")).Op(":=").Id("w.Generic." + interactionName).Params(passParams...)
-				g.If(Id("err").Op("!=").Nil()).Block(Return(returnTypeId.Clone().Block(), Id("err")))
+				g.If(Id("err").Op("!=").Nil()).Block(Return(returnType.Clone().Block(), Id("err")))
 
 				if interaction == "read" {
 					g.List(Id("contained"), Id("ok")).Op(":=").Id("v").Assert(
@@ -166,9 +165,9 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 					g.If(Id("ok")).Block(
 						Id("v").Op("=").Id("contained.Resource"),
 					)
-					g.List(Id("impl"), Id("ok")).Op(":=").Id("v").Assert(returnTypeId)
+					g.List(Id("impl"), Id("ok")).Op(":=").Id("v").Assert(returnType)
 					g.If(Id("!ok")).Block(
-						returnInvalidError(r.Name, returnTypeId.Clone().Block()),
+						returnInvalidError(r.Name, returnType.Clone().Block()),
 					)
 					g.Return(Id("impl"), Nil())
 				} else {
@@ -179,14 +178,12 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 }
 
 func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
-	returnId := Qual(moduleName+"/capabilities/search", "Capabilities")
-	return Func().Params(Id("w").Id(concreteWrapperName)).Id("SearchCapabilities" + r.Name).
+	returnType := Qual(moduleName+"/capabilities/search", "Capabilities")
+	return Func().Params(Id("w").Id(concreteWrapperName)).Id("SearchCapabilities"+r.Name).
 		Params().
-		Params(returnId).
+		Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
 		BlockFunc(func(g *Group) {
-			g.List(Id("c"), Id("err")).Op(":=").Id("w.Generic.SearchCapabilities").Params(Lit(r.Name))
-			g.If(Id("err").Op("!=").Nil()).Block(Return(returnId.Clone().Block()))
-			g.Return(Id("c"))
+			g.Return(Id("w.Generic.SearchCapabilities").Params(Lit(r.Name)))
 		})
 }
 

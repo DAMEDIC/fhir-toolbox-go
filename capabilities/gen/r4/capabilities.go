@@ -9,887 +9,1618 @@ import (
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 )
 
-func AllCapabilities(api any) capabilities.Capabilities {
+func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError) {
+	var errs []capabilities.FHIRError
 	read := []string{}
 	search := map[string]search.Capabilities{}
 	if _, ok := api.(AccountRead); ok {
 		read = append(read, "Account")
 	}
 	if c, ok := api.(AccountSearch); ok {
-		search["Account"] = c.SearchCapabilitiesAccount()
+		capability, err := c.SearchCapabilitiesAccount()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Account"] = capability
+		}
 	}
 	if _, ok := api.(ActivityDefinitionRead); ok {
 		read = append(read, "ActivityDefinition")
 	}
 	if c, ok := api.(ActivityDefinitionSearch); ok {
-		search["ActivityDefinition"] = c.SearchCapabilitiesActivityDefinition()
+		capability, err := c.SearchCapabilitiesActivityDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ActivityDefinition"] = capability
+		}
 	}
 	if _, ok := api.(AdverseEventRead); ok {
 		read = append(read, "AdverseEvent")
 	}
 	if c, ok := api.(AdverseEventSearch); ok {
-		search["AdverseEvent"] = c.SearchCapabilitiesAdverseEvent()
+		capability, err := c.SearchCapabilitiesAdverseEvent()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["AdverseEvent"] = capability
+		}
 	}
 	if _, ok := api.(AllergyIntoleranceRead); ok {
 		read = append(read, "AllergyIntolerance")
 	}
 	if c, ok := api.(AllergyIntoleranceSearch); ok {
-		search["AllergyIntolerance"] = c.SearchCapabilitiesAllergyIntolerance()
+		capability, err := c.SearchCapabilitiesAllergyIntolerance()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["AllergyIntolerance"] = capability
+		}
 	}
 	if _, ok := api.(AppointmentRead); ok {
 		read = append(read, "Appointment")
 	}
 	if c, ok := api.(AppointmentSearch); ok {
-		search["Appointment"] = c.SearchCapabilitiesAppointment()
+		capability, err := c.SearchCapabilitiesAppointment()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Appointment"] = capability
+		}
 	}
 	if _, ok := api.(AppointmentResponseRead); ok {
 		read = append(read, "AppointmentResponse")
 	}
 	if c, ok := api.(AppointmentResponseSearch); ok {
-		search["AppointmentResponse"] = c.SearchCapabilitiesAppointmentResponse()
+		capability, err := c.SearchCapabilitiesAppointmentResponse()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["AppointmentResponse"] = capability
+		}
 	}
 	if _, ok := api.(AuditEventRead); ok {
 		read = append(read, "AuditEvent")
 	}
 	if c, ok := api.(AuditEventSearch); ok {
-		search["AuditEvent"] = c.SearchCapabilitiesAuditEvent()
+		capability, err := c.SearchCapabilitiesAuditEvent()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["AuditEvent"] = capability
+		}
 	}
 	if _, ok := api.(BasicRead); ok {
 		read = append(read, "Basic")
 	}
 	if c, ok := api.(BasicSearch); ok {
-		search["Basic"] = c.SearchCapabilitiesBasic()
+		capability, err := c.SearchCapabilitiesBasic()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Basic"] = capability
+		}
 	}
 	if _, ok := api.(BinaryRead); ok {
 		read = append(read, "Binary")
 	}
 	if c, ok := api.(BinarySearch); ok {
-		search["Binary"] = c.SearchCapabilitiesBinary()
+		capability, err := c.SearchCapabilitiesBinary()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Binary"] = capability
+		}
 	}
 	if _, ok := api.(BiologicallyDerivedProductRead); ok {
 		read = append(read, "BiologicallyDerivedProduct")
 	}
 	if c, ok := api.(BiologicallyDerivedProductSearch); ok {
-		search["BiologicallyDerivedProduct"] = c.SearchCapabilitiesBiologicallyDerivedProduct()
+		capability, err := c.SearchCapabilitiesBiologicallyDerivedProduct()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["BiologicallyDerivedProduct"] = capability
+		}
 	}
 	if _, ok := api.(BodyStructureRead); ok {
 		read = append(read, "BodyStructure")
 	}
 	if c, ok := api.(BodyStructureSearch); ok {
-		search["BodyStructure"] = c.SearchCapabilitiesBodyStructure()
+		capability, err := c.SearchCapabilitiesBodyStructure()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["BodyStructure"] = capability
+		}
 	}
 	if _, ok := api.(BundleRead); ok {
 		read = append(read, "Bundle")
 	}
 	if c, ok := api.(BundleSearch); ok {
-		search["Bundle"] = c.SearchCapabilitiesBundle()
+		capability, err := c.SearchCapabilitiesBundle()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Bundle"] = capability
+		}
 	}
 	if _, ok := api.(CapabilityStatementRead); ok {
 		read = append(read, "CapabilityStatement")
 	}
 	if c, ok := api.(CapabilityStatementSearch); ok {
-		search["CapabilityStatement"] = c.SearchCapabilitiesCapabilityStatement()
+		capability, err := c.SearchCapabilitiesCapabilityStatement()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CapabilityStatement"] = capability
+		}
 	}
 	if _, ok := api.(CarePlanRead); ok {
 		read = append(read, "CarePlan")
 	}
 	if c, ok := api.(CarePlanSearch); ok {
-		search["CarePlan"] = c.SearchCapabilitiesCarePlan()
+		capability, err := c.SearchCapabilitiesCarePlan()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CarePlan"] = capability
+		}
 	}
 	if _, ok := api.(CareTeamRead); ok {
 		read = append(read, "CareTeam")
 	}
 	if c, ok := api.(CareTeamSearch); ok {
-		search["CareTeam"] = c.SearchCapabilitiesCareTeam()
+		capability, err := c.SearchCapabilitiesCareTeam()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CareTeam"] = capability
+		}
 	}
 	if _, ok := api.(CatalogEntryRead); ok {
 		read = append(read, "CatalogEntry")
 	}
 	if c, ok := api.(CatalogEntrySearch); ok {
-		search["CatalogEntry"] = c.SearchCapabilitiesCatalogEntry()
+		capability, err := c.SearchCapabilitiesCatalogEntry()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CatalogEntry"] = capability
+		}
 	}
 	if _, ok := api.(ChargeItemRead); ok {
 		read = append(read, "ChargeItem")
 	}
 	if c, ok := api.(ChargeItemSearch); ok {
-		search["ChargeItem"] = c.SearchCapabilitiesChargeItem()
+		capability, err := c.SearchCapabilitiesChargeItem()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ChargeItem"] = capability
+		}
 	}
 	if _, ok := api.(ChargeItemDefinitionRead); ok {
 		read = append(read, "ChargeItemDefinition")
 	}
 	if c, ok := api.(ChargeItemDefinitionSearch); ok {
-		search["ChargeItemDefinition"] = c.SearchCapabilitiesChargeItemDefinition()
+		capability, err := c.SearchCapabilitiesChargeItemDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ChargeItemDefinition"] = capability
+		}
 	}
 	if _, ok := api.(ClaimRead); ok {
 		read = append(read, "Claim")
 	}
 	if c, ok := api.(ClaimSearch); ok {
-		search["Claim"] = c.SearchCapabilitiesClaim()
+		capability, err := c.SearchCapabilitiesClaim()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Claim"] = capability
+		}
 	}
 	if _, ok := api.(ClaimResponseRead); ok {
 		read = append(read, "ClaimResponse")
 	}
 	if c, ok := api.(ClaimResponseSearch); ok {
-		search["ClaimResponse"] = c.SearchCapabilitiesClaimResponse()
+		capability, err := c.SearchCapabilitiesClaimResponse()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ClaimResponse"] = capability
+		}
 	}
 	if _, ok := api.(ClinicalImpressionRead); ok {
 		read = append(read, "ClinicalImpression")
 	}
 	if c, ok := api.(ClinicalImpressionSearch); ok {
-		search["ClinicalImpression"] = c.SearchCapabilitiesClinicalImpression()
+		capability, err := c.SearchCapabilitiesClinicalImpression()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ClinicalImpression"] = capability
+		}
 	}
 	if _, ok := api.(CodeSystemRead); ok {
 		read = append(read, "CodeSystem")
 	}
 	if c, ok := api.(CodeSystemSearch); ok {
-		search["CodeSystem"] = c.SearchCapabilitiesCodeSystem()
+		capability, err := c.SearchCapabilitiesCodeSystem()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CodeSystem"] = capability
+		}
 	}
 	if _, ok := api.(CommunicationRead); ok {
 		read = append(read, "Communication")
 	}
 	if c, ok := api.(CommunicationSearch); ok {
-		search["Communication"] = c.SearchCapabilitiesCommunication()
+		capability, err := c.SearchCapabilitiesCommunication()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Communication"] = capability
+		}
 	}
 	if _, ok := api.(CommunicationRequestRead); ok {
 		read = append(read, "CommunicationRequest")
 	}
 	if c, ok := api.(CommunicationRequestSearch); ok {
-		search["CommunicationRequest"] = c.SearchCapabilitiesCommunicationRequest()
+		capability, err := c.SearchCapabilitiesCommunicationRequest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CommunicationRequest"] = capability
+		}
 	}
 	if _, ok := api.(CompartmentDefinitionRead); ok {
 		read = append(read, "CompartmentDefinition")
 	}
 	if c, ok := api.(CompartmentDefinitionSearch); ok {
-		search["CompartmentDefinition"] = c.SearchCapabilitiesCompartmentDefinition()
+		capability, err := c.SearchCapabilitiesCompartmentDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CompartmentDefinition"] = capability
+		}
 	}
 	if _, ok := api.(CompositionRead); ok {
 		read = append(read, "Composition")
 	}
 	if c, ok := api.(CompositionSearch); ok {
-		search["Composition"] = c.SearchCapabilitiesComposition()
+		capability, err := c.SearchCapabilitiesComposition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Composition"] = capability
+		}
 	}
 	if _, ok := api.(ConceptMapRead); ok {
 		read = append(read, "ConceptMap")
 	}
 	if c, ok := api.(ConceptMapSearch); ok {
-		search["ConceptMap"] = c.SearchCapabilitiesConceptMap()
+		capability, err := c.SearchCapabilitiesConceptMap()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ConceptMap"] = capability
+		}
 	}
 	if _, ok := api.(ConditionRead); ok {
 		read = append(read, "Condition")
 	}
 	if c, ok := api.(ConditionSearch); ok {
-		search["Condition"] = c.SearchCapabilitiesCondition()
+		capability, err := c.SearchCapabilitiesCondition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Condition"] = capability
+		}
 	}
 	if _, ok := api.(ConsentRead); ok {
 		read = append(read, "Consent")
 	}
 	if c, ok := api.(ConsentSearch); ok {
-		search["Consent"] = c.SearchCapabilitiesConsent()
+		capability, err := c.SearchCapabilitiesConsent()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Consent"] = capability
+		}
 	}
 	if _, ok := api.(ContractRead); ok {
 		read = append(read, "Contract")
 	}
 	if c, ok := api.(ContractSearch); ok {
-		search["Contract"] = c.SearchCapabilitiesContract()
+		capability, err := c.SearchCapabilitiesContract()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Contract"] = capability
+		}
 	}
 	if _, ok := api.(CoverageRead); ok {
 		read = append(read, "Coverage")
 	}
 	if c, ok := api.(CoverageSearch); ok {
-		search["Coverage"] = c.SearchCapabilitiesCoverage()
+		capability, err := c.SearchCapabilitiesCoverage()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Coverage"] = capability
+		}
 	}
 	if _, ok := api.(CoverageEligibilityRequestRead); ok {
 		read = append(read, "CoverageEligibilityRequest")
 	}
 	if c, ok := api.(CoverageEligibilityRequestSearch); ok {
-		search["CoverageEligibilityRequest"] = c.SearchCapabilitiesCoverageEligibilityRequest()
+		capability, err := c.SearchCapabilitiesCoverageEligibilityRequest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CoverageEligibilityRequest"] = capability
+		}
 	}
 	if _, ok := api.(CoverageEligibilityResponseRead); ok {
 		read = append(read, "CoverageEligibilityResponse")
 	}
 	if c, ok := api.(CoverageEligibilityResponseSearch); ok {
-		search["CoverageEligibilityResponse"] = c.SearchCapabilitiesCoverageEligibilityResponse()
+		capability, err := c.SearchCapabilitiesCoverageEligibilityResponse()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["CoverageEligibilityResponse"] = capability
+		}
 	}
 	if _, ok := api.(DetectedIssueRead); ok {
 		read = append(read, "DetectedIssue")
 	}
 	if c, ok := api.(DetectedIssueSearch); ok {
-		search["DetectedIssue"] = c.SearchCapabilitiesDetectedIssue()
+		capability, err := c.SearchCapabilitiesDetectedIssue()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DetectedIssue"] = capability
+		}
 	}
 	if _, ok := api.(DeviceRead); ok {
 		read = append(read, "Device")
 	}
 	if c, ok := api.(DeviceSearch); ok {
-		search["Device"] = c.SearchCapabilitiesDevice()
+		capability, err := c.SearchCapabilitiesDevice()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Device"] = capability
+		}
 	}
 	if _, ok := api.(DeviceDefinitionRead); ok {
 		read = append(read, "DeviceDefinition")
 	}
 	if c, ok := api.(DeviceDefinitionSearch); ok {
-		search["DeviceDefinition"] = c.SearchCapabilitiesDeviceDefinition()
+		capability, err := c.SearchCapabilitiesDeviceDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DeviceDefinition"] = capability
+		}
 	}
 	if _, ok := api.(DeviceMetricRead); ok {
 		read = append(read, "DeviceMetric")
 	}
 	if c, ok := api.(DeviceMetricSearch); ok {
-		search["DeviceMetric"] = c.SearchCapabilitiesDeviceMetric()
+		capability, err := c.SearchCapabilitiesDeviceMetric()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DeviceMetric"] = capability
+		}
 	}
 	if _, ok := api.(DeviceRequestRead); ok {
 		read = append(read, "DeviceRequest")
 	}
 	if c, ok := api.(DeviceRequestSearch); ok {
-		search["DeviceRequest"] = c.SearchCapabilitiesDeviceRequest()
+		capability, err := c.SearchCapabilitiesDeviceRequest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DeviceRequest"] = capability
+		}
 	}
 	if _, ok := api.(DeviceUseStatementRead); ok {
 		read = append(read, "DeviceUseStatement")
 	}
 	if c, ok := api.(DeviceUseStatementSearch); ok {
-		search["DeviceUseStatement"] = c.SearchCapabilitiesDeviceUseStatement()
+		capability, err := c.SearchCapabilitiesDeviceUseStatement()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DeviceUseStatement"] = capability
+		}
 	}
 	if _, ok := api.(DiagnosticReportRead); ok {
 		read = append(read, "DiagnosticReport")
 	}
 	if c, ok := api.(DiagnosticReportSearch); ok {
-		search["DiagnosticReport"] = c.SearchCapabilitiesDiagnosticReport()
+		capability, err := c.SearchCapabilitiesDiagnosticReport()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DiagnosticReport"] = capability
+		}
 	}
 	if _, ok := api.(DocumentManifestRead); ok {
 		read = append(read, "DocumentManifest")
 	}
 	if c, ok := api.(DocumentManifestSearch); ok {
-		search["DocumentManifest"] = c.SearchCapabilitiesDocumentManifest()
+		capability, err := c.SearchCapabilitiesDocumentManifest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DocumentManifest"] = capability
+		}
 	}
 	if _, ok := api.(DocumentReferenceRead); ok {
 		read = append(read, "DocumentReference")
 	}
 	if c, ok := api.(DocumentReferenceSearch); ok {
-		search["DocumentReference"] = c.SearchCapabilitiesDocumentReference()
+		capability, err := c.SearchCapabilitiesDocumentReference()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["DocumentReference"] = capability
+		}
 	}
 	if _, ok := api.(EffectEvidenceSynthesisRead); ok {
 		read = append(read, "EffectEvidenceSynthesis")
 	}
 	if c, ok := api.(EffectEvidenceSynthesisSearch); ok {
-		search["EffectEvidenceSynthesis"] = c.SearchCapabilitiesEffectEvidenceSynthesis()
+		capability, err := c.SearchCapabilitiesEffectEvidenceSynthesis()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["EffectEvidenceSynthesis"] = capability
+		}
 	}
 	if _, ok := api.(EncounterRead); ok {
 		read = append(read, "Encounter")
 	}
 	if c, ok := api.(EncounterSearch); ok {
-		search["Encounter"] = c.SearchCapabilitiesEncounter()
+		capability, err := c.SearchCapabilitiesEncounter()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Encounter"] = capability
+		}
 	}
 	if _, ok := api.(EndpointRead); ok {
 		read = append(read, "Endpoint")
 	}
 	if c, ok := api.(EndpointSearch); ok {
-		search["Endpoint"] = c.SearchCapabilitiesEndpoint()
+		capability, err := c.SearchCapabilitiesEndpoint()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Endpoint"] = capability
+		}
 	}
 	if _, ok := api.(EnrollmentRequestRead); ok {
 		read = append(read, "EnrollmentRequest")
 	}
 	if c, ok := api.(EnrollmentRequestSearch); ok {
-		search["EnrollmentRequest"] = c.SearchCapabilitiesEnrollmentRequest()
+		capability, err := c.SearchCapabilitiesEnrollmentRequest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["EnrollmentRequest"] = capability
+		}
 	}
 	if _, ok := api.(EnrollmentResponseRead); ok {
 		read = append(read, "EnrollmentResponse")
 	}
 	if c, ok := api.(EnrollmentResponseSearch); ok {
-		search["EnrollmentResponse"] = c.SearchCapabilitiesEnrollmentResponse()
+		capability, err := c.SearchCapabilitiesEnrollmentResponse()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["EnrollmentResponse"] = capability
+		}
 	}
 	if _, ok := api.(EpisodeOfCareRead); ok {
 		read = append(read, "EpisodeOfCare")
 	}
 	if c, ok := api.(EpisodeOfCareSearch); ok {
-		search["EpisodeOfCare"] = c.SearchCapabilitiesEpisodeOfCare()
+		capability, err := c.SearchCapabilitiesEpisodeOfCare()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["EpisodeOfCare"] = capability
+		}
 	}
 	if _, ok := api.(EventDefinitionRead); ok {
 		read = append(read, "EventDefinition")
 	}
 	if c, ok := api.(EventDefinitionSearch); ok {
-		search["EventDefinition"] = c.SearchCapabilitiesEventDefinition()
+		capability, err := c.SearchCapabilitiesEventDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["EventDefinition"] = capability
+		}
 	}
 	if _, ok := api.(EvidenceRead); ok {
 		read = append(read, "Evidence")
 	}
 	if c, ok := api.(EvidenceSearch); ok {
-		search["Evidence"] = c.SearchCapabilitiesEvidence()
+		capability, err := c.SearchCapabilitiesEvidence()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Evidence"] = capability
+		}
 	}
 	if _, ok := api.(EvidenceVariableRead); ok {
 		read = append(read, "EvidenceVariable")
 	}
 	if c, ok := api.(EvidenceVariableSearch); ok {
-		search["EvidenceVariable"] = c.SearchCapabilitiesEvidenceVariable()
+		capability, err := c.SearchCapabilitiesEvidenceVariable()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["EvidenceVariable"] = capability
+		}
 	}
 	if _, ok := api.(ExampleScenarioRead); ok {
 		read = append(read, "ExampleScenario")
 	}
 	if c, ok := api.(ExampleScenarioSearch); ok {
-		search["ExampleScenario"] = c.SearchCapabilitiesExampleScenario()
+		capability, err := c.SearchCapabilitiesExampleScenario()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ExampleScenario"] = capability
+		}
 	}
 	if _, ok := api.(ExplanationOfBenefitRead); ok {
 		read = append(read, "ExplanationOfBenefit")
 	}
 	if c, ok := api.(ExplanationOfBenefitSearch); ok {
-		search["ExplanationOfBenefit"] = c.SearchCapabilitiesExplanationOfBenefit()
+		capability, err := c.SearchCapabilitiesExplanationOfBenefit()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ExplanationOfBenefit"] = capability
+		}
 	}
 	if _, ok := api.(FamilyMemberHistoryRead); ok {
 		read = append(read, "FamilyMemberHistory")
 	}
 	if c, ok := api.(FamilyMemberHistorySearch); ok {
-		search["FamilyMemberHistory"] = c.SearchCapabilitiesFamilyMemberHistory()
+		capability, err := c.SearchCapabilitiesFamilyMemberHistory()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["FamilyMemberHistory"] = capability
+		}
 	}
 	if _, ok := api.(FlagRead); ok {
 		read = append(read, "Flag")
 	}
 	if c, ok := api.(FlagSearch); ok {
-		search["Flag"] = c.SearchCapabilitiesFlag()
+		capability, err := c.SearchCapabilitiesFlag()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Flag"] = capability
+		}
 	}
 	if _, ok := api.(GoalRead); ok {
 		read = append(read, "Goal")
 	}
 	if c, ok := api.(GoalSearch); ok {
-		search["Goal"] = c.SearchCapabilitiesGoal()
+		capability, err := c.SearchCapabilitiesGoal()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Goal"] = capability
+		}
 	}
 	if _, ok := api.(GraphDefinitionRead); ok {
 		read = append(read, "GraphDefinition")
 	}
 	if c, ok := api.(GraphDefinitionSearch); ok {
-		search["GraphDefinition"] = c.SearchCapabilitiesGraphDefinition()
+		capability, err := c.SearchCapabilitiesGraphDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["GraphDefinition"] = capability
+		}
 	}
 	if _, ok := api.(GroupRead); ok {
 		read = append(read, "Group")
 	}
 	if c, ok := api.(GroupSearch); ok {
-		search["Group"] = c.SearchCapabilitiesGroup()
+		capability, err := c.SearchCapabilitiesGroup()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Group"] = capability
+		}
 	}
 	if _, ok := api.(GuidanceResponseRead); ok {
 		read = append(read, "GuidanceResponse")
 	}
 	if c, ok := api.(GuidanceResponseSearch); ok {
-		search["GuidanceResponse"] = c.SearchCapabilitiesGuidanceResponse()
+		capability, err := c.SearchCapabilitiesGuidanceResponse()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["GuidanceResponse"] = capability
+		}
 	}
 	if _, ok := api.(HealthcareServiceRead); ok {
 		read = append(read, "HealthcareService")
 	}
 	if c, ok := api.(HealthcareServiceSearch); ok {
-		search["HealthcareService"] = c.SearchCapabilitiesHealthcareService()
+		capability, err := c.SearchCapabilitiesHealthcareService()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["HealthcareService"] = capability
+		}
 	}
 	if _, ok := api.(ImagingStudyRead); ok {
 		read = append(read, "ImagingStudy")
 	}
 	if c, ok := api.(ImagingStudySearch); ok {
-		search["ImagingStudy"] = c.SearchCapabilitiesImagingStudy()
+		capability, err := c.SearchCapabilitiesImagingStudy()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ImagingStudy"] = capability
+		}
 	}
 	if _, ok := api.(ImmunizationRead); ok {
 		read = append(read, "Immunization")
 	}
 	if c, ok := api.(ImmunizationSearch); ok {
-		search["Immunization"] = c.SearchCapabilitiesImmunization()
+		capability, err := c.SearchCapabilitiesImmunization()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Immunization"] = capability
+		}
 	}
 	if _, ok := api.(ImmunizationEvaluationRead); ok {
 		read = append(read, "ImmunizationEvaluation")
 	}
 	if c, ok := api.(ImmunizationEvaluationSearch); ok {
-		search["ImmunizationEvaluation"] = c.SearchCapabilitiesImmunizationEvaluation()
+		capability, err := c.SearchCapabilitiesImmunizationEvaluation()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ImmunizationEvaluation"] = capability
+		}
 	}
 	if _, ok := api.(ImmunizationRecommendationRead); ok {
 		read = append(read, "ImmunizationRecommendation")
 	}
 	if c, ok := api.(ImmunizationRecommendationSearch); ok {
-		search["ImmunizationRecommendation"] = c.SearchCapabilitiesImmunizationRecommendation()
+		capability, err := c.SearchCapabilitiesImmunizationRecommendation()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ImmunizationRecommendation"] = capability
+		}
 	}
 	if _, ok := api.(ImplementationGuideRead); ok {
 		read = append(read, "ImplementationGuide")
 	}
 	if c, ok := api.(ImplementationGuideSearch); ok {
-		search["ImplementationGuide"] = c.SearchCapabilitiesImplementationGuide()
+		capability, err := c.SearchCapabilitiesImplementationGuide()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ImplementationGuide"] = capability
+		}
 	}
 	if _, ok := api.(InsurancePlanRead); ok {
 		read = append(read, "InsurancePlan")
 	}
 	if c, ok := api.(InsurancePlanSearch); ok {
-		search["InsurancePlan"] = c.SearchCapabilitiesInsurancePlan()
+		capability, err := c.SearchCapabilitiesInsurancePlan()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["InsurancePlan"] = capability
+		}
 	}
 	if _, ok := api.(InvoiceRead); ok {
 		read = append(read, "Invoice")
 	}
 	if c, ok := api.(InvoiceSearch); ok {
-		search["Invoice"] = c.SearchCapabilitiesInvoice()
+		capability, err := c.SearchCapabilitiesInvoice()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Invoice"] = capability
+		}
 	}
 	if _, ok := api.(LibraryRead); ok {
 		read = append(read, "Library")
 	}
 	if c, ok := api.(LibrarySearch); ok {
-		search["Library"] = c.SearchCapabilitiesLibrary()
+		capability, err := c.SearchCapabilitiesLibrary()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Library"] = capability
+		}
 	}
 	if _, ok := api.(LinkageRead); ok {
 		read = append(read, "Linkage")
 	}
 	if c, ok := api.(LinkageSearch); ok {
-		search["Linkage"] = c.SearchCapabilitiesLinkage()
+		capability, err := c.SearchCapabilitiesLinkage()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Linkage"] = capability
+		}
 	}
 	if _, ok := api.(ListRead); ok {
 		read = append(read, "List")
 	}
 	if c, ok := api.(ListSearch); ok {
-		search["List"] = c.SearchCapabilitiesList()
+		capability, err := c.SearchCapabilitiesList()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["List"] = capability
+		}
 	}
 	if _, ok := api.(LocationRead); ok {
 		read = append(read, "Location")
 	}
 	if c, ok := api.(LocationSearch); ok {
-		search["Location"] = c.SearchCapabilitiesLocation()
+		capability, err := c.SearchCapabilitiesLocation()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Location"] = capability
+		}
 	}
 	if _, ok := api.(MeasureRead); ok {
 		read = append(read, "Measure")
 	}
 	if c, ok := api.(MeasureSearch); ok {
-		search["Measure"] = c.SearchCapabilitiesMeasure()
+		capability, err := c.SearchCapabilitiesMeasure()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Measure"] = capability
+		}
 	}
 	if _, ok := api.(MeasureReportRead); ok {
 		read = append(read, "MeasureReport")
 	}
 	if c, ok := api.(MeasureReportSearch); ok {
-		search["MeasureReport"] = c.SearchCapabilitiesMeasureReport()
+		capability, err := c.SearchCapabilitiesMeasureReport()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MeasureReport"] = capability
+		}
 	}
 	if _, ok := api.(MediaRead); ok {
 		read = append(read, "Media")
 	}
 	if c, ok := api.(MediaSearch); ok {
-		search["Media"] = c.SearchCapabilitiesMedia()
+		capability, err := c.SearchCapabilitiesMedia()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Media"] = capability
+		}
 	}
 	if _, ok := api.(MedicationRead); ok {
 		read = append(read, "Medication")
 	}
 	if c, ok := api.(MedicationSearch); ok {
-		search["Medication"] = c.SearchCapabilitiesMedication()
+		capability, err := c.SearchCapabilitiesMedication()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Medication"] = capability
+		}
 	}
 	if _, ok := api.(MedicationAdministrationRead); ok {
 		read = append(read, "MedicationAdministration")
 	}
 	if c, ok := api.(MedicationAdministrationSearch); ok {
-		search["MedicationAdministration"] = c.SearchCapabilitiesMedicationAdministration()
+		capability, err := c.SearchCapabilitiesMedicationAdministration()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicationAdministration"] = capability
+		}
 	}
 	if _, ok := api.(MedicationDispenseRead); ok {
 		read = append(read, "MedicationDispense")
 	}
 	if c, ok := api.(MedicationDispenseSearch); ok {
-		search["MedicationDispense"] = c.SearchCapabilitiesMedicationDispense()
+		capability, err := c.SearchCapabilitiesMedicationDispense()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicationDispense"] = capability
+		}
 	}
 	if _, ok := api.(MedicationKnowledgeRead); ok {
 		read = append(read, "MedicationKnowledge")
 	}
 	if c, ok := api.(MedicationKnowledgeSearch); ok {
-		search["MedicationKnowledge"] = c.SearchCapabilitiesMedicationKnowledge()
+		capability, err := c.SearchCapabilitiesMedicationKnowledge()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicationKnowledge"] = capability
+		}
 	}
 	if _, ok := api.(MedicationRequestRead); ok {
 		read = append(read, "MedicationRequest")
 	}
 	if c, ok := api.(MedicationRequestSearch); ok {
-		search["MedicationRequest"] = c.SearchCapabilitiesMedicationRequest()
+		capability, err := c.SearchCapabilitiesMedicationRequest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicationRequest"] = capability
+		}
 	}
 	if _, ok := api.(MedicationStatementRead); ok {
 		read = append(read, "MedicationStatement")
 	}
 	if c, ok := api.(MedicationStatementSearch); ok {
-		search["MedicationStatement"] = c.SearchCapabilitiesMedicationStatement()
+		capability, err := c.SearchCapabilitiesMedicationStatement()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicationStatement"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductRead); ok {
 		read = append(read, "MedicinalProduct")
 	}
 	if c, ok := api.(MedicinalProductSearch); ok {
-		search["MedicinalProduct"] = c.SearchCapabilitiesMedicinalProduct()
+		capability, err := c.SearchCapabilitiesMedicinalProduct()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProduct"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductAuthorizationRead); ok {
 		read = append(read, "MedicinalProductAuthorization")
 	}
 	if c, ok := api.(MedicinalProductAuthorizationSearch); ok {
-		search["MedicinalProductAuthorization"] = c.SearchCapabilitiesMedicinalProductAuthorization()
+		capability, err := c.SearchCapabilitiesMedicinalProductAuthorization()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductAuthorization"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductContraindicationRead); ok {
 		read = append(read, "MedicinalProductContraindication")
 	}
 	if c, ok := api.(MedicinalProductContraindicationSearch); ok {
-		search["MedicinalProductContraindication"] = c.SearchCapabilitiesMedicinalProductContraindication()
+		capability, err := c.SearchCapabilitiesMedicinalProductContraindication()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductContraindication"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductIndicationRead); ok {
 		read = append(read, "MedicinalProductIndication")
 	}
 	if c, ok := api.(MedicinalProductIndicationSearch); ok {
-		search["MedicinalProductIndication"] = c.SearchCapabilitiesMedicinalProductIndication()
+		capability, err := c.SearchCapabilitiesMedicinalProductIndication()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductIndication"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductIngredientRead); ok {
 		read = append(read, "MedicinalProductIngredient")
 	}
 	if c, ok := api.(MedicinalProductIngredientSearch); ok {
-		search["MedicinalProductIngredient"] = c.SearchCapabilitiesMedicinalProductIngredient()
+		capability, err := c.SearchCapabilitiesMedicinalProductIngredient()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductIngredient"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductInteractionRead); ok {
 		read = append(read, "MedicinalProductInteraction")
 	}
 	if c, ok := api.(MedicinalProductInteractionSearch); ok {
-		search["MedicinalProductInteraction"] = c.SearchCapabilitiesMedicinalProductInteraction()
+		capability, err := c.SearchCapabilitiesMedicinalProductInteraction()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductInteraction"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductManufacturedRead); ok {
 		read = append(read, "MedicinalProductManufactured")
 	}
 	if c, ok := api.(MedicinalProductManufacturedSearch); ok {
-		search["MedicinalProductManufactured"] = c.SearchCapabilitiesMedicinalProductManufactured()
+		capability, err := c.SearchCapabilitiesMedicinalProductManufactured()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductManufactured"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductPackagedRead); ok {
 		read = append(read, "MedicinalProductPackaged")
 	}
 	if c, ok := api.(MedicinalProductPackagedSearch); ok {
-		search["MedicinalProductPackaged"] = c.SearchCapabilitiesMedicinalProductPackaged()
+		capability, err := c.SearchCapabilitiesMedicinalProductPackaged()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductPackaged"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductPharmaceuticalRead); ok {
 		read = append(read, "MedicinalProductPharmaceutical")
 	}
 	if c, ok := api.(MedicinalProductPharmaceuticalSearch); ok {
-		search["MedicinalProductPharmaceutical"] = c.SearchCapabilitiesMedicinalProductPharmaceutical()
+		capability, err := c.SearchCapabilitiesMedicinalProductPharmaceutical()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductPharmaceutical"] = capability
+		}
 	}
 	if _, ok := api.(MedicinalProductUndesirableEffectRead); ok {
 		read = append(read, "MedicinalProductUndesirableEffect")
 	}
 	if c, ok := api.(MedicinalProductUndesirableEffectSearch); ok {
-		search["MedicinalProductUndesirableEffect"] = c.SearchCapabilitiesMedicinalProductUndesirableEffect()
+		capability, err := c.SearchCapabilitiesMedicinalProductUndesirableEffect()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MedicinalProductUndesirableEffect"] = capability
+		}
 	}
 	if _, ok := api.(MessageDefinitionRead); ok {
 		read = append(read, "MessageDefinition")
 	}
 	if c, ok := api.(MessageDefinitionSearch); ok {
-		search["MessageDefinition"] = c.SearchCapabilitiesMessageDefinition()
+		capability, err := c.SearchCapabilitiesMessageDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MessageDefinition"] = capability
+		}
 	}
 	if _, ok := api.(MessageHeaderRead); ok {
 		read = append(read, "MessageHeader")
 	}
 	if c, ok := api.(MessageHeaderSearch); ok {
-		search["MessageHeader"] = c.SearchCapabilitiesMessageHeader()
+		capability, err := c.SearchCapabilitiesMessageHeader()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MessageHeader"] = capability
+		}
 	}
 	if _, ok := api.(MolecularSequenceRead); ok {
 		read = append(read, "MolecularSequence")
 	}
 	if c, ok := api.(MolecularSequenceSearch); ok {
-		search["MolecularSequence"] = c.SearchCapabilitiesMolecularSequence()
+		capability, err := c.SearchCapabilitiesMolecularSequence()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["MolecularSequence"] = capability
+		}
 	}
 	if _, ok := api.(NamingSystemRead); ok {
 		read = append(read, "NamingSystem")
 	}
 	if c, ok := api.(NamingSystemSearch); ok {
-		search["NamingSystem"] = c.SearchCapabilitiesNamingSystem()
+		capability, err := c.SearchCapabilitiesNamingSystem()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["NamingSystem"] = capability
+		}
 	}
 	if _, ok := api.(NutritionOrderRead); ok {
 		read = append(read, "NutritionOrder")
 	}
 	if c, ok := api.(NutritionOrderSearch); ok {
-		search["NutritionOrder"] = c.SearchCapabilitiesNutritionOrder()
+		capability, err := c.SearchCapabilitiesNutritionOrder()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["NutritionOrder"] = capability
+		}
 	}
 	if _, ok := api.(ObservationRead); ok {
 		read = append(read, "Observation")
 	}
 	if c, ok := api.(ObservationSearch); ok {
-		search["Observation"] = c.SearchCapabilitiesObservation()
+		capability, err := c.SearchCapabilitiesObservation()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Observation"] = capability
+		}
 	}
 	if _, ok := api.(ObservationDefinitionRead); ok {
 		read = append(read, "ObservationDefinition")
 	}
 	if c, ok := api.(ObservationDefinitionSearch); ok {
-		search["ObservationDefinition"] = c.SearchCapabilitiesObservationDefinition()
+		capability, err := c.SearchCapabilitiesObservationDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ObservationDefinition"] = capability
+		}
 	}
 	if _, ok := api.(OperationDefinitionRead); ok {
 		read = append(read, "OperationDefinition")
 	}
 	if c, ok := api.(OperationDefinitionSearch); ok {
-		search["OperationDefinition"] = c.SearchCapabilitiesOperationDefinition()
+		capability, err := c.SearchCapabilitiesOperationDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["OperationDefinition"] = capability
+		}
 	}
 	if _, ok := api.(OperationOutcomeRead); ok {
 		read = append(read, "OperationOutcome")
 	}
 	if c, ok := api.(OperationOutcomeSearch); ok {
-		search["OperationOutcome"] = c.SearchCapabilitiesOperationOutcome()
+		capability, err := c.SearchCapabilitiesOperationOutcome()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["OperationOutcome"] = capability
+		}
 	}
 	if _, ok := api.(OrganizationRead); ok {
 		read = append(read, "Organization")
 	}
 	if c, ok := api.(OrganizationSearch); ok {
-		search["Organization"] = c.SearchCapabilitiesOrganization()
+		capability, err := c.SearchCapabilitiesOrganization()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Organization"] = capability
+		}
 	}
 	if _, ok := api.(OrganizationAffiliationRead); ok {
 		read = append(read, "OrganizationAffiliation")
 	}
 	if c, ok := api.(OrganizationAffiliationSearch); ok {
-		search["OrganizationAffiliation"] = c.SearchCapabilitiesOrganizationAffiliation()
+		capability, err := c.SearchCapabilitiesOrganizationAffiliation()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["OrganizationAffiliation"] = capability
+		}
 	}
 	if _, ok := api.(ParametersRead); ok {
 		read = append(read, "Parameters")
 	}
 	if c, ok := api.(ParametersSearch); ok {
-		search["Parameters"] = c.SearchCapabilitiesParameters()
+		capability, err := c.SearchCapabilitiesParameters()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Parameters"] = capability
+		}
 	}
 	if _, ok := api.(PatientRead); ok {
 		read = append(read, "Patient")
 	}
 	if c, ok := api.(PatientSearch); ok {
-		search["Patient"] = c.SearchCapabilitiesPatient()
+		capability, err := c.SearchCapabilitiesPatient()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Patient"] = capability
+		}
 	}
 	if _, ok := api.(PaymentNoticeRead); ok {
 		read = append(read, "PaymentNotice")
 	}
 	if c, ok := api.(PaymentNoticeSearch); ok {
-		search["PaymentNotice"] = c.SearchCapabilitiesPaymentNotice()
+		capability, err := c.SearchCapabilitiesPaymentNotice()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["PaymentNotice"] = capability
+		}
 	}
 	if _, ok := api.(PaymentReconciliationRead); ok {
 		read = append(read, "PaymentReconciliation")
 	}
 	if c, ok := api.(PaymentReconciliationSearch); ok {
-		search["PaymentReconciliation"] = c.SearchCapabilitiesPaymentReconciliation()
+		capability, err := c.SearchCapabilitiesPaymentReconciliation()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["PaymentReconciliation"] = capability
+		}
 	}
 	if _, ok := api.(PersonRead); ok {
 		read = append(read, "Person")
 	}
 	if c, ok := api.(PersonSearch); ok {
-		search["Person"] = c.SearchCapabilitiesPerson()
+		capability, err := c.SearchCapabilitiesPerson()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Person"] = capability
+		}
 	}
 	if _, ok := api.(PlanDefinitionRead); ok {
 		read = append(read, "PlanDefinition")
 	}
 	if c, ok := api.(PlanDefinitionSearch); ok {
-		search["PlanDefinition"] = c.SearchCapabilitiesPlanDefinition()
+		capability, err := c.SearchCapabilitiesPlanDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["PlanDefinition"] = capability
+		}
 	}
 	if _, ok := api.(PractitionerRead); ok {
 		read = append(read, "Practitioner")
 	}
 	if c, ok := api.(PractitionerSearch); ok {
-		search["Practitioner"] = c.SearchCapabilitiesPractitioner()
+		capability, err := c.SearchCapabilitiesPractitioner()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Practitioner"] = capability
+		}
 	}
 	if _, ok := api.(PractitionerRoleRead); ok {
 		read = append(read, "PractitionerRole")
 	}
 	if c, ok := api.(PractitionerRoleSearch); ok {
-		search["PractitionerRole"] = c.SearchCapabilitiesPractitionerRole()
+		capability, err := c.SearchCapabilitiesPractitionerRole()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["PractitionerRole"] = capability
+		}
 	}
 	if _, ok := api.(ProcedureRead); ok {
 		read = append(read, "Procedure")
 	}
 	if c, ok := api.(ProcedureSearch); ok {
-		search["Procedure"] = c.SearchCapabilitiesProcedure()
+		capability, err := c.SearchCapabilitiesProcedure()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Procedure"] = capability
+		}
 	}
 	if _, ok := api.(ProvenanceRead); ok {
 		read = append(read, "Provenance")
 	}
 	if c, ok := api.(ProvenanceSearch); ok {
-		search["Provenance"] = c.SearchCapabilitiesProvenance()
+		capability, err := c.SearchCapabilitiesProvenance()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Provenance"] = capability
+		}
 	}
 	if _, ok := api.(QuestionnaireRead); ok {
 		read = append(read, "Questionnaire")
 	}
 	if c, ok := api.(QuestionnaireSearch); ok {
-		search["Questionnaire"] = c.SearchCapabilitiesQuestionnaire()
+		capability, err := c.SearchCapabilitiesQuestionnaire()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Questionnaire"] = capability
+		}
 	}
 	if _, ok := api.(QuestionnaireResponseRead); ok {
 		read = append(read, "QuestionnaireResponse")
 	}
 	if c, ok := api.(QuestionnaireResponseSearch); ok {
-		search["QuestionnaireResponse"] = c.SearchCapabilitiesQuestionnaireResponse()
+		capability, err := c.SearchCapabilitiesQuestionnaireResponse()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["QuestionnaireResponse"] = capability
+		}
 	}
 	if _, ok := api.(RelatedPersonRead); ok {
 		read = append(read, "RelatedPerson")
 	}
 	if c, ok := api.(RelatedPersonSearch); ok {
-		search["RelatedPerson"] = c.SearchCapabilitiesRelatedPerson()
+		capability, err := c.SearchCapabilitiesRelatedPerson()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["RelatedPerson"] = capability
+		}
 	}
 	if _, ok := api.(RequestGroupRead); ok {
 		read = append(read, "RequestGroup")
 	}
 	if c, ok := api.(RequestGroupSearch); ok {
-		search["RequestGroup"] = c.SearchCapabilitiesRequestGroup()
+		capability, err := c.SearchCapabilitiesRequestGroup()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["RequestGroup"] = capability
+		}
 	}
 	if _, ok := api.(ResearchDefinitionRead); ok {
 		read = append(read, "ResearchDefinition")
 	}
 	if c, ok := api.(ResearchDefinitionSearch); ok {
-		search["ResearchDefinition"] = c.SearchCapabilitiesResearchDefinition()
+		capability, err := c.SearchCapabilitiesResearchDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ResearchDefinition"] = capability
+		}
 	}
 	if _, ok := api.(ResearchElementDefinitionRead); ok {
 		read = append(read, "ResearchElementDefinition")
 	}
 	if c, ok := api.(ResearchElementDefinitionSearch); ok {
-		search["ResearchElementDefinition"] = c.SearchCapabilitiesResearchElementDefinition()
+		capability, err := c.SearchCapabilitiesResearchElementDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ResearchElementDefinition"] = capability
+		}
 	}
 	if _, ok := api.(ResearchStudyRead); ok {
 		read = append(read, "ResearchStudy")
 	}
 	if c, ok := api.(ResearchStudySearch); ok {
-		search["ResearchStudy"] = c.SearchCapabilitiesResearchStudy()
+		capability, err := c.SearchCapabilitiesResearchStudy()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ResearchStudy"] = capability
+		}
 	}
 	if _, ok := api.(ResearchSubjectRead); ok {
 		read = append(read, "ResearchSubject")
 	}
 	if c, ok := api.(ResearchSubjectSearch); ok {
-		search["ResearchSubject"] = c.SearchCapabilitiesResearchSubject()
+		capability, err := c.SearchCapabilitiesResearchSubject()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ResearchSubject"] = capability
+		}
 	}
 	if _, ok := api.(RiskAssessmentRead); ok {
 		read = append(read, "RiskAssessment")
 	}
 	if c, ok := api.(RiskAssessmentSearch); ok {
-		search["RiskAssessment"] = c.SearchCapabilitiesRiskAssessment()
+		capability, err := c.SearchCapabilitiesRiskAssessment()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["RiskAssessment"] = capability
+		}
 	}
 	if _, ok := api.(RiskEvidenceSynthesisRead); ok {
 		read = append(read, "RiskEvidenceSynthesis")
 	}
 	if c, ok := api.(RiskEvidenceSynthesisSearch); ok {
-		search["RiskEvidenceSynthesis"] = c.SearchCapabilitiesRiskEvidenceSynthesis()
+		capability, err := c.SearchCapabilitiesRiskEvidenceSynthesis()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["RiskEvidenceSynthesis"] = capability
+		}
 	}
 	if _, ok := api.(ScheduleRead); ok {
 		read = append(read, "Schedule")
 	}
 	if c, ok := api.(ScheduleSearch); ok {
-		search["Schedule"] = c.SearchCapabilitiesSchedule()
+		capability, err := c.SearchCapabilitiesSchedule()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Schedule"] = capability
+		}
 	}
 	if _, ok := api.(SearchParameterRead); ok {
 		read = append(read, "SearchParameter")
 	}
 	if c, ok := api.(SearchParameterSearch); ok {
-		search["SearchParameter"] = c.SearchCapabilitiesSearchParameter()
+		capability, err := c.SearchCapabilitiesSearchParameter()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SearchParameter"] = capability
+		}
 	}
 	if _, ok := api.(ServiceRequestRead); ok {
 		read = append(read, "ServiceRequest")
 	}
 	if c, ok := api.(ServiceRequestSearch); ok {
-		search["ServiceRequest"] = c.SearchCapabilitiesServiceRequest()
+		capability, err := c.SearchCapabilitiesServiceRequest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ServiceRequest"] = capability
+		}
 	}
 	if _, ok := api.(SlotRead); ok {
 		read = append(read, "Slot")
 	}
 	if c, ok := api.(SlotSearch); ok {
-		search["Slot"] = c.SearchCapabilitiesSlot()
+		capability, err := c.SearchCapabilitiesSlot()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Slot"] = capability
+		}
 	}
 	if _, ok := api.(SpecimenRead); ok {
 		read = append(read, "Specimen")
 	}
 	if c, ok := api.(SpecimenSearch); ok {
-		search["Specimen"] = c.SearchCapabilitiesSpecimen()
+		capability, err := c.SearchCapabilitiesSpecimen()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Specimen"] = capability
+		}
 	}
 	if _, ok := api.(SpecimenDefinitionRead); ok {
 		read = append(read, "SpecimenDefinition")
 	}
 	if c, ok := api.(SpecimenDefinitionSearch); ok {
-		search["SpecimenDefinition"] = c.SearchCapabilitiesSpecimenDefinition()
+		capability, err := c.SearchCapabilitiesSpecimenDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SpecimenDefinition"] = capability
+		}
 	}
 	if _, ok := api.(StructureDefinitionRead); ok {
 		read = append(read, "StructureDefinition")
 	}
 	if c, ok := api.(StructureDefinitionSearch); ok {
-		search["StructureDefinition"] = c.SearchCapabilitiesStructureDefinition()
+		capability, err := c.SearchCapabilitiesStructureDefinition()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["StructureDefinition"] = capability
+		}
 	}
 	if _, ok := api.(StructureMapRead); ok {
 		read = append(read, "StructureMap")
 	}
 	if c, ok := api.(StructureMapSearch); ok {
-		search["StructureMap"] = c.SearchCapabilitiesStructureMap()
+		capability, err := c.SearchCapabilitiesStructureMap()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["StructureMap"] = capability
+		}
 	}
 	if _, ok := api.(SubscriptionRead); ok {
 		read = append(read, "Subscription")
 	}
 	if c, ok := api.(SubscriptionSearch); ok {
-		search["Subscription"] = c.SearchCapabilitiesSubscription()
+		capability, err := c.SearchCapabilitiesSubscription()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Subscription"] = capability
+		}
 	}
 	if _, ok := api.(SubstanceRead); ok {
 		read = append(read, "Substance")
 	}
 	if c, ok := api.(SubstanceSearch); ok {
-		search["Substance"] = c.SearchCapabilitiesSubstance()
+		capability, err := c.SearchCapabilitiesSubstance()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Substance"] = capability
+		}
 	}
 	if _, ok := api.(SubstanceNucleicAcidRead); ok {
 		read = append(read, "SubstanceNucleicAcid")
 	}
 	if c, ok := api.(SubstanceNucleicAcidSearch); ok {
-		search["SubstanceNucleicAcid"] = c.SearchCapabilitiesSubstanceNucleicAcid()
+		capability, err := c.SearchCapabilitiesSubstanceNucleicAcid()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SubstanceNucleicAcid"] = capability
+		}
 	}
 	if _, ok := api.(SubstancePolymerRead); ok {
 		read = append(read, "SubstancePolymer")
 	}
 	if c, ok := api.(SubstancePolymerSearch); ok {
-		search["SubstancePolymer"] = c.SearchCapabilitiesSubstancePolymer()
+		capability, err := c.SearchCapabilitiesSubstancePolymer()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SubstancePolymer"] = capability
+		}
 	}
 	if _, ok := api.(SubstanceProteinRead); ok {
 		read = append(read, "SubstanceProtein")
 	}
 	if c, ok := api.(SubstanceProteinSearch); ok {
-		search["SubstanceProtein"] = c.SearchCapabilitiesSubstanceProtein()
+		capability, err := c.SearchCapabilitiesSubstanceProtein()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SubstanceProtein"] = capability
+		}
 	}
 	if _, ok := api.(SubstanceReferenceInformationRead); ok {
 		read = append(read, "SubstanceReferenceInformation")
 	}
 	if c, ok := api.(SubstanceReferenceInformationSearch); ok {
-		search["SubstanceReferenceInformation"] = c.SearchCapabilitiesSubstanceReferenceInformation()
+		capability, err := c.SearchCapabilitiesSubstanceReferenceInformation()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SubstanceReferenceInformation"] = capability
+		}
 	}
 	if _, ok := api.(SubstanceSourceMaterialRead); ok {
 		read = append(read, "SubstanceSourceMaterial")
 	}
 	if c, ok := api.(SubstanceSourceMaterialSearch); ok {
-		search["SubstanceSourceMaterial"] = c.SearchCapabilitiesSubstanceSourceMaterial()
+		capability, err := c.SearchCapabilitiesSubstanceSourceMaterial()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SubstanceSourceMaterial"] = capability
+		}
 	}
 	if _, ok := api.(SubstanceSpecificationRead); ok {
 		read = append(read, "SubstanceSpecification")
 	}
 	if c, ok := api.(SubstanceSpecificationSearch); ok {
-		search["SubstanceSpecification"] = c.SearchCapabilitiesSubstanceSpecification()
+		capability, err := c.SearchCapabilitiesSubstanceSpecification()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SubstanceSpecification"] = capability
+		}
 	}
 	if _, ok := api.(SupplyDeliveryRead); ok {
 		read = append(read, "SupplyDelivery")
 	}
 	if c, ok := api.(SupplyDeliverySearch); ok {
-		search["SupplyDelivery"] = c.SearchCapabilitiesSupplyDelivery()
+		capability, err := c.SearchCapabilitiesSupplyDelivery()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SupplyDelivery"] = capability
+		}
 	}
 	if _, ok := api.(SupplyRequestRead); ok {
 		read = append(read, "SupplyRequest")
 	}
 	if c, ok := api.(SupplyRequestSearch); ok {
-		search["SupplyRequest"] = c.SearchCapabilitiesSupplyRequest()
+		capability, err := c.SearchCapabilitiesSupplyRequest()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["SupplyRequest"] = capability
+		}
 	}
 	if _, ok := api.(TaskRead); ok {
 		read = append(read, "Task")
 	}
 	if c, ok := api.(TaskSearch); ok {
-		search["Task"] = c.SearchCapabilitiesTask()
+		capability, err := c.SearchCapabilitiesTask()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["Task"] = capability
+		}
 	}
 	if _, ok := api.(TerminologyCapabilitiesRead); ok {
 		read = append(read, "TerminologyCapabilities")
 	}
 	if c, ok := api.(TerminologyCapabilitiesSearch); ok {
-		search["TerminologyCapabilities"] = c.SearchCapabilitiesTerminologyCapabilities()
+		capability, err := c.SearchCapabilitiesTerminologyCapabilities()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["TerminologyCapabilities"] = capability
+		}
 	}
 	if _, ok := api.(TestReportRead); ok {
 		read = append(read, "TestReport")
 	}
 	if c, ok := api.(TestReportSearch); ok {
-		search["TestReport"] = c.SearchCapabilitiesTestReport()
+		capability, err := c.SearchCapabilitiesTestReport()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["TestReport"] = capability
+		}
 	}
 	if _, ok := api.(TestScriptRead); ok {
 		read = append(read, "TestScript")
 	}
 	if c, ok := api.(TestScriptSearch); ok {
-		search["TestScript"] = c.SearchCapabilitiesTestScript()
+		capability, err := c.SearchCapabilitiesTestScript()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["TestScript"] = capability
+		}
 	}
 	if _, ok := api.(ValueSetRead); ok {
 		read = append(read, "ValueSet")
 	}
 	if c, ok := api.(ValueSetSearch); ok {
-		search["ValueSet"] = c.SearchCapabilitiesValueSet()
+		capability, err := c.SearchCapabilitiesValueSet()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["ValueSet"] = capability
+		}
 	}
 	if _, ok := api.(VerificationResultRead); ok {
 		read = append(read, "VerificationResult")
 	}
 	if c, ok := api.(VerificationResultSearch); ok {
-		search["VerificationResult"] = c.SearchCapabilitiesVerificationResult()
+		capability, err := c.SearchCapabilitiesVerificationResult()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["VerificationResult"] = capability
+		}
 	}
 	if _, ok := api.(VisionPrescriptionRead); ok {
 		read = append(read, "VisionPrescription")
 	}
 	if c, ok := api.(VisionPrescriptionSearch); ok {
-		search["VisionPrescription"] = c.SearchCapabilitiesVisionPrescription()
+		capability, err := c.SearchCapabilitiesVisionPrescription()
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			search["VisionPrescription"] = capability
+		}
 	}
 	return capabilities.Capabilities{
 		ReadInteractions:   read,
 		SearchCapabilities: search,
-	}
+	}, capabilities.JoinErrors(errs)
 }
