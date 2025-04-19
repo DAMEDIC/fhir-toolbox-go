@@ -8,8 +8,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
-	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertjson"
-	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertxml"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"net/http"
 	"net/http/httptest"
@@ -248,13 +247,13 @@ func TestCapabilityStatement(t *testing.T) {
 				if contentType != "application/fhir+json" {
 					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
 				}
-				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
+				assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
 			} else {
 				contentType := rr.Header().Get("Content-Type")
 				if contentType != "application/fhir+xml" {
 					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
 				}
-				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
+				assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
 			}
 		})
 	}
@@ -448,13 +447,13 @@ func TestHandleRead(t *testing.T) {
 				if contentType != "application/fhir+json" {
 					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
 				}
-				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
+				assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
 			} else {
 				contentType := rr.Header().Get("Content-Type")
 				if contentType != "application/fhir+xml" {
 					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
 				}
-				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
+				assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
 			}
 		})
 	}
@@ -990,7 +989,7 @@ func TestHandleSearch(t *testing.T) {
 				t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
 			}
 
-			assertjson.Equal(t, tt.expectedBody, rr.Body.String())
+			assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
 		})
 	}
 }

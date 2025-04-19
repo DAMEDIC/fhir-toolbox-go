@@ -5,8 +5,8 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
 	"github.com/cockroachdb/apd/v3"
-	"github.com/pmezard/go-difflib/difflib"
 	"regexp"
 	"testing"
 )
@@ -85,17 +85,7 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 					}
 
 					expected := test.OutputCollection()
-					diff, _ := difflib.GetUnifiedDiffString(difflib.UnifiedDiff{
-						A:        difflib.SplitLines(expected.String()),
-						B:        difflib.SplitLines(result.String()),
-						FromFile: "Expected",
-						ToFile:   "Actual",
-						Context:  1,
-					})
-					// use equivalence to have empty results { } ~ { } result in true
-					if !expected.Equivalent(result) {
-						t.Errorf("Results not equivalent:\n%s", diff)
-					}
+					assert.FHIRPathEqual(t, expected, result)
 				})
 			}
 		})

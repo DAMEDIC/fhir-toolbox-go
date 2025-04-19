@@ -1,21 +1,22 @@
-package assertxml
+package assert
 
 import (
 	"bytes"
 	"encoding/xml"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert/internal/diff"
 	"strings"
 	"testing"
 )
 
-func Equal(t *testing.T, expected, actual string) {
-	expectedFormatted := format(expected)
-	actualFormatted := format(actual)
+func XMLEqual(t *testing.T, expected, actual string) {
+	expectedFormatted := xmlFormat(expected)
+	actualFormatted := xmlFormat(actual)
 	if expectedFormatted != actualFormatted {
-		t.Errorf("XML not equal:\nexpected: %s\nactual: %s", expectedFormatted, actualFormatted)
+		t.Error(string(diff.Diff("expected", []byte(expectedFormatted), "actual", []byte(actualFormatted))))
 	}
 }
 
-func format(input string) string {
+func xmlFormat(input string) string {
 	var builder strings.Builder
 
 	decoder := xml.NewDecoder(bytes.NewReader([]byte(input)))

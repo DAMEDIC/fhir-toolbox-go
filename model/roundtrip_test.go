@@ -8,8 +8,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
-	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertjson"
-	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertxml"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
 	"slices"
 	"strings"
 	"testing"
@@ -84,7 +83,7 @@ func TestRoundtripJSON(t *testing.T) {
 						t.Fatalf("Failed to marshal JSON: %v", err)
 					}
 
-					assertjson.Equal(t, string(jsonIn), string(jsonOut))
+					assert.JSONEqual(t, string(jsonIn), string(jsonOut))
 				})
 			}
 		})
@@ -148,7 +147,7 @@ func TestRoundtripXML(t *testing.T) {
 						xmlIn = bytes.ReplaceAll(xmlIn, []byte("e245"), []byte("E+245"))
 					}
 
-					assertxml.Equal(t, string(xmlIn), xml.Header+string(xmlOut))
+					assert.XMLEqual(t, string(xmlIn), xml.Header+string(xmlOut))
 				})
 			}
 		})
