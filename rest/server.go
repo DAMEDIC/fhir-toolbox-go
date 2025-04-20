@@ -167,10 +167,12 @@ func dispatchSearch(
 	parameters url.Values,
 	tz *time.Location,
 ) (int, model.Resource) {
-	searchCapabilities, err := backend.SearchCapabilities(ctx, resourceType)
+	allCapabilities, err := backend.AllCapabilities(ctx)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}
+
+	searchCapabilities := allCapabilities.SearchCapabilities[resourceType]
 
 	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {
@@ -182,7 +184,7 @@ func dispatchSearch(
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
-	bundle, err := SearchBundle(resourceType, resources, options, searchCapabilities, config.Base)
+	bundle, err := searchBundle(resourceType, resources, options, searchCapabilities, config.Base)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}

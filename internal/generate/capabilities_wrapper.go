@@ -184,7 +184,11 @@ func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 		Params(Id("ctx").Qual("context", "Context")).
 		Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
 		BlockFunc(func(g *Group) {
-			g.Return(Id("w.Generic.SearchCapabilities").Params(Id("ctx"), Lit(r.Name)))
+			g.List(Id("allCapabilities"), Id("err")).Op(":=").Id("w.Generic.AllCapabilities").Call(Id("ctx"))
+			g.If(Id("err").Op("!=").Nil()).Block(
+				Return(returnType.Clone().Block(), Id("err")),
+			)
+			g.Return(Id("allCapabilities.SearchCapabilities").Index(Lit(r.Name)), Id("err"))
 		})
 }
 

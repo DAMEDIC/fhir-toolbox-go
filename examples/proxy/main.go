@@ -96,15 +96,6 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 	return resource, nil
 }
 
-func (c *Client) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, capabilities.FHIRError) {
-	// TODO: These should be read from the remote servers CapabilityStatement.
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id": {Type: search.TypeString},
-		},
-	}, nil
-}
-
 func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {
 	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, options.QueryString())
 	log.Printf("forwarding GET %s", url)

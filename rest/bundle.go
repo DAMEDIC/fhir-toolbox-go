@@ -37,11 +37,11 @@ func (e MissingIdError) OperationOutcome() basic.OperationOutcome {
 	}
 }
 
-// SearchBundle creates a new search bundle from the given resources and parameters.
+// searchBundle creates a new search bundle from the given resources and parameters.
 //
-// The REST server uses cursor based pagination.
-// If the search results contains a `Next` cursor, a 'next' bundle link entry will be set.
-func SearchBundle(
+// The REST server uses cursor-based pagination.
+// If the search results contain a `Next` cursor, a 'next' bundle link entry will be set.
+func searchBundle(
 	resourceType string,
 	result search.Result,
 	usedOptions search.Options,
