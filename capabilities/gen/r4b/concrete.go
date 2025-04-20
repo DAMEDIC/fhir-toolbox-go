@@ -299,6 +299,2121 @@ type Concrete struct {
 	Generic capabilities.GenericAPI
 }
 
+func (w Concrete) CreateAccount(ctx context.Context, resource r4b.Account) (r4b.Account, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Account{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Account)
+	if !ok {
+		return r4b.Account{}, capabilities.InvalidResourceError{ResourceType: "Account"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (r4b.ActivityDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ActivityDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ActivityDefinition)
+	if !ok {
+		return r4b.ActivityDefinition{}, capabilities.InvalidResourceError{ResourceType: "ActivityDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (r4b.AdministrableProductDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.AdministrableProductDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.AdministrableProductDefinition)
+	if !ok {
+		return r4b.AdministrableProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "AdministrableProductDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (r4b.AdverseEvent, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.AdverseEvent{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.AdverseEvent)
+	if !ok {
+		return r4b.AdverseEvent{}, capabilities.InvalidResourceError{ResourceType: "AdverseEvent"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (r4b.AllergyIntolerance, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.AllergyIntolerance{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.AllergyIntolerance)
+	if !ok {
+		return r4b.AllergyIntolerance{}, capabilities.InvalidResourceError{ResourceType: "AllergyIntolerance"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateAppointment(ctx context.Context, resource r4b.Appointment) (r4b.Appointment, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Appointment{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Appointment)
+	if !ok {
+		return r4b.Appointment{}, capabilities.InvalidResourceError{ResourceType: "Appointment"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (r4b.AppointmentResponse, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.AppointmentResponse{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.AppointmentResponse)
+	if !ok {
+		return r4b.AppointmentResponse{}, capabilities.InvalidResourceError{ResourceType: "AppointmentResponse"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (r4b.AuditEvent, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.AuditEvent{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.AuditEvent)
+	if !ok {
+		return r4b.AuditEvent{}, capabilities.InvalidResourceError{ResourceType: "AuditEvent"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateBasic(ctx context.Context, resource r4b.Basic) (r4b.Basic, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Basic{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Basic)
+	if !ok {
+		return r4b.Basic{}, capabilities.InvalidResourceError{ResourceType: "Basic"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateBinary(ctx context.Context, resource r4b.Binary) (r4b.Binary, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Binary{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Binary)
+	if !ok {
+		return r4b.Binary{}, capabilities.InvalidResourceError{ResourceType: "Binary"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (r4b.BiologicallyDerivedProduct, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.BiologicallyDerivedProduct{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.BiologicallyDerivedProduct)
+	if !ok {
+		return r4b.BiologicallyDerivedProduct{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProduct"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (r4b.BodyStructure, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.BodyStructure{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.BodyStructure)
+	if !ok {
+		return r4b.BodyStructure{}, capabilities.InvalidResourceError{ResourceType: "BodyStructure"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateBundle(ctx context.Context, resource r4b.Bundle) (r4b.Bundle, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Bundle{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Bundle)
+	if !ok {
+		return r4b.Bundle{}, capabilities.InvalidResourceError{ResourceType: "Bundle"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (r4b.CapabilityStatement, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CapabilityStatement{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CapabilityStatement)
+	if !ok {
+		return r4b.CapabilityStatement{}, capabilities.InvalidResourceError{ResourceType: "CapabilityStatement"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCarePlan(ctx context.Context, resource r4b.CarePlan) (r4b.CarePlan, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CarePlan{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CarePlan)
+	if !ok {
+		return r4b.CarePlan{}, capabilities.InvalidResourceError{ResourceType: "CarePlan"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCareTeam(ctx context.Context, resource r4b.CareTeam) (r4b.CareTeam, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CareTeam{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CareTeam)
+	if !ok {
+		return r4b.CareTeam{}, capabilities.InvalidResourceError{ResourceType: "CareTeam"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (r4b.CatalogEntry, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CatalogEntry{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CatalogEntry)
+	if !ok {
+		return r4b.CatalogEntry{}, capabilities.InvalidResourceError{ResourceType: "CatalogEntry"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateChargeItem(ctx context.Context, resource r4b.ChargeItem) (r4b.ChargeItem, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ChargeItem{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ChargeItem)
+	if !ok {
+		return r4b.ChargeItem{}, capabilities.InvalidResourceError{ResourceType: "ChargeItem"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (r4b.ChargeItemDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ChargeItemDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ChargeItemDefinition)
+	if !ok {
+		return r4b.ChargeItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ChargeItemDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCitation(ctx context.Context, resource r4b.Citation) (r4b.Citation, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Citation{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Citation)
+	if !ok {
+		return r4b.Citation{}, capabilities.InvalidResourceError{ResourceType: "Citation"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateClaim(ctx context.Context, resource r4b.Claim) (r4b.Claim, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Claim{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Claim)
+	if !ok {
+		return r4b.Claim{}, capabilities.InvalidResourceError{ResourceType: "Claim"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (r4b.ClaimResponse, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ClaimResponse{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ClaimResponse)
+	if !ok {
+		return r4b.ClaimResponse{}, capabilities.InvalidResourceError{ResourceType: "ClaimResponse"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (r4b.ClinicalImpression, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ClinicalImpression{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ClinicalImpression)
+	if !ok {
+		return r4b.ClinicalImpression{}, capabilities.InvalidResourceError{ResourceType: "ClinicalImpression"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (r4b.ClinicalUseDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ClinicalUseDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ClinicalUseDefinition)
+	if !ok {
+		return r4b.ClinicalUseDefinition{}, capabilities.InvalidResourceError{ResourceType: "ClinicalUseDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (r4b.CodeSystem, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CodeSystem{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CodeSystem)
+	if !ok {
+		return r4b.CodeSystem{}, capabilities.InvalidResourceError{ResourceType: "CodeSystem"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCommunication(ctx context.Context, resource r4b.Communication) (r4b.Communication, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Communication{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Communication)
+	if !ok {
+		return r4b.Communication{}, capabilities.InvalidResourceError{ResourceType: "Communication"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (r4b.CommunicationRequest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CommunicationRequest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CommunicationRequest)
+	if !ok {
+		return r4b.CommunicationRequest{}, capabilities.InvalidResourceError{ResourceType: "CommunicationRequest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (r4b.CompartmentDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CompartmentDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CompartmentDefinition)
+	if !ok {
+		return r4b.CompartmentDefinition{}, capabilities.InvalidResourceError{ResourceType: "CompartmentDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateComposition(ctx context.Context, resource r4b.Composition) (r4b.Composition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Composition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Composition)
+	if !ok {
+		return r4b.Composition{}, capabilities.InvalidResourceError{ResourceType: "Composition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateConceptMap(ctx context.Context, resource r4b.ConceptMap) (r4b.ConceptMap, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ConceptMap{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ConceptMap)
+	if !ok {
+		return r4b.ConceptMap{}, capabilities.InvalidResourceError{ResourceType: "ConceptMap"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCondition(ctx context.Context, resource r4b.Condition) (r4b.Condition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Condition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Condition)
+	if !ok {
+		return r4b.Condition{}, capabilities.InvalidResourceError{ResourceType: "Condition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateConsent(ctx context.Context, resource r4b.Consent) (r4b.Consent, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Consent{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Consent)
+	if !ok {
+		return r4b.Consent{}, capabilities.InvalidResourceError{ResourceType: "Consent"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateContract(ctx context.Context, resource r4b.Contract) (r4b.Contract, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Contract{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Contract)
+	if !ok {
+		return r4b.Contract{}, capabilities.InvalidResourceError{ResourceType: "Contract"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCoverage(ctx context.Context, resource r4b.Coverage) (r4b.Coverage, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Coverage{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Coverage)
+	if !ok {
+		return r4b.Coverage{}, capabilities.InvalidResourceError{ResourceType: "Coverage"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (r4b.CoverageEligibilityRequest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CoverageEligibilityRequest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CoverageEligibilityRequest)
+	if !ok {
+		return r4b.CoverageEligibilityRequest{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityRequest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (r4b.CoverageEligibilityResponse, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.CoverageEligibilityResponse{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.CoverageEligibilityResponse)
+	if !ok {
+		return r4b.CoverageEligibilityResponse{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityResponse"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (r4b.DetectedIssue, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DetectedIssue{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DetectedIssue)
+	if !ok {
+		return r4b.DetectedIssue{}, capabilities.InvalidResourceError{ResourceType: "DetectedIssue"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDevice(ctx context.Context, resource r4b.Device) (r4b.Device, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Device{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Device)
+	if !ok {
+		return r4b.Device{}, capabilities.InvalidResourceError{ResourceType: "Device"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (r4b.DeviceDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DeviceDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DeviceDefinition)
+	if !ok {
+		return r4b.DeviceDefinition{}, capabilities.InvalidResourceError{ResourceType: "DeviceDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (r4b.DeviceMetric, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DeviceMetric{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DeviceMetric)
+	if !ok {
+		return r4b.DeviceMetric{}, capabilities.InvalidResourceError{ResourceType: "DeviceMetric"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (r4b.DeviceRequest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DeviceRequest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DeviceRequest)
+	if !ok {
+		return r4b.DeviceRequest{}, capabilities.InvalidResourceError{ResourceType: "DeviceRequest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (r4b.DeviceUseStatement, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DeviceUseStatement{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DeviceUseStatement)
+	if !ok {
+		return r4b.DeviceUseStatement{}, capabilities.InvalidResourceError{ResourceType: "DeviceUseStatement"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (r4b.DiagnosticReport, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DiagnosticReport{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DiagnosticReport)
+	if !ok {
+		return r4b.DiagnosticReport{}, capabilities.InvalidResourceError{ResourceType: "DiagnosticReport"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (r4b.DocumentManifest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DocumentManifest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DocumentManifest)
+	if !ok {
+		return r4b.DocumentManifest{}, capabilities.InvalidResourceError{ResourceType: "DocumentManifest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (r4b.DocumentReference, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.DocumentReference{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.DocumentReference)
+	if !ok {
+		return r4b.DocumentReference{}, capabilities.InvalidResourceError{ResourceType: "DocumentReference"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEncounter(ctx context.Context, resource r4b.Encounter) (r4b.Encounter, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Encounter{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Encounter)
+	if !ok {
+		return r4b.Encounter{}, capabilities.InvalidResourceError{ResourceType: "Encounter"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEndpoint(ctx context.Context, resource r4b.Endpoint) (r4b.Endpoint, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Endpoint{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Endpoint)
+	if !ok {
+		return r4b.Endpoint{}, capabilities.InvalidResourceError{ResourceType: "Endpoint"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (r4b.EnrollmentRequest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.EnrollmentRequest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.EnrollmentRequest)
+	if !ok {
+		return r4b.EnrollmentRequest{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentRequest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (r4b.EnrollmentResponse, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.EnrollmentResponse{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.EnrollmentResponse)
+	if !ok {
+		return r4b.EnrollmentResponse{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentResponse"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (r4b.EpisodeOfCare, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.EpisodeOfCare{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.EpisodeOfCare)
+	if !ok {
+		return r4b.EpisodeOfCare{}, capabilities.InvalidResourceError{ResourceType: "EpisodeOfCare"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (r4b.EventDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.EventDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.EventDefinition)
+	if !ok {
+		return r4b.EventDefinition{}, capabilities.InvalidResourceError{ResourceType: "EventDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEvidence(ctx context.Context, resource r4b.Evidence) (r4b.Evidence, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Evidence{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Evidence)
+	if !ok {
+		return r4b.Evidence{}, capabilities.InvalidResourceError{ResourceType: "Evidence"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (r4b.EvidenceReport, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.EvidenceReport{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.EvidenceReport)
+	if !ok {
+		return r4b.EvidenceReport{}, capabilities.InvalidResourceError{ResourceType: "EvidenceReport"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (r4b.EvidenceVariable, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.EvidenceVariable{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.EvidenceVariable)
+	if !ok {
+		return r4b.EvidenceVariable{}, capabilities.InvalidResourceError{ResourceType: "EvidenceVariable"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (r4b.ExampleScenario, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ExampleScenario{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ExampleScenario)
+	if !ok {
+		return r4b.ExampleScenario{}, capabilities.InvalidResourceError{ResourceType: "ExampleScenario"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (r4b.ExplanationOfBenefit, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ExplanationOfBenefit{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ExplanationOfBenefit)
+	if !ok {
+		return r4b.ExplanationOfBenefit{}, capabilities.InvalidResourceError{ResourceType: "ExplanationOfBenefit"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (r4b.FamilyMemberHistory, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.FamilyMemberHistory{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.FamilyMemberHistory)
+	if !ok {
+		return r4b.FamilyMemberHistory{}, capabilities.InvalidResourceError{ResourceType: "FamilyMemberHistory"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateFlag(ctx context.Context, resource r4b.Flag) (r4b.Flag, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Flag{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Flag)
+	if !ok {
+		return r4b.Flag{}, capabilities.InvalidResourceError{ResourceType: "Flag"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateGoal(ctx context.Context, resource r4b.Goal) (r4b.Goal, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Goal{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Goal)
+	if !ok {
+		return r4b.Goal{}, capabilities.InvalidResourceError{ResourceType: "Goal"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (r4b.GraphDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.GraphDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.GraphDefinition)
+	if !ok {
+		return r4b.GraphDefinition{}, capabilities.InvalidResourceError{ResourceType: "GraphDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateGroup(ctx context.Context, resource r4b.Group) (r4b.Group, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Group{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Group)
+	if !ok {
+		return r4b.Group{}, capabilities.InvalidResourceError{ResourceType: "Group"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (r4b.GuidanceResponse, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.GuidanceResponse{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.GuidanceResponse)
+	if !ok {
+		return r4b.GuidanceResponse{}, capabilities.InvalidResourceError{ResourceType: "GuidanceResponse"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (r4b.HealthcareService, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.HealthcareService{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.HealthcareService)
+	if !ok {
+		return r4b.HealthcareService{}, capabilities.InvalidResourceError{ResourceType: "HealthcareService"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (r4b.ImagingStudy, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ImagingStudy{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ImagingStudy)
+	if !ok {
+		return r4b.ImagingStudy{}, capabilities.InvalidResourceError{ResourceType: "ImagingStudy"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateImmunization(ctx context.Context, resource r4b.Immunization) (r4b.Immunization, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Immunization{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Immunization)
+	if !ok {
+		return r4b.Immunization{}, capabilities.InvalidResourceError{ResourceType: "Immunization"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (r4b.ImmunizationEvaluation, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ImmunizationEvaluation{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ImmunizationEvaluation)
+	if !ok {
+		return r4b.ImmunizationEvaluation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationEvaluation"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (r4b.ImmunizationRecommendation, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ImmunizationRecommendation{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ImmunizationRecommendation)
+	if !ok {
+		return r4b.ImmunizationRecommendation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationRecommendation"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (r4b.ImplementationGuide, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ImplementationGuide{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ImplementationGuide)
+	if !ok {
+		return r4b.ImplementationGuide{}, capabilities.InvalidResourceError{ResourceType: "ImplementationGuide"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateIngredient(ctx context.Context, resource r4b.Ingredient) (r4b.Ingredient, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Ingredient{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Ingredient)
+	if !ok {
+		return r4b.Ingredient{}, capabilities.InvalidResourceError{ResourceType: "Ingredient"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (r4b.InsurancePlan, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.InsurancePlan{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.InsurancePlan)
+	if !ok {
+		return r4b.InsurancePlan{}, capabilities.InvalidResourceError{ResourceType: "InsurancePlan"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateInvoice(ctx context.Context, resource r4b.Invoice) (r4b.Invoice, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Invoice{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Invoice)
+	if !ok {
+		return r4b.Invoice{}, capabilities.InvalidResourceError{ResourceType: "Invoice"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateLibrary(ctx context.Context, resource r4b.Library) (r4b.Library, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Library{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Library)
+	if !ok {
+		return r4b.Library{}, capabilities.InvalidResourceError{ResourceType: "Library"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateLinkage(ctx context.Context, resource r4b.Linkage) (r4b.Linkage, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Linkage{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Linkage)
+	if !ok {
+		return r4b.Linkage{}, capabilities.InvalidResourceError{ResourceType: "Linkage"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateList(ctx context.Context, resource r4b.List) (r4b.List, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.List{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.List)
+	if !ok {
+		return r4b.List{}, capabilities.InvalidResourceError{ResourceType: "List"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateLocation(ctx context.Context, resource r4b.Location) (r4b.Location, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Location{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Location)
+	if !ok {
+		return r4b.Location{}, capabilities.InvalidResourceError{ResourceType: "Location"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (r4b.ManufacturedItemDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ManufacturedItemDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ManufacturedItemDefinition)
+	if !ok {
+		return r4b.ManufacturedItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ManufacturedItemDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMeasure(ctx context.Context, resource r4b.Measure) (r4b.Measure, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Measure{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Measure)
+	if !ok {
+		return r4b.Measure{}, capabilities.InvalidResourceError{ResourceType: "Measure"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (r4b.MeasureReport, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MeasureReport{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MeasureReport)
+	if !ok {
+		return r4b.MeasureReport{}, capabilities.InvalidResourceError{ResourceType: "MeasureReport"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedia(ctx context.Context, resource r4b.Media) (r4b.Media, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Media{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Media)
+	if !ok {
+		return r4b.Media{}, capabilities.InvalidResourceError{ResourceType: "Media"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedication(ctx context.Context, resource r4b.Medication) (r4b.Medication, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Medication{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Medication)
+	if !ok {
+		return r4b.Medication{}, capabilities.InvalidResourceError{ResourceType: "Medication"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (r4b.MedicationAdministration, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MedicationAdministration{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MedicationAdministration)
+	if !ok {
+		return r4b.MedicationAdministration{}, capabilities.InvalidResourceError{ResourceType: "MedicationAdministration"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (r4b.MedicationDispense, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MedicationDispense{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MedicationDispense)
+	if !ok {
+		return r4b.MedicationDispense{}, capabilities.InvalidResourceError{ResourceType: "MedicationDispense"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (r4b.MedicationKnowledge, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MedicationKnowledge{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MedicationKnowledge)
+	if !ok {
+		return r4b.MedicationKnowledge{}, capabilities.InvalidResourceError{ResourceType: "MedicationKnowledge"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (r4b.MedicationRequest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MedicationRequest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MedicationRequest)
+	if !ok {
+		return r4b.MedicationRequest{}, capabilities.InvalidResourceError{ResourceType: "MedicationRequest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (r4b.MedicationStatement, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MedicationStatement{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MedicationStatement)
+	if !ok {
+		return r4b.MedicationStatement{}, capabilities.InvalidResourceError{ResourceType: "MedicationStatement"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (r4b.MedicinalProductDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MedicinalProductDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MedicinalProductDefinition)
+	if !ok {
+		return r4b.MedicinalProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "MedicinalProductDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (r4b.MessageDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MessageDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MessageDefinition)
+	if !ok {
+		return r4b.MessageDefinition{}, capabilities.InvalidResourceError{ResourceType: "MessageDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (r4b.MessageHeader, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MessageHeader{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MessageHeader)
+	if !ok {
+		return r4b.MessageHeader{}, capabilities.InvalidResourceError{ResourceType: "MessageHeader"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (r4b.MolecularSequence, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.MolecularSequence{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.MolecularSequence)
+	if !ok {
+		return r4b.MolecularSequence{}, capabilities.InvalidResourceError{ResourceType: "MolecularSequence"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (r4b.NamingSystem, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.NamingSystem{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.NamingSystem)
+	if !ok {
+		return r4b.NamingSystem{}, capabilities.InvalidResourceError{ResourceType: "NamingSystem"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (r4b.NutritionOrder, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.NutritionOrder{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.NutritionOrder)
+	if !ok {
+		return r4b.NutritionOrder{}, capabilities.InvalidResourceError{ResourceType: "NutritionOrder"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (r4b.NutritionProduct, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.NutritionProduct{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.NutritionProduct)
+	if !ok {
+		return r4b.NutritionProduct{}, capabilities.InvalidResourceError{ResourceType: "NutritionProduct"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateObservation(ctx context.Context, resource r4b.Observation) (r4b.Observation, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Observation{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Observation)
+	if !ok {
+		return r4b.Observation{}, capabilities.InvalidResourceError{ResourceType: "Observation"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (r4b.ObservationDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ObservationDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ObservationDefinition)
+	if !ok {
+		return r4b.ObservationDefinition{}, capabilities.InvalidResourceError{ResourceType: "ObservationDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (r4b.OperationDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.OperationDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.OperationDefinition)
+	if !ok {
+		return r4b.OperationDefinition{}, capabilities.InvalidResourceError{ResourceType: "OperationDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (r4b.OperationOutcome, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.OperationOutcome{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.OperationOutcome)
+	if !ok {
+		return r4b.OperationOutcome{}, capabilities.InvalidResourceError{ResourceType: "OperationOutcome"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateOrganization(ctx context.Context, resource r4b.Organization) (r4b.Organization, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Organization{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Organization)
+	if !ok {
+		return r4b.Organization{}, capabilities.InvalidResourceError{ResourceType: "Organization"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (r4b.OrganizationAffiliation, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.OrganizationAffiliation{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.OrganizationAffiliation)
+	if !ok {
+		return r4b.OrganizationAffiliation{}, capabilities.InvalidResourceError{ResourceType: "OrganizationAffiliation"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (r4b.PackagedProductDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.PackagedProductDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.PackagedProductDefinition)
+	if !ok {
+		return r4b.PackagedProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "PackagedProductDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateParameters(ctx context.Context, resource r4b.Parameters) (r4b.Parameters, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Parameters{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Parameters)
+	if !ok {
+		return r4b.Parameters{}, capabilities.InvalidResourceError{ResourceType: "Parameters"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePatient(ctx context.Context, resource r4b.Patient) (r4b.Patient, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Patient{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Patient)
+	if !ok {
+		return r4b.Patient{}, capabilities.InvalidResourceError{ResourceType: "Patient"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (r4b.PaymentNotice, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.PaymentNotice{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.PaymentNotice)
+	if !ok {
+		return r4b.PaymentNotice{}, capabilities.InvalidResourceError{ResourceType: "PaymentNotice"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (r4b.PaymentReconciliation, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.PaymentReconciliation{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.PaymentReconciliation)
+	if !ok {
+		return r4b.PaymentReconciliation{}, capabilities.InvalidResourceError{ResourceType: "PaymentReconciliation"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePerson(ctx context.Context, resource r4b.Person) (r4b.Person, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Person{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Person)
+	if !ok {
+		return r4b.Person{}, capabilities.InvalidResourceError{ResourceType: "Person"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (r4b.PlanDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.PlanDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.PlanDefinition)
+	if !ok {
+		return r4b.PlanDefinition{}, capabilities.InvalidResourceError{ResourceType: "PlanDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePractitioner(ctx context.Context, resource r4b.Practitioner) (r4b.Practitioner, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Practitioner{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Practitioner)
+	if !ok {
+		return r4b.Practitioner{}, capabilities.InvalidResourceError{ResourceType: "Practitioner"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (r4b.PractitionerRole, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.PractitionerRole{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.PractitionerRole)
+	if !ok {
+		return r4b.PractitionerRole{}, capabilities.InvalidResourceError{ResourceType: "PractitionerRole"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateProcedure(ctx context.Context, resource r4b.Procedure) (r4b.Procedure, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Procedure{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Procedure)
+	if !ok {
+		return r4b.Procedure{}, capabilities.InvalidResourceError{ResourceType: "Procedure"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateProvenance(ctx context.Context, resource r4b.Provenance) (r4b.Provenance, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Provenance{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Provenance)
+	if !ok {
+		return r4b.Provenance{}, capabilities.InvalidResourceError{ResourceType: "Provenance"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (r4b.Questionnaire, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Questionnaire{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Questionnaire)
+	if !ok {
+		return r4b.Questionnaire{}, capabilities.InvalidResourceError{ResourceType: "Questionnaire"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (r4b.QuestionnaireResponse, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.QuestionnaireResponse{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.QuestionnaireResponse)
+	if !ok {
+		return r4b.QuestionnaireResponse{}, capabilities.InvalidResourceError{ResourceType: "QuestionnaireResponse"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (r4b.RegulatedAuthorization, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.RegulatedAuthorization{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.RegulatedAuthorization)
+	if !ok {
+		return r4b.RegulatedAuthorization{}, capabilities.InvalidResourceError{ResourceType: "RegulatedAuthorization"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (r4b.RelatedPerson, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.RelatedPerson{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.RelatedPerson)
+	if !ok {
+		return r4b.RelatedPerson{}, capabilities.InvalidResourceError{ResourceType: "RelatedPerson"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (r4b.RequestGroup, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.RequestGroup{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.RequestGroup)
+	if !ok {
+		return r4b.RequestGroup{}, capabilities.InvalidResourceError{ResourceType: "RequestGroup"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (r4b.ResearchDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ResearchDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ResearchDefinition)
+	if !ok {
+		return r4b.ResearchDefinition{}, capabilities.InvalidResourceError{ResourceType: "ResearchDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (r4b.ResearchElementDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ResearchElementDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ResearchElementDefinition)
+	if !ok {
+		return r4b.ResearchElementDefinition{}, capabilities.InvalidResourceError{ResourceType: "ResearchElementDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (r4b.ResearchStudy, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ResearchStudy{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ResearchStudy)
+	if !ok {
+		return r4b.ResearchStudy{}, capabilities.InvalidResourceError{ResourceType: "ResearchStudy"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (r4b.ResearchSubject, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ResearchSubject{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ResearchSubject)
+	if !ok {
+		return r4b.ResearchSubject{}, capabilities.InvalidResourceError{ResourceType: "ResearchSubject"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (r4b.RiskAssessment, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.RiskAssessment{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.RiskAssessment)
+	if !ok {
+		return r4b.RiskAssessment{}, capabilities.InvalidResourceError{ResourceType: "RiskAssessment"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSchedule(ctx context.Context, resource r4b.Schedule) (r4b.Schedule, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Schedule{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Schedule)
+	if !ok {
+		return r4b.Schedule{}, capabilities.InvalidResourceError{ResourceType: "Schedule"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (r4b.SearchParameter, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.SearchParameter{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.SearchParameter)
+	if !ok {
+		return r4b.SearchParameter{}, capabilities.InvalidResourceError{ResourceType: "SearchParameter"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (r4b.ServiceRequest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ServiceRequest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ServiceRequest)
+	if !ok {
+		return r4b.ServiceRequest{}, capabilities.InvalidResourceError{ResourceType: "ServiceRequest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSlot(ctx context.Context, resource r4b.Slot) (r4b.Slot, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Slot{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Slot)
+	if !ok {
+		return r4b.Slot{}, capabilities.InvalidResourceError{ResourceType: "Slot"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSpecimen(ctx context.Context, resource r4b.Specimen) (r4b.Specimen, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Specimen{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Specimen)
+	if !ok {
+		return r4b.Specimen{}, capabilities.InvalidResourceError{ResourceType: "Specimen"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (r4b.SpecimenDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.SpecimenDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.SpecimenDefinition)
+	if !ok {
+		return r4b.SpecimenDefinition{}, capabilities.InvalidResourceError{ResourceType: "SpecimenDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (r4b.StructureDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.StructureDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.StructureDefinition)
+	if !ok {
+		return r4b.StructureDefinition{}, capabilities.InvalidResourceError{ResourceType: "StructureDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateStructureMap(ctx context.Context, resource r4b.StructureMap) (r4b.StructureMap, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.StructureMap{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.StructureMap)
+	if !ok {
+		return r4b.StructureMap{}, capabilities.InvalidResourceError{ResourceType: "StructureMap"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSubscription(ctx context.Context, resource r4b.Subscription) (r4b.Subscription, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Subscription{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Subscription)
+	if !ok {
+		return r4b.Subscription{}, capabilities.InvalidResourceError{ResourceType: "Subscription"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (r4b.SubscriptionStatus, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.SubscriptionStatus{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.SubscriptionStatus)
+	if !ok {
+		return r4b.SubscriptionStatus{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionStatus"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (r4b.SubscriptionTopic, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.SubscriptionTopic{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.SubscriptionTopic)
+	if !ok {
+		return r4b.SubscriptionTopic{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionTopic"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSubstance(ctx context.Context, resource r4b.Substance) (r4b.Substance, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Substance{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Substance)
+	if !ok {
+		return r4b.Substance{}, capabilities.InvalidResourceError{ResourceType: "Substance"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (r4b.SubstanceDefinition, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.SubstanceDefinition{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.SubstanceDefinition)
+	if !ok {
+		return r4b.SubstanceDefinition{}, capabilities.InvalidResourceError{ResourceType: "SubstanceDefinition"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (r4b.SupplyDelivery, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.SupplyDelivery{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.SupplyDelivery)
+	if !ok {
+		return r4b.SupplyDelivery{}, capabilities.InvalidResourceError{ResourceType: "SupplyDelivery"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (r4b.SupplyRequest, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.SupplyRequest{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.SupplyRequest)
+	if !ok {
+		return r4b.SupplyRequest{}, capabilities.InvalidResourceError{ResourceType: "SupplyRequest"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateTask(ctx context.Context, resource r4b.Task) (r4b.Task, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.Task{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.Task)
+	if !ok {
+		return r4b.Task{}, capabilities.InvalidResourceError{ResourceType: "Task"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (r4b.TerminologyCapabilities, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.TerminologyCapabilities{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.TerminologyCapabilities)
+	if !ok {
+		return r4b.TerminologyCapabilities{}, capabilities.InvalidResourceError{ResourceType: "TerminologyCapabilities"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateTestReport(ctx context.Context, resource r4b.TestReport) (r4b.TestReport, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.TestReport{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.TestReport)
+	if !ok {
+		return r4b.TestReport{}, capabilities.InvalidResourceError{ResourceType: "TestReport"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateTestScript(ctx context.Context, resource r4b.TestScript) (r4b.TestScript, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.TestScript{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.TestScript)
+	if !ok {
+		return r4b.TestScript{}, capabilities.InvalidResourceError{ResourceType: "TestScript"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateValueSet(ctx context.Context, resource r4b.ValueSet) (r4b.ValueSet, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.ValueSet{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.ValueSet)
+	if !ok {
+		return r4b.ValueSet{}, capabilities.InvalidResourceError{ResourceType: "ValueSet"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (r4b.VerificationResult, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.VerificationResult{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.VerificationResult)
+	if !ok {
+		return r4b.VerificationResult{}, capabilities.InvalidResourceError{ResourceType: "VerificationResult"}
+	}
+	return impl, nil
+}
+func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (r4b.VisionPrescription, capabilities.FHIRError) {
+	v, err := w.Generic.Create(ctx, resource)
+	if err != nil {
+		return r4b.VisionPrescription{}, err
+	}
+	contained, ok := v.(r4b.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	impl, ok := v.(r4b.VisionPrescription)
+	if !ok {
+		return r4b.VisionPrescription{}, capabilities.InvalidResourceError{ResourceType: "VisionPrescription"}
+	}
+	return impl, nil
+}
 func (w Concrete) ReadAccount(ctx context.Context, id string) (r4b.Account, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Account", id)
 	if err != nil {

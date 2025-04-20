@@ -12,8 +12,12 @@ import (
 
 func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, capabilities.FHIRError) {
 	var errs []capabilities.FHIRError
+	create := []string{}
 	read := []string{}
 	search := map[string]search.Capabilities{}
+	if _, ok := api.(AccountCreate); ok {
+		create = append(create, "Account")
+	}
 	if _, ok := api.(AccountRead); ok {
 		read = append(read, "Account")
 	}
@@ -24,6 +28,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Account"] = capability
 		}
+	}
+	if _, ok := api.(ActivityDefinitionCreate); ok {
+		create = append(create, "ActivityDefinition")
 	}
 	if _, ok := api.(ActivityDefinitionRead); ok {
 		read = append(read, "ActivityDefinition")
@@ -36,6 +43,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ActivityDefinition"] = capability
 		}
 	}
+	if _, ok := api.(AdministrableProductDefinitionCreate); ok {
+		create = append(create, "AdministrableProductDefinition")
+	}
 	if _, ok := api.(AdministrableProductDefinitionRead); ok {
 		read = append(read, "AdministrableProductDefinition")
 	}
@@ -46,6 +56,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["AdministrableProductDefinition"] = capability
 		}
+	}
+	if _, ok := api.(AdverseEventCreate); ok {
+		create = append(create, "AdverseEvent")
 	}
 	if _, ok := api.(AdverseEventRead); ok {
 		read = append(read, "AdverseEvent")
@@ -58,6 +71,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["AdverseEvent"] = capability
 		}
 	}
+	if _, ok := api.(AllergyIntoleranceCreate); ok {
+		create = append(create, "AllergyIntolerance")
+	}
 	if _, ok := api.(AllergyIntoleranceRead); ok {
 		read = append(read, "AllergyIntolerance")
 	}
@@ -68,6 +84,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["AllergyIntolerance"] = capability
 		}
+	}
+	if _, ok := api.(AppointmentCreate); ok {
+		create = append(create, "Appointment")
 	}
 	if _, ok := api.(AppointmentRead); ok {
 		read = append(read, "Appointment")
@@ -80,6 +99,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Appointment"] = capability
 		}
 	}
+	if _, ok := api.(AppointmentResponseCreate); ok {
+		create = append(create, "AppointmentResponse")
+	}
 	if _, ok := api.(AppointmentResponseRead); ok {
 		read = append(read, "AppointmentResponse")
 	}
@@ -90,6 +112,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["AppointmentResponse"] = capability
 		}
+	}
+	if _, ok := api.(AuditEventCreate); ok {
+		create = append(create, "AuditEvent")
 	}
 	if _, ok := api.(AuditEventRead); ok {
 		read = append(read, "AuditEvent")
@@ -102,6 +127,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["AuditEvent"] = capability
 		}
 	}
+	if _, ok := api.(BasicCreate); ok {
+		create = append(create, "Basic")
+	}
 	if _, ok := api.(BasicRead); ok {
 		read = append(read, "Basic")
 	}
@@ -112,6 +140,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Basic"] = capability
 		}
+	}
+	if _, ok := api.(BinaryCreate); ok {
+		create = append(create, "Binary")
 	}
 	if _, ok := api.(BinaryRead); ok {
 		read = append(read, "Binary")
@@ -124,6 +155,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Binary"] = capability
 		}
 	}
+	if _, ok := api.(BiologicallyDerivedProductCreate); ok {
+		create = append(create, "BiologicallyDerivedProduct")
+	}
 	if _, ok := api.(BiologicallyDerivedProductRead); ok {
 		read = append(read, "BiologicallyDerivedProduct")
 	}
@@ -134,6 +168,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["BiologicallyDerivedProduct"] = capability
 		}
+	}
+	if _, ok := api.(BodyStructureCreate); ok {
+		create = append(create, "BodyStructure")
 	}
 	if _, ok := api.(BodyStructureRead); ok {
 		read = append(read, "BodyStructure")
@@ -146,6 +183,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["BodyStructure"] = capability
 		}
 	}
+	if _, ok := api.(BundleCreate); ok {
+		create = append(create, "Bundle")
+	}
 	if _, ok := api.(BundleRead); ok {
 		read = append(read, "Bundle")
 	}
@@ -156,6 +196,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Bundle"] = capability
 		}
+	}
+	if _, ok := api.(CapabilityStatementCreate); ok {
+		create = append(create, "CapabilityStatement")
 	}
 	if _, ok := api.(CapabilityStatementRead); ok {
 		read = append(read, "CapabilityStatement")
@@ -168,6 +211,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["CapabilityStatement"] = capability
 		}
 	}
+	if _, ok := api.(CarePlanCreate); ok {
+		create = append(create, "CarePlan")
+	}
 	if _, ok := api.(CarePlanRead); ok {
 		read = append(read, "CarePlan")
 	}
@@ -178,6 +224,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["CarePlan"] = capability
 		}
+	}
+	if _, ok := api.(CareTeamCreate); ok {
+		create = append(create, "CareTeam")
 	}
 	if _, ok := api.(CareTeamRead); ok {
 		read = append(read, "CareTeam")
@@ -190,6 +239,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["CareTeam"] = capability
 		}
 	}
+	if _, ok := api.(CatalogEntryCreate); ok {
+		create = append(create, "CatalogEntry")
+	}
 	if _, ok := api.(CatalogEntryRead); ok {
 		read = append(read, "CatalogEntry")
 	}
@@ -200,6 +252,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["CatalogEntry"] = capability
 		}
+	}
+	if _, ok := api.(ChargeItemCreate); ok {
+		create = append(create, "ChargeItem")
 	}
 	if _, ok := api.(ChargeItemRead); ok {
 		read = append(read, "ChargeItem")
@@ -212,6 +267,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ChargeItem"] = capability
 		}
 	}
+	if _, ok := api.(ChargeItemDefinitionCreate); ok {
+		create = append(create, "ChargeItemDefinition")
+	}
 	if _, ok := api.(ChargeItemDefinitionRead); ok {
 		read = append(read, "ChargeItemDefinition")
 	}
@@ -222,6 +280,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["ChargeItemDefinition"] = capability
 		}
+	}
+	if _, ok := api.(CitationCreate); ok {
+		create = append(create, "Citation")
 	}
 	if _, ok := api.(CitationRead); ok {
 		read = append(read, "Citation")
@@ -234,6 +295,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Citation"] = capability
 		}
 	}
+	if _, ok := api.(ClaimCreate); ok {
+		create = append(create, "Claim")
+	}
 	if _, ok := api.(ClaimRead); ok {
 		read = append(read, "Claim")
 	}
@@ -244,6 +308,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Claim"] = capability
 		}
+	}
+	if _, ok := api.(ClaimResponseCreate); ok {
+		create = append(create, "ClaimResponse")
 	}
 	if _, ok := api.(ClaimResponseRead); ok {
 		read = append(read, "ClaimResponse")
@@ -256,6 +323,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ClaimResponse"] = capability
 		}
 	}
+	if _, ok := api.(ClinicalImpressionCreate); ok {
+		create = append(create, "ClinicalImpression")
+	}
 	if _, ok := api.(ClinicalImpressionRead); ok {
 		read = append(read, "ClinicalImpression")
 	}
@@ -266,6 +336,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["ClinicalImpression"] = capability
 		}
+	}
+	if _, ok := api.(ClinicalUseDefinitionCreate); ok {
+		create = append(create, "ClinicalUseDefinition")
 	}
 	if _, ok := api.(ClinicalUseDefinitionRead); ok {
 		read = append(read, "ClinicalUseDefinition")
@@ -278,6 +351,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ClinicalUseDefinition"] = capability
 		}
 	}
+	if _, ok := api.(CodeSystemCreate); ok {
+		create = append(create, "CodeSystem")
+	}
 	if _, ok := api.(CodeSystemRead); ok {
 		read = append(read, "CodeSystem")
 	}
@@ -288,6 +364,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["CodeSystem"] = capability
 		}
+	}
+	if _, ok := api.(CommunicationCreate); ok {
+		create = append(create, "Communication")
 	}
 	if _, ok := api.(CommunicationRead); ok {
 		read = append(read, "Communication")
@@ -300,6 +379,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Communication"] = capability
 		}
 	}
+	if _, ok := api.(CommunicationRequestCreate); ok {
+		create = append(create, "CommunicationRequest")
+	}
 	if _, ok := api.(CommunicationRequestRead); ok {
 		read = append(read, "CommunicationRequest")
 	}
@@ -310,6 +392,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["CommunicationRequest"] = capability
 		}
+	}
+	if _, ok := api.(CompartmentDefinitionCreate); ok {
+		create = append(create, "CompartmentDefinition")
 	}
 	if _, ok := api.(CompartmentDefinitionRead); ok {
 		read = append(read, "CompartmentDefinition")
@@ -322,6 +407,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["CompartmentDefinition"] = capability
 		}
 	}
+	if _, ok := api.(CompositionCreate); ok {
+		create = append(create, "Composition")
+	}
 	if _, ok := api.(CompositionRead); ok {
 		read = append(read, "Composition")
 	}
@@ -332,6 +420,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Composition"] = capability
 		}
+	}
+	if _, ok := api.(ConceptMapCreate); ok {
+		create = append(create, "ConceptMap")
 	}
 	if _, ok := api.(ConceptMapRead); ok {
 		read = append(read, "ConceptMap")
@@ -344,6 +435,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ConceptMap"] = capability
 		}
 	}
+	if _, ok := api.(ConditionCreate); ok {
+		create = append(create, "Condition")
+	}
 	if _, ok := api.(ConditionRead); ok {
 		read = append(read, "Condition")
 	}
@@ -354,6 +448,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Condition"] = capability
 		}
+	}
+	if _, ok := api.(ConsentCreate); ok {
+		create = append(create, "Consent")
 	}
 	if _, ok := api.(ConsentRead); ok {
 		read = append(read, "Consent")
@@ -366,6 +463,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Consent"] = capability
 		}
 	}
+	if _, ok := api.(ContractCreate); ok {
+		create = append(create, "Contract")
+	}
 	if _, ok := api.(ContractRead); ok {
 		read = append(read, "Contract")
 	}
@@ -376,6 +476,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Contract"] = capability
 		}
+	}
+	if _, ok := api.(CoverageCreate); ok {
+		create = append(create, "Coverage")
 	}
 	if _, ok := api.(CoverageRead); ok {
 		read = append(read, "Coverage")
@@ -388,6 +491,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Coverage"] = capability
 		}
 	}
+	if _, ok := api.(CoverageEligibilityRequestCreate); ok {
+		create = append(create, "CoverageEligibilityRequest")
+	}
 	if _, ok := api.(CoverageEligibilityRequestRead); ok {
 		read = append(read, "CoverageEligibilityRequest")
 	}
@@ -398,6 +504,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["CoverageEligibilityRequest"] = capability
 		}
+	}
+	if _, ok := api.(CoverageEligibilityResponseCreate); ok {
+		create = append(create, "CoverageEligibilityResponse")
 	}
 	if _, ok := api.(CoverageEligibilityResponseRead); ok {
 		read = append(read, "CoverageEligibilityResponse")
@@ -410,6 +519,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["CoverageEligibilityResponse"] = capability
 		}
 	}
+	if _, ok := api.(DetectedIssueCreate); ok {
+		create = append(create, "DetectedIssue")
+	}
 	if _, ok := api.(DetectedIssueRead); ok {
 		read = append(read, "DetectedIssue")
 	}
@@ -420,6 +532,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["DetectedIssue"] = capability
 		}
+	}
+	if _, ok := api.(DeviceCreate); ok {
+		create = append(create, "Device")
 	}
 	if _, ok := api.(DeviceRead); ok {
 		read = append(read, "Device")
@@ -432,6 +547,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Device"] = capability
 		}
 	}
+	if _, ok := api.(DeviceDefinitionCreate); ok {
+		create = append(create, "DeviceDefinition")
+	}
 	if _, ok := api.(DeviceDefinitionRead); ok {
 		read = append(read, "DeviceDefinition")
 	}
@@ -442,6 +560,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["DeviceDefinition"] = capability
 		}
+	}
+	if _, ok := api.(DeviceMetricCreate); ok {
+		create = append(create, "DeviceMetric")
 	}
 	if _, ok := api.(DeviceMetricRead); ok {
 		read = append(read, "DeviceMetric")
@@ -454,6 +575,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["DeviceMetric"] = capability
 		}
 	}
+	if _, ok := api.(DeviceRequestCreate); ok {
+		create = append(create, "DeviceRequest")
+	}
 	if _, ok := api.(DeviceRequestRead); ok {
 		read = append(read, "DeviceRequest")
 	}
@@ -464,6 +588,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["DeviceRequest"] = capability
 		}
+	}
+	if _, ok := api.(DeviceUseStatementCreate); ok {
+		create = append(create, "DeviceUseStatement")
 	}
 	if _, ok := api.(DeviceUseStatementRead); ok {
 		read = append(read, "DeviceUseStatement")
@@ -476,6 +603,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["DeviceUseStatement"] = capability
 		}
 	}
+	if _, ok := api.(DiagnosticReportCreate); ok {
+		create = append(create, "DiagnosticReport")
+	}
 	if _, ok := api.(DiagnosticReportRead); ok {
 		read = append(read, "DiagnosticReport")
 	}
@@ -486,6 +616,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["DiagnosticReport"] = capability
 		}
+	}
+	if _, ok := api.(DocumentManifestCreate); ok {
+		create = append(create, "DocumentManifest")
 	}
 	if _, ok := api.(DocumentManifestRead); ok {
 		read = append(read, "DocumentManifest")
@@ -498,6 +631,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["DocumentManifest"] = capability
 		}
 	}
+	if _, ok := api.(DocumentReferenceCreate); ok {
+		create = append(create, "DocumentReference")
+	}
 	if _, ok := api.(DocumentReferenceRead); ok {
 		read = append(read, "DocumentReference")
 	}
@@ -508,6 +644,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["DocumentReference"] = capability
 		}
+	}
+	if _, ok := api.(EncounterCreate); ok {
+		create = append(create, "Encounter")
 	}
 	if _, ok := api.(EncounterRead); ok {
 		read = append(read, "Encounter")
@@ -520,6 +659,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Encounter"] = capability
 		}
 	}
+	if _, ok := api.(EndpointCreate); ok {
+		create = append(create, "Endpoint")
+	}
 	if _, ok := api.(EndpointRead); ok {
 		read = append(read, "Endpoint")
 	}
@@ -530,6 +672,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Endpoint"] = capability
 		}
+	}
+	if _, ok := api.(EnrollmentRequestCreate); ok {
+		create = append(create, "EnrollmentRequest")
 	}
 	if _, ok := api.(EnrollmentRequestRead); ok {
 		read = append(read, "EnrollmentRequest")
@@ -542,6 +687,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["EnrollmentRequest"] = capability
 		}
 	}
+	if _, ok := api.(EnrollmentResponseCreate); ok {
+		create = append(create, "EnrollmentResponse")
+	}
 	if _, ok := api.(EnrollmentResponseRead); ok {
 		read = append(read, "EnrollmentResponse")
 	}
@@ -552,6 +700,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["EnrollmentResponse"] = capability
 		}
+	}
+	if _, ok := api.(EpisodeOfCareCreate); ok {
+		create = append(create, "EpisodeOfCare")
 	}
 	if _, ok := api.(EpisodeOfCareRead); ok {
 		read = append(read, "EpisodeOfCare")
@@ -564,6 +715,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["EpisodeOfCare"] = capability
 		}
 	}
+	if _, ok := api.(EventDefinitionCreate); ok {
+		create = append(create, "EventDefinition")
+	}
 	if _, ok := api.(EventDefinitionRead); ok {
 		read = append(read, "EventDefinition")
 	}
@@ -574,6 +728,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["EventDefinition"] = capability
 		}
+	}
+	if _, ok := api.(EvidenceCreate); ok {
+		create = append(create, "Evidence")
 	}
 	if _, ok := api.(EvidenceRead); ok {
 		read = append(read, "Evidence")
@@ -586,6 +743,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Evidence"] = capability
 		}
 	}
+	if _, ok := api.(EvidenceReportCreate); ok {
+		create = append(create, "EvidenceReport")
+	}
 	if _, ok := api.(EvidenceReportRead); ok {
 		read = append(read, "EvidenceReport")
 	}
@@ -596,6 +756,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["EvidenceReport"] = capability
 		}
+	}
+	if _, ok := api.(EvidenceVariableCreate); ok {
+		create = append(create, "EvidenceVariable")
 	}
 	if _, ok := api.(EvidenceVariableRead); ok {
 		read = append(read, "EvidenceVariable")
@@ -608,6 +771,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["EvidenceVariable"] = capability
 		}
 	}
+	if _, ok := api.(ExampleScenarioCreate); ok {
+		create = append(create, "ExampleScenario")
+	}
 	if _, ok := api.(ExampleScenarioRead); ok {
 		read = append(read, "ExampleScenario")
 	}
@@ -618,6 +784,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["ExampleScenario"] = capability
 		}
+	}
+	if _, ok := api.(ExplanationOfBenefitCreate); ok {
+		create = append(create, "ExplanationOfBenefit")
 	}
 	if _, ok := api.(ExplanationOfBenefitRead); ok {
 		read = append(read, "ExplanationOfBenefit")
@@ -630,6 +799,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ExplanationOfBenefit"] = capability
 		}
 	}
+	if _, ok := api.(FamilyMemberHistoryCreate); ok {
+		create = append(create, "FamilyMemberHistory")
+	}
 	if _, ok := api.(FamilyMemberHistoryRead); ok {
 		read = append(read, "FamilyMemberHistory")
 	}
@@ -640,6 +812,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["FamilyMemberHistory"] = capability
 		}
+	}
+	if _, ok := api.(FlagCreate); ok {
+		create = append(create, "Flag")
 	}
 	if _, ok := api.(FlagRead); ok {
 		read = append(read, "Flag")
@@ -652,6 +827,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Flag"] = capability
 		}
 	}
+	if _, ok := api.(GoalCreate); ok {
+		create = append(create, "Goal")
+	}
 	if _, ok := api.(GoalRead); ok {
 		read = append(read, "Goal")
 	}
@@ -662,6 +840,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Goal"] = capability
 		}
+	}
+	if _, ok := api.(GraphDefinitionCreate); ok {
+		create = append(create, "GraphDefinition")
 	}
 	if _, ok := api.(GraphDefinitionRead); ok {
 		read = append(read, "GraphDefinition")
@@ -674,6 +855,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["GraphDefinition"] = capability
 		}
 	}
+	if _, ok := api.(GroupCreate); ok {
+		create = append(create, "Group")
+	}
 	if _, ok := api.(GroupRead); ok {
 		read = append(read, "Group")
 	}
@@ -684,6 +868,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Group"] = capability
 		}
+	}
+	if _, ok := api.(GuidanceResponseCreate); ok {
+		create = append(create, "GuidanceResponse")
 	}
 	if _, ok := api.(GuidanceResponseRead); ok {
 		read = append(read, "GuidanceResponse")
@@ -696,6 +883,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["GuidanceResponse"] = capability
 		}
 	}
+	if _, ok := api.(HealthcareServiceCreate); ok {
+		create = append(create, "HealthcareService")
+	}
 	if _, ok := api.(HealthcareServiceRead); ok {
 		read = append(read, "HealthcareService")
 	}
@@ -706,6 +896,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["HealthcareService"] = capability
 		}
+	}
+	if _, ok := api.(ImagingStudyCreate); ok {
+		create = append(create, "ImagingStudy")
 	}
 	if _, ok := api.(ImagingStudyRead); ok {
 		read = append(read, "ImagingStudy")
@@ -718,6 +911,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ImagingStudy"] = capability
 		}
 	}
+	if _, ok := api.(ImmunizationCreate); ok {
+		create = append(create, "Immunization")
+	}
 	if _, ok := api.(ImmunizationRead); ok {
 		read = append(read, "Immunization")
 	}
@@ -728,6 +924,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Immunization"] = capability
 		}
+	}
+	if _, ok := api.(ImmunizationEvaluationCreate); ok {
+		create = append(create, "ImmunizationEvaluation")
 	}
 	if _, ok := api.(ImmunizationEvaluationRead); ok {
 		read = append(read, "ImmunizationEvaluation")
@@ -740,6 +939,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ImmunizationEvaluation"] = capability
 		}
 	}
+	if _, ok := api.(ImmunizationRecommendationCreate); ok {
+		create = append(create, "ImmunizationRecommendation")
+	}
 	if _, ok := api.(ImmunizationRecommendationRead); ok {
 		read = append(read, "ImmunizationRecommendation")
 	}
@@ -750,6 +952,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["ImmunizationRecommendation"] = capability
 		}
+	}
+	if _, ok := api.(ImplementationGuideCreate); ok {
+		create = append(create, "ImplementationGuide")
 	}
 	if _, ok := api.(ImplementationGuideRead); ok {
 		read = append(read, "ImplementationGuide")
@@ -762,6 +967,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ImplementationGuide"] = capability
 		}
 	}
+	if _, ok := api.(IngredientCreate); ok {
+		create = append(create, "Ingredient")
+	}
 	if _, ok := api.(IngredientRead); ok {
 		read = append(read, "Ingredient")
 	}
@@ -772,6 +980,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Ingredient"] = capability
 		}
+	}
+	if _, ok := api.(InsurancePlanCreate); ok {
+		create = append(create, "InsurancePlan")
 	}
 	if _, ok := api.(InsurancePlanRead); ok {
 		read = append(read, "InsurancePlan")
@@ -784,6 +995,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["InsurancePlan"] = capability
 		}
 	}
+	if _, ok := api.(InvoiceCreate); ok {
+		create = append(create, "Invoice")
+	}
 	if _, ok := api.(InvoiceRead); ok {
 		read = append(read, "Invoice")
 	}
@@ -794,6 +1008,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Invoice"] = capability
 		}
+	}
+	if _, ok := api.(LibraryCreate); ok {
+		create = append(create, "Library")
 	}
 	if _, ok := api.(LibraryRead); ok {
 		read = append(read, "Library")
@@ -806,6 +1023,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Library"] = capability
 		}
 	}
+	if _, ok := api.(LinkageCreate); ok {
+		create = append(create, "Linkage")
+	}
 	if _, ok := api.(LinkageRead); ok {
 		read = append(read, "Linkage")
 	}
@@ -816,6 +1036,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Linkage"] = capability
 		}
+	}
+	if _, ok := api.(ListCreate); ok {
+		create = append(create, "List")
 	}
 	if _, ok := api.(ListRead); ok {
 		read = append(read, "List")
@@ -828,6 +1051,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["List"] = capability
 		}
 	}
+	if _, ok := api.(LocationCreate); ok {
+		create = append(create, "Location")
+	}
 	if _, ok := api.(LocationRead); ok {
 		read = append(read, "Location")
 	}
@@ -838,6 +1064,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Location"] = capability
 		}
+	}
+	if _, ok := api.(ManufacturedItemDefinitionCreate); ok {
+		create = append(create, "ManufacturedItemDefinition")
 	}
 	if _, ok := api.(ManufacturedItemDefinitionRead); ok {
 		read = append(read, "ManufacturedItemDefinition")
@@ -850,6 +1079,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ManufacturedItemDefinition"] = capability
 		}
 	}
+	if _, ok := api.(MeasureCreate); ok {
+		create = append(create, "Measure")
+	}
 	if _, ok := api.(MeasureRead); ok {
 		read = append(read, "Measure")
 	}
@@ -860,6 +1092,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Measure"] = capability
 		}
+	}
+	if _, ok := api.(MeasureReportCreate); ok {
+		create = append(create, "MeasureReport")
 	}
 	if _, ok := api.(MeasureReportRead); ok {
 		read = append(read, "MeasureReport")
@@ -872,6 +1107,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["MeasureReport"] = capability
 		}
 	}
+	if _, ok := api.(MediaCreate); ok {
+		create = append(create, "Media")
+	}
 	if _, ok := api.(MediaRead); ok {
 		read = append(read, "Media")
 	}
@@ -882,6 +1120,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Media"] = capability
 		}
+	}
+	if _, ok := api.(MedicationCreate); ok {
+		create = append(create, "Medication")
 	}
 	if _, ok := api.(MedicationRead); ok {
 		read = append(read, "Medication")
@@ -894,6 +1135,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Medication"] = capability
 		}
 	}
+	if _, ok := api.(MedicationAdministrationCreate); ok {
+		create = append(create, "MedicationAdministration")
+	}
 	if _, ok := api.(MedicationAdministrationRead); ok {
 		read = append(read, "MedicationAdministration")
 	}
@@ -904,6 +1148,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["MedicationAdministration"] = capability
 		}
+	}
+	if _, ok := api.(MedicationDispenseCreate); ok {
+		create = append(create, "MedicationDispense")
 	}
 	if _, ok := api.(MedicationDispenseRead); ok {
 		read = append(read, "MedicationDispense")
@@ -916,6 +1163,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["MedicationDispense"] = capability
 		}
 	}
+	if _, ok := api.(MedicationKnowledgeCreate); ok {
+		create = append(create, "MedicationKnowledge")
+	}
 	if _, ok := api.(MedicationKnowledgeRead); ok {
 		read = append(read, "MedicationKnowledge")
 	}
@@ -926,6 +1176,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["MedicationKnowledge"] = capability
 		}
+	}
+	if _, ok := api.(MedicationRequestCreate); ok {
+		create = append(create, "MedicationRequest")
 	}
 	if _, ok := api.(MedicationRequestRead); ok {
 		read = append(read, "MedicationRequest")
@@ -938,6 +1191,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["MedicationRequest"] = capability
 		}
 	}
+	if _, ok := api.(MedicationStatementCreate); ok {
+		create = append(create, "MedicationStatement")
+	}
 	if _, ok := api.(MedicationStatementRead); ok {
 		read = append(read, "MedicationStatement")
 	}
@@ -948,6 +1204,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["MedicationStatement"] = capability
 		}
+	}
+	if _, ok := api.(MedicinalProductDefinitionCreate); ok {
+		create = append(create, "MedicinalProductDefinition")
 	}
 	if _, ok := api.(MedicinalProductDefinitionRead); ok {
 		read = append(read, "MedicinalProductDefinition")
@@ -960,6 +1219,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["MedicinalProductDefinition"] = capability
 		}
 	}
+	if _, ok := api.(MessageDefinitionCreate); ok {
+		create = append(create, "MessageDefinition")
+	}
 	if _, ok := api.(MessageDefinitionRead); ok {
 		read = append(read, "MessageDefinition")
 	}
@@ -970,6 +1232,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["MessageDefinition"] = capability
 		}
+	}
+	if _, ok := api.(MessageHeaderCreate); ok {
+		create = append(create, "MessageHeader")
 	}
 	if _, ok := api.(MessageHeaderRead); ok {
 		read = append(read, "MessageHeader")
@@ -982,6 +1247,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["MessageHeader"] = capability
 		}
 	}
+	if _, ok := api.(MolecularSequenceCreate); ok {
+		create = append(create, "MolecularSequence")
+	}
 	if _, ok := api.(MolecularSequenceRead); ok {
 		read = append(read, "MolecularSequence")
 	}
@@ -992,6 +1260,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["MolecularSequence"] = capability
 		}
+	}
+	if _, ok := api.(NamingSystemCreate); ok {
+		create = append(create, "NamingSystem")
 	}
 	if _, ok := api.(NamingSystemRead); ok {
 		read = append(read, "NamingSystem")
@@ -1004,6 +1275,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["NamingSystem"] = capability
 		}
 	}
+	if _, ok := api.(NutritionOrderCreate); ok {
+		create = append(create, "NutritionOrder")
+	}
 	if _, ok := api.(NutritionOrderRead); ok {
 		read = append(read, "NutritionOrder")
 	}
@@ -1014,6 +1288,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["NutritionOrder"] = capability
 		}
+	}
+	if _, ok := api.(NutritionProductCreate); ok {
+		create = append(create, "NutritionProduct")
 	}
 	if _, ok := api.(NutritionProductRead); ok {
 		read = append(read, "NutritionProduct")
@@ -1026,6 +1303,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["NutritionProduct"] = capability
 		}
 	}
+	if _, ok := api.(ObservationCreate); ok {
+		create = append(create, "Observation")
+	}
 	if _, ok := api.(ObservationRead); ok {
 		read = append(read, "Observation")
 	}
@@ -1036,6 +1316,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Observation"] = capability
 		}
+	}
+	if _, ok := api.(ObservationDefinitionCreate); ok {
+		create = append(create, "ObservationDefinition")
 	}
 	if _, ok := api.(ObservationDefinitionRead); ok {
 		read = append(read, "ObservationDefinition")
@@ -1048,6 +1331,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ObservationDefinition"] = capability
 		}
 	}
+	if _, ok := api.(OperationDefinitionCreate); ok {
+		create = append(create, "OperationDefinition")
+	}
 	if _, ok := api.(OperationDefinitionRead); ok {
 		read = append(read, "OperationDefinition")
 	}
@@ -1058,6 +1344,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["OperationDefinition"] = capability
 		}
+	}
+	if _, ok := api.(OperationOutcomeCreate); ok {
+		create = append(create, "OperationOutcome")
 	}
 	if _, ok := api.(OperationOutcomeRead); ok {
 		read = append(read, "OperationOutcome")
@@ -1070,6 +1359,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["OperationOutcome"] = capability
 		}
 	}
+	if _, ok := api.(OrganizationCreate); ok {
+		create = append(create, "Organization")
+	}
 	if _, ok := api.(OrganizationRead); ok {
 		read = append(read, "Organization")
 	}
@@ -1080,6 +1372,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Organization"] = capability
 		}
+	}
+	if _, ok := api.(OrganizationAffiliationCreate); ok {
+		create = append(create, "OrganizationAffiliation")
 	}
 	if _, ok := api.(OrganizationAffiliationRead); ok {
 		read = append(read, "OrganizationAffiliation")
@@ -1092,6 +1387,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["OrganizationAffiliation"] = capability
 		}
 	}
+	if _, ok := api.(PackagedProductDefinitionCreate); ok {
+		create = append(create, "PackagedProductDefinition")
+	}
 	if _, ok := api.(PackagedProductDefinitionRead); ok {
 		read = append(read, "PackagedProductDefinition")
 	}
@@ -1102,6 +1400,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["PackagedProductDefinition"] = capability
 		}
+	}
+	if _, ok := api.(ParametersCreate); ok {
+		create = append(create, "Parameters")
 	}
 	if _, ok := api.(ParametersRead); ok {
 		read = append(read, "Parameters")
@@ -1114,6 +1415,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Parameters"] = capability
 		}
 	}
+	if _, ok := api.(PatientCreate); ok {
+		create = append(create, "Patient")
+	}
 	if _, ok := api.(PatientRead); ok {
 		read = append(read, "Patient")
 	}
@@ -1124,6 +1428,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Patient"] = capability
 		}
+	}
+	if _, ok := api.(PaymentNoticeCreate); ok {
+		create = append(create, "PaymentNotice")
 	}
 	if _, ok := api.(PaymentNoticeRead); ok {
 		read = append(read, "PaymentNotice")
@@ -1136,6 +1443,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["PaymentNotice"] = capability
 		}
 	}
+	if _, ok := api.(PaymentReconciliationCreate); ok {
+		create = append(create, "PaymentReconciliation")
+	}
 	if _, ok := api.(PaymentReconciliationRead); ok {
 		read = append(read, "PaymentReconciliation")
 	}
@@ -1146,6 +1456,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["PaymentReconciliation"] = capability
 		}
+	}
+	if _, ok := api.(PersonCreate); ok {
+		create = append(create, "Person")
 	}
 	if _, ok := api.(PersonRead); ok {
 		read = append(read, "Person")
@@ -1158,6 +1471,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Person"] = capability
 		}
 	}
+	if _, ok := api.(PlanDefinitionCreate); ok {
+		create = append(create, "PlanDefinition")
+	}
 	if _, ok := api.(PlanDefinitionRead); ok {
 		read = append(read, "PlanDefinition")
 	}
@@ -1168,6 +1484,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["PlanDefinition"] = capability
 		}
+	}
+	if _, ok := api.(PractitionerCreate); ok {
+		create = append(create, "Practitioner")
 	}
 	if _, ok := api.(PractitionerRead); ok {
 		read = append(read, "Practitioner")
@@ -1180,6 +1499,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Practitioner"] = capability
 		}
 	}
+	if _, ok := api.(PractitionerRoleCreate); ok {
+		create = append(create, "PractitionerRole")
+	}
 	if _, ok := api.(PractitionerRoleRead); ok {
 		read = append(read, "PractitionerRole")
 	}
@@ -1190,6 +1512,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["PractitionerRole"] = capability
 		}
+	}
+	if _, ok := api.(ProcedureCreate); ok {
+		create = append(create, "Procedure")
 	}
 	if _, ok := api.(ProcedureRead); ok {
 		read = append(read, "Procedure")
@@ -1202,6 +1527,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Procedure"] = capability
 		}
 	}
+	if _, ok := api.(ProvenanceCreate); ok {
+		create = append(create, "Provenance")
+	}
 	if _, ok := api.(ProvenanceRead); ok {
 		read = append(read, "Provenance")
 	}
@@ -1212,6 +1540,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Provenance"] = capability
 		}
+	}
+	if _, ok := api.(QuestionnaireCreate); ok {
+		create = append(create, "Questionnaire")
 	}
 	if _, ok := api.(QuestionnaireRead); ok {
 		read = append(read, "Questionnaire")
@@ -1224,6 +1555,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Questionnaire"] = capability
 		}
 	}
+	if _, ok := api.(QuestionnaireResponseCreate); ok {
+		create = append(create, "QuestionnaireResponse")
+	}
 	if _, ok := api.(QuestionnaireResponseRead); ok {
 		read = append(read, "QuestionnaireResponse")
 	}
@@ -1234,6 +1568,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["QuestionnaireResponse"] = capability
 		}
+	}
+	if _, ok := api.(RegulatedAuthorizationCreate); ok {
+		create = append(create, "RegulatedAuthorization")
 	}
 	if _, ok := api.(RegulatedAuthorizationRead); ok {
 		read = append(read, "RegulatedAuthorization")
@@ -1246,6 +1583,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["RegulatedAuthorization"] = capability
 		}
 	}
+	if _, ok := api.(RelatedPersonCreate); ok {
+		create = append(create, "RelatedPerson")
+	}
 	if _, ok := api.(RelatedPersonRead); ok {
 		read = append(read, "RelatedPerson")
 	}
@@ -1256,6 +1596,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["RelatedPerson"] = capability
 		}
+	}
+	if _, ok := api.(RequestGroupCreate); ok {
+		create = append(create, "RequestGroup")
 	}
 	if _, ok := api.(RequestGroupRead); ok {
 		read = append(read, "RequestGroup")
@@ -1268,6 +1611,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["RequestGroup"] = capability
 		}
 	}
+	if _, ok := api.(ResearchDefinitionCreate); ok {
+		create = append(create, "ResearchDefinition")
+	}
 	if _, ok := api.(ResearchDefinitionRead); ok {
 		read = append(read, "ResearchDefinition")
 	}
@@ -1278,6 +1624,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["ResearchDefinition"] = capability
 		}
+	}
+	if _, ok := api.(ResearchElementDefinitionCreate); ok {
+		create = append(create, "ResearchElementDefinition")
 	}
 	if _, ok := api.(ResearchElementDefinitionRead); ok {
 		read = append(read, "ResearchElementDefinition")
@@ -1290,6 +1639,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ResearchElementDefinition"] = capability
 		}
 	}
+	if _, ok := api.(ResearchStudyCreate); ok {
+		create = append(create, "ResearchStudy")
+	}
 	if _, ok := api.(ResearchStudyRead); ok {
 		read = append(read, "ResearchStudy")
 	}
@@ -1300,6 +1652,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["ResearchStudy"] = capability
 		}
+	}
+	if _, ok := api.(ResearchSubjectCreate); ok {
+		create = append(create, "ResearchSubject")
 	}
 	if _, ok := api.(ResearchSubjectRead); ok {
 		read = append(read, "ResearchSubject")
@@ -1312,6 +1667,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ResearchSubject"] = capability
 		}
 	}
+	if _, ok := api.(RiskAssessmentCreate); ok {
+		create = append(create, "RiskAssessment")
+	}
 	if _, ok := api.(RiskAssessmentRead); ok {
 		read = append(read, "RiskAssessment")
 	}
@@ -1322,6 +1680,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["RiskAssessment"] = capability
 		}
+	}
+	if _, ok := api.(ScheduleCreate); ok {
+		create = append(create, "Schedule")
 	}
 	if _, ok := api.(ScheduleRead); ok {
 		read = append(read, "Schedule")
@@ -1334,6 +1695,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Schedule"] = capability
 		}
 	}
+	if _, ok := api.(SearchParameterCreate); ok {
+		create = append(create, "SearchParameter")
+	}
 	if _, ok := api.(SearchParameterRead); ok {
 		read = append(read, "SearchParameter")
 	}
@@ -1344,6 +1708,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["SearchParameter"] = capability
 		}
+	}
+	if _, ok := api.(ServiceRequestCreate); ok {
+		create = append(create, "ServiceRequest")
 	}
 	if _, ok := api.(ServiceRequestRead); ok {
 		read = append(read, "ServiceRequest")
@@ -1356,6 +1723,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ServiceRequest"] = capability
 		}
 	}
+	if _, ok := api.(SlotCreate); ok {
+		create = append(create, "Slot")
+	}
 	if _, ok := api.(SlotRead); ok {
 		read = append(read, "Slot")
 	}
@@ -1366,6 +1736,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Slot"] = capability
 		}
+	}
+	if _, ok := api.(SpecimenCreate); ok {
+		create = append(create, "Specimen")
 	}
 	if _, ok := api.(SpecimenRead); ok {
 		read = append(read, "Specimen")
@@ -1378,6 +1751,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Specimen"] = capability
 		}
 	}
+	if _, ok := api.(SpecimenDefinitionCreate); ok {
+		create = append(create, "SpecimenDefinition")
+	}
 	if _, ok := api.(SpecimenDefinitionRead); ok {
 		read = append(read, "SpecimenDefinition")
 	}
@@ -1388,6 +1764,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["SpecimenDefinition"] = capability
 		}
+	}
+	if _, ok := api.(StructureDefinitionCreate); ok {
+		create = append(create, "StructureDefinition")
 	}
 	if _, ok := api.(StructureDefinitionRead); ok {
 		read = append(read, "StructureDefinition")
@@ -1400,6 +1779,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["StructureDefinition"] = capability
 		}
 	}
+	if _, ok := api.(StructureMapCreate); ok {
+		create = append(create, "StructureMap")
+	}
 	if _, ok := api.(StructureMapRead); ok {
 		read = append(read, "StructureMap")
 	}
@@ -1410,6 +1792,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["StructureMap"] = capability
 		}
+	}
+	if _, ok := api.(SubscriptionCreate); ok {
+		create = append(create, "Subscription")
 	}
 	if _, ok := api.(SubscriptionRead); ok {
 		read = append(read, "Subscription")
@@ -1422,6 +1807,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["Subscription"] = capability
 		}
 	}
+	if _, ok := api.(SubscriptionStatusCreate); ok {
+		create = append(create, "SubscriptionStatus")
+	}
 	if _, ok := api.(SubscriptionStatusRead); ok {
 		read = append(read, "SubscriptionStatus")
 	}
@@ -1432,6 +1820,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["SubscriptionStatus"] = capability
 		}
+	}
+	if _, ok := api.(SubscriptionTopicCreate); ok {
+		create = append(create, "SubscriptionTopic")
 	}
 	if _, ok := api.(SubscriptionTopicRead); ok {
 		read = append(read, "SubscriptionTopic")
@@ -1444,6 +1835,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["SubscriptionTopic"] = capability
 		}
 	}
+	if _, ok := api.(SubstanceCreate); ok {
+		create = append(create, "Substance")
+	}
 	if _, ok := api.(SubstanceRead); ok {
 		read = append(read, "Substance")
 	}
@@ -1454,6 +1848,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Substance"] = capability
 		}
+	}
+	if _, ok := api.(SubstanceDefinitionCreate); ok {
+		create = append(create, "SubstanceDefinition")
 	}
 	if _, ok := api.(SubstanceDefinitionRead); ok {
 		read = append(read, "SubstanceDefinition")
@@ -1466,6 +1863,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["SubstanceDefinition"] = capability
 		}
 	}
+	if _, ok := api.(SupplyDeliveryCreate); ok {
+		create = append(create, "SupplyDelivery")
+	}
 	if _, ok := api.(SupplyDeliveryRead); ok {
 		read = append(read, "SupplyDelivery")
 	}
@@ -1476,6 +1876,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["SupplyDelivery"] = capability
 		}
+	}
+	if _, ok := api.(SupplyRequestCreate); ok {
+		create = append(create, "SupplyRequest")
 	}
 	if _, ok := api.(SupplyRequestRead); ok {
 		read = append(read, "SupplyRequest")
@@ -1488,6 +1891,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["SupplyRequest"] = capability
 		}
 	}
+	if _, ok := api.(TaskCreate); ok {
+		create = append(create, "Task")
+	}
 	if _, ok := api.(TaskRead); ok {
 		read = append(read, "Task")
 	}
@@ -1498,6 +1904,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["Task"] = capability
 		}
+	}
+	if _, ok := api.(TerminologyCapabilitiesCreate); ok {
+		create = append(create, "TerminologyCapabilities")
 	}
 	if _, ok := api.(TerminologyCapabilitiesRead); ok {
 		read = append(read, "TerminologyCapabilities")
@@ -1510,6 +1919,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["TerminologyCapabilities"] = capability
 		}
 	}
+	if _, ok := api.(TestReportCreate); ok {
+		create = append(create, "TestReport")
+	}
 	if _, ok := api.(TestReportRead); ok {
 		read = append(read, "TestReport")
 	}
@@ -1520,6 +1932,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["TestReport"] = capability
 		}
+	}
+	if _, ok := api.(TestScriptCreate); ok {
+		create = append(create, "TestScript")
 	}
 	if _, ok := api.(TestScriptRead); ok {
 		read = append(read, "TestScript")
@@ -1532,6 +1947,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["TestScript"] = capability
 		}
 	}
+	if _, ok := api.(ValueSetCreate); ok {
+		create = append(create, "ValueSet")
+	}
 	if _, ok := api.(ValueSetRead); ok {
 		read = append(read, "ValueSet")
 	}
@@ -1543,6 +1961,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			search["ValueSet"] = capability
 		}
 	}
+	if _, ok := api.(VerificationResultCreate); ok {
+		create = append(create, "VerificationResult")
+	}
 	if _, ok := api.(VerificationResultRead); ok {
 		read = append(read, "VerificationResult")
 	}
@@ -1553,6 +1974,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 		} else {
 			search["VerificationResult"] = capability
 		}
+	}
+	if _, ok := api.(VisionPrescriptionCreate); ok {
+		create = append(create, "VisionPrescription")
 	}
 	if _, ok := api.(VisionPrescriptionRead); ok {
 		read = append(read, "VisionPrescription")

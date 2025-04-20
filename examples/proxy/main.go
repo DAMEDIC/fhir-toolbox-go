@@ -36,7 +36,10 @@ func main() {
 	// The client is implemented below and serves only as an example.
 	// A full-featured client should be in scope of this package and might be added eventually.
 	// The example client only supports the read and search operations and exposes them using the generic API.
-	var genericClient capabilities.GenericAPI = &Client{
+	var genericClient interface {
+		capabilities.GenericRead
+		capabilities.GenericSearch
+	} = &Client{
 		url: strings.TrimRight(backendUrl, "/"),
 	}
 

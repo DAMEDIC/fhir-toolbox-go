@@ -9,6 +9,7 @@ import (
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
+	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 )
 
 type Generic struct {
@@ -18,7 +19,971 @@ type Generic struct {
 func (w Generic) AllCapabilities(ctx context.Context) (capabilities.Capabilities, capabilities.FHIRError) {
 	return AllCapabilities(ctx, w.Concrete)
 }
+func (w Generic) Create(ctx context.Context, resource model.Resource) (model.Resource, capabilities.FHIRError) {
+	g, ok := w.Concrete.(capabilities.GenericCreate)
+	if ok {
+		// shortcut for the case that the underlying implementation already implements the generic API
+		return g.Create(ctx, resource)
+	}
+	switch r := resource.(type) {
+	case r5.Account:
+		impl, ok := w.Concrete.(AccountCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Account"}
+		}
+		return impl.CreateAccount(ctx, r)
+	case r5.ActivityDefinition:
+		impl, ok := w.Concrete.(ActivityDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ActivityDefinition"}
+		}
+		return impl.CreateActivityDefinition(ctx, r)
+	case r5.ActorDefinition:
+		impl, ok := w.Concrete.(ActorDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ActorDefinition"}
+		}
+		return impl.CreateActorDefinition(ctx, r)
+	case r5.AdministrableProductDefinition:
+		impl, ok := w.Concrete.(AdministrableProductDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AdministrableProductDefinition"}
+		}
+		return impl.CreateAdministrableProductDefinition(ctx, r)
+	case r5.AdverseEvent:
+		impl, ok := w.Concrete.(AdverseEventCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AdverseEvent"}
+		}
+		return impl.CreateAdverseEvent(ctx, r)
+	case r5.AllergyIntolerance:
+		impl, ok := w.Concrete.(AllergyIntoleranceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AllergyIntolerance"}
+		}
+		return impl.CreateAllergyIntolerance(ctx, r)
+	case r5.Appointment:
+		impl, ok := w.Concrete.(AppointmentCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Appointment"}
+		}
+		return impl.CreateAppointment(ctx, r)
+	case r5.AppointmentResponse:
+		impl, ok := w.Concrete.(AppointmentResponseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AppointmentResponse"}
+		}
+		return impl.CreateAppointmentResponse(ctx, r)
+	case r5.ArtifactAssessment:
+		impl, ok := w.Concrete.(ArtifactAssessmentCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ArtifactAssessment"}
+		}
+		return impl.CreateArtifactAssessment(ctx, r)
+	case r5.AuditEvent:
+		impl, ok := w.Concrete.(AuditEventCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AuditEvent"}
+		}
+		return impl.CreateAuditEvent(ctx, r)
+	case r5.Basic:
+		impl, ok := w.Concrete.(BasicCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Basic"}
+		}
+		return impl.CreateBasic(ctx, r)
+	case r5.Binary:
+		impl, ok := w.Concrete.(BinaryCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Binary"}
+		}
+		return impl.CreateBinary(ctx, r)
+	case r5.BiologicallyDerivedProduct:
+		impl, ok := w.Concrete.(BiologicallyDerivedProductCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "BiologicallyDerivedProduct"}
+		}
+		return impl.CreateBiologicallyDerivedProduct(ctx, r)
+	case r5.BiologicallyDerivedProductDispense:
+		impl, ok := w.Concrete.(BiologicallyDerivedProductDispenseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "BiologicallyDerivedProductDispense"}
+		}
+		return impl.CreateBiologicallyDerivedProductDispense(ctx, r)
+	case r5.BodyStructure:
+		impl, ok := w.Concrete.(BodyStructureCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "BodyStructure"}
+		}
+		return impl.CreateBodyStructure(ctx, r)
+	case r5.Bundle:
+		impl, ok := w.Concrete.(BundleCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Bundle"}
+		}
+		return impl.CreateBundle(ctx, r)
+	case r5.CapabilityStatement:
+		impl, ok := w.Concrete.(CapabilityStatementCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CapabilityStatement"}
+		}
+		return impl.CreateCapabilityStatement(ctx, r)
+	case r5.CarePlan:
+		impl, ok := w.Concrete.(CarePlanCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CarePlan"}
+		}
+		return impl.CreateCarePlan(ctx, r)
+	case r5.CareTeam:
+		impl, ok := w.Concrete.(CareTeamCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CareTeam"}
+		}
+		return impl.CreateCareTeam(ctx, r)
+	case r5.ChargeItem:
+		impl, ok := w.Concrete.(ChargeItemCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ChargeItem"}
+		}
+		return impl.CreateChargeItem(ctx, r)
+	case r5.ChargeItemDefinition:
+		impl, ok := w.Concrete.(ChargeItemDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ChargeItemDefinition"}
+		}
+		return impl.CreateChargeItemDefinition(ctx, r)
+	case r5.Citation:
+		impl, ok := w.Concrete.(CitationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Citation"}
+		}
+		return impl.CreateCitation(ctx, r)
+	case r5.Claim:
+		impl, ok := w.Concrete.(ClaimCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Claim"}
+		}
+		return impl.CreateClaim(ctx, r)
+	case r5.ClaimResponse:
+		impl, ok := w.Concrete.(ClaimResponseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClaimResponse"}
+		}
+		return impl.CreateClaimResponse(ctx, r)
+	case r5.ClinicalImpression:
+		impl, ok := w.Concrete.(ClinicalImpressionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClinicalImpression"}
+		}
+		return impl.CreateClinicalImpression(ctx, r)
+	case r5.ClinicalUseDefinition:
+		impl, ok := w.Concrete.(ClinicalUseDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClinicalUseDefinition"}
+		}
+		return impl.CreateClinicalUseDefinition(ctx, r)
+	case r5.CodeSystem:
+		impl, ok := w.Concrete.(CodeSystemCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CodeSystem"}
+		}
+		return impl.CreateCodeSystem(ctx, r)
+	case r5.Communication:
+		impl, ok := w.Concrete.(CommunicationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Communication"}
+		}
+		return impl.CreateCommunication(ctx, r)
+	case r5.CommunicationRequest:
+		impl, ok := w.Concrete.(CommunicationRequestCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CommunicationRequest"}
+		}
+		return impl.CreateCommunicationRequest(ctx, r)
+	case r5.CompartmentDefinition:
+		impl, ok := w.Concrete.(CompartmentDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CompartmentDefinition"}
+		}
+		return impl.CreateCompartmentDefinition(ctx, r)
+	case r5.Composition:
+		impl, ok := w.Concrete.(CompositionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Composition"}
+		}
+		return impl.CreateComposition(ctx, r)
+	case r5.ConceptMap:
+		impl, ok := w.Concrete.(ConceptMapCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ConceptMap"}
+		}
+		return impl.CreateConceptMap(ctx, r)
+	case r5.Condition:
+		impl, ok := w.Concrete.(ConditionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Condition"}
+		}
+		return impl.CreateCondition(ctx, r)
+	case r5.ConditionDefinition:
+		impl, ok := w.Concrete.(ConditionDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ConditionDefinition"}
+		}
+		return impl.CreateConditionDefinition(ctx, r)
+	case r5.Consent:
+		impl, ok := w.Concrete.(ConsentCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Consent"}
+		}
+		return impl.CreateConsent(ctx, r)
+	case r5.Contract:
+		impl, ok := w.Concrete.(ContractCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Contract"}
+		}
+		return impl.CreateContract(ctx, r)
+	case r5.Coverage:
+		impl, ok := w.Concrete.(CoverageCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Coverage"}
+		}
+		return impl.CreateCoverage(ctx, r)
+	case r5.CoverageEligibilityRequest:
+		impl, ok := w.Concrete.(CoverageEligibilityRequestCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CoverageEligibilityRequest"}
+		}
+		return impl.CreateCoverageEligibilityRequest(ctx, r)
+	case r5.CoverageEligibilityResponse:
+		impl, ok := w.Concrete.(CoverageEligibilityResponseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CoverageEligibilityResponse"}
+		}
+		return impl.CreateCoverageEligibilityResponse(ctx, r)
+	case r5.DetectedIssue:
+		impl, ok := w.Concrete.(DetectedIssueCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DetectedIssue"}
+		}
+		return impl.CreateDetectedIssue(ctx, r)
+	case r5.Device:
+		impl, ok := w.Concrete.(DeviceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Device"}
+		}
+		return impl.CreateDevice(ctx, r)
+	case r5.DeviceAssociation:
+		impl, ok := w.Concrete.(DeviceAssociationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceAssociation"}
+		}
+		return impl.CreateDeviceAssociation(ctx, r)
+	case r5.DeviceDefinition:
+		impl, ok := w.Concrete.(DeviceDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceDefinition"}
+		}
+		return impl.CreateDeviceDefinition(ctx, r)
+	case r5.DeviceDispense:
+		impl, ok := w.Concrete.(DeviceDispenseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceDispense"}
+		}
+		return impl.CreateDeviceDispense(ctx, r)
+	case r5.DeviceMetric:
+		impl, ok := w.Concrete.(DeviceMetricCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceMetric"}
+		}
+		return impl.CreateDeviceMetric(ctx, r)
+	case r5.DeviceRequest:
+		impl, ok := w.Concrete.(DeviceRequestCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceRequest"}
+		}
+		return impl.CreateDeviceRequest(ctx, r)
+	case r5.DeviceUsage:
+		impl, ok := w.Concrete.(DeviceUsageCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceUsage"}
+		}
+		return impl.CreateDeviceUsage(ctx, r)
+	case r5.DiagnosticReport:
+		impl, ok := w.Concrete.(DiagnosticReportCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DiagnosticReport"}
+		}
+		return impl.CreateDiagnosticReport(ctx, r)
+	case r5.DocumentReference:
+		impl, ok := w.Concrete.(DocumentReferenceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DocumentReference"}
+		}
+		return impl.CreateDocumentReference(ctx, r)
+	case r5.Encounter:
+		impl, ok := w.Concrete.(EncounterCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Encounter"}
+		}
+		return impl.CreateEncounter(ctx, r)
+	case r5.EncounterHistory:
+		impl, ok := w.Concrete.(EncounterHistoryCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EncounterHistory"}
+		}
+		return impl.CreateEncounterHistory(ctx, r)
+	case r5.Endpoint:
+		impl, ok := w.Concrete.(EndpointCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Endpoint"}
+		}
+		return impl.CreateEndpoint(ctx, r)
+	case r5.EnrollmentRequest:
+		impl, ok := w.Concrete.(EnrollmentRequestCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EnrollmentRequest"}
+		}
+		return impl.CreateEnrollmentRequest(ctx, r)
+	case r5.EnrollmentResponse:
+		impl, ok := w.Concrete.(EnrollmentResponseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EnrollmentResponse"}
+		}
+		return impl.CreateEnrollmentResponse(ctx, r)
+	case r5.EpisodeOfCare:
+		impl, ok := w.Concrete.(EpisodeOfCareCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EpisodeOfCare"}
+		}
+		return impl.CreateEpisodeOfCare(ctx, r)
+	case r5.EventDefinition:
+		impl, ok := w.Concrete.(EventDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EventDefinition"}
+		}
+		return impl.CreateEventDefinition(ctx, r)
+	case r5.Evidence:
+		impl, ok := w.Concrete.(EvidenceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Evidence"}
+		}
+		return impl.CreateEvidence(ctx, r)
+	case r5.EvidenceReport:
+		impl, ok := w.Concrete.(EvidenceReportCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EvidenceReport"}
+		}
+		return impl.CreateEvidenceReport(ctx, r)
+	case r5.EvidenceVariable:
+		impl, ok := w.Concrete.(EvidenceVariableCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EvidenceVariable"}
+		}
+		return impl.CreateEvidenceVariable(ctx, r)
+	case r5.ExampleScenario:
+		impl, ok := w.Concrete.(ExampleScenarioCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ExampleScenario"}
+		}
+		return impl.CreateExampleScenario(ctx, r)
+	case r5.ExplanationOfBenefit:
+		impl, ok := w.Concrete.(ExplanationOfBenefitCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ExplanationOfBenefit"}
+		}
+		return impl.CreateExplanationOfBenefit(ctx, r)
+	case r5.FamilyMemberHistory:
+		impl, ok := w.Concrete.(FamilyMemberHistoryCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "FamilyMemberHistory"}
+		}
+		return impl.CreateFamilyMemberHistory(ctx, r)
+	case r5.Flag:
+		impl, ok := w.Concrete.(FlagCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Flag"}
+		}
+		return impl.CreateFlag(ctx, r)
+	case r5.FormularyItem:
+		impl, ok := w.Concrete.(FormularyItemCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "FormularyItem"}
+		}
+		return impl.CreateFormularyItem(ctx, r)
+	case r5.GenomicStudy:
+		impl, ok := w.Concrete.(GenomicStudyCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "GenomicStudy"}
+		}
+		return impl.CreateGenomicStudy(ctx, r)
+	case r5.Goal:
+		impl, ok := w.Concrete.(GoalCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Goal"}
+		}
+		return impl.CreateGoal(ctx, r)
+	case r5.GraphDefinition:
+		impl, ok := w.Concrete.(GraphDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "GraphDefinition"}
+		}
+		return impl.CreateGraphDefinition(ctx, r)
+	case r5.Group:
+		impl, ok := w.Concrete.(GroupCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Group"}
+		}
+		return impl.CreateGroup(ctx, r)
+	case r5.GuidanceResponse:
+		impl, ok := w.Concrete.(GuidanceResponseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "GuidanceResponse"}
+		}
+		return impl.CreateGuidanceResponse(ctx, r)
+	case r5.HealthcareService:
+		impl, ok := w.Concrete.(HealthcareServiceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "HealthcareService"}
+		}
+		return impl.CreateHealthcareService(ctx, r)
+	case r5.ImagingSelection:
+		impl, ok := w.Concrete.(ImagingSelectionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImagingSelection"}
+		}
+		return impl.CreateImagingSelection(ctx, r)
+	case r5.ImagingStudy:
+		impl, ok := w.Concrete.(ImagingStudyCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImagingStudy"}
+		}
+		return impl.CreateImagingStudy(ctx, r)
+	case r5.Immunization:
+		impl, ok := w.Concrete.(ImmunizationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Immunization"}
+		}
+		return impl.CreateImmunization(ctx, r)
+	case r5.ImmunizationEvaluation:
+		impl, ok := w.Concrete.(ImmunizationEvaluationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImmunizationEvaluation"}
+		}
+		return impl.CreateImmunizationEvaluation(ctx, r)
+	case r5.ImmunizationRecommendation:
+		impl, ok := w.Concrete.(ImmunizationRecommendationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImmunizationRecommendation"}
+		}
+		return impl.CreateImmunizationRecommendation(ctx, r)
+	case r5.ImplementationGuide:
+		impl, ok := w.Concrete.(ImplementationGuideCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImplementationGuide"}
+		}
+		return impl.CreateImplementationGuide(ctx, r)
+	case r5.Ingredient:
+		impl, ok := w.Concrete.(IngredientCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Ingredient"}
+		}
+		return impl.CreateIngredient(ctx, r)
+	case r5.InsurancePlan:
+		impl, ok := w.Concrete.(InsurancePlanCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "InsurancePlan"}
+		}
+		return impl.CreateInsurancePlan(ctx, r)
+	case r5.InventoryItem:
+		impl, ok := w.Concrete.(InventoryItemCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "InventoryItem"}
+		}
+		return impl.CreateInventoryItem(ctx, r)
+	case r5.InventoryReport:
+		impl, ok := w.Concrete.(InventoryReportCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "InventoryReport"}
+		}
+		return impl.CreateInventoryReport(ctx, r)
+	case r5.Invoice:
+		impl, ok := w.Concrete.(InvoiceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Invoice"}
+		}
+		return impl.CreateInvoice(ctx, r)
+	case r5.Library:
+		impl, ok := w.Concrete.(LibraryCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Library"}
+		}
+		return impl.CreateLibrary(ctx, r)
+	case r5.Linkage:
+		impl, ok := w.Concrete.(LinkageCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Linkage"}
+		}
+		return impl.CreateLinkage(ctx, r)
+	case r5.List:
+		impl, ok := w.Concrete.(ListCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "List"}
+		}
+		return impl.CreateList(ctx, r)
+	case r5.Location:
+		impl, ok := w.Concrete.(LocationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Location"}
+		}
+		return impl.CreateLocation(ctx, r)
+	case r5.ManufacturedItemDefinition:
+		impl, ok := w.Concrete.(ManufacturedItemDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ManufacturedItemDefinition"}
+		}
+		return impl.CreateManufacturedItemDefinition(ctx, r)
+	case r5.Measure:
+		impl, ok := w.Concrete.(MeasureCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Measure"}
+		}
+		return impl.CreateMeasure(ctx, r)
+	case r5.MeasureReport:
+		impl, ok := w.Concrete.(MeasureReportCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MeasureReport"}
+		}
+		return impl.CreateMeasureReport(ctx, r)
+	case r5.Medication:
+		impl, ok := w.Concrete.(MedicationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Medication"}
+		}
+		return impl.CreateMedication(ctx, r)
+	case r5.MedicationAdministration:
+		impl, ok := w.Concrete.(MedicationAdministrationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationAdministration"}
+		}
+		return impl.CreateMedicationAdministration(ctx, r)
+	case r5.MedicationDispense:
+		impl, ok := w.Concrete.(MedicationDispenseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationDispense"}
+		}
+		return impl.CreateMedicationDispense(ctx, r)
+	case r5.MedicationKnowledge:
+		impl, ok := w.Concrete.(MedicationKnowledgeCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationKnowledge"}
+		}
+		return impl.CreateMedicationKnowledge(ctx, r)
+	case r5.MedicationRequest:
+		impl, ok := w.Concrete.(MedicationRequestCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationRequest"}
+		}
+		return impl.CreateMedicationRequest(ctx, r)
+	case r5.MedicationStatement:
+		impl, ok := w.Concrete.(MedicationStatementCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationStatement"}
+		}
+		return impl.CreateMedicationStatement(ctx, r)
+	case r5.MedicinalProductDefinition:
+		impl, ok := w.Concrete.(MedicinalProductDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicinalProductDefinition"}
+		}
+		return impl.CreateMedicinalProductDefinition(ctx, r)
+	case r5.MessageDefinition:
+		impl, ok := w.Concrete.(MessageDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MessageDefinition"}
+		}
+		return impl.CreateMessageDefinition(ctx, r)
+	case r5.MessageHeader:
+		impl, ok := w.Concrete.(MessageHeaderCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MessageHeader"}
+		}
+		return impl.CreateMessageHeader(ctx, r)
+	case r5.MolecularSequence:
+		impl, ok := w.Concrete.(MolecularSequenceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MolecularSequence"}
+		}
+		return impl.CreateMolecularSequence(ctx, r)
+	case r5.NamingSystem:
+		impl, ok := w.Concrete.(NamingSystemCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NamingSystem"}
+		}
+		return impl.CreateNamingSystem(ctx, r)
+	case r5.NutritionIntake:
+		impl, ok := w.Concrete.(NutritionIntakeCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NutritionIntake"}
+		}
+		return impl.CreateNutritionIntake(ctx, r)
+	case r5.NutritionOrder:
+		impl, ok := w.Concrete.(NutritionOrderCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NutritionOrder"}
+		}
+		return impl.CreateNutritionOrder(ctx, r)
+	case r5.NutritionProduct:
+		impl, ok := w.Concrete.(NutritionProductCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NutritionProduct"}
+		}
+		return impl.CreateNutritionProduct(ctx, r)
+	case r5.Observation:
+		impl, ok := w.Concrete.(ObservationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Observation"}
+		}
+		return impl.CreateObservation(ctx, r)
+	case r5.ObservationDefinition:
+		impl, ok := w.Concrete.(ObservationDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ObservationDefinition"}
+		}
+		return impl.CreateObservationDefinition(ctx, r)
+	case r5.OperationDefinition:
+		impl, ok := w.Concrete.(OperationDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OperationDefinition"}
+		}
+		return impl.CreateOperationDefinition(ctx, r)
+	case r5.OperationOutcome:
+		impl, ok := w.Concrete.(OperationOutcomeCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OperationOutcome"}
+		}
+		return impl.CreateOperationOutcome(ctx, r)
+	case r5.Organization:
+		impl, ok := w.Concrete.(OrganizationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Organization"}
+		}
+		return impl.CreateOrganization(ctx, r)
+	case r5.OrganizationAffiliation:
+		impl, ok := w.Concrete.(OrganizationAffiliationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OrganizationAffiliation"}
+		}
+		return impl.CreateOrganizationAffiliation(ctx, r)
+	case r5.PackagedProductDefinition:
+		impl, ok := w.Concrete.(PackagedProductDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PackagedProductDefinition"}
+		}
+		return impl.CreatePackagedProductDefinition(ctx, r)
+	case r5.Parameters:
+		impl, ok := w.Concrete.(ParametersCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Parameters"}
+		}
+		return impl.CreateParameters(ctx, r)
+	case r5.Patient:
+		impl, ok := w.Concrete.(PatientCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Patient"}
+		}
+		return impl.CreatePatient(ctx, r)
+	case r5.PaymentNotice:
+		impl, ok := w.Concrete.(PaymentNoticeCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PaymentNotice"}
+		}
+		return impl.CreatePaymentNotice(ctx, r)
+	case r5.PaymentReconciliation:
+		impl, ok := w.Concrete.(PaymentReconciliationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PaymentReconciliation"}
+		}
+		return impl.CreatePaymentReconciliation(ctx, r)
+	case r5.Permission:
+		impl, ok := w.Concrete.(PermissionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Permission"}
+		}
+		return impl.CreatePermission(ctx, r)
+	case r5.Person:
+		impl, ok := w.Concrete.(PersonCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Person"}
+		}
+		return impl.CreatePerson(ctx, r)
+	case r5.PlanDefinition:
+		impl, ok := w.Concrete.(PlanDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PlanDefinition"}
+		}
+		return impl.CreatePlanDefinition(ctx, r)
+	case r5.Practitioner:
+		impl, ok := w.Concrete.(PractitionerCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Practitioner"}
+		}
+		return impl.CreatePractitioner(ctx, r)
+	case r5.PractitionerRole:
+		impl, ok := w.Concrete.(PractitionerRoleCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PractitionerRole"}
+		}
+		return impl.CreatePractitionerRole(ctx, r)
+	case r5.Procedure:
+		impl, ok := w.Concrete.(ProcedureCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Procedure"}
+		}
+		return impl.CreateProcedure(ctx, r)
+	case r5.Provenance:
+		impl, ok := w.Concrete.(ProvenanceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Provenance"}
+		}
+		return impl.CreateProvenance(ctx, r)
+	case r5.Questionnaire:
+		impl, ok := w.Concrete.(QuestionnaireCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Questionnaire"}
+		}
+		return impl.CreateQuestionnaire(ctx, r)
+	case r5.QuestionnaireResponse:
+		impl, ok := w.Concrete.(QuestionnaireResponseCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "QuestionnaireResponse"}
+		}
+		return impl.CreateQuestionnaireResponse(ctx, r)
+	case r5.RegulatedAuthorization:
+		impl, ok := w.Concrete.(RegulatedAuthorizationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RegulatedAuthorization"}
+		}
+		return impl.CreateRegulatedAuthorization(ctx, r)
+	case r5.RelatedPerson:
+		impl, ok := w.Concrete.(RelatedPersonCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RelatedPerson"}
+		}
+		return impl.CreateRelatedPerson(ctx, r)
+	case r5.RequestOrchestration:
+		impl, ok := w.Concrete.(RequestOrchestrationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RequestOrchestration"}
+		}
+		return impl.CreateRequestOrchestration(ctx, r)
+	case r5.Requirements:
+		impl, ok := w.Concrete.(RequirementsCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Requirements"}
+		}
+		return impl.CreateRequirements(ctx, r)
+	case r5.ResearchStudy:
+		impl, ok := w.Concrete.(ResearchStudyCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchStudy"}
+		}
+		return impl.CreateResearchStudy(ctx, r)
+	case r5.ResearchSubject:
+		impl, ok := w.Concrete.(ResearchSubjectCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchSubject"}
+		}
+		return impl.CreateResearchSubject(ctx, r)
+	case r5.RiskAssessment:
+		impl, ok := w.Concrete.(RiskAssessmentCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RiskAssessment"}
+		}
+		return impl.CreateRiskAssessment(ctx, r)
+	case r5.Schedule:
+		impl, ok := w.Concrete.(ScheduleCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Schedule"}
+		}
+		return impl.CreateSchedule(ctx, r)
+	case r5.SearchParameter:
+		impl, ok := w.Concrete.(SearchParameterCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SearchParameter"}
+		}
+		return impl.CreateSearchParameter(ctx, r)
+	case r5.ServiceRequest:
+		impl, ok := w.Concrete.(ServiceRequestCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ServiceRequest"}
+		}
+		return impl.CreateServiceRequest(ctx, r)
+	case r5.Slot:
+		impl, ok := w.Concrete.(SlotCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Slot"}
+		}
+		return impl.CreateSlot(ctx, r)
+	case r5.Specimen:
+		impl, ok := w.Concrete.(SpecimenCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Specimen"}
+		}
+		return impl.CreateSpecimen(ctx, r)
+	case r5.SpecimenDefinition:
+		impl, ok := w.Concrete.(SpecimenDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SpecimenDefinition"}
+		}
+		return impl.CreateSpecimenDefinition(ctx, r)
+	case r5.StructureDefinition:
+		impl, ok := w.Concrete.(StructureDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "StructureDefinition"}
+		}
+		return impl.CreateStructureDefinition(ctx, r)
+	case r5.StructureMap:
+		impl, ok := w.Concrete.(StructureMapCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "StructureMap"}
+		}
+		return impl.CreateStructureMap(ctx, r)
+	case r5.Subscription:
+		impl, ok := w.Concrete.(SubscriptionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Subscription"}
+		}
+		return impl.CreateSubscription(ctx, r)
+	case r5.SubscriptionStatus:
+		impl, ok := w.Concrete.(SubscriptionStatusCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubscriptionStatus"}
+		}
+		return impl.CreateSubscriptionStatus(ctx, r)
+	case r5.SubscriptionTopic:
+		impl, ok := w.Concrete.(SubscriptionTopicCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubscriptionTopic"}
+		}
+		return impl.CreateSubscriptionTopic(ctx, r)
+	case r5.Substance:
+		impl, ok := w.Concrete.(SubstanceCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Substance"}
+		}
+		return impl.CreateSubstance(ctx, r)
+	case r5.SubstanceDefinition:
+		impl, ok := w.Concrete.(SubstanceDefinitionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstanceDefinition"}
+		}
+		return impl.CreateSubstanceDefinition(ctx, r)
+	case r5.SubstanceNucleicAcid:
+		impl, ok := w.Concrete.(SubstanceNucleicAcidCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstanceNucleicAcid"}
+		}
+		return impl.CreateSubstanceNucleicAcid(ctx, r)
+	case r5.SubstancePolymer:
+		impl, ok := w.Concrete.(SubstancePolymerCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstancePolymer"}
+		}
+		return impl.CreateSubstancePolymer(ctx, r)
+	case r5.SubstanceProtein:
+		impl, ok := w.Concrete.(SubstanceProteinCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstanceProtein"}
+		}
+		return impl.CreateSubstanceProtein(ctx, r)
+	case r5.SubstanceReferenceInformation:
+		impl, ok := w.Concrete.(SubstanceReferenceInformationCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstanceReferenceInformation"}
+		}
+		return impl.CreateSubstanceReferenceInformation(ctx, r)
+	case r5.SubstanceSourceMaterial:
+		impl, ok := w.Concrete.(SubstanceSourceMaterialCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstanceSourceMaterial"}
+		}
+		return impl.CreateSubstanceSourceMaterial(ctx, r)
+	case r5.SupplyDelivery:
+		impl, ok := w.Concrete.(SupplyDeliveryCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SupplyDelivery"}
+		}
+		return impl.CreateSupplyDelivery(ctx, r)
+	case r5.SupplyRequest:
+		impl, ok := w.Concrete.(SupplyRequestCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SupplyRequest"}
+		}
+		return impl.CreateSupplyRequest(ctx, r)
+	case r5.Task:
+		impl, ok := w.Concrete.(TaskCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Task"}
+		}
+		return impl.CreateTask(ctx, r)
+	case r5.TerminologyCapabilities:
+		impl, ok := w.Concrete.(TerminologyCapabilitiesCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TerminologyCapabilities"}
+		}
+		return impl.CreateTerminologyCapabilities(ctx, r)
+	case r5.TestPlan:
+		impl, ok := w.Concrete.(TestPlanCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TestPlan"}
+		}
+		return impl.CreateTestPlan(ctx, r)
+	case r5.TestReport:
+		impl, ok := w.Concrete.(TestReportCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TestReport"}
+		}
+		return impl.CreateTestReport(ctx, r)
+	case r5.TestScript:
+		impl, ok := w.Concrete.(TestScriptCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TestScript"}
+		}
+		return impl.CreateTestScript(ctx, r)
+	case r5.Transport:
+		impl, ok := w.Concrete.(TransportCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Transport"}
+		}
+		return impl.CreateTransport(ctx, r)
+	case r5.ValueSet:
+		impl, ok := w.Concrete.(ValueSetCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ValueSet"}
+		}
+		return impl.CreateValueSet(ctx, r)
+	case r5.VerificationResult:
+		impl, ok := w.Concrete.(VerificationResultCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "VerificationResult"}
+		}
+		return impl.CreateVerificationResult(ctx, r)
+	case r5.VisionPrescription:
+		impl, ok := w.Concrete.(VisionPrescriptionCreate)
+		if !ok {
+			return nil, capabilities.NotImplementedError{Interaction: "create", ResourceType: "VisionPrescription"}
+		}
+		return impl.CreateVisionPrescription(ctx, r)
+	default:
+		return nil, capabilities.UnknownResourceError{ResourceType: resource.ResourceType()}
+	}
+}
 func (w Generic) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
+	g, ok := w.Concrete.(capabilities.GenericRead)
+	if ok {
+		// shortcut for the case that the underlying implementation already implements the generic API
+		return g.Read(ctx, resourceType, id)
+	}
 	switch resourceType {
 	case "Account":
 		impl, ok := w.Concrete.(AccountRead)
@@ -1927,6 +2892,11 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	}
 }
 func (w Generic) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {
+	g, ok := w.Concrete.(capabilities.GenericSearch)
+	if ok {
+		// shortcut for the case that the underlying implementation already implements the generic API
+		return g.Search(ctx, resourceType, options)
+	}
 	switch resourceType {
 	case "Account":
 		impl, ok := w.Concrete.(AccountSearch)

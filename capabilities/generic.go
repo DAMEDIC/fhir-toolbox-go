@@ -11,9 +11,22 @@ import (
 // This can be used to build adapters, clients or generic servers.
 // See [github.com/DAMEDIC/fhir-toolbox/capabilities/wrap] for conversion between concrete to generic APIs and vice versa.
 type GenericAPI interface {
+	GenericCapabilities
+	GenericCreate
 	GenericRead
 	GenericSearch
+}
+
+// The GenericCapabilities interface provides a generic capabilities method that returns all capabilities of the underlying concrete implementation.
+type GenericCapabilities interface {
 	AllCapabilities(ctx context.Context) (Capabilities, FHIRError)
+}
+
+// The GenericCreate interface provides a generic create capability.
+//
+// The persisted resource is returned.
+type GenericCreate interface {
+	Create(ctx context.Context, resource model.Resource) (model.Resource, FHIRError)
 }
 
 // The GenericRead interface provides a generic read capability by passing the `resourceType` as string.
@@ -23,7 +36,7 @@ type GenericRead interface {
 
 // The GenericSearch interface provides a generic search capability by passing the `resourceType` as string.
 type GenericSearch interface {
-	// Generic SearchCapabilities is not required as it can be deduced from AllCapabilities.
-
+	// GenericCapabilities is required because it includes the search capabilities (parameters etc.).
+	GenericCapabilities
 	Search(ctx context.Context, resourceType string, options search.Options) (search.Result, FHIRError)
 }
