@@ -92,7 +92,7 @@ func metadataHandler[R model.Release](
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		format := detectFormat(r, config.DefaultFormat)
 
-		capabilities, err := backend.AllCapabilities()
+		capabilities, err := backend.AllCapabilities(r.Context())
 		if err != nil {
 			returnResult(w, format, err.StatusCode(), err.OperationOutcome())
 			return
@@ -122,12 +122,12 @@ func readHandler(
 }
 
 func dispatchRead(
-	context context.Context,
+	ctx context.Context,
 	backend capabilities.GenericAPI,
 	resourceType string,
 	resourceID string,
 ) (int, model.Resource) {
-	resource, err := backend.Read(context, resourceType, resourceID)
+	resource, err := backend.Read(ctx, resourceType, resourceID)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}
@@ -160,14 +160,14 @@ func searchHandler(
 }
 
 func dispatchSearch(
-	context context.Context,
+	ctx context.Context,
 	backend capabilities.GenericAPI,
 	config Config,
 	resourceType string,
 	parameters url.Values,
 	tz *time.Location,
 ) (int, model.Resource) {
-	searchCapabilities, err := backend.SearchCapabilities(resourceType)
+	searchCapabilities, err := backend.SearchCapabilities(ctx, resourceType)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}
@@ -177,7 +177,7 @@ func dispatchSearch(
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
-	resources, err := backend.Search(context, resourceType, options)
+	resources, err := backend.Search(ctx, resourceType, options)
 	if err != nil {
 		return err.StatusCode(), err.OperationOutcome()
 	}

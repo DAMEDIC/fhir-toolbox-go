@@ -17,8 +17,8 @@ import (
 )
 
 var genericR4 = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R4]() }
-var genericR4B = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R4]() }
-var genericR5 = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R4]() }
+var genericR4B = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R4B]() }
+var genericR5 = func(api any) (capabilities.GenericAPI, error) { return nil, disabledErr[model.R5]() }
 
 func disabledErr[R model.Release]() error {
 	r := model.ReleaseName[R]()

@@ -5,11 +5,12 @@
 package capabilitiesR4B
 
 import (
+	"context"
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 )
 
-func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError) {
+func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, capabilities.FHIRError) {
 	var errs []capabilities.FHIRError
 	read := []string{}
 	search := map[string]search.Capabilities{}
@@ -17,7 +18,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Account")
 	}
 	if c, ok := api.(AccountSearch); ok {
-		capability, err := c.SearchCapabilitiesAccount()
+		capability, err := c.SearchCapabilitiesAccount(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -28,7 +29,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ActivityDefinition")
 	}
 	if c, ok := api.(ActivityDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesActivityDefinition()
+		capability, err := c.SearchCapabilitiesActivityDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -39,7 +40,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "AdministrableProductDefinition")
 	}
 	if c, ok := api.(AdministrableProductDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesAdministrableProductDefinition()
+		capability, err := c.SearchCapabilitiesAdministrableProductDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -50,7 +51,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "AdverseEvent")
 	}
 	if c, ok := api.(AdverseEventSearch); ok {
-		capability, err := c.SearchCapabilitiesAdverseEvent()
+		capability, err := c.SearchCapabilitiesAdverseEvent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -61,7 +62,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "AllergyIntolerance")
 	}
 	if c, ok := api.(AllergyIntoleranceSearch); ok {
-		capability, err := c.SearchCapabilitiesAllergyIntolerance()
+		capability, err := c.SearchCapabilitiesAllergyIntolerance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -72,7 +73,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Appointment")
 	}
 	if c, ok := api.(AppointmentSearch); ok {
-		capability, err := c.SearchCapabilitiesAppointment()
+		capability, err := c.SearchCapabilitiesAppointment(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -83,7 +84,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "AppointmentResponse")
 	}
 	if c, ok := api.(AppointmentResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesAppointmentResponse()
+		capability, err := c.SearchCapabilitiesAppointmentResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -94,7 +95,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "AuditEvent")
 	}
 	if c, ok := api.(AuditEventSearch); ok {
-		capability, err := c.SearchCapabilitiesAuditEvent()
+		capability, err := c.SearchCapabilitiesAuditEvent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -105,7 +106,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Basic")
 	}
 	if c, ok := api.(BasicSearch); ok {
-		capability, err := c.SearchCapabilitiesBasic()
+		capability, err := c.SearchCapabilitiesBasic(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -116,7 +117,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Binary")
 	}
 	if c, ok := api.(BinarySearch); ok {
-		capability, err := c.SearchCapabilitiesBinary()
+		capability, err := c.SearchCapabilitiesBinary(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -127,7 +128,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "BiologicallyDerivedProduct")
 	}
 	if c, ok := api.(BiologicallyDerivedProductSearch); ok {
-		capability, err := c.SearchCapabilitiesBiologicallyDerivedProduct()
+		capability, err := c.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -138,7 +139,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "BodyStructure")
 	}
 	if c, ok := api.(BodyStructureSearch); ok {
-		capability, err := c.SearchCapabilitiesBodyStructure()
+		capability, err := c.SearchCapabilitiesBodyStructure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -149,7 +150,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Bundle")
 	}
 	if c, ok := api.(BundleSearch); ok {
-		capability, err := c.SearchCapabilitiesBundle()
+		capability, err := c.SearchCapabilitiesBundle(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -160,7 +161,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CapabilityStatement")
 	}
 	if c, ok := api.(CapabilityStatementSearch); ok {
-		capability, err := c.SearchCapabilitiesCapabilityStatement()
+		capability, err := c.SearchCapabilitiesCapabilityStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -171,7 +172,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CarePlan")
 	}
 	if c, ok := api.(CarePlanSearch); ok {
-		capability, err := c.SearchCapabilitiesCarePlan()
+		capability, err := c.SearchCapabilitiesCarePlan(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -182,7 +183,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CareTeam")
 	}
 	if c, ok := api.(CareTeamSearch); ok {
-		capability, err := c.SearchCapabilitiesCareTeam()
+		capability, err := c.SearchCapabilitiesCareTeam(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -193,7 +194,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CatalogEntry")
 	}
 	if c, ok := api.(CatalogEntrySearch); ok {
-		capability, err := c.SearchCapabilitiesCatalogEntry()
+		capability, err := c.SearchCapabilitiesCatalogEntry(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -204,7 +205,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ChargeItem")
 	}
 	if c, ok := api.(ChargeItemSearch); ok {
-		capability, err := c.SearchCapabilitiesChargeItem()
+		capability, err := c.SearchCapabilitiesChargeItem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -215,7 +216,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ChargeItemDefinition")
 	}
 	if c, ok := api.(ChargeItemDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesChargeItemDefinition()
+		capability, err := c.SearchCapabilitiesChargeItemDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -226,7 +227,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Citation")
 	}
 	if c, ok := api.(CitationSearch); ok {
-		capability, err := c.SearchCapabilitiesCitation()
+		capability, err := c.SearchCapabilitiesCitation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -237,7 +238,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Claim")
 	}
 	if c, ok := api.(ClaimSearch); ok {
-		capability, err := c.SearchCapabilitiesClaim()
+		capability, err := c.SearchCapabilitiesClaim(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -248,7 +249,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ClaimResponse")
 	}
 	if c, ok := api.(ClaimResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesClaimResponse()
+		capability, err := c.SearchCapabilitiesClaimResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -259,7 +260,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ClinicalImpression")
 	}
 	if c, ok := api.(ClinicalImpressionSearch); ok {
-		capability, err := c.SearchCapabilitiesClinicalImpression()
+		capability, err := c.SearchCapabilitiesClinicalImpression(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -270,7 +271,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ClinicalUseDefinition")
 	}
 	if c, ok := api.(ClinicalUseDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesClinicalUseDefinition()
+		capability, err := c.SearchCapabilitiesClinicalUseDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -281,7 +282,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CodeSystem")
 	}
 	if c, ok := api.(CodeSystemSearch); ok {
-		capability, err := c.SearchCapabilitiesCodeSystem()
+		capability, err := c.SearchCapabilitiesCodeSystem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -292,7 +293,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Communication")
 	}
 	if c, ok := api.(CommunicationSearch); ok {
-		capability, err := c.SearchCapabilitiesCommunication()
+		capability, err := c.SearchCapabilitiesCommunication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -303,7 +304,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CommunicationRequest")
 	}
 	if c, ok := api.(CommunicationRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesCommunicationRequest()
+		capability, err := c.SearchCapabilitiesCommunicationRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -314,7 +315,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CompartmentDefinition")
 	}
 	if c, ok := api.(CompartmentDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesCompartmentDefinition()
+		capability, err := c.SearchCapabilitiesCompartmentDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -325,7 +326,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Composition")
 	}
 	if c, ok := api.(CompositionSearch); ok {
-		capability, err := c.SearchCapabilitiesComposition()
+		capability, err := c.SearchCapabilitiesComposition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -336,7 +337,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ConceptMap")
 	}
 	if c, ok := api.(ConceptMapSearch); ok {
-		capability, err := c.SearchCapabilitiesConceptMap()
+		capability, err := c.SearchCapabilitiesConceptMap(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -347,7 +348,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Condition")
 	}
 	if c, ok := api.(ConditionSearch); ok {
-		capability, err := c.SearchCapabilitiesCondition()
+		capability, err := c.SearchCapabilitiesCondition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -358,7 +359,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Consent")
 	}
 	if c, ok := api.(ConsentSearch); ok {
-		capability, err := c.SearchCapabilitiesConsent()
+		capability, err := c.SearchCapabilitiesConsent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -369,7 +370,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Contract")
 	}
 	if c, ok := api.(ContractSearch); ok {
-		capability, err := c.SearchCapabilitiesContract()
+		capability, err := c.SearchCapabilitiesContract(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -380,7 +381,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Coverage")
 	}
 	if c, ok := api.(CoverageSearch); ok {
-		capability, err := c.SearchCapabilitiesCoverage()
+		capability, err := c.SearchCapabilitiesCoverage(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -391,7 +392,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CoverageEligibilityRequest")
 	}
 	if c, ok := api.(CoverageEligibilityRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesCoverageEligibilityRequest()
+		capability, err := c.SearchCapabilitiesCoverageEligibilityRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -402,7 +403,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "CoverageEligibilityResponse")
 	}
 	if c, ok := api.(CoverageEligibilityResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesCoverageEligibilityResponse()
+		capability, err := c.SearchCapabilitiesCoverageEligibilityResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -413,7 +414,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DetectedIssue")
 	}
 	if c, ok := api.(DetectedIssueSearch); ok {
-		capability, err := c.SearchCapabilitiesDetectedIssue()
+		capability, err := c.SearchCapabilitiesDetectedIssue(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -424,7 +425,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Device")
 	}
 	if c, ok := api.(DeviceSearch); ok {
-		capability, err := c.SearchCapabilitiesDevice()
+		capability, err := c.SearchCapabilitiesDevice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -435,7 +436,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DeviceDefinition")
 	}
 	if c, ok := api.(DeviceDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceDefinition()
+		capability, err := c.SearchCapabilitiesDeviceDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -446,7 +447,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DeviceMetric")
 	}
 	if c, ok := api.(DeviceMetricSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceMetric()
+		capability, err := c.SearchCapabilitiesDeviceMetric(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -457,7 +458,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DeviceRequest")
 	}
 	if c, ok := api.(DeviceRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceRequest()
+		capability, err := c.SearchCapabilitiesDeviceRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -468,7 +469,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DeviceUseStatement")
 	}
 	if c, ok := api.(DeviceUseStatementSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceUseStatement()
+		capability, err := c.SearchCapabilitiesDeviceUseStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -479,7 +480,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DiagnosticReport")
 	}
 	if c, ok := api.(DiagnosticReportSearch); ok {
-		capability, err := c.SearchCapabilitiesDiagnosticReport()
+		capability, err := c.SearchCapabilitiesDiagnosticReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -490,7 +491,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DocumentManifest")
 	}
 	if c, ok := api.(DocumentManifestSearch); ok {
-		capability, err := c.SearchCapabilitiesDocumentManifest()
+		capability, err := c.SearchCapabilitiesDocumentManifest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -501,7 +502,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "DocumentReference")
 	}
 	if c, ok := api.(DocumentReferenceSearch); ok {
-		capability, err := c.SearchCapabilitiesDocumentReference()
+		capability, err := c.SearchCapabilitiesDocumentReference(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -512,7 +513,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Encounter")
 	}
 	if c, ok := api.(EncounterSearch); ok {
-		capability, err := c.SearchCapabilitiesEncounter()
+		capability, err := c.SearchCapabilitiesEncounter(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -523,7 +524,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Endpoint")
 	}
 	if c, ok := api.(EndpointSearch); ok {
-		capability, err := c.SearchCapabilitiesEndpoint()
+		capability, err := c.SearchCapabilitiesEndpoint(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -534,7 +535,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "EnrollmentRequest")
 	}
 	if c, ok := api.(EnrollmentRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesEnrollmentRequest()
+		capability, err := c.SearchCapabilitiesEnrollmentRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -545,7 +546,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "EnrollmentResponse")
 	}
 	if c, ok := api.(EnrollmentResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesEnrollmentResponse()
+		capability, err := c.SearchCapabilitiesEnrollmentResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -556,7 +557,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "EpisodeOfCare")
 	}
 	if c, ok := api.(EpisodeOfCareSearch); ok {
-		capability, err := c.SearchCapabilitiesEpisodeOfCare()
+		capability, err := c.SearchCapabilitiesEpisodeOfCare(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -567,7 +568,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "EventDefinition")
 	}
 	if c, ok := api.(EventDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesEventDefinition()
+		capability, err := c.SearchCapabilitiesEventDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -578,7 +579,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Evidence")
 	}
 	if c, ok := api.(EvidenceSearch); ok {
-		capability, err := c.SearchCapabilitiesEvidence()
+		capability, err := c.SearchCapabilitiesEvidence(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -589,7 +590,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "EvidenceReport")
 	}
 	if c, ok := api.(EvidenceReportSearch); ok {
-		capability, err := c.SearchCapabilitiesEvidenceReport()
+		capability, err := c.SearchCapabilitiesEvidenceReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -600,7 +601,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "EvidenceVariable")
 	}
 	if c, ok := api.(EvidenceVariableSearch); ok {
-		capability, err := c.SearchCapabilitiesEvidenceVariable()
+		capability, err := c.SearchCapabilitiesEvidenceVariable(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -611,7 +612,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ExampleScenario")
 	}
 	if c, ok := api.(ExampleScenarioSearch); ok {
-		capability, err := c.SearchCapabilitiesExampleScenario()
+		capability, err := c.SearchCapabilitiesExampleScenario(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -622,7 +623,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ExplanationOfBenefit")
 	}
 	if c, ok := api.(ExplanationOfBenefitSearch); ok {
-		capability, err := c.SearchCapabilitiesExplanationOfBenefit()
+		capability, err := c.SearchCapabilitiesExplanationOfBenefit(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -633,7 +634,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "FamilyMemberHistory")
 	}
 	if c, ok := api.(FamilyMemberHistorySearch); ok {
-		capability, err := c.SearchCapabilitiesFamilyMemberHistory()
+		capability, err := c.SearchCapabilitiesFamilyMemberHistory(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -644,7 +645,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Flag")
 	}
 	if c, ok := api.(FlagSearch); ok {
-		capability, err := c.SearchCapabilitiesFlag()
+		capability, err := c.SearchCapabilitiesFlag(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -655,7 +656,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Goal")
 	}
 	if c, ok := api.(GoalSearch); ok {
-		capability, err := c.SearchCapabilitiesGoal()
+		capability, err := c.SearchCapabilitiesGoal(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -666,7 +667,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "GraphDefinition")
 	}
 	if c, ok := api.(GraphDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesGraphDefinition()
+		capability, err := c.SearchCapabilitiesGraphDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -677,7 +678,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Group")
 	}
 	if c, ok := api.(GroupSearch); ok {
-		capability, err := c.SearchCapabilitiesGroup()
+		capability, err := c.SearchCapabilitiesGroup(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -688,7 +689,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "GuidanceResponse")
 	}
 	if c, ok := api.(GuidanceResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesGuidanceResponse()
+		capability, err := c.SearchCapabilitiesGuidanceResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -699,7 +700,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "HealthcareService")
 	}
 	if c, ok := api.(HealthcareServiceSearch); ok {
-		capability, err := c.SearchCapabilitiesHealthcareService()
+		capability, err := c.SearchCapabilitiesHealthcareService(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -710,7 +711,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ImagingStudy")
 	}
 	if c, ok := api.(ImagingStudySearch); ok {
-		capability, err := c.SearchCapabilitiesImagingStudy()
+		capability, err := c.SearchCapabilitiesImagingStudy(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -721,7 +722,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Immunization")
 	}
 	if c, ok := api.(ImmunizationSearch); ok {
-		capability, err := c.SearchCapabilitiesImmunization()
+		capability, err := c.SearchCapabilitiesImmunization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -732,7 +733,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ImmunizationEvaluation")
 	}
 	if c, ok := api.(ImmunizationEvaluationSearch); ok {
-		capability, err := c.SearchCapabilitiesImmunizationEvaluation()
+		capability, err := c.SearchCapabilitiesImmunizationEvaluation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -743,7 +744,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ImmunizationRecommendation")
 	}
 	if c, ok := api.(ImmunizationRecommendationSearch); ok {
-		capability, err := c.SearchCapabilitiesImmunizationRecommendation()
+		capability, err := c.SearchCapabilitiesImmunizationRecommendation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -754,7 +755,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ImplementationGuide")
 	}
 	if c, ok := api.(ImplementationGuideSearch); ok {
-		capability, err := c.SearchCapabilitiesImplementationGuide()
+		capability, err := c.SearchCapabilitiesImplementationGuide(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -765,7 +766,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Ingredient")
 	}
 	if c, ok := api.(IngredientSearch); ok {
-		capability, err := c.SearchCapabilitiesIngredient()
+		capability, err := c.SearchCapabilitiesIngredient(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -776,7 +777,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "InsurancePlan")
 	}
 	if c, ok := api.(InsurancePlanSearch); ok {
-		capability, err := c.SearchCapabilitiesInsurancePlan()
+		capability, err := c.SearchCapabilitiesInsurancePlan(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -787,7 +788,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Invoice")
 	}
 	if c, ok := api.(InvoiceSearch); ok {
-		capability, err := c.SearchCapabilitiesInvoice()
+		capability, err := c.SearchCapabilitiesInvoice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -798,7 +799,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Library")
 	}
 	if c, ok := api.(LibrarySearch); ok {
-		capability, err := c.SearchCapabilitiesLibrary()
+		capability, err := c.SearchCapabilitiesLibrary(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -809,7 +810,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Linkage")
 	}
 	if c, ok := api.(LinkageSearch); ok {
-		capability, err := c.SearchCapabilitiesLinkage()
+		capability, err := c.SearchCapabilitiesLinkage(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -820,7 +821,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "List")
 	}
 	if c, ok := api.(ListSearch); ok {
-		capability, err := c.SearchCapabilitiesList()
+		capability, err := c.SearchCapabilitiesList(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -831,7 +832,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Location")
 	}
 	if c, ok := api.(LocationSearch); ok {
-		capability, err := c.SearchCapabilitiesLocation()
+		capability, err := c.SearchCapabilitiesLocation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -842,7 +843,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ManufacturedItemDefinition")
 	}
 	if c, ok := api.(ManufacturedItemDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesManufacturedItemDefinition()
+		capability, err := c.SearchCapabilitiesManufacturedItemDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -853,7 +854,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Measure")
 	}
 	if c, ok := api.(MeasureSearch); ok {
-		capability, err := c.SearchCapabilitiesMeasure()
+		capability, err := c.SearchCapabilitiesMeasure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -864,7 +865,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MeasureReport")
 	}
 	if c, ok := api.(MeasureReportSearch); ok {
-		capability, err := c.SearchCapabilitiesMeasureReport()
+		capability, err := c.SearchCapabilitiesMeasureReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -875,7 +876,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Media")
 	}
 	if c, ok := api.(MediaSearch); ok {
-		capability, err := c.SearchCapabilitiesMedia()
+		capability, err := c.SearchCapabilitiesMedia(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -886,7 +887,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Medication")
 	}
 	if c, ok := api.(MedicationSearch); ok {
-		capability, err := c.SearchCapabilitiesMedication()
+		capability, err := c.SearchCapabilitiesMedication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -897,7 +898,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MedicationAdministration")
 	}
 	if c, ok := api.(MedicationAdministrationSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationAdministration()
+		capability, err := c.SearchCapabilitiesMedicationAdministration(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -908,7 +909,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MedicationDispense")
 	}
 	if c, ok := api.(MedicationDispenseSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationDispense()
+		capability, err := c.SearchCapabilitiesMedicationDispense(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -919,7 +920,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MedicationKnowledge")
 	}
 	if c, ok := api.(MedicationKnowledgeSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationKnowledge()
+		capability, err := c.SearchCapabilitiesMedicationKnowledge(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -930,7 +931,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MedicationRequest")
 	}
 	if c, ok := api.(MedicationRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationRequest()
+		capability, err := c.SearchCapabilitiesMedicationRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -941,7 +942,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MedicationStatement")
 	}
 	if c, ok := api.(MedicationStatementSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationStatement()
+		capability, err := c.SearchCapabilitiesMedicationStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -952,7 +953,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MedicinalProductDefinition")
 	}
 	if c, ok := api.(MedicinalProductDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductDefinition()
+		capability, err := c.SearchCapabilitiesMedicinalProductDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -963,7 +964,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MessageDefinition")
 	}
 	if c, ok := api.(MessageDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesMessageDefinition()
+		capability, err := c.SearchCapabilitiesMessageDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -974,7 +975,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MessageHeader")
 	}
 	if c, ok := api.(MessageHeaderSearch); ok {
-		capability, err := c.SearchCapabilitiesMessageHeader()
+		capability, err := c.SearchCapabilitiesMessageHeader(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -985,7 +986,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "MolecularSequence")
 	}
 	if c, ok := api.(MolecularSequenceSearch); ok {
-		capability, err := c.SearchCapabilitiesMolecularSequence()
+		capability, err := c.SearchCapabilitiesMolecularSequence(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -996,7 +997,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "NamingSystem")
 	}
 	if c, ok := api.(NamingSystemSearch); ok {
-		capability, err := c.SearchCapabilitiesNamingSystem()
+		capability, err := c.SearchCapabilitiesNamingSystem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1007,7 +1008,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "NutritionOrder")
 	}
 	if c, ok := api.(NutritionOrderSearch); ok {
-		capability, err := c.SearchCapabilitiesNutritionOrder()
+		capability, err := c.SearchCapabilitiesNutritionOrder(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1018,7 +1019,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "NutritionProduct")
 	}
 	if c, ok := api.(NutritionProductSearch); ok {
-		capability, err := c.SearchCapabilitiesNutritionProduct()
+		capability, err := c.SearchCapabilitiesNutritionProduct(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1029,7 +1030,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Observation")
 	}
 	if c, ok := api.(ObservationSearch); ok {
-		capability, err := c.SearchCapabilitiesObservation()
+		capability, err := c.SearchCapabilitiesObservation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1040,7 +1041,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ObservationDefinition")
 	}
 	if c, ok := api.(ObservationDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesObservationDefinition()
+		capability, err := c.SearchCapabilitiesObservationDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1051,7 +1052,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "OperationDefinition")
 	}
 	if c, ok := api.(OperationDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesOperationDefinition()
+		capability, err := c.SearchCapabilitiesOperationDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1062,7 +1063,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "OperationOutcome")
 	}
 	if c, ok := api.(OperationOutcomeSearch); ok {
-		capability, err := c.SearchCapabilitiesOperationOutcome()
+		capability, err := c.SearchCapabilitiesOperationOutcome(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1073,7 +1074,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Organization")
 	}
 	if c, ok := api.(OrganizationSearch); ok {
-		capability, err := c.SearchCapabilitiesOrganization()
+		capability, err := c.SearchCapabilitiesOrganization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1084,7 +1085,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "OrganizationAffiliation")
 	}
 	if c, ok := api.(OrganizationAffiliationSearch); ok {
-		capability, err := c.SearchCapabilitiesOrganizationAffiliation()
+		capability, err := c.SearchCapabilitiesOrganizationAffiliation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1095,7 +1096,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "PackagedProductDefinition")
 	}
 	if c, ok := api.(PackagedProductDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesPackagedProductDefinition()
+		capability, err := c.SearchCapabilitiesPackagedProductDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1106,7 +1107,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Parameters")
 	}
 	if c, ok := api.(ParametersSearch); ok {
-		capability, err := c.SearchCapabilitiesParameters()
+		capability, err := c.SearchCapabilitiesParameters(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1117,7 +1118,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Patient")
 	}
 	if c, ok := api.(PatientSearch); ok {
-		capability, err := c.SearchCapabilitiesPatient()
+		capability, err := c.SearchCapabilitiesPatient(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1128,7 +1129,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "PaymentNotice")
 	}
 	if c, ok := api.(PaymentNoticeSearch); ok {
-		capability, err := c.SearchCapabilitiesPaymentNotice()
+		capability, err := c.SearchCapabilitiesPaymentNotice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1139,7 +1140,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "PaymentReconciliation")
 	}
 	if c, ok := api.(PaymentReconciliationSearch); ok {
-		capability, err := c.SearchCapabilitiesPaymentReconciliation()
+		capability, err := c.SearchCapabilitiesPaymentReconciliation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1150,7 +1151,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Person")
 	}
 	if c, ok := api.(PersonSearch); ok {
-		capability, err := c.SearchCapabilitiesPerson()
+		capability, err := c.SearchCapabilitiesPerson(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1161,7 +1162,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "PlanDefinition")
 	}
 	if c, ok := api.(PlanDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesPlanDefinition()
+		capability, err := c.SearchCapabilitiesPlanDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1172,7 +1173,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Practitioner")
 	}
 	if c, ok := api.(PractitionerSearch); ok {
-		capability, err := c.SearchCapabilitiesPractitioner()
+		capability, err := c.SearchCapabilitiesPractitioner(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1183,7 +1184,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "PractitionerRole")
 	}
 	if c, ok := api.(PractitionerRoleSearch); ok {
-		capability, err := c.SearchCapabilitiesPractitionerRole()
+		capability, err := c.SearchCapabilitiesPractitionerRole(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1194,7 +1195,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Procedure")
 	}
 	if c, ok := api.(ProcedureSearch); ok {
-		capability, err := c.SearchCapabilitiesProcedure()
+		capability, err := c.SearchCapabilitiesProcedure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1205,7 +1206,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Provenance")
 	}
 	if c, ok := api.(ProvenanceSearch); ok {
-		capability, err := c.SearchCapabilitiesProvenance()
+		capability, err := c.SearchCapabilitiesProvenance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1216,7 +1217,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Questionnaire")
 	}
 	if c, ok := api.(QuestionnaireSearch); ok {
-		capability, err := c.SearchCapabilitiesQuestionnaire()
+		capability, err := c.SearchCapabilitiesQuestionnaire(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1227,7 +1228,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "QuestionnaireResponse")
 	}
 	if c, ok := api.(QuestionnaireResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesQuestionnaireResponse()
+		capability, err := c.SearchCapabilitiesQuestionnaireResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1238,7 +1239,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "RegulatedAuthorization")
 	}
 	if c, ok := api.(RegulatedAuthorizationSearch); ok {
-		capability, err := c.SearchCapabilitiesRegulatedAuthorization()
+		capability, err := c.SearchCapabilitiesRegulatedAuthorization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1249,7 +1250,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "RelatedPerson")
 	}
 	if c, ok := api.(RelatedPersonSearch); ok {
-		capability, err := c.SearchCapabilitiesRelatedPerson()
+		capability, err := c.SearchCapabilitiesRelatedPerson(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1260,7 +1261,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "RequestGroup")
 	}
 	if c, ok := api.(RequestGroupSearch); ok {
-		capability, err := c.SearchCapabilitiesRequestGroup()
+		capability, err := c.SearchCapabilitiesRequestGroup(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1271,7 +1272,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ResearchDefinition")
 	}
 	if c, ok := api.(ResearchDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesResearchDefinition()
+		capability, err := c.SearchCapabilitiesResearchDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1282,7 +1283,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ResearchElementDefinition")
 	}
 	if c, ok := api.(ResearchElementDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesResearchElementDefinition()
+		capability, err := c.SearchCapabilitiesResearchElementDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1293,7 +1294,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ResearchStudy")
 	}
 	if c, ok := api.(ResearchStudySearch); ok {
-		capability, err := c.SearchCapabilitiesResearchStudy()
+		capability, err := c.SearchCapabilitiesResearchStudy(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1304,7 +1305,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ResearchSubject")
 	}
 	if c, ok := api.(ResearchSubjectSearch); ok {
-		capability, err := c.SearchCapabilitiesResearchSubject()
+		capability, err := c.SearchCapabilitiesResearchSubject(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1315,7 +1316,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "RiskAssessment")
 	}
 	if c, ok := api.(RiskAssessmentSearch); ok {
-		capability, err := c.SearchCapabilitiesRiskAssessment()
+		capability, err := c.SearchCapabilitiesRiskAssessment(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1326,7 +1327,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Schedule")
 	}
 	if c, ok := api.(ScheduleSearch); ok {
-		capability, err := c.SearchCapabilitiesSchedule()
+		capability, err := c.SearchCapabilitiesSchedule(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1337,7 +1338,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "SearchParameter")
 	}
 	if c, ok := api.(SearchParameterSearch); ok {
-		capability, err := c.SearchCapabilitiesSearchParameter()
+		capability, err := c.SearchCapabilitiesSearchParameter(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1348,7 +1349,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ServiceRequest")
 	}
 	if c, ok := api.(ServiceRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesServiceRequest()
+		capability, err := c.SearchCapabilitiesServiceRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1359,7 +1360,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Slot")
 	}
 	if c, ok := api.(SlotSearch); ok {
-		capability, err := c.SearchCapabilitiesSlot()
+		capability, err := c.SearchCapabilitiesSlot(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1370,7 +1371,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Specimen")
 	}
 	if c, ok := api.(SpecimenSearch); ok {
-		capability, err := c.SearchCapabilitiesSpecimen()
+		capability, err := c.SearchCapabilitiesSpecimen(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1381,7 +1382,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "SpecimenDefinition")
 	}
 	if c, ok := api.(SpecimenDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesSpecimenDefinition()
+		capability, err := c.SearchCapabilitiesSpecimenDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1392,7 +1393,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "StructureDefinition")
 	}
 	if c, ok := api.(StructureDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesStructureDefinition()
+		capability, err := c.SearchCapabilitiesStructureDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1403,7 +1404,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "StructureMap")
 	}
 	if c, ok := api.(StructureMapSearch); ok {
-		capability, err := c.SearchCapabilitiesStructureMap()
+		capability, err := c.SearchCapabilitiesStructureMap(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1414,7 +1415,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Subscription")
 	}
 	if c, ok := api.(SubscriptionSearch); ok {
-		capability, err := c.SearchCapabilitiesSubscription()
+		capability, err := c.SearchCapabilitiesSubscription(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1425,7 +1426,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "SubscriptionStatus")
 	}
 	if c, ok := api.(SubscriptionStatusSearch); ok {
-		capability, err := c.SearchCapabilitiesSubscriptionStatus()
+		capability, err := c.SearchCapabilitiesSubscriptionStatus(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1436,7 +1437,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "SubscriptionTopic")
 	}
 	if c, ok := api.(SubscriptionTopicSearch); ok {
-		capability, err := c.SearchCapabilitiesSubscriptionTopic()
+		capability, err := c.SearchCapabilitiesSubscriptionTopic(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1447,7 +1448,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Substance")
 	}
 	if c, ok := api.(SubstanceSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstance()
+		capability, err := c.SearchCapabilitiesSubstance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1458,7 +1459,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "SubstanceDefinition")
 	}
 	if c, ok := api.(SubstanceDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstanceDefinition()
+		capability, err := c.SearchCapabilitiesSubstanceDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1469,7 +1470,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "SupplyDelivery")
 	}
 	if c, ok := api.(SupplyDeliverySearch); ok {
-		capability, err := c.SearchCapabilitiesSupplyDelivery()
+		capability, err := c.SearchCapabilitiesSupplyDelivery(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1480,7 +1481,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "SupplyRequest")
 	}
 	if c, ok := api.(SupplyRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesSupplyRequest()
+		capability, err := c.SearchCapabilitiesSupplyRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1491,7 +1492,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "Task")
 	}
 	if c, ok := api.(TaskSearch); ok {
-		capability, err := c.SearchCapabilitiesTask()
+		capability, err := c.SearchCapabilitiesTask(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1502,7 +1503,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "TerminologyCapabilities")
 	}
 	if c, ok := api.(TerminologyCapabilitiesSearch); ok {
-		capability, err := c.SearchCapabilitiesTerminologyCapabilities()
+		capability, err := c.SearchCapabilitiesTerminologyCapabilities(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1513,7 +1514,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "TestReport")
 	}
 	if c, ok := api.(TestReportSearch); ok {
-		capability, err := c.SearchCapabilitiesTestReport()
+		capability, err := c.SearchCapabilitiesTestReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1524,7 +1525,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "TestScript")
 	}
 	if c, ok := api.(TestScriptSearch); ok {
-		capability, err := c.SearchCapabilitiesTestScript()
+		capability, err := c.SearchCapabilitiesTestScript(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1535,7 +1536,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "ValueSet")
 	}
 	if c, ok := api.(ValueSetSearch); ok {
-		capability, err := c.SearchCapabilitiesValueSet()
+		capability, err := c.SearchCapabilitiesValueSet(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1546,7 +1547,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "VerificationResult")
 	}
 	if c, ok := api.(VerificationResultSearch); ok {
-		capability, err := c.SearchCapabilitiesVerificationResult()
+		capability, err := c.SearchCapabilitiesVerificationResult(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
@@ -1557,7 +1558,7 @@ func AllCapabilities(api any) (capabilities.Capabilities, capabilities.FHIRError
 		read = append(read, "VisionPrescription")
 	}
 	if c, ok := api.(VisionPrescriptionSearch); ok {
-		capability, err := c.SearchCapabilitiesVisionPrescription()
+		capability, err := c.SearchCapabilitiesVisionPrescription(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {

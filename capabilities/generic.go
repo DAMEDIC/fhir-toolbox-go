@@ -14,7 +14,7 @@ type GenericAPI interface {
 	GenericRead
 	GenericSearch
 
-	AllCapabilities() (Capabilities, FHIRError)
+	AllCapabilities(ctx context.Context) (Capabilities, FHIRError)
 }
 
 // The GenericRead interface provides a generic read capability by passing the `resourceType` as string.
@@ -24,6 +24,6 @@ type GenericRead interface {
 
 // The GenericSearch interface provides a generic search capability by passing the `resourceType` as string.
 type GenericSearch interface {
-	SearchCapabilities(resourceType string) (search.Capabilities, FHIRError)
+	SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, FHIRError)
 	Search(ctx context.Context, resourceType string, options search.Options) (search.Result, FHIRError)
 }

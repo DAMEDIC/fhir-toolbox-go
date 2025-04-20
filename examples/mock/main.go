@@ -66,12 +66,12 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 }
 
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
-func (b *mockBackend) SearchCapabilitiesObservation() search.Capabilities {
+func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.TypeToken},
 		},
-	}
+	}, nil
 }
 
 func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
@@ -156,12 +156,12 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Compos
 }
 
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
-func (b *mockBackend) SearchCapabilitiesComposition() search.Capabilities {
+func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.TypeToken},
 		},
-	}
+	}, nil
 }
 
 func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {

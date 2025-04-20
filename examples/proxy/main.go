@@ -36,7 +36,7 @@ func main() {
 	// The client is implemented below and serves only as an example.
 	// A full-featured client should be in scope of this package and might be added eventually.
 	// The example client only supports the read and search operations and exposes them using the generic API.
-	genericClient := Client{
+	var genericClient capabilities.GenericAPI = &Client{
 		url: strings.TrimRight(backendUrl, "/"),
 	}
 
@@ -54,7 +54,7 @@ func main() {
 	// Note: it is important to pass a references, as the methods below also implemented on a pointer as receiver.
 	cfg := rest.DefaultConfig
 	cfg.Base = &url.URL{Scheme: "http", Host: "localhost"}
-	server, err := rest.NewServer[model.R5](&genericClient, cfg)
+	server, err := rest.NewServer[model.R5](genericClient, cfg)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
 	}
@@ -68,9 +68,9 @@ type Client struct {
 	url string
 }
 
-func (c *Client) AllCapabilities() capabilities.Capabilities {
+func (c *Client) AllCapabilities(ctx context.Context) (capabilities.Capabilities, capabilities.FHIRError) {
 	// TODO: this should call the remote service for its capabilities
-	return capabilities.Capabilities{}
+	return capabilities.Capabilities{}, nil
 }
 
 func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
@@ -96,7 +96,7 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 	return resource, nil
 }
 
-func (c *Client) SearchCapabilities(resourceType string) (search.Capabilities, capabilities.FHIRError) {
+func (c *Client) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, capabilities.FHIRError) {
 	// TODO: These should be read from the remote servers CapabilityStatement.
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
@@ -114,6 +114,8 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 		// TODO: return a proper error with operation outcome
 		panic(err)
 	}
+
+	// TODO: proper error handling based on the response status code
 
 	var bundle r5.Bundle
 	err = json.NewDecoder(resp.Body).Decode(&bundle)

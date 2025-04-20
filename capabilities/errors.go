@@ -16,6 +16,31 @@ type FHIRError interface {
 	OperationOutcome() basic.OperationOutcome
 }
 
+// ReleaseNotSupported means that the FHIR version is not supported by the server.
+type ReleaseNotSupported struct {
+	Release string
+}
+
+func (e ReleaseNotSupported) Error() string {
+	return fmt.Sprintf("FHIR release %s not supported", e.Release)
+}
+
+func (e ReleaseNotSupported) StatusCode() int {
+	return 404
+}
+
+func (e ReleaseNotSupported) OperationOutcome() basic.OperationOutcome {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
+			},
+		},
+	}
+}
+
 // NotImplementedError means that the requested Interaction is not supported on requested ResourceType.
 type NotImplementedError struct {
 	Interaction  string

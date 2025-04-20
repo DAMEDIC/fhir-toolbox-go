@@ -38,7 +38,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 				returnType = Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)
 			case "search":
 				returnType = Qual(moduleName+"/capabilities/search", "Result")
-				g.Id("SearchCapabilities"+r.Name).Params().Params(
+				g.Id("SearchCapabilities"+r.Name).Params(Id("ctx").Qual("context", "Context")).Params(
 					Qual(moduleName+"/capabilities/search", "Capabilities"),
 					Qual(moduleName+"/capabilities", "FHIRError"),
 				)
@@ -50,7 +50,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 }
 
 func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceOrType) {
-	f.Func().Id("AllCapabilities").Params(Id("api").Any()).Params(
+	f.Func().Id("AllCapabilities").Params(Id("ctx").Qual("context", "Context"), Id("api").Any()).Params(
 		Qual(moduleName+"/capabilities", "Capabilities"),
 		Qual(moduleName+"/capabilities", "FHIRError"),
 	).BlockFunc(func(g *Group) {
@@ -74,7 +74,7 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 				),
 				Id("ok"),
 			).Block(
-				List(Id("capability"), Err()).Op(":=").Id("c").Dot("SearchCapabilities"+r.Name).Call(),
+				List(Id("capability"), Err()).Op(":=").Id("c").Dot("SearchCapabilities"+r.Name).Call(Id("ctx")),
 				If(Err().Op("!=").Nil()).Block(
 					Id("errs").Op("=").Append(List(Id("errs"), Err())),
 				).Else().Block(

@@ -2414,8 +2414,8 @@ func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r4b.Vi
 	}
 	return impl, nil
 }
-func (w Concrete) SearchCapabilitiesAccount() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Account")
+func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Account")
 }
 func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Account", options)
@@ -2424,8 +2424,8 @@ func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesActivityDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ActivityDefinition")
+func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ActivityDefinition")
 }
 func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ActivityDefinition", options)
@@ -2434,8 +2434,8 @@ func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAdministrableProductDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("AdministrableProductDefinition")
+func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "AdministrableProductDefinition")
 }
 func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "AdministrableProductDefinition", options)
@@ -2444,8 +2444,8 @@ func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAdverseEvent() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("AdverseEvent")
+func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "AdverseEvent")
 }
 func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "AdverseEvent", options)
@@ -2454,8 +2454,8 @@ func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAllergyIntolerance() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("AllergyIntolerance")
+func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "AllergyIntolerance")
 }
 func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "AllergyIntolerance", options)
@@ -2464,8 +2464,8 @@ func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAppointment() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Appointment")
+func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Appointment")
 }
 func (w Concrete) SearchAppointment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Appointment", options)
@@ -2474,8 +2474,8 @@ func (w Concrete) SearchAppointment(ctx context.Context, options search.Options)
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAppointmentResponse() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("AppointmentResponse")
+func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "AppointmentResponse")
 }
 func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "AppointmentResponse", options)
@@ -2484,8 +2484,8 @@ func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAuditEvent() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("AuditEvent")
+func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "AuditEvent")
 }
 func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "AuditEvent", options)
@@ -2494,8 +2494,8 @@ func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBasic() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Basic")
+func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Basic")
 }
 func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Basic", options)
@@ -2504,8 +2504,8 @@ func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBinary() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Binary")
+func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Binary")
 }
 func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Binary", options)
@@ -2514,8 +2514,8 @@ func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("BiologicallyDerivedProduct")
+func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "BiologicallyDerivedProduct")
 }
 func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "BiologicallyDerivedProduct", options)
@@ -2524,8 +2524,8 @@ func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBodyStructure() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("BodyStructure")
+func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "BodyStructure")
 }
 func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "BodyStructure", options)
@@ -2534,8 +2534,8 @@ func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBundle() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Bundle")
+func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Bundle")
 }
 func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Bundle", options)
@@ -2544,8 +2544,8 @@ func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCapabilityStatement() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CapabilityStatement")
+func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CapabilityStatement")
 }
 func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CapabilityStatement", options)
@@ -2554,8 +2554,8 @@ func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCarePlan() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CarePlan")
+func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CarePlan")
 }
 func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CarePlan", options)
@@ -2564,8 +2564,8 @@ func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCareTeam() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CareTeam")
+func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CareTeam")
 }
 func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CareTeam", options)
@@ -2574,8 +2574,8 @@ func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCatalogEntry() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CatalogEntry")
+func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CatalogEntry")
 }
 func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CatalogEntry", options)
@@ -2584,8 +2584,8 @@ func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItem() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ChargeItem")
+func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ChargeItem")
 }
 func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ChargeItem", options)
@@ -2594,8 +2594,8 @@ func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItemDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ChargeItemDefinition")
+func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ChargeItemDefinition")
 }
 func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ChargeItemDefinition", options)
@@ -2604,8 +2604,8 @@ func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCitation() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Citation")
+func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Citation")
 }
 func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Citation", options)
@@ -2614,8 +2614,8 @@ func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClaim() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Claim")
+func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Claim")
 }
 func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Claim", options)
@@ -2624,8 +2624,8 @@ func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClaimResponse() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ClaimResponse")
+func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ClaimResponse")
 }
 func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ClaimResponse", options)
@@ -2634,8 +2634,8 @@ func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalImpression() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ClinicalImpression")
+func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ClinicalImpression")
 }
 func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ClinicalImpression", options)
@@ -2644,8 +2644,8 @@ func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalUseDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ClinicalUseDefinition")
+func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ClinicalUseDefinition")
 }
 func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ClinicalUseDefinition", options)
@@ -2654,8 +2654,8 @@ func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCodeSystem() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CodeSystem")
+func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CodeSystem")
 }
 func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CodeSystem", options)
@@ -2664,8 +2664,8 @@ func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCommunication() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Communication")
+func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Communication")
 }
 func (w Concrete) SearchCommunication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Communication", options)
@@ -2674,8 +2674,8 @@ func (w Concrete) SearchCommunication(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCommunicationRequest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CommunicationRequest")
+func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CommunicationRequest")
 }
 func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CommunicationRequest", options)
@@ -2684,8 +2684,8 @@ func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCompartmentDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CompartmentDefinition")
+func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CompartmentDefinition")
 }
 func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CompartmentDefinition", options)
@@ -2694,8 +2694,8 @@ func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesComposition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Composition")
+func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Composition")
 }
 func (w Concrete) SearchComposition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Composition", options)
@@ -2704,8 +2704,8 @@ func (w Concrete) SearchComposition(ctx context.Context, options search.Options)
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesConceptMap() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ConceptMap")
+func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ConceptMap")
 }
 func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ConceptMap", options)
@@ -2714,8 +2714,8 @@ func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCondition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Condition")
+func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Condition")
 }
 func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Condition", options)
@@ -2724,8 +2724,8 @@ func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesConsent() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Consent")
+func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Consent")
 }
 func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Consent", options)
@@ -2734,8 +2734,8 @@ func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesContract() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Contract")
+func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Contract")
 }
 func (w Concrete) SearchContract(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Contract", options)
@@ -2744,8 +2744,8 @@ func (w Concrete) SearchContract(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCoverage() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Coverage")
+func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Coverage")
 }
 func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Coverage", options)
@@ -2754,8 +2754,8 @@ func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CoverageEligibilityRequest")
+func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CoverageEligibilityRequest")
 }
 func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CoverageEligibilityRequest", options)
@@ -2764,8 +2764,8 @@ func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("CoverageEligibilityResponse")
+func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "CoverageEligibilityResponse")
 }
 func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "CoverageEligibilityResponse", options)
@@ -2774,8 +2774,8 @@ func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDetectedIssue() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DetectedIssue")
+func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DetectedIssue")
 }
 func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DetectedIssue", options)
@@ -2784,8 +2784,8 @@ func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDevice() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Device")
+func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Device")
 }
 func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Device", options)
@@ -2794,8 +2794,8 @@ func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DeviceDefinition")
+func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DeviceDefinition")
 }
 func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DeviceDefinition", options)
@@ -2804,8 +2804,8 @@ func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceMetric() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DeviceMetric")
+func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DeviceMetric")
 }
 func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DeviceMetric", options)
@@ -2814,8 +2814,8 @@ func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceRequest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DeviceRequest")
+func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DeviceRequest")
 }
 func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DeviceRequest", options)
@@ -2824,8 +2824,8 @@ func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceUseStatement() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DeviceUseStatement")
+func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DeviceUseStatement")
 }
 func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DeviceUseStatement", options)
@@ -2834,8 +2834,8 @@ func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDiagnosticReport() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DiagnosticReport")
+func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DiagnosticReport")
 }
 func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DiagnosticReport", options)
@@ -2844,8 +2844,8 @@ func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentManifest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DocumentManifest")
+func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DocumentManifest")
 }
 func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DocumentManifest", options)
@@ -2854,8 +2854,8 @@ func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentReference() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("DocumentReference")
+func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "DocumentReference")
 }
 func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "DocumentReference", options)
@@ -2864,8 +2864,8 @@ func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEncounter() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Encounter")
+func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Encounter")
 }
 func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Encounter", options)
@@ -2874,8 +2874,8 @@ func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEndpoint() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Endpoint")
+func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Endpoint")
 }
 func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Endpoint", options)
@@ -2884,8 +2884,8 @@ func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentRequest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("EnrollmentRequest")
+func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "EnrollmentRequest")
 }
 func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "EnrollmentRequest", options)
@@ -2894,8 +2894,8 @@ func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentResponse() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("EnrollmentResponse")
+func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "EnrollmentResponse")
 }
 func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "EnrollmentResponse", options)
@@ -2904,8 +2904,8 @@ func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEpisodeOfCare() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("EpisodeOfCare")
+func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "EpisodeOfCare")
 }
 func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "EpisodeOfCare", options)
@@ -2914,8 +2914,8 @@ func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEventDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("EventDefinition")
+func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "EventDefinition")
 }
 func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "EventDefinition", options)
@@ -2924,8 +2924,8 @@ func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEvidence() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Evidence")
+func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Evidence")
 }
 func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Evidence", options)
@@ -2934,8 +2934,8 @@ func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceReport() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("EvidenceReport")
+func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "EvidenceReport")
 }
 func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "EvidenceReport", options)
@@ -2944,8 +2944,8 @@ func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceVariable() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("EvidenceVariable")
+func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "EvidenceVariable")
 }
 func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "EvidenceVariable", options)
@@ -2954,8 +2954,8 @@ func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesExampleScenario() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ExampleScenario")
+func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ExampleScenario")
 }
 func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ExampleScenario", options)
@@ -2964,8 +2964,8 @@ func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesExplanationOfBenefit() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ExplanationOfBenefit")
+func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ExplanationOfBenefit")
 }
 func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ExplanationOfBenefit", options)
@@ -2974,8 +2974,8 @@ func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesFamilyMemberHistory() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("FamilyMemberHistory")
+func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "FamilyMemberHistory")
 }
 func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "FamilyMemberHistory", options)
@@ -2984,8 +2984,8 @@ func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesFlag() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Flag")
+func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Flag")
 }
 func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Flag", options)
@@ -2994,8 +2994,8 @@ func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGoal() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Goal")
+func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Goal")
 }
 func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Goal", options)
@@ -3004,8 +3004,8 @@ func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGraphDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("GraphDefinition")
+func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "GraphDefinition")
 }
 func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "GraphDefinition", options)
@@ -3014,8 +3014,8 @@ func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGroup() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Group")
+func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Group")
 }
 func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Group", options)
@@ -3024,8 +3024,8 @@ func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGuidanceResponse() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("GuidanceResponse")
+func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "GuidanceResponse")
 }
 func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "GuidanceResponse", options)
@@ -3034,8 +3034,8 @@ func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesHealthcareService() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("HealthcareService")
+func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "HealthcareService")
 }
 func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "HealthcareService", options)
@@ -3044,8 +3044,8 @@ func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImagingStudy() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ImagingStudy")
+func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ImagingStudy")
 }
 func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ImagingStudy", options)
@@ -3054,8 +3054,8 @@ func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImmunization() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Immunization")
+func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Immunization")
 }
 func (w Concrete) SearchImmunization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Immunization", options)
@@ -3064,8 +3064,8 @@ func (w Concrete) SearchImmunization(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationEvaluation() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ImmunizationEvaluation")
+func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ImmunizationEvaluation")
 }
 func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ImmunizationEvaluation", options)
@@ -3074,8 +3074,8 @@ func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationRecommendation() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ImmunizationRecommendation")
+func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ImmunizationRecommendation")
 }
 func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ImmunizationRecommendation", options)
@@ -3084,8 +3084,8 @@ func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImplementationGuide() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ImplementationGuide")
+func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ImplementationGuide")
 }
 func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ImplementationGuide", options)
@@ -3094,8 +3094,8 @@ func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesIngredient() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Ingredient")
+func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Ingredient")
 }
 func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Ingredient", options)
@@ -3104,8 +3104,8 @@ func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesInsurancePlan() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("InsurancePlan")
+func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "InsurancePlan")
 }
 func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "InsurancePlan", options)
@@ -3114,8 +3114,8 @@ func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesInvoice() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Invoice")
+func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Invoice")
 }
 func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Invoice", options)
@@ -3124,8 +3124,8 @@ func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesLibrary() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Library")
+func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Library")
 }
 func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Library", options)
@@ -3134,8 +3134,8 @@ func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesLinkage() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Linkage")
+func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Linkage")
 }
 func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Linkage", options)
@@ -3144,8 +3144,8 @@ func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesList() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("List")
+func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "List")
 }
 func (w Concrete) SearchList(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "List", options)
@@ -3154,8 +3154,8 @@ func (w Concrete) SearchList(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesLocation() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Location")
+func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Location")
 }
 func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Location", options)
@@ -3164,8 +3164,8 @@ func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesManufacturedItemDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ManufacturedItemDefinition")
+func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ManufacturedItemDefinition")
 }
 func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ManufacturedItemDefinition", options)
@@ -3174,8 +3174,8 @@ func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMeasure() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Measure")
+func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Measure")
 }
 func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Measure", options)
@@ -3184,8 +3184,8 @@ func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMeasureReport() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MeasureReport")
+func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MeasureReport")
 }
 func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MeasureReport", options)
@@ -3194,8 +3194,8 @@ func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedia() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Media")
+func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Media")
 }
 func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Media", options)
@@ -3204,8 +3204,8 @@ func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedication() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Medication")
+func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Medication")
 }
 func (w Concrete) SearchMedication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Medication", options)
@@ -3214,8 +3214,8 @@ func (w Concrete) SearchMedication(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationAdministration() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MedicationAdministration")
+func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MedicationAdministration")
 }
 func (w Concrete) SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MedicationAdministration", options)
@@ -3224,8 +3224,8 @@ func (w Concrete) SearchMedicationAdministration(ctx context.Context, options se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationDispense() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MedicationDispense")
+func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MedicationDispense")
 }
 func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MedicationDispense", options)
@@ -3234,8 +3234,8 @@ func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationKnowledge() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MedicationKnowledge")
+func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MedicationKnowledge")
 }
 func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MedicationKnowledge", options)
@@ -3244,8 +3244,8 @@ func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationRequest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MedicationRequest")
+func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MedicationRequest")
 }
 func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MedicationRequest", options)
@@ -3254,8 +3254,8 @@ func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationStatement() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MedicationStatement")
+func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MedicationStatement")
 }
 func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MedicationStatement", options)
@@ -3264,8 +3264,8 @@ func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MedicinalProductDefinition")
+func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MedicinalProductDefinition")
 }
 func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MedicinalProductDefinition", options)
@@ -3274,8 +3274,8 @@ func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMessageDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MessageDefinition")
+func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MessageDefinition")
 }
 func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MessageDefinition", options)
@@ -3284,8 +3284,8 @@ func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMessageHeader() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MessageHeader")
+func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MessageHeader")
 }
 func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MessageHeader", options)
@@ -3294,8 +3294,8 @@ func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMolecularSequence() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("MolecularSequence")
+func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "MolecularSequence")
 }
 func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "MolecularSequence", options)
@@ -3304,8 +3304,8 @@ func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesNamingSystem() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("NamingSystem")
+func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "NamingSystem")
 }
 func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "NamingSystem", options)
@@ -3314,8 +3314,8 @@ func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionOrder() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("NutritionOrder")
+func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "NutritionOrder")
 }
 func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "NutritionOrder", options)
@@ -3324,8 +3324,8 @@ func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionProduct() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("NutritionProduct")
+func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "NutritionProduct")
 }
 func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "NutritionProduct", options)
@@ -3334,8 +3334,8 @@ func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesObservation() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Observation")
+func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Observation")
 }
 func (w Concrete) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Observation", options)
@@ -3344,8 +3344,8 @@ func (w Concrete) SearchObservation(ctx context.Context, options search.Options)
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesObservationDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ObservationDefinition")
+func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ObservationDefinition")
 }
 func (w Concrete) SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ObservationDefinition", options)
@@ -3354,8 +3354,8 @@ func (w Concrete) SearchObservationDefinition(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOperationDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("OperationDefinition")
+func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "OperationDefinition")
 }
 func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "OperationDefinition", options)
@@ -3364,8 +3364,8 @@ func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOperationOutcome() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("OperationOutcome")
+func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "OperationOutcome")
 }
 func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "OperationOutcome", options)
@@ -3374,8 +3374,8 @@ func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOrganization() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Organization")
+func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Organization")
 }
 func (w Concrete) SearchOrganization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Organization", options)
@@ -3384,8 +3384,8 @@ func (w Concrete) SearchOrganization(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOrganizationAffiliation() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("OrganizationAffiliation")
+func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "OrganizationAffiliation")
 }
 func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "OrganizationAffiliation", options)
@@ -3394,8 +3394,8 @@ func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPackagedProductDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("PackagedProductDefinition")
+func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "PackagedProductDefinition")
 }
 func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "PackagedProductDefinition", options)
@@ -3404,8 +3404,8 @@ func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesParameters() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Parameters")
+func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Parameters")
 }
 func (w Concrete) SearchParameters(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Parameters", options)
@@ -3414,8 +3414,8 @@ func (w Concrete) SearchParameters(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPatient() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Patient")
+func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Patient")
 }
 func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Patient", options)
@@ -3424,8 +3424,8 @@ func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentNotice() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("PaymentNotice")
+func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "PaymentNotice")
 }
 func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "PaymentNotice", options)
@@ -3434,8 +3434,8 @@ func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentReconciliation() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("PaymentReconciliation")
+func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "PaymentReconciliation")
 }
 func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "PaymentReconciliation", options)
@@ -3444,8 +3444,8 @@ func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPerson() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Person")
+func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Person")
 }
 func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Person", options)
@@ -3454,8 +3454,8 @@ func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPlanDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("PlanDefinition")
+func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "PlanDefinition")
 }
 func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "PlanDefinition", options)
@@ -3464,8 +3464,8 @@ func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPractitioner() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Practitioner")
+func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Practitioner")
 }
 func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Practitioner", options)
@@ -3474,8 +3474,8 @@ func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPractitionerRole() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("PractitionerRole")
+func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "PractitionerRole")
 }
 func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "PractitionerRole", options)
@@ -3484,8 +3484,8 @@ func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesProcedure() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Procedure")
+func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Procedure")
 }
 func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Procedure", options)
@@ -3494,8 +3494,8 @@ func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesProvenance() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Provenance")
+func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Provenance")
 }
 func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Provenance", options)
@@ -3504,8 +3504,8 @@ func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaire() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Questionnaire")
+func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Questionnaire")
 }
 func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Questionnaire", options)
@@ -3514,8 +3514,8 @@ func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaireResponse() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("QuestionnaireResponse")
+func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "QuestionnaireResponse")
 }
 func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "QuestionnaireResponse", options)
@@ -3524,8 +3524,8 @@ func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRegulatedAuthorization() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("RegulatedAuthorization")
+func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "RegulatedAuthorization")
 }
 func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "RegulatedAuthorization", options)
@@ -3534,8 +3534,8 @@ func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRelatedPerson() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("RelatedPerson")
+func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "RelatedPerson")
 }
 func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "RelatedPerson", options)
@@ -3544,8 +3544,8 @@ func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRequestGroup() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("RequestGroup")
+func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "RequestGroup")
 }
 func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "RequestGroup", options)
@@ -3554,8 +3554,8 @@ func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ResearchDefinition")
+func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ResearchDefinition")
 }
 func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ResearchDefinition", options)
@@ -3564,8 +3564,8 @@ func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchElementDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ResearchElementDefinition")
+func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ResearchElementDefinition")
 }
 func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ResearchElementDefinition", options)
@@ -3574,8 +3574,8 @@ func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchStudy() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ResearchStudy")
+func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ResearchStudy")
 }
 func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ResearchStudy", options)
@@ -3584,8 +3584,8 @@ func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchSubject() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ResearchSubject")
+func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ResearchSubject")
 }
 func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ResearchSubject", options)
@@ -3594,8 +3594,8 @@ func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRiskAssessment() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("RiskAssessment")
+func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "RiskAssessment")
 }
 func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "RiskAssessment", options)
@@ -3604,8 +3604,8 @@ func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSchedule() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Schedule")
+func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Schedule")
 }
 func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Schedule", options)
@@ -3614,8 +3614,8 @@ func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSearchParameter() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("SearchParameter")
+func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "SearchParameter")
 }
 func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "SearchParameter", options)
@@ -3624,8 +3624,8 @@ func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesServiceRequest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ServiceRequest")
+func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ServiceRequest")
 }
 func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ServiceRequest", options)
@@ -3634,8 +3634,8 @@ func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSlot() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Slot")
+func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Slot")
 }
 func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Slot", options)
@@ -3644,8 +3644,8 @@ func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimen() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Specimen")
+func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Specimen")
 }
 func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Specimen", options)
@@ -3654,8 +3654,8 @@ func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimenDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("SpecimenDefinition")
+func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "SpecimenDefinition")
 }
 func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "SpecimenDefinition", options)
@@ -3664,8 +3664,8 @@ func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesStructureDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("StructureDefinition")
+func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "StructureDefinition")
 }
 func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "StructureDefinition", options)
@@ -3674,8 +3674,8 @@ func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesStructureMap() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("StructureMap")
+func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "StructureMap")
 }
 func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "StructureMap", options)
@@ -3684,8 +3684,8 @@ func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubscription() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Subscription")
+func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Subscription")
 }
 func (w Concrete) SearchSubscription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Subscription", options)
@@ -3694,8 +3694,8 @@ func (w Concrete) SearchSubscription(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubscriptionStatus() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("SubscriptionStatus")
+func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "SubscriptionStatus")
 }
 func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "SubscriptionStatus", options)
@@ -3704,8 +3704,8 @@ func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubscriptionTopic() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("SubscriptionTopic")
+func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "SubscriptionTopic")
 }
 func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "SubscriptionTopic", options)
@@ -3714,8 +3714,8 @@ func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubstance() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Substance")
+func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Substance")
 }
 func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Substance", options)
@@ -3724,8 +3724,8 @@ func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceDefinition() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("SubstanceDefinition")
+func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "SubstanceDefinition")
 }
 func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "SubstanceDefinition", options)
@@ -3734,8 +3734,8 @@ func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyDelivery() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("SupplyDelivery")
+func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "SupplyDelivery")
 }
 func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "SupplyDelivery", options)
@@ -3744,8 +3744,8 @@ func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyRequest() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("SupplyRequest")
+func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "SupplyRequest")
 }
 func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "SupplyRequest", options)
@@ -3754,8 +3754,8 @@ func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTask() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("Task")
+func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "Task")
 }
 func (w Concrete) SearchTask(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "Task", options)
@@ -3764,8 +3764,8 @@ func (w Concrete) SearchTask(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTerminologyCapabilities() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("TerminologyCapabilities")
+func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "TerminologyCapabilities")
 }
 func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "TerminologyCapabilities", options)
@@ -3774,8 +3774,8 @@ func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTestReport() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("TestReport")
+func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "TestReport")
 }
 func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "TestReport", options)
@@ -3784,8 +3784,8 @@ func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTestScript() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("TestScript")
+func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "TestScript")
 }
 func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "TestScript", options)
@@ -3794,8 +3794,8 @@ func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesValueSet() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("ValueSet")
+func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "ValueSet")
 }
 func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "ValueSet", options)
@@ -3804,8 +3804,8 @@ func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesVerificationResult() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("VerificationResult")
+func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "VerificationResult")
 }
 func (w Concrete) SearchVerificationResult(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "VerificationResult", options)
@@ -3814,8 +3814,8 @@ func (w Concrete) SearchVerificationResult(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesVisionPrescription() (search.Capabilities, capabilities.FHIRError) {
-	return w.Generic.SearchCapabilities("VisionPrescription")
+func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+	return w.Generic.SearchCapabilities(ctx, "VisionPrescription")
 }
 func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
 	v, err := w.Generic.Search(ctx, "VisionPrescription", options)

@@ -1008,7 +1008,7 @@ func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, ca
 	return m.mockPatients[0], nil
 }
 
-func (m mockBackend) SearchCapabilitiesPatient() (search.Capabilities, capabilities.FHIRError) {
+func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id":  {Type: search.TypeToken},
@@ -1040,7 +1040,7 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 	return result, nil
 }
 
-func (m mockBackend) SearchCapabilitiesObservation() (search.Capabilities, capabilities.FHIRError) {
+func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.TypeToken},

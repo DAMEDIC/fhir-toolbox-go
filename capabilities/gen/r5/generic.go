@@ -15,8 +15,8 @@ type Generic struct {
 	Concrete any
 }
 
-func (w Generic) AllCapabilities() (capabilities.Capabilities, capabilities.FHIRError) {
-	return AllCapabilities(w.Concrete)
+func (w Generic) AllCapabilities(ctx context.Context) (capabilities.Capabilities, capabilities.FHIRError) {
+	return AllCapabilities(ctx, w.Concrete)
 }
 func (w Generic) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
 	switch resourceType {
@@ -972,956 +972,956 @@ func (w Generic) Read(ctx context.Context, resourceType string, id string) (mode
 		return nil, capabilities.UnknownResourceError{ResourceType: resourceType}
 	}
 }
-func (w Generic) SearchCapabilities(resourceType string) (search.Capabilities, capabilities.FHIRError) {
+func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, capabilities.FHIRError) {
 	switch resourceType {
 	case "Account":
 		impl, ok := w.Concrete.(AccountSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Account"}
 		}
-		return impl.SearchCapabilitiesAccount()
+		return impl.SearchCapabilitiesAccount(ctx)
 	case "ActivityDefinition":
 		impl, ok := w.Concrete.(ActivityDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ActivityDefinition"}
 		}
-		return impl.SearchCapabilitiesActivityDefinition()
+		return impl.SearchCapabilitiesActivityDefinition(ctx)
 	case "ActorDefinition":
 		impl, ok := w.Concrete.(ActorDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ActorDefinition"}
 		}
-		return impl.SearchCapabilitiesActorDefinition()
+		return impl.SearchCapabilitiesActorDefinition(ctx)
 	case "AdministrableProductDefinition":
 		impl, ok := w.Concrete.(AdministrableProductDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AdministrableProductDefinition"}
 		}
-		return impl.SearchCapabilitiesAdministrableProductDefinition()
+		return impl.SearchCapabilitiesAdministrableProductDefinition(ctx)
 	case "AdverseEvent":
 		impl, ok := w.Concrete.(AdverseEventSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AdverseEvent"}
 		}
-		return impl.SearchCapabilitiesAdverseEvent()
+		return impl.SearchCapabilitiesAdverseEvent(ctx)
 	case "AllergyIntolerance":
 		impl, ok := w.Concrete.(AllergyIntoleranceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AllergyIntolerance"}
 		}
-		return impl.SearchCapabilitiesAllergyIntolerance()
+		return impl.SearchCapabilitiesAllergyIntolerance(ctx)
 	case "Appointment":
 		impl, ok := w.Concrete.(AppointmentSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Appointment"}
 		}
-		return impl.SearchCapabilitiesAppointment()
+		return impl.SearchCapabilitiesAppointment(ctx)
 	case "AppointmentResponse":
 		impl, ok := w.Concrete.(AppointmentResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AppointmentResponse"}
 		}
-		return impl.SearchCapabilitiesAppointmentResponse()
+		return impl.SearchCapabilitiesAppointmentResponse(ctx)
 	case "ArtifactAssessment":
 		impl, ok := w.Concrete.(ArtifactAssessmentSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ArtifactAssessment"}
 		}
-		return impl.SearchCapabilitiesArtifactAssessment()
+		return impl.SearchCapabilitiesArtifactAssessment(ctx)
 	case "AuditEvent":
 		impl, ok := w.Concrete.(AuditEventSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AuditEvent"}
 		}
-		return impl.SearchCapabilitiesAuditEvent()
+		return impl.SearchCapabilitiesAuditEvent(ctx)
 	case "Basic":
 		impl, ok := w.Concrete.(BasicSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Basic"}
 		}
-		return impl.SearchCapabilitiesBasic()
+		return impl.SearchCapabilitiesBasic(ctx)
 	case "Binary":
 		impl, ok := w.Concrete.(BinarySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Binary"}
 		}
-		return impl.SearchCapabilitiesBinary()
+		return impl.SearchCapabilitiesBinary(ctx)
 	case "BiologicallyDerivedProduct":
 		impl, ok := w.Concrete.(BiologicallyDerivedProductSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BiologicallyDerivedProduct"}
 		}
-		return impl.SearchCapabilitiesBiologicallyDerivedProduct()
+		return impl.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
 	case "BiologicallyDerivedProductDispense":
 		impl, ok := w.Concrete.(BiologicallyDerivedProductDispenseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BiologicallyDerivedProductDispense"}
 		}
-		return impl.SearchCapabilitiesBiologicallyDerivedProductDispense()
+		return impl.SearchCapabilitiesBiologicallyDerivedProductDispense(ctx)
 	case "BodyStructure":
 		impl, ok := w.Concrete.(BodyStructureSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BodyStructure"}
 		}
-		return impl.SearchCapabilitiesBodyStructure()
+		return impl.SearchCapabilitiesBodyStructure(ctx)
 	case "Bundle":
 		impl, ok := w.Concrete.(BundleSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Bundle"}
 		}
-		return impl.SearchCapabilitiesBundle()
+		return impl.SearchCapabilitiesBundle(ctx)
 	case "CapabilityStatement":
 		impl, ok := w.Concrete.(CapabilityStatementSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CapabilityStatement"}
 		}
-		return impl.SearchCapabilitiesCapabilityStatement()
+		return impl.SearchCapabilitiesCapabilityStatement(ctx)
 	case "CarePlan":
 		impl, ok := w.Concrete.(CarePlanSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CarePlan"}
 		}
-		return impl.SearchCapabilitiesCarePlan()
+		return impl.SearchCapabilitiesCarePlan(ctx)
 	case "CareTeam":
 		impl, ok := w.Concrete.(CareTeamSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CareTeam"}
 		}
-		return impl.SearchCapabilitiesCareTeam()
+		return impl.SearchCapabilitiesCareTeam(ctx)
 	case "ChargeItem":
 		impl, ok := w.Concrete.(ChargeItemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItem"}
 		}
-		return impl.SearchCapabilitiesChargeItem()
+		return impl.SearchCapabilitiesChargeItem(ctx)
 	case "ChargeItemDefinition":
 		impl, ok := w.Concrete.(ChargeItemDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItemDefinition"}
 		}
-		return impl.SearchCapabilitiesChargeItemDefinition()
+		return impl.SearchCapabilitiesChargeItemDefinition(ctx)
 	case "Citation":
 		impl, ok := w.Concrete.(CitationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Citation"}
 		}
-		return impl.SearchCapabilitiesCitation()
+		return impl.SearchCapabilitiesCitation(ctx)
 	case "Claim":
 		impl, ok := w.Concrete.(ClaimSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Claim"}
 		}
-		return impl.SearchCapabilitiesClaim()
+		return impl.SearchCapabilitiesClaim(ctx)
 	case "ClaimResponse":
 		impl, ok := w.Concrete.(ClaimResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClaimResponse"}
 		}
-		return impl.SearchCapabilitiesClaimResponse()
+		return impl.SearchCapabilitiesClaimResponse(ctx)
 	case "ClinicalImpression":
 		impl, ok := w.Concrete.(ClinicalImpressionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClinicalImpression"}
 		}
-		return impl.SearchCapabilitiesClinicalImpression()
+		return impl.SearchCapabilitiesClinicalImpression(ctx)
 	case "ClinicalUseDefinition":
 		impl, ok := w.Concrete.(ClinicalUseDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClinicalUseDefinition"}
 		}
-		return impl.SearchCapabilitiesClinicalUseDefinition()
+		return impl.SearchCapabilitiesClinicalUseDefinition(ctx)
 	case "CodeSystem":
 		impl, ok := w.Concrete.(CodeSystemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CodeSystem"}
 		}
-		return impl.SearchCapabilitiesCodeSystem()
+		return impl.SearchCapabilitiesCodeSystem(ctx)
 	case "Communication":
 		impl, ok := w.Concrete.(CommunicationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Communication"}
 		}
-		return impl.SearchCapabilitiesCommunication()
+		return impl.SearchCapabilitiesCommunication(ctx)
 	case "CommunicationRequest":
 		impl, ok := w.Concrete.(CommunicationRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CommunicationRequest"}
 		}
-		return impl.SearchCapabilitiesCommunicationRequest()
+		return impl.SearchCapabilitiesCommunicationRequest(ctx)
 	case "CompartmentDefinition":
 		impl, ok := w.Concrete.(CompartmentDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CompartmentDefinition"}
 		}
-		return impl.SearchCapabilitiesCompartmentDefinition()
+		return impl.SearchCapabilitiesCompartmentDefinition(ctx)
 	case "Composition":
 		impl, ok := w.Concrete.(CompositionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Composition"}
 		}
-		return impl.SearchCapabilitiesComposition()
+		return impl.SearchCapabilitiesComposition(ctx)
 	case "ConceptMap":
 		impl, ok := w.Concrete.(ConceptMapSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ConceptMap"}
 		}
-		return impl.SearchCapabilitiesConceptMap()
+		return impl.SearchCapabilitiesConceptMap(ctx)
 	case "Condition":
 		impl, ok := w.Concrete.(ConditionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Condition"}
 		}
-		return impl.SearchCapabilitiesCondition()
+		return impl.SearchCapabilitiesCondition(ctx)
 	case "ConditionDefinition":
 		impl, ok := w.Concrete.(ConditionDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ConditionDefinition"}
 		}
-		return impl.SearchCapabilitiesConditionDefinition()
+		return impl.SearchCapabilitiesConditionDefinition(ctx)
 	case "Consent":
 		impl, ok := w.Concrete.(ConsentSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Consent"}
 		}
-		return impl.SearchCapabilitiesConsent()
+		return impl.SearchCapabilitiesConsent(ctx)
 	case "Contract":
 		impl, ok := w.Concrete.(ContractSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Contract"}
 		}
-		return impl.SearchCapabilitiesContract()
+		return impl.SearchCapabilitiesContract(ctx)
 	case "Coverage":
 		impl, ok := w.Concrete.(CoverageSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Coverage"}
 		}
-		return impl.SearchCapabilitiesCoverage()
+		return impl.SearchCapabilitiesCoverage(ctx)
 	case "CoverageEligibilityRequest":
 		impl, ok := w.Concrete.(CoverageEligibilityRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityRequest"}
 		}
-		return impl.SearchCapabilitiesCoverageEligibilityRequest()
+		return impl.SearchCapabilitiesCoverageEligibilityRequest(ctx)
 	case "CoverageEligibilityResponse":
 		impl, ok := w.Concrete.(CoverageEligibilityResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityResponse"}
 		}
-		return impl.SearchCapabilitiesCoverageEligibilityResponse()
+		return impl.SearchCapabilitiesCoverageEligibilityResponse(ctx)
 	case "DetectedIssue":
 		impl, ok := w.Concrete.(DetectedIssueSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DetectedIssue"}
 		}
-		return impl.SearchCapabilitiesDetectedIssue()
+		return impl.SearchCapabilitiesDetectedIssue(ctx)
 	case "Device":
 		impl, ok := w.Concrete.(DeviceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Device"}
 		}
-		return impl.SearchCapabilitiesDevice()
+		return impl.SearchCapabilitiesDevice(ctx)
 	case "DeviceAssociation":
 		impl, ok := w.Concrete.(DeviceAssociationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceAssociation"}
 		}
-		return impl.SearchCapabilitiesDeviceAssociation()
+		return impl.SearchCapabilitiesDeviceAssociation(ctx)
 	case "DeviceDefinition":
 		impl, ok := w.Concrete.(DeviceDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceDefinition"}
 		}
-		return impl.SearchCapabilitiesDeviceDefinition()
+		return impl.SearchCapabilitiesDeviceDefinition(ctx)
 	case "DeviceDispense":
 		impl, ok := w.Concrete.(DeviceDispenseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceDispense"}
 		}
-		return impl.SearchCapabilitiesDeviceDispense()
+		return impl.SearchCapabilitiesDeviceDispense(ctx)
 	case "DeviceMetric":
 		impl, ok := w.Concrete.(DeviceMetricSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceMetric"}
 		}
-		return impl.SearchCapabilitiesDeviceMetric()
+		return impl.SearchCapabilitiesDeviceMetric(ctx)
 	case "DeviceRequest":
 		impl, ok := w.Concrete.(DeviceRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceRequest"}
 		}
-		return impl.SearchCapabilitiesDeviceRequest()
+		return impl.SearchCapabilitiesDeviceRequest(ctx)
 	case "DeviceUsage":
 		impl, ok := w.Concrete.(DeviceUsageSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceUsage"}
 		}
-		return impl.SearchCapabilitiesDeviceUsage()
+		return impl.SearchCapabilitiesDeviceUsage(ctx)
 	case "DiagnosticReport":
 		impl, ok := w.Concrete.(DiagnosticReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DiagnosticReport"}
 		}
-		return impl.SearchCapabilitiesDiagnosticReport()
+		return impl.SearchCapabilitiesDiagnosticReport(ctx)
 	case "DocumentReference":
 		impl, ok := w.Concrete.(DocumentReferenceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DocumentReference"}
 		}
-		return impl.SearchCapabilitiesDocumentReference()
+		return impl.SearchCapabilitiesDocumentReference(ctx)
 	case "Encounter":
 		impl, ok := w.Concrete.(EncounterSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Encounter"}
 		}
-		return impl.SearchCapabilitiesEncounter()
+		return impl.SearchCapabilitiesEncounter(ctx)
 	case "EncounterHistory":
 		impl, ok := w.Concrete.(EncounterHistorySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EncounterHistory"}
 		}
-		return impl.SearchCapabilitiesEncounterHistory()
+		return impl.SearchCapabilitiesEncounterHistory(ctx)
 	case "Endpoint":
 		impl, ok := w.Concrete.(EndpointSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Endpoint"}
 		}
-		return impl.SearchCapabilitiesEndpoint()
+		return impl.SearchCapabilitiesEndpoint(ctx)
 	case "EnrollmentRequest":
 		impl, ok := w.Concrete.(EnrollmentRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentRequest"}
 		}
-		return impl.SearchCapabilitiesEnrollmentRequest()
+		return impl.SearchCapabilitiesEnrollmentRequest(ctx)
 	case "EnrollmentResponse":
 		impl, ok := w.Concrete.(EnrollmentResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentResponse"}
 		}
-		return impl.SearchCapabilitiesEnrollmentResponse()
+		return impl.SearchCapabilitiesEnrollmentResponse(ctx)
 	case "EpisodeOfCare":
 		impl, ok := w.Concrete.(EpisodeOfCareSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EpisodeOfCare"}
 		}
-		return impl.SearchCapabilitiesEpisodeOfCare()
+		return impl.SearchCapabilitiesEpisodeOfCare(ctx)
 	case "EventDefinition":
 		impl, ok := w.Concrete.(EventDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EventDefinition"}
 		}
-		return impl.SearchCapabilitiesEventDefinition()
+		return impl.SearchCapabilitiesEventDefinition(ctx)
 	case "Evidence":
 		impl, ok := w.Concrete.(EvidenceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Evidence"}
 		}
-		return impl.SearchCapabilitiesEvidence()
+		return impl.SearchCapabilitiesEvidence(ctx)
 	case "EvidenceReport":
 		impl, ok := w.Concrete.(EvidenceReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EvidenceReport"}
 		}
-		return impl.SearchCapabilitiesEvidenceReport()
+		return impl.SearchCapabilitiesEvidenceReport(ctx)
 	case "EvidenceVariable":
 		impl, ok := w.Concrete.(EvidenceVariableSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EvidenceVariable"}
 		}
-		return impl.SearchCapabilitiesEvidenceVariable()
+		return impl.SearchCapabilitiesEvidenceVariable(ctx)
 	case "ExampleScenario":
 		impl, ok := w.Concrete.(ExampleScenarioSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExampleScenario"}
 		}
-		return impl.SearchCapabilitiesExampleScenario()
+		return impl.SearchCapabilitiesExampleScenario(ctx)
 	case "ExplanationOfBenefit":
 		impl, ok := w.Concrete.(ExplanationOfBenefitSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExplanationOfBenefit"}
 		}
-		return impl.SearchCapabilitiesExplanationOfBenefit()
+		return impl.SearchCapabilitiesExplanationOfBenefit(ctx)
 	case "FamilyMemberHistory":
 		impl, ok := w.Concrete.(FamilyMemberHistorySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "FamilyMemberHistory"}
 		}
-		return impl.SearchCapabilitiesFamilyMemberHistory()
+		return impl.SearchCapabilitiesFamilyMemberHistory(ctx)
 	case "Flag":
 		impl, ok := w.Concrete.(FlagSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Flag"}
 		}
-		return impl.SearchCapabilitiesFlag()
+		return impl.SearchCapabilitiesFlag(ctx)
 	case "FormularyItem":
 		impl, ok := w.Concrete.(FormularyItemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "FormularyItem"}
 		}
-		return impl.SearchCapabilitiesFormularyItem()
+		return impl.SearchCapabilitiesFormularyItem(ctx)
 	case "GenomicStudy":
 		impl, ok := w.Concrete.(GenomicStudySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GenomicStudy"}
 		}
-		return impl.SearchCapabilitiesGenomicStudy()
+		return impl.SearchCapabilitiesGenomicStudy(ctx)
 	case "Goal":
 		impl, ok := w.Concrete.(GoalSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Goal"}
 		}
-		return impl.SearchCapabilitiesGoal()
+		return impl.SearchCapabilitiesGoal(ctx)
 	case "GraphDefinition":
 		impl, ok := w.Concrete.(GraphDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GraphDefinition"}
 		}
-		return impl.SearchCapabilitiesGraphDefinition()
+		return impl.SearchCapabilitiesGraphDefinition(ctx)
 	case "Group":
 		impl, ok := w.Concrete.(GroupSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Group"}
 		}
-		return impl.SearchCapabilitiesGroup()
+		return impl.SearchCapabilitiesGroup(ctx)
 	case "GuidanceResponse":
 		impl, ok := w.Concrete.(GuidanceResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GuidanceResponse"}
 		}
-		return impl.SearchCapabilitiesGuidanceResponse()
+		return impl.SearchCapabilitiesGuidanceResponse(ctx)
 	case "HealthcareService":
 		impl, ok := w.Concrete.(HealthcareServiceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "HealthcareService"}
 		}
-		return impl.SearchCapabilitiesHealthcareService()
+		return impl.SearchCapabilitiesHealthcareService(ctx)
 	case "ImagingSelection":
 		impl, ok := w.Concrete.(ImagingSelectionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImagingSelection"}
 		}
-		return impl.SearchCapabilitiesImagingSelection()
+		return impl.SearchCapabilitiesImagingSelection(ctx)
 	case "ImagingStudy":
 		impl, ok := w.Concrete.(ImagingStudySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImagingStudy"}
 		}
-		return impl.SearchCapabilitiesImagingStudy()
+		return impl.SearchCapabilitiesImagingStudy(ctx)
 	case "Immunization":
 		impl, ok := w.Concrete.(ImmunizationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Immunization"}
 		}
-		return impl.SearchCapabilitiesImmunization()
+		return impl.SearchCapabilitiesImmunization(ctx)
 	case "ImmunizationEvaluation":
 		impl, ok := w.Concrete.(ImmunizationEvaluationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationEvaluation"}
 		}
-		return impl.SearchCapabilitiesImmunizationEvaluation()
+		return impl.SearchCapabilitiesImmunizationEvaluation(ctx)
 	case "ImmunizationRecommendation":
 		impl, ok := w.Concrete.(ImmunizationRecommendationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationRecommendation"}
 		}
-		return impl.SearchCapabilitiesImmunizationRecommendation()
+		return impl.SearchCapabilitiesImmunizationRecommendation(ctx)
 	case "ImplementationGuide":
 		impl, ok := w.Concrete.(ImplementationGuideSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImplementationGuide"}
 		}
-		return impl.SearchCapabilitiesImplementationGuide()
+		return impl.SearchCapabilitiesImplementationGuide(ctx)
 	case "Ingredient":
 		impl, ok := w.Concrete.(IngredientSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Ingredient"}
 		}
-		return impl.SearchCapabilitiesIngredient()
+		return impl.SearchCapabilitiesIngredient(ctx)
 	case "InsurancePlan":
 		impl, ok := w.Concrete.(InsurancePlanSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "InsurancePlan"}
 		}
-		return impl.SearchCapabilitiesInsurancePlan()
+		return impl.SearchCapabilitiesInsurancePlan(ctx)
 	case "InventoryItem":
 		impl, ok := w.Concrete.(InventoryItemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "InventoryItem"}
 		}
-		return impl.SearchCapabilitiesInventoryItem()
+		return impl.SearchCapabilitiesInventoryItem(ctx)
 	case "InventoryReport":
 		impl, ok := w.Concrete.(InventoryReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "InventoryReport"}
 		}
-		return impl.SearchCapabilitiesInventoryReport()
+		return impl.SearchCapabilitiesInventoryReport(ctx)
 	case "Invoice":
 		impl, ok := w.Concrete.(InvoiceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Invoice"}
 		}
-		return impl.SearchCapabilitiesInvoice()
+		return impl.SearchCapabilitiesInvoice(ctx)
 	case "Library":
 		impl, ok := w.Concrete.(LibrarySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Library"}
 		}
-		return impl.SearchCapabilitiesLibrary()
+		return impl.SearchCapabilitiesLibrary(ctx)
 	case "Linkage":
 		impl, ok := w.Concrete.(LinkageSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Linkage"}
 		}
-		return impl.SearchCapabilitiesLinkage()
+		return impl.SearchCapabilitiesLinkage(ctx)
 	case "List":
 		impl, ok := w.Concrete.(ListSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "List"}
 		}
-		return impl.SearchCapabilitiesList()
+		return impl.SearchCapabilitiesList(ctx)
 	case "Location":
 		impl, ok := w.Concrete.(LocationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Location"}
 		}
-		return impl.SearchCapabilitiesLocation()
+		return impl.SearchCapabilitiesLocation(ctx)
 	case "ManufacturedItemDefinition":
 		impl, ok := w.Concrete.(ManufacturedItemDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ManufacturedItemDefinition"}
 		}
-		return impl.SearchCapabilitiesManufacturedItemDefinition()
+		return impl.SearchCapabilitiesManufacturedItemDefinition(ctx)
 	case "Measure":
 		impl, ok := w.Concrete.(MeasureSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Measure"}
 		}
-		return impl.SearchCapabilitiesMeasure()
+		return impl.SearchCapabilitiesMeasure(ctx)
 	case "MeasureReport":
 		impl, ok := w.Concrete.(MeasureReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MeasureReport"}
 		}
-		return impl.SearchCapabilitiesMeasureReport()
+		return impl.SearchCapabilitiesMeasureReport(ctx)
 	case "Medication":
 		impl, ok := w.Concrete.(MedicationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Medication"}
 		}
-		return impl.SearchCapabilitiesMedication()
+		return impl.SearchCapabilitiesMedication(ctx)
 	case "MedicationAdministration":
 		impl, ok := w.Concrete.(MedicationAdministrationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationAdministration"}
 		}
-		return impl.SearchCapabilitiesMedicationAdministration()
+		return impl.SearchCapabilitiesMedicationAdministration(ctx)
 	case "MedicationDispense":
 		impl, ok := w.Concrete.(MedicationDispenseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationDispense"}
 		}
-		return impl.SearchCapabilitiesMedicationDispense()
+		return impl.SearchCapabilitiesMedicationDispense(ctx)
 	case "MedicationKnowledge":
 		impl, ok := w.Concrete.(MedicationKnowledgeSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationKnowledge"}
 		}
-		return impl.SearchCapabilitiesMedicationKnowledge()
+		return impl.SearchCapabilitiesMedicationKnowledge(ctx)
 	case "MedicationRequest":
 		impl, ok := w.Concrete.(MedicationRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationRequest"}
 		}
-		return impl.SearchCapabilitiesMedicationRequest()
+		return impl.SearchCapabilitiesMedicationRequest(ctx)
 	case "MedicationStatement":
 		impl, ok := w.Concrete.(MedicationStatementSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationStatement"}
 		}
-		return impl.SearchCapabilitiesMedicationStatement()
+		return impl.SearchCapabilitiesMedicationStatement(ctx)
 	case "MedicinalProductDefinition":
 		impl, ok := w.Concrete.(MedicinalProductDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductDefinition"}
 		}
-		return impl.SearchCapabilitiesMedicinalProductDefinition()
+		return impl.SearchCapabilitiesMedicinalProductDefinition(ctx)
 	case "MessageDefinition":
 		impl, ok := w.Concrete.(MessageDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageDefinition"}
 		}
-		return impl.SearchCapabilitiesMessageDefinition()
+		return impl.SearchCapabilitiesMessageDefinition(ctx)
 	case "MessageHeader":
 		impl, ok := w.Concrete.(MessageHeaderSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageHeader"}
 		}
-		return impl.SearchCapabilitiesMessageHeader()
+		return impl.SearchCapabilitiesMessageHeader(ctx)
 	case "MolecularSequence":
 		impl, ok := w.Concrete.(MolecularSequenceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MolecularSequence"}
 		}
-		return impl.SearchCapabilitiesMolecularSequence()
+		return impl.SearchCapabilitiesMolecularSequence(ctx)
 	case "NamingSystem":
 		impl, ok := w.Concrete.(NamingSystemSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NamingSystem"}
 		}
-		return impl.SearchCapabilitiesNamingSystem()
+		return impl.SearchCapabilitiesNamingSystem(ctx)
 	case "NutritionIntake":
 		impl, ok := w.Concrete.(NutritionIntakeSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionIntake"}
 		}
-		return impl.SearchCapabilitiesNutritionIntake()
+		return impl.SearchCapabilitiesNutritionIntake(ctx)
 	case "NutritionOrder":
 		impl, ok := w.Concrete.(NutritionOrderSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionOrder"}
 		}
-		return impl.SearchCapabilitiesNutritionOrder()
+		return impl.SearchCapabilitiesNutritionOrder(ctx)
 	case "NutritionProduct":
 		impl, ok := w.Concrete.(NutritionProductSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionProduct"}
 		}
-		return impl.SearchCapabilitiesNutritionProduct()
+		return impl.SearchCapabilitiesNutritionProduct(ctx)
 	case "Observation":
 		impl, ok := w.Concrete.(ObservationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Observation"}
 		}
-		return impl.SearchCapabilitiesObservation()
+		return impl.SearchCapabilitiesObservation(ctx)
 	case "ObservationDefinition":
 		impl, ok := w.Concrete.(ObservationDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ObservationDefinition"}
 		}
-		return impl.SearchCapabilitiesObservationDefinition()
+		return impl.SearchCapabilitiesObservationDefinition(ctx)
 	case "OperationDefinition":
 		impl, ok := w.Concrete.(OperationDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationDefinition"}
 		}
-		return impl.SearchCapabilitiesOperationDefinition()
+		return impl.SearchCapabilitiesOperationDefinition(ctx)
 	case "OperationOutcome":
 		impl, ok := w.Concrete.(OperationOutcomeSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationOutcome"}
 		}
-		return impl.SearchCapabilitiesOperationOutcome()
+		return impl.SearchCapabilitiesOperationOutcome(ctx)
 	case "Organization":
 		impl, ok := w.Concrete.(OrganizationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Organization"}
 		}
-		return impl.SearchCapabilitiesOrganization()
+		return impl.SearchCapabilitiesOrganization(ctx)
 	case "OrganizationAffiliation":
 		impl, ok := w.Concrete.(OrganizationAffiliationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OrganizationAffiliation"}
 		}
-		return impl.SearchCapabilitiesOrganizationAffiliation()
+		return impl.SearchCapabilitiesOrganizationAffiliation(ctx)
 	case "PackagedProductDefinition":
 		impl, ok := w.Concrete.(PackagedProductDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PackagedProductDefinition"}
 		}
-		return impl.SearchCapabilitiesPackagedProductDefinition()
+		return impl.SearchCapabilitiesPackagedProductDefinition(ctx)
 	case "Parameters":
 		impl, ok := w.Concrete.(ParametersSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Parameters"}
 		}
-		return impl.SearchCapabilitiesParameters()
+		return impl.SearchCapabilitiesParameters(ctx)
 	case "Patient":
 		impl, ok := w.Concrete.(PatientSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Patient"}
 		}
-		return impl.SearchCapabilitiesPatient()
+		return impl.SearchCapabilitiesPatient(ctx)
 	case "PaymentNotice":
 		impl, ok := w.Concrete.(PaymentNoticeSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentNotice"}
 		}
-		return impl.SearchCapabilitiesPaymentNotice()
+		return impl.SearchCapabilitiesPaymentNotice(ctx)
 	case "PaymentReconciliation":
 		impl, ok := w.Concrete.(PaymentReconciliationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentReconciliation"}
 		}
-		return impl.SearchCapabilitiesPaymentReconciliation()
+		return impl.SearchCapabilitiesPaymentReconciliation(ctx)
 	case "Permission":
 		impl, ok := w.Concrete.(PermissionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Permission"}
 		}
-		return impl.SearchCapabilitiesPermission()
+		return impl.SearchCapabilitiesPermission(ctx)
 	case "Person":
 		impl, ok := w.Concrete.(PersonSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Person"}
 		}
-		return impl.SearchCapabilitiesPerson()
+		return impl.SearchCapabilitiesPerson(ctx)
 	case "PlanDefinition":
 		impl, ok := w.Concrete.(PlanDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PlanDefinition"}
 		}
-		return impl.SearchCapabilitiesPlanDefinition()
+		return impl.SearchCapabilitiesPlanDefinition(ctx)
 	case "Practitioner":
 		impl, ok := w.Concrete.(PractitionerSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Practitioner"}
 		}
-		return impl.SearchCapabilitiesPractitioner()
+		return impl.SearchCapabilitiesPractitioner(ctx)
 	case "PractitionerRole":
 		impl, ok := w.Concrete.(PractitionerRoleSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PractitionerRole"}
 		}
-		return impl.SearchCapabilitiesPractitionerRole()
+		return impl.SearchCapabilitiesPractitionerRole(ctx)
 	case "Procedure":
 		impl, ok := w.Concrete.(ProcedureSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Procedure"}
 		}
-		return impl.SearchCapabilitiesProcedure()
+		return impl.SearchCapabilitiesProcedure(ctx)
 	case "Provenance":
 		impl, ok := w.Concrete.(ProvenanceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Provenance"}
 		}
-		return impl.SearchCapabilitiesProvenance()
+		return impl.SearchCapabilitiesProvenance(ctx)
 	case "Questionnaire":
 		impl, ok := w.Concrete.(QuestionnaireSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Questionnaire"}
 		}
-		return impl.SearchCapabilitiesQuestionnaire()
+		return impl.SearchCapabilitiesQuestionnaire(ctx)
 	case "QuestionnaireResponse":
 		impl, ok := w.Concrete.(QuestionnaireResponseSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "QuestionnaireResponse"}
 		}
-		return impl.SearchCapabilitiesQuestionnaireResponse()
+		return impl.SearchCapabilitiesQuestionnaireResponse(ctx)
 	case "RegulatedAuthorization":
 		impl, ok := w.Concrete.(RegulatedAuthorizationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RegulatedAuthorization"}
 		}
-		return impl.SearchCapabilitiesRegulatedAuthorization()
+		return impl.SearchCapabilitiesRegulatedAuthorization(ctx)
 	case "RelatedPerson":
 		impl, ok := w.Concrete.(RelatedPersonSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RelatedPerson"}
 		}
-		return impl.SearchCapabilitiesRelatedPerson()
+		return impl.SearchCapabilitiesRelatedPerson(ctx)
 	case "RequestOrchestration":
 		impl, ok := w.Concrete.(RequestOrchestrationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RequestOrchestration"}
 		}
-		return impl.SearchCapabilitiesRequestOrchestration()
+		return impl.SearchCapabilitiesRequestOrchestration(ctx)
 	case "Requirements":
 		impl, ok := w.Concrete.(RequirementsSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Requirements"}
 		}
-		return impl.SearchCapabilitiesRequirements()
+		return impl.SearchCapabilitiesRequirements(ctx)
 	case "ResearchStudy":
 		impl, ok := w.Concrete.(ResearchStudySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchStudy"}
 		}
-		return impl.SearchCapabilitiesResearchStudy()
+		return impl.SearchCapabilitiesResearchStudy(ctx)
 	case "ResearchSubject":
 		impl, ok := w.Concrete.(ResearchSubjectSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchSubject"}
 		}
-		return impl.SearchCapabilitiesResearchSubject()
+		return impl.SearchCapabilitiesResearchSubject(ctx)
 	case "RiskAssessment":
 		impl, ok := w.Concrete.(RiskAssessmentSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RiskAssessment"}
 		}
-		return impl.SearchCapabilitiesRiskAssessment()
+		return impl.SearchCapabilitiesRiskAssessment(ctx)
 	case "Schedule":
 		impl, ok := w.Concrete.(ScheduleSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Schedule"}
 		}
-		return impl.SearchCapabilitiesSchedule()
+		return impl.SearchCapabilitiesSchedule(ctx)
 	case "SearchParameter":
 		impl, ok := w.Concrete.(SearchParameterSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SearchParameter"}
 		}
-		return impl.SearchCapabilitiesSearchParameter()
+		return impl.SearchCapabilitiesSearchParameter(ctx)
 	case "ServiceRequest":
 		impl, ok := w.Concrete.(ServiceRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ServiceRequest"}
 		}
-		return impl.SearchCapabilitiesServiceRequest()
+		return impl.SearchCapabilitiesServiceRequest(ctx)
 	case "Slot":
 		impl, ok := w.Concrete.(SlotSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Slot"}
 		}
-		return impl.SearchCapabilitiesSlot()
+		return impl.SearchCapabilitiesSlot(ctx)
 	case "Specimen":
 		impl, ok := w.Concrete.(SpecimenSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Specimen"}
 		}
-		return impl.SearchCapabilitiesSpecimen()
+		return impl.SearchCapabilitiesSpecimen(ctx)
 	case "SpecimenDefinition":
 		impl, ok := w.Concrete.(SpecimenDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SpecimenDefinition"}
 		}
-		return impl.SearchCapabilitiesSpecimenDefinition()
+		return impl.SearchCapabilitiesSpecimenDefinition(ctx)
 	case "StructureDefinition":
 		impl, ok := w.Concrete.(StructureDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureDefinition"}
 		}
-		return impl.SearchCapabilitiesStructureDefinition()
+		return impl.SearchCapabilitiesStructureDefinition(ctx)
 	case "StructureMap":
 		impl, ok := w.Concrete.(StructureMapSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureMap"}
 		}
-		return impl.SearchCapabilitiesStructureMap()
+		return impl.SearchCapabilitiesStructureMap(ctx)
 	case "Subscription":
 		impl, ok := w.Concrete.(SubscriptionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Subscription"}
 		}
-		return impl.SearchCapabilitiesSubscription()
+		return impl.SearchCapabilitiesSubscription(ctx)
 	case "SubscriptionStatus":
 		impl, ok := w.Concrete.(SubscriptionStatusSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubscriptionStatus"}
 		}
-		return impl.SearchCapabilitiesSubscriptionStatus()
+		return impl.SearchCapabilitiesSubscriptionStatus(ctx)
 	case "SubscriptionTopic":
 		impl, ok := w.Concrete.(SubscriptionTopicSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubscriptionTopic"}
 		}
-		return impl.SearchCapabilitiesSubscriptionTopic()
+		return impl.SearchCapabilitiesSubscriptionTopic(ctx)
 	case "Substance":
 		impl, ok := w.Concrete.(SubstanceSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Substance"}
 		}
-		return impl.SearchCapabilitiesSubstance()
+		return impl.SearchCapabilitiesSubstance(ctx)
 	case "SubstanceDefinition":
 		impl, ok := w.Concrete.(SubstanceDefinitionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceDefinition"}
 		}
-		return impl.SearchCapabilitiesSubstanceDefinition()
+		return impl.SearchCapabilitiesSubstanceDefinition(ctx)
 	case "SubstanceNucleicAcid":
 		impl, ok := w.Concrete.(SubstanceNucleicAcidSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceNucleicAcid"}
 		}
-		return impl.SearchCapabilitiesSubstanceNucleicAcid()
+		return impl.SearchCapabilitiesSubstanceNucleicAcid(ctx)
 	case "SubstancePolymer":
 		impl, ok := w.Concrete.(SubstancePolymerSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstancePolymer"}
 		}
-		return impl.SearchCapabilitiesSubstancePolymer()
+		return impl.SearchCapabilitiesSubstancePolymer(ctx)
 	case "SubstanceProtein":
 		impl, ok := w.Concrete.(SubstanceProteinSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceProtein"}
 		}
-		return impl.SearchCapabilitiesSubstanceProtein()
+		return impl.SearchCapabilitiesSubstanceProtein(ctx)
 	case "SubstanceReferenceInformation":
 		impl, ok := w.Concrete.(SubstanceReferenceInformationSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceReferenceInformation"}
 		}
-		return impl.SearchCapabilitiesSubstanceReferenceInformation()
+		return impl.SearchCapabilitiesSubstanceReferenceInformation(ctx)
 	case "SubstanceSourceMaterial":
 		impl, ok := w.Concrete.(SubstanceSourceMaterialSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceSourceMaterial"}
 		}
-		return impl.SearchCapabilitiesSubstanceSourceMaterial()
+		return impl.SearchCapabilitiesSubstanceSourceMaterial(ctx)
 	case "SupplyDelivery":
 		impl, ok := w.Concrete.(SupplyDeliverySearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyDelivery"}
 		}
-		return impl.SearchCapabilitiesSupplyDelivery()
+		return impl.SearchCapabilitiesSupplyDelivery(ctx)
 	case "SupplyRequest":
 		impl, ok := w.Concrete.(SupplyRequestSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyRequest"}
 		}
-		return impl.SearchCapabilitiesSupplyRequest()
+		return impl.SearchCapabilitiesSupplyRequest(ctx)
 	case "Task":
 		impl, ok := w.Concrete.(TaskSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Task"}
 		}
-		return impl.SearchCapabilitiesTask()
+		return impl.SearchCapabilitiesTask(ctx)
 	case "TerminologyCapabilities":
 		impl, ok := w.Concrete.(TerminologyCapabilitiesSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TerminologyCapabilities"}
 		}
-		return impl.SearchCapabilitiesTerminologyCapabilities()
+		return impl.SearchCapabilitiesTerminologyCapabilities(ctx)
 	case "TestPlan":
 		impl, ok := w.Concrete.(TestPlanSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestPlan"}
 		}
-		return impl.SearchCapabilitiesTestPlan()
+		return impl.SearchCapabilitiesTestPlan(ctx)
 	case "TestReport":
 		impl, ok := w.Concrete.(TestReportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestReport"}
 		}
-		return impl.SearchCapabilitiesTestReport()
+		return impl.SearchCapabilitiesTestReport(ctx)
 	case "TestScript":
 		impl, ok := w.Concrete.(TestScriptSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestScript"}
 		}
-		return impl.SearchCapabilitiesTestScript()
+		return impl.SearchCapabilitiesTestScript(ctx)
 	case "Transport":
 		impl, ok := w.Concrete.(TransportSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Transport"}
 		}
-		return impl.SearchCapabilitiesTransport()
+		return impl.SearchCapabilitiesTransport(ctx)
 	case "ValueSet":
 		impl, ok := w.Concrete.(ValueSetSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ValueSet"}
 		}
-		return impl.SearchCapabilitiesValueSet()
+		return impl.SearchCapabilitiesValueSet(ctx)
 	case "VerificationResult":
 		impl, ok := w.Concrete.(VerificationResultSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VerificationResult"}
 		}
-		return impl.SearchCapabilitiesVerificationResult()
+		return impl.SearchCapabilitiesVerificationResult(ctx)
 	case "VisionPrescription":
 		impl, ok := w.Concrete.(VisionPrescriptionSearch)
 		if !ok {
 			return search.Capabilities{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VisionPrescription"}
 		}
-		return impl.SearchCapabilitiesVisionPrescription()
+		return impl.SearchCapabilitiesVisionPrescription(ctx)
 	default:
 		return search.Capabilities{}, capabilities.UnknownResourceError{ResourceType: resourceType}
 	}

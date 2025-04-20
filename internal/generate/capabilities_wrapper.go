@@ -81,7 +81,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 
 func generateGenericSearchCapabilities(resources []ir.ResourceOrType) Code {
 	return Func().Params(Id("w").Id(genericWrapperName)).Id("SearchCapabilities").
-		Params(Id("resourceType").String()).
+		Params(Id("ctx").Qual("context", "Context"), Id("resourceType").String()).
 		Params(Qual(moduleName+"/capabilities/search", "Capabilities"), Qual(moduleName+"/capabilities", "FHIRError")).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
@@ -91,7 +91,7 @@ func generateGenericSearchCapabilities(resources []ir.ResourceOrType) Code {
 						If(Op("!").Id("ok")).Block(
 							returnNotImplementedError("search", r.Name, Qual(moduleName+"/capabilities/search", "Capabilities").Block()),
 						),
-						Return(Id("impl.SearchCapabilities"+r.Name).Call()),
+						Return(Id("impl.SearchCapabilities"+r.Name).Call(Id("ctx"))),
 					)
 				}
 
@@ -101,14 +101,15 @@ func generateGenericSearchCapabilities(resources []ir.ResourceOrType) Code {
 }
 
 func generateWrapperAllCapabilities(f *File) {
-	f.Func().Params(Id("w").Id(genericWrapperName)).Id("AllCapabilities").Params().
+	f.Func().Params(Id("w").Id(genericWrapperName)).Id("AllCapabilities").
+		Params(Id("ctx").Qual("context", "Context")).
 		Params(
 			Qual(moduleName+"/capabilities", "Capabilities"),
 			Qual(moduleName+"/capabilities", "FHIRError"),
 		).
 		Block(
 			Return(Id("AllCapabilities").
-				Call(Id("w").Dot("Concrete"))),
+				Call(Id("ctx"), Id("w").Dot("Concrete"))),
 		)
 }
 
@@ -180,10 +181,10 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 	returnType := Qual(moduleName+"/capabilities/search", "Capabilities")
 	return Func().Params(Id("w").Id(concreteWrapperName)).Id("SearchCapabilities"+r.Name).
-		Params().
+		Params(Id("ctx").Qual("context", "Context")).
 		Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
 		BlockFunc(func(g *Group) {
-			g.Return(Id("w.Generic.SearchCapabilities").Params(Lit(r.Name)))
+			g.Return(Id("w.Generic.SearchCapabilities").Params(Id("ctx"), Lit(r.Name)))
 		})
 }
 
