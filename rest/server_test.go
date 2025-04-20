@@ -259,6 +259,181 @@ func TestCapabilityStatement(t *testing.T) {
 	}
 }
 
+func TestHandleCreate(t *testing.T) {
+	var tests = []struct {
+		name             string
+		format           string
+		resourceType     string
+		requestBody      string
+		backend          any
+		expectedStatus   int
+		expectedLocation string
+		expectedBody     string
+	}{
+		{
+			name:             "server assigned id",
+			format:           "application/fhir+json",
+			resourceType:     "Patient",
+			requestBody:      `{ "resourceType": "Patient", "name": [{ "family": "Smith" }] }`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusCreated,
+			expectedLocation: "http://example.com/Patient/server-assigned-id",
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "server-assigned-id",
+				"name": [{ "family": "Smith" }] 
+			}`,
+		},
+		{
+			name:             "client provided id ignored",
+			format:           "application/fhir+json",
+			resourceType:     "Patient",
+			requestBody:      `{ "resourceType": "Patient", "id": "client-id", "name": [{ "family": "Jones" }] }`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusCreated,
+			expectedLocation: "http://example.com/Patient/server-assigned-id",
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "server-assigned-id",
+				"name": [{ "family": "Jones" }] 
+			}`,
+		},
+		{
+			name:             "xml format",
+			format:           "application/fhir+xml",
+			resourceType:     "Patient",
+			requestBody:      `<?xml version="1.0" encoding="UTF-8"?><Patient xmlns="http://hl7.org/fhir"><name><family value="Smith"/></name></Patient>`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusCreated,
+			expectedLocation: "http://example.com/Patient/server-assigned-id",
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<Patient xmlns="http://hl7.org/fhir">
+					<id value="server-assigned-id"/>
+					<name>
+						<family value="Smith"/>
+					</name>
+				</Patient>`,
+		},
+		{
+			name:           "different resource type",
+			format:         "application/fhir+json",
+			resourceType:   "Observation",
+			requestBody:    `{ "resourceType": "Observation", "status": "final", "code": {} }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusNotFound,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "not-supported",
+						"diagnostics": "create not implemented for resource type Observation"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "invalid resource",
+			format:         "application/fhir+json",
+			resourceType:   "UnknownType",
+			requestBody:    `{ "resourceType": "UnknownType" }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "error parsing json body"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "invalid json body",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			requestBody:    `{ "resourceType": "Patient", "name": [{ "family": "Smith" }] `,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "error parsing json body"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "mismatched resource type",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			requestBody:    `{ "resourceType": "Observation", "status": "final", "code": {} }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "request body is not of type Patient"
+					}
+				]
+			}`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			config := rest.DefaultConfig
+			config.Base, _ = url.Parse("http://example.com")
+
+			server, err := rest.NewServer[model.R4](tt.backend, config)
+			if err != nil {
+				t.Fatalf("Failed to create server: %v", err)
+			}
+
+			requestURL := fmt.Sprintf("http://example.com/%s", tt.resourceType)
+			req := httptest.NewRequest("POST", requestURL, strings.NewReader(tt.requestBody))
+			req.Header.Set("Content-Type", tt.format)
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if rr.Code != tt.expectedStatus {
+				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
+			}
+
+			// Check Location header for successful creation
+			if tt.expectedStatus == http.StatusCreated {
+				location := rr.Header().Get("Location")
+				if location != tt.expectedLocation {
+					t.Errorf("Expected Location header %s, got %s", tt.expectedLocation, location)
+				}
+			}
+
+			if strings.Contains(tt.format, "json") {
+				contentType := rr.Header().Get("Content-Type")
+				if contentType != "application/fhir+json" {
+					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
+				}
+				assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
+			} else {
+				contentType := rr.Header().Get("Content-Type")
+				if contentType != "application/fhir+xml" {
+					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
+				}
+				assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
+			}
+		})
+	}
+}
+
 func TestHandleRead(t *testing.T) {
 	var tests = []struct {
 		name           string
@@ -999,6 +1174,11 @@ type mockBackend struct {
 	mockPatients            []r4.Patient
 	mockObservations        []r4.Observation
 	mockObservationIncludes []model.Resource
+}
+
+func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, capabilities.FHIRError) {
+	patient.Id = &r4.Id{Value: utils.Ptr("server-assigned-id")}
+	return patient, nil
 }
 
 func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {

@@ -57,8 +57,8 @@ func Generic[R model.Release](api any) (capabilities.GenericAPI, error) {
 	case model.R5:
 		return genericR5(api)
 	default:
-		// this should never as long as we now all implementations the Release interface
-		// see `Release.isRelease`
+		// This should never happen as long as we control all implementations of the Release interface.
+		// This is achieved by sealing the interface. See the interface definition for more information.
 		panic("unsupported release")
 	}
 }

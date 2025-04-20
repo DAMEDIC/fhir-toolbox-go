@@ -39,6 +39,8 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/wrap"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"log/slog"
 	"net/http"
 	"net/url"
@@ -77,6 +79,7 @@ func registerRoutes[R model.Release](
 	}
 
 	mux.Handle("GET /metadata", metadataHandler[R](backend, config, date))
+	mux.Handle("POST /{type}", createHandler[R](backend, config))
 	mux.Handle("GET /{type}/{id}", readHandler(backend, config))
 	mux.Handle("GET /{type}", searchHandler(backend, config, config.Timezone))
 
@@ -88,19 +91,97 @@ func metadataHandler[R model.Release](
 	config Config,
 	date time.Time,
 ) http.Handler {
-
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		format := detectFormat(r, config.DefaultFormat)
+		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 
 		capabilities, err := backend.AllCapabilities(r.Context())
 		if err != nil {
-			returnResult(w, format, err.StatusCode(), err.OperationOutcome())
+			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
 			return
 		}
 
 		capabilityStatement := capabilityStatement[R](config.Base, capabilities, date)
-		returnResult(w, format, http.StatusOK, capabilityStatement)
+		returnResult(w, responseFormat, http.StatusOK, capabilityStatement)
 	})
+}
+
+func createHandler[R model.Release](
+	backend capabilities.GenericAPI,
+	config Config,
+) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestFormat := detectFormat(r, "Content-Type", config.DefaultFormat)
+		responseFormat := detectFormat(r, "Accept", requestFormat)
+		resourceType := r.PathValue("type")
+
+		status, resource := dispatchCreate[R](r, backend, requestFormat, resourceType)
+		if status != http.StatusCreated {
+			slog.Error("error creating resource", "resourceType", resourceType, "outcome", resource)
+		} else {
+			// fall back to empty string if id is not set
+			id, _ := resource.ResourceId()
+			w.Header().Set("Location", config.Base.JoinPath(resourceType, id).String())
+		}
+
+		returnResult(w, responseFormat, status, resource)
+	})
+}
+
+type wrongRequestBodyError struct {
+	ResourceType string
+}
+
+func (e wrongRequestBodyError) Error() string {
+	return fmt.Sprintf("request body is not of type %s", e.ResourceType)
+}
+
+func (e wrongRequestBodyError) StatusCode() int {
+	return 400
+}
+
+func (e wrongRequestBodyError) OperationOutcome() basic.OperationOutcome {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("processing")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
+			},
+		},
+	}
+}
+
+func dispatchCreate[R model.Release](
+	r *http.Request,
+	backend capabilities.GenericAPI,
+	requestFormat format,
+	resourceType string,
+) (int, model.Resource) {
+	var resource model.Resource
+	var err capabilities.FHIRError
+
+	switch requestFormat {
+	case formatJSON:
+		resource, err = decodeResourceJSON[R](r)
+	case formatXML:
+		resource, err = decodeResourceXML[R](r)
+	}
+
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
+
+	if resource == nil || resource.ResourceType() != resourceType {
+		err = wrongRequestBodyError{ResourceType: resourceType}
+		return err.StatusCode(), err.OperationOutcome()
+	}
+
+	createdResource, err := backend.Create(r.Context(), resource)
+	if err != nil {
+		return err.StatusCode(), err.OperationOutcome()
+	}
+
+	return http.StatusCreated, createdResource
 }
 
 func readHandler(
@@ -108,7 +189,7 @@ func readHandler(
 	config Config,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		format := detectFormat(r, config.DefaultFormat)
+		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
@@ -117,7 +198,7 @@ func readHandler(
 			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
 		}
 
-		returnResult(w, format, status, resource)
+		returnResult(w, responseFormat, status, resource)
 	})
 }
 
@@ -140,7 +221,7 @@ func searchHandler(
 	tz *time.Location,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		format := detectFormat(r, config.DefaultFormat)
+		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 		resourceType := r.PathValue("type")
 
 		status, resource := dispatchSearch(
@@ -155,7 +236,7 @@ func searchHandler(
 			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
 		}
 
-		returnResult(w, format, status, resource)
+		returnResult(w, responseFormat, status, resource)
 	})
 }
 
@@ -204,12 +285,12 @@ func parseSearchOptions(
 	return options, nil
 }
 
-func returnResult[T any](w http.ResponseWriter, format Format, status int, r T) {
+func returnResult[T any](w http.ResponseWriter, format format, status int, r T) {
 	var err error
 	switch format {
-	case FormatJSON:
+	case formatJSON:
 		err = encodeJSON(w, status, r)
-	case FormatXML:
+	case formatXML:
 		err = encodeXML(w, status, r)
 	}
 	if err != nil {

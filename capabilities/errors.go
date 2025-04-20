@@ -98,7 +98,7 @@ type InvalidResourceError struct {
 }
 
 func (e InvalidResourceError) Error() string {
-	return fmt.Sprintf("returned resource is not valid %s", e.ResourceType)
+	return fmt.Sprintf("%s is not a valid FHIR resource", e.ResourceType)
 }
 
 func (e InvalidResourceError) StatusCode() int {
@@ -117,7 +117,7 @@ func (e InvalidResourceError) OperationOutcome() basic.OperationOutcome {
 	}
 }
 
-// NotFoundError means that the ResourceType with requested ID was not found.
+// NotFoundError means that the ResourceType with the requested ID was not found.
 type NotFoundError struct {
 	ResourceType string
 	ID           string

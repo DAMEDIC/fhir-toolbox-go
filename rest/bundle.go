@@ -13,19 +13,19 @@ import (
 )
 
 // MissingIdError indicates that a bundle entry is missing an id.
-type MissingIdError struct {
+type missingIdError struct {
 	ResourceType string
 }
 
-func (e MissingIdError) Error() string {
+func (e missingIdError) Error() string {
 	return fmt.Sprintf("missing ID for resource of type %s", e.ResourceType)
 }
 
-func (e MissingIdError) StatusCode() int {
+func (e missingIdError) StatusCode() int {
 	return 500
 }
 
-func (e MissingIdError) OperationOutcome() basic.OperationOutcome {
+func (e missingIdError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
@@ -114,7 +114,7 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.
 	resourceType := resource.ResourceType()
 	resourceID, ok := resource.ResourceId()
 	if !ok {
-		return basic.BundleEntry{}, MissingIdError{ResourceType: resourceType}
+		return basic.BundleEntry{}, missingIdError{ResourceType: resourceType}
 	}
 
 	path := strings.Trim(baseURL.Path, "/ ")

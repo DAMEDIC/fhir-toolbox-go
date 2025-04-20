@@ -23,7 +23,7 @@ type Config struct {
 	DefaultCount int `json:"defaultCount"`
 	// DefaultFormat of the server.
 	// Defaults to JSON.
-	DefaultFormat Format `json:"defaultFormat"`
+	DefaultFormat format `json:"defaultFormat"`
 }
 
 // DefaultConfig sets reasonable defaults that can be used by the package user.
@@ -32,7 +32,7 @@ var DefaultConfig = Config{
 	Date:          time.Now().Format(time.RFC3339),
 	MaxCount:      500,
 	DefaultCount:  500,
-	DefaultFormat: FormatJSON,
+	DefaultFormat: formatJSON,
 }
 
 type jsonConfig struct {
