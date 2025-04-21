@@ -102,7 +102,7 @@ type UnexpectedResourceError struct {
 }
 
 func (e UnexpectedResourceError) Error() string {
-	return fmt.Sprintf("backend returned unexpected resource: expected %s, got %s from %s", e.ExpectedType, e.GotType)
+	return fmt.Sprintf("backend returned unexpected resource: expected %s, got %s", e.ExpectedType, e.GotType)
 }
 
 func (e UnexpectedResourceError) StatusCode() int {

@@ -43,16 +43,33 @@ func rest(
 ) basic.CapabilityStatementRest {
 	resourcesMap := map[string]basic.CapabilityStatementRestResource{}
 
-	for _, name := range capabilities.ReadInteractions {
+	addInteraction := func(name, interactionCode string) basic.CapabilityStatementRestResource {
 		r, ok := resourcesMap[name]
 		if !ok {
 			r = basic.CapabilityStatementRestResource{Type: basic.Code{Value: &name}}
 		}
 		r.Interaction = append(
-			resourcesMap[name].Interaction,
-			basic.CapabilityStatementRestResourceInteraction{Code: basic.Code{Value: utils.Ptr("read")}},
+			r.Interaction,
+			basic.CapabilityStatementRestResourceInteraction{Code: basic.Code{Value: utils.Ptr(interactionCode)}},
 		)
 		resourcesMap[name] = r
+		return r
+	}
+
+	for _, name := range capabilities.CreateInteractions {
+		addInteraction(name, "create")
+	}
+
+	for _, name := range capabilities.ReadInteractions {
+		addInteraction(name, "read")
+	}
+
+	for _, name := range capabilities.UpdateInteractions {
+		addInteraction(name, "update")
+	}
+
+	for _, name := range capabilities.DeleteInteractions {
+		addInteraction(name, "delete")
 	}
 
 	for name, capability := range capabilities.SearchCapabilities {
@@ -87,15 +104,10 @@ func rest(
 	resourcesList := make([]basic.CapabilityStatementRestResource, 0, len(resourcesMap))
 
 	for _, r := range resourcesMap {
-		// Sort for deterministic output. This makes writing tests much easier.
-		slices.SortFunc(r.Interaction, func(a, b basic.CapabilityStatementRestResourceInteraction) int {
-			return cmp.Compare(*a.Code.Value, *b.Code.Value)
-		})
-		slices.SortFunc(r.SearchInclude, func(a, b basic.String) int {
-			return cmp.Compare(*a.Value, *b.Value)
-		})
-		slices.SortFunc(r.SearchParam, func(a, b basic.CapabilityStatementRestResourceSearchParam) int {
-			return cmp.Or(cmp.Compare(*a.Name.Value, *b.Name.Value), cmp.Compare(*a.Type.Value, *b.Type.Value))
+		// sort search params by name (they come from a map, so we can't rely on the order)
+		// this makes testing easier
+		slices.SortStableFunc(r.SearchParam, func(a, b basic.CapabilityStatementRestResourceSearchParam) int {
+			return cmp.Compare(*a.Name.Value, *b.Name.Value)
 		})
 
 		resourcesList = append(resourcesList, r)

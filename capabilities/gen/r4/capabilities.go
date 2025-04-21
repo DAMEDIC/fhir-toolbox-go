@@ -11,2056 +11,2489 @@ import (
 )
 
 func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, capabilities.FHIRError) {
+	allCapabilities := capabilities.Capabilities{SearchCapabilities: make(map[string]search.Capabilities)}
 	var errs []capabilities.FHIRError
-	create := []string{}
-	read := []string{}
-	search := map[string]search.Capabilities{}
 	if _, ok := api.(AccountCreate); ok {
-		create = append(create, "Account")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Account")
 	}
 	if _, ok := api.(AccountRead); ok {
-		read = append(read, "Account")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Account")
+	}
+	if _, ok := api.(AccountUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Account")
 	}
 	if c, ok := api.(AccountSearch); ok {
-		capability, err := c.SearchCapabilitiesAccount(ctx)
+		c, err := c.SearchCapabilitiesAccount(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Account"] = capability
+			allCapabilities.SearchCapabilities["Account"] = c
 		}
 	}
 	if _, ok := api.(ActivityDefinitionCreate); ok {
-		create = append(create, "ActivityDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ActivityDefinition")
 	}
 	if _, ok := api.(ActivityDefinitionRead); ok {
-		read = append(read, "ActivityDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ActivityDefinition")
+	}
+	if _, ok := api.(ActivityDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ActivityDefinition")
 	}
 	if c, ok := api.(ActivityDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesActivityDefinition(ctx)
+		c, err := c.SearchCapabilitiesActivityDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ActivityDefinition"] = capability
+			allCapabilities.SearchCapabilities["ActivityDefinition"] = c
 		}
 	}
 	if _, ok := api.(AdverseEventCreate); ok {
-		create = append(create, "AdverseEvent")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AdverseEvent")
 	}
 	if _, ok := api.(AdverseEventRead); ok {
-		read = append(read, "AdverseEvent")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AdverseEvent")
+	}
+	if _, ok := api.(AdverseEventUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AdverseEvent")
 	}
 	if c, ok := api.(AdverseEventSearch); ok {
-		capability, err := c.SearchCapabilitiesAdverseEvent(ctx)
+		c, err := c.SearchCapabilitiesAdverseEvent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["AdverseEvent"] = capability
+			allCapabilities.SearchCapabilities["AdverseEvent"] = c
 		}
 	}
 	if _, ok := api.(AllergyIntoleranceCreate); ok {
-		create = append(create, "AllergyIntolerance")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AllergyIntolerance")
 	}
 	if _, ok := api.(AllergyIntoleranceRead); ok {
-		read = append(read, "AllergyIntolerance")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AllergyIntolerance")
+	}
+	if _, ok := api.(AllergyIntoleranceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AllergyIntolerance")
 	}
 	if c, ok := api.(AllergyIntoleranceSearch); ok {
-		capability, err := c.SearchCapabilitiesAllergyIntolerance(ctx)
+		c, err := c.SearchCapabilitiesAllergyIntolerance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["AllergyIntolerance"] = capability
+			allCapabilities.SearchCapabilities["AllergyIntolerance"] = c
 		}
 	}
 	if _, ok := api.(AppointmentCreate); ok {
-		create = append(create, "Appointment")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Appointment")
 	}
 	if _, ok := api.(AppointmentRead); ok {
-		read = append(read, "Appointment")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Appointment")
+	}
+	if _, ok := api.(AppointmentUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Appointment")
 	}
 	if c, ok := api.(AppointmentSearch); ok {
-		capability, err := c.SearchCapabilitiesAppointment(ctx)
+		c, err := c.SearchCapabilitiesAppointment(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Appointment"] = capability
+			allCapabilities.SearchCapabilities["Appointment"] = c
 		}
 	}
 	if _, ok := api.(AppointmentResponseCreate); ok {
-		create = append(create, "AppointmentResponse")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AppointmentResponse")
 	}
 	if _, ok := api.(AppointmentResponseRead); ok {
-		read = append(read, "AppointmentResponse")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AppointmentResponse")
+	}
+	if _, ok := api.(AppointmentResponseUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AppointmentResponse")
 	}
 	if c, ok := api.(AppointmentResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesAppointmentResponse(ctx)
+		c, err := c.SearchCapabilitiesAppointmentResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["AppointmentResponse"] = capability
+			allCapabilities.SearchCapabilities["AppointmentResponse"] = c
 		}
 	}
 	if _, ok := api.(AuditEventCreate); ok {
-		create = append(create, "AuditEvent")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AuditEvent")
 	}
 	if _, ok := api.(AuditEventRead); ok {
-		read = append(read, "AuditEvent")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AuditEvent")
+	}
+	if _, ok := api.(AuditEventUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AuditEvent")
 	}
 	if c, ok := api.(AuditEventSearch); ok {
-		capability, err := c.SearchCapabilitiesAuditEvent(ctx)
+		c, err := c.SearchCapabilitiesAuditEvent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["AuditEvent"] = capability
+			allCapabilities.SearchCapabilities["AuditEvent"] = c
 		}
 	}
 	if _, ok := api.(BasicCreate); ok {
-		create = append(create, "Basic")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Basic")
 	}
 	if _, ok := api.(BasicRead); ok {
-		read = append(read, "Basic")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Basic")
+	}
+	if _, ok := api.(BasicUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Basic")
 	}
 	if c, ok := api.(BasicSearch); ok {
-		capability, err := c.SearchCapabilitiesBasic(ctx)
+		c, err := c.SearchCapabilitiesBasic(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Basic"] = capability
+			allCapabilities.SearchCapabilities["Basic"] = c
 		}
 	}
 	if _, ok := api.(BinaryCreate); ok {
-		create = append(create, "Binary")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Binary")
 	}
 	if _, ok := api.(BinaryRead); ok {
-		read = append(read, "Binary")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Binary")
+	}
+	if _, ok := api.(BinaryUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Binary")
 	}
 	if c, ok := api.(BinarySearch); ok {
-		capability, err := c.SearchCapabilitiesBinary(ctx)
+		c, err := c.SearchCapabilitiesBinary(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Binary"] = capability
+			allCapabilities.SearchCapabilities["Binary"] = c
 		}
 	}
 	if _, ok := api.(BiologicallyDerivedProductCreate); ok {
-		create = append(create, "BiologicallyDerivedProduct")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "BiologicallyDerivedProduct")
 	}
 	if _, ok := api.(BiologicallyDerivedProductRead); ok {
-		read = append(read, "BiologicallyDerivedProduct")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "BiologicallyDerivedProduct")
+	}
+	if _, ok := api.(BiologicallyDerivedProductUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "BiologicallyDerivedProduct")
 	}
 	if c, ok := api.(BiologicallyDerivedProductSearch); ok {
-		capability, err := c.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
+		c, err := c.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["BiologicallyDerivedProduct"] = capability
+			allCapabilities.SearchCapabilities["BiologicallyDerivedProduct"] = c
 		}
 	}
 	if _, ok := api.(BodyStructureCreate); ok {
-		create = append(create, "BodyStructure")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "BodyStructure")
 	}
 	if _, ok := api.(BodyStructureRead); ok {
-		read = append(read, "BodyStructure")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "BodyStructure")
+	}
+	if _, ok := api.(BodyStructureUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "BodyStructure")
 	}
 	if c, ok := api.(BodyStructureSearch); ok {
-		capability, err := c.SearchCapabilitiesBodyStructure(ctx)
+		c, err := c.SearchCapabilitiesBodyStructure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["BodyStructure"] = capability
+			allCapabilities.SearchCapabilities["BodyStructure"] = c
 		}
 	}
 	if _, ok := api.(BundleCreate); ok {
-		create = append(create, "Bundle")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Bundle")
 	}
 	if _, ok := api.(BundleRead); ok {
-		read = append(read, "Bundle")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Bundle")
+	}
+	if _, ok := api.(BundleUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Bundle")
 	}
 	if c, ok := api.(BundleSearch); ok {
-		capability, err := c.SearchCapabilitiesBundle(ctx)
+		c, err := c.SearchCapabilitiesBundle(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Bundle"] = capability
+			allCapabilities.SearchCapabilities["Bundle"] = c
 		}
 	}
 	if _, ok := api.(CapabilityStatementCreate); ok {
-		create = append(create, "CapabilityStatement")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CapabilityStatement")
 	}
 	if _, ok := api.(CapabilityStatementRead); ok {
-		read = append(read, "CapabilityStatement")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CapabilityStatement")
+	}
+	if _, ok := api.(CapabilityStatementUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CapabilityStatement")
 	}
 	if c, ok := api.(CapabilityStatementSearch); ok {
-		capability, err := c.SearchCapabilitiesCapabilityStatement(ctx)
+		c, err := c.SearchCapabilitiesCapabilityStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CapabilityStatement"] = capability
+			allCapabilities.SearchCapabilities["CapabilityStatement"] = c
 		}
 	}
 	if _, ok := api.(CarePlanCreate); ok {
-		create = append(create, "CarePlan")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CarePlan")
 	}
 	if _, ok := api.(CarePlanRead); ok {
-		read = append(read, "CarePlan")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CarePlan")
+	}
+	if _, ok := api.(CarePlanUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CarePlan")
 	}
 	if c, ok := api.(CarePlanSearch); ok {
-		capability, err := c.SearchCapabilitiesCarePlan(ctx)
+		c, err := c.SearchCapabilitiesCarePlan(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CarePlan"] = capability
+			allCapabilities.SearchCapabilities["CarePlan"] = c
 		}
 	}
 	if _, ok := api.(CareTeamCreate); ok {
-		create = append(create, "CareTeam")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CareTeam")
 	}
 	if _, ok := api.(CareTeamRead); ok {
-		read = append(read, "CareTeam")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CareTeam")
+	}
+	if _, ok := api.(CareTeamUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CareTeam")
 	}
 	if c, ok := api.(CareTeamSearch); ok {
-		capability, err := c.SearchCapabilitiesCareTeam(ctx)
+		c, err := c.SearchCapabilitiesCareTeam(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CareTeam"] = capability
+			allCapabilities.SearchCapabilities["CareTeam"] = c
 		}
 	}
 	if _, ok := api.(CatalogEntryCreate); ok {
-		create = append(create, "CatalogEntry")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CatalogEntry")
 	}
 	if _, ok := api.(CatalogEntryRead); ok {
-		read = append(read, "CatalogEntry")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CatalogEntry")
+	}
+	if _, ok := api.(CatalogEntryUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CatalogEntry")
 	}
 	if c, ok := api.(CatalogEntrySearch); ok {
-		capability, err := c.SearchCapabilitiesCatalogEntry(ctx)
+		c, err := c.SearchCapabilitiesCatalogEntry(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CatalogEntry"] = capability
+			allCapabilities.SearchCapabilities["CatalogEntry"] = c
 		}
 	}
 	if _, ok := api.(ChargeItemCreate); ok {
-		create = append(create, "ChargeItem")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ChargeItem")
 	}
 	if _, ok := api.(ChargeItemRead); ok {
-		read = append(read, "ChargeItem")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ChargeItem")
+	}
+	if _, ok := api.(ChargeItemUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ChargeItem")
 	}
 	if c, ok := api.(ChargeItemSearch); ok {
-		capability, err := c.SearchCapabilitiesChargeItem(ctx)
+		c, err := c.SearchCapabilitiesChargeItem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ChargeItem"] = capability
+			allCapabilities.SearchCapabilities["ChargeItem"] = c
 		}
 	}
 	if _, ok := api.(ChargeItemDefinitionCreate); ok {
-		create = append(create, "ChargeItemDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ChargeItemDefinition")
 	}
 	if _, ok := api.(ChargeItemDefinitionRead); ok {
-		read = append(read, "ChargeItemDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ChargeItemDefinition")
+	}
+	if _, ok := api.(ChargeItemDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ChargeItemDefinition")
 	}
 	if c, ok := api.(ChargeItemDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesChargeItemDefinition(ctx)
+		c, err := c.SearchCapabilitiesChargeItemDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ChargeItemDefinition"] = capability
+			allCapabilities.SearchCapabilities["ChargeItemDefinition"] = c
 		}
 	}
 	if _, ok := api.(ClaimCreate); ok {
-		create = append(create, "Claim")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Claim")
 	}
 	if _, ok := api.(ClaimRead); ok {
-		read = append(read, "Claim")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Claim")
+	}
+	if _, ok := api.(ClaimUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Claim")
 	}
 	if c, ok := api.(ClaimSearch); ok {
-		capability, err := c.SearchCapabilitiesClaim(ctx)
+		c, err := c.SearchCapabilitiesClaim(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Claim"] = capability
+			allCapabilities.SearchCapabilities["Claim"] = c
 		}
 	}
 	if _, ok := api.(ClaimResponseCreate); ok {
-		create = append(create, "ClaimResponse")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ClaimResponse")
 	}
 	if _, ok := api.(ClaimResponseRead); ok {
-		read = append(read, "ClaimResponse")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ClaimResponse")
+	}
+	if _, ok := api.(ClaimResponseUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ClaimResponse")
 	}
 	if c, ok := api.(ClaimResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesClaimResponse(ctx)
+		c, err := c.SearchCapabilitiesClaimResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ClaimResponse"] = capability
+			allCapabilities.SearchCapabilities["ClaimResponse"] = c
 		}
 	}
 	if _, ok := api.(ClinicalImpressionCreate); ok {
-		create = append(create, "ClinicalImpression")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ClinicalImpression")
 	}
 	if _, ok := api.(ClinicalImpressionRead); ok {
-		read = append(read, "ClinicalImpression")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ClinicalImpression")
+	}
+	if _, ok := api.(ClinicalImpressionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ClinicalImpression")
 	}
 	if c, ok := api.(ClinicalImpressionSearch); ok {
-		capability, err := c.SearchCapabilitiesClinicalImpression(ctx)
+		c, err := c.SearchCapabilitiesClinicalImpression(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ClinicalImpression"] = capability
+			allCapabilities.SearchCapabilities["ClinicalImpression"] = c
 		}
 	}
 	if _, ok := api.(CodeSystemCreate); ok {
-		create = append(create, "CodeSystem")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CodeSystem")
 	}
 	if _, ok := api.(CodeSystemRead); ok {
-		read = append(read, "CodeSystem")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CodeSystem")
+	}
+	if _, ok := api.(CodeSystemUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CodeSystem")
 	}
 	if c, ok := api.(CodeSystemSearch); ok {
-		capability, err := c.SearchCapabilitiesCodeSystem(ctx)
+		c, err := c.SearchCapabilitiesCodeSystem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CodeSystem"] = capability
+			allCapabilities.SearchCapabilities["CodeSystem"] = c
 		}
 	}
 	if _, ok := api.(CommunicationCreate); ok {
-		create = append(create, "Communication")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Communication")
 	}
 	if _, ok := api.(CommunicationRead); ok {
-		read = append(read, "Communication")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Communication")
+	}
+	if _, ok := api.(CommunicationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Communication")
 	}
 	if c, ok := api.(CommunicationSearch); ok {
-		capability, err := c.SearchCapabilitiesCommunication(ctx)
+		c, err := c.SearchCapabilitiesCommunication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Communication"] = capability
+			allCapabilities.SearchCapabilities["Communication"] = c
 		}
 	}
 	if _, ok := api.(CommunicationRequestCreate); ok {
-		create = append(create, "CommunicationRequest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CommunicationRequest")
 	}
 	if _, ok := api.(CommunicationRequestRead); ok {
-		read = append(read, "CommunicationRequest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CommunicationRequest")
+	}
+	if _, ok := api.(CommunicationRequestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CommunicationRequest")
 	}
 	if c, ok := api.(CommunicationRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesCommunicationRequest(ctx)
+		c, err := c.SearchCapabilitiesCommunicationRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CommunicationRequest"] = capability
+			allCapabilities.SearchCapabilities["CommunicationRequest"] = c
 		}
 	}
 	if _, ok := api.(CompartmentDefinitionCreate); ok {
-		create = append(create, "CompartmentDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CompartmentDefinition")
 	}
 	if _, ok := api.(CompartmentDefinitionRead); ok {
-		read = append(read, "CompartmentDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CompartmentDefinition")
+	}
+	if _, ok := api.(CompartmentDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CompartmentDefinition")
 	}
 	if c, ok := api.(CompartmentDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesCompartmentDefinition(ctx)
+		c, err := c.SearchCapabilitiesCompartmentDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CompartmentDefinition"] = capability
+			allCapabilities.SearchCapabilities["CompartmentDefinition"] = c
 		}
 	}
 	if _, ok := api.(CompositionCreate); ok {
-		create = append(create, "Composition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Composition")
 	}
 	if _, ok := api.(CompositionRead); ok {
-		read = append(read, "Composition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Composition")
+	}
+	if _, ok := api.(CompositionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Composition")
 	}
 	if c, ok := api.(CompositionSearch); ok {
-		capability, err := c.SearchCapabilitiesComposition(ctx)
+		c, err := c.SearchCapabilitiesComposition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Composition"] = capability
+			allCapabilities.SearchCapabilities["Composition"] = c
 		}
 	}
 	if _, ok := api.(ConceptMapCreate); ok {
-		create = append(create, "ConceptMap")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ConceptMap")
 	}
 	if _, ok := api.(ConceptMapRead); ok {
-		read = append(read, "ConceptMap")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ConceptMap")
+	}
+	if _, ok := api.(ConceptMapUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ConceptMap")
 	}
 	if c, ok := api.(ConceptMapSearch); ok {
-		capability, err := c.SearchCapabilitiesConceptMap(ctx)
+		c, err := c.SearchCapabilitiesConceptMap(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ConceptMap"] = capability
+			allCapabilities.SearchCapabilities["ConceptMap"] = c
 		}
 	}
 	if _, ok := api.(ConditionCreate); ok {
-		create = append(create, "Condition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Condition")
 	}
 	if _, ok := api.(ConditionRead); ok {
-		read = append(read, "Condition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Condition")
+	}
+	if _, ok := api.(ConditionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Condition")
 	}
 	if c, ok := api.(ConditionSearch); ok {
-		capability, err := c.SearchCapabilitiesCondition(ctx)
+		c, err := c.SearchCapabilitiesCondition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Condition"] = capability
+			allCapabilities.SearchCapabilities["Condition"] = c
 		}
 	}
 	if _, ok := api.(ConsentCreate); ok {
-		create = append(create, "Consent")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Consent")
 	}
 	if _, ok := api.(ConsentRead); ok {
-		read = append(read, "Consent")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Consent")
+	}
+	if _, ok := api.(ConsentUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Consent")
 	}
 	if c, ok := api.(ConsentSearch); ok {
-		capability, err := c.SearchCapabilitiesConsent(ctx)
+		c, err := c.SearchCapabilitiesConsent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Consent"] = capability
+			allCapabilities.SearchCapabilities["Consent"] = c
 		}
 	}
 	if _, ok := api.(ContractCreate); ok {
-		create = append(create, "Contract")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Contract")
 	}
 	if _, ok := api.(ContractRead); ok {
-		read = append(read, "Contract")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Contract")
+	}
+	if _, ok := api.(ContractUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Contract")
 	}
 	if c, ok := api.(ContractSearch); ok {
-		capability, err := c.SearchCapabilitiesContract(ctx)
+		c, err := c.SearchCapabilitiesContract(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Contract"] = capability
+			allCapabilities.SearchCapabilities["Contract"] = c
 		}
 	}
 	if _, ok := api.(CoverageCreate); ok {
-		create = append(create, "Coverage")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Coverage")
 	}
 	if _, ok := api.(CoverageRead); ok {
-		read = append(read, "Coverage")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Coverage")
+	}
+	if _, ok := api.(CoverageUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Coverage")
 	}
 	if c, ok := api.(CoverageSearch); ok {
-		capability, err := c.SearchCapabilitiesCoverage(ctx)
+		c, err := c.SearchCapabilitiesCoverage(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Coverage"] = capability
+			allCapabilities.SearchCapabilities["Coverage"] = c
 		}
 	}
 	if _, ok := api.(CoverageEligibilityRequestCreate); ok {
-		create = append(create, "CoverageEligibilityRequest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CoverageEligibilityRequest")
 	}
 	if _, ok := api.(CoverageEligibilityRequestRead); ok {
-		read = append(read, "CoverageEligibilityRequest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CoverageEligibilityRequest")
+	}
+	if _, ok := api.(CoverageEligibilityRequestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CoverageEligibilityRequest")
 	}
 	if c, ok := api.(CoverageEligibilityRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesCoverageEligibilityRequest(ctx)
+		c, err := c.SearchCapabilitiesCoverageEligibilityRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CoverageEligibilityRequest"] = capability
+			allCapabilities.SearchCapabilities["CoverageEligibilityRequest"] = c
 		}
 	}
 	if _, ok := api.(CoverageEligibilityResponseCreate); ok {
-		create = append(create, "CoverageEligibilityResponse")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CoverageEligibilityResponse")
 	}
 	if _, ok := api.(CoverageEligibilityResponseRead); ok {
-		read = append(read, "CoverageEligibilityResponse")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CoverageEligibilityResponse")
+	}
+	if _, ok := api.(CoverageEligibilityResponseUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CoverageEligibilityResponse")
 	}
 	if c, ok := api.(CoverageEligibilityResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesCoverageEligibilityResponse(ctx)
+		c, err := c.SearchCapabilitiesCoverageEligibilityResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["CoverageEligibilityResponse"] = capability
+			allCapabilities.SearchCapabilities["CoverageEligibilityResponse"] = c
 		}
 	}
 	if _, ok := api.(DetectedIssueCreate); ok {
-		create = append(create, "DetectedIssue")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DetectedIssue")
 	}
 	if _, ok := api.(DetectedIssueRead); ok {
-		read = append(read, "DetectedIssue")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DetectedIssue")
+	}
+	if _, ok := api.(DetectedIssueUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DetectedIssue")
 	}
 	if c, ok := api.(DetectedIssueSearch); ok {
-		capability, err := c.SearchCapabilitiesDetectedIssue(ctx)
+		c, err := c.SearchCapabilitiesDetectedIssue(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DetectedIssue"] = capability
+			allCapabilities.SearchCapabilities["DetectedIssue"] = c
 		}
 	}
 	if _, ok := api.(DeviceCreate); ok {
-		create = append(create, "Device")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Device")
 	}
 	if _, ok := api.(DeviceRead); ok {
-		read = append(read, "Device")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Device")
+	}
+	if _, ok := api.(DeviceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Device")
 	}
 	if c, ok := api.(DeviceSearch); ok {
-		capability, err := c.SearchCapabilitiesDevice(ctx)
+		c, err := c.SearchCapabilitiesDevice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Device"] = capability
+			allCapabilities.SearchCapabilities["Device"] = c
 		}
 	}
 	if _, ok := api.(DeviceDefinitionCreate); ok {
-		create = append(create, "DeviceDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceDefinition")
 	}
 	if _, ok := api.(DeviceDefinitionRead); ok {
-		read = append(read, "DeviceDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceDefinition")
+	}
+	if _, ok := api.(DeviceDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceDefinition")
 	}
 	if c, ok := api.(DeviceDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceDefinition(ctx)
+		c, err := c.SearchCapabilitiesDeviceDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DeviceDefinition"] = capability
+			allCapabilities.SearchCapabilities["DeviceDefinition"] = c
 		}
 	}
 	if _, ok := api.(DeviceMetricCreate); ok {
-		create = append(create, "DeviceMetric")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceMetric")
 	}
 	if _, ok := api.(DeviceMetricRead); ok {
-		read = append(read, "DeviceMetric")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceMetric")
+	}
+	if _, ok := api.(DeviceMetricUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceMetric")
 	}
 	if c, ok := api.(DeviceMetricSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceMetric(ctx)
+		c, err := c.SearchCapabilitiesDeviceMetric(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DeviceMetric"] = capability
+			allCapabilities.SearchCapabilities["DeviceMetric"] = c
 		}
 	}
 	if _, ok := api.(DeviceRequestCreate); ok {
-		create = append(create, "DeviceRequest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceRequest")
 	}
 	if _, ok := api.(DeviceRequestRead); ok {
-		read = append(read, "DeviceRequest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceRequest")
+	}
+	if _, ok := api.(DeviceRequestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceRequest")
 	}
 	if c, ok := api.(DeviceRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceRequest(ctx)
+		c, err := c.SearchCapabilitiesDeviceRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DeviceRequest"] = capability
+			allCapabilities.SearchCapabilities["DeviceRequest"] = c
 		}
 	}
 	if _, ok := api.(DeviceUseStatementCreate); ok {
-		create = append(create, "DeviceUseStatement")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceUseStatement")
 	}
 	if _, ok := api.(DeviceUseStatementRead); ok {
-		read = append(read, "DeviceUseStatement")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceUseStatement")
+	}
+	if _, ok := api.(DeviceUseStatementUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceUseStatement")
 	}
 	if c, ok := api.(DeviceUseStatementSearch); ok {
-		capability, err := c.SearchCapabilitiesDeviceUseStatement(ctx)
+		c, err := c.SearchCapabilitiesDeviceUseStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DeviceUseStatement"] = capability
+			allCapabilities.SearchCapabilities["DeviceUseStatement"] = c
 		}
 	}
 	if _, ok := api.(DiagnosticReportCreate); ok {
-		create = append(create, "DiagnosticReport")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DiagnosticReport")
 	}
 	if _, ok := api.(DiagnosticReportRead); ok {
-		read = append(read, "DiagnosticReport")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DiagnosticReport")
+	}
+	if _, ok := api.(DiagnosticReportUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DiagnosticReport")
 	}
 	if c, ok := api.(DiagnosticReportSearch); ok {
-		capability, err := c.SearchCapabilitiesDiagnosticReport(ctx)
+		c, err := c.SearchCapabilitiesDiagnosticReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DiagnosticReport"] = capability
+			allCapabilities.SearchCapabilities["DiagnosticReport"] = c
 		}
 	}
 	if _, ok := api.(DocumentManifestCreate); ok {
-		create = append(create, "DocumentManifest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DocumentManifest")
 	}
 	if _, ok := api.(DocumentManifestRead); ok {
-		read = append(read, "DocumentManifest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DocumentManifest")
+	}
+	if _, ok := api.(DocumentManifestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DocumentManifest")
 	}
 	if c, ok := api.(DocumentManifestSearch); ok {
-		capability, err := c.SearchCapabilitiesDocumentManifest(ctx)
+		c, err := c.SearchCapabilitiesDocumentManifest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DocumentManifest"] = capability
+			allCapabilities.SearchCapabilities["DocumentManifest"] = c
 		}
 	}
 	if _, ok := api.(DocumentReferenceCreate); ok {
-		create = append(create, "DocumentReference")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DocumentReference")
 	}
 	if _, ok := api.(DocumentReferenceRead); ok {
-		read = append(read, "DocumentReference")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DocumentReference")
+	}
+	if _, ok := api.(DocumentReferenceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DocumentReference")
 	}
 	if c, ok := api.(DocumentReferenceSearch); ok {
-		capability, err := c.SearchCapabilitiesDocumentReference(ctx)
+		c, err := c.SearchCapabilitiesDocumentReference(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["DocumentReference"] = capability
+			allCapabilities.SearchCapabilities["DocumentReference"] = c
 		}
 	}
 	if _, ok := api.(EffectEvidenceSynthesisCreate); ok {
-		create = append(create, "EffectEvidenceSynthesis")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EffectEvidenceSynthesis")
 	}
 	if _, ok := api.(EffectEvidenceSynthesisRead); ok {
-		read = append(read, "EffectEvidenceSynthesis")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EffectEvidenceSynthesis")
+	}
+	if _, ok := api.(EffectEvidenceSynthesisUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EffectEvidenceSynthesis")
 	}
 	if c, ok := api.(EffectEvidenceSynthesisSearch); ok {
-		capability, err := c.SearchCapabilitiesEffectEvidenceSynthesis(ctx)
+		c, err := c.SearchCapabilitiesEffectEvidenceSynthesis(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["EffectEvidenceSynthesis"] = capability
+			allCapabilities.SearchCapabilities["EffectEvidenceSynthesis"] = c
 		}
 	}
 	if _, ok := api.(EncounterCreate); ok {
-		create = append(create, "Encounter")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Encounter")
 	}
 	if _, ok := api.(EncounterRead); ok {
-		read = append(read, "Encounter")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Encounter")
+	}
+	if _, ok := api.(EncounterUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Encounter")
 	}
 	if c, ok := api.(EncounterSearch); ok {
-		capability, err := c.SearchCapabilitiesEncounter(ctx)
+		c, err := c.SearchCapabilitiesEncounter(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Encounter"] = capability
+			allCapabilities.SearchCapabilities["Encounter"] = c
 		}
 	}
 	if _, ok := api.(EndpointCreate); ok {
-		create = append(create, "Endpoint")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Endpoint")
 	}
 	if _, ok := api.(EndpointRead); ok {
-		read = append(read, "Endpoint")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Endpoint")
+	}
+	if _, ok := api.(EndpointUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Endpoint")
 	}
 	if c, ok := api.(EndpointSearch); ok {
-		capability, err := c.SearchCapabilitiesEndpoint(ctx)
+		c, err := c.SearchCapabilitiesEndpoint(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Endpoint"] = capability
+			allCapabilities.SearchCapabilities["Endpoint"] = c
 		}
 	}
 	if _, ok := api.(EnrollmentRequestCreate); ok {
-		create = append(create, "EnrollmentRequest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EnrollmentRequest")
 	}
 	if _, ok := api.(EnrollmentRequestRead); ok {
-		read = append(read, "EnrollmentRequest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EnrollmentRequest")
+	}
+	if _, ok := api.(EnrollmentRequestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EnrollmentRequest")
 	}
 	if c, ok := api.(EnrollmentRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesEnrollmentRequest(ctx)
+		c, err := c.SearchCapabilitiesEnrollmentRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["EnrollmentRequest"] = capability
+			allCapabilities.SearchCapabilities["EnrollmentRequest"] = c
 		}
 	}
 	if _, ok := api.(EnrollmentResponseCreate); ok {
-		create = append(create, "EnrollmentResponse")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EnrollmentResponse")
 	}
 	if _, ok := api.(EnrollmentResponseRead); ok {
-		read = append(read, "EnrollmentResponse")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EnrollmentResponse")
+	}
+	if _, ok := api.(EnrollmentResponseUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EnrollmentResponse")
 	}
 	if c, ok := api.(EnrollmentResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesEnrollmentResponse(ctx)
+		c, err := c.SearchCapabilitiesEnrollmentResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["EnrollmentResponse"] = capability
+			allCapabilities.SearchCapabilities["EnrollmentResponse"] = c
 		}
 	}
 	if _, ok := api.(EpisodeOfCareCreate); ok {
-		create = append(create, "EpisodeOfCare")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EpisodeOfCare")
 	}
 	if _, ok := api.(EpisodeOfCareRead); ok {
-		read = append(read, "EpisodeOfCare")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EpisodeOfCare")
+	}
+	if _, ok := api.(EpisodeOfCareUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EpisodeOfCare")
 	}
 	if c, ok := api.(EpisodeOfCareSearch); ok {
-		capability, err := c.SearchCapabilitiesEpisodeOfCare(ctx)
+		c, err := c.SearchCapabilitiesEpisodeOfCare(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["EpisodeOfCare"] = capability
+			allCapabilities.SearchCapabilities["EpisodeOfCare"] = c
 		}
 	}
 	if _, ok := api.(EventDefinitionCreate); ok {
-		create = append(create, "EventDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EventDefinition")
 	}
 	if _, ok := api.(EventDefinitionRead); ok {
-		read = append(read, "EventDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EventDefinition")
+	}
+	if _, ok := api.(EventDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EventDefinition")
 	}
 	if c, ok := api.(EventDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesEventDefinition(ctx)
+		c, err := c.SearchCapabilitiesEventDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["EventDefinition"] = capability
+			allCapabilities.SearchCapabilities["EventDefinition"] = c
 		}
 	}
 	if _, ok := api.(EvidenceCreate); ok {
-		create = append(create, "Evidence")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Evidence")
 	}
 	if _, ok := api.(EvidenceRead); ok {
-		read = append(read, "Evidence")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Evidence")
+	}
+	if _, ok := api.(EvidenceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Evidence")
 	}
 	if c, ok := api.(EvidenceSearch); ok {
-		capability, err := c.SearchCapabilitiesEvidence(ctx)
+		c, err := c.SearchCapabilitiesEvidence(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Evidence"] = capability
+			allCapabilities.SearchCapabilities["Evidence"] = c
 		}
 	}
 	if _, ok := api.(EvidenceVariableCreate); ok {
-		create = append(create, "EvidenceVariable")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EvidenceVariable")
 	}
 	if _, ok := api.(EvidenceVariableRead); ok {
-		read = append(read, "EvidenceVariable")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EvidenceVariable")
+	}
+	if _, ok := api.(EvidenceVariableUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EvidenceVariable")
 	}
 	if c, ok := api.(EvidenceVariableSearch); ok {
-		capability, err := c.SearchCapabilitiesEvidenceVariable(ctx)
+		c, err := c.SearchCapabilitiesEvidenceVariable(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["EvidenceVariable"] = capability
+			allCapabilities.SearchCapabilities["EvidenceVariable"] = c
 		}
 	}
 	if _, ok := api.(ExampleScenarioCreate); ok {
-		create = append(create, "ExampleScenario")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ExampleScenario")
 	}
 	if _, ok := api.(ExampleScenarioRead); ok {
-		read = append(read, "ExampleScenario")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ExampleScenario")
+	}
+	if _, ok := api.(ExampleScenarioUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ExampleScenario")
 	}
 	if c, ok := api.(ExampleScenarioSearch); ok {
-		capability, err := c.SearchCapabilitiesExampleScenario(ctx)
+		c, err := c.SearchCapabilitiesExampleScenario(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ExampleScenario"] = capability
+			allCapabilities.SearchCapabilities["ExampleScenario"] = c
 		}
 	}
 	if _, ok := api.(ExplanationOfBenefitCreate); ok {
-		create = append(create, "ExplanationOfBenefit")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ExplanationOfBenefit")
 	}
 	if _, ok := api.(ExplanationOfBenefitRead); ok {
-		read = append(read, "ExplanationOfBenefit")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ExplanationOfBenefit")
+	}
+	if _, ok := api.(ExplanationOfBenefitUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ExplanationOfBenefit")
 	}
 	if c, ok := api.(ExplanationOfBenefitSearch); ok {
-		capability, err := c.SearchCapabilitiesExplanationOfBenefit(ctx)
+		c, err := c.SearchCapabilitiesExplanationOfBenefit(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ExplanationOfBenefit"] = capability
+			allCapabilities.SearchCapabilities["ExplanationOfBenefit"] = c
 		}
 	}
 	if _, ok := api.(FamilyMemberHistoryCreate); ok {
-		create = append(create, "FamilyMemberHistory")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "FamilyMemberHistory")
 	}
 	if _, ok := api.(FamilyMemberHistoryRead); ok {
-		read = append(read, "FamilyMemberHistory")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "FamilyMemberHistory")
+	}
+	if _, ok := api.(FamilyMemberHistoryUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "FamilyMemberHistory")
 	}
 	if c, ok := api.(FamilyMemberHistorySearch); ok {
-		capability, err := c.SearchCapabilitiesFamilyMemberHistory(ctx)
+		c, err := c.SearchCapabilitiesFamilyMemberHistory(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["FamilyMemberHistory"] = capability
+			allCapabilities.SearchCapabilities["FamilyMemberHistory"] = c
 		}
 	}
 	if _, ok := api.(FlagCreate); ok {
-		create = append(create, "Flag")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Flag")
 	}
 	if _, ok := api.(FlagRead); ok {
-		read = append(read, "Flag")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Flag")
+	}
+	if _, ok := api.(FlagUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Flag")
 	}
 	if c, ok := api.(FlagSearch); ok {
-		capability, err := c.SearchCapabilitiesFlag(ctx)
+		c, err := c.SearchCapabilitiesFlag(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Flag"] = capability
+			allCapabilities.SearchCapabilities["Flag"] = c
 		}
 	}
 	if _, ok := api.(GoalCreate); ok {
-		create = append(create, "Goal")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Goal")
 	}
 	if _, ok := api.(GoalRead); ok {
-		read = append(read, "Goal")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Goal")
+	}
+	if _, ok := api.(GoalUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Goal")
 	}
 	if c, ok := api.(GoalSearch); ok {
-		capability, err := c.SearchCapabilitiesGoal(ctx)
+		c, err := c.SearchCapabilitiesGoal(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Goal"] = capability
+			allCapabilities.SearchCapabilities["Goal"] = c
 		}
 	}
 	if _, ok := api.(GraphDefinitionCreate); ok {
-		create = append(create, "GraphDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "GraphDefinition")
 	}
 	if _, ok := api.(GraphDefinitionRead); ok {
-		read = append(read, "GraphDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "GraphDefinition")
+	}
+	if _, ok := api.(GraphDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "GraphDefinition")
 	}
 	if c, ok := api.(GraphDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesGraphDefinition(ctx)
+		c, err := c.SearchCapabilitiesGraphDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["GraphDefinition"] = capability
+			allCapabilities.SearchCapabilities["GraphDefinition"] = c
 		}
 	}
 	if _, ok := api.(GroupCreate); ok {
-		create = append(create, "Group")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Group")
 	}
 	if _, ok := api.(GroupRead); ok {
-		read = append(read, "Group")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Group")
+	}
+	if _, ok := api.(GroupUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Group")
 	}
 	if c, ok := api.(GroupSearch); ok {
-		capability, err := c.SearchCapabilitiesGroup(ctx)
+		c, err := c.SearchCapabilitiesGroup(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Group"] = capability
+			allCapabilities.SearchCapabilities["Group"] = c
 		}
 	}
 	if _, ok := api.(GuidanceResponseCreate); ok {
-		create = append(create, "GuidanceResponse")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "GuidanceResponse")
 	}
 	if _, ok := api.(GuidanceResponseRead); ok {
-		read = append(read, "GuidanceResponse")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "GuidanceResponse")
+	}
+	if _, ok := api.(GuidanceResponseUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "GuidanceResponse")
 	}
 	if c, ok := api.(GuidanceResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesGuidanceResponse(ctx)
+		c, err := c.SearchCapabilitiesGuidanceResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["GuidanceResponse"] = capability
+			allCapabilities.SearchCapabilities["GuidanceResponse"] = c
 		}
 	}
 	if _, ok := api.(HealthcareServiceCreate); ok {
-		create = append(create, "HealthcareService")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "HealthcareService")
 	}
 	if _, ok := api.(HealthcareServiceRead); ok {
-		read = append(read, "HealthcareService")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "HealthcareService")
+	}
+	if _, ok := api.(HealthcareServiceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "HealthcareService")
 	}
 	if c, ok := api.(HealthcareServiceSearch); ok {
-		capability, err := c.SearchCapabilitiesHealthcareService(ctx)
+		c, err := c.SearchCapabilitiesHealthcareService(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["HealthcareService"] = capability
+			allCapabilities.SearchCapabilities["HealthcareService"] = c
 		}
 	}
 	if _, ok := api.(ImagingStudyCreate); ok {
-		create = append(create, "ImagingStudy")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImagingStudy")
 	}
 	if _, ok := api.(ImagingStudyRead); ok {
-		read = append(read, "ImagingStudy")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImagingStudy")
+	}
+	if _, ok := api.(ImagingStudyUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImagingStudy")
 	}
 	if c, ok := api.(ImagingStudySearch); ok {
-		capability, err := c.SearchCapabilitiesImagingStudy(ctx)
+		c, err := c.SearchCapabilitiesImagingStudy(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ImagingStudy"] = capability
+			allCapabilities.SearchCapabilities["ImagingStudy"] = c
 		}
 	}
 	if _, ok := api.(ImmunizationCreate); ok {
-		create = append(create, "Immunization")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Immunization")
 	}
 	if _, ok := api.(ImmunizationRead); ok {
-		read = append(read, "Immunization")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Immunization")
+	}
+	if _, ok := api.(ImmunizationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Immunization")
 	}
 	if c, ok := api.(ImmunizationSearch); ok {
-		capability, err := c.SearchCapabilitiesImmunization(ctx)
+		c, err := c.SearchCapabilitiesImmunization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Immunization"] = capability
+			allCapabilities.SearchCapabilities["Immunization"] = c
 		}
 	}
 	if _, ok := api.(ImmunizationEvaluationCreate); ok {
-		create = append(create, "ImmunizationEvaluation")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImmunizationEvaluation")
 	}
 	if _, ok := api.(ImmunizationEvaluationRead); ok {
-		read = append(read, "ImmunizationEvaluation")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImmunizationEvaluation")
+	}
+	if _, ok := api.(ImmunizationEvaluationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImmunizationEvaluation")
 	}
 	if c, ok := api.(ImmunizationEvaluationSearch); ok {
-		capability, err := c.SearchCapabilitiesImmunizationEvaluation(ctx)
+		c, err := c.SearchCapabilitiesImmunizationEvaluation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ImmunizationEvaluation"] = capability
+			allCapabilities.SearchCapabilities["ImmunizationEvaluation"] = c
 		}
 	}
 	if _, ok := api.(ImmunizationRecommendationCreate); ok {
-		create = append(create, "ImmunizationRecommendation")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImmunizationRecommendation")
 	}
 	if _, ok := api.(ImmunizationRecommendationRead); ok {
-		read = append(read, "ImmunizationRecommendation")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImmunizationRecommendation")
+	}
+	if _, ok := api.(ImmunizationRecommendationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImmunizationRecommendation")
 	}
 	if c, ok := api.(ImmunizationRecommendationSearch); ok {
-		capability, err := c.SearchCapabilitiesImmunizationRecommendation(ctx)
+		c, err := c.SearchCapabilitiesImmunizationRecommendation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ImmunizationRecommendation"] = capability
+			allCapabilities.SearchCapabilities["ImmunizationRecommendation"] = c
 		}
 	}
 	if _, ok := api.(ImplementationGuideCreate); ok {
-		create = append(create, "ImplementationGuide")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImplementationGuide")
 	}
 	if _, ok := api.(ImplementationGuideRead); ok {
-		read = append(read, "ImplementationGuide")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImplementationGuide")
+	}
+	if _, ok := api.(ImplementationGuideUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImplementationGuide")
 	}
 	if c, ok := api.(ImplementationGuideSearch); ok {
-		capability, err := c.SearchCapabilitiesImplementationGuide(ctx)
+		c, err := c.SearchCapabilitiesImplementationGuide(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ImplementationGuide"] = capability
+			allCapabilities.SearchCapabilities["ImplementationGuide"] = c
 		}
 	}
 	if _, ok := api.(InsurancePlanCreate); ok {
-		create = append(create, "InsurancePlan")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "InsurancePlan")
 	}
 	if _, ok := api.(InsurancePlanRead); ok {
-		read = append(read, "InsurancePlan")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "InsurancePlan")
+	}
+	if _, ok := api.(InsurancePlanUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "InsurancePlan")
 	}
 	if c, ok := api.(InsurancePlanSearch); ok {
-		capability, err := c.SearchCapabilitiesInsurancePlan(ctx)
+		c, err := c.SearchCapabilitiesInsurancePlan(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["InsurancePlan"] = capability
+			allCapabilities.SearchCapabilities["InsurancePlan"] = c
 		}
 	}
 	if _, ok := api.(InvoiceCreate); ok {
-		create = append(create, "Invoice")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Invoice")
 	}
 	if _, ok := api.(InvoiceRead); ok {
-		read = append(read, "Invoice")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Invoice")
+	}
+	if _, ok := api.(InvoiceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Invoice")
 	}
 	if c, ok := api.(InvoiceSearch); ok {
-		capability, err := c.SearchCapabilitiesInvoice(ctx)
+		c, err := c.SearchCapabilitiesInvoice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Invoice"] = capability
+			allCapabilities.SearchCapabilities["Invoice"] = c
 		}
 	}
 	if _, ok := api.(LibraryCreate); ok {
-		create = append(create, "Library")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Library")
 	}
 	if _, ok := api.(LibraryRead); ok {
-		read = append(read, "Library")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Library")
+	}
+	if _, ok := api.(LibraryUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Library")
 	}
 	if c, ok := api.(LibrarySearch); ok {
-		capability, err := c.SearchCapabilitiesLibrary(ctx)
+		c, err := c.SearchCapabilitiesLibrary(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Library"] = capability
+			allCapabilities.SearchCapabilities["Library"] = c
 		}
 	}
 	if _, ok := api.(LinkageCreate); ok {
-		create = append(create, "Linkage")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Linkage")
 	}
 	if _, ok := api.(LinkageRead); ok {
-		read = append(read, "Linkage")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Linkage")
+	}
+	if _, ok := api.(LinkageUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Linkage")
 	}
 	if c, ok := api.(LinkageSearch); ok {
-		capability, err := c.SearchCapabilitiesLinkage(ctx)
+		c, err := c.SearchCapabilitiesLinkage(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Linkage"] = capability
+			allCapabilities.SearchCapabilities["Linkage"] = c
 		}
 	}
 	if _, ok := api.(ListCreate); ok {
-		create = append(create, "List")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "List")
 	}
 	if _, ok := api.(ListRead); ok {
-		read = append(read, "List")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "List")
+	}
+	if _, ok := api.(ListUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "List")
 	}
 	if c, ok := api.(ListSearch); ok {
-		capability, err := c.SearchCapabilitiesList(ctx)
+		c, err := c.SearchCapabilitiesList(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["List"] = capability
+			allCapabilities.SearchCapabilities["List"] = c
 		}
 	}
 	if _, ok := api.(LocationCreate); ok {
-		create = append(create, "Location")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Location")
 	}
 	if _, ok := api.(LocationRead); ok {
-		read = append(read, "Location")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Location")
+	}
+	if _, ok := api.(LocationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Location")
 	}
 	if c, ok := api.(LocationSearch); ok {
-		capability, err := c.SearchCapabilitiesLocation(ctx)
+		c, err := c.SearchCapabilitiesLocation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Location"] = capability
+			allCapabilities.SearchCapabilities["Location"] = c
 		}
 	}
 	if _, ok := api.(MeasureCreate); ok {
-		create = append(create, "Measure")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Measure")
 	}
 	if _, ok := api.(MeasureRead); ok {
-		read = append(read, "Measure")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Measure")
+	}
+	if _, ok := api.(MeasureUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Measure")
 	}
 	if c, ok := api.(MeasureSearch); ok {
-		capability, err := c.SearchCapabilitiesMeasure(ctx)
+		c, err := c.SearchCapabilitiesMeasure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Measure"] = capability
+			allCapabilities.SearchCapabilities["Measure"] = c
 		}
 	}
 	if _, ok := api.(MeasureReportCreate); ok {
-		create = append(create, "MeasureReport")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MeasureReport")
 	}
 	if _, ok := api.(MeasureReportRead); ok {
-		read = append(read, "MeasureReport")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MeasureReport")
+	}
+	if _, ok := api.(MeasureReportUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MeasureReport")
 	}
 	if c, ok := api.(MeasureReportSearch); ok {
-		capability, err := c.SearchCapabilitiesMeasureReport(ctx)
+		c, err := c.SearchCapabilitiesMeasureReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MeasureReport"] = capability
+			allCapabilities.SearchCapabilities["MeasureReport"] = c
 		}
 	}
 	if _, ok := api.(MediaCreate); ok {
-		create = append(create, "Media")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Media")
 	}
 	if _, ok := api.(MediaRead); ok {
-		read = append(read, "Media")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Media")
+	}
+	if _, ok := api.(MediaUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Media")
 	}
 	if c, ok := api.(MediaSearch); ok {
-		capability, err := c.SearchCapabilitiesMedia(ctx)
+		c, err := c.SearchCapabilitiesMedia(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Media"] = capability
+			allCapabilities.SearchCapabilities["Media"] = c
 		}
 	}
 	if _, ok := api.(MedicationCreate); ok {
-		create = append(create, "Medication")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Medication")
 	}
 	if _, ok := api.(MedicationRead); ok {
-		read = append(read, "Medication")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Medication")
+	}
+	if _, ok := api.(MedicationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Medication")
 	}
 	if c, ok := api.(MedicationSearch); ok {
-		capability, err := c.SearchCapabilitiesMedication(ctx)
+		c, err := c.SearchCapabilitiesMedication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Medication"] = capability
+			allCapabilities.SearchCapabilities["Medication"] = c
 		}
 	}
 	if _, ok := api.(MedicationAdministrationCreate); ok {
-		create = append(create, "MedicationAdministration")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationAdministration")
 	}
 	if _, ok := api.(MedicationAdministrationRead); ok {
-		read = append(read, "MedicationAdministration")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationAdministration")
+	}
+	if _, ok := api.(MedicationAdministrationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationAdministration")
 	}
 	if c, ok := api.(MedicationAdministrationSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationAdministration(ctx)
+		c, err := c.SearchCapabilitiesMedicationAdministration(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicationAdministration"] = capability
+			allCapabilities.SearchCapabilities["MedicationAdministration"] = c
 		}
 	}
 	if _, ok := api.(MedicationDispenseCreate); ok {
-		create = append(create, "MedicationDispense")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationDispense")
 	}
 	if _, ok := api.(MedicationDispenseRead); ok {
-		read = append(read, "MedicationDispense")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationDispense")
+	}
+	if _, ok := api.(MedicationDispenseUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationDispense")
 	}
 	if c, ok := api.(MedicationDispenseSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationDispense(ctx)
+		c, err := c.SearchCapabilitiesMedicationDispense(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicationDispense"] = capability
+			allCapabilities.SearchCapabilities["MedicationDispense"] = c
 		}
 	}
 	if _, ok := api.(MedicationKnowledgeCreate); ok {
-		create = append(create, "MedicationKnowledge")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationKnowledge")
 	}
 	if _, ok := api.(MedicationKnowledgeRead); ok {
-		read = append(read, "MedicationKnowledge")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationKnowledge")
+	}
+	if _, ok := api.(MedicationKnowledgeUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationKnowledge")
 	}
 	if c, ok := api.(MedicationKnowledgeSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationKnowledge(ctx)
+		c, err := c.SearchCapabilitiesMedicationKnowledge(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicationKnowledge"] = capability
+			allCapabilities.SearchCapabilities["MedicationKnowledge"] = c
 		}
 	}
 	if _, ok := api.(MedicationRequestCreate); ok {
-		create = append(create, "MedicationRequest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationRequest")
 	}
 	if _, ok := api.(MedicationRequestRead); ok {
-		read = append(read, "MedicationRequest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationRequest")
+	}
+	if _, ok := api.(MedicationRequestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationRequest")
 	}
 	if c, ok := api.(MedicationRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationRequest(ctx)
+		c, err := c.SearchCapabilitiesMedicationRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicationRequest"] = capability
+			allCapabilities.SearchCapabilities["MedicationRequest"] = c
 		}
 	}
 	if _, ok := api.(MedicationStatementCreate); ok {
-		create = append(create, "MedicationStatement")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationStatement")
 	}
 	if _, ok := api.(MedicationStatementRead); ok {
-		read = append(read, "MedicationStatement")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationStatement")
+	}
+	if _, ok := api.(MedicationStatementUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationStatement")
 	}
 	if c, ok := api.(MedicationStatementSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicationStatement(ctx)
+		c, err := c.SearchCapabilitiesMedicationStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicationStatement"] = capability
+			allCapabilities.SearchCapabilities["MedicationStatement"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductCreate); ok {
-		create = append(create, "MedicinalProduct")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProduct")
 	}
 	if _, ok := api.(MedicinalProductRead); ok {
-		read = append(read, "MedicinalProduct")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProduct")
+	}
+	if _, ok := api.(MedicinalProductUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProduct")
 	}
 	if c, ok := api.(MedicinalProductSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProduct(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProduct(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProduct"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProduct"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductAuthorizationCreate); ok {
-		create = append(create, "MedicinalProductAuthorization")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductAuthorization")
 	}
 	if _, ok := api.(MedicinalProductAuthorizationRead); ok {
-		read = append(read, "MedicinalProductAuthorization")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductAuthorization")
+	}
+	if _, ok := api.(MedicinalProductAuthorizationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductAuthorization")
 	}
 	if c, ok := api.(MedicinalProductAuthorizationSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductAuthorization(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductAuthorization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductAuthorization"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductAuthorization"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductContraindicationCreate); ok {
-		create = append(create, "MedicinalProductContraindication")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductContraindication")
 	}
 	if _, ok := api.(MedicinalProductContraindicationRead); ok {
-		read = append(read, "MedicinalProductContraindication")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductContraindication")
+	}
+	if _, ok := api.(MedicinalProductContraindicationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductContraindication")
 	}
 	if c, ok := api.(MedicinalProductContraindicationSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductContraindication(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductContraindication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductContraindication"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductContraindication"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductIndicationCreate); ok {
-		create = append(create, "MedicinalProductIndication")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductIndication")
 	}
 	if _, ok := api.(MedicinalProductIndicationRead); ok {
-		read = append(read, "MedicinalProductIndication")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductIndication")
+	}
+	if _, ok := api.(MedicinalProductIndicationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductIndication")
 	}
 	if c, ok := api.(MedicinalProductIndicationSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductIndication(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductIndication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductIndication"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductIndication"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductIngredientCreate); ok {
-		create = append(create, "MedicinalProductIngredient")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductIngredient")
 	}
 	if _, ok := api.(MedicinalProductIngredientRead); ok {
-		read = append(read, "MedicinalProductIngredient")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductIngredient")
+	}
+	if _, ok := api.(MedicinalProductIngredientUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductIngredient")
 	}
 	if c, ok := api.(MedicinalProductIngredientSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductIngredient(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductIngredient(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductIngredient"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductIngredient"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductInteractionCreate); ok {
-		create = append(create, "MedicinalProductInteraction")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductInteraction")
 	}
 	if _, ok := api.(MedicinalProductInteractionRead); ok {
-		read = append(read, "MedicinalProductInteraction")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductInteraction")
+	}
+	if _, ok := api.(MedicinalProductInteractionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductInteraction")
 	}
 	if c, ok := api.(MedicinalProductInteractionSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductInteraction(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductInteraction(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductInteraction"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductInteraction"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductManufacturedCreate); ok {
-		create = append(create, "MedicinalProductManufactured")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductManufactured")
 	}
 	if _, ok := api.(MedicinalProductManufacturedRead); ok {
-		read = append(read, "MedicinalProductManufactured")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductManufactured")
+	}
+	if _, ok := api.(MedicinalProductManufacturedUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductManufactured")
 	}
 	if c, ok := api.(MedicinalProductManufacturedSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductManufactured(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductManufactured(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductManufactured"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductManufactured"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductPackagedCreate); ok {
-		create = append(create, "MedicinalProductPackaged")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductPackaged")
 	}
 	if _, ok := api.(MedicinalProductPackagedRead); ok {
-		read = append(read, "MedicinalProductPackaged")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductPackaged")
+	}
+	if _, ok := api.(MedicinalProductPackagedUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductPackaged")
 	}
 	if c, ok := api.(MedicinalProductPackagedSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductPackaged(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductPackaged(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductPackaged"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductPackaged"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductPharmaceuticalCreate); ok {
-		create = append(create, "MedicinalProductPharmaceutical")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductPharmaceutical")
 	}
 	if _, ok := api.(MedicinalProductPharmaceuticalRead); ok {
-		read = append(read, "MedicinalProductPharmaceutical")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductPharmaceutical")
+	}
+	if _, ok := api.(MedicinalProductPharmaceuticalUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductPharmaceutical")
 	}
 	if c, ok := api.(MedicinalProductPharmaceuticalSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductPharmaceutical(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductPharmaceutical(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductPharmaceutical"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductPharmaceutical"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductUndesirableEffectCreate); ok {
-		create = append(create, "MedicinalProductUndesirableEffect")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductUndesirableEffect")
 	}
 	if _, ok := api.(MedicinalProductUndesirableEffectRead); ok {
-		read = append(read, "MedicinalProductUndesirableEffect")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductUndesirableEffect")
+	}
+	if _, ok := api.(MedicinalProductUndesirableEffectUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductUndesirableEffect")
 	}
 	if c, ok := api.(MedicinalProductUndesirableEffectSearch); ok {
-		capability, err := c.SearchCapabilitiesMedicinalProductUndesirableEffect(ctx)
+		c, err := c.SearchCapabilitiesMedicinalProductUndesirableEffect(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MedicinalProductUndesirableEffect"] = capability
+			allCapabilities.SearchCapabilities["MedicinalProductUndesirableEffect"] = c
 		}
 	}
 	if _, ok := api.(MessageDefinitionCreate); ok {
-		create = append(create, "MessageDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MessageDefinition")
 	}
 	if _, ok := api.(MessageDefinitionRead); ok {
-		read = append(read, "MessageDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MessageDefinition")
+	}
+	if _, ok := api.(MessageDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MessageDefinition")
 	}
 	if c, ok := api.(MessageDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesMessageDefinition(ctx)
+		c, err := c.SearchCapabilitiesMessageDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MessageDefinition"] = capability
+			allCapabilities.SearchCapabilities["MessageDefinition"] = c
 		}
 	}
 	if _, ok := api.(MessageHeaderCreate); ok {
-		create = append(create, "MessageHeader")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MessageHeader")
 	}
 	if _, ok := api.(MessageHeaderRead); ok {
-		read = append(read, "MessageHeader")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MessageHeader")
+	}
+	if _, ok := api.(MessageHeaderUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MessageHeader")
 	}
 	if c, ok := api.(MessageHeaderSearch); ok {
-		capability, err := c.SearchCapabilitiesMessageHeader(ctx)
+		c, err := c.SearchCapabilitiesMessageHeader(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MessageHeader"] = capability
+			allCapabilities.SearchCapabilities["MessageHeader"] = c
 		}
 	}
 	if _, ok := api.(MolecularSequenceCreate); ok {
-		create = append(create, "MolecularSequence")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MolecularSequence")
 	}
 	if _, ok := api.(MolecularSequenceRead); ok {
-		read = append(read, "MolecularSequence")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MolecularSequence")
+	}
+	if _, ok := api.(MolecularSequenceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MolecularSequence")
 	}
 	if c, ok := api.(MolecularSequenceSearch); ok {
-		capability, err := c.SearchCapabilitiesMolecularSequence(ctx)
+		c, err := c.SearchCapabilitiesMolecularSequence(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["MolecularSequence"] = capability
+			allCapabilities.SearchCapabilities["MolecularSequence"] = c
 		}
 	}
 	if _, ok := api.(NamingSystemCreate); ok {
-		create = append(create, "NamingSystem")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "NamingSystem")
 	}
 	if _, ok := api.(NamingSystemRead); ok {
-		read = append(read, "NamingSystem")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "NamingSystem")
+	}
+	if _, ok := api.(NamingSystemUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NamingSystem")
 	}
 	if c, ok := api.(NamingSystemSearch); ok {
-		capability, err := c.SearchCapabilitiesNamingSystem(ctx)
+		c, err := c.SearchCapabilitiesNamingSystem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["NamingSystem"] = capability
+			allCapabilities.SearchCapabilities["NamingSystem"] = c
 		}
 	}
 	if _, ok := api.(NutritionOrderCreate); ok {
-		create = append(create, "NutritionOrder")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "NutritionOrder")
 	}
 	if _, ok := api.(NutritionOrderRead); ok {
-		read = append(read, "NutritionOrder")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "NutritionOrder")
+	}
+	if _, ok := api.(NutritionOrderUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NutritionOrder")
 	}
 	if c, ok := api.(NutritionOrderSearch); ok {
-		capability, err := c.SearchCapabilitiesNutritionOrder(ctx)
+		c, err := c.SearchCapabilitiesNutritionOrder(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["NutritionOrder"] = capability
+			allCapabilities.SearchCapabilities["NutritionOrder"] = c
 		}
 	}
 	if _, ok := api.(ObservationCreate); ok {
-		create = append(create, "Observation")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Observation")
 	}
 	if _, ok := api.(ObservationRead); ok {
-		read = append(read, "Observation")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Observation")
+	}
+	if _, ok := api.(ObservationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Observation")
 	}
 	if c, ok := api.(ObservationSearch); ok {
-		capability, err := c.SearchCapabilitiesObservation(ctx)
+		c, err := c.SearchCapabilitiesObservation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Observation"] = capability
+			allCapabilities.SearchCapabilities["Observation"] = c
 		}
 	}
 	if _, ok := api.(ObservationDefinitionCreate); ok {
-		create = append(create, "ObservationDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ObservationDefinition")
 	}
 	if _, ok := api.(ObservationDefinitionRead); ok {
-		read = append(read, "ObservationDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ObservationDefinition")
+	}
+	if _, ok := api.(ObservationDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ObservationDefinition")
 	}
 	if c, ok := api.(ObservationDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesObservationDefinition(ctx)
+		c, err := c.SearchCapabilitiesObservationDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ObservationDefinition"] = capability
+			allCapabilities.SearchCapabilities["ObservationDefinition"] = c
 		}
 	}
 	if _, ok := api.(OperationDefinitionCreate); ok {
-		create = append(create, "OperationDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "OperationDefinition")
 	}
 	if _, ok := api.(OperationDefinitionRead); ok {
-		read = append(read, "OperationDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "OperationDefinition")
+	}
+	if _, ok := api.(OperationDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OperationDefinition")
 	}
 	if c, ok := api.(OperationDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesOperationDefinition(ctx)
+		c, err := c.SearchCapabilitiesOperationDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["OperationDefinition"] = capability
+			allCapabilities.SearchCapabilities["OperationDefinition"] = c
 		}
 	}
 	if _, ok := api.(OperationOutcomeCreate); ok {
-		create = append(create, "OperationOutcome")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "OperationOutcome")
 	}
 	if _, ok := api.(OperationOutcomeRead); ok {
-		read = append(read, "OperationOutcome")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "OperationOutcome")
+	}
+	if _, ok := api.(OperationOutcomeUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OperationOutcome")
 	}
 	if c, ok := api.(OperationOutcomeSearch); ok {
-		capability, err := c.SearchCapabilitiesOperationOutcome(ctx)
+		c, err := c.SearchCapabilitiesOperationOutcome(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["OperationOutcome"] = capability
+			allCapabilities.SearchCapabilities["OperationOutcome"] = c
 		}
 	}
 	if _, ok := api.(OrganizationCreate); ok {
-		create = append(create, "Organization")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Organization")
 	}
 	if _, ok := api.(OrganizationRead); ok {
-		read = append(read, "Organization")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Organization")
+	}
+	if _, ok := api.(OrganizationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Organization")
 	}
 	if c, ok := api.(OrganizationSearch); ok {
-		capability, err := c.SearchCapabilitiesOrganization(ctx)
+		c, err := c.SearchCapabilitiesOrganization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Organization"] = capability
+			allCapabilities.SearchCapabilities["Organization"] = c
 		}
 	}
 	if _, ok := api.(OrganizationAffiliationCreate); ok {
-		create = append(create, "OrganizationAffiliation")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "OrganizationAffiliation")
 	}
 	if _, ok := api.(OrganizationAffiliationRead); ok {
-		read = append(read, "OrganizationAffiliation")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "OrganizationAffiliation")
+	}
+	if _, ok := api.(OrganizationAffiliationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OrganizationAffiliation")
 	}
 	if c, ok := api.(OrganizationAffiliationSearch); ok {
-		capability, err := c.SearchCapabilitiesOrganizationAffiliation(ctx)
+		c, err := c.SearchCapabilitiesOrganizationAffiliation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["OrganizationAffiliation"] = capability
+			allCapabilities.SearchCapabilities["OrganizationAffiliation"] = c
 		}
 	}
 	if _, ok := api.(ParametersCreate); ok {
-		create = append(create, "Parameters")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Parameters")
 	}
 	if _, ok := api.(ParametersRead); ok {
-		read = append(read, "Parameters")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Parameters")
+	}
+	if _, ok := api.(ParametersUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Parameters")
 	}
 	if c, ok := api.(ParametersSearch); ok {
-		capability, err := c.SearchCapabilitiesParameters(ctx)
+		c, err := c.SearchCapabilitiesParameters(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Parameters"] = capability
+			allCapabilities.SearchCapabilities["Parameters"] = c
 		}
 	}
 	if _, ok := api.(PatientCreate); ok {
-		create = append(create, "Patient")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Patient")
 	}
 	if _, ok := api.(PatientRead); ok {
-		read = append(read, "Patient")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Patient")
+	}
+	if _, ok := api.(PatientUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Patient")
 	}
 	if c, ok := api.(PatientSearch); ok {
-		capability, err := c.SearchCapabilitiesPatient(ctx)
+		c, err := c.SearchCapabilitiesPatient(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Patient"] = capability
+			allCapabilities.SearchCapabilities["Patient"] = c
 		}
 	}
 	if _, ok := api.(PaymentNoticeCreate); ok {
-		create = append(create, "PaymentNotice")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PaymentNotice")
 	}
 	if _, ok := api.(PaymentNoticeRead); ok {
-		read = append(read, "PaymentNotice")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PaymentNotice")
+	}
+	if _, ok := api.(PaymentNoticeUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PaymentNotice")
 	}
 	if c, ok := api.(PaymentNoticeSearch); ok {
-		capability, err := c.SearchCapabilitiesPaymentNotice(ctx)
+		c, err := c.SearchCapabilitiesPaymentNotice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["PaymentNotice"] = capability
+			allCapabilities.SearchCapabilities["PaymentNotice"] = c
 		}
 	}
 	if _, ok := api.(PaymentReconciliationCreate); ok {
-		create = append(create, "PaymentReconciliation")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PaymentReconciliation")
 	}
 	if _, ok := api.(PaymentReconciliationRead); ok {
-		read = append(read, "PaymentReconciliation")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PaymentReconciliation")
+	}
+	if _, ok := api.(PaymentReconciliationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PaymentReconciliation")
 	}
 	if c, ok := api.(PaymentReconciliationSearch); ok {
-		capability, err := c.SearchCapabilitiesPaymentReconciliation(ctx)
+		c, err := c.SearchCapabilitiesPaymentReconciliation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["PaymentReconciliation"] = capability
+			allCapabilities.SearchCapabilities["PaymentReconciliation"] = c
 		}
 	}
 	if _, ok := api.(PersonCreate); ok {
-		create = append(create, "Person")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Person")
 	}
 	if _, ok := api.(PersonRead); ok {
-		read = append(read, "Person")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Person")
+	}
+	if _, ok := api.(PersonUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Person")
 	}
 	if c, ok := api.(PersonSearch); ok {
-		capability, err := c.SearchCapabilitiesPerson(ctx)
+		c, err := c.SearchCapabilitiesPerson(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Person"] = capability
+			allCapabilities.SearchCapabilities["Person"] = c
 		}
 	}
 	if _, ok := api.(PlanDefinitionCreate); ok {
-		create = append(create, "PlanDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PlanDefinition")
 	}
 	if _, ok := api.(PlanDefinitionRead); ok {
-		read = append(read, "PlanDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PlanDefinition")
+	}
+	if _, ok := api.(PlanDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PlanDefinition")
 	}
 	if c, ok := api.(PlanDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesPlanDefinition(ctx)
+		c, err := c.SearchCapabilitiesPlanDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["PlanDefinition"] = capability
+			allCapabilities.SearchCapabilities["PlanDefinition"] = c
 		}
 	}
 	if _, ok := api.(PractitionerCreate); ok {
-		create = append(create, "Practitioner")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Practitioner")
 	}
 	if _, ok := api.(PractitionerRead); ok {
-		read = append(read, "Practitioner")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Practitioner")
+	}
+	if _, ok := api.(PractitionerUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Practitioner")
 	}
 	if c, ok := api.(PractitionerSearch); ok {
-		capability, err := c.SearchCapabilitiesPractitioner(ctx)
+		c, err := c.SearchCapabilitiesPractitioner(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Practitioner"] = capability
+			allCapabilities.SearchCapabilities["Practitioner"] = c
 		}
 	}
 	if _, ok := api.(PractitionerRoleCreate); ok {
-		create = append(create, "PractitionerRole")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PractitionerRole")
 	}
 	if _, ok := api.(PractitionerRoleRead); ok {
-		read = append(read, "PractitionerRole")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PractitionerRole")
+	}
+	if _, ok := api.(PractitionerRoleUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PractitionerRole")
 	}
 	if c, ok := api.(PractitionerRoleSearch); ok {
-		capability, err := c.SearchCapabilitiesPractitionerRole(ctx)
+		c, err := c.SearchCapabilitiesPractitionerRole(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["PractitionerRole"] = capability
+			allCapabilities.SearchCapabilities["PractitionerRole"] = c
 		}
 	}
 	if _, ok := api.(ProcedureCreate); ok {
-		create = append(create, "Procedure")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Procedure")
 	}
 	if _, ok := api.(ProcedureRead); ok {
-		read = append(read, "Procedure")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Procedure")
+	}
+	if _, ok := api.(ProcedureUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Procedure")
 	}
 	if c, ok := api.(ProcedureSearch); ok {
-		capability, err := c.SearchCapabilitiesProcedure(ctx)
+		c, err := c.SearchCapabilitiesProcedure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Procedure"] = capability
+			allCapabilities.SearchCapabilities["Procedure"] = c
 		}
 	}
 	if _, ok := api.(ProvenanceCreate); ok {
-		create = append(create, "Provenance")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Provenance")
 	}
 	if _, ok := api.(ProvenanceRead); ok {
-		read = append(read, "Provenance")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Provenance")
+	}
+	if _, ok := api.(ProvenanceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Provenance")
 	}
 	if c, ok := api.(ProvenanceSearch); ok {
-		capability, err := c.SearchCapabilitiesProvenance(ctx)
+		c, err := c.SearchCapabilitiesProvenance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Provenance"] = capability
+			allCapabilities.SearchCapabilities["Provenance"] = c
 		}
 	}
 	if _, ok := api.(QuestionnaireCreate); ok {
-		create = append(create, "Questionnaire")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Questionnaire")
 	}
 	if _, ok := api.(QuestionnaireRead); ok {
-		read = append(read, "Questionnaire")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Questionnaire")
+	}
+	if _, ok := api.(QuestionnaireUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Questionnaire")
 	}
 	if c, ok := api.(QuestionnaireSearch); ok {
-		capability, err := c.SearchCapabilitiesQuestionnaire(ctx)
+		c, err := c.SearchCapabilitiesQuestionnaire(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Questionnaire"] = capability
+			allCapabilities.SearchCapabilities["Questionnaire"] = c
 		}
 	}
 	if _, ok := api.(QuestionnaireResponseCreate); ok {
-		create = append(create, "QuestionnaireResponse")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "QuestionnaireResponse")
 	}
 	if _, ok := api.(QuestionnaireResponseRead); ok {
-		read = append(read, "QuestionnaireResponse")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "QuestionnaireResponse")
+	}
+	if _, ok := api.(QuestionnaireResponseUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "QuestionnaireResponse")
 	}
 	if c, ok := api.(QuestionnaireResponseSearch); ok {
-		capability, err := c.SearchCapabilitiesQuestionnaireResponse(ctx)
+		c, err := c.SearchCapabilitiesQuestionnaireResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["QuestionnaireResponse"] = capability
+			allCapabilities.SearchCapabilities["QuestionnaireResponse"] = c
 		}
 	}
 	if _, ok := api.(RelatedPersonCreate); ok {
-		create = append(create, "RelatedPerson")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RelatedPerson")
 	}
 	if _, ok := api.(RelatedPersonRead); ok {
-		read = append(read, "RelatedPerson")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RelatedPerson")
+	}
+	if _, ok := api.(RelatedPersonUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RelatedPerson")
 	}
 	if c, ok := api.(RelatedPersonSearch); ok {
-		capability, err := c.SearchCapabilitiesRelatedPerson(ctx)
+		c, err := c.SearchCapabilitiesRelatedPerson(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["RelatedPerson"] = capability
+			allCapabilities.SearchCapabilities["RelatedPerson"] = c
 		}
 	}
 	if _, ok := api.(RequestGroupCreate); ok {
-		create = append(create, "RequestGroup")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RequestGroup")
 	}
 	if _, ok := api.(RequestGroupRead); ok {
-		read = append(read, "RequestGroup")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RequestGroup")
+	}
+	if _, ok := api.(RequestGroupUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RequestGroup")
 	}
 	if c, ok := api.(RequestGroupSearch); ok {
-		capability, err := c.SearchCapabilitiesRequestGroup(ctx)
+		c, err := c.SearchCapabilitiesRequestGroup(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["RequestGroup"] = capability
+			allCapabilities.SearchCapabilities["RequestGroup"] = c
 		}
 	}
 	if _, ok := api.(ResearchDefinitionCreate); ok {
-		create = append(create, "ResearchDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ResearchDefinition")
 	}
 	if _, ok := api.(ResearchDefinitionRead); ok {
-		read = append(read, "ResearchDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ResearchDefinition")
+	}
+	if _, ok := api.(ResearchDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchDefinition")
 	}
 	if c, ok := api.(ResearchDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesResearchDefinition(ctx)
+		c, err := c.SearchCapabilitiesResearchDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ResearchDefinition"] = capability
+			allCapabilities.SearchCapabilities["ResearchDefinition"] = c
 		}
 	}
 	if _, ok := api.(ResearchElementDefinitionCreate); ok {
-		create = append(create, "ResearchElementDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ResearchElementDefinition")
 	}
 	if _, ok := api.(ResearchElementDefinitionRead); ok {
-		read = append(read, "ResearchElementDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ResearchElementDefinition")
+	}
+	if _, ok := api.(ResearchElementDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchElementDefinition")
 	}
 	if c, ok := api.(ResearchElementDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesResearchElementDefinition(ctx)
+		c, err := c.SearchCapabilitiesResearchElementDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ResearchElementDefinition"] = capability
+			allCapabilities.SearchCapabilities["ResearchElementDefinition"] = c
 		}
 	}
 	if _, ok := api.(ResearchStudyCreate); ok {
-		create = append(create, "ResearchStudy")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ResearchStudy")
 	}
 	if _, ok := api.(ResearchStudyRead); ok {
-		read = append(read, "ResearchStudy")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ResearchStudy")
+	}
+	if _, ok := api.(ResearchStudyUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchStudy")
 	}
 	if c, ok := api.(ResearchStudySearch); ok {
-		capability, err := c.SearchCapabilitiesResearchStudy(ctx)
+		c, err := c.SearchCapabilitiesResearchStudy(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ResearchStudy"] = capability
+			allCapabilities.SearchCapabilities["ResearchStudy"] = c
 		}
 	}
 	if _, ok := api.(ResearchSubjectCreate); ok {
-		create = append(create, "ResearchSubject")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ResearchSubject")
 	}
 	if _, ok := api.(ResearchSubjectRead); ok {
-		read = append(read, "ResearchSubject")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ResearchSubject")
+	}
+	if _, ok := api.(ResearchSubjectUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchSubject")
 	}
 	if c, ok := api.(ResearchSubjectSearch); ok {
-		capability, err := c.SearchCapabilitiesResearchSubject(ctx)
+		c, err := c.SearchCapabilitiesResearchSubject(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ResearchSubject"] = capability
+			allCapabilities.SearchCapabilities["ResearchSubject"] = c
 		}
 	}
 	if _, ok := api.(RiskAssessmentCreate); ok {
-		create = append(create, "RiskAssessment")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RiskAssessment")
 	}
 	if _, ok := api.(RiskAssessmentRead); ok {
-		read = append(read, "RiskAssessment")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RiskAssessment")
+	}
+	if _, ok := api.(RiskAssessmentUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RiskAssessment")
 	}
 	if c, ok := api.(RiskAssessmentSearch); ok {
-		capability, err := c.SearchCapabilitiesRiskAssessment(ctx)
+		c, err := c.SearchCapabilitiesRiskAssessment(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["RiskAssessment"] = capability
+			allCapabilities.SearchCapabilities["RiskAssessment"] = c
 		}
 	}
 	if _, ok := api.(RiskEvidenceSynthesisCreate); ok {
-		create = append(create, "RiskEvidenceSynthesis")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RiskEvidenceSynthesis")
 	}
 	if _, ok := api.(RiskEvidenceSynthesisRead); ok {
-		read = append(read, "RiskEvidenceSynthesis")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RiskEvidenceSynthesis")
+	}
+	if _, ok := api.(RiskEvidenceSynthesisUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RiskEvidenceSynthesis")
 	}
 	if c, ok := api.(RiskEvidenceSynthesisSearch); ok {
-		capability, err := c.SearchCapabilitiesRiskEvidenceSynthesis(ctx)
+		c, err := c.SearchCapabilitiesRiskEvidenceSynthesis(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["RiskEvidenceSynthesis"] = capability
+			allCapabilities.SearchCapabilities["RiskEvidenceSynthesis"] = c
 		}
 	}
 	if _, ok := api.(ScheduleCreate); ok {
-		create = append(create, "Schedule")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Schedule")
 	}
 	if _, ok := api.(ScheduleRead); ok {
-		read = append(read, "Schedule")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Schedule")
+	}
+	if _, ok := api.(ScheduleUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Schedule")
 	}
 	if c, ok := api.(ScheduleSearch); ok {
-		capability, err := c.SearchCapabilitiesSchedule(ctx)
+		c, err := c.SearchCapabilitiesSchedule(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Schedule"] = capability
+			allCapabilities.SearchCapabilities["Schedule"] = c
 		}
 	}
 	if _, ok := api.(SearchParameterCreate); ok {
-		create = append(create, "SearchParameter")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SearchParameter")
 	}
 	if _, ok := api.(SearchParameterRead); ok {
-		read = append(read, "SearchParameter")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SearchParameter")
+	}
+	if _, ok := api.(SearchParameterUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SearchParameter")
 	}
 	if c, ok := api.(SearchParameterSearch); ok {
-		capability, err := c.SearchCapabilitiesSearchParameter(ctx)
+		c, err := c.SearchCapabilitiesSearchParameter(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SearchParameter"] = capability
+			allCapabilities.SearchCapabilities["SearchParameter"] = c
 		}
 	}
 	if _, ok := api.(ServiceRequestCreate); ok {
-		create = append(create, "ServiceRequest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ServiceRequest")
 	}
 	if _, ok := api.(ServiceRequestRead); ok {
-		read = append(read, "ServiceRequest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ServiceRequest")
+	}
+	if _, ok := api.(ServiceRequestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ServiceRequest")
 	}
 	if c, ok := api.(ServiceRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesServiceRequest(ctx)
+		c, err := c.SearchCapabilitiesServiceRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ServiceRequest"] = capability
+			allCapabilities.SearchCapabilities["ServiceRequest"] = c
 		}
 	}
 	if _, ok := api.(SlotCreate); ok {
-		create = append(create, "Slot")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Slot")
 	}
 	if _, ok := api.(SlotRead); ok {
-		read = append(read, "Slot")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Slot")
+	}
+	if _, ok := api.(SlotUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Slot")
 	}
 	if c, ok := api.(SlotSearch); ok {
-		capability, err := c.SearchCapabilitiesSlot(ctx)
+		c, err := c.SearchCapabilitiesSlot(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Slot"] = capability
+			allCapabilities.SearchCapabilities["Slot"] = c
 		}
 	}
 	if _, ok := api.(SpecimenCreate); ok {
-		create = append(create, "Specimen")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Specimen")
 	}
 	if _, ok := api.(SpecimenRead); ok {
-		read = append(read, "Specimen")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Specimen")
+	}
+	if _, ok := api.(SpecimenUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Specimen")
 	}
 	if c, ok := api.(SpecimenSearch); ok {
-		capability, err := c.SearchCapabilitiesSpecimen(ctx)
+		c, err := c.SearchCapabilitiesSpecimen(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Specimen"] = capability
+			allCapabilities.SearchCapabilities["Specimen"] = c
 		}
 	}
 	if _, ok := api.(SpecimenDefinitionCreate); ok {
-		create = append(create, "SpecimenDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SpecimenDefinition")
 	}
 	if _, ok := api.(SpecimenDefinitionRead); ok {
-		read = append(read, "SpecimenDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SpecimenDefinition")
+	}
+	if _, ok := api.(SpecimenDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SpecimenDefinition")
 	}
 	if c, ok := api.(SpecimenDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesSpecimenDefinition(ctx)
+		c, err := c.SearchCapabilitiesSpecimenDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SpecimenDefinition"] = capability
+			allCapabilities.SearchCapabilities["SpecimenDefinition"] = c
 		}
 	}
 	if _, ok := api.(StructureDefinitionCreate); ok {
-		create = append(create, "StructureDefinition")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "StructureDefinition")
 	}
 	if _, ok := api.(StructureDefinitionRead); ok {
-		read = append(read, "StructureDefinition")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "StructureDefinition")
+	}
+	if _, ok := api.(StructureDefinitionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "StructureDefinition")
 	}
 	if c, ok := api.(StructureDefinitionSearch); ok {
-		capability, err := c.SearchCapabilitiesStructureDefinition(ctx)
+		c, err := c.SearchCapabilitiesStructureDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["StructureDefinition"] = capability
+			allCapabilities.SearchCapabilities["StructureDefinition"] = c
 		}
 	}
 	if _, ok := api.(StructureMapCreate); ok {
-		create = append(create, "StructureMap")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "StructureMap")
 	}
 	if _, ok := api.(StructureMapRead); ok {
-		read = append(read, "StructureMap")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "StructureMap")
+	}
+	if _, ok := api.(StructureMapUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "StructureMap")
 	}
 	if c, ok := api.(StructureMapSearch); ok {
-		capability, err := c.SearchCapabilitiesStructureMap(ctx)
+		c, err := c.SearchCapabilitiesStructureMap(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["StructureMap"] = capability
+			allCapabilities.SearchCapabilities["StructureMap"] = c
 		}
 	}
 	if _, ok := api.(SubscriptionCreate); ok {
-		create = append(create, "Subscription")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Subscription")
 	}
 	if _, ok := api.(SubscriptionRead); ok {
-		read = append(read, "Subscription")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Subscription")
+	}
+	if _, ok := api.(SubscriptionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Subscription")
 	}
 	if c, ok := api.(SubscriptionSearch); ok {
-		capability, err := c.SearchCapabilitiesSubscription(ctx)
+		c, err := c.SearchCapabilitiesSubscription(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Subscription"] = capability
+			allCapabilities.SearchCapabilities["Subscription"] = c
 		}
 	}
 	if _, ok := api.(SubstanceCreate); ok {
-		create = append(create, "Substance")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Substance")
 	}
 	if _, ok := api.(SubstanceRead); ok {
-		read = append(read, "Substance")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Substance")
+	}
+	if _, ok := api.(SubstanceUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Substance")
 	}
 	if c, ok := api.(SubstanceSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstance(ctx)
+		c, err := c.SearchCapabilitiesSubstance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Substance"] = capability
+			allCapabilities.SearchCapabilities["Substance"] = c
 		}
 	}
 	if _, ok := api.(SubstanceNucleicAcidCreate); ok {
-		create = append(create, "SubstanceNucleicAcid")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceNucleicAcid")
 	}
 	if _, ok := api.(SubstanceNucleicAcidRead); ok {
-		read = append(read, "SubstanceNucleicAcid")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceNucleicAcid")
+	}
+	if _, ok := api.(SubstanceNucleicAcidUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceNucleicAcid")
 	}
 	if c, ok := api.(SubstanceNucleicAcidSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstanceNucleicAcid(ctx)
+		c, err := c.SearchCapabilitiesSubstanceNucleicAcid(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SubstanceNucleicAcid"] = capability
+			allCapabilities.SearchCapabilities["SubstanceNucleicAcid"] = c
 		}
 	}
 	if _, ok := api.(SubstancePolymerCreate); ok {
-		create = append(create, "SubstancePolymer")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstancePolymer")
 	}
 	if _, ok := api.(SubstancePolymerRead); ok {
-		read = append(read, "SubstancePolymer")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstancePolymer")
+	}
+	if _, ok := api.(SubstancePolymerUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstancePolymer")
 	}
 	if c, ok := api.(SubstancePolymerSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstancePolymer(ctx)
+		c, err := c.SearchCapabilitiesSubstancePolymer(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SubstancePolymer"] = capability
+			allCapabilities.SearchCapabilities["SubstancePolymer"] = c
 		}
 	}
 	if _, ok := api.(SubstanceProteinCreate); ok {
-		create = append(create, "SubstanceProtein")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceProtein")
 	}
 	if _, ok := api.(SubstanceProteinRead); ok {
-		read = append(read, "SubstanceProtein")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceProtein")
+	}
+	if _, ok := api.(SubstanceProteinUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceProtein")
 	}
 	if c, ok := api.(SubstanceProteinSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstanceProtein(ctx)
+		c, err := c.SearchCapabilitiesSubstanceProtein(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SubstanceProtein"] = capability
+			allCapabilities.SearchCapabilities["SubstanceProtein"] = c
 		}
 	}
 	if _, ok := api.(SubstanceReferenceInformationCreate); ok {
-		create = append(create, "SubstanceReferenceInformation")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceReferenceInformation")
 	}
 	if _, ok := api.(SubstanceReferenceInformationRead); ok {
-		read = append(read, "SubstanceReferenceInformation")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceReferenceInformation")
+	}
+	if _, ok := api.(SubstanceReferenceInformationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceReferenceInformation")
 	}
 	if c, ok := api.(SubstanceReferenceInformationSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstanceReferenceInformation(ctx)
+		c, err := c.SearchCapabilitiesSubstanceReferenceInformation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SubstanceReferenceInformation"] = capability
+			allCapabilities.SearchCapabilities["SubstanceReferenceInformation"] = c
 		}
 	}
 	if _, ok := api.(SubstanceSourceMaterialCreate); ok {
-		create = append(create, "SubstanceSourceMaterial")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceSourceMaterial")
 	}
 	if _, ok := api.(SubstanceSourceMaterialRead); ok {
-		read = append(read, "SubstanceSourceMaterial")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceSourceMaterial")
+	}
+	if _, ok := api.(SubstanceSourceMaterialUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceSourceMaterial")
 	}
 	if c, ok := api.(SubstanceSourceMaterialSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstanceSourceMaterial(ctx)
+		c, err := c.SearchCapabilitiesSubstanceSourceMaterial(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SubstanceSourceMaterial"] = capability
+			allCapabilities.SearchCapabilities["SubstanceSourceMaterial"] = c
 		}
 	}
 	if _, ok := api.(SubstanceSpecificationCreate); ok {
-		create = append(create, "SubstanceSpecification")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceSpecification")
 	}
 	if _, ok := api.(SubstanceSpecificationRead); ok {
-		read = append(read, "SubstanceSpecification")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceSpecification")
+	}
+	if _, ok := api.(SubstanceSpecificationUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceSpecification")
 	}
 	if c, ok := api.(SubstanceSpecificationSearch); ok {
-		capability, err := c.SearchCapabilitiesSubstanceSpecification(ctx)
+		c, err := c.SearchCapabilitiesSubstanceSpecification(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SubstanceSpecification"] = capability
+			allCapabilities.SearchCapabilities["SubstanceSpecification"] = c
 		}
 	}
 	if _, ok := api.(SupplyDeliveryCreate); ok {
-		create = append(create, "SupplyDelivery")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SupplyDelivery")
 	}
 	if _, ok := api.(SupplyDeliveryRead); ok {
-		read = append(read, "SupplyDelivery")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SupplyDelivery")
+	}
+	if _, ok := api.(SupplyDeliveryUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SupplyDelivery")
 	}
 	if c, ok := api.(SupplyDeliverySearch); ok {
-		capability, err := c.SearchCapabilitiesSupplyDelivery(ctx)
+		c, err := c.SearchCapabilitiesSupplyDelivery(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SupplyDelivery"] = capability
+			allCapabilities.SearchCapabilities["SupplyDelivery"] = c
 		}
 	}
 	if _, ok := api.(SupplyRequestCreate); ok {
-		create = append(create, "SupplyRequest")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SupplyRequest")
 	}
 	if _, ok := api.(SupplyRequestRead); ok {
-		read = append(read, "SupplyRequest")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SupplyRequest")
+	}
+	if _, ok := api.(SupplyRequestUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SupplyRequest")
 	}
 	if c, ok := api.(SupplyRequestSearch); ok {
-		capability, err := c.SearchCapabilitiesSupplyRequest(ctx)
+		c, err := c.SearchCapabilitiesSupplyRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["SupplyRequest"] = capability
+			allCapabilities.SearchCapabilities["SupplyRequest"] = c
 		}
 	}
 	if _, ok := api.(TaskCreate); ok {
-		create = append(create, "Task")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Task")
 	}
 	if _, ok := api.(TaskRead); ok {
-		read = append(read, "Task")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Task")
+	}
+	if _, ok := api.(TaskUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Task")
 	}
 	if c, ok := api.(TaskSearch); ok {
-		capability, err := c.SearchCapabilitiesTask(ctx)
+		c, err := c.SearchCapabilitiesTask(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["Task"] = capability
+			allCapabilities.SearchCapabilities["Task"] = c
 		}
 	}
 	if _, ok := api.(TerminologyCapabilitiesCreate); ok {
-		create = append(create, "TerminologyCapabilities")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "TerminologyCapabilities")
 	}
 	if _, ok := api.(TerminologyCapabilitiesRead); ok {
-		read = append(read, "TerminologyCapabilities")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "TerminologyCapabilities")
+	}
+	if _, ok := api.(TerminologyCapabilitiesUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TerminologyCapabilities")
 	}
 	if c, ok := api.(TerminologyCapabilitiesSearch); ok {
-		capability, err := c.SearchCapabilitiesTerminologyCapabilities(ctx)
+		c, err := c.SearchCapabilitiesTerminologyCapabilities(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["TerminologyCapabilities"] = capability
+			allCapabilities.SearchCapabilities["TerminologyCapabilities"] = c
 		}
 	}
 	if _, ok := api.(TestReportCreate); ok {
-		create = append(create, "TestReport")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "TestReport")
 	}
 	if _, ok := api.(TestReportRead); ok {
-		read = append(read, "TestReport")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "TestReport")
+	}
+	if _, ok := api.(TestReportUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TestReport")
 	}
 	if c, ok := api.(TestReportSearch); ok {
-		capability, err := c.SearchCapabilitiesTestReport(ctx)
+		c, err := c.SearchCapabilitiesTestReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["TestReport"] = capability
+			allCapabilities.SearchCapabilities["TestReport"] = c
 		}
 	}
 	if _, ok := api.(TestScriptCreate); ok {
-		create = append(create, "TestScript")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "TestScript")
 	}
 	if _, ok := api.(TestScriptRead); ok {
-		read = append(read, "TestScript")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "TestScript")
+	}
+	if _, ok := api.(TestScriptUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TestScript")
 	}
 	if c, ok := api.(TestScriptSearch); ok {
-		capability, err := c.SearchCapabilitiesTestScript(ctx)
+		c, err := c.SearchCapabilitiesTestScript(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["TestScript"] = capability
+			allCapabilities.SearchCapabilities["TestScript"] = c
 		}
 	}
 	if _, ok := api.(ValueSetCreate); ok {
-		create = append(create, "ValueSet")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ValueSet")
 	}
 	if _, ok := api.(ValueSetRead); ok {
-		read = append(read, "ValueSet")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ValueSet")
+	}
+	if _, ok := api.(ValueSetUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ValueSet")
 	}
 	if c, ok := api.(ValueSetSearch); ok {
-		capability, err := c.SearchCapabilitiesValueSet(ctx)
+		c, err := c.SearchCapabilitiesValueSet(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["ValueSet"] = capability
+			allCapabilities.SearchCapabilities["ValueSet"] = c
 		}
 	}
 	if _, ok := api.(VerificationResultCreate); ok {
-		create = append(create, "VerificationResult")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "VerificationResult")
 	}
 	if _, ok := api.(VerificationResultRead); ok {
-		read = append(read, "VerificationResult")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "VerificationResult")
+	}
+	if _, ok := api.(VerificationResultUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "VerificationResult")
 	}
 	if c, ok := api.(VerificationResultSearch); ok {
-		capability, err := c.SearchCapabilitiesVerificationResult(ctx)
+		c, err := c.SearchCapabilitiesVerificationResult(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["VerificationResult"] = capability
+			allCapabilities.SearchCapabilities["VerificationResult"] = c
 		}
 	}
 	if _, ok := api.(VisionPrescriptionCreate); ok {
-		create = append(create, "VisionPrescription")
+		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "VisionPrescription")
 	}
 	if _, ok := api.(VisionPrescriptionRead); ok {
-		read = append(read, "VisionPrescription")
+		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "VisionPrescription")
+	}
+	if _, ok := api.(VisionPrescriptionUpdate); ok {
+		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "VisionPrescription")
 	}
 	if c, ok := api.(VisionPrescriptionSearch); ok {
-		capability, err := c.SearchCapabilitiesVisionPrescription(ctx)
+		c, err := c.SearchCapabilitiesVisionPrescription(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			search["VisionPrescription"] = capability
+			allCapabilities.SearchCapabilities["VisionPrescription"] = c
 		}
 	}
-	return capabilities.Capabilities{
-		ReadInteractions:   read,
-		SearchCapabilities: search,
-	}, capabilities.JoinErrors(errs)
+	return allCapabilities, capabilities.JoinErrors(errs)
 }

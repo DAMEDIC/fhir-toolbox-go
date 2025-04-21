@@ -67,7 +67,13 @@ func TestCapabilityStatement(t *testing.T) {
 					{
 					  "interaction": [
 						{
+						  "code": "create"
+						},
+						{
 						  "code": "read"
+						},
+						{
+						  "code": "update"
 						},
 						{
 						  "code": "search-type"
@@ -166,7 +172,13 @@ func TestCapabilityStatement(t *testing.T) {
 					<resource>
 					  <type value='Patient'/>
 					  <interaction>
+						<code value='create'/>
+					  </interaction>
+					  <interaction>
 						<code value='read'/>
+					  </interaction>
+					  <interaction>
+						<code value='update'/>
 					  </interaction>
 					  <interaction>
 						<code value='search-type'/>
@@ -1179,6 +1191,16 @@ type mockBackend struct {
 func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, capabilities.FHIRError) {
 	patient.Id = &r4.Id{Value: utils.Ptr("server-assigned-id")}
 	return patient, nil
+}
+
+func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (capabilities.UpdateResult[r4.Patient], capabilities.FHIRError) {
+	return capabilities.UpdateResult[r4.Patient]{
+		Resource: patient,
+	}, nil
+}
+
+func (m mockBackend) DeletePatient(ctx context.Context, id string) capabilities.FHIRError {
+	return nil
 }
 
 func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {
