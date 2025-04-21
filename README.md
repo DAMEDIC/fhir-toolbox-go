@@ -25,11 +25,16 @@ A **FHIRPath** implementation is work-in-progress (~90% done) on branch [fhirpat
       versions
 
     - generated from the FHIR® specification
+    ```Go
+    var r r4.ContainedResource // container class because json.Unmarshal can not unmarshal directly into interfaces
+    err := json.Unmarshal(data, &r)
+    ... = r.Resource // the actual resource of type model.Resource
+  ```
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
         - alternatively: generic API for building adapters
-        - automatic CapabilityStatement generation
-    - Interactions: `read`,  `search` (adding the remaining interactions is definitely on the agenda)
+        - automatic generation fo `CapabilityStatements`
+    - Interactions: `create`, `read`, `search` (see [Roadmap](#roadmap) for the remaining interactions)
     - Cursor-based pagination
 - FHIRPath evaluation
   - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
@@ -164,11 +169,14 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 
 ## Roadmap
 
-- proper handling of `_include` and `_revinclude`
-- value sets
-- managed search parameters
-- resource validation
-- remaining interactions (`vread`, `create`, `update`, `patch`, `delete`, `history`)
+- interactions
+  - `update` and `delete`
+  - $operations
+  - support for resource versioning (`vread`, `history`)
+  - at some point `patch` and `batch/transaction`, but no priority at the moment
+- constants for code systems and/or value-sets
+- adapter for resolving `_include` and `_revinclude`
+- validation of resources (also against profiles)
 
 ## Packages
 
