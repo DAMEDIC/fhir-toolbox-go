@@ -15,6 +15,7 @@ type CapabilitiesGenerator struct {
 func (g CapabilitiesGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
 	generateCapability(f("create", "capabilities"+release), ir.FilterResources(rt), release, "create")
 	generateCapability(f("read", "capabilities"+release), ir.FilterResources(rt), release, "read")
+	generateCapability(f("update", "capabilities"+release), ir.FilterResources(rt), release, "update")
 	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search")
 
 	generateAllCapabilitiesFn(f("capabilities", "capabilities"+release), release, ir.FilterResources(rt))
@@ -44,6 +45,16 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					).
 					Params(
 						Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name),
+						Qual(moduleName+"/capabilities", "FHIRError"),
+					)
+			case "update":
+				g.Id(interactionName+r.Name).
+					Params(
+						Id("ctx").Qual("context", "Context"),
+						Id("resource").Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name),
+					).
+					Params(
+						Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)),
 						Qual(moduleName+"/capabilities", "FHIRError"),
 					)
 			case "search":

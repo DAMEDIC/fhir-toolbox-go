@@ -1733,6 +1733,1991 @@ func (w Generic) Read(ctx context.Context, resourceType string, id string) (mode
 		return nil, capabilities.UnknownResourceError{ResourceType: resourceType}
 	}
 }
+func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilities.UpdateResult[model.Resource], capabilities.FHIRError) {
+	g, ok := w.Concrete.(capabilities.GenericUpdate)
+	if ok {
+		// shortcut for the case that the underlying implementation already implements the generic API
+		return g.Update(ctx, resource)
+	}
+	switch r := resource.(type) {
+	case r4b.Account:
+		impl, ok := w.Concrete.(AccountUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Account"}
+		}
+		result, err := impl.UpdateAccount(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ActivityDefinition:
+		impl, ok := w.Concrete.(ActivityDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ActivityDefinition"}
+		}
+		result, err := impl.UpdateActivityDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.AdministrableProductDefinition:
+		impl, ok := w.Concrete.(AdministrableProductDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AdministrableProductDefinition"}
+		}
+		result, err := impl.UpdateAdministrableProductDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.AdverseEvent:
+		impl, ok := w.Concrete.(AdverseEventUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AdverseEvent"}
+		}
+		result, err := impl.UpdateAdverseEvent(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.AllergyIntolerance:
+		impl, ok := w.Concrete.(AllergyIntoleranceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AllergyIntolerance"}
+		}
+		result, err := impl.UpdateAllergyIntolerance(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Appointment:
+		impl, ok := w.Concrete.(AppointmentUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Appointment"}
+		}
+		result, err := impl.UpdateAppointment(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.AppointmentResponse:
+		impl, ok := w.Concrete.(AppointmentResponseUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AppointmentResponse"}
+		}
+		result, err := impl.UpdateAppointmentResponse(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.AuditEvent:
+		impl, ok := w.Concrete.(AuditEventUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AuditEvent"}
+		}
+		result, err := impl.UpdateAuditEvent(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Basic:
+		impl, ok := w.Concrete.(BasicUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Basic"}
+		}
+		result, err := impl.UpdateBasic(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Binary:
+		impl, ok := w.Concrete.(BinaryUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Binary"}
+		}
+		result, err := impl.UpdateBinary(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.BiologicallyDerivedProduct:
+		impl, ok := w.Concrete.(BiologicallyDerivedProductUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "BiologicallyDerivedProduct"}
+		}
+		result, err := impl.UpdateBiologicallyDerivedProduct(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.BodyStructure:
+		impl, ok := w.Concrete.(BodyStructureUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "BodyStructure"}
+		}
+		result, err := impl.UpdateBodyStructure(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Bundle:
+		impl, ok := w.Concrete.(BundleUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Bundle"}
+		}
+		result, err := impl.UpdateBundle(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CapabilityStatement:
+		impl, ok := w.Concrete.(CapabilityStatementUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CapabilityStatement"}
+		}
+		result, err := impl.UpdateCapabilityStatement(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CarePlan:
+		impl, ok := w.Concrete.(CarePlanUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CarePlan"}
+		}
+		result, err := impl.UpdateCarePlan(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CareTeam:
+		impl, ok := w.Concrete.(CareTeamUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CareTeam"}
+		}
+		result, err := impl.UpdateCareTeam(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CatalogEntry:
+		impl, ok := w.Concrete.(CatalogEntryUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CatalogEntry"}
+		}
+		result, err := impl.UpdateCatalogEntry(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ChargeItem:
+		impl, ok := w.Concrete.(ChargeItemUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ChargeItem"}
+		}
+		result, err := impl.UpdateChargeItem(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ChargeItemDefinition:
+		impl, ok := w.Concrete.(ChargeItemDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ChargeItemDefinition"}
+		}
+		result, err := impl.UpdateChargeItemDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Citation:
+		impl, ok := w.Concrete.(CitationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Citation"}
+		}
+		result, err := impl.UpdateCitation(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Claim:
+		impl, ok := w.Concrete.(ClaimUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Claim"}
+		}
+		result, err := impl.UpdateClaim(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ClaimResponse:
+		impl, ok := w.Concrete.(ClaimResponseUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClaimResponse"}
+		}
+		result, err := impl.UpdateClaimResponse(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ClinicalImpression:
+		impl, ok := w.Concrete.(ClinicalImpressionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClinicalImpression"}
+		}
+		result, err := impl.UpdateClinicalImpression(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ClinicalUseDefinition:
+		impl, ok := w.Concrete.(ClinicalUseDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClinicalUseDefinition"}
+		}
+		result, err := impl.UpdateClinicalUseDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CodeSystem:
+		impl, ok := w.Concrete.(CodeSystemUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CodeSystem"}
+		}
+		result, err := impl.UpdateCodeSystem(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Communication:
+		impl, ok := w.Concrete.(CommunicationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Communication"}
+		}
+		result, err := impl.UpdateCommunication(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CommunicationRequest:
+		impl, ok := w.Concrete.(CommunicationRequestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CommunicationRequest"}
+		}
+		result, err := impl.UpdateCommunicationRequest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CompartmentDefinition:
+		impl, ok := w.Concrete.(CompartmentDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CompartmentDefinition"}
+		}
+		result, err := impl.UpdateCompartmentDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Composition:
+		impl, ok := w.Concrete.(CompositionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Composition"}
+		}
+		result, err := impl.UpdateComposition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ConceptMap:
+		impl, ok := w.Concrete.(ConceptMapUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ConceptMap"}
+		}
+		result, err := impl.UpdateConceptMap(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Condition:
+		impl, ok := w.Concrete.(ConditionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Condition"}
+		}
+		result, err := impl.UpdateCondition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Consent:
+		impl, ok := w.Concrete.(ConsentUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Consent"}
+		}
+		result, err := impl.UpdateConsent(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Contract:
+		impl, ok := w.Concrete.(ContractUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Contract"}
+		}
+		result, err := impl.UpdateContract(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Coverage:
+		impl, ok := w.Concrete.(CoverageUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Coverage"}
+		}
+		result, err := impl.UpdateCoverage(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CoverageEligibilityRequest:
+		impl, ok := w.Concrete.(CoverageEligibilityRequestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CoverageEligibilityRequest"}
+		}
+		result, err := impl.UpdateCoverageEligibilityRequest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.CoverageEligibilityResponse:
+		impl, ok := w.Concrete.(CoverageEligibilityResponseUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CoverageEligibilityResponse"}
+		}
+		result, err := impl.UpdateCoverageEligibilityResponse(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DetectedIssue:
+		impl, ok := w.Concrete.(DetectedIssueUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DetectedIssue"}
+		}
+		result, err := impl.UpdateDetectedIssue(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Device:
+		impl, ok := w.Concrete.(DeviceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Device"}
+		}
+		result, err := impl.UpdateDevice(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DeviceDefinition:
+		impl, ok := w.Concrete.(DeviceDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceDefinition"}
+		}
+		result, err := impl.UpdateDeviceDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DeviceMetric:
+		impl, ok := w.Concrete.(DeviceMetricUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceMetric"}
+		}
+		result, err := impl.UpdateDeviceMetric(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DeviceRequest:
+		impl, ok := w.Concrete.(DeviceRequestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceRequest"}
+		}
+		result, err := impl.UpdateDeviceRequest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DeviceUseStatement:
+		impl, ok := w.Concrete.(DeviceUseStatementUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceUseStatement"}
+		}
+		result, err := impl.UpdateDeviceUseStatement(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DiagnosticReport:
+		impl, ok := w.Concrete.(DiagnosticReportUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DiagnosticReport"}
+		}
+		result, err := impl.UpdateDiagnosticReport(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DocumentManifest:
+		impl, ok := w.Concrete.(DocumentManifestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DocumentManifest"}
+		}
+		result, err := impl.UpdateDocumentManifest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.DocumentReference:
+		impl, ok := w.Concrete.(DocumentReferenceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DocumentReference"}
+		}
+		result, err := impl.UpdateDocumentReference(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Encounter:
+		impl, ok := w.Concrete.(EncounterUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Encounter"}
+		}
+		result, err := impl.UpdateEncounter(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Endpoint:
+		impl, ok := w.Concrete.(EndpointUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Endpoint"}
+		}
+		result, err := impl.UpdateEndpoint(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.EnrollmentRequest:
+		impl, ok := w.Concrete.(EnrollmentRequestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EnrollmentRequest"}
+		}
+		result, err := impl.UpdateEnrollmentRequest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.EnrollmentResponse:
+		impl, ok := w.Concrete.(EnrollmentResponseUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EnrollmentResponse"}
+		}
+		result, err := impl.UpdateEnrollmentResponse(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.EpisodeOfCare:
+		impl, ok := w.Concrete.(EpisodeOfCareUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EpisodeOfCare"}
+		}
+		result, err := impl.UpdateEpisodeOfCare(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.EventDefinition:
+		impl, ok := w.Concrete.(EventDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EventDefinition"}
+		}
+		result, err := impl.UpdateEventDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Evidence:
+		impl, ok := w.Concrete.(EvidenceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Evidence"}
+		}
+		result, err := impl.UpdateEvidence(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.EvidenceReport:
+		impl, ok := w.Concrete.(EvidenceReportUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EvidenceReport"}
+		}
+		result, err := impl.UpdateEvidenceReport(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.EvidenceVariable:
+		impl, ok := w.Concrete.(EvidenceVariableUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EvidenceVariable"}
+		}
+		result, err := impl.UpdateEvidenceVariable(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ExampleScenario:
+		impl, ok := w.Concrete.(ExampleScenarioUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ExampleScenario"}
+		}
+		result, err := impl.UpdateExampleScenario(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ExplanationOfBenefit:
+		impl, ok := w.Concrete.(ExplanationOfBenefitUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ExplanationOfBenefit"}
+		}
+		result, err := impl.UpdateExplanationOfBenefit(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.FamilyMemberHistory:
+		impl, ok := w.Concrete.(FamilyMemberHistoryUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "FamilyMemberHistory"}
+		}
+		result, err := impl.UpdateFamilyMemberHistory(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Flag:
+		impl, ok := w.Concrete.(FlagUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Flag"}
+		}
+		result, err := impl.UpdateFlag(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Goal:
+		impl, ok := w.Concrete.(GoalUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Goal"}
+		}
+		result, err := impl.UpdateGoal(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.GraphDefinition:
+		impl, ok := w.Concrete.(GraphDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "GraphDefinition"}
+		}
+		result, err := impl.UpdateGraphDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Group:
+		impl, ok := w.Concrete.(GroupUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Group"}
+		}
+		result, err := impl.UpdateGroup(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.GuidanceResponse:
+		impl, ok := w.Concrete.(GuidanceResponseUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "GuidanceResponse"}
+		}
+		result, err := impl.UpdateGuidanceResponse(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.HealthcareService:
+		impl, ok := w.Concrete.(HealthcareServiceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "HealthcareService"}
+		}
+		result, err := impl.UpdateHealthcareService(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ImagingStudy:
+		impl, ok := w.Concrete.(ImagingStudyUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImagingStudy"}
+		}
+		result, err := impl.UpdateImagingStudy(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Immunization:
+		impl, ok := w.Concrete.(ImmunizationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Immunization"}
+		}
+		result, err := impl.UpdateImmunization(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ImmunizationEvaluation:
+		impl, ok := w.Concrete.(ImmunizationEvaluationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImmunizationEvaluation"}
+		}
+		result, err := impl.UpdateImmunizationEvaluation(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ImmunizationRecommendation:
+		impl, ok := w.Concrete.(ImmunizationRecommendationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImmunizationRecommendation"}
+		}
+		result, err := impl.UpdateImmunizationRecommendation(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ImplementationGuide:
+		impl, ok := w.Concrete.(ImplementationGuideUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImplementationGuide"}
+		}
+		result, err := impl.UpdateImplementationGuide(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Ingredient:
+		impl, ok := w.Concrete.(IngredientUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Ingredient"}
+		}
+		result, err := impl.UpdateIngredient(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.InsurancePlan:
+		impl, ok := w.Concrete.(InsurancePlanUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "InsurancePlan"}
+		}
+		result, err := impl.UpdateInsurancePlan(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Invoice:
+		impl, ok := w.Concrete.(InvoiceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Invoice"}
+		}
+		result, err := impl.UpdateInvoice(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Library:
+		impl, ok := w.Concrete.(LibraryUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Library"}
+		}
+		result, err := impl.UpdateLibrary(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Linkage:
+		impl, ok := w.Concrete.(LinkageUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Linkage"}
+		}
+		result, err := impl.UpdateLinkage(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.List:
+		impl, ok := w.Concrete.(ListUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "List"}
+		}
+		result, err := impl.UpdateList(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Location:
+		impl, ok := w.Concrete.(LocationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Location"}
+		}
+		result, err := impl.UpdateLocation(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ManufacturedItemDefinition:
+		impl, ok := w.Concrete.(ManufacturedItemDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ManufacturedItemDefinition"}
+		}
+		result, err := impl.UpdateManufacturedItemDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Measure:
+		impl, ok := w.Concrete.(MeasureUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Measure"}
+		}
+		result, err := impl.UpdateMeasure(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MeasureReport:
+		impl, ok := w.Concrete.(MeasureReportUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MeasureReport"}
+		}
+		result, err := impl.UpdateMeasureReport(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Media:
+		impl, ok := w.Concrete.(MediaUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Media"}
+		}
+		result, err := impl.UpdateMedia(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Medication:
+		impl, ok := w.Concrete.(MedicationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Medication"}
+		}
+		result, err := impl.UpdateMedication(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MedicationAdministration:
+		impl, ok := w.Concrete.(MedicationAdministrationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationAdministration"}
+		}
+		result, err := impl.UpdateMedicationAdministration(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MedicationDispense:
+		impl, ok := w.Concrete.(MedicationDispenseUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationDispense"}
+		}
+		result, err := impl.UpdateMedicationDispense(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MedicationKnowledge:
+		impl, ok := w.Concrete.(MedicationKnowledgeUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationKnowledge"}
+		}
+		result, err := impl.UpdateMedicationKnowledge(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MedicationRequest:
+		impl, ok := w.Concrete.(MedicationRequestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationRequest"}
+		}
+		result, err := impl.UpdateMedicationRequest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MedicationStatement:
+		impl, ok := w.Concrete.(MedicationStatementUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationStatement"}
+		}
+		result, err := impl.UpdateMedicationStatement(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MedicinalProductDefinition:
+		impl, ok := w.Concrete.(MedicinalProductDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicinalProductDefinition"}
+		}
+		result, err := impl.UpdateMedicinalProductDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MessageDefinition:
+		impl, ok := w.Concrete.(MessageDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MessageDefinition"}
+		}
+		result, err := impl.UpdateMessageDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MessageHeader:
+		impl, ok := w.Concrete.(MessageHeaderUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MessageHeader"}
+		}
+		result, err := impl.UpdateMessageHeader(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.MolecularSequence:
+		impl, ok := w.Concrete.(MolecularSequenceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MolecularSequence"}
+		}
+		result, err := impl.UpdateMolecularSequence(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.NamingSystem:
+		impl, ok := w.Concrete.(NamingSystemUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NamingSystem"}
+		}
+		result, err := impl.UpdateNamingSystem(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.NutritionOrder:
+		impl, ok := w.Concrete.(NutritionOrderUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NutritionOrder"}
+		}
+		result, err := impl.UpdateNutritionOrder(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.NutritionProduct:
+		impl, ok := w.Concrete.(NutritionProductUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NutritionProduct"}
+		}
+		result, err := impl.UpdateNutritionProduct(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Observation:
+		impl, ok := w.Concrete.(ObservationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Observation"}
+		}
+		result, err := impl.UpdateObservation(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ObservationDefinition:
+		impl, ok := w.Concrete.(ObservationDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ObservationDefinition"}
+		}
+		result, err := impl.UpdateObservationDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.OperationDefinition:
+		impl, ok := w.Concrete.(OperationDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OperationDefinition"}
+		}
+		result, err := impl.UpdateOperationDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.OperationOutcome:
+		impl, ok := w.Concrete.(OperationOutcomeUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OperationOutcome"}
+		}
+		result, err := impl.UpdateOperationOutcome(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Organization:
+		impl, ok := w.Concrete.(OrganizationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Organization"}
+		}
+		result, err := impl.UpdateOrganization(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.OrganizationAffiliation:
+		impl, ok := w.Concrete.(OrganizationAffiliationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OrganizationAffiliation"}
+		}
+		result, err := impl.UpdateOrganizationAffiliation(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.PackagedProductDefinition:
+		impl, ok := w.Concrete.(PackagedProductDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PackagedProductDefinition"}
+		}
+		result, err := impl.UpdatePackagedProductDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Parameters:
+		impl, ok := w.Concrete.(ParametersUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Parameters"}
+		}
+		result, err := impl.UpdateParameters(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Patient:
+		impl, ok := w.Concrete.(PatientUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Patient"}
+		}
+		result, err := impl.UpdatePatient(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.PaymentNotice:
+		impl, ok := w.Concrete.(PaymentNoticeUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PaymentNotice"}
+		}
+		result, err := impl.UpdatePaymentNotice(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.PaymentReconciliation:
+		impl, ok := w.Concrete.(PaymentReconciliationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PaymentReconciliation"}
+		}
+		result, err := impl.UpdatePaymentReconciliation(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Person:
+		impl, ok := w.Concrete.(PersonUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Person"}
+		}
+		result, err := impl.UpdatePerson(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.PlanDefinition:
+		impl, ok := w.Concrete.(PlanDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PlanDefinition"}
+		}
+		result, err := impl.UpdatePlanDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Practitioner:
+		impl, ok := w.Concrete.(PractitionerUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Practitioner"}
+		}
+		result, err := impl.UpdatePractitioner(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.PractitionerRole:
+		impl, ok := w.Concrete.(PractitionerRoleUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PractitionerRole"}
+		}
+		result, err := impl.UpdatePractitionerRole(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Procedure:
+		impl, ok := w.Concrete.(ProcedureUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Procedure"}
+		}
+		result, err := impl.UpdateProcedure(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Provenance:
+		impl, ok := w.Concrete.(ProvenanceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Provenance"}
+		}
+		result, err := impl.UpdateProvenance(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Questionnaire:
+		impl, ok := w.Concrete.(QuestionnaireUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Questionnaire"}
+		}
+		result, err := impl.UpdateQuestionnaire(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.QuestionnaireResponse:
+		impl, ok := w.Concrete.(QuestionnaireResponseUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "QuestionnaireResponse"}
+		}
+		result, err := impl.UpdateQuestionnaireResponse(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.RegulatedAuthorization:
+		impl, ok := w.Concrete.(RegulatedAuthorizationUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RegulatedAuthorization"}
+		}
+		result, err := impl.UpdateRegulatedAuthorization(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.RelatedPerson:
+		impl, ok := w.Concrete.(RelatedPersonUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RelatedPerson"}
+		}
+		result, err := impl.UpdateRelatedPerson(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.RequestGroup:
+		impl, ok := w.Concrete.(RequestGroupUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RequestGroup"}
+		}
+		result, err := impl.UpdateRequestGroup(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ResearchDefinition:
+		impl, ok := w.Concrete.(ResearchDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchDefinition"}
+		}
+		result, err := impl.UpdateResearchDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ResearchElementDefinition:
+		impl, ok := w.Concrete.(ResearchElementDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchElementDefinition"}
+		}
+		result, err := impl.UpdateResearchElementDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ResearchStudy:
+		impl, ok := w.Concrete.(ResearchStudyUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchStudy"}
+		}
+		result, err := impl.UpdateResearchStudy(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ResearchSubject:
+		impl, ok := w.Concrete.(ResearchSubjectUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchSubject"}
+		}
+		result, err := impl.UpdateResearchSubject(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.RiskAssessment:
+		impl, ok := w.Concrete.(RiskAssessmentUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RiskAssessment"}
+		}
+		result, err := impl.UpdateRiskAssessment(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Schedule:
+		impl, ok := w.Concrete.(ScheduleUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Schedule"}
+		}
+		result, err := impl.UpdateSchedule(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.SearchParameter:
+		impl, ok := w.Concrete.(SearchParameterUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SearchParameter"}
+		}
+		result, err := impl.UpdateSearchParameter(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ServiceRequest:
+		impl, ok := w.Concrete.(ServiceRequestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ServiceRequest"}
+		}
+		result, err := impl.UpdateServiceRequest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Slot:
+		impl, ok := w.Concrete.(SlotUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Slot"}
+		}
+		result, err := impl.UpdateSlot(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Specimen:
+		impl, ok := w.Concrete.(SpecimenUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Specimen"}
+		}
+		result, err := impl.UpdateSpecimen(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.SpecimenDefinition:
+		impl, ok := w.Concrete.(SpecimenDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SpecimenDefinition"}
+		}
+		result, err := impl.UpdateSpecimenDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.StructureDefinition:
+		impl, ok := w.Concrete.(StructureDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "StructureDefinition"}
+		}
+		result, err := impl.UpdateStructureDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.StructureMap:
+		impl, ok := w.Concrete.(StructureMapUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "StructureMap"}
+		}
+		result, err := impl.UpdateStructureMap(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Subscription:
+		impl, ok := w.Concrete.(SubscriptionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Subscription"}
+		}
+		result, err := impl.UpdateSubscription(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.SubscriptionStatus:
+		impl, ok := w.Concrete.(SubscriptionStatusUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubscriptionStatus"}
+		}
+		result, err := impl.UpdateSubscriptionStatus(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.SubscriptionTopic:
+		impl, ok := w.Concrete.(SubscriptionTopicUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubscriptionTopic"}
+		}
+		result, err := impl.UpdateSubscriptionTopic(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Substance:
+		impl, ok := w.Concrete.(SubstanceUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Substance"}
+		}
+		result, err := impl.UpdateSubstance(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.SubstanceDefinition:
+		impl, ok := w.Concrete.(SubstanceDefinitionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubstanceDefinition"}
+		}
+		result, err := impl.UpdateSubstanceDefinition(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.SupplyDelivery:
+		impl, ok := w.Concrete.(SupplyDeliveryUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SupplyDelivery"}
+		}
+		result, err := impl.UpdateSupplyDelivery(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.SupplyRequest:
+		impl, ok := w.Concrete.(SupplyRequestUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SupplyRequest"}
+		}
+		result, err := impl.UpdateSupplyRequest(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.Task:
+		impl, ok := w.Concrete.(TaskUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Task"}
+		}
+		result, err := impl.UpdateTask(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.TerminologyCapabilities:
+		impl, ok := w.Concrete.(TerminologyCapabilitiesUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TerminologyCapabilities"}
+		}
+		result, err := impl.UpdateTerminologyCapabilities(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.TestReport:
+		impl, ok := w.Concrete.(TestReportUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TestReport"}
+		}
+		result, err := impl.UpdateTestReport(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.TestScript:
+		impl, ok := w.Concrete.(TestScriptUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TestScript"}
+		}
+		result, err := impl.UpdateTestScript(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.ValueSet:
+		impl, ok := w.Concrete.(ValueSetUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ValueSet"}
+		}
+		result, err := impl.UpdateValueSet(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.VerificationResult:
+		impl, ok := w.Concrete.(VerificationResultUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "VerificationResult"}
+		}
+		result, err := impl.UpdateVerificationResult(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	case r4b.VisionPrescription:
+		impl, ok := w.Concrete.(VisionPrescriptionUpdate)
+		if !ok {
+			return capabilities.UpdateResult[model.Resource]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "VisionPrescription"}
+		}
+		result, err := impl.UpdateVisionPrescription(ctx, r)
+		if err != nil {
+			return capabilities.UpdateResult[model.Resource]{}, err
+		}
+		return capabilities.UpdateResult[model.Resource]{
+
+			Created:  result.Created,
+			Resource: result.Resource,
+		}, nil
+	default:
+		return capabilities.UpdateResult[model.Resource]{}, capabilities.UnknownResourceError{ResourceType: resource.ResourceType()}
+	}
+}
 func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, capabilities.FHIRError) {
 	switch resourceType {
 	case "Account":

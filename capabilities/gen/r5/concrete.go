@@ -342,11 +342,11 @@ func (w Concrete) CreateAccount(ctx context.Context, resource r5.Account) (r5.Ac
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Account)
+	r, ok := v.(r5.Account)
 	if !ok {
 		return r5.Account{}, capabilities.InvalidResourceError{ResourceType: "Account"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r5.ActivityDefinition) (r5.ActivityDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -357,11 +357,11 @@ func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r5.Acti
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ActivityDefinition)
+	r, ok := v.(r5.ActivityDefinition)
 	if !ok {
 		return r5.ActivityDefinition{}, capabilities.InvalidResourceError{ResourceType: "ActivityDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateActorDefinition(ctx context.Context, resource r5.ActorDefinition) (r5.ActorDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -372,11 +372,11 @@ func (w Concrete) CreateActorDefinition(ctx context.Context, resource r5.ActorDe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ActorDefinition)
+	r, ok := v.(r5.ActorDefinition)
 	if !ok {
 		return r5.ActorDefinition{}, capabilities.InvalidResourceError{ResourceType: "ActorDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, resource r5.AdministrableProductDefinition) (r5.AdministrableProductDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -387,11 +387,11 @@ func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, reso
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AdministrableProductDefinition)
+	r, ok := v.(r5.AdministrableProductDefinition)
 	if !ok {
 		return r5.AdministrableProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "AdministrableProductDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r5.AdverseEvent) (r5.AdverseEvent, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -402,11 +402,11 @@ func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r5.AdverseEve
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AdverseEvent)
+	r, ok := v.(r5.AdverseEvent)
 	if !ok {
 		return r5.AdverseEvent{}, capabilities.InvalidResourceError{ResourceType: "AdverseEvent"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r5.AllergyIntolerance) (r5.AllergyIntolerance, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -417,11 +417,11 @@ func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r5.Alle
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AllergyIntolerance)
+	r, ok := v.(r5.AllergyIntolerance)
 	if !ok {
 		return r5.AllergyIntolerance{}, capabilities.InvalidResourceError{ResourceType: "AllergyIntolerance"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateAppointment(ctx context.Context, resource r5.Appointment) (r5.Appointment, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -432,11 +432,11 @@ func (w Concrete) CreateAppointment(ctx context.Context, resource r5.Appointment
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Appointment)
+	r, ok := v.(r5.Appointment)
 	if !ok {
 		return r5.Appointment{}, capabilities.InvalidResourceError{ResourceType: "Appointment"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r5.AppointmentResponse) (r5.AppointmentResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -447,11 +447,11 @@ func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r5.App
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AppointmentResponse)
+	r, ok := v.(r5.AppointmentResponse)
 	if !ok {
 		return r5.AppointmentResponse{}, capabilities.InvalidResourceError{ResourceType: "AppointmentResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateArtifactAssessment(ctx context.Context, resource r5.ArtifactAssessment) (r5.ArtifactAssessment, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -462,11 +462,11 @@ func (w Concrete) CreateArtifactAssessment(ctx context.Context, resource r5.Arti
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ArtifactAssessment)
+	r, ok := v.(r5.ArtifactAssessment)
 	if !ok {
 		return r5.ArtifactAssessment{}, capabilities.InvalidResourceError{ResourceType: "ArtifactAssessment"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateAuditEvent(ctx context.Context, resource r5.AuditEvent) (r5.AuditEvent, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -477,11 +477,11 @@ func (w Concrete) CreateAuditEvent(ctx context.Context, resource r5.AuditEvent) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AuditEvent)
+	r, ok := v.(r5.AuditEvent)
 	if !ok {
 		return r5.AuditEvent{}, capabilities.InvalidResourceError{ResourceType: "AuditEvent"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateBasic(ctx context.Context, resource r5.Basic) (r5.Basic, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -492,11 +492,11 @@ func (w Concrete) CreateBasic(ctx context.Context, resource r5.Basic) (r5.Basic,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Basic)
+	r, ok := v.(r5.Basic)
 	if !ok {
 		return r5.Basic{}, capabilities.InvalidResourceError{ResourceType: "Basic"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateBinary(ctx context.Context, resource r5.Binary) (r5.Binary, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -507,11 +507,11 @@ func (w Concrete) CreateBinary(ctx context.Context, resource r5.Binary) (r5.Bina
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Binary)
+	r, ok := v.(r5.Binary)
 	if !ok {
 		return r5.Binary{}, capabilities.InvalidResourceError{ResourceType: "Binary"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource r5.BiologicallyDerivedProduct) (r5.BiologicallyDerivedProduct, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -522,11 +522,11 @@ func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.BiologicallyDerivedProduct)
+	r, ok := v.(r5.BiologicallyDerivedProduct)
 	if !ok {
 		return r5.BiologicallyDerivedProduct{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProduct"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateBiologicallyDerivedProductDispense(ctx context.Context, resource r5.BiologicallyDerivedProductDispense) (r5.BiologicallyDerivedProductDispense, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -537,11 +537,11 @@ func (w Concrete) CreateBiologicallyDerivedProductDispense(ctx context.Context, 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.BiologicallyDerivedProductDispense)
+	r, ok := v.(r5.BiologicallyDerivedProductDispense)
 	if !ok {
 		return r5.BiologicallyDerivedProductDispense{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProductDispense"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateBodyStructure(ctx context.Context, resource r5.BodyStructure) (r5.BodyStructure, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -552,11 +552,11 @@ func (w Concrete) CreateBodyStructure(ctx context.Context, resource r5.BodyStruc
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.BodyStructure)
+	r, ok := v.(r5.BodyStructure)
 	if !ok {
 		return r5.BodyStructure{}, capabilities.InvalidResourceError{ResourceType: "BodyStructure"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateBundle(ctx context.Context, resource r5.Bundle) (r5.Bundle, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -567,11 +567,11 @@ func (w Concrete) CreateBundle(ctx context.Context, resource r5.Bundle) (r5.Bund
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Bundle)
+	r, ok := v.(r5.Bundle)
 	if !ok {
 		return r5.Bundle{}, capabilities.InvalidResourceError{ResourceType: "Bundle"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r5.CapabilityStatement) (r5.CapabilityStatement, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -582,11 +582,11 @@ func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r5.Cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CapabilityStatement)
+	r, ok := v.(r5.CapabilityStatement)
 	if !ok {
 		return r5.CapabilityStatement{}, capabilities.InvalidResourceError{ResourceType: "CapabilityStatement"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCarePlan(ctx context.Context, resource r5.CarePlan) (r5.CarePlan, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -597,11 +597,11 @@ func (w Concrete) CreateCarePlan(ctx context.Context, resource r5.CarePlan) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CarePlan)
+	r, ok := v.(r5.CarePlan)
 	if !ok {
 		return r5.CarePlan{}, capabilities.InvalidResourceError{ResourceType: "CarePlan"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCareTeam(ctx context.Context, resource r5.CareTeam) (r5.CareTeam, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -612,11 +612,11 @@ func (w Concrete) CreateCareTeam(ctx context.Context, resource r5.CareTeam) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CareTeam)
+	r, ok := v.(r5.CareTeam)
 	if !ok {
 		return r5.CareTeam{}, capabilities.InvalidResourceError{ResourceType: "CareTeam"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateChargeItem(ctx context.Context, resource r5.ChargeItem) (r5.ChargeItem, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -627,11 +627,11 @@ func (w Concrete) CreateChargeItem(ctx context.Context, resource r5.ChargeItem) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ChargeItem)
+	r, ok := v.(r5.ChargeItem)
 	if !ok {
 		return r5.ChargeItem{}, capabilities.InvalidResourceError{ResourceType: "ChargeItem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r5.ChargeItemDefinition) (r5.ChargeItemDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -642,11 +642,11 @@ func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r5.Ch
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ChargeItemDefinition)
+	r, ok := v.(r5.ChargeItemDefinition)
 	if !ok {
 		return r5.ChargeItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ChargeItemDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCitation(ctx context.Context, resource r5.Citation) (r5.Citation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -657,11 +657,11 @@ func (w Concrete) CreateCitation(ctx context.Context, resource r5.Citation) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Citation)
+	r, ok := v.(r5.Citation)
 	if !ok {
 		return r5.Citation{}, capabilities.InvalidResourceError{ResourceType: "Citation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateClaim(ctx context.Context, resource r5.Claim) (r5.Claim, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -672,11 +672,11 @@ func (w Concrete) CreateClaim(ctx context.Context, resource r5.Claim) (r5.Claim,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Claim)
+	r, ok := v.(r5.Claim)
 	if !ok {
 		return r5.Claim{}, capabilities.InvalidResourceError{ResourceType: "Claim"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateClaimResponse(ctx context.Context, resource r5.ClaimResponse) (r5.ClaimResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -687,11 +687,11 @@ func (w Concrete) CreateClaimResponse(ctx context.Context, resource r5.ClaimResp
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ClaimResponse)
+	r, ok := v.(r5.ClaimResponse)
 	if !ok {
 		return r5.ClaimResponse{}, capabilities.InvalidResourceError{ResourceType: "ClaimResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r5.ClinicalImpression) (r5.ClinicalImpression, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -702,11 +702,11 @@ func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r5.Clin
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ClinicalImpression)
+	r, ok := v.(r5.ClinicalImpression)
 	if !ok {
 		return r5.ClinicalImpression{}, capabilities.InvalidResourceError{ResourceType: "ClinicalImpression"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r5.ClinicalUseDefinition) (r5.ClinicalUseDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -717,11 +717,11 @@ func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r5.C
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ClinicalUseDefinition)
+	r, ok := v.(r5.ClinicalUseDefinition)
 	if !ok {
 		return r5.ClinicalUseDefinition{}, capabilities.InvalidResourceError{ResourceType: "ClinicalUseDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCodeSystem(ctx context.Context, resource r5.CodeSystem) (r5.CodeSystem, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -732,11 +732,11 @@ func (w Concrete) CreateCodeSystem(ctx context.Context, resource r5.CodeSystem) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CodeSystem)
+	r, ok := v.(r5.CodeSystem)
 	if !ok {
 		return r5.CodeSystem{}, capabilities.InvalidResourceError{ResourceType: "CodeSystem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCommunication(ctx context.Context, resource r5.Communication) (r5.Communication, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -747,11 +747,11 @@ func (w Concrete) CreateCommunication(ctx context.Context, resource r5.Communica
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Communication)
+	r, ok := v.(r5.Communication)
 	if !ok {
 		return r5.Communication{}, capabilities.InvalidResourceError{ResourceType: "Communication"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r5.CommunicationRequest) (r5.CommunicationRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -762,11 +762,11 @@ func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r5.Co
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CommunicationRequest)
+	r, ok := v.(r5.CommunicationRequest)
 	if !ok {
 		return r5.CommunicationRequest{}, capabilities.InvalidResourceError{ResourceType: "CommunicationRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r5.CompartmentDefinition) (r5.CompartmentDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -777,11 +777,11 @@ func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r5.C
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CompartmentDefinition)
+	r, ok := v.(r5.CompartmentDefinition)
 	if !ok {
 		return r5.CompartmentDefinition{}, capabilities.InvalidResourceError{ResourceType: "CompartmentDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateComposition(ctx context.Context, resource r5.Composition) (r5.Composition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -792,11 +792,11 @@ func (w Concrete) CreateComposition(ctx context.Context, resource r5.Composition
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Composition)
+	r, ok := v.(r5.Composition)
 	if !ok {
 		return r5.Composition{}, capabilities.InvalidResourceError{ResourceType: "Composition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateConceptMap(ctx context.Context, resource r5.ConceptMap) (r5.ConceptMap, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -807,11 +807,11 @@ func (w Concrete) CreateConceptMap(ctx context.Context, resource r5.ConceptMap) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ConceptMap)
+	r, ok := v.(r5.ConceptMap)
 	if !ok {
 		return r5.ConceptMap{}, capabilities.InvalidResourceError{ResourceType: "ConceptMap"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCondition(ctx context.Context, resource r5.Condition) (r5.Condition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -822,11 +822,11 @@ func (w Concrete) CreateCondition(ctx context.Context, resource r5.Condition) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Condition)
+	r, ok := v.(r5.Condition)
 	if !ok {
 		return r5.Condition{}, capabilities.InvalidResourceError{ResourceType: "Condition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateConditionDefinition(ctx context.Context, resource r5.ConditionDefinition) (r5.ConditionDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -837,11 +837,11 @@ func (w Concrete) CreateConditionDefinition(ctx context.Context, resource r5.Con
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ConditionDefinition)
+	r, ok := v.(r5.ConditionDefinition)
 	if !ok {
 		return r5.ConditionDefinition{}, capabilities.InvalidResourceError{ResourceType: "ConditionDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateConsent(ctx context.Context, resource r5.Consent) (r5.Consent, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -852,11 +852,11 @@ func (w Concrete) CreateConsent(ctx context.Context, resource r5.Consent) (r5.Co
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Consent)
+	r, ok := v.(r5.Consent)
 	if !ok {
 		return r5.Consent{}, capabilities.InvalidResourceError{ResourceType: "Consent"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateContract(ctx context.Context, resource r5.Contract) (r5.Contract, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -867,11 +867,11 @@ func (w Concrete) CreateContract(ctx context.Context, resource r5.Contract) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Contract)
+	r, ok := v.(r5.Contract)
 	if !ok {
 		return r5.Contract{}, capabilities.InvalidResourceError{ResourceType: "Contract"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCoverage(ctx context.Context, resource r5.Coverage) (r5.Coverage, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -882,11 +882,11 @@ func (w Concrete) CreateCoverage(ctx context.Context, resource r5.Coverage) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Coverage)
+	r, ok := v.(r5.Coverage)
 	if !ok {
 		return r5.Coverage{}, capabilities.InvalidResourceError{ResourceType: "Coverage"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource r5.CoverageEligibilityRequest) (r5.CoverageEligibilityRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -897,11 +897,11 @@ func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CoverageEligibilityRequest)
+	r, ok := v.(r5.CoverageEligibilityRequest)
 	if !ok {
 		return r5.CoverageEligibilityRequest{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resource r5.CoverageEligibilityResponse) (r5.CoverageEligibilityResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -912,11 +912,11 @@ func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resourc
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CoverageEligibilityResponse)
+	r, ok := v.(r5.CoverageEligibilityResponse)
 	if !ok {
 		return r5.CoverageEligibilityResponse{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r5.DetectedIssue) (r5.DetectedIssue, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -927,11 +927,11 @@ func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r5.DetectedI
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DetectedIssue)
+	r, ok := v.(r5.DetectedIssue)
 	if !ok {
 		return r5.DetectedIssue{}, capabilities.InvalidResourceError{ResourceType: "DetectedIssue"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDevice(ctx context.Context, resource r5.Device) (r5.Device, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -942,11 +942,11 @@ func (w Concrete) CreateDevice(ctx context.Context, resource r5.Device) (r5.Devi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Device)
+	r, ok := v.(r5.Device)
 	if !ok {
 		return r5.Device{}, capabilities.InvalidResourceError{ResourceType: "Device"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDeviceAssociation(ctx context.Context, resource r5.DeviceAssociation) (r5.DeviceAssociation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -957,11 +957,11 @@ func (w Concrete) CreateDeviceAssociation(ctx context.Context, resource r5.Devic
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceAssociation)
+	r, ok := v.(r5.DeviceAssociation)
 	if !ok {
 		return r5.DeviceAssociation{}, capabilities.InvalidResourceError{ResourceType: "DeviceAssociation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r5.DeviceDefinition) (r5.DeviceDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -972,11 +972,11 @@ func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r5.Device
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceDefinition)
+	r, ok := v.(r5.DeviceDefinition)
 	if !ok {
 		return r5.DeviceDefinition{}, capabilities.InvalidResourceError{ResourceType: "DeviceDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDeviceDispense(ctx context.Context, resource r5.DeviceDispense) (r5.DeviceDispense, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -987,11 +987,11 @@ func (w Concrete) CreateDeviceDispense(ctx context.Context, resource r5.DeviceDi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceDispense)
+	r, ok := v.(r5.DeviceDispense)
 	if !ok {
 		return r5.DeviceDispense{}, capabilities.InvalidResourceError{ResourceType: "DeviceDispense"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r5.DeviceMetric) (r5.DeviceMetric, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1002,11 +1002,11 @@ func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r5.DeviceMetr
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceMetric)
+	r, ok := v.(r5.DeviceMetric)
 	if !ok {
 		return r5.DeviceMetric{}, capabilities.InvalidResourceError{ResourceType: "DeviceMetric"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r5.DeviceRequest) (r5.DeviceRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1017,11 +1017,11 @@ func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r5.DeviceReq
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceRequest)
+	r, ok := v.(r5.DeviceRequest)
 	if !ok {
 		return r5.DeviceRequest{}, capabilities.InvalidResourceError{ResourceType: "DeviceRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDeviceUsage(ctx context.Context, resource r5.DeviceUsage) (r5.DeviceUsage, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1032,11 +1032,11 @@ func (w Concrete) CreateDeviceUsage(ctx context.Context, resource r5.DeviceUsage
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceUsage)
+	r, ok := v.(r5.DeviceUsage)
 	if !ok {
 		return r5.DeviceUsage{}, capabilities.InvalidResourceError{ResourceType: "DeviceUsage"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r5.DiagnosticReport) (r5.DiagnosticReport, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1047,11 +1047,11 @@ func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r5.Diagno
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DiagnosticReport)
+	r, ok := v.(r5.DiagnosticReport)
 	if !ok {
 		return r5.DiagnosticReport{}, capabilities.InvalidResourceError{ResourceType: "DiagnosticReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateDocumentReference(ctx context.Context, resource r5.DocumentReference) (r5.DocumentReference, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1062,11 +1062,11 @@ func (w Concrete) CreateDocumentReference(ctx context.Context, resource r5.Docum
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DocumentReference)
+	r, ok := v.(r5.DocumentReference)
 	if !ok {
 		return r5.DocumentReference{}, capabilities.InvalidResourceError{ResourceType: "DocumentReference"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEncounter(ctx context.Context, resource r5.Encounter) (r5.Encounter, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1077,11 +1077,11 @@ func (w Concrete) CreateEncounter(ctx context.Context, resource r5.Encounter) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Encounter)
+	r, ok := v.(r5.Encounter)
 	if !ok {
 		return r5.Encounter{}, capabilities.InvalidResourceError{ResourceType: "Encounter"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEncounterHistory(ctx context.Context, resource r5.EncounterHistory) (r5.EncounterHistory, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1092,11 +1092,11 @@ func (w Concrete) CreateEncounterHistory(ctx context.Context, resource r5.Encoun
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EncounterHistory)
+	r, ok := v.(r5.EncounterHistory)
 	if !ok {
 		return r5.EncounterHistory{}, capabilities.InvalidResourceError{ResourceType: "EncounterHistory"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEndpoint(ctx context.Context, resource r5.Endpoint) (r5.Endpoint, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1107,11 +1107,11 @@ func (w Concrete) CreateEndpoint(ctx context.Context, resource r5.Endpoint) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Endpoint)
+	r, ok := v.(r5.Endpoint)
 	if !ok {
 		return r5.Endpoint{}, capabilities.InvalidResourceError{ResourceType: "Endpoint"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r5.EnrollmentRequest) (r5.EnrollmentRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1122,11 +1122,11 @@ func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r5.Enrol
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EnrollmentRequest)
+	r, ok := v.(r5.EnrollmentRequest)
 	if !ok {
 		return r5.EnrollmentRequest{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r5.EnrollmentResponse) (r5.EnrollmentResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1137,11 +1137,11 @@ func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r5.Enro
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EnrollmentResponse)
+	r, ok := v.(r5.EnrollmentResponse)
 	if !ok {
 		return r5.EnrollmentResponse{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r5.EpisodeOfCare) (r5.EpisodeOfCare, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1152,11 +1152,11 @@ func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r5.EpisodeOf
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EpisodeOfCare)
+	r, ok := v.(r5.EpisodeOfCare)
 	if !ok {
 		return r5.EpisodeOfCare{}, capabilities.InvalidResourceError{ResourceType: "EpisodeOfCare"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEventDefinition(ctx context.Context, resource r5.EventDefinition) (r5.EventDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1167,11 +1167,11 @@ func (w Concrete) CreateEventDefinition(ctx context.Context, resource r5.EventDe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EventDefinition)
+	r, ok := v.(r5.EventDefinition)
 	if !ok {
 		return r5.EventDefinition{}, capabilities.InvalidResourceError{ResourceType: "EventDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEvidence(ctx context.Context, resource r5.Evidence) (r5.Evidence, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1182,11 +1182,11 @@ func (w Concrete) CreateEvidence(ctx context.Context, resource r5.Evidence) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Evidence)
+	r, ok := v.(r5.Evidence)
 	if !ok {
 		return r5.Evidence{}, capabilities.InvalidResourceError{ResourceType: "Evidence"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r5.EvidenceReport) (r5.EvidenceReport, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1197,11 +1197,11 @@ func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r5.Evidence
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EvidenceReport)
+	r, ok := v.(r5.EvidenceReport)
 	if !ok {
 		return r5.EvidenceReport{}, capabilities.InvalidResourceError{ResourceType: "EvidenceReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r5.EvidenceVariable) (r5.EvidenceVariable, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1212,11 +1212,11 @@ func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r5.Eviden
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EvidenceVariable)
+	r, ok := v.(r5.EvidenceVariable)
 	if !ok {
 		return r5.EvidenceVariable{}, capabilities.InvalidResourceError{ResourceType: "EvidenceVariable"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateExampleScenario(ctx context.Context, resource r5.ExampleScenario) (r5.ExampleScenario, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1227,11 +1227,11 @@ func (w Concrete) CreateExampleScenario(ctx context.Context, resource r5.Example
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ExampleScenario)
+	r, ok := v.(r5.ExampleScenario)
 	if !ok {
 		return r5.ExampleScenario{}, capabilities.InvalidResourceError{ResourceType: "ExampleScenario"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r5.ExplanationOfBenefit) (r5.ExplanationOfBenefit, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1242,11 +1242,11 @@ func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r5.Ex
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ExplanationOfBenefit)
+	r, ok := v.(r5.ExplanationOfBenefit)
 	if !ok {
 		return r5.ExplanationOfBenefit{}, capabilities.InvalidResourceError{ResourceType: "ExplanationOfBenefit"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r5.FamilyMemberHistory) (r5.FamilyMemberHistory, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1257,11 +1257,11 @@ func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r5.Fam
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.FamilyMemberHistory)
+	r, ok := v.(r5.FamilyMemberHistory)
 	if !ok {
 		return r5.FamilyMemberHistory{}, capabilities.InvalidResourceError{ResourceType: "FamilyMemberHistory"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateFlag(ctx context.Context, resource r5.Flag) (r5.Flag, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1272,11 +1272,11 @@ func (w Concrete) CreateFlag(ctx context.Context, resource r5.Flag) (r5.Flag, ca
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Flag)
+	r, ok := v.(r5.Flag)
 	if !ok {
 		return r5.Flag{}, capabilities.InvalidResourceError{ResourceType: "Flag"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateFormularyItem(ctx context.Context, resource r5.FormularyItem) (r5.FormularyItem, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1287,11 +1287,11 @@ func (w Concrete) CreateFormularyItem(ctx context.Context, resource r5.Formulary
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.FormularyItem)
+	r, ok := v.(r5.FormularyItem)
 	if !ok {
 		return r5.FormularyItem{}, capabilities.InvalidResourceError{ResourceType: "FormularyItem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateGenomicStudy(ctx context.Context, resource r5.GenomicStudy) (r5.GenomicStudy, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1302,11 +1302,11 @@ func (w Concrete) CreateGenomicStudy(ctx context.Context, resource r5.GenomicStu
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.GenomicStudy)
+	r, ok := v.(r5.GenomicStudy)
 	if !ok {
 		return r5.GenomicStudy{}, capabilities.InvalidResourceError{ResourceType: "GenomicStudy"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateGoal(ctx context.Context, resource r5.Goal) (r5.Goal, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1317,11 +1317,11 @@ func (w Concrete) CreateGoal(ctx context.Context, resource r5.Goal) (r5.Goal, ca
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Goal)
+	r, ok := v.(r5.Goal)
 	if !ok {
 		return r5.Goal{}, capabilities.InvalidResourceError{ResourceType: "Goal"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r5.GraphDefinition) (r5.GraphDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1332,11 +1332,11 @@ func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r5.GraphDe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.GraphDefinition)
+	r, ok := v.(r5.GraphDefinition)
 	if !ok {
 		return r5.GraphDefinition{}, capabilities.InvalidResourceError{ResourceType: "GraphDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateGroup(ctx context.Context, resource r5.Group) (r5.Group, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1347,11 +1347,11 @@ func (w Concrete) CreateGroup(ctx context.Context, resource r5.Group) (r5.Group,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Group)
+	r, ok := v.(r5.Group)
 	if !ok {
 		return r5.Group{}, capabilities.InvalidResourceError{ResourceType: "Group"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r5.GuidanceResponse) (r5.GuidanceResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1362,11 +1362,11 @@ func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r5.Guidan
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.GuidanceResponse)
+	r, ok := v.(r5.GuidanceResponse)
 	if !ok {
 		return r5.GuidanceResponse{}, capabilities.InvalidResourceError{ResourceType: "GuidanceResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateHealthcareService(ctx context.Context, resource r5.HealthcareService) (r5.HealthcareService, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1377,11 +1377,11 @@ func (w Concrete) CreateHealthcareService(ctx context.Context, resource r5.Healt
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.HealthcareService)
+	r, ok := v.(r5.HealthcareService)
 	if !ok {
 		return r5.HealthcareService{}, capabilities.InvalidResourceError{ResourceType: "HealthcareService"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateImagingSelection(ctx context.Context, resource r5.ImagingSelection) (r5.ImagingSelection, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1392,11 +1392,11 @@ func (w Concrete) CreateImagingSelection(ctx context.Context, resource r5.Imagin
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImagingSelection)
+	r, ok := v.(r5.ImagingSelection)
 	if !ok {
 		return r5.ImagingSelection{}, capabilities.InvalidResourceError{ResourceType: "ImagingSelection"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateImagingStudy(ctx context.Context, resource r5.ImagingStudy) (r5.ImagingStudy, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1407,11 +1407,11 @@ func (w Concrete) CreateImagingStudy(ctx context.Context, resource r5.ImagingStu
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImagingStudy)
+	r, ok := v.(r5.ImagingStudy)
 	if !ok {
 		return r5.ImagingStudy{}, capabilities.InvalidResourceError{ResourceType: "ImagingStudy"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateImmunization(ctx context.Context, resource r5.Immunization) (r5.Immunization, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1422,11 +1422,11 @@ func (w Concrete) CreateImmunization(ctx context.Context, resource r5.Immunizati
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Immunization)
+	r, ok := v.(r5.Immunization)
 	if !ok {
 		return r5.Immunization{}, capabilities.InvalidResourceError{ResourceType: "Immunization"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r5.ImmunizationEvaluation) (r5.ImmunizationEvaluation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1437,11 +1437,11 @@ func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImmunizationEvaluation)
+	r, ok := v.(r5.ImmunizationEvaluation)
 	if !ok {
 		return r5.ImmunizationEvaluation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationEvaluation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource r5.ImmunizationRecommendation) (r5.ImmunizationRecommendation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1452,11 +1452,11 @@ func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImmunizationRecommendation)
+	r, ok := v.(r5.ImmunizationRecommendation)
 	if !ok {
 		return r5.ImmunizationRecommendation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationRecommendation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r5.ImplementationGuide) (r5.ImplementationGuide, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1467,11 +1467,11 @@ func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r5.Imp
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImplementationGuide)
+	r, ok := v.(r5.ImplementationGuide)
 	if !ok {
 		return r5.ImplementationGuide{}, capabilities.InvalidResourceError{ResourceType: "ImplementationGuide"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateIngredient(ctx context.Context, resource r5.Ingredient) (r5.Ingredient, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1482,11 +1482,11 @@ func (w Concrete) CreateIngredient(ctx context.Context, resource r5.Ingredient) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Ingredient)
+	r, ok := v.(r5.Ingredient)
 	if !ok {
 		return r5.Ingredient{}, capabilities.InvalidResourceError{ResourceType: "Ingredient"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r5.InsurancePlan) (r5.InsurancePlan, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1497,11 +1497,11 @@ func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r5.Insurance
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.InsurancePlan)
+	r, ok := v.(r5.InsurancePlan)
 	if !ok {
 		return r5.InsurancePlan{}, capabilities.InvalidResourceError{ResourceType: "InsurancePlan"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateInventoryItem(ctx context.Context, resource r5.InventoryItem) (r5.InventoryItem, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1512,11 +1512,11 @@ func (w Concrete) CreateInventoryItem(ctx context.Context, resource r5.Inventory
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.InventoryItem)
+	r, ok := v.(r5.InventoryItem)
 	if !ok {
 		return r5.InventoryItem{}, capabilities.InvalidResourceError{ResourceType: "InventoryItem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateInventoryReport(ctx context.Context, resource r5.InventoryReport) (r5.InventoryReport, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1527,11 +1527,11 @@ func (w Concrete) CreateInventoryReport(ctx context.Context, resource r5.Invento
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.InventoryReport)
+	r, ok := v.(r5.InventoryReport)
 	if !ok {
 		return r5.InventoryReport{}, capabilities.InvalidResourceError{ResourceType: "InventoryReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateInvoice(ctx context.Context, resource r5.Invoice) (r5.Invoice, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1542,11 +1542,11 @@ func (w Concrete) CreateInvoice(ctx context.Context, resource r5.Invoice) (r5.In
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Invoice)
+	r, ok := v.(r5.Invoice)
 	if !ok {
 		return r5.Invoice{}, capabilities.InvalidResourceError{ResourceType: "Invoice"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateLibrary(ctx context.Context, resource r5.Library) (r5.Library, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1557,11 +1557,11 @@ func (w Concrete) CreateLibrary(ctx context.Context, resource r5.Library) (r5.Li
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Library)
+	r, ok := v.(r5.Library)
 	if !ok {
 		return r5.Library{}, capabilities.InvalidResourceError{ResourceType: "Library"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateLinkage(ctx context.Context, resource r5.Linkage) (r5.Linkage, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1572,11 +1572,11 @@ func (w Concrete) CreateLinkage(ctx context.Context, resource r5.Linkage) (r5.Li
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Linkage)
+	r, ok := v.(r5.Linkage)
 	if !ok {
 		return r5.Linkage{}, capabilities.InvalidResourceError{ResourceType: "Linkage"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateList(ctx context.Context, resource r5.List) (r5.List, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1587,11 +1587,11 @@ func (w Concrete) CreateList(ctx context.Context, resource r5.List) (r5.List, ca
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.List)
+	r, ok := v.(r5.List)
 	if !ok {
 		return r5.List{}, capabilities.InvalidResourceError{ResourceType: "List"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateLocation(ctx context.Context, resource r5.Location) (r5.Location, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1602,11 +1602,11 @@ func (w Concrete) CreateLocation(ctx context.Context, resource r5.Location) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Location)
+	r, ok := v.(r5.Location)
 	if !ok {
 		return r5.Location{}, capabilities.InvalidResourceError{ResourceType: "Location"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource r5.ManufacturedItemDefinition) (r5.ManufacturedItemDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1617,11 +1617,11 @@ func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ManufacturedItemDefinition)
+	r, ok := v.(r5.ManufacturedItemDefinition)
 	if !ok {
 		return r5.ManufacturedItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ManufacturedItemDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMeasure(ctx context.Context, resource r5.Measure) (r5.Measure, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1632,11 +1632,11 @@ func (w Concrete) CreateMeasure(ctx context.Context, resource r5.Measure) (r5.Me
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Measure)
+	r, ok := v.(r5.Measure)
 	if !ok {
 		return r5.Measure{}, capabilities.InvalidResourceError{ResourceType: "Measure"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMeasureReport(ctx context.Context, resource r5.MeasureReport) (r5.MeasureReport, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1647,11 +1647,11 @@ func (w Concrete) CreateMeasureReport(ctx context.Context, resource r5.MeasureRe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MeasureReport)
+	r, ok := v.(r5.MeasureReport)
 	if !ok {
 		return r5.MeasureReport{}, capabilities.InvalidResourceError{ResourceType: "MeasureReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMedication(ctx context.Context, resource r5.Medication) (r5.Medication, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1662,11 +1662,11 @@ func (w Concrete) CreateMedication(ctx context.Context, resource r5.Medication) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Medication)
+	r, ok := v.(r5.Medication)
 	if !ok {
 		return r5.Medication{}, capabilities.InvalidResourceError{ResourceType: "Medication"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r5.MedicationAdministration) (r5.MedicationAdministration, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1677,11 +1677,11 @@ func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationAdministration)
+	r, ok := v.(r5.MedicationAdministration)
 	if !ok {
 		return r5.MedicationAdministration{}, capabilities.InvalidResourceError{ResourceType: "MedicationAdministration"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r5.MedicationDispense) (r5.MedicationDispense, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1692,11 +1692,11 @@ func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r5.Medi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationDispense)
+	r, ok := v.(r5.MedicationDispense)
 	if !ok {
 		return r5.MedicationDispense{}, capabilities.InvalidResourceError{ResourceType: "MedicationDispense"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r5.MedicationKnowledge) (r5.MedicationKnowledge, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1707,11 +1707,11 @@ func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r5.Med
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationKnowledge)
+	r, ok := v.(r5.MedicationKnowledge)
 	if !ok {
 		return r5.MedicationKnowledge{}, capabilities.InvalidResourceError{ResourceType: "MedicationKnowledge"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r5.MedicationRequest) (r5.MedicationRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1722,11 +1722,11 @@ func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r5.Medic
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationRequest)
+	r, ok := v.(r5.MedicationRequest)
 	if !ok {
 		return r5.MedicationRequest{}, capabilities.InvalidResourceError{ResourceType: "MedicationRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r5.MedicationStatement) (r5.MedicationStatement, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1737,11 +1737,11 @@ func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r5.Med
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationStatement)
+	r, ok := v.(r5.MedicationStatement)
 	if !ok {
 		return r5.MedicationStatement{}, capabilities.InvalidResourceError{ResourceType: "MedicationStatement"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource r5.MedicinalProductDefinition) (r5.MedicinalProductDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1752,11 +1752,11 @@ func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicinalProductDefinition)
+	r, ok := v.(r5.MedicinalProductDefinition)
 	if !ok {
 		return r5.MedicinalProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "MedicinalProductDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r5.MessageDefinition) (r5.MessageDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1767,11 +1767,11 @@ func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r5.Messa
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MessageDefinition)
+	r, ok := v.(r5.MessageDefinition)
 	if !ok {
 		return r5.MessageDefinition{}, capabilities.InvalidResourceError{ResourceType: "MessageDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMessageHeader(ctx context.Context, resource r5.MessageHeader) (r5.MessageHeader, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1782,11 +1782,11 @@ func (w Concrete) CreateMessageHeader(ctx context.Context, resource r5.MessageHe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MessageHeader)
+	r, ok := v.(r5.MessageHeader)
 	if !ok {
 		return r5.MessageHeader{}, capabilities.InvalidResourceError{ResourceType: "MessageHeader"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r5.MolecularSequence) (r5.MolecularSequence, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1797,11 +1797,11 @@ func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r5.Molec
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MolecularSequence)
+	r, ok := v.(r5.MolecularSequence)
 	if !ok {
 		return r5.MolecularSequence{}, capabilities.InvalidResourceError{ResourceType: "MolecularSequence"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateNamingSystem(ctx context.Context, resource r5.NamingSystem) (r5.NamingSystem, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1812,11 +1812,11 @@ func (w Concrete) CreateNamingSystem(ctx context.Context, resource r5.NamingSyst
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NamingSystem)
+	r, ok := v.(r5.NamingSystem)
 	if !ok {
 		return r5.NamingSystem{}, capabilities.InvalidResourceError{ResourceType: "NamingSystem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateNutritionIntake(ctx context.Context, resource r5.NutritionIntake) (r5.NutritionIntake, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1827,11 +1827,11 @@ func (w Concrete) CreateNutritionIntake(ctx context.Context, resource r5.Nutriti
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NutritionIntake)
+	r, ok := v.(r5.NutritionIntake)
 	if !ok {
 		return r5.NutritionIntake{}, capabilities.InvalidResourceError{ResourceType: "NutritionIntake"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r5.NutritionOrder) (r5.NutritionOrder, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1842,11 +1842,11 @@ func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r5.Nutritio
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NutritionOrder)
+	r, ok := v.(r5.NutritionOrder)
 	if !ok {
 		return r5.NutritionOrder{}, capabilities.InvalidResourceError{ResourceType: "NutritionOrder"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r5.NutritionProduct) (r5.NutritionProduct, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1857,11 +1857,11 @@ func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r5.Nutrit
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NutritionProduct)
+	r, ok := v.(r5.NutritionProduct)
 	if !ok {
 		return r5.NutritionProduct{}, capabilities.InvalidResourceError{ResourceType: "NutritionProduct"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateObservation(ctx context.Context, resource r5.Observation) (r5.Observation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1872,11 +1872,11 @@ func (w Concrete) CreateObservation(ctx context.Context, resource r5.Observation
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Observation)
+	r, ok := v.(r5.Observation)
 	if !ok {
 		return r5.Observation{}, capabilities.InvalidResourceError{ResourceType: "Observation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r5.ObservationDefinition) (r5.ObservationDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1887,11 +1887,11 @@ func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r5.O
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ObservationDefinition)
+	r, ok := v.(r5.ObservationDefinition)
 	if !ok {
 		return r5.ObservationDefinition{}, capabilities.InvalidResourceError{ResourceType: "ObservationDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r5.OperationDefinition) (r5.OperationDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1902,11 +1902,11 @@ func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r5.Ope
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.OperationDefinition)
+	r, ok := v.(r5.OperationDefinition)
 	if !ok {
 		return r5.OperationDefinition{}, capabilities.InvalidResourceError{ResourceType: "OperationDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r5.OperationOutcome) (r5.OperationOutcome, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1917,11 +1917,11 @@ func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r5.Operat
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.OperationOutcome)
+	r, ok := v.(r5.OperationOutcome)
 	if !ok {
 		return r5.OperationOutcome{}, capabilities.InvalidResourceError{ResourceType: "OperationOutcome"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateOrganization(ctx context.Context, resource r5.Organization) (r5.Organization, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1932,11 +1932,11 @@ func (w Concrete) CreateOrganization(ctx context.Context, resource r5.Organizati
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Organization)
+	r, ok := v.(r5.Organization)
 	if !ok {
 		return r5.Organization{}, capabilities.InvalidResourceError{ResourceType: "Organization"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r5.OrganizationAffiliation) (r5.OrganizationAffiliation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1947,11 +1947,11 @@ func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r5
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.OrganizationAffiliation)
+	r, ok := v.(r5.OrganizationAffiliation)
 	if !ok {
 		return r5.OrganizationAffiliation{}, capabilities.InvalidResourceError{ResourceType: "OrganizationAffiliation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource r5.PackagedProductDefinition) (r5.PackagedProductDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1962,11 +1962,11 @@ func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PackagedProductDefinition)
+	r, ok := v.(r5.PackagedProductDefinition)
 	if !ok {
 		return r5.PackagedProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "PackagedProductDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateParameters(ctx context.Context, resource r5.Parameters) (r5.Parameters, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1977,11 +1977,11 @@ func (w Concrete) CreateParameters(ctx context.Context, resource r5.Parameters) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Parameters)
+	r, ok := v.(r5.Parameters)
 	if !ok {
 		return r5.Parameters{}, capabilities.InvalidResourceError{ResourceType: "Parameters"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePatient(ctx context.Context, resource r5.Patient) (r5.Patient, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -1992,11 +1992,11 @@ func (w Concrete) CreatePatient(ctx context.Context, resource r5.Patient) (r5.Pa
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Patient)
+	r, ok := v.(r5.Patient)
 	if !ok {
 		return r5.Patient{}, capabilities.InvalidResourceError{ResourceType: "Patient"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r5.PaymentNotice) (r5.PaymentNotice, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2007,11 +2007,11 @@ func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r5.PaymentNo
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PaymentNotice)
+	r, ok := v.(r5.PaymentNotice)
 	if !ok {
 		return r5.PaymentNotice{}, capabilities.InvalidResourceError{ResourceType: "PaymentNotice"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r5.PaymentReconciliation) (r5.PaymentReconciliation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2022,11 +2022,11 @@ func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r5.P
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PaymentReconciliation)
+	r, ok := v.(r5.PaymentReconciliation)
 	if !ok {
 		return r5.PaymentReconciliation{}, capabilities.InvalidResourceError{ResourceType: "PaymentReconciliation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePermission(ctx context.Context, resource r5.Permission) (r5.Permission, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2037,11 +2037,11 @@ func (w Concrete) CreatePermission(ctx context.Context, resource r5.Permission) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Permission)
+	r, ok := v.(r5.Permission)
 	if !ok {
 		return r5.Permission{}, capabilities.InvalidResourceError{ResourceType: "Permission"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePerson(ctx context.Context, resource r5.Person) (r5.Person, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2052,11 +2052,11 @@ func (w Concrete) CreatePerson(ctx context.Context, resource r5.Person) (r5.Pers
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Person)
+	r, ok := v.(r5.Person)
 	if !ok {
 		return r5.Person{}, capabilities.InvalidResourceError{ResourceType: "Person"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r5.PlanDefinition) (r5.PlanDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2067,11 +2067,11 @@ func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r5.PlanDefi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PlanDefinition)
+	r, ok := v.(r5.PlanDefinition)
 	if !ok {
 		return r5.PlanDefinition{}, capabilities.InvalidResourceError{ResourceType: "PlanDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePractitioner(ctx context.Context, resource r5.Practitioner) (r5.Practitioner, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2082,11 +2082,11 @@ func (w Concrete) CreatePractitioner(ctx context.Context, resource r5.Practition
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Practitioner)
+	r, ok := v.(r5.Practitioner)
 	if !ok {
 		return r5.Practitioner{}, capabilities.InvalidResourceError{ResourceType: "Practitioner"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r5.PractitionerRole) (r5.PractitionerRole, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2097,11 +2097,11 @@ func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r5.Practi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PractitionerRole)
+	r, ok := v.(r5.PractitionerRole)
 	if !ok {
 		return r5.PractitionerRole{}, capabilities.InvalidResourceError{ResourceType: "PractitionerRole"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateProcedure(ctx context.Context, resource r5.Procedure) (r5.Procedure, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2112,11 +2112,11 @@ func (w Concrete) CreateProcedure(ctx context.Context, resource r5.Procedure) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Procedure)
+	r, ok := v.(r5.Procedure)
 	if !ok {
 		return r5.Procedure{}, capabilities.InvalidResourceError{ResourceType: "Procedure"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateProvenance(ctx context.Context, resource r5.Provenance) (r5.Provenance, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2127,11 +2127,11 @@ func (w Concrete) CreateProvenance(ctx context.Context, resource r5.Provenance) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Provenance)
+	r, ok := v.(r5.Provenance)
 	if !ok {
 		return r5.Provenance{}, capabilities.InvalidResourceError{ResourceType: "Provenance"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r5.Questionnaire) (r5.Questionnaire, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2142,11 +2142,11 @@ func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r5.Questionn
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Questionnaire)
+	r, ok := v.(r5.Questionnaire)
 	if !ok {
 		return r5.Questionnaire{}, capabilities.InvalidResourceError{ResourceType: "Questionnaire"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r5.QuestionnaireResponse) (r5.QuestionnaireResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2157,11 +2157,11 @@ func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r5.Q
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.QuestionnaireResponse)
+	r, ok := v.(r5.QuestionnaireResponse)
 	if !ok {
 		return r5.QuestionnaireResponse{}, capabilities.InvalidResourceError{ResourceType: "QuestionnaireResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r5.RegulatedAuthorization) (r5.RegulatedAuthorization, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2172,11 +2172,11 @@ func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RegulatedAuthorization)
+	r, ok := v.(r5.RegulatedAuthorization)
 	if !ok {
 		return r5.RegulatedAuthorization{}, capabilities.InvalidResourceError{ResourceType: "RegulatedAuthorization"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r5.RelatedPerson) (r5.RelatedPerson, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2187,11 +2187,11 @@ func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r5.RelatedPe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RelatedPerson)
+	r, ok := v.(r5.RelatedPerson)
 	if !ok {
 		return r5.RelatedPerson{}, capabilities.InvalidResourceError{ResourceType: "RelatedPerson"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateRequestOrchestration(ctx context.Context, resource r5.RequestOrchestration) (r5.RequestOrchestration, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2202,11 +2202,11 @@ func (w Concrete) CreateRequestOrchestration(ctx context.Context, resource r5.Re
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RequestOrchestration)
+	r, ok := v.(r5.RequestOrchestration)
 	if !ok {
 		return r5.RequestOrchestration{}, capabilities.InvalidResourceError{ResourceType: "RequestOrchestration"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateRequirements(ctx context.Context, resource r5.Requirements) (r5.Requirements, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2217,11 +2217,11 @@ func (w Concrete) CreateRequirements(ctx context.Context, resource r5.Requiremen
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Requirements)
+	r, ok := v.(r5.Requirements)
 	if !ok {
 		return r5.Requirements{}, capabilities.InvalidResourceError{ResourceType: "Requirements"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateResearchStudy(ctx context.Context, resource r5.ResearchStudy) (r5.ResearchStudy, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2232,11 +2232,11 @@ func (w Concrete) CreateResearchStudy(ctx context.Context, resource r5.ResearchS
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ResearchStudy)
+	r, ok := v.(r5.ResearchStudy)
 	if !ok {
 		return r5.ResearchStudy{}, capabilities.InvalidResourceError{ResourceType: "ResearchStudy"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateResearchSubject(ctx context.Context, resource r5.ResearchSubject) (r5.ResearchSubject, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2247,11 +2247,11 @@ func (w Concrete) CreateResearchSubject(ctx context.Context, resource r5.Researc
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ResearchSubject)
+	r, ok := v.(r5.ResearchSubject)
 	if !ok {
 		return r5.ResearchSubject{}, capabilities.InvalidResourceError{ResourceType: "ResearchSubject"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r5.RiskAssessment) (r5.RiskAssessment, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2262,11 +2262,11 @@ func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r5.RiskAsse
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RiskAssessment)
+	r, ok := v.(r5.RiskAssessment)
 	if !ok {
 		return r5.RiskAssessment{}, capabilities.InvalidResourceError{ResourceType: "RiskAssessment"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSchedule(ctx context.Context, resource r5.Schedule) (r5.Schedule, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2277,11 +2277,11 @@ func (w Concrete) CreateSchedule(ctx context.Context, resource r5.Schedule) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Schedule)
+	r, ok := v.(r5.Schedule)
 	if !ok {
 		return r5.Schedule{}, capabilities.InvalidResourceError{ResourceType: "Schedule"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSearchParameter(ctx context.Context, resource r5.SearchParameter) (r5.SearchParameter, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2292,11 +2292,11 @@ func (w Concrete) CreateSearchParameter(ctx context.Context, resource r5.SearchP
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SearchParameter)
+	r, ok := v.(r5.SearchParameter)
 	if !ok {
 		return r5.SearchParameter{}, capabilities.InvalidResourceError{ResourceType: "SearchParameter"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateServiceRequest(ctx context.Context, resource r5.ServiceRequest) (r5.ServiceRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2307,11 +2307,11 @@ func (w Concrete) CreateServiceRequest(ctx context.Context, resource r5.ServiceR
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ServiceRequest)
+	r, ok := v.(r5.ServiceRequest)
 	if !ok {
 		return r5.ServiceRequest{}, capabilities.InvalidResourceError{ResourceType: "ServiceRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSlot(ctx context.Context, resource r5.Slot) (r5.Slot, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2322,11 +2322,11 @@ func (w Concrete) CreateSlot(ctx context.Context, resource r5.Slot) (r5.Slot, ca
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Slot)
+	r, ok := v.(r5.Slot)
 	if !ok {
 		return r5.Slot{}, capabilities.InvalidResourceError{ResourceType: "Slot"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSpecimen(ctx context.Context, resource r5.Specimen) (r5.Specimen, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2337,11 +2337,11 @@ func (w Concrete) CreateSpecimen(ctx context.Context, resource r5.Specimen) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Specimen)
+	r, ok := v.(r5.Specimen)
 	if !ok {
 		return r5.Specimen{}, capabilities.InvalidResourceError{ResourceType: "Specimen"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r5.SpecimenDefinition) (r5.SpecimenDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2352,11 +2352,11 @@ func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r5.Spec
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SpecimenDefinition)
+	r, ok := v.(r5.SpecimenDefinition)
 	if !ok {
 		return r5.SpecimenDefinition{}, capabilities.InvalidResourceError{ResourceType: "SpecimenDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r5.StructureDefinition) (r5.StructureDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2367,11 +2367,11 @@ func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r5.Str
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.StructureDefinition)
+	r, ok := v.(r5.StructureDefinition)
 	if !ok {
 		return r5.StructureDefinition{}, capabilities.InvalidResourceError{ResourceType: "StructureDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateStructureMap(ctx context.Context, resource r5.StructureMap) (r5.StructureMap, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2382,11 +2382,11 @@ func (w Concrete) CreateStructureMap(ctx context.Context, resource r5.StructureM
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.StructureMap)
+	r, ok := v.(r5.StructureMap)
 	if !ok {
 		return r5.StructureMap{}, capabilities.InvalidResourceError{ResourceType: "StructureMap"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubscription(ctx context.Context, resource r5.Subscription) (r5.Subscription, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2397,11 +2397,11 @@ func (w Concrete) CreateSubscription(ctx context.Context, resource r5.Subscripti
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Subscription)
+	r, ok := v.(r5.Subscription)
 	if !ok {
 		return r5.Subscription{}, capabilities.InvalidResourceError{ResourceType: "Subscription"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r5.SubscriptionStatus) (r5.SubscriptionStatus, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2412,11 +2412,11 @@ func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r5.Subs
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubscriptionStatus)
+	r, ok := v.(r5.SubscriptionStatus)
 	if !ok {
 		return r5.SubscriptionStatus{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionStatus"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r5.SubscriptionTopic) (r5.SubscriptionTopic, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2427,11 +2427,11 @@ func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r5.Subsc
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubscriptionTopic)
+	r, ok := v.(r5.SubscriptionTopic)
 	if !ok {
 		return r5.SubscriptionTopic{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionTopic"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubstance(ctx context.Context, resource r5.Substance) (r5.Substance, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2442,11 +2442,11 @@ func (w Concrete) CreateSubstance(ctx context.Context, resource r5.Substance) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Substance)
+	r, ok := v.(r5.Substance)
 	if !ok {
 		return r5.Substance{}, capabilities.InvalidResourceError{ResourceType: "Substance"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r5.SubstanceDefinition) (r5.SubstanceDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2457,11 +2457,11 @@ func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r5.Sub
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceDefinition)
+	r, ok := v.(r5.SubstanceDefinition)
 	if !ok {
 		return r5.SubstanceDefinition{}, capabilities.InvalidResourceError{ResourceType: "SubstanceDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubstanceNucleicAcid(ctx context.Context, resource r5.SubstanceNucleicAcid) (r5.SubstanceNucleicAcid, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2472,11 +2472,11 @@ func (w Concrete) CreateSubstanceNucleicAcid(ctx context.Context, resource r5.Su
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceNucleicAcid)
+	r, ok := v.(r5.SubstanceNucleicAcid)
 	if !ok {
 		return r5.SubstanceNucleicAcid{}, capabilities.InvalidResourceError{ResourceType: "SubstanceNucleicAcid"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubstancePolymer(ctx context.Context, resource r5.SubstancePolymer) (r5.SubstancePolymer, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2487,11 +2487,11 @@ func (w Concrete) CreateSubstancePolymer(ctx context.Context, resource r5.Substa
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstancePolymer)
+	r, ok := v.(r5.SubstancePolymer)
 	if !ok {
 		return r5.SubstancePolymer{}, capabilities.InvalidResourceError{ResourceType: "SubstancePolymer"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubstanceProtein(ctx context.Context, resource r5.SubstanceProtein) (r5.SubstanceProtein, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2502,11 +2502,11 @@ func (w Concrete) CreateSubstanceProtein(ctx context.Context, resource r5.Substa
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceProtein)
+	r, ok := v.(r5.SubstanceProtein)
 	if !ok {
 		return r5.SubstanceProtein{}, capabilities.InvalidResourceError{ResourceType: "SubstanceProtein"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubstanceReferenceInformation(ctx context.Context, resource r5.SubstanceReferenceInformation) (r5.SubstanceReferenceInformation, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2517,11 +2517,11 @@ func (w Concrete) CreateSubstanceReferenceInformation(ctx context.Context, resou
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceReferenceInformation)
+	r, ok := v.(r5.SubstanceReferenceInformation)
 	if !ok {
 		return r5.SubstanceReferenceInformation{}, capabilities.InvalidResourceError{ResourceType: "SubstanceReferenceInformation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSubstanceSourceMaterial(ctx context.Context, resource r5.SubstanceSourceMaterial) (r5.SubstanceSourceMaterial, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2532,11 +2532,11 @@ func (w Concrete) CreateSubstanceSourceMaterial(ctx context.Context, resource r5
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceSourceMaterial)
+	r, ok := v.(r5.SubstanceSourceMaterial)
 	if !ok {
 		return r5.SubstanceSourceMaterial{}, capabilities.InvalidResourceError{ResourceType: "SubstanceSourceMaterial"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r5.SupplyDelivery) (r5.SupplyDelivery, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2547,11 +2547,11 @@ func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r5.SupplyDe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SupplyDelivery)
+	r, ok := v.(r5.SupplyDelivery)
 	if !ok {
 		return r5.SupplyDelivery{}, capabilities.InvalidResourceError{ResourceType: "SupplyDelivery"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r5.SupplyRequest) (r5.SupplyRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2562,11 +2562,11 @@ func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r5.SupplyReq
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SupplyRequest)
+	r, ok := v.(r5.SupplyRequest)
 	if !ok {
 		return r5.SupplyRequest{}, capabilities.InvalidResourceError{ResourceType: "SupplyRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateTask(ctx context.Context, resource r5.Task) (r5.Task, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2577,11 +2577,11 @@ func (w Concrete) CreateTask(ctx context.Context, resource r5.Task) (r5.Task, ca
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Task)
+	r, ok := v.(r5.Task)
 	if !ok {
 		return r5.Task{}, capabilities.InvalidResourceError{ResourceType: "Task"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r5.TerminologyCapabilities) (r5.TerminologyCapabilities, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2592,11 +2592,11 @@ func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r5
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TerminologyCapabilities)
+	r, ok := v.(r5.TerminologyCapabilities)
 	if !ok {
 		return r5.TerminologyCapabilities{}, capabilities.InvalidResourceError{ResourceType: "TerminologyCapabilities"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateTestPlan(ctx context.Context, resource r5.TestPlan) (r5.TestPlan, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2607,11 +2607,11 @@ func (w Concrete) CreateTestPlan(ctx context.Context, resource r5.TestPlan) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TestPlan)
+	r, ok := v.(r5.TestPlan)
 	if !ok {
 		return r5.TestPlan{}, capabilities.InvalidResourceError{ResourceType: "TestPlan"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateTestReport(ctx context.Context, resource r5.TestReport) (r5.TestReport, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2622,11 +2622,11 @@ func (w Concrete) CreateTestReport(ctx context.Context, resource r5.TestReport) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TestReport)
+	r, ok := v.(r5.TestReport)
 	if !ok {
 		return r5.TestReport{}, capabilities.InvalidResourceError{ResourceType: "TestReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateTestScript(ctx context.Context, resource r5.TestScript) (r5.TestScript, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2637,11 +2637,11 @@ func (w Concrete) CreateTestScript(ctx context.Context, resource r5.TestScript) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TestScript)
+	r, ok := v.(r5.TestScript)
 	if !ok {
 		return r5.TestScript{}, capabilities.InvalidResourceError{ResourceType: "TestScript"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateTransport(ctx context.Context, resource r5.Transport) (r5.Transport, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2652,11 +2652,11 @@ func (w Concrete) CreateTransport(ctx context.Context, resource r5.Transport) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Transport)
+	r, ok := v.(r5.Transport)
 	if !ok {
 		return r5.Transport{}, capabilities.InvalidResourceError{ResourceType: "Transport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateValueSet(ctx context.Context, resource r5.ValueSet) (r5.ValueSet, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2667,11 +2667,11 @@ func (w Concrete) CreateValueSet(ctx context.Context, resource r5.ValueSet) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ValueSet)
+	r, ok := v.(r5.ValueSet)
 	if !ok {
 		return r5.ValueSet{}, capabilities.InvalidResourceError{ResourceType: "ValueSet"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateVerificationResult(ctx context.Context, resource r5.VerificationResult) (r5.VerificationResult, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2682,11 +2682,11 @@ func (w Concrete) CreateVerificationResult(ctx context.Context, resource r5.Veri
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.VerificationResult)
+	r, ok := v.(r5.VerificationResult)
 	if !ok {
 		return r5.VerificationResult{}, capabilities.InvalidResourceError{ResourceType: "VerificationResult"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r5.VisionPrescription) (r5.VisionPrescription, capabilities.FHIRError) {
 	v, err := w.Generic.Create(ctx, resource)
@@ -2697,11 +2697,11 @@ func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r5.Visi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.VisionPrescription)
+	r, ok := v.(r5.VisionPrescription)
 	if !ok {
 		return r5.VisionPrescription{}, capabilities.InvalidResourceError{ResourceType: "VisionPrescription"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadAccount(ctx context.Context, id string) (r5.Account, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Account", id)
@@ -2712,11 +2712,11 @@ func (w Concrete) ReadAccount(ctx context.Context, id string) (r5.Account, capab
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Account)
+	r, ok := v.(r5.Account)
 	if !ok {
 		return r5.Account{}, capabilities.InvalidResourceError{ResourceType: "Account"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadActivityDefinition(ctx context.Context, id string) (r5.ActivityDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ActivityDefinition", id)
@@ -2727,11 +2727,11 @@ func (w Concrete) ReadActivityDefinition(ctx context.Context, id string) (r5.Act
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ActivityDefinition)
+	r, ok := v.(r5.ActivityDefinition)
 	if !ok {
 		return r5.ActivityDefinition{}, capabilities.InvalidResourceError{ResourceType: "ActivityDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadActorDefinition(ctx context.Context, id string) (r5.ActorDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ActorDefinition", id)
@@ -2742,11 +2742,11 @@ func (w Concrete) ReadActorDefinition(ctx context.Context, id string) (r5.ActorD
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ActorDefinition)
+	r, ok := v.(r5.ActorDefinition)
 	if !ok {
 		return r5.ActorDefinition{}, capabilities.InvalidResourceError{ResourceType: "ActorDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadAdministrableProductDefinition(ctx context.Context, id string) (r5.AdministrableProductDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "AdministrableProductDefinition", id)
@@ -2757,11 +2757,11 @@ func (w Concrete) ReadAdministrableProductDefinition(ctx context.Context, id str
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AdministrableProductDefinition)
+	r, ok := v.(r5.AdministrableProductDefinition)
 	if !ok {
 		return r5.AdministrableProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "AdministrableProductDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadAdverseEvent(ctx context.Context, id string) (r5.AdverseEvent, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "AdverseEvent", id)
@@ -2772,11 +2772,11 @@ func (w Concrete) ReadAdverseEvent(ctx context.Context, id string) (r5.AdverseEv
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AdverseEvent)
+	r, ok := v.(r5.AdverseEvent)
 	if !ok {
 		return r5.AdverseEvent{}, capabilities.InvalidResourceError{ResourceType: "AdverseEvent"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadAllergyIntolerance(ctx context.Context, id string) (r5.AllergyIntolerance, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "AllergyIntolerance", id)
@@ -2787,11 +2787,11 @@ func (w Concrete) ReadAllergyIntolerance(ctx context.Context, id string) (r5.All
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AllergyIntolerance)
+	r, ok := v.(r5.AllergyIntolerance)
 	if !ok {
 		return r5.AllergyIntolerance{}, capabilities.InvalidResourceError{ResourceType: "AllergyIntolerance"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadAppointment(ctx context.Context, id string) (r5.Appointment, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Appointment", id)
@@ -2802,11 +2802,11 @@ func (w Concrete) ReadAppointment(ctx context.Context, id string) (r5.Appointmen
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Appointment)
+	r, ok := v.(r5.Appointment)
 	if !ok {
 		return r5.Appointment{}, capabilities.InvalidResourceError{ResourceType: "Appointment"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadAppointmentResponse(ctx context.Context, id string) (r5.AppointmentResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "AppointmentResponse", id)
@@ -2817,11 +2817,11 @@ func (w Concrete) ReadAppointmentResponse(ctx context.Context, id string) (r5.Ap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AppointmentResponse)
+	r, ok := v.(r5.AppointmentResponse)
 	if !ok {
 		return r5.AppointmentResponse{}, capabilities.InvalidResourceError{ResourceType: "AppointmentResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadArtifactAssessment(ctx context.Context, id string) (r5.ArtifactAssessment, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ArtifactAssessment", id)
@@ -2832,11 +2832,11 @@ func (w Concrete) ReadArtifactAssessment(ctx context.Context, id string) (r5.Art
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ArtifactAssessment)
+	r, ok := v.(r5.ArtifactAssessment)
 	if !ok {
 		return r5.ArtifactAssessment{}, capabilities.InvalidResourceError{ResourceType: "ArtifactAssessment"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadAuditEvent(ctx context.Context, id string) (r5.AuditEvent, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "AuditEvent", id)
@@ -2847,11 +2847,11 @@ func (w Concrete) ReadAuditEvent(ctx context.Context, id string) (r5.AuditEvent,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.AuditEvent)
+	r, ok := v.(r5.AuditEvent)
 	if !ok {
 		return r5.AuditEvent{}, capabilities.InvalidResourceError{ResourceType: "AuditEvent"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadBasic(ctx context.Context, id string) (r5.Basic, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Basic", id)
@@ -2862,11 +2862,11 @@ func (w Concrete) ReadBasic(ctx context.Context, id string) (r5.Basic, capabilit
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Basic)
+	r, ok := v.(r5.Basic)
 	if !ok {
 		return r5.Basic{}, capabilities.InvalidResourceError{ResourceType: "Basic"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadBinary(ctx context.Context, id string) (r5.Binary, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Binary", id)
@@ -2877,11 +2877,11 @@ func (w Concrete) ReadBinary(ctx context.Context, id string) (r5.Binary, capabil
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Binary)
+	r, ok := v.(r5.Binary)
 	if !ok {
 		return r5.Binary{}, capabilities.InvalidResourceError{ResourceType: "Binary"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r5.BiologicallyDerivedProduct, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "BiologicallyDerivedProduct", id)
@@ -2892,11 +2892,11 @@ func (w Concrete) ReadBiologicallyDerivedProduct(ctx context.Context, id string)
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.BiologicallyDerivedProduct)
+	r, ok := v.(r5.BiologicallyDerivedProduct)
 	if !ok {
 		return r5.BiologicallyDerivedProduct{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProduct"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadBiologicallyDerivedProductDispense(ctx context.Context, id string) (r5.BiologicallyDerivedProductDispense, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "BiologicallyDerivedProductDispense", id)
@@ -2907,11 +2907,11 @@ func (w Concrete) ReadBiologicallyDerivedProductDispense(ctx context.Context, id
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.BiologicallyDerivedProductDispense)
+	r, ok := v.(r5.BiologicallyDerivedProductDispense)
 	if !ok {
 		return r5.BiologicallyDerivedProductDispense{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProductDispense"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadBodyStructure(ctx context.Context, id string) (r5.BodyStructure, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "BodyStructure", id)
@@ -2922,11 +2922,11 @@ func (w Concrete) ReadBodyStructure(ctx context.Context, id string) (r5.BodyStru
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.BodyStructure)
+	r, ok := v.(r5.BodyStructure)
 	if !ok {
 		return r5.BodyStructure{}, capabilities.InvalidResourceError{ResourceType: "BodyStructure"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadBundle(ctx context.Context, id string) (r5.Bundle, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Bundle", id)
@@ -2937,11 +2937,11 @@ func (w Concrete) ReadBundle(ctx context.Context, id string) (r5.Bundle, capabil
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Bundle)
+	r, ok := v.(r5.Bundle)
 	if !ok {
 		return r5.Bundle{}, capabilities.InvalidResourceError{ResourceType: "Bundle"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCapabilityStatement(ctx context.Context, id string) (r5.CapabilityStatement, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CapabilityStatement", id)
@@ -2952,11 +2952,11 @@ func (w Concrete) ReadCapabilityStatement(ctx context.Context, id string) (r5.Ca
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CapabilityStatement)
+	r, ok := v.(r5.CapabilityStatement)
 	if !ok {
 		return r5.CapabilityStatement{}, capabilities.InvalidResourceError{ResourceType: "CapabilityStatement"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCarePlan(ctx context.Context, id string) (r5.CarePlan, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CarePlan", id)
@@ -2967,11 +2967,11 @@ func (w Concrete) ReadCarePlan(ctx context.Context, id string) (r5.CarePlan, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CarePlan)
+	r, ok := v.(r5.CarePlan)
 	if !ok {
 		return r5.CarePlan{}, capabilities.InvalidResourceError{ResourceType: "CarePlan"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCareTeam(ctx context.Context, id string) (r5.CareTeam, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CareTeam", id)
@@ -2982,11 +2982,11 @@ func (w Concrete) ReadCareTeam(ctx context.Context, id string) (r5.CareTeam, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CareTeam)
+	r, ok := v.(r5.CareTeam)
 	if !ok {
 		return r5.CareTeam{}, capabilities.InvalidResourceError{ResourceType: "CareTeam"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadChargeItem(ctx context.Context, id string) (r5.ChargeItem, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ChargeItem", id)
@@ -2997,11 +2997,11 @@ func (w Concrete) ReadChargeItem(ctx context.Context, id string) (r5.ChargeItem,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ChargeItem)
+	r, ok := v.(r5.ChargeItem)
 	if !ok {
 		return r5.ChargeItem{}, capabilities.InvalidResourceError{ResourceType: "ChargeItem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadChargeItemDefinition(ctx context.Context, id string) (r5.ChargeItemDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ChargeItemDefinition", id)
@@ -3012,11 +3012,11 @@ func (w Concrete) ReadChargeItemDefinition(ctx context.Context, id string) (r5.C
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ChargeItemDefinition)
+	r, ok := v.(r5.ChargeItemDefinition)
 	if !ok {
 		return r5.ChargeItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ChargeItemDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCitation(ctx context.Context, id string) (r5.Citation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Citation", id)
@@ -3027,11 +3027,11 @@ func (w Concrete) ReadCitation(ctx context.Context, id string) (r5.Citation, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Citation)
+	r, ok := v.(r5.Citation)
 	if !ok {
 		return r5.Citation{}, capabilities.InvalidResourceError{ResourceType: "Citation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadClaim(ctx context.Context, id string) (r5.Claim, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Claim", id)
@@ -3042,11 +3042,11 @@ func (w Concrete) ReadClaim(ctx context.Context, id string) (r5.Claim, capabilit
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Claim)
+	r, ok := v.(r5.Claim)
 	if !ok {
 		return r5.Claim{}, capabilities.InvalidResourceError{ResourceType: "Claim"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadClaimResponse(ctx context.Context, id string) (r5.ClaimResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ClaimResponse", id)
@@ -3057,11 +3057,11 @@ func (w Concrete) ReadClaimResponse(ctx context.Context, id string) (r5.ClaimRes
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ClaimResponse)
+	r, ok := v.(r5.ClaimResponse)
 	if !ok {
 		return r5.ClaimResponse{}, capabilities.InvalidResourceError{ResourceType: "ClaimResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadClinicalImpression(ctx context.Context, id string) (r5.ClinicalImpression, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ClinicalImpression", id)
@@ -3072,11 +3072,11 @@ func (w Concrete) ReadClinicalImpression(ctx context.Context, id string) (r5.Cli
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ClinicalImpression)
+	r, ok := v.(r5.ClinicalImpression)
 	if !ok {
 		return r5.ClinicalImpression{}, capabilities.InvalidResourceError{ResourceType: "ClinicalImpression"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadClinicalUseDefinition(ctx context.Context, id string) (r5.ClinicalUseDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ClinicalUseDefinition", id)
@@ -3087,11 +3087,11 @@ func (w Concrete) ReadClinicalUseDefinition(ctx context.Context, id string) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ClinicalUseDefinition)
+	r, ok := v.(r5.ClinicalUseDefinition)
 	if !ok {
 		return r5.ClinicalUseDefinition{}, capabilities.InvalidResourceError{ResourceType: "ClinicalUseDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCodeSystem(ctx context.Context, id string) (r5.CodeSystem, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CodeSystem", id)
@@ -3102,11 +3102,11 @@ func (w Concrete) ReadCodeSystem(ctx context.Context, id string) (r5.CodeSystem,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CodeSystem)
+	r, ok := v.(r5.CodeSystem)
 	if !ok {
 		return r5.CodeSystem{}, capabilities.InvalidResourceError{ResourceType: "CodeSystem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCommunication(ctx context.Context, id string) (r5.Communication, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Communication", id)
@@ -3117,11 +3117,11 @@ func (w Concrete) ReadCommunication(ctx context.Context, id string) (r5.Communic
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Communication)
+	r, ok := v.(r5.Communication)
 	if !ok {
 		return r5.Communication{}, capabilities.InvalidResourceError{ResourceType: "Communication"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCommunicationRequest(ctx context.Context, id string) (r5.CommunicationRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CommunicationRequest", id)
@@ -3132,11 +3132,11 @@ func (w Concrete) ReadCommunicationRequest(ctx context.Context, id string) (r5.C
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CommunicationRequest)
+	r, ok := v.(r5.CommunicationRequest)
 	if !ok {
 		return r5.CommunicationRequest{}, capabilities.InvalidResourceError{ResourceType: "CommunicationRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCompartmentDefinition(ctx context.Context, id string) (r5.CompartmentDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CompartmentDefinition", id)
@@ -3147,11 +3147,11 @@ func (w Concrete) ReadCompartmentDefinition(ctx context.Context, id string) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CompartmentDefinition)
+	r, ok := v.(r5.CompartmentDefinition)
 	if !ok {
 		return r5.CompartmentDefinition{}, capabilities.InvalidResourceError{ResourceType: "CompartmentDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadComposition(ctx context.Context, id string) (r5.Composition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Composition", id)
@@ -3162,11 +3162,11 @@ func (w Concrete) ReadComposition(ctx context.Context, id string) (r5.Compositio
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Composition)
+	r, ok := v.(r5.Composition)
 	if !ok {
 		return r5.Composition{}, capabilities.InvalidResourceError{ResourceType: "Composition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadConceptMap(ctx context.Context, id string) (r5.ConceptMap, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ConceptMap", id)
@@ -3177,11 +3177,11 @@ func (w Concrete) ReadConceptMap(ctx context.Context, id string) (r5.ConceptMap,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ConceptMap)
+	r, ok := v.(r5.ConceptMap)
 	if !ok {
 		return r5.ConceptMap{}, capabilities.InvalidResourceError{ResourceType: "ConceptMap"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCondition(ctx context.Context, id string) (r5.Condition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Condition", id)
@@ -3192,11 +3192,11 @@ func (w Concrete) ReadCondition(ctx context.Context, id string) (r5.Condition, c
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Condition)
+	r, ok := v.(r5.Condition)
 	if !ok {
 		return r5.Condition{}, capabilities.InvalidResourceError{ResourceType: "Condition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadConditionDefinition(ctx context.Context, id string) (r5.ConditionDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ConditionDefinition", id)
@@ -3207,11 +3207,11 @@ func (w Concrete) ReadConditionDefinition(ctx context.Context, id string) (r5.Co
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ConditionDefinition)
+	r, ok := v.(r5.ConditionDefinition)
 	if !ok {
 		return r5.ConditionDefinition{}, capabilities.InvalidResourceError{ResourceType: "ConditionDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadConsent(ctx context.Context, id string) (r5.Consent, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Consent", id)
@@ -3222,11 +3222,11 @@ func (w Concrete) ReadConsent(ctx context.Context, id string) (r5.Consent, capab
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Consent)
+	r, ok := v.(r5.Consent)
 	if !ok {
 		return r5.Consent{}, capabilities.InvalidResourceError{ResourceType: "Consent"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadContract(ctx context.Context, id string) (r5.Contract, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Contract", id)
@@ -3237,11 +3237,11 @@ func (w Concrete) ReadContract(ctx context.Context, id string) (r5.Contract, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Contract)
+	r, ok := v.(r5.Contract)
 	if !ok {
 		return r5.Contract{}, capabilities.InvalidResourceError{ResourceType: "Contract"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCoverage(ctx context.Context, id string) (r5.Coverage, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Coverage", id)
@@ -3252,11 +3252,11 @@ func (w Concrete) ReadCoverage(ctx context.Context, id string) (r5.Coverage, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Coverage)
+	r, ok := v.(r5.Coverage)
 	if !ok {
 		return r5.Coverage{}, capabilities.InvalidResourceError{ResourceType: "Coverage"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCoverageEligibilityRequest(ctx context.Context, id string) (r5.CoverageEligibilityRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CoverageEligibilityRequest", id)
@@ -3267,11 +3267,11 @@ func (w Concrete) ReadCoverageEligibilityRequest(ctx context.Context, id string)
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CoverageEligibilityRequest)
+	r, ok := v.(r5.CoverageEligibilityRequest)
 	if !ok {
 		return r5.CoverageEligibilityRequest{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadCoverageEligibilityResponse(ctx context.Context, id string) (r5.CoverageEligibilityResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "CoverageEligibilityResponse", id)
@@ -3282,11 +3282,11 @@ func (w Concrete) ReadCoverageEligibilityResponse(ctx context.Context, id string
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.CoverageEligibilityResponse)
+	r, ok := v.(r5.CoverageEligibilityResponse)
 	if !ok {
 		return r5.CoverageEligibilityResponse{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDetectedIssue(ctx context.Context, id string) (r5.DetectedIssue, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DetectedIssue", id)
@@ -3297,11 +3297,11 @@ func (w Concrete) ReadDetectedIssue(ctx context.Context, id string) (r5.Detected
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DetectedIssue)
+	r, ok := v.(r5.DetectedIssue)
 	if !ok {
 		return r5.DetectedIssue{}, capabilities.InvalidResourceError{ResourceType: "DetectedIssue"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDevice(ctx context.Context, id string) (r5.Device, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Device", id)
@@ -3312,11 +3312,11 @@ func (w Concrete) ReadDevice(ctx context.Context, id string) (r5.Device, capabil
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Device)
+	r, ok := v.(r5.Device)
 	if !ok {
 		return r5.Device{}, capabilities.InvalidResourceError{ResourceType: "Device"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDeviceAssociation(ctx context.Context, id string) (r5.DeviceAssociation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DeviceAssociation", id)
@@ -3327,11 +3327,11 @@ func (w Concrete) ReadDeviceAssociation(ctx context.Context, id string) (r5.Devi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceAssociation)
+	r, ok := v.(r5.DeviceAssociation)
 	if !ok {
 		return r5.DeviceAssociation{}, capabilities.InvalidResourceError{ResourceType: "DeviceAssociation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDeviceDefinition(ctx context.Context, id string) (r5.DeviceDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DeviceDefinition", id)
@@ -3342,11 +3342,11 @@ func (w Concrete) ReadDeviceDefinition(ctx context.Context, id string) (r5.Devic
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceDefinition)
+	r, ok := v.(r5.DeviceDefinition)
 	if !ok {
 		return r5.DeviceDefinition{}, capabilities.InvalidResourceError{ResourceType: "DeviceDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDeviceDispense(ctx context.Context, id string) (r5.DeviceDispense, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DeviceDispense", id)
@@ -3357,11 +3357,11 @@ func (w Concrete) ReadDeviceDispense(ctx context.Context, id string) (r5.DeviceD
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceDispense)
+	r, ok := v.(r5.DeviceDispense)
 	if !ok {
 		return r5.DeviceDispense{}, capabilities.InvalidResourceError{ResourceType: "DeviceDispense"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDeviceMetric(ctx context.Context, id string) (r5.DeviceMetric, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DeviceMetric", id)
@@ -3372,11 +3372,11 @@ func (w Concrete) ReadDeviceMetric(ctx context.Context, id string) (r5.DeviceMet
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceMetric)
+	r, ok := v.(r5.DeviceMetric)
 	if !ok {
 		return r5.DeviceMetric{}, capabilities.InvalidResourceError{ResourceType: "DeviceMetric"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDeviceRequest(ctx context.Context, id string) (r5.DeviceRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DeviceRequest", id)
@@ -3387,11 +3387,11 @@ func (w Concrete) ReadDeviceRequest(ctx context.Context, id string) (r5.DeviceRe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceRequest)
+	r, ok := v.(r5.DeviceRequest)
 	if !ok {
 		return r5.DeviceRequest{}, capabilities.InvalidResourceError{ResourceType: "DeviceRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDeviceUsage(ctx context.Context, id string) (r5.DeviceUsage, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DeviceUsage", id)
@@ -3402,11 +3402,11 @@ func (w Concrete) ReadDeviceUsage(ctx context.Context, id string) (r5.DeviceUsag
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DeviceUsage)
+	r, ok := v.(r5.DeviceUsage)
 	if !ok {
 		return r5.DeviceUsage{}, capabilities.InvalidResourceError{ResourceType: "DeviceUsage"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDiagnosticReport(ctx context.Context, id string) (r5.DiagnosticReport, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DiagnosticReport", id)
@@ -3417,11 +3417,11 @@ func (w Concrete) ReadDiagnosticReport(ctx context.Context, id string) (r5.Diagn
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DiagnosticReport)
+	r, ok := v.(r5.DiagnosticReport)
 	if !ok {
 		return r5.DiagnosticReport{}, capabilities.InvalidResourceError{ResourceType: "DiagnosticReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadDocumentReference(ctx context.Context, id string) (r5.DocumentReference, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "DocumentReference", id)
@@ -3432,11 +3432,11 @@ func (w Concrete) ReadDocumentReference(ctx context.Context, id string) (r5.Docu
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.DocumentReference)
+	r, ok := v.(r5.DocumentReference)
 	if !ok {
 		return r5.DocumentReference{}, capabilities.InvalidResourceError{ResourceType: "DocumentReference"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEncounter(ctx context.Context, id string) (r5.Encounter, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Encounter", id)
@@ -3447,11 +3447,11 @@ func (w Concrete) ReadEncounter(ctx context.Context, id string) (r5.Encounter, c
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Encounter)
+	r, ok := v.(r5.Encounter)
 	if !ok {
 		return r5.Encounter{}, capabilities.InvalidResourceError{ResourceType: "Encounter"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEncounterHistory(ctx context.Context, id string) (r5.EncounterHistory, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "EncounterHistory", id)
@@ -3462,11 +3462,11 @@ func (w Concrete) ReadEncounterHistory(ctx context.Context, id string) (r5.Encou
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EncounterHistory)
+	r, ok := v.(r5.EncounterHistory)
 	if !ok {
 		return r5.EncounterHistory{}, capabilities.InvalidResourceError{ResourceType: "EncounterHistory"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEndpoint(ctx context.Context, id string) (r5.Endpoint, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Endpoint", id)
@@ -3477,11 +3477,11 @@ func (w Concrete) ReadEndpoint(ctx context.Context, id string) (r5.Endpoint, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Endpoint)
+	r, ok := v.(r5.Endpoint)
 	if !ok {
 		return r5.Endpoint{}, capabilities.InvalidResourceError{ResourceType: "Endpoint"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEnrollmentRequest(ctx context.Context, id string) (r5.EnrollmentRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "EnrollmentRequest", id)
@@ -3492,11 +3492,11 @@ func (w Concrete) ReadEnrollmentRequest(ctx context.Context, id string) (r5.Enro
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EnrollmentRequest)
+	r, ok := v.(r5.EnrollmentRequest)
 	if !ok {
 		return r5.EnrollmentRequest{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEnrollmentResponse(ctx context.Context, id string) (r5.EnrollmentResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "EnrollmentResponse", id)
@@ -3507,11 +3507,11 @@ func (w Concrete) ReadEnrollmentResponse(ctx context.Context, id string) (r5.Enr
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EnrollmentResponse)
+	r, ok := v.(r5.EnrollmentResponse)
 	if !ok {
 		return r5.EnrollmentResponse{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEpisodeOfCare(ctx context.Context, id string) (r5.EpisodeOfCare, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "EpisodeOfCare", id)
@@ -3522,11 +3522,11 @@ func (w Concrete) ReadEpisodeOfCare(ctx context.Context, id string) (r5.EpisodeO
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EpisodeOfCare)
+	r, ok := v.(r5.EpisodeOfCare)
 	if !ok {
 		return r5.EpisodeOfCare{}, capabilities.InvalidResourceError{ResourceType: "EpisodeOfCare"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEventDefinition(ctx context.Context, id string) (r5.EventDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "EventDefinition", id)
@@ -3537,11 +3537,11 @@ func (w Concrete) ReadEventDefinition(ctx context.Context, id string) (r5.EventD
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EventDefinition)
+	r, ok := v.(r5.EventDefinition)
 	if !ok {
 		return r5.EventDefinition{}, capabilities.InvalidResourceError{ResourceType: "EventDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEvidence(ctx context.Context, id string) (r5.Evidence, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Evidence", id)
@@ -3552,11 +3552,11 @@ func (w Concrete) ReadEvidence(ctx context.Context, id string) (r5.Evidence, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Evidence)
+	r, ok := v.(r5.Evidence)
 	if !ok {
 		return r5.Evidence{}, capabilities.InvalidResourceError{ResourceType: "Evidence"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEvidenceReport(ctx context.Context, id string) (r5.EvidenceReport, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "EvidenceReport", id)
@@ -3567,11 +3567,11 @@ func (w Concrete) ReadEvidenceReport(ctx context.Context, id string) (r5.Evidenc
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EvidenceReport)
+	r, ok := v.(r5.EvidenceReport)
 	if !ok {
 		return r5.EvidenceReport{}, capabilities.InvalidResourceError{ResourceType: "EvidenceReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadEvidenceVariable(ctx context.Context, id string) (r5.EvidenceVariable, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "EvidenceVariable", id)
@@ -3582,11 +3582,11 @@ func (w Concrete) ReadEvidenceVariable(ctx context.Context, id string) (r5.Evide
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.EvidenceVariable)
+	r, ok := v.(r5.EvidenceVariable)
 	if !ok {
 		return r5.EvidenceVariable{}, capabilities.InvalidResourceError{ResourceType: "EvidenceVariable"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadExampleScenario(ctx context.Context, id string) (r5.ExampleScenario, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ExampleScenario", id)
@@ -3597,11 +3597,11 @@ func (w Concrete) ReadExampleScenario(ctx context.Context, id string) (r5.Exampl
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ExampleScenario)
+	r, ok := v.(r5.ExampleScenario)
 	if !ok {
 		return r5.ExampleScenario{}, capabilities.InvalidResourceError{ResourceType: "ExampleScenario"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadExplanationOfBenefit(ctx context.Context, id string) (r5.ExplanationOfBenefit, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ExplanationOfBenefit", id)
@@ -3612,11 +3612,11 @@ func (w Concrete) ReadExplanationOfBenefit(ctx context.Context, id string) (r5.E
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ExplanationOfBenefit)
+	r, ok := v.(r5.ExplanationOfBenefit)
 	if !ok {
 		return r5.ExplanationOfBenefit{}, capabilities.InvalidResourceError{ResourceType: "ExplanationOfBenefit"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadFamilyMemberHistory(ctx context.Context, id string) (r5.FamilyMemberHistory, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "FamilyMemberHistory", id)
@@ -3627,11 +3627,11 @@ func (w Concrete) ReadFamilyMemberHistory(ctx context.Context, id string) (r5.Fa
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.FamilyMemberHistory)
+	r, ok := v.(r5.FamilyMemberHistory)
 	if !ok {
 		return r5.FamilyMemberHistory{}, capabilities.InvalidResourceError{ResourceType: "FamilyMemberHistory"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadFlag(ctx context.Context, id string) (r5.Flag, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Flag", id)
@@ -3642,11 +3642,11 @@ func (w Concrete) ReadFlag(ctx context.Context, id string) (r5.Flag, capabilitie
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Flag)
+	r, ok := v.(r5.Flag)
 	if !ok {
 		return r5.Flag{}, capabilities.InvalidResourceError{ResourceType: "Flag"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadFormularyItem(ctx context.Context, id string) (r5.FormularyItem, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "FormularyItem", id)
@@ -3657,11 +3657,11 @@ func (w Concrete) ReadFormularyItem(ctx context.Context, id string) (r5.Formular
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.FormularyItem)
+	r, ok := v.(r5.FormularyItem)
 	if !ok {
 		return r5.FormularyItem{}, capabilities.InvalidResourceError{ResourceType: "FormularyItem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadGenomicStudy(ctx context.Context, id string) (r5.GenomicStudy, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "GenomicStudy", id)
@@ -3672,11 +3672,11 @@ func (w Concrete) ReadGenomicStudy(ctx context.Context, id string) (r5.GenomicSt
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.GenomicStudy)
+	r, ok := v.(r5.GenomicStudy)
 	if !ok {
 		return r5.GenomicStudy{}, capabilities.InvalidResourceError{ResourceType: "GenomicStudy"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadGoal(ctx context.Context, id string) (r5.Goal, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Goal", id)
@@ -3687,11 +3687,11 @@ func (w Concrete) ReadGoal(ctx context.Context, id string) (r5.Goal, capabilitie
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Goal)
+	r, ok := v.(r5.Goal)
 	if !ok {
 		return r5.Goal{}, capabilities.InvalidResourceError{ResourceType: "Goal"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadGraphDefinition(ctx context.Context, id string) (r5.GraphDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "GraphDefinition", id)
@@ -3702,11 +3702,11 @@ func (w Concrete) ReadGraphDefinition(ctx context.Context, id string) (r5.GraphD
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.GraphDefinition)
+	r, ok := v.(r5.GraphDefinition)
 	if !ok {
 		return r5.GraphDefinition{}, capabilities.InvalidResourceError{ResourceType: "GraphDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadGroup(ctx context.Context, id string) (r5.Group, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Group", id)
@@ -3717,11 +3717,11 @@ func (w Concrete) ReadGroup(ctx context.Context, id string) (r5.Group, capabilit
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Group)
+	r, ok := v.(r5.Group)
 	if !ok {
 		return r5.Group{}, capabilities.InvalidResourceError{ResourceType: "Group"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadGuidanceResponse(ctx context.Context, id string) (r5.GuidanceResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "GuidanceResponse", id)
@@ -3732,11 +3732,11 @@ func (w Concrete) ReadGuidanceResponse(ctx context.Context, id string) (r5.Guida
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.GuidanceResponse)
+	r, ok := v.(r5.GuidanceResponse)
 	if !ok {
 		return r5.GuidanceResponse{}, capabilities.InvalidResourceError{ResourceType: "GuidanceResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadHealthcareService(ctx context.Context, id string) (r5.HealthcareService, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "HealthcareService", id)
@@ -3747,11 +3747,11 @@ func (w Concrete) ReadHealthcareService(ctx context.Context, id string) (r5.Heal
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.HealthcareService)
+	r, ok := v.(r5.HealthcareService)
 	if !ok {
 		return r5.HealthcareService{}, capabilities.InvalidResourceError{ResourceType: "HealthcareService"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadImagingSelection(ctx context.Context, id string) (r5.ImagingSelection, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ImagingSelection", id)
@@ -3762,11 +3762,11 @@ func (w Concrete) ReadImagingSelection(ctx context.Context, id string) (r5.Imagi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImagingSelection)
+	r, ok := v.(r5.ImagingSelection)
 	if !ok {
 		return r5.ImagingSelection{}, capabilities.InvalidResourceError{ResourceType: "ImagingSelection"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadImagingStudy(ctx context.Context, id string) (r5.ImagingStudy, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ImagingStudy", id)
@@ -3777,11 +3777,11 @@ func (w Concrete) ReadImagingStudy(ctx context.Context, id string) (r5.ImagingSt
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImagingStudy)
+	r, ok := v.(r5.ImagingStudy)
 	if !ok {
 		return r5.ImagingStudy{}, capabilities.InvalidResourceError{ResourceType: "ImagingStudy"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadImmunization(ctx context.Context, id string) (r5.Immunization, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Immunization", id)
@@ -3792,11 +3792,11 @@ func (w Concrete) ReadImmunization(ctx context.Context, id string) (r5.Immunizat
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Immunization)
+	r, ok := v.(r5.Immunization)
 	if !ok {
 		return r5.Immunization{}, capabilities.InvalidResourceError{ResourceType: "Immunization"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadImmunizationEvaluation(ctx context.Context, id string) (r5.ImmunizationEvaluation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ImmunizationEvaluation", id)
@@ -3807,11 +3807,11 @@ func (w Concrete) ReadImmunizationEvaluation(ctx context.Context, id string) (r5
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImmunizationEvaluation)
+	r, ok := v.(r5.ImmunizationEvaluation)
 	if !ok {
 		return r5.ImmunizationEvaluation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationEvaluation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadImmunizationRecommendation(ctx context.Context, id string) (r5.ImmunizationRecommendation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ImmunizationRecommendation", id)
@@ -3822,11 +3822,11 @@ func (w Concrete) ReadImmunizationRecommendation(ctx context.Context, id string)
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImmunizationRecommendation)
+	r, ok := v.(r5.ImmunizationRecommendation)
 	if !ok {
 		return r5.ImmunizationRecommendation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationRecommendation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadImplementationGuide(ctx context.Context, id string) (r5.ImplementationGuide, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ImplementationGuide", id)
@@ -3837,11 +3837,11 @@ func (w Concrete) ReadImplementationGuide(ctx context.Context, id string) (r5.Im
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ImplementationGuide)
+	r, ok := v.(r5.ImplementationGuide)
 	if !ok {
 		return r5.ImplementationGuide{}, capabilities.InvalidResourceError{ResourceType: "ImplementationGuide"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadIngredient(ctx context.Context, id string) (r5.Ingredient, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Ingredient", id)
@@ -3852,11 +3852,11 @@ func (w Concrete) ReadIngredient(ctx context.Context, id string) (r5.Ingredient,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Ingredient)
+	r, ok := v.(r5.Ingredient)
 	if !ok {
 		return r5.Ingredient{}, capabilities.InvalidResourceError{ResourceType: "Ingredient"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadInsurancePlan(ctx context.Context, id string) (r5.InsurancePlan, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "InsurancePlan", id)
@@ -3867,11 +3867,11 @@ func (w Concrete) ReadInsurancePlan(ctx context.Context, id string) (r5.Insuranc
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.InsurancePlan)
+	r, ok := v.(r5.InsurancePlan)
 	if !ok {
 		return r5.InsurancePlan{}, capabilities.InvalidResourceError{ResourceType: "InsurancePlan"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadInventoryItem(ctx context.Context, id string) (r5.InventoryItem, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "InventoryItem", id)
@@ -3882,11 +3882,11 @@ func (w Concrete) ReadInventoryItem(ctx context.Context, id string) (r5.Inventor
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.InventoryItem)
+	r, ok := v.(r5.InventoryItem)
 	if !ok {
 		return r5.InventoryItem{}, capabilities.InvalidResourceError{ResourceType: "InventoryItem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadInventoryReport(ctx context.Context, id string) (r5.InventoryReport, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "InventoryReport", id)
@@ -3897,11 +3897,11 @@ func (w Concrete) ReadInventoryReport(ctx context.Context, id string) (r5.Invent
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.InventoryReport)
+	r, ok := v.(r5.InventoryReport)
 	if !ok {
 		return r5.InventoryReport{}, capabilities.InvalidResourceError{ResourceType: "InventoryReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadInvoice(ctx context.Context, id string) (r5.Invoice, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Invoice", id)
@@ -3912,11 +3912,11 @@ func (w Concrete) ReadInvoice(ctx context.Context, id string) (r5.Invoice, capab
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Invoice)
+	r, ok := v.(r5.Invoice)
 	if !ok {
 		return r5.Invoice{}, capabilities.InvalidResourceError{ResourceType: "Invoice"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadLibrary(ctx context.Context, id string) (r5.Library, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Library", id)
@@ -3927,11 +3927,11 @@ func (w Concrete) ReadLibrary(ctx context.Context, id string) (r5.Library, capab
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Library)
+	r, ok := v.(r5.Library)
 	if !ok {
 		return r5.Library{}, capabilities.InvalidResourceError{ResourceType: "Library"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadLinkage(ctx context.Context, id string) (r5.Linkage, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Linkage", id)
@@ -3942,11 +3942,11 @@ func (w Concrete) ReadLinkage(ctx context.Context, id string) (r5.Linkage, capab
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Linkage)
+	r, ok := v.(r5.Linkage)
 	if !ok {
 		return r5.Linkage{}, capabilities.InvalidResourceError{ResourceType: "Linkage"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadList(ctx context.Context, id string) (r5.List, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "List", id)
@@ -3957,11 +3957,11 @@ func (w Concrete) ReadList(ctx context.Context, id string) (r5.List, capabilitie
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.List)
+	r, ok := v.(r5.List)
 	if !ok {
 		return r5.List{}, capabilities.InvalidResourceError{ResourceType: "List"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadLocation(ctx context.Context, id string) (r5.Location, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Location", id)
@@ -3972,11 +3972,11 @@ func (w Concrete) ReadLocation(ctx context.Context, id string) (r5.Location, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Location)
+	r, ok := v.(r5.Location)
 	if !ok {
 		return r5.Location{}, capabilities.InvalidResourceError{ResourceType: "Location"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadManufacturedItemDefinition(ctx context.Context, id string) (r5.ManufacturedItemDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ManufacturedItemDefinition", id)
@@ -3987,11 +3987,11 @@ func (w Concrete) ReadManufacturedItemDefinition(ctx context.Context, id string)
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ManufacturedItemDefinition)
+	r, ok := v.(r5.ManufacturedItemDefinition)
 	if !ok {
 		return r5.ManufacturedItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ManufacturedItemDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMeasure(ctx context.Context, id string) (r5.Measure, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Measure", id)
@@ -4002,11 +4002,11 @@ func (w Concrete) ReadMeasure(ctx context.Context, id string) (r5.Measure, capab
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Measure)
+	r, ok := v.(r5.Measure)
 	if !ok {
 		return r5.Measure{}, capabilities.InvalidResourceError{ResourceType: "Measure"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMeasureReport(ctx context.Context, id string) (r5.MeasureReport, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MeasureReport", id)
@@ -4017,11 +4017,11 @@ func (w Concrete) ReadMeasureReport(ctx context.Context, id string) (r5.MeasureR
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MeasureReport)
+	r, ok := v.(r5.MeasureReport)
 	if !ok {
 		return r5.MeasureReport{}, capabilities.InvalidResourceError{ResourceType: "MeasureReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMedication(ctx context.Context, id string) (r5.Medication, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Medication", id)
@@ -4032,11 +4032,11 @@ func (w Concrete) ReadMedication(ctx context.Context, id string) (r5.Medication,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Medication)
+	r, ok := v.(r5.Medication)
 	if !ok {
 		return r5.Medication{}, capabilities.InvalidResourceError{ResourceType: "Medication"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMedicationAdministration(ctx context.Context, id string) (r5.MedicationAdministration, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MedicationAdministration", id)
@@ -4047,11 +4047,11 @@ func (w Concrete) ReadMedicationAdministration(ctx context.Context, id string) (
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationAdministration)
+	r, ok := v.(r5.MedicationAdministration)
 	if !ok {
 		return r5.MedicationAdministration{}, capabilities.InvalidResourceError{ResourceType: "MedicationAdministration"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMedicationDispense(ctx context.Context, id string) (r5.MedicationDispense, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MedicationDispense", id)
@@ -4062,11 +4062,11 @@ func (w Concrete) ReadMedicationDispense(ctx context.Context, id string) (r5.Med
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationDispense)
+	r, ok := v.(r5.MedicationDispense)
 	if !ok {
 		return r5.MedicationDispense{}, capabilities.InvalidResourceError{ResourceType: "MedicationDispense"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMedicationKnowledge(ctx context.Context, id string) (r5.MedicationKnowledge, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MedicationKnowledge", id)
@@ -4077,11 +4077,11 @@ func (w Concrete) ReadMedicationKnowledge(ctx context.Context, id string) (r5.Me
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationKnowledge)
+	r, ok := v.(r5.MedicationKnowledge)
 	if !ok {
 		return r5.MedicationKnowledge{}, capabilities.InvalidResourceError{ResourceType: "MedicationKnowledge"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMedicationRequest(ctx context.Context, id string) (r5.MedicationRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MedicationRequest", id)
@@ -4092,11 +4092,11 @@ func (w Concrete) ReadMedicationRequest(ctx context.Context, id string) (r5.Medi
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationRequest)
+	r, ok := v.(r5.MedicationRequest)
 	if !ok {
 		return r5.MedicationRequest{}, capabilities.InvalidResourceError{ResourceType: "MedicationRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMedicationStatement(ctx context.Context, id string) (r5.MedicationStatement, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MedicationStatement", id)
@@ -4107,11 +4107,11 @@ func (w Concrete) ReadMedicationStatement(ctx context.Context, id string) (r5.Me
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicationStatement)
+	r, ok := v.(r5.MedicationStatement)
 	if !ok {
 		return r5.MedicationStatement{}, capabilities.InvalidResourceError{ResourceType: "MedicationStatement"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMedicinalProductDefinition(ctx context.Context, id string) (r5.MedicinalProductDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MedicinalProductDefinition", id)
@@ -4122,11 +4122,11 @@ func (w Concrete) ReadMedicinalProductDefinition(ctx context.Context, id string)
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MedicinalProductDefinition)
+	r, ok := v.(r5.MedicinalProductDefinition)
 	if !ok {
 		return r5.MedicinalProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "MedicinalProductDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMessageDefinition(ctx context.Context, id string) (r5.MessageDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MessageDefinition", id)
@@ -4137,11 +4137,11 @@ func (w Concrete) ReadMessageDefinition(ctx context.Context, id string) (r5.Mess
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MessageDefinition)
+	r, ok := v.(r5.MessageDefinition)
 	if !ok {
 		return r5.MessageDefinition{}, capabilities.InvalidResourceError{ResourceType: "MessageDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMessageHeader(ctx context.Context, id string) (r5.MessageHeader, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MessageHeader", id)
@@ -4152,11 +4152,11 @@ func (w Concrete) ReadMessageHeader(ctx context.Context, id string) (r5.MessageH
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MessageHeader)
+	r, ok := v.(r5.MessageHeader)
 	if !ok {
 		return r5.MessageHeader{}, capabilities.InvalidResourceError{ResourceType: "MessageHeader"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadMolecularSequence(ctx context.Context, id string) (r5.MolecularSequence, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "MolecularSequence", id)
@@ -4167,11 +4167,11 @@ func (w Concrete) ReadMolecularSequence(ctx context.Context, id string) (r5.Mole
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.MolecularSequence)
+	r, ok := v.(r5.MolecularSequence)
 	if !ok {
 		return r5.MolecularSequence{}, capabilities.InvalidResourceError{ResourceType: "MolecularSequence"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadNamingSystem(ctx context.Context, id string) (r5.NamingSystem, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "NamingSystem", id)
@@ -4182,11 +4182,11 @@ func (w Concrete) ReadNamingSystem(ctx context.Context, id string) (r5.NamingSys
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NamingSystem)
+	r, ok := v.(r5.NamingSystem)
 	if !ok {
 		return r5.NamingSystem{}, capabilities.InvalidResourceError{ResourceType: "NamingSystem"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadNutritionIntake(ctx context.Context, id string) (r5.NutritionIntake, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "NutritionIntake", id)
@@ -4197,11 +4197,11 @@ func (w Concrete) ReadNutritionIntake(ctx context.Context, id string) (r5.Nutrit
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NutritionIntake)
+	r, ok := v.(r5.NutritionIntake)
 	if !ok {
 		return r5.NutritionIntake{}, capabilities.InvalidResourceError{ResourceType: "NutritionIntake"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadNutritionOrder(ctx context.Context, id string) (r5.NutritionOrder, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "NutritionOrder", id)
@@ -4212,11 +4212,11 @@ func (w Concrete) ReadNutritionOrder(ctx context.Context, id string) (r5.Nutriti
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NutritionOrder)
+	r, ok := v.(r5.NutritionOrder)
 	if !ok {
 		return r5.NutritionOrder{}, capabilities.InvalidResourceError{ResourceType: "NutritionOrder"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadNutritionProduct(ctx context.Context, id string) (r5.NutritionProduct, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "NutritionProduct", id)
@@ -4227,11 +4227,11 @@ func (w Concrete) ReadNutritionProduct(ctx context.Context, id string) (r5.Nutri
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.NutritionProduct)
+	r, ok := v.(r5.NutritionProduct)
 	if !ok {
 		return r5.NutritionProduct{}, capabilities.InvalidResourceError{ResourceType: "NutritionProduct"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadObservation(ctx context.Context, id string) (r5.Observation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Observation", id)
@@ -4242,11 +4242,11 @@ func (w Concrete) ReadObservation(ctx context.Context, id string) (r5.Observatio
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Observation)
+	r, ok := v.(r5.Observation)
 	if !ok {
 		return r5.Observation{}, capabilities.InvalidResourceError{ResourceType: "Observation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadObservationDefinition(ctx context.Context, id string) (r5.ObservationDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ObservationDefinition", id)
@@ -4257,11 +4257,11 @@ func (w Concrete) ReadObservationDefinition(ctx context.Context, id string) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ObservationDefinition)
+	r, ok := v.(r5.ObservationDefinition)
 	if !ok {
 		return r5.ObservationDefinition{}, capabilities.InvalidResourceError{ResourceType: "ObservationDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadOperationDefinition(ctx context.Context, id string) (r5.OperationDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "OperationDefinition", id)
@@ -4272,11 +4272,11 @@ func (w Concrete) ReadOperationDefinition(ctx context.Context, id string) (r5.Op
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.OperationDefinition)
+	r, ok := v.(r5.OperationDefinition)
 	if !ok {
 		return r5.OperationDefinition{}, capabilities.InvalidResourceError{ResourceType: "OperationDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadOperationOutcome(ctx context.Context, id string) (r5.OperationOutcome, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "OperationOutcome", id)
@@ -4287,11 +4287,11 @@ func (w Concrete) ReadOperationOutcome(ctx context.Context, id string) (r5.Opera
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.OperationOutcome)
+	r, ok := v.(r5.OperationOutcome)
 	if !ok {
 		return r5.OperationOutcome{}, capabilities.InvalidResourceError{ResourceType: "OperationOutcome"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadOrganization(ctx context.Context, id string) (r5.Organization, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Organization", id)
@@ -4302,11 +4302,11 @@ func (w Concrete) ReadOrganization(ctx context.Context, id string) (r5.Organizat
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Organization)
+	r, ok := v.(r5.Organization)
 	if !ok {
 		return r5.Organization{}, capabilities.InvalidResourceError{ResourceType: "Organization"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadOrganizationAffiliation(ctx context.Context, id string) (r5.OrganizationAffiliation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "OrganizationAffiliation", id)
@@ -4317,11 +4317,11 @@ func (w Concrete) ReadOrganizationAffiliation(ctx context.Context, id string) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.OrganizationAffiliation)
+	r, ok := v.(r5.OrganizationAffiliation)
 	if !ok {
 		return r5.OrganizationAffiliation{}, capabilities.InvalidResourceError{ResourceType: "OrganizationAffiliation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPackagedProductDefinition(ctx context.Context, id string) (r5.PackagedProductDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "PackagedProductDefinition", id)
@@ -4332,11 +4332,11 @@ func (w Concrete) ReadPackagedProductDefinition(ctx context.Context, id string) 
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PackagedProductDefinition)
+	r, ok := v.(r5.PackagedProductDefinition)
 	if !ok {
 		return r5.PackagedProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "PackagedProductDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadParameters(ctx context.Context, id string) (r5.Parameters, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Parameters", id)
@@ -4347,11 +4347,11 @@ func (w Concrete) ReadParameters(ctx context.Context, id string) (r5.Parameters,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Parameters)
+	r, ok := v.(r5.Parameters)
 	if !ok {
 		return r5.Parameters{}, capabilities.InvalidResourceError{ResourceType: "Parameters"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPatient(ctx context.Context, id string) (r5.Patient, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Patient", id)
@@ -4362,11 +4362,11 @@ func (w Concrete) ReadPatient(ctx context.Context, id string) (r5.Patient, capab
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Patient)
+	r, ok := v.(r5.Patient)
 	if !ok {
 		return r5.Patient{}, capabilities.InvalidResourceError{ResourceType: "Patient"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPaymentNotice(ctx context.Context, id string) (r5.PaymentNotice, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "PaymentNotice", id)
@@ -4377,11 +4377,11 @@ func (w Concrete) ReadPaymentNotice(ctx context.Context, id string) (r5.PaymentN
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PaymentNotice)
+	r, ok := v.(r5.PaymentNotice)
 	if !ok {
 		return r5.PaymentNotice{}, capabilities.InvalidResourceError{ResourceType: "PaymentNotice"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPaymentReconciliation(ctx context.Context, id string) (r5.PaymentReconciliation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "PaymentReconciliation", id)
@@ -4392,11 +4392,11 @@ func (w Concrete) ReadPaymentReconciliation(ctx context.Context, id string) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PaymentReconciliation)
+	r, ok := v.(r5.PaymentReconciliation)
 	if !ok {
 		return r5.PaymentReconciliation{}, capabilities.InvalidResourceError{ResourceType: "PaymentReconciliation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPermission(ctx context.Context, id string) (r5.Permission, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Permission", id)
@@ -4407,11 +4407,11 @@ func (w Concrete) ReadPermission(ctx context.Context, id string) (r5.Permission,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Permission)
+	r, ok := v.(r5.Permission)
 	if !ok {
 		return r5.Permission{}, capabilities.InvalidResourceError{ResourceType: "Permission"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPerson(ctx context.Context, id string) (r5.Person, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Person", id)
@@ -4422,11 +4422,11 @@ func (w Concrete) ReadPerson(ctx context.Context, id string) (r5.Person, capabil
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Person)
+	r, ok := v.(r5.Person)
 	if !ok {
 		return r5.Person{}, capabilities.InvalidResourceError{ResourceType: "Person"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPlanDefinition(ctx context.Context, id string) (r5.PlanDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "PlanDefinition", id)
@@ -4437,11 +4437,11 @@ func (w Concrete) ReadPlanDefinition(ctx context.Context, id string) (r5.PlanDef
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PlanDefinition)
+	r, ok := v.(r5.PlanDefinition)
 	if !ok {
 		return r5.PlanDefinition{}, capabilities.InvalidResourceError{ResourceType: "PlanDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPractitioner(ctx context.Context, id string) (r5.Practitioner, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Practitioner", id)
@@ -4452,11 +4452,11 @@ func (w Concrete) ReadPractitioner(ctx context.Context, id string) (r5.Practitio
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Practitioner)
+	r, ok := v.(r5.Practitioner)
 	if !ok {
 		return r5.Practitioner{}, capabilities.InvalidResourceError{ResourceType: "Practitioner"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadPractitionerRole(ctx context.Context, id string) (r5.PractitionerRole, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "PractitionerRole", id)
@@ -4467,11 +4467,11 @@ func (w Concrete) ReadPractitionerRole(ctx context.Context, id string) (r5.Pract
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.PractitionerRole)
+	r, ok := v.(r5.PractitionerRole)
 	if !ok {
 		return r5.PractitionerRole{}, capabilities.InvalidResourceError{ResourceType: "PractitionerRole"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadProcedure(ctx context.Context, id string) (r5.Procedure, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Procedure", id)
@@ -4482,11 +4482,11 @@ func (w Concrete) ReadProcedure(ctx context.Context, id string) (r5.Procedure, c
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Procedure)
+	r, ok := v.(r5.Procedure)
 	if !ok {
 		return r5.Procedure{}, capabilities.InvalidResourceError{ResourceType: "Procedure"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadProvenance(ctx context.Context, id string) (r5.Provenance, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Provenance", id)
@@ -4497,11 +4497,11 @@ func (w Concrete) ReadProvenance(ctx context.Context, id string) (r5.Provenance,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Provenance)
+	r, ok := v.(r5.Provenance)
 	if !ok {
 		return r5.Provenance{}, capabilities.InvalidResourceError{ResourceType: "Provenance"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadQuestionnaire(ctx context.Context, id string) (r5.Questionnaire, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Questionnaire", id)
@@ -4512,11 +4512,11 @@ func (w Concrete) ReadQuestionnaire(ctx context.Context, id string) (r5.Question
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Questionnaire)
+	r, ok := v.(r5.Questionnaire)
 	if !ok {
 		return r5.Questionnaire{}, capabilities.InvalidResourceError{ResourceType: "Questionnaire"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadQuestionnaireResponse(ctx context.Context, id string) (r5.QuestionnaireResponse, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "QuestionnaireResponse", id)
@@ -4527,11 +4527,11 @@ func (w Concrete) ReadQuestionnaireResponse(ctx context.Context, id string) (r5.
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.QuestionnaireResponse)
+	r, ok := v.(r5.QuestionnaireResponse)
 	if !ok {
 		return r5.QuestionnaireResponse{}, capabilities.InvalidResourceError{ResourceType: "QuestionnaireResponse"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadRegulatedAuthorization(ctx context.Context, id string) (r5.RegulatedAuthorization, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "RegulatedAuthorization", id)
@@ -4542,11 +4542,11 @@ func (w Concrete) ReadRegulatedAuthorization(ctx context.Context, id string) (r5
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RegulatedAuthorization)
+	r, ok := v.(r5.RegulatedAuthorization)
 	if !ok {
 		return r5.RegulatedAuthorization{}, capabilities.InvalidResourceError{ResourceType: "RegulatedAuthorization"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadRelatedPerson(ctx context.Context, id string) (r5.RelatedPerson, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "RelatedPerson", id)
@@ -4557,11 +4557,11 @@ func (w Concrete) ReadRelatedPerson(ctx context.Context, id string) (r5.RelatedP
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RelatedPerson)
+	r, ok := v.(r5.RelatedPerson)
 	if !ok {
 		return r5.RelatedPerson{}, capabilities.InvalidResourceError{ResourceType: "RelatedPerson"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadRequestOrchestration(ctx context.Context, id string) (r5.RequestOrchestration, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "RequestOrchestration", id)
@@ -4572,11 +4572,11 @@ func (w Concrete) ReadRequestOrchestration(ctx context.Context, id string) (r5.R
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RequestOrchestration)
+	r, ok := v.(r5.RequestOrchestration)
 	if !ok {
 		return r5.RequestOrchestration{}, capabilities.InvalidResourceError{ResourceType: "RequestOrchestration"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadRequirements(ctx context.Context, id string) (r5.Requirements, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Requirements", id)
@@ -4587,11 +4587,11 @@ func (w Concrete) ReadRequirements(ctx context.Context, id string) (r5.Requireme
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Requirements)
+	r, ok := v.(r5.Requirements)
 	if !ok {
 		return r5.Requirements{}, capabilities.InvalidResourceError{ResourceType: "Requirements"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadResearchStudy(ctx context.Context, id string) (r5.ResearchStudy, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ResearchStudy", id)
@@ -4602,11 +4602,11 @@ func (w Concrete) ReadResearchStudy(ctx context.Context, id string) (r5.Research
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ResearchStudy)
+	r, ok := v.(r5.ResearchStudy)
 	if !ok {
 		return r5.ResearchStudy{}, capabilities.InvalidResourceError{ResourceType: "ResearchStudy"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadResearchSubject(ctx context.Context, id string) (r5.ResearchSubject, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ResearchSubject", id)
@@ -4617,11 +4617,11 @@ func (w Concrete) ReadResearchSubject(ctx context.Context, id string) (r5.Resear
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ResearchSubject)
+	r, ok := v.(r5.ResearchSubject)
 	if !ok {
 		return r5.ResearchSubject{}, capabilities.InvalidResourceError{ResourceType: "ResearchSubject"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadRiskAssessment(ctx context.Context, id string) (r5.RiskAssessment, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "RiskAssessment", id)
@@ -4632,11 +4632,11 @@ func (w Concrete) ReadRiskAssessment(ctx context.Context, id string) (r5.RiskAss
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.RiskAssessment)
+	r, ok := v.(r5.RiskAssessment)
 	if !ok {
 		return r5.RiskAssessment{}, capabilities.InvalidResourceError{ResourceType: "RiskAssessment"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSchedule(ctx context.Context, id string) (r5.Schedule, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Schedule", id)
@@ -4647,11 +4647,11 @@ func (w Concrete) ReadSchedule(ctx context.Context, id string) (r5.Schedule, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Schedule)
+	r, ok := v.(r5.Schedule)
 	if !ok {
 		return r5.Schedule{}, capabilities.InvalidResourceError{ResourceType: "Schedule"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSearchParameter(ctx context.Context, id string) (r5.SearchParameter, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SearchParameter", id)
@@ -4662,11 +4662,11 @@ func (w Concrete) ReadSearchParameter(ctx context.Context, id string) (r5.Search
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SearchParameter)
+	r, ok := v.(r5.SearchParameter)
 	if !ok {
 		return r5.SearchParameter{}, capabilities.InvalidResourceError{ResourceType: "SearchParameter"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadServiceRequest(ctx context.Context, id string) (r5.ServiceRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ServiceRequest", id)
@@ -4677,11 +4677,11 @@ func (w Concrete) ReadServiceRequest(ctx context.Context, id string) (r5.Service
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ServiceRequest)
+	r, ok := v.(r5.ServiceRequest)
 	if !ok {
 		return r5.ServiceRequest{}, capabilities.InvalidResourceError{ResourceType: "ServiceRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSlot(ctx context.Context, id string) (r5.Slot, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Slot", id)
@@ -4692,11 +4692,11 @@ func (w Concrete) ReadSlot(ctx context.Context, id string) (r5.Slot, capabilitie
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Slot)
+	r, ok := v.(r5.Slot)
 	if !ok {
 		return r5.Slot{}, capabilities.InvalidResourceError{ResourceType: "Slot"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSpecimen(ctx context.Context, id string) (r5.Specimen, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Specimen", id)
@@ -4707,11 +4707,11 @@ func (w Concrete) ReadSpecimen(ctx context.Context, id string) (r5.Specimen, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Specimen)
+	r, ok := v.(r5.Specimen)
 	if !ok {
 		return r5.Specimen{}, capabilities.InvalidResourceError{ResourceType: "Specimen"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSpecimenDefinition(ctx context.Context, id string) (r5.SpecimenDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SpecimenDefinition", id)
@@ -4722,11 +4722,11 @@ func (w Concrete) ReadSpecimenDefinition(ctx context.Context, id string) (r5.Spe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SpecimenDefinition)
+	r, ok := v.(r5.SpecimenDefinition)
 	if !ok {
 		return r5.SpecimenDefinition{}, capabilities.InvalidResourceError{ResourceType: "SpecimenDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadStructureDefinition(ctx context.Context, id string) (r5.StructureDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "StructureDefinition", id)
@@ -4737,11 +4737,11 @@ func (w Concrete) ReadStructureDefinition(ctx context.Context, id string) (r5.St
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.StructureDefinition)
+	r, ok := v.(r5.StructureDefinition)
 	if !ok {
 		return r5.StructureDefinition{}, capabilities.InvalidResourceError{ResourceType: "StructureDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadStructureMap(ctx context.Context, id string) (r5.StructureMap, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "StructureMap", id)
@@ -4752,11 +4752,11 @@ func (w Concrete) ReadStructureMap(ctx context.Context, id string) (r5.Structure
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.StructureMap)
+	r, ok := v.(r5.StructureMap)
 	if !ok {
 		return r5.StructureMap{}, capabilities.InvalidResourceError{ResourceType: "StructureMap"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubscription(ctx context.Context, id string) (r5.Subscription, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Subscription", id)
@@ -4767,11 +4767,11 @@ func (w Concrete) ReadSubscription(ctx context.Context, id string) (r5.Subscript
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Subscription)
+	r, ok := v.(r5.Subscription)
 	if !ok {
 		return r5.Subscription{}, capabilities.InvalidResourceError{ResourceType: "Subscription"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubscriptionStatus(ctx context.Context, id string) (r5.SubscriptionStatus, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubscriptionStatus", id)
@@ -4782,11 +4782,11 @@ func (w Concrete) ReadSubscriptionStatus(ctx context.Context, id string) (r5.Sub
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubscriptionStatus)
+	r, ok := v.(r5.SubscriptionStatus)
 	if !ok {
 		return r5.SubscriptionStatus{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionStatus"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubscriptionTopic(ctx context.Context, id string) (r5.SubscriptionTopic, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubscriptionTopic", id)
@@ -4797,11 +4797,11 @@ func (w Concrete) ReadSubscriptionTopic(ctx context.Context, id string) (r5.Subs
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubscriptionTopic)
+	r, ok := v.(r5.SubscriptionTopic)
 	if !ok {
 		return r5.SubscriptionTopic{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionTopic"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubstance(ctx context.Context, id string) (r5.Substance, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Substance", id)
@@ -4812,11 +4812,11 @@ func (w Concrete) ReadSubstance(ctx context.Context, id string) (r5.Substance, c
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Substance)
+	r, ok := v.(r5.Substance)
 	if !ok {
 		return r5.Substance{}, capabilities.InvalidResourceError{ResourceType: "Substance"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubstanceDefinition(ctx context.Context, id string) (r5.SubstanceDefinition, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubstanceDefinition", id)
@@ -4827,11 +4827,11 @@ func (w Concrete) ReadSubstanceDefinition(ctx context.Context, id string) (r5.Su
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceDefinition)
+	r, ok := v.(r5.SubstanceDefinition)
 	if !ok {
 		return r5.SubstanceDefinition{}, capabilities.InvalidResourceError{ResourceType: "SubstanceDefinition"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubstanceNucleicAcid(ctx context.Context, id string) (r5.SubstanceNucleicAcid, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubstanceNucleicAcid", id)
@@ -4842,11 +4842,11 @@ func (w Concrete) ReadSubstanceNucleicAcid(ctx context.Context, id string) (r5.S
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceNucleicAcid)
+	r, ok := v.(r5.SubstanceNucleicAcid)
 	if !ok {
 		return r5.SubstanceNucleicAcid{}, capabilities.InvalidResourceError{ResourceType: "SubstanceNucleicAcid"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubstancePolymer(ctx context.Context, id string) (r5.SubstancePolymer, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubstancePolymer", id)
@@ -4857,11 +4857,11 @@ func (w Concrete) ReadSubstancePolymer(ctx context.Context, id string) (r5.Subst
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstancePolymer)
+	r, ok := v.(r5.SubstancePolymer)
 	if !ok {
 		return r5.SubstancePolymer{}, capabilities.InvalidResourceError{ResourceType: "SubstancePolymer"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubstanceProtein(ctx context.Context, id string) (r5.SubstanceProtein, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubstanceProtein", id)
@@ -4872,11 +4872,11 @@ func (w Concrete) ReadSubstanceProtein(ctx context.Context, id string) (r5.Subst
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceProtein)
+	r, ok := v.(r5.SubstanceProtein)
 	if !ok {
 		return r5.SubstanceProtein{}, capabilities.InvalidResourceError{ResourceType: "SubstanceProtein"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubstanceReferenceInformation(ctx context.Context, id string) (r5.SubstanceReferenceInformation, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubstanceReferenceInformation", id)
@@ -4887,11 +4887,11 @@ func (w Concrete) ReadSubstanceReferenceInformation(ctx context.Context, id stri
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceReferenceInformation)
+	r, ok := v.(r5.SubstanceReferenceInformation)
 	if !ok {
 		return r5.SubstanceReferenceInformation{}, capabilities.InvalidResourceError{ResourceType: "SubstanceReferenceInformation"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSubstanceSourceMaterial(ctx context.Context, id string) (r5.SubstanceSourceMaterial, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SubstanceSourceMaterial", id)
@@ -4902,11 +4902,11 @@ func (w Concrete) ReadSubstanceSourceMaterial(ctx context.Context, id string) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SubstanceSourceMaterial)
+	r, ok := v.(r5.SubstanceSourceMaterial)
 	if !ok {
 		return r5.SubstanceSourceMaterial{}, capabilities.InvalidResourceError{ResourceType: "SubstanceSourceMaterial"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSupplyDelivery(ctx context.Context, id string) (r5.SupplyDelivery, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SupplyDelivery", id)
@@ -4917,11 +4917,11 @@ func (w Concrete) ReadSupplyDelivery(ctx context.Context, id string) (r5.SupplyD
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SupplyDelivery)
+	r, ok := v.(r5.SupplyDelivery)
 	if !ok {
 		return r5.SupplyDelivery{}, capabilities.InvalidResourceError{ResourceType: "SupplyDelivery"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadSupplyRequest(ctx context.Context, id string) (r5.SupplyRequest, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "SupplyRequest", id)
@@ -4932,11 +4932,11 @@ func (w Concrete) ReadSupplyRequest(ctx context.Context, id string) (r5.SupplyRe
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.SupplyRequest)
+	r, ok := v.(r5.SupplyRequest)
 	if !ok {
 		return r5.SupplyRequest{}, capabilities.InvalidResourceError{ResourceType: "SupplyRequest"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadTask(ctx context.Context, id string) (r5.Task, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Task", id)
@@ -4947,11 +4947,11 @@ func (w Concrete) ReadTask(ctx context.Context, id string) (r5.Task, capabilitie
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Task)
+	r, ok := v.(r5.Task)
 	if !ok {
 		return r5.Task{}, capabilities.InvalidResourceError{ResourceType: "Task"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadTerminologyCapabilities(ctx context.Context, id string) (r5.TerminologyCapabilities, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "TerminologyCapabilities", id)
@@ -4962,11 +4962,11 @@ func (w Concrete) ReadTerminologyCapabilities(ctx context.Context, id string) (r
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TerminologyCapabilities)
+	r, ok := v.(r5.TerminologyCapabilities)
 	if !ok {
 		return r5.TerminologyCapabilities{}, capabilities.InvalidResourceError{ResourceType: "TerminologyCapabilities"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadTestPlan(ctx context.Context, id string) (r5.TestPlan, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "TestPlan", id)
@@ -4977,11 +4977,11 @@ func (w Concrete) ReadTestPlan(ctx context.Context, id string) (r5.TestPlan, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TestPlan)
+	r, ok := v.(r5.TestPlan)
 	if !ok {
 		return r5.TestPlan{}, capabilities.InvalidResourceError{ResourceType: "TestPlan"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadTestReport(ctx context.Context, id string) (r5.TestReport, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "TestReport", id)
@@ -4992,11 +4992,11 @@ func (w Concrete) ReadTestReport(ctx context.Context, id string) (r5.TestReport,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TestReport)
+	r, ok := v.(r5.TestReport)
 	if !ok {
 		return r5.TestReport{}, capabilities.InvalidResourceError{ResourceType: "TestReport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadTestScript(ctx context.Context, id string) (r5.TestScript, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "TestScript", id)
@@ -5007,11 +5007,11 @@ func (w Concrete) ReadTestScript(ctx context.Context, id string) (r5.TestScript,
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.TestScript)
+	r, ok := v.(r5.TestScript)
 	if !ok {
 		return r5.TestScript{}, capabilities.InvalidResourceError{ResourceType: "TestScript"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadTransport(ctx context.Context, id string) (r5.Transport, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "Transport", id)
@@ -5022,11 +5022,11 @@ func (w Concrete) ReadTransport(ctx context.Context, id string) (r5.Transport, c
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.Transport)
+	r, ok := v.(r5.Transport)
 	if !ok {
 		return r5.Transport{}, capabilities.InvalidResourceError{ResourceType: "Transport"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadValueSet(ctx context.Context, id string) (r5.ValueSet, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "ValueSet", id)
@@ -5037,11 +5037,11 @@ func (w Concrete) ReadValueSet(ctx context.Context, id string) (r5.ValueSet, cap
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.ValueSet)
+	r, ok := v.(r5.ValueSet)
 	if !ok {
 		return r5.ValueSet{}, capabilities.InvalidResourceError{ResourceType: "ValueSet"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadVerificationResult(ctx context.Context, id string) (r5.VerificationResult, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "VerificationResult", id)
@@ -5052,11 +5052,11 @@ func (w Concrete) ReadVerificationResult(ctx context.Context, id string) (r5.Ver
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.VerificationResult)
+	r, ok := v.(r5.VerificationResult)
 	if !ok {
 		return r5.VerificationResult{}, capabilities.InvalidResourceError{ResourceType: "VerificationResult"}
 	}
-	return impl, nil
+	return r, nil
 }
 func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r5.VisionPrescription, capabilities.FHIRError) {
 	v, err := w.Generic.Read(ctx, "VisionPrescription", id)
@@ -5067,11 +5067,3171 @@ func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r5.Vis
 	if ok {
 		v = contained.Resource
 	}
-	impl, ok := v.(r5.VisionPrescription)
+	r, ok := v.(r5.VisionPrescription)
 	if !ok {
 		return r5.VisionPrescription{}, capabilities.InvalidResourceError{ResourceType: "VisionPrescription"}
 	}
-	return impl, nil
+	return r, nil
+}
+func (w Concrete) UpdateAccount(ctx context.Context, resource r5.Account) (capabilities.UpdateResult[r5.Account], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Account]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Account)
+	if !ok {
+		return capabilities.UpdateResult[r5.Account]{}, capabilities.InvalidResourceError{ResourceType: "Account"}
+	}
+	return capabilities.UpdateResult[r5.Account]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r5.ActivityDefinition) (capabilities.UpdateResult[r5.ActivityDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ActivityDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ActivityDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.ActivityDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ActivityDefinition"}
+	}
+	return capabilities.UpdateResult[r5.ActivityDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateActorDefinition(ctx context.Context, resource r5.ActorDefinition) (capabilities.UpdateResult[r5.ActorDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ActorDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ActorDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.ActorDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ActorDefinition"}
+	}
+	return capabilities.UpdateResult[r5.ActorDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, resource r5.AdministrableProductDefinition) (capabilities.UpdateResult[r5.AdministrableProductDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.AdministrableProductDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.AdministrableProductDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.AdministrableProductDefinition]{}, capabilities.InvalidResourceError{ResourceType: "AdministrableProductDefinition"}
+	}
+	return capabilities.UpdateResult[r5.AdministrableProductDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r5.AdverseEvent) (capabilities.UpdateResult[r5.AdverseEvent], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.AdverseEvent]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.AdverseEvent)
+	if !ok {
+		return capabilities.UpdateResult[r5.AdverseEvent]{}, capabilities.InvalidResourceError{ResourceType: "AdverseEvent"}
+	}
+	return capabilities.UpdateResult[r5.AdverseEvent]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r5.AllergyIntolerance) (capabilities.UpdateResult[r5.AllergyIntolerance], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.AllergyIntolerance]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.AllergyIntolerance)
+	if !ok {
+		return capabilities.UpdateResult[r5.AllergyIntolerance]{}, capabilities.InvalidResourceError{ResourceType: "AllergyIntolerance"}
+	}
+	return capabilities.UpdateResult[r5.AllergyIntolerance]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateAppointment(ctx context.Context, resource r5.Appointment) (capabilities.UpdateResult[r5.Appointment], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Appointment]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Appointment)
+	if !ok {
+		return capabilities.UpdateResult[r5.Appointment]{}, capabilities.InvalidResourceError{ResourceType: "Appointment"}
+	}
+	return capabilities.UpdateResult[r5.Appointment]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r5.AppointmentResponse) (capabilities.UpdateResult[r5.AppointmentResponse], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.AppointmentResponse]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.AppointmentResponse)
+	if !ok {
+		return capabilities.UpdateResult[r5.AppointmentResponse]{}, capabilities.InvalidResourceError{ResourceType: "AppointmentResponse"}
+	}
+	return capabilities.UpdateResult[r5.AppointmentResponse]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateArtifactAssessment(ctx context.Context, resource r5.ArtifactAssessment) (capabilities.UpdateResult[r5.ArtifactAssessment], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ArtifactAssessment]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ArtifactAssessment)
+	if !ok {
+		return capabilities.UpdateResult[r5.ArtifactAssessment]{}, capabilities.InvalidResourceError{ResourceType: "ArtifactAssessment"}
+	}
+	return capabilities.UpdateResult[r5.ArtifactAssessment]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r5.AuditEvent) (capabilities.UpdateResult[r5.AuditEvent], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.AuditEvent]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.AuditEvent)
+	if !ok {
+		return capabilities.UpdateResult[r5.AuditEvent]{}, capabilities.InvalidResourceError{ResourceType: "AuditEvent"}
+	}
+	return capabilities.UpdateResult[r5.AuditEvent]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateBasic(ctx context.Context, resource r5.Basic) (capabilities.UpdateResult[r5.Basic], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Basic]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Basic)
+	if !ok {
+		return capabilities.UpdateResult[r5.Basic]{}, capabilities.InvalidResourceError{ResourceType: "Basic"}
+	}
+	return capabilities.UpdateResult[r5.Basic]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateBinary(ctx context.Context, resource r5.Binary) (capabilities.UpdateResult[r5.Binary], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Binary]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Binary)
+	if !ok {
+		return capabilities.UpdateResult[r5.Binary]{}, capabilities.InvalidResourceError{ResourceType: "Binary"}
+	}
+	return capabilities.UpdateResult[r5.Binary]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r5.BiologicallyDerivedProduct) (capabilities.UpdateResult[r5.BiologicallyDerivedProduct], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.BiologicallyDerivedProduct]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.BiologicallyDerivedProduct)
+	if !ok {
+		return capabilities.UpdateResult[r5.BiologicallyDerivedProduct]{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProduct"}
+	}
+	return capabilities.UpdateResult[r5.BiologicallyDerivedProduct]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateBiologicallyDerivedProductDispense(ctx context.Context, resource r5.BiologicallyDerivedProductDispense) (capabilities.UpdateResult[r5.BiologicallyDerivedProductDispense], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.BiologicallyDerivedProductDispense]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.BiologicallyDerivedProductDispense)
+	if !ok {
+		return capabilities.UpdateResult[r5.BiologicallyDerivedProductDispense]{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProductDispense"}
+	}
+	return capabilities.UpdateResult[r5.BiologicallyDerivedProductDispense]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r5.BodyStructure) (capabilities.UpdateResult[r5.BodyStructure], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.BodyStructure]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.BodyStructure)
+	if !ok {
+		return capabilities.UpdateResult[r5.BodyStructure]{}, capabilities.InvalidResourceError{ResourceType: "BodyStructure"}
+	}
+	return capabilities.UpdateResult[r5.BodyStructure]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateBundle(ctx context.Context, resource r5.Bundle) (capabilities.UpdateResult[r5.Bundle], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Bundle]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Bundle)
+	if !ok {
+		return capabilities.UpdateResult[r5.Bundle]{}, capabilities.InvalidResourceError{ResourceType: "Bundle"}
+	}
+	return capabilities.UpdateResult[r5.Bundle]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r5.CapabilityStatement) (capabilities.UpdateResult[r5.CapabilityStatement], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CapabilityStatement]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CapabilityStatement)
+	if !ok {
+		return capabilities.UpdateResult[r5.CapabilityStatement]{}, capabilities.InvalidResourceError{ResourceType: "CapabilityStatement"}
+	}
+	return capabilities.UpdateResult[r5.CapabilityStatement]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCarePlan(ctx context.Context, resource r5.CarePlan) (capabilities.UpdateResult[r5.CarePlan], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CarePlan]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CarePlan)
+	if !ok {
+		return capabilities.UpdateResult[r5.CarePlan]{}, capabilities.InvalidResourceError{ResourceType: "CarePlan"}
+	}
+	return capabilities.UpdateResult[r5.CarePlan]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCareTeam(ctx context.Context, resource r5.CareTeam) (capabilities.UpdateResult[r5.CareTeam], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CareTeam]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CareTeam)
+	if !ok {
+		return capabilities.UpdateResult[r5.CareTeam]{}, capabilities.InvalidResourceError{ResourceType: "CareTeam"}
+	}
+	return capabilities.UpdateResult[r5.CareTeam]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateChargeItem(ctx context.Context, resource r5.ChargeItem) (capabilities.UpdateResult[r5.ChargeItem], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ChargeItem]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ChargeItem)
+	if !ok {
+		return capabilities.UpdateResult[r5.ChargeItem]{}, capabilities.InvalidResourceError{ResourceType: "ChargeItem"}
+	}
+	return capabilities.UpdateResult[r5.ChargeItem]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r5.ChargeItemDefinition) (capabilities.UpdateResult[r5.ChargeItemDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ChargeItemDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ChargeItemDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.ChargeItemDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ChargeItemDefinition"}
+	}
+	return capabilities.UpdateResult[r5.ChargeItemDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCitation(ctx context.Context, resource r5.Citation) (capabilities.UpdateResult[r5.Citation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Citation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Citation)
+	if !ok {
+		return capabilities.UpdateResult[r5.Citation]{}, capabilities.InvalidResourceError{ResourceType: "Citation"}
+	}
+	return capabilities.UpdateResult[r5.Citation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateClaim(ctx context.Context, resource r5.Claim) (capabilities.UpdateResult[r5.Claim], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Claim]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Claim)
+	if !ok {
+		return capabilities.UpdateResult[r5.Claim]{}, capabilities.InvalidResourceError{ResourceType: "Claim"}
+	}
+	return capabilities.UpdateResult[r5.Claim]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r5.ClaimResponse) (capabilities.UpdateResult[r5.ClaimResponse], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ClaimResponse]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ClaimResponse)
+	if !ok {
+		return capabilities.UpdateResult[r5.ClaimResponse]{}, capabilities.InvalidResourceError{ResourceType: "ClaimResponse"}
+	}
+	return capabilities.UpdateResult[r5.ClaimResponse]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r5.ClinicalImpression) (capabilities.UpdateResult[r5.ClinicalImpression], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ClinicalImpression]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ClinicalImpression)
+	if !ok {
+		return capabilities.UpdateResult[r5.ClinicalImpression]{}, capabilities.InvalidResourceError{ResourceType: "ClinicalImpression"}
+	}
+	return capabilities.UpdateResult[r5.ClinicalImpression]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r5.ClinicalUseDefinition) (capabilities.UpdateResult[r5.ClinicalUseDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ClinicalUseDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ClinicalUseDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.ClinicalUseDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ClinicalUseDefinition"}
+	}
+	return capabilities.UpdateResult[r5.ClinicalUseDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r5.CodeSystem) (capabilities.UpdateResult[r5.CodeSystem], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CodeSystem]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CodeSystem)
+	if !ok {
+		return capabilities.UpdateResult[r5.CodeSystem]{}, capabilities.InvalidResourceError{ResourceType: "CodeSystem"}
+	}
+	return capabilities.UpdateResult[r5.CodeSystem]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCommunication(ctx context.Context, resource r5.Communication) (capabilities.UpdateResult[r5.Communication], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Communication]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Communication)
+	if !ok {
+		return capabilities.UpdateResult[r5.Communication]{}, capabilities.InvalidResourceError{ResourceType: "Communication"}
+	}
+	return capabilities.UpdateResult[r5.Communication]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r5.CommunicationRequest) (capabilities.UpdateResult[r5.CommunicationRequest], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CommunicationRequest]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CommunicationRequest)
+	if !ok {
+		return capabilities.UpdateResult[r5.CommunicationRequest]{}, capabilities.InvalidResourceError{ResourceType: "CommunicationRequest"}
+	}
+	return capabilities.UpdateResult[r5.CommunicationRequest]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r5.CompartmentDefinition) (capabilities.UpdateResult[r5.CompartmentDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CompartmentDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CompartmentDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.CompartmentDefinition]{}, capabilities.InvalidResourceError{ResourceType: "CompartmentDefinition"}
+	}
+	return capabilities.UpdateResult[r5.CompartmentDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateComposition(ctx context.Context, resource r5.Composition) (capabilities.UpdateResult[r5.Composition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Composition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Composition)
+	if !ok {
+		return capabilities.UpdateResult[r5.Composition]{}, capabilities.InvalidResourceError{ResourceType: "Composition"}
+	}
+	return capabilities.UpdateResult[r5.Composition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateConceptMap(ctx context.Context, resource r5.ConceptMap) (capabilities.UpdateResult[r5.ConceptMap], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ConceptMap]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ConceptMap)
+	if !ok {
+		return capabilities.UpdateResult[r5.ConceptMap]{}, capabilities.InvalidResourceError{ResourceType: "ConceptMap"}
+	}
+	return capabilities.UpdateResult[r5.ConceptMap]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCondition(ctx context.Context, resource r5.Condition) (capabilities.UpdateResult[r5.Condition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Condition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Condition)
+	if !ok {
+		return capabilities.UpdateResult[r5.Condition]{}, capabilities.InvalidResourceError{ResourceType: "Condition"}
+	}
+	return capabilities.UpdateResult[r5.Condition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateConditionDefinition(ctx context.Context, resource r5.ConditionDefinition) (capabilities.UpdateResult[r5.ConditionDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ConditionDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ConditionDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.ConditionDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ConditionDefinition"}
+	}
+	return capabilities.UpdateResult[r5.ConditionDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateConsent(ctx context.Context, resource r5.Consent) (capabilities.UpdateResult[r5.Consent], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Consent]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Consent)
+	if !ok {
+		return capabilities.UpdateResult[r5.Consent]{}, capabilities.InvalidResourceError{ResourceType: "Consent"}
+	}
+	return capabilities.UpdateResult[r5.Consent]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateContract(ctx context.Context, resource r5.Contract) (capabilities.UpdateResult[r5.Contract], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Contract]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Contract)
+	if !ok {
+		return capabilities.UpdateResult[r5.Contract]{}, capabilities.InvalidResourceError{ResourceType: "Contract"}
+	}
+	return capabilities.UpdateResult[r5.Contract]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCoverage(ctx context.Context, resource r5.Coverage) (capabilities.UpdateResult[r5.Coverage], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Coverage]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Coverage)
+	if !ok {
+		return capabilities.UpdateResult[r5.Coverage]{}, capabilities.InvalidResourceError{ResourceType: "Coverage"}
+	}
+	return capabilities.UpdateResult[r5.Coverage]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource r5.CoverageEligibilityRequest) (capabilities.UpdateResult[r5.CoverageEligibilityRequest], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CoverageEligibilityRequest]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CoverageEligibilityRequest)
+	if !ok {
+		return capabilities.UpdateResult[r5.CoverageEligibilityRequest]{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityRequest"}
+	}
+	return capabilities.UpdateResult[r5.CoverageEligibilityRequest]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resource r5.CoverageEligibilityResponse) (capabilities.UpdateResult[r5.CoverageEligibilityResponse], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.CoverageEligibilityResponse]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.CoverageEligibilityResponse)
+	if !ok {
+		return capabilities.UpdateResult[r5.CoverageEligibilityResponse]{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityResponse"}
+	}
+	return capabilities.UpdateResult[r5.CoverageEligibilityResponse]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r5.DetectedIssue) (capabilities.UpdateResult[r5.DetectedIssue], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DetectedIssue]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DetectedIssue)
+	if !ok {
+		return capabilities.UpdateResult[r5.DetectedIssue]{}, capabilities.InvalidResourceError{ResourceType: "DetectedIssue"}
+	}
+	return capabilities.UpdateResult[r5.DetectedIssue]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDevice(ctx context.Context, resource r5.Device) (capabilities.UpdateResult[r5.Device], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Device]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Device)
+	if !ok {
+		return capabilities.UpdateResult[r5.Device]{}, capabilities.InvalidResourceError{ResourceType: "Device"}
+	}
+	return capabilities.UpdateResult[r5.Device]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDeviceAssociation(ctx context.Context, resource r5.DeviceAssociation) (capabilities.UpdateResult[r5.DeviceAssociation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DeviceAssociation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DeviceAssociation)
+	if !ok {
+		return capabilities.UpdateResult[r5.DeviceAssociation]{}, capabilities.InvalidResourceError{ResourceType: "DeviceAssociation"}
+	}
+	return capabilities.UpdateResult[r5.DeviceAssociation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r5.DeviceDefinition) (capabilities.UpdateResult[r5.DeviceDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DeviceDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DeviceDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.DeviceDefinition]{}, capabilities.InvalidResourceError{ResourceType: "DeviceDefinition"}
+	}
+	return capabilities.UpdateResult[r5.DeviceDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDeviceDispense(ctx context.Context, resource r5.DeviceDispense) (capabilities.UpdateResult[r5.DeviceDispense], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DeviceDispense]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DeviceDispense)
+	if !ok {
+		return capabilities.UpdateResult[r5.DeviceDispense]{}, capabilities.InvalidResourceError{ResourceType: "DeviceDispense"}
+	}
+	return capabilities.UpdateResult[r5.DeviceDispense]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r5.DeviceMetric) (capabilities.UpdateResult[r5.DeviceMetric], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DeviceMetric]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DeviceMetric)
+	if !ok {
+		return capabilities.UpdateResult[r5.DeviceMetric]{}, capabilities.InvalidResourceError{ResourceType: "DeviceMetric"}
+	}
+	return capabilities.UpdateResult[r5.DeviceMetric]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r5.DeviceRequest) (capabilities.UpdateResult[r5.DeviceRequest], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DeviceRequest]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DeviceRequest)
+	if !ok {
+		return capabilities.UpdateResult[r5.DeviceRequest]{}, capabilities.InvalidResourceError{ResourceType: "DeviceRequest"}
+	}
+	return capabilities.UpdateResult[r5.DeviceRequest]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDeviceUsage(ctx context.Context, resource r5.DeviceUsage) (capabilities.UpdateResult[r5.DeviceUsage], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DeviceUsage]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DeviceUsage)
+	if !ok {
+		return capabilities.UpdateResult[r5.DeviceUsage]{}, capabilities.InvalidResourceError{ResourceType: "DeviceUsage"}
+	}
+	return capabilities.UpdateResult[r5.DeviceUsage]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r5.DiagnosticReport) (capabilities.UpdateResult[r5.DiagnosticReport], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DiagnosticReport]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DiagnosticReport)
+	if !ok {
+		return capabilities.UpdateResult[r5.DiagnosticReport]{}, capabilities.InvalidResourceError{ResourceType: "DiagnosticReport"}
+	}
+	return capabilities.UpdateResult[r5.DiagnosticReport]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r5.DocumentReference) (capabilities.UpdateResult[r5.DocumentReference], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.DocumentReference]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.DocumentReference)
+	if !ok {
+		return capabilities.UpdateResult[r5.DocumentReference]{}, capabilities.InvalidResourceError{ResourceType: "DocumentReference"}
+	}
+	return capabilities.UpdateResult[r5.DocumentReference]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEncounter(ctx context.Context, resource r5.Encounter) (capabilities.UpdateResult[r5.Encounter], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Encounter]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Encounter)
+	if !ok {
+		return capabilities.UpdateResult[r5.Encounter]{}, capabilities.InvalidResourceError{ResourceType: "Encounter"}
+	}
+	return capabilities.UpdateResult[r5.Encounter]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEncounterHistory(ctx context.Context, resource r5.EncounterHistory) (capabilities.UpdateResult[r5.EncounterHistory], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.EncounterHistory]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.EncounterHistory)
+	if !ok {
+		return capabilities.UpdateResult[r5.EncounterHistory]{}, capabilities.InvalidResourceError{ResourceType: "EncounterHistory"}
+	}
+	return capabilities.UpdateResult[r5.EncounterHistory]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEndpoint(ctx context.Context, resource r5.Endpoint) (capabilities.UpdateResult[r5.Endpoint], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Endpoint]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Endpoint)
+	if !ok {
+		return capabilities.UpdateResult[r5.Endpoint]{}, capabilities.InvalidResourceError{ResourceType: "Endpoint"}
+	}
+	return capabilities.UpdateResult[r5.Endpoint]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r5.EnrollmentRequest) (capabilities.UpdateResult[r5.EnrollmentRequest], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.EnrollmentRequest]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.EnrollmentRequest)
+	if !ok {
+		return capabilities.UpdateResult[r5.EnrollmentRequest]{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentRequest"}
+	}
+	return capabilities.UpdateResult[r5.EnrollmentRequest]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r5.EnrollmentResponse) (capabilities.UpdateResult[r5.EnrollmentResponse], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.EnrollmentResponse]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.EnrollmentResponse)
+	if !ok {
+		return capabilities.UpdateResult[r5.EnrollmentResponse]{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentResponse"}
+	}
+	return capabilities.UpdateResult[r5.EnrollmentResponse]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r5.EpisodeOfCare) (capabilities.UpdateResult[r5.EpisodeOfCare], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.EpisodeOfCare]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.EpisodeOfCare)
+	if !ok {
+		return capabilities.UpdateResult[r5.EpisodeOfCare]{}, capabilities.InvalidResourceError{ResourceType: "EpisodeOfCare"}
+	}
+	return capabilities.UpdateResult[r5.EpisodeOfCare]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r5.EventDefinition) (capabilities.UpdateResult[r5.EventDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.EventDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.EventDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.EventDefinition]{}, capabilities.InvalidResourceError{ResourceType: "EventDefinition"}
+	}
+	return capabilities.UpdateResult[r5.EventDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEvidence(ctx context.Context, resource r5.Evidence) (capabilities.UpdateResult[r5.Evidence], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Evidence]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Evidence)
+	if !ok {
+		return capabilities.UpdateResult[r5.Evidence]{}, capabilities.InvalidResourceError{ResourceType: "Evidence"}
+	}
+	return capabilities.UpdateResult[r5.Evidence]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r5.EvidenceReport) (capabilities.UpdateResult[r5.EvidenceReport], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.EvidenceReport]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.EvidenceReport)
+	if !ok {
+		return capabilities.UpdateResult[r5.EvidenceReport]{}, capabilities.InvalidResourceError{ResourceType: "EvidenceReport"}
+	}
+	return capabilities.UpdateResult[r5.EvidenceReport]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r5.EvidenceVariable) (capabilities.UpdateResult[r5.EvidenceVariable], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.EvidenceVariable]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.EvidenceVariable)
+	if !ok {
+		return capabilities.UpdateResult[r5.EvidenceVariable]{}, capabilities.InvalidResourceError{ResourceType: "EvidenceVariable"}
+	}
+	return capabilities.UpdateResult[r5.EvidenceVariable]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r5.ExampleScenario) (capabilities.UpdateResult[r5.ExampleScenario], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ExampleScenario]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ExampleScenario)
+	if !ok {
+		return capabilities.UpdateResult[r5.ExampleScenario]{}, capabilities.InvalidResourceError{ResourceType: "ExampleScenario"}
+	}
+	return capabilities.UpdateResult[r5.ExampleScenario]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r5.ExplanationOfBenefit) (capabilities.UpdateResult[r5.ExplanationOfBenefit], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ExplanationOfBenefit]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ExplanationOfBenefit)
+	if !ok {
+		return capabilities.UpdateResult[r5.ExplanationOfBenefit]{}, capabilities.InvalidResourceError{ResourceType: "ExplanationOfBenefit"}
+	}
+	return capabilities.UpdateResult[r5.ExplanationOfBenefit]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r5.FamilyMemberHistory) (capabilities.UpdateResult[r5.FamilyMemberHistory], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.FamilyMemberHistory]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.FamilyMemberHistory)
+	if !ok {
+		return capabilities.UpdateResult[r5.FamilyMemberHistory]{}, capabilities.InvalidResourceError{ResourceType: "FamilyMemberHistory"}
+	}
+	return capabilities.UpdateResult[r5.FamilyMemberHistory]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateFlag(ctx context.Context, resource r5.Flag) (capabilities.UpdateResult[r5.Flag], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Flag]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Flag)
+	if !ok {
+		return capabilities.UpdateResult[r5.Flag]{}, capabilities.InvalidResourceError{ResourceType: "Flag"}
+	}
+	return capabilities.UpdateResult[r5.Flag]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateFormularyItem(ctx context.Context, resource r5.FormularyItem) (capabilities.UpdateResult[r5.FormularyItem], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.FormularyItem]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.FormularyItem)
+	if !ok {
+		return capabilities.UpdateResult[r5.FormularyItem]{}, capabilities.InvalidResourceError{ResourceType: "FormularyItem"}
+	}
+	return capabilities.UpdateResult[r5.FormularyItem]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateGenomicStudy(ctx context.Context, resource r5.GenomicStudy) (capabilities.UpdateResult[r5.GenomicStudy], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.GenomicStudy]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.GenomicStudy)
+	if !ok {
+		return capabilities.UpdateResult[r5.GenomicStudy]{}, capabilities.InvalidResourceError{ResourceType: "GenomicStudy"}
+	}
+	return capabilities.UpdateResult[r5.GenomicStudy]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateGoal(ctx context.Context, resource r5.Goal) (capabilities.UpdateResult[r5.Goal], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Goal]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Goal)
+	if !ok {
+		return capabilities.UpdateResult[r5.Goal]{}, capabilities.InvalidResourceError{ResourceType: "Goal"}
+	}
+	return capabilities.UpdateResult[r5.Goal]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r5.GraphDefinition) (capabilities.UpdateResult[r5.GraphDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.GraphDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.GraphDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.GraphDefinition]{}, capabilities.InvalidResourceError{ResourceType: "GraphDefinition"}
+	}
+	return capabilities.UpdateResult[r5.GraphDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateGroup(ctx context.Context, resource r5.Group) (capabilities.UpdateResult[r5.Group], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Group]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Group)
+	if !ok {
+		return capabilities.UpdateResult[r5.Group]{}, capabilities.InvalidResourceError{ResourceType: "Group"}
+	}
+	return capabilities.UpdateResult[r5.Group]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r5.GuidanceResponse) (capabilities.UpdateResult[r5.GuidanceResponse], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.GuidanceResponse]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.GuidanceResponse)
+	if !ok {
+		return capabilities.UpdateResult[r5.GuidanceResponse]{}, capabilities.InvalidResourceError{ResourceType: "GuidanceResponse"}
+	}
+	return capabilities.UpdateResult[r5.GuidanceResponse]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r5.HealthcareService) (capabilities.UpdateResult[r5.HealthcareService], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.HealthcareService]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.HealthcareService)
+	if !ok {
+		return capabilities.UpdateResult[r5.HealthcareService]{}, capabilities.InvalidResourceError{ResourceType: "HealthcareService"}
+	}
+	return capabilities.UpdateResult[r5.HealthcareService]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateImagingSelection(ctx context.Context, resource r5.ImagingSelection) (capabilities.UpdateResult[r5.ImagingSelection], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ImagingSelection]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ImagingSelection)
+	if !ok {
+		return capabilities.UpdateResult[r5.ImagingSelection]{}, capabilities.InvalidResourceError{ResourceType: "ImagingSelection"}
+	}
+	return capabilities.UpdateResult[r5.ImagingSelection]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r5.ImagingStudy) (capabilities.UpdateResult[r5.ImagingStudy], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ImagingStudy]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ImagingStudy)
+	if !ok {
+		return capabilities.UpdateResult[r5.ImagingStudy]{}, capabilities.InvalidResourceError{ResourceType: "ImagingStudy"}
+	}
+	return capabilities.UpdateResult[r5.ImagingStudy]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateImmunization(ctx context.Context, resource r5.Immunization) (capabilities.UpdateResult[r5.Immunization], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Immunization]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Immunization)
+	if !ok {
+		return capabilities.UpdateResult[r5.Immunization]{}, capabilities.InvalidResourceError{ResourceType: "Immunization"}
+	}
+	return capabilities.UpdateResult[r5.Immunization]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r5.ImmunizationEvaluation) (capabilities.UpdateResult[r5.ImmunizationEvaluation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ImmunizationEvaluation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ImmunizationEvaluation)
+	if !ok {
+		return capabilities.UpdateResult[r5.ImmunizationEvaluation]{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationEvaluation"}
+	}
+	return capabilities.UpdateResult[r5.ImmunizationEvaluation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource r5.ImmunizationRecommendation) (capabilities.UpdateResult[r5.ImmunizationRecommendation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ImmunizationRecommendation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ImmunizationRecommendation)
+	if !ok {
+		return capabilities.UpdateResult[r5.ImmunizationRecommendation]{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationRecommendation"}
+	}
+	return capabilities.UpdateResult[r5.ImmunizationRecommendation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r5.ImplementationGuide) (capabilities.UpdateResult[r5.ImplementationGuide], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ImplementationGuide]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ImplementationGuide)
+	if !ok {
+		return capabilities.UpdateResult[r5.ImplementationGuide]{}, capabilities.InvalidResourceError{ResourceType: "ImplementationGuide"}
+	}
+	return capabilities.UpdateResult[r5.ImplementationGuide]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateIngredient(ctx context.Context, resource r5.Ingredient) (capabilities.UpdateResult[r5.Ingredient], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Ingredient]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Ingredient)
+	if !ok {
+		return capabilities.UpdateResult[r5.Ingredient]{}, capabilities.InvalidResourceError{ResourceType: "Ingredient"}
+	}
+	return capabilities.UpdateResult[r5.Ingredient]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r5.InsurancePlan) (capabilities.UpdateResult[r5.InsurancePlan], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.InsurancePlan]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.InsurancePlan)
+	if !ok {
+		return capabilities.UpdateResult[r5.InsurancePlan]{}, capabilities.InvalidResourceError{ResourceType: "InsurancePlan"}
+	}
+	return capabilities.UpdateResult[r5.InsurancePlan]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateInventoryItem(ctx context.Context, resource r5.InventoryItem) (capabilities.UpdateResult[r5.InventoryItem], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.InventoryItem]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.InventoryItem)
+	if !ok {
+		return capabilities.UpdateResult[r5.InventoryItem]{}, capabilities.InvalidResourceError{ResourceType: "InventoryItem"}
+	}
+	return capabilities.UpdateResult[r5.InventoryItem]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateInventoryReport(ctx context.Context, resource r5.InventoryReport) (capabilities.UpdateResult[r5.InventoryReport], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.InventoryReport]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.InventoryReport)
+	if !ok {
+		return capabilities.UpdateResult[r5.InventoryReport]{}, capabilities.InvalidResourceError{ResourceType: "InventoryReport"}
+	}
+	return capabilities.UpdateResult[r5.InventoryReport]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateInvoice(ctx context.Context, resource r5.Invoice) (capabilities.UpdateResult[r5.Invoice], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Invoice]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Invoice)
+	if !ok {
+		return capabilities.UpdateResult[r5.Invoice]{}, capabilities.InvalidResourceError{ResourceType: "Invoice"}
+	}
+	return capabilities.UpdateResult[r5.Invoice]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateLibrary(ctx context.Context, resource r5.Library) (capabilities.UpdateResult[r5.Library], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Library]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Library)
+	if !ok {
+		return capabilities.UpdateResult[r5.Library]{}, capabilities.InvalidResourceError{ResourceType: "Library"}
+	}
+	return capabilities.UpdateResult[r5.Library]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateLinkage(ctx context.Context, resource r5.Linkage) (capabilities.UpdateResult[r5.Linkage], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Linkage]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Linkage)
+	if !ok {
+		return capabilities.UpdateResult[r5.Linkage]{}, capabilities.InvalidResourceError{ResourceType: "Linkage"}
+	}
+	return capabilities.UpdateResult[r5.Linkage]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateList(ctx context.Context, resource r5.List) (capabilities.UpdateResult[r5.List], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.List]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.List)
+	if !ok {
+		return capabilities.UpdateResult[r5.List]{}, capabilities.InvalidResourceError{ResourceType: "List"}
+	}
+	return capabilities.UpdateResult[r5.List]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateLocation(ctx context.Context, resource r5.Location) (capabilities.UpdateResult[r5.Location], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Location]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Location)
+	if !ok {
+		return capabilities.UpdateResult[r5.Location]{}, capabilities.InvalidResourceError{ResourceType: "Location"}
+	}
+	return capabilities.UpdateResult[r5.Location]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource r5.ManufacturedItemDefinition) (capabilities.UpdateResult[r5.ManufacturedItemDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ManufacturedItemDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ManufacturedItemDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.ManufacturedItemDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ManufacturedItemDefinition"}
+	}
+	return capabilities.UpdateResult[r5.ManufacturedItemDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMeasure(ctx context.Context, resource r5.Measure) (capabilities.UpdateResult[r5.Measure], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Measure]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Measure)
+	if !ok {
+		return capabilities.UpdateResult[r5.Measure]{}, capabilities.InvalidResourceError{ResourceType: "Measure"}
+	}
+	return capabilities.UpdateResult[r5.Measure]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r5.MeasureReport) (capabilities.UpdateResult[r5.MeasureReport], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MeasureReport]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MeasureReport)
+	if !ok {
+		return capabilities.UpdateResult[r5.MeasureReport]{}, capabilities.InvalidResourceError{ResourceType: "MeasureReport"}
+	}
+	return capabilities.UpdateResult[r5.MeasureReport]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMedication(ctx context.Context, resource r5.Medication) (capabilities.UpdateResult[r5.Medication], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Medication]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Medication)
+	if !ok {
+		return capabilities.UpdateResult[r5.Medication]{}, capabilities.InvalidResourceError{ResourceType: "Medication"}
+	}
+	return capabilities.UpdateResult[r5.Medication]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r5.MedicationAdministration) (capabilities.UpdateResult[r5.MedicationAdministration], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MedicationAdministration]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MedicationAdministration)
+	if !ok {
+		return capabilities.UpdateResult[r5.MedicationAdministration]{}, capabilities.InvalidResourceError{ResourceType: "MedicationAdministration"}
+	}
+	return capabilities.UpdateResult[r5.MedicationAdministration]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r5.MedicationDispense) (capabilities.UpdateResult[r5.MedicationDispense], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MedicationDispense]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MedicationDispense)
+	if !ok {
+		return capabilities.UpdateResult[r5.MedicationDispense]{}, capabilities.InvalidResourceError{ResourceType: "MedicationDispense"}
+	}
+	return capabilities.UpdateResult[r5.MedicationDispense]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r5.MedicationKnowledge) (capabilities.UpdateResult[r5.MedicationKnowledge], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MedicationKnowledge]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MedicationKnowledge)
+	if !ok {
+		return capabilities.UpdateResult[r5.MedicationKnowledge]{}, capabilities.InvalidResourceError{ResourceType: "MedicationKnowledge"}
+	}
+	return capabilities.UpdateResult[r5.MedicationKnowledge]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r5.MedicationRequest) (capabilities.UpdateResult[r5.MedicationRequest], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MedicationRequest]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MedicationRequest)
+	if !ok {
+		return capabilities.UpdateResult[r5.MedicationRequest]{}, capabilities.InvalidResourceError{ResourceType: "MedicationRequest"}
+	}
+	return capabilities.UpdateResult[r5.MedicationRequest]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r5.MedicationStatement) (capabilities.UpdateResult[r5.MedicationStatement], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MedicationStatement]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MedicationStatement)
+	if !ok {
+		return capabilities.UpdateResult[r5.MedicationStatement]{}, capabilities.InvalidResourceError{ResourceType: "MedicationStatement"}
+	}
+	return capabilities.UpdateResult[r5.MedicationStatement]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource r5.MedicinalProductDefinition) (capabilities.UpdateResult[r5.MedicinalProductDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MedicinalProductDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MedicinalProductDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.MedicinalProductDefinition]{}, capabilities.InvalidResourceError{ResourceType: "MedicinalProductDefinition"}
+	}
+	return capabilities.UpdateResult[r5.MedicinalProductDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r5.MessageDefinition) (capabilities.UpdateResult[r5.MessageDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MessageDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MessageDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.MessageDefinition]{}, capabilities.InvalidResourceError{ResourceType: "MessageDefinition"}
+	}
+	return capabilities.UpdateResult[r5.MessageDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r5.MessageHeader) (capabilities.UpdateResult[r5.MessageHeader], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MessageHeader]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MessageHeader)
+	if !ok {
+		return capabilities.UpdateResult[r5.MessageHeader]{}, capabilities.InvalidResourceError{ResourceType: "MessageHeader"}
+	}
+	return capabilities.UpdateResult[r5.MessageHeader]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r5.MolecularSequence) (capabilities.UpdateResult[r5.MolecularSequence], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.MolecularSequence]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.MolecularSequence)
+	if !ok {
+		return capabilities.UpdateResult[r5.MolecularSequence]{}, capabilities.InvalidResourceError{ResourceType: "MolecularSequence"}
+	}
+	return capabilities.UpdateResult[r5.MolecularSequence]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r5.NamingSystem) (capabilities.UpdateResult[r5.NamingSystem], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.NamingSystem]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.NamingSystem)
+	if !ok {
+		return capabilities.UpdateResult[r5.NamingSystem]{}, capabilities.InvalidResourceError{ResourceType: "NamingSystem"}
+	}
+	return capabilities.UpdateResult[r5.NamingSystem]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateNutritionIntake(ctx context.Context, resource r5.NutritionIntake) (capabilities.UpdateResult[r5.NutritionIntake], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.NutritionIntake]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.NutritionIntake)
+	if !ok {
+		return capabilities.UpdateResult[r5.NutritionIntake]{}, capabilities.InvalidResourceError{ResourceType: "NutritionIntake"}
+	}
+	return capabilities.UpdateResult[r5.NutritionIntake]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r5.NutritionOrder) (capabilities.UpdateResult[r5.NutritionOrder], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.NutritionOrder]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.NutritionOrder)
+	if !ok {
+		return capabilities.UpdateResult[r5.NutritionOrder]{}, capabilities.InvalidResourceError{ResourceType: "NutritionOrder"}
+	}
+	return capabilities.UpdateResult[r5.NutritionOrder]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r5.NutritionProduct) (capabilities.UpdateResult[r5.NutritionProduct], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.NutritionProduct]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.NutritionProduct)
+	if !ok {
+		return capabilities.UpdateResult[r5.NutritionProduct]{}, capabilities.InvalidResourceError{ResourceType: "NutritionProduct"}
+	}
+	return capabilities.UpdateResult[r5.NutritionProduct]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateObservation(ctx context.Context, resource r5.Observation) (capabilities.UpdateResult[r5.Observation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Observation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Observation)
+	if !ok {
+		return capabilities.UpdateResult[r5.Observation]{}, capabilities.InvalidResourceError{ResourceType: "Observation"}
+	}
+	return capabilities.UpdateResult[r5.Observation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r5.ObservationDefinition) (capabilities.UpdateResult[r5.ObservationDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ObservationDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ObservationDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.ObservationDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ObservationDefinition"}
+	}
+	return capabilities.UpdateResult[r5.ObservationDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r5.OperationDefinition) (capabilities.UpdateResult[r5.OperationDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.OperationDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.OperationDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.OperationDefinition]{}, capabilities.InvalidResourceError{ResourceType: "OperationDefinition"}
+	}
+	return capabilities.UpdateResult[r5.OperationDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r5.OperationOutcome) (capabilities.UpdateResult[r5.OperationOutcome], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.OperationOutcome]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.OperationOutcome)
+	if !ok {
+		return capabilities.UpdateResult[r5.OperationOutcome]{}, capabilities.InvalidResourceError{ResourceType: "OperationOutcome"}
+	}
+	return capabilities.UpdateResult[r5.OperationOutcome]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateOrganization(ctx context.Context, resource r5.Organization) (capabilities.UpdateResult[r5.Organization], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Organization]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Organization)
+	if !ok {
+		return capabilities.UpdateResult[r5.Organization]{}, capabilities.InvalidResourceError{ResourceType: "Organization"}
+	}
+	return capabilities.UpdateResult[r5.Organization]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r5.OrganizationAffiliation) (capabilities.UpdateResult[r5.OrganizationAffiliation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.OrganizationAffiliation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.OrganizationAffiliation)
+	if !ok {
+		return capabilities.UpdateResult[r5.OrganizationAffiliation]{}, capabilities.InvalidResourceError{ResourceType: "OrganizationAffiliation"}
+	}
+	return capabilities.UpdateResult[r5.OrganizationAffiliation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource r5.PackagedProductDefinition) (capabilities.UpdateResult[r5.PackagedProductDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.PackagedProductDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.PackagedProductDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.PackagedProductDefinition]{}, capabilities.InvalidResourceError{ResourceType: "PackagedProductDefinition"}
+	}
+	return capabilities.UpdateResult[r5.PackagedProductDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateParameters(ctx context.Context, resource r5.Parameters) (capabilities.UpdateResult[r5.Parameters], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Parameters]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Parameters)
+	if !ok {
+		return capabilities.UpdateResult[r5.Parameters]{}, capabilities.InvalidResourceError{ResourceType: "Parameters"}
+	}
+	return capabilities.UpdateResult[r5.Parameters]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePatient(ctx context.Context, resource r5.Patient) (capabilities.UpdateResult[r5.Patient], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Patient]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Patient)
+	if !ok {
+		return capabilities.UpdateResult[r5.Patient]{}, capabilities.InvalidResourceError{ResourceType: "Patient"}
+	}
+	return capabilities.UpdateResult[r5.Patient]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r5.PaymentNotice) (capabilities.UpdateResult[r5.PaymentNotice], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.PaymentNotice]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.PaymentNotice)
+	if !ok {
+		return capabilities.UpdateResult[r5.PaymentNotice]{}, capabilities.InvalidResourceError{ResourceType: "PaymentNotice"}
+	}
+	return capabilities.UpdateResult[r5.PaymentNotice]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r5.PaymentReconciliation) (capabilities.UpdateResult[r5.PaymentReconciliation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.PaymentReconciliation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.PaymentReconciliation)
+	if !ok {
+		return capabilities.UpdateResult[r5.PaymentReconciliation]{}, capabilities.InvalidResourceError{ResourceType: "PaymentReconciliation"}
+	}
+	return capabilities.UpdateResult[r5.PaymentReconciliation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePermission(ctx context.Context, resource r5.Permission) (capabilities.UpdateResult[r5.Permission], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Permission]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Permission)
+	if !ok {
+		return capabilities.UpdateResult[r5.Permission]{}, capabilities.InvalidResourceError{ResourceType: "Permission"}
+	}
+	return capabilities.UpdateResult[r5.Permission]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePerson(ctx context.Context, resource r5.Person) (capabilities.UpdateResult[r5.Person], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Person]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Person)
+	if !ok {
+		return capabilities.UpdateResult[r5.Person]{}, capabilities.InvalidResourceError{ResourceType: "Person"}
+	}
+	return capabilities.UpdateResult[r5.Person]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r5.PlanDefinition) (capabilities.UpdateResult[r5.PlanDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.PlanDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.PlanDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.PlanDefinition]{}, capabilities.InvalidResourceError{ResourceType: "PlanDefinition"}
+	}
+	return capabilities.UpdateResult[r5.PlanDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePractitioner(ctx context.Context, resource r5.Practitioner) (capabilities.UpdateResult[r5.Practitioner], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Practitioner]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Practitioner)
+	if !ok {
+		return capabilities.UpdateResult[r5.Practitioner]{}, capabilities.InvalidResourceError{ResourceType: "Practitioner"}
+	}
+	return capabilities.UpdateResult[r5.Practitioner]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r5.PractitionerRole) (capabilities.UpdateResult[r5.PractitionerRole], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.PractitionerRole]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.PractitionerRole)
+	if !ok {
+		return capabilities.UpdateResult[r5.PractitionerRole]{}, capabilities.InvalidResourceError{ResourceType: "PractitionerRole"}
+	}
+	return capabilities.UpdateResult[r5.PractitionerRole]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateProcedure(ctx context.Context, resource r5.Procedure) (capabilities.UpdateResult[r5.Procedure], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Procedure]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Procedure)
+	if !ok {
+		return capabilities.UpdateResult[r5.Procedure]{}, capabilities.InvalidResourceError{ResourceType: "Procedure"}
+	}
+	return capabilities.UpdateResult[r5.Procedure]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateProvenance(ctx context.Context, resource r5.Provenance) (capabilities.UpdateResult[r5.Provenance], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Provenance]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Provenance)
+	if !ok {
+		return capabilities.UpdateResult[r5.Provenance]{}, capabilities.InvalidResourceError{ResourceType: "Provenance"}
+	}
+	return capabilities.UpdateResult[r5.Provenance]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r5.Questionnaire) (capabilities.UpdateResult[r5.Questionnaire], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Questionnaire]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Questionnaire)
+	if !ok {
+		return capabilities.UpdateResult[r5.Questionnaire]{}, capabilities.InvalidResourceError{ResourceType: "Questionnaire"}
+	}
+	return capabilities.UpdateResult[r5.Questionnaire]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r5.QuestionnaireResponse) (capabilities.UpdateResult[r5.QuestionnaireResponse], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.QuestionnaireResponse]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.QuestionnaireResponse)
+	if !ok {
+		return capabilities.UpdateResult[r5.QuestionnaireResponse]{}, capabilities.InvalidResourceError{ResourceType: "QuestionnaireResponse"}
+	}
+	return capabilities.UpdateResult[r5.QuestionnaireResponse]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r5.RegulatedAuthorization) (capabilities.UpdateResult[r5.RegulatedAuthorization], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.RegulatedAuthorization]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.RegulatedAuthorization)
+	if !ok {
+		return capabilities.UpdateResult[r5.RegulatedAuthorization]{}, capabilities.InvalidResourceError{ResourceType: "RegulatedAuthorization"}
+	}
+	return capabilities.UpdateResult[r5.RegulatedAuthorization]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r5.RelatedPerson) (capabilities.UpdateResult[r5.RelatedPerson], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.RelatedPerson]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.RelatedPerson)
+	if !ok {
+		return capabilities.UpdateResult[r5.RelatedPerson]{}, capabilities.InvalidResourceError{ResourceType: "RelatedPerson"}
+	}
+	return capabilities.UpdateResult[r5.RelatedPerson]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateRequestOrchestration(ctx context.Context, resource r5.RequestOrchestration) (capabilities.UpdateResult[r5.RequestOrchestration], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.RequestOrchestration]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.RequestOrchestration)
+	if !ok {
+		return capabilities.UpdateResult[r5.RequestOrchestration]{}, capabilities.InvalidResourceError{ResourceType: "RequestOrchestration"}
+	}
+	return capabilities.UpdateResult[r5.RequestOrchestration]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateRequirements(ctx context.Context, resource r5.Requirements) (capabilities.UpdateResult[r5.Requirements], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Requirements]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Requirements)
+	if !ok {
+		return capabilities.UpdateResult[r5.Requirements]{}, capabilities.InvalidResourceError{ResourceType: "Requirements"}
+	}
+	return capabilities.UpdateResult[r5.Requirements]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r5.ResearchStudy) (capabilities.UpdateResult[r5.ResearchStudy], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ResearchStudy]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ResearchStudy)
+	if !ok {
+		return capabilities.UpdateResult[r5.ResearchStudy]{}, capabilities.InvalidResourceError{ResourceType: "ResearchStudy"}
+	}
+	return capabilities.UpdateResult[r5.ResearchStudy]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r5.ResearchSubject) (capabilities.UpdateResult[r5.ResearchSubject], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ResearchSubject]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ResearchSubject)
+	if !ok {
+		return capabilities.UpdateResult[r5.ResearchSubject]{}, capabilities.InvalidResourceError{ResourceType: "ResearchSubject"}
+	}
+	return capabilities.UpdateResult[r5.ResearchSubject]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r5.RiskAssessment) (capabilities.UpdateResult[r5.RiskAssessment], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.RiskAssessment]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.RiskAssessment)
+	if !ok {
+		return capabilities.UpdateResult[r5.RiskAssessment]{}, capabilities.InvalidResourceError{ResourceType: "RiskAssessment"}
+	}
+	return capabilities.UpdateResult[r5.RiskAssessment]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSchedule(ctx context.Context, resource r5.Schedule) (capabilities.UpdateResult[r5.Schedule], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Schedule]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Schedule)
+	if !ok {
+		return capabilities.UpdateResult[r5.Schedule]{}, capabilities.InvalidResourceError{ResourceType: "Schedule"}
+	}
+	return capabilities.UpdateResult[r5.Schedule]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r5.SearchParameter) (capabilities.UpdateResult[r5.SearchParameter], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SearchParameter]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SearchParameter)
+	if !ok {
+		return capabilities.UpdateResult[r5.SearchParameter]{}, capabilities.InvalidResourceError{ResourceType: "SearchParameter"}
+	}
+	return capabilities.UpdateResult[r5.SearchParameter]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r5.ServiceRequest) (capabilities.UpdateResult[r5.ServiceRequest], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ServiceRequest]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ServiceRequest)
+	if !ok {
+		return capabilities.UpdateResult[r5.ServiceRequest]{}, capabilities.InvalidResourceError{ResourceType: "ServiceRequest"}
+	}
+	return capabilities.UpdateResult[r5.ServiceRequest]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSlot(ctx context.Context, resource r5.Slot) (capabilities.UpdateResult[r5.Slot], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Slot]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Slot)
+	if !ok {
+		return capabilities.UpdateResult[r5.Slot]{}, capabilities.InvalidResourceError{ResourceType: "Slot"}
+	}
+	return capabilities.UpdateResult[r5.Slot]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSpecimen(ctx context.Context, resource r5.Specimen) (capabilities.UpdateResult[r5.Specimen], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Specimen]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Specimen)
+	if !ok {
+		return capabilities.UpdateResult[r5.Specimen]{}, capabilities.InvalidResourceError{ResourceType: "Specimen"}
+	}
+	return capabilities.UpdateResult[r5.Specimen]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r5.SpecimenDefinition) (capabilities.UpdateResult[r5.SpecimenDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SpecimenDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SpecimenDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.SpecimenDefinition]{}, capabilities.InvalidResourceError{ResourceType: "SpecimenDefinition"}
+	}
+	return capabilities.UpdateResult[r5.SpecimenDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r5.StructureDefinition) (capabilities.UpdateResult[r5.StructureDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.StructureDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.StructureDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.StructureDefinition]{}, capabilities.InvalidResourceError{ResourceType: "StructureDefinition"}
+	}
+	return capabilities.UpdateResult[r5.StructureDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateStructureMap(ctx context.Context, resource r5.StructureMap) (capabilities.UpdateResult[r5.StructureMap], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.StructureMap]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.StructureMap)
+	if !ok {
+		return capabilities.UpdateResult[r5.StructureMap]{}, capabilities.InvalidResourceError{ResourceType: "StructureMap"}
+	}
+	return capabilities.UpdateResult[r5.StructureMap]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubscription(ctx context.Context, resource r5.Subscription) (capabilities.UpdateResult[r5.Subscription], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Subscription]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Subscription)
+	if !ok {
+		return capabilities.UpdateResult[r5.Subscription]{}, capabilities.InvalidResourceError{ResourceType: "Subscription"}
+	}
+	return capabilities.UpdateResult[r5.Subscription]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r5.SubscriptionStatus) (capabilities.UpdateResult[r5.SubscriptionStatus], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubscriptionStatus]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubscriptionStatus)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubscriptionStatus]{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionStatus"}
+	}
+	return capabilities.UpdateResult[r5.SubscriptionStatus]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r5.SubscriptionTopic) (capabilities.UpdateResult[r5.SubscriptionTopic], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubscriptionTopic]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubscriptionTopic)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubscriptionTopic]{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionTopic"}
+	}
+	return capabilities.UpdateResult[r5.SubscriptionTopic]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubstance(ctx context.Context, resource r5.Substance) (capabilities.UpdateResult[r5.Substance], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Substance]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Substance)
+	if !ok {
+		return capabilities.UpdateResult[r5.Substance]{}, capabilities.InvalidResourceError{ResourceType: "Substance"}
+	}
+	return capabilities.UpdateResult[r5.Substance]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r5.SubstanceDefinition) (capabilities.UpdateResult[r5.SubstanceDefinition], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubstanceDefinition]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubstanceDefinition)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubstanceDefinition]{}, capabilities.InvalidResourceError{ResourceType: "SubstanceDefinition"}
+	}
+	return capabilities.UpdateResult[r5.SubstanceDefinition]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubstanceNucleicAcid(ctx context.Context, resource r5.SubstanceNucleicAcid) (capabilities.UpdateResult[r5.SubstanceNucleicAcid], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubstanceNucleicAcid]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubstanceNucleicAcid)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubstanceNucleicAcid]{}, capabilities.InvalidResourceError{ResourceType: "SubstanceNucleicAcid"}
+	}
+	return capabilities.UpdateResult[r5.SubstanceNucleicAcid]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubstancePolymer(ctx context.Context, resource r5.SubstancePolymer) (capabilities.UpdateResult[r5.SubstancePolymer], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubstancePolymer]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubstancePolymer)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubstancePolymer]{}, capabilities.InvalidResourceError{ResourceType: "SubstancePolymer"}
+	}
+	return capabilities.UpdateResult[r5.SubstancePolymer]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubstanceProtein(ctx context.Context, resource r5.SubstanceProtein) (capabilities.UpdateResult[r5.SubstanceProtein], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubstanceProtein]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubstanceProtein)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubstanceProtein]{}, capabilities.InvalidResourceError{ResourceType: "SubstanceProtein"}
+	}
+	return capabilities.UpdateResult[r5.SubstanceProtein]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubstanceReferenceInformation(ctx context.Context, resource r5.SubstanceReferenceInformation) (capabilities.UpdateResult[r5.SubstanceReferenceInformation], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubstanceReferenceInformation]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubstanceReferenceInformation)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubstanceReferenceInformation]{}, capabilities.InvalidResourceError{ResourceType: "SubstanceReferenceInformation"}
+	}
+	return capabilities.UpdateResult[r5.SubstanceReferenceInformation]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSubstanceSourceMaterial(ctx context.Context, resource r5.SubstanceSourceMaterial) (capabilities.UpdateResult[r5.SubstanceSourceMaterial], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SubstanceSourceMaterial]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SubstanceSourceMaterial)
+	if !ok {
+		return capabilities.UpdateResult[r5.SubstanceSourceMaterial]{}, capabilities.InvalidResourceError{ResourceType: "SubstanceSourceMaterial"}
+	}
+	return capabilities.UpdateResult[r5.SubstanceSourceMaterial]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r5.SupplyDelivery) (capabilities.UpdateResult[r5.SupplyDelivery], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SupplyDelivery]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SupplyDelivery)
+	if !ok {
+		return capabilities.UpdateResult[r5.SupplyDelivery]{}, capabilities.InvalidResourceError{ResourceType: "SupplyDelivery"}
+	}
+	return capabilities.UpdateResult[r5.SupplyDelivery]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r5.SupplyRequest) (capabilities.UpdateResult[r5.SupplyRequest], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.SupplyRequest]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.SupplyRequest)
+	if !ok {
+		return capabilities.UpdateResult[r5.SupplyRequest]{}, capabilities.InvalidResourceError{ResourceType: "SupplyRequest"}
+	}
+	return capabilities.UpdateResult[r5.SupplyRequest]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateTask(ctx context.Context, resource r5.Task) (capabilities.UpdateResult[r5.Task], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Task]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Task)
+	if !ok {
+		return capabilities.UpdateResult[r5.Task]{}, capabilities.InvalidResourceError{ResourceType: "Task"}
+	}
+	return capabilities.UpdateResult[r5.Task]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r5.TerminologyCapabilities) (capabilities.UpdateResult[r5.TerminologyCapabilities], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.TerminologyCapabilities]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.TerminologyCapabilities)
+	if !ok {
+		return capabilities.UpdateResult[r5.TerminologyCapabilities]{}, capabilities.InvalidResourceError{ResourceType: "TerminologyCapabilities"}
+	}
+	return capabilities.UpdateResult[r5.TerminologyCapabilities]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateTestPlan(ctx context.Context, resource r5.TestPlan) (capabilities.UpdateResult[r5.TestPlan], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.TestPlan]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.TestPlan)
+	if !ok {
+		return capabilities.UpdateResult[r5.TestPlan]{}, capabilities.InvalidResourceError{ResourceType: "TestPlan"}
+	}
+	return capabilities.UpdateResult[r5.TestPlan]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateTestReport(ctx context.Context, resource r5.TestReport) (capabilities.UpdateResult[r5.TestReport], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.TestReport]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.TestReport)
+	if !ok {
+		return capabilities.UpdateResult[r5.TestReport]{}, capabilities.InvalidResourceError{ResourceType: "TestReport"}
+	}
+	return capabilities.UpdateResult[r5.TestReport]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateTestScript(ctx context.Context, resource r5.TestScript) (capabilities.UpdateResult[r5.TestScript], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.TestScript]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.TestScript)
+	if !ok {
+		return capabilities.UpdateResult[r5.TestScript]{}, capabilities.InvalidResourceError{ResourceType: "TestScript"}
+	}
+	return capabilities.UpdateResult[r5.TestScript]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateTransport(ctx context.Context, resource r5.Transport) (capabilities.UpdateResult[r5.Transport], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.Transport]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.Transport)
+	if !ok {
+		return capabilities.UpdateResult[r5.Transport]{}, capabilities.InvalidResourceError{ResourceType: "Transport"}
+	}
+	return capabilities.UpdateResult[r5.Transport]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateValueSet(ctx context.Context, resource r5.ValueSet) (capabilities.UpdateResult[r5.ValueSet], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.ValueSet]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.ValueSet)
+	if !ok {
+		return capabilities.UpdateResult[r5.ValueSet]{}, capabilities.InvalidResourceError{ResourceType: "ValueSet"}
+	}
+	return capabilities.UpdateResult[r5.ValueSet]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r5.VerificationResult) (capabilities.UpdateResult[r5.VerificationResult], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.VerificationResult]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.VerificationResult)
+	if !ok {
+		return capabilities.UpdateResult[r5.VerificationResult]{}, capabilities.InvalidResourceError{ResourceType: "VerificationResult"}
+	}
+	return capabilities.UpdateResult[r5.VerificationResult]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
+}
+func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r5.VisionPrescription) (capabilities.UpdateResult[r5.VisionPrescription], capabilities.FHIRError) {
+	result, err := w.Generic.Update(ctx, resource)
+	if err != nil {
+		return capabilities.UpdateResult[r5.VisionPrescription]{}, err
+	}
+	v := result.Resource
+	contained, ok := v.(r5.ContainedResource)
+	if ok {
+		v = contained.Resource
+	}
+	r, ok := v.(r5.VisionPrescription)
+	if !ok {
+		return capabilities.UpdateResult[r5.VisionPrescription]{}, capabilities.InvalidResourceError{ResourceType: "VisionPrescription"}
+	}
+	return capabilities.UpdateResult[r5.VisionPrescription]{
+
+		Created:  result.Created,
+		Resource: r,
+	}, nil
 }
 func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)

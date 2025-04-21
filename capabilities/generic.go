@@ -14,6 +14,7 @@ type GenericAPI interface {
 	GenericCapabilities
 	GenericCreate
 	GenericRead
+	GenericUpdate
 	GenericSearch
 }
 
@@ -32,6 +33,21 @@ type GenericCreate interface {
 // The GenericRead interface provides a generic read capability by passing the `resourceType` as string.
 type GenericRead interface {
 	Read(ctx context.Context, resourceType, id string) (model.Resource, FHIRError)
+}
+
+// The GenericUpdate interface provides a generic update capability.
+//
+// The persisted resource is returned.
+type GenericUpdate interface {
+	Update(ctx context.Context, resource model.Resource) (UpdateResult[model.Resource], FHIRError)
+}
+
+// UpdateResult is the result of an update operation.
+//
+// It contains the updated resource and a boolean indicating whether the resource was created or updated.
+type UpdateResult[R model.Resource] struct {
+	Resource R
+	Created  bool
 }
 
 // The GenericSearch interface provides a generic search capability by passing the `resourceType` as string.

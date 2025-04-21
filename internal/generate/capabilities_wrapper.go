@@ -20,12 +20,14 @@ func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string,
 	generateWrapperAllCapabilities(f("generic", "capabilities"+release))
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "create")
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "read")
+	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "update")
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "search")
 
 	generateConcreteIface(f("concrete", "capabilities"+release), ir.FilterResources(rt))
 	generateConcreteWrapperStruct(f("concrete", "capabilities"+release))
 	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "create")
 	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "read")
+	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "update")
 	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "search")
 }
 
@@ -55,6 +57,12 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		shortcutParams = append(shortcutParams, Id("resourceType"), Id("id"))
 		passParams = append(passParams, Id("id"))
 		returnType = Qual(moduleName+"/model", "Resource")
+	case "update":
+		params = append(params, Id("resource").Qual(moduleName+"/model", "Resource"))
+		shortcutParams = append(shortcutParams, Id("resource"))
+		passParams = append(passParams, Id("r"))
+		switchType = Id("r").Op(":=").Id("resource").Assert(Type())
+		returnType = Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model", "Resource"))
 	case "search":
 		params = append(params, Id("resourceType").String(), Id("options").Qual(moduleName+"/capabilities/search", "Options"))
 		shortcutParams = append(shortcutParams, Id("resourceType"), Id("options"))
@@ -95,6 +103,28 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 					}
 
 					g.Default().Block(Return(Nil(), unknownError(Id("resourceType"))))
+				case "update":
+					for _, r := range resources {
+						g.Case(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)).BlockFunc(func(g *Group) {
+							g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
+							g.If(Op("!").Id("ok")).Block(
+								Return(returnType.Clone().Block(), notImplementedError(interactionName, r.Name)),
+							)
+							g.List(Id("result"), Id("err")).Op(":=").Id("impl." + interactionName + r.Name).Call(passParams...)
+							g.If(Id("err").Op("!=").Nil()).Block(
+								Return(returnType.Clone().Block(), Id("err")),
+							)
+							g.Return(
+								returnType.Clone().Block(Dict{
+									Id("Resource"): Id("result").Dot("Resource"),
+									Id("Created"):  Id("result").Dot("Created"),
+								}),
+								Nil(),
+							)
+						})
+					}
+
+					g.Default().Block(Return(returnType.Clone().Block(), unknownError(Id("resource").Dot("ResourceType").Call())))
 				case "search":
 					for _, r := range resources {
 						g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
@@ -182,6 +212,10 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 			params = append(params, Id("id").String())
 			passParams = append(passParams, Lit(r.Name), Id("id"))
 			returnType = Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)
+		case "update":
+			params = append(params, Id("resource").Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name))
+			passParams = append(passParams, Id("resource"))
+			returnType = Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name))
 		case "search":
 			params = append(params, Id("options").Qual(moduleName+"/capabilities/search", "Options"))
 			passParams = append(passParams, Lit(r.Name), Id("options"))
@@ -204,11 +238,35 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 					g.If(Id("ok")).Block(
 						Id("v").Op("=").Id("contained.Resource"),
 					)
-					g.List(Id("impl"), Id("ok")).Op(":=").Id("v").Assert(returnType)
+					g.List(Id("r"), Id("ok")).Op(":=").Id("v").Assert(returnType)
 					g.If(Id("!ok")).Block(
 						Return(returnType.Clone().Block(), invalidError(r.Name)),
 					)
-					g.Return(Id("impl"), Nil())
+					g.Return(Id("r"), Nil())
+				case "update":
+					g.List(Id("result"), Id("err")).Op(":=").Id("w.Generic." + interactionName).Params(passParams...)
+					g.If(Id("err").Op("!=").Nil()).Block(Return(returnType.Clone().Block(), Id("err")))
+
+					g.Id("v").Op(":=").Id("result.Resource")
+					g.List(Id("contained"), Id("ok")).Op(":=").Id("v").Assert(
+						Qual(moduleName+"/model/gen/"+strings.ToLower(release), "ContainedResource"),
+					)
+					g.If(Id("ok")).Block(
+						Id("v").Op("=").Id("contained.Resource"),
+					)
+					g.List(Id("r"), Id("ok")).Op(":=").Id("v").Assert(
+						Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name),
+					)
+					g.If(Id("!ok")).Block(
+						Return(returnType.Clone().Block(), invalidError(r.Name)),
+					)
+					g.Return(
+						returnType.Clone().Block(Dict{
+							Id("Resource"): Id("r"),
+							Id("Created"):  Id("result").Dot("Created"),
+						}),
+						Nil(),
+					)
 				case "search":
 					g.List(Id("v"), Id("err")).Op(":=").Id("w.Generic." + interactionName).Params(passParams...)
 					g.If(Id("err").Op("!=").Nil()).Block(Return(returnType.Clone().Block(), Id("err")))
