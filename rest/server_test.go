@@ -6,6 +6,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
@@ -327,19 +328,19 @@ func TestHandleCreate(t *testing.T) {
 				</Patient>`,
 		},
 		{
-			name:           "different resource type",
+			name:           "not implemented resource type",
 			format:         "application/fhir+json",
 			resourceType:   "Observation",
 			requestBody:    `{ "resourceType": "Observation", "status": "final", "code": {} }`,
 			backend:        mockBackend{},
-			expectedStatus: http.StatusNotFound,
+			expectedStatus: http.StatusNotImplemented,
 			expectedBody: `{
 				"resourceType": "OperationOutcome",
 				"issue": [
 					{
 						"severity": "fatal",
 						"code": "not-supported",
-						"diagnostics": "create not implemented for resource type Observation"
+						"diagnostics": "create not implemented for Observation"
 					}
 				]
 			}`,
@@ -393,7 +394,7 @@ func TestHandleCreate(t *testing.T) {
 					{
 						"severity": "fatal",
 						"code": "processing",
-						"diagnostics": "unexpected resource from client: expected Patient, got Observation"
+						"diagnostics": "unexpected resource: expected Patient, got Observation"
 					}
 				]
 			}`,
@@ -558,14 +559,14 @@ func TestHandleRead(t *testing.T) {
 			resourceType:   "UnknownType",
 			resourceID:     "1",
 			backend:        mockBackend{},
-			expectedStatus: http.StatusNotFound,
+			expectedStatus: http.StatusBadRequest,
 			expectedBody: `{
 				"resourceType": "OperationOutcome",
 				"issue": [
 					{
 						"severity": "fatal",
-						"code": "not-supported",
-						"diagnostics":"invalid resource type UnknownType"
+						"code": "processing",
+						"diagnostics":"invalid resource type: UnknownType"
 					}
 				]
 			}`,
@@ -583,7 +584,7 @@ func TestHandleRead(t *testing.T) {
 				  {
 					  "severity": "error",
 					  "code": "not-found",
-					  "diagnostics": "Patient resource with ID unknown not found"
+					  "diagnostics": "Patient with ID unknown not found"
 				  }
 			    ]
 			}`,
@@ -601,7 +602,7 @@ func TestHandleRead(t *testing.T) {
 					{
 						"severity": "error",
 					  	"code": "not-found",
-					  	"diagnostics": "Patient resource with ID unknown not found"
+					  	"diagnostics": "Patient with ID unknown not found"
 					}
 			  	]
 			}`,
@@ -862,14 +863,14 @@ func TestHandleSearch(t *testing.T) {
 			resourceType:   "UnknownType",
 			queryString:    "_id=1",
 			backend:        mockBackend{},
-			expectedStatus: http.StatusNotFound,
+			expectedStatus: http.StatusBadRequest,
 			expectedBody: `{
 				"resourceType":"OperationOutcome",
 				"issue":[
 					{
 						"severity":"fatal",
-						"code":"not-supported",
-						"diagnostics":"invalid resource type UnknownType"
+						"code":"processing",
+						"diagnostics":"invalid resource type: UnknownType"
 					}
 				]
 			}`,
@@ -1188,29 +1189,37 @@ type mockBackend struct {
 	mockObservationIncludes []model.Resource
 }
 
-func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, capabilities.FHIRError) {
+func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, error) {
 	patient.Id = &r4.Id{Value: utils.Ptr("server-assigned-id")}
 	return patient, nil
 }
 
-func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (capabilities.UpdateResult[r4.Patient], capabilities.FHIRError) {
+func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (capabilities.UpdateResult[r4.Patient], error) {
 	return capabilities.UpdateResult[r4.Patient]{
 		Resource: patient,
 	}, nil
 }
 
-func (m mockBackend) DeletePatient(ctx context.Context, id string) capabilities.FHIRError {
+func (m mockBackend) DeletePatient(ctx context.Context, id string) error {
 	return nil
 }
 
-func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {
+func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
 	if len(m.mockPatients) == 0 {
-		return r4.Patient{}, capabilities.NotFoundError{ResourceType: "Patient", ID: id}
+		return r4.Patient{}, basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("not-found")},
+					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("Patient with ID %s not found", id))},
+				},
+			},
+		}
 	}
 	return m.mockPatients[0], nil
 }
 
-func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id":  {Type: search.TypeToken},
@@ -1228,7 +1237,7 @@ func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capa
 	}, nil
 }
 
-func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result, error) {
 	result := search.Result{}
 
 	for _, p := range m.mockPatients {
@@ -1242,7 +1251,7 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 	return result, nil
 }
 
-func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.TypeToken},
@@ -1251,7 +1260,7 @@ func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.
 	}, nil
 }
 
-func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, error) {
 	var result search.Result
 
 	for _, p := range m.mockObservations {

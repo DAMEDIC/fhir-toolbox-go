@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
@@ -56,25 +55,13 @@ func matchFormat(requested string) format {
 	return ""
 }
 
-type decodingError struct {
-	encoding string
-}
-
-func (e decodingError) Error() string {
-	return fmt.Sprintf("error parsing %s body", e.encoding)
-}
-
-func (e decodingError) StatusCode() int {
-	return 400
-}
-
-func (e decodingError) OperationOutcome() basic.OperationOutcome {
+func decodingError(encoding string) basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
 				Severity:    basic.Code{Value: utils.Ptr("fatal")},
 				Code:        basic.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
+				Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("error parsing %s body", encoding))},
 			},
 		},
 	}
@@ -93,7 +80,7 @@ func encodeJSON[T any](w http.ResponseWriter, status int, v T) error {
 	return nil
 }
 
-func decodeResourceJSON[R model.Release](r *http.Request) (model.Resource, capabilities.FHIRError) {
+func decodeResourceJSON[R model.Release](r *http.Request) (model.Resource, error) {
 	var release R
 	switch any(release).(type) {
 	case model.R4:
@@ -112,12 +99,10 @@ func decodeResourceJSON[R model.Release](r *http.Request) (model.Resource, capab
 	}
 }
 
-func decodeJSON[T any](r *http.Request) (T, capabilities.FHIRError) {
+func decodeJSON[T any](r *http.Request) (T, error) {
 	var v T
 	if err := json.NewDecoder(r.Body).Decode(&v); err != nil {
-		return v, decodingError{
-			encoding: "json",
-		}
+		return v, decodingError("json")
 	}
 	return v, nil
 }
@@ -134,7 +119,7 @@ func encodeXML[T any](w http.ResponseWriter, status int, v T) error {
 	return nil
 }
 
-func decodeResourceXML[R model.Release](r *http.Request) (model.Resource, capabilities.FHIRError) {
+func decodeResourceXML[R model.Release](r *http.Request) (model.Resource, error) {
 	var release R
 	switch any(release).(type) {
 	case model.R4:
@@ -153,12 +138,10 @@ func decodeResourceXML[R model.Release](r *http.Request) (model.Resource, capabi
 	}
 }
 
-func decodeXML[T any](r *http.Request) (T, capabilities.FHIRError) {
+func decodeXML[T any](r *http.Request) (T, error) {
 	var v T
 	if err := xml.NewDecoder(r.Body).Decode(&v); err != nil {
-		return v, decodingError{
-			encoding: "xml",
-		}
+		return v, decodingError("xml")
 	}
 	return v, nil
 }

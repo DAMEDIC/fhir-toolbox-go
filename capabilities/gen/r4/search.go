@@ -6,591 +6,590 @@ package capabilitiesR4
 
 import (
 	"context"
-	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 )
 
 type AccountSearch interface {
-	SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchAccount(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, error)
+	SearchAccount(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ActivityDefinitionSearch interface {
-	SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type AdverseEventSearch interface {
-	SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, error)
+	SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result, error)
 }
 type AllergyIntoleranceSearch interface {
-	SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, error)
+	SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result, error)
 }
 type AppointmentSearch interface {
-	SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchAppointment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, error)
+	SearchAppointment(ctx context.Context, options search.Options) (search.Result, error)
 }
 type AppointmentResponseSearch interface {
-	SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, error)
+	SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result, error)
 }
 type AuditEventSearch interface {
-	SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchAuditEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, error)
+	SearchAuditEvent(ctx context.Context, options search.Options) (search.Result, error)
 }
 type BasicSearch interface {
-	SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchBasic(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, error)
+	SearchBasic(ctx context.Context, options search.Options) (search.Result, error)
 }
 type BinarySearch interface {
-	SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchBinary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, error)
+	SearchBinary(ctx context.Context, options search.Options) (search.Result, error)
 }
 type BiologicallyDerivedProductSearch interface {
-	SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, error)
+	SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result, error)
 }
 type BodyStructureSearch interface {
-	SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchBodyStructure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, error)
+	SearchBodyStructure(ctx context.Context, options search.Options) (search.Result, error)
 }
 type BundleSearch interface {
-	SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchBundle(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, error)
+	SearchBundle(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CapabilityStatementSearch interface {
-	SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, error)
+	SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CarePlanSearch interface {
-	SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCarePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, error)
+	SearchCarePlan(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CareTeamSearch interface {
-	SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCareTeam(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, error)
+	SearchCareTeam(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CatalogEntrySearch interface {
-	SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, error)
+	SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ChargeItemSearch interface {
-	SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchChargeItem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, error)
+	SearchChargeItem(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ChargeItemDefinitionSearch interface {
-	SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ClaimSearch interface {
-	SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchClaim(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, error)
+	SearchClaim(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ClaimResponseSearch interface {
-	SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchClaimResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, error)
+	SearchClaimResponse(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ClinicalImpressionSearch interface {
-	SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, error)
+	SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CodeSystemSearch interface {
-	SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCodeSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, error)
+	SearchCodeSystem(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CommunicationSearch interface {
-	SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCommunication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, error)
+	SearchCommunication(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CommunicationRequestSearch interface {
-	SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, error)
+	SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CompartmentDefinitionSearch interface {
-	SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CompositionSearch interface {
-	SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchComposition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, error)
+	SearchComposition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ConceptMapSearch interface {
-	SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchConceptMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, error)
+	SearchConceptMap(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ConditionSearch interface {
-	SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCondition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, error)
+	SearchCondition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ConsentSearch interface {
-	SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchConsent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, error)
+	SearchConsent(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ContractSearch interface {
-	SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchContract(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, error)
+	SearchContract(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CoverageSearch interface {
-	SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCoverage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, error)
+	SearchCoverage(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CoverageEligibilityRequestSearch interface {
-	SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, error)
+	SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type CoverageEligibilityResponseSearch interface {
-	SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, error)
+	SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DetectedIssueSearch interface {
-	SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, error)
+	SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DeviceSearch interface {
-	SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDevice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, error)
+	SearchDevice(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DeviceDefinitionSearch interface {
-	SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DeviceMetricSearch interface {
-	SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, error)
+	SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DeviceRequestSearch interface {
-	SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, error)
+	SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DeviceUseStatementSearch interface {
-	SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, error)
+	SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DiagnosticReportSearch interface {
-	SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, error)
+	SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DocumentManifestSearch interface {
-	SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, error)
+	SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type DocumentReferenceSearch interface {
-	SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchDocumentReference(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, error)
+	SearchDocumentReference(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EffectEvidenceSynthesisSearch interface {
-	SearchCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEffectEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (search.Capabilities, error)
+	SearchEffectEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EncounterSearch interface {
-	SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEncounter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, error)
+	SearchEncounter(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EndpointSearch interface {
-	SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEndpoint(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, error)
+	SearchEndpoint(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EnrollmentRequestSearch interface {
-	SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, error)
+	SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EnrollmentResponseSearch interface {
-	SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, error)
+	SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EpisodeOfCareSearch interface {
-	SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, error)
+	SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EventDefinitionSearch interface {
-	SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEventDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchEventDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EvidenceSearch interface {
-	SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEvidence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, error)
+	SearchEvidence(ctx context.Context, options search.Options) (search.Result, error)
 }
 type EvidenceVariableSearch interface {
-	SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, error)
+	SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ExampleScenarioSearch interface {
-	SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchExampleScenario(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, error)
+	SearchExampleScenario(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ExplanationOfBenefitSearch interface {
-	SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, error)
+	SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result, error)
 }
 type FamilyMemberHistorySearch interface {
-	SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, error)
+	SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result, error)
 }
 type FlagSearch interface {
-	SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchFlag(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, error)
+	SearchFlag(ctx context.Context, options search.Options) (search.Result, error)
 }
 type GoalSearch interface {
-	SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchGoal(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, error)
+	SearchGoal(ctx context.Context, options search.Options) (search.Result, error)
 }
 type GraphDefinitionSearch interface {
-	SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type GroupSearch interface {
-	SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, error)
+	SearchGroup(ctx context.Context, options search.Options) (search.Result, error)
 }
 type GuidanceResponseSearch interface {
-	SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, error)
+	SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result, error)
 }
 type HealthcareServiceSearch interface {
-	SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchHealthcareService(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, error)
+	SearchHealthcareService(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ImagingStudySearch interface {
-	SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchImagingStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, error)
+	SearchImagingStudy(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ImmunizationSearch interface {
-	SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchImmunization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, error)
+	SearchImmunization(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ImmunizationEvaluationSearch interface {
-	SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, error)
+	SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ImmunizationRecommendationSearch interface {
-	SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, error)
+	SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ImplementationGuideSearch interface {
-	SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, error)
+	SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result, error)
 }
 type InsurancePlanSearch interface {
-	SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, error)
+	SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result, error)
 }
 type InvoiceSearch interface {
-	SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchInvoice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, error)
+	SearchInvoice(ctx context.Context, options search.Options) (search.Result, error)
 }
 type LibrarySearch interface {
-	SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchLibrary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, error)
+	SearchLibrary(ctx context.Context, options search.Options) (search.Result, error)
 }
 type LinkageSearch interface {
-	SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchLinkage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, error)
+	SearchLinkage(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ListSearch interface {
-	SearchCapabilitiesList(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchList(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesList(ctx context.Context) (search.Capabilities, error)
+	SearchList(ctx context.Context, options search.Options) (search.Result, error)
 }
 type LocationSearch interface {
-	SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchLocation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, error)
+	SearchLocation(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MeasureSearch interface {
-	SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMeasure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, error)
+	SearchMeasure(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MeasureReportSearch interface {
-	SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMeasureReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, error)
+	SearchMeasureReport(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MediaSearch interface {
-	SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedia(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, error)
+	SearchMedia(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicationSearch interface {
-	SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, error)
+	SearchMedication(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicationAdministrationSearch interface {
-	SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, error)
+	SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicationDispenseSearch interface {
-	SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, error)
+	SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicationKnowledgeSearch interface {
-	SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, error)
+	SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicationRequestSearch interface {
-	SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, error)
+	SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicationStatementSearch interface {
-	SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, error)
+	SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductSearch interface {
-	SearchCapabilitiesMedicinalProduct(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProduct(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProduct(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductAuthorizationSearch interface {
-	SearchCapabilitiesMedicinalProductAuthorization(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductAuthorization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductAuthorization(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductAuthorization(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductContraindicationSearch interface {
-	SearchCapabilitiesMedicinalProductContraindication(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductContraindication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductContraindication(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductContraindication(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductIndicationSearch interface {
-	SearchCapabilitiesMedicinalProductIndication(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductIndication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductIndication(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductIndication(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductIngredientSearch interface {
-	SearchCapabilitiesMedicinalProductIngredient(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductIngredient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductIngredient(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductIngredient(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductInteractionSearch interface {
-	SearchCapabilitiesMedicinalProductInteraction(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductInteraction(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductInteraction(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductInteraction(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductManufacturedSearch interface {
-	SearchCapabilitiesMedicinalProductManufactured(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductManufactured(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductManufactured(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductManufactured(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductPackagedSearch interface {
-	SearchCapabilitiesMedicinalProductPackaged(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductPackaged(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductPackaged(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductPackaged(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductPharmaceuticalSearch interface {
-	SearchCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductPharmaceutical(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductPharmaceutical(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MedicinalProductUndesirableEffectSearch interface {
-	SearchCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMedicinalProductUndesirableEffect(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (search.Capabilities, error)
+	SearchMedicinalProductUndesirableEffect(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MessageDefinitionSearch interface {
-	SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MessageHeaderSearch interface {
-	SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMessageHeader(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, error)
+	SearchMessageHeader(ctx context.Context, options search.Options) (search.Result, error)
 }
 type MolecularSequenceSearch interface {
-	SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, error)
+	SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result, error)
 }
 type NamingSystemSearch interface {
-	SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchNamingSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, error)
+	SearchNamingSystem(ctx context.Context, options search.Options) (search.Result, error)
 }
 type NutritionOrderSearch interface {
-	SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, error)
+	SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ObservationSearch interface {
-	SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error)
+	SearchObservation(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ObservationDefinitionSearch interface {
-	SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type OperationDefinitionSearch interface {
-	SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type OperationOutcomeSearch interface {
-	SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, error)
+	SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result, error)
 }
 type OrganizationSearch interface {
-	SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchOrganization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, error)
+	SearchOrganization(ctx context.Context, options search.Options) (search.Result, error)
 }
 type OrganizationAffiliationSearch interface {
-	SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, error)
+	SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ParametersSearch interface {
-	SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchParameters(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, error)
+	SearchParameters(ctx context.Context, options search.Options) (search.Result, error)
 }
 type PatientSearch interface {
-	SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error)
+	SearchPatient(ctx context.Context, options search.Options) (search.Result, error)
 }
 type PaymentNoticeSearch interface {
-	SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, error)
+	SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result, error)
 }
 type PaymentReconciliationSearch interface {
-	SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, error)
+	SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result, error)
 }
 type PersonSearch interface {
-	SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, error)
+	SearchPerson(ctx context.Context, options search.Options) (search.Result, error)
 }
 type PlanDefinitionSearch interface {
-	SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type PractitionerSearch interface {
-	SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchPractitioner(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, error)
+	SearchPractitioner(ctx context.Context, options search.Options) (search.Result, error)
 }
 type PractitionerRoleSearch interface {
-	SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, error)
+	SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ProcedureSearch interface {
-	SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchProcedure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, error)
+	SearchProcedure(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ProvenanceSearch interface {
-	SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchProvenance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, error)
+	SearchProvenance(ctx context.Context, options search.Options) (search.Result, error)
 }
 type QuestionnaireSearch interface {
-	SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, error)
+	SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result, error)
 }
 type QuestionnaireResponseSearch interface {
-	SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, error)
+	SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result, error)
 }
 type RelatedPersonSearch interface {
-	SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, error)
+	SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result, error)
 }
 type RequestGroupSearch interface {
-	SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchRequestGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, error)
+	SearchRequestGroup(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ResearchDefinitionSearch interface {
-	SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ResearchElementDefinitionSearch interface {
-	SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ResearchStudySearch interface {
-	SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchResearchStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, error)
+	SearchResearchStudy(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ResearchSubjectSearch interface {
-	SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchResearchSubject(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, error)
+	SearchResearchSubject(ctx context.Context, options search.Options) (search.Result, error)
 }
 type RiskAssessmentSearch interface {
-	SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, error)
+	SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result, error)
 }
 type RiskEvidenceSynthesisSearch interface {
-	SearchCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchRiskEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (search.Capabilities, error)
+	SearchRiskEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ScheduleSearch interface {
-	SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSchedule(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, error)
+	SearchSchedule(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SearchParameterSearch interface {
-	SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSearchParameter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, error)
+	SearchSearchParameter(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ServiceRequestSearch interface {
-	SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchServiceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, error)
+	SearchServiceRequest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SlotSearch interface {
-	SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSlot(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, error)
+	SearchSlot(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SpecimenSearch interface {
-	SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSpecimen(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, error)
+	SearchSpecimen(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SpecimenDefinitionSearch interface {
-	SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type StructureDefinitionSearch interface {
-	SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, error)
+	SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result, error)
 }
 type StructureMapSearch interface {
-	SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchStructureMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, error)
+	SearchStructureMap(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubscriptionSearch interface {
-	SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubscription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, error)
+	SearchSubscription(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubstanceSearch interface {
-	SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubstance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, error)
+	SearchSubstance(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubstanceNucleicAcidSearch interface {
-	SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubstanceNucleicAcid(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (search.Capabilities, error)
+	SearchSubstanceNucleicAcid(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubstancePolymerSearch interface {
-	SearchCapabilitiesSubstancePolymer(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubstancePolymer(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubstancePolymer(ctx context.Context) (search.Capabilities, error)
+	SearchSubstancePolymer(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubstanceProteinSearch interface {
-	SearchCapabilitiesSubstanceProtein(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubstanceProtein(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubstanceProtein(ctx context.Context) (search.Capabilities, error)
+	SearchSubstanceProtein(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubstanceReferenceInformationSearch interface {
-	SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubstanceReferenceInformation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (search.Capabilities, error)
+	SearchSubstanceReferenceInformation(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubstanceSourceMaterialSearch interface {
-	SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubstanceSourceMaterial(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (search.Capabilities, error)
+	SearchSubstanceSourceMaterial(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SubstanceSpecificationSearch interface {
-	SearchCapabilitiesSubstanceSpecification(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSubstanceSpecification(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSubstanceSpecification(ctx context.Context) (search.Capabilities, error)
+	SearchSubstanceSpecification(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SupplyDeliverySearch interface {
-	SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, error)
+	SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result, error)
 }
 type SupplyRequestSearch interface {
-	SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, error)
+	SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result, error)
 }
 type TaskSearch interface {
-	SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchTask(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, error)
+	SearchTask(ctx context.Context, options search.Options) (search.Result, error)
 }
 type TerminologyCapabilitiesSearch interface {
-	SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, error)
+	SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result, error)
 }
 type TestReportSearch interface {
-	SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchTestReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, error)
+	SearchTestReport(ctx context.Context, options search.Options) (search.Result, error)
 }
 type TestScriptSearch interface {
-	SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchTestScript(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, error)
+	SearchTestScript(ctx context.Context, options search.Options) (search.Result, error)
 }
 type ValueSetSearch interface {
-	SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchValueSet(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, error)
+	SearchValueSet(ctx context.Context, options search.Options) (search.Result, error)
 }
 type VerificationResultSearch interface {
-	SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchVerificationResult(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, error)
+	SearchVerificationResult(ctx context.Context, options search.Options) (search.Result, error)
 }
 type VisionPrescriptionSearch interface {
-	SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, capabilities.FHIRError)
-	SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError)
+	SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, error)
+	SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result, error)
 }

@@ -39,6 +39,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/wrap"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"log/slog"
@@ -80,8 +81,8 @@ func registerRoutes[R model.Release](
 
 	mux.Handle("GET /metadata", metadataHandler[R](backend, config, date))
 	mux.Handle("POST /{type}", createHandler[R](backend, config))
-	mux.Handle("GET /{type}/{id}", readHandler(backend, config))
-	mux.Handle("GET /{type}", searchHandler(backend, config, config.Timezone))
+	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
+	mux.Handle("GET /{type}", searchHandler[R](backend, config, config.Timezone))
 
 	return nil
 }
@@ -96,7 +97,7 @@ func metadataHandler[R model.Release](
 
 		capabilities, err := backend.AllCapabilities(r.Context())
 		if err != nil {
-			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
+			returnErr[R](w, responseFormat, err)
 			return
 		}
 
@@ -117,23 +118,23 @@ func createHandler[R model.Release](
 		resourceType := r.PathValue("type")
 
 		if !implemented {
-			err := capabilities.NotImplementedError{
-				Interaction: "create",
-			}
-			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
+			slog.Error("interaction not implemented by backend", "interaction", "create")
+			returnErr[R](w, responseFormat, notImplementedError("create"))
 			return
 		}
 
-		status, resource := dispatchCreate[R](r, backend, requestFormat, resourceType)
-		if status != http.StatusCreated {
+		resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
+		if err != nil {
 			slog.Error("error creating resource", "resourceType", resourceType, "outcome", resource)
-		} else {
-			// fall back to empty string if id is not set
-			id, _ := resource.ResourceId()
-			w.Header().Set("Location", config.Base.JoinPath(resourceType, id).String())
+			returnErr[R](w, responseFormat, err)
+			return
 		}
 
-		returnResult(w, responseFormat, status, resource)
+		// fall back to empty string if id is not set
+		id, _ := resource.ResourceId()
+		w.Header().Set("Location", config.Base.JoinPath(resourceType, id).String())
+
+		returnResult(w, responseFormat, http.StatusCreated, resource)
 	})
 }
 
@@ -141,39 +142,14 @@ type wrongRequestBodyError struct {
 	ResourceType string
 }
 
-// An UnexpectedResourceError is returned when an unexpected resource type is returned.
-type unexpectedResourceClientError struct {
-	ExpectedType string
-	GotType      string
-}
-
-func (e unexpectedResourceClientError) Error() string {
-	return fmt.Sprintf("unexpected resource from client: expected %s, got %s", e.ExpectedType, e.GotType)
-}
-
-func (e unexpectedResourceClientError) StatusCode() int {
-	return 400
-}
-
-func (e unexpectedResourceClientError) OperationOutcome() basic.OperationOutcome {
-	return basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{
-				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
-			},
-		},
-	}
-}
 func dispatchCreate[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericCreate,
 	requestFormat format,
 	resourceType string,
-) (int, model.Resource) {
+) (model.Resource, error) {
 	var resource model.Resource
-	var err capabilities.FHIRError
+	var err error
 
 	switch requestFormat {
 	case formatJSON:
@@ -183,26 +159,22 @@ func dispatchCreate[R model.Release](
 	}
 
 	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, err
 	}
 
 	if resourceType != resource.ResourceType() {
-		err = unexpectedResourceClientError{
-			ExpectedType: resourceType,
-			GotType:      resource.ResourceType(),
-		}
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, unexpectedResourceError(resourceType, resource.ResourceType())
 	}
 
 	createdResource, err := backend.Create(r.Context(), resource)
 	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, err
 	}
 
-	return http.StatusCreated, createdResource
+	return createdResource, nil
 }
 
-func readHandler(
+func readHandler[R model.Release](
 	anyBackend any,
 	config Config,
 ) http.Handler {
@@ -214,19 +186,19 @@ func readHandler(
 		resourceID := r.PathValue("id")
 
 		if !implemented {
-			err := capabilities.NotImplementedError{
-				Interaction: "read",
-			}
-			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
+			slog.Error("interaction not implemented by backend", "interaction", "read")
+			returnErr[R](w, responseFormat, notImplementedError("read"))
 			return
 		}
 
-		status, resource := dispatchRead(r.Context(), backend, resourceType, resourceID)
-		if status != http.StatusOK {
+		resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
+		if err != nil {
 			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
+			returnErr[R](w, responseFormat, err)
+			return
 		}
 
-		returnResult(w, responseFormat, status, resource)
+		returnResult(w, responseFormat, http.StatusOK, resource)
 	})
 }
 
@@ -235,15 +207,15 @@ func dispatchRead(
 	backend capabilities.GenericRead,
 	resourceType string,
 	resourceID string,
-) (int, model.Resource) {
+) (model.Resource, error) {
 	resource, err := backend.Read(ctx, resourceType, resourceID)
 	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, err
 	}
-	return http.StatusOK, resource
+	return resource, nil
 }
 
-func searchHandler(
+func searchHandler[R model.Release](
 	anyBackend any,
 	config Config,
 	tz *time.Location,
@@ -255,14 +227,12 @@ func searchHandler(
 		resourceType := r.PathValue("type")
 
 		if !implemented {
-			err := capabilities.NotImplementedError{
-				Interaction: "search-type",
-			}
-			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
+			slog.Error("interaction not implemented by backend", "interaction", "search-type")
+			returnErr[R](w, responseFormat, notImplementedError("search-type"))
 			return
 		}
 
-		status, resource := dispatchSearch(
+		resource, err := dispatchSearch(
 			r.Context(),
 			backend,
 			config,
@@ -270,11 +240,13 @@ func searchHandler(
 			r.URL.Query(),
 			tz,
 		)
-		if status != http.StatusOK {
+		if err != nil {
 			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
+			returnErr[R](w, responseFormat, err)
+			return
 		}
 
-		returnResult(w, responseFormat, status, resource)
+		returnResult(w, responseFormat, http.StatusOK, resource)
 	})
 }
 
@@ -285,42 +257,47 @@ func dispatchSearch(
 	resourceType string,
 	parameters url.Values,
 	tz *time.Location,
-) (int, model.Resource) {
+) (model.Resource, error) {
 	allCapabilities, err := backend.AllCapabilities(ctx)
 	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, err
 	}
 
 	searchCapabilities := allCapabilities.SearchCapabilities[resourceType]
 
 	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, err
 	}
 
 	resources, err := backend.Search(ctx, resourceType, options)
 	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, err
 	}
 
 	bundle, err := searchBundle(resourceType, resources, options, searchCapabilities, config.Base)
 	if err != nil {
-		return err.StatusCode(), err.OperationOutcome()
+		return nil, err
 	}
 
-	return http.StatusOK, bundle
+	return bundle, nil
 }
 
 func parseSearchOptions(
 	searchCapabilities search.Capabilities,
 	params url.Values,
 	tz *time.Location,
-	maxCount, defaultCount int) (search.Options, capabilities.FHIRError) {
+	maxCount, defaultCount int) (search.Options, error) {
 	options, err := search.ParseOptions(searchCapabilities, params, tz, maxCount, defaultCount)
 	if err != nil {
-		return search.Options{}, capabilities.NewSearchError(err)
+		return search.Options{}, searchError(err.Error())
 	}
 	return options, nil
+}
+
+func returnErr[R model.Release](w http.ResponseWriter, format format, err error) {
+	status, oo := outcome.ErrorToOperationOutcome[R](err)
+	returnResult(w, format, status, oo)
 }
 
 func returnResult[T any](w http.ResponseWriter, format format, status int, r T) {
@@ -334,5 +311,45 @@ func returnResult[T any](w http.ResponseWriter, format format, status int, r T) 
 	if err != nil {
 		// we were not able to return an application level error (OperationOutcome)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func notImplementedError(interaction string) error {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("%s interaction not implemented", interaction))},
+			},
+		},
+	}
+}
+
+func unexpectedResourceError(
+	expectedType string,
+	gotType string,
+) basic.OperationOutcome {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{
+				Severity: basic.Code{Value: utils.Ptr("fatal")},
+				Code:     basic.Code{Value: utils.Ptr("processing")},
+				Diagnostics: &basic.String{Value: utils.Ptr(
+					fmt.Sprintf("unexpected resource: expected %s, got %s", expectedType, gotType),
+				)},
+			},
+		},
+	}
+}
+func searchError(msg string) basic.OperationOutcome {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("processing")},
+				Diagnostics: &basic.String{Value: &msg},
+			},
+		},
 	}
 }

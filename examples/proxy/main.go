@@ -71,12 +71,12 @@ type Client struct {
 	url string
 }
 
-func (c *Client) AllCapabilities(ctx context.Context) (capabilities.Capabilities, capabilities.FHIRError) {
+func (c *Client) AllCapabilities(ctx context.Context) (capabilities.Capabilities, error) {
 	// TODO: this should call the remote service for its capabilities
 	return capabilities.Capabilities{}, nil
 }
 
-func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
+func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, error) {
 	// ContainedResource is a concrete representation of any resource
 	// internally this e.g. uses in bundles
 	var resource r5.ContainedResource
@@ -99,7 +99,7 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 	return resource, nil
 }
 
-func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {
+func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {
 	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, options.QueryString())
 	log.Printf("forwarding GET %s", url)
 

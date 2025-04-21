@@ -2,7 +2,6 @@ package rest
 
 import (
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
@@ -12,26 +11,13 @@ import (
 	"strings"
 )
 
-// MissingIdError indicates that a bundle entry is missing an id.
-type missingIdError struct {
-	ResourceType string
-}
-
-func (e missingIdError) Error() string {
-	return fmt.Sprintf("missing ID for resource of type %s", e.ResourceType)
-}
-
-func (e missingIdError) StatusCode() int {
-	return 500
-}
-
-func (e missingIdError) OperationOutcome() basic.OperationOutcome {
+func missingIdError(resourceType string) basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
 				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
+				Code:        basic.Code{Value: utils.Ptr("exception")},
+				Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("missing id for resource of type '%s'", resourceType))},
 			},
 		},
 	}
@@ -47,7 +33,7 @@ func searchBundle(
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
-) (basic.Bundle, capabilities.FHIRError) {
+) (basic.Bundle, error) {
 	entries, err := entries(result, baseURL)
 	if err != nil {
 		return basic.Bundle{}, err
@@ -88,7 +74,7 @@ func searchBundle(
 	return bundle, nil
 }
 
-func entries(result search.Result, baseURL *url.URL) ([]basic.BundleEntry, capabilities.FHIRError) {
+func entries(result search.Result, baseURL *url.URL) ([]basic.BundleEntry, error) {
 	entries := make([]basic.BundleEntry, 0, len(result.Resources)+len(result.Included))
 
 	for _, r := range result.Resources {
@@ -110,11 +96,11 @@ func entries(result search.Result, baseURL *url.URL) ([]basic.BundleEntry, capab
 	return entries, nil
 }
 
-func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.BundleEntry, capabilities.FHIRError) {
+func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.BundleEntry, error) {
 	resourceType := resource.ResourceType()
 	resourceID, ok := resource.ResourceId()
 	if !ok {
-		return basic.BundleEntry{}, missingIdError{ResourceType: resourceType}
+		return basic.BundleEntry{}, missingIdError(resourceType)
 	}
 
 	path := strings.Trim(baseURL.Path, "/ ")

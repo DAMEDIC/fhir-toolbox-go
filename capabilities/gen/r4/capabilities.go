@@ -6,13 +6,14 @@ package capabilitiesR4
 
 import (
 	"context"
+	"errors"
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 )
 
-func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, capabilities.FHIRError) {
+func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, error) {
 	allCapabilities := capabilities.Capabilities{SearchCapabilities: make(map[string]search.Capabilities)}
-	var errs []capabilities.FHIRError
+	var errs []error
 	if _, ok := api.(AccountCreate); ok {
 		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Account")
 	}
@@ -2495,5 +2496,5 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, c
 			allCapabilities.SearchCapabilities["VisionPrescription"] = c
 		}
 	}
-	return allCapabilities, capabilities.JoinErrors(errs)
+	return allCapabilities, errors.Join(errs...)
 }

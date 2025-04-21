@@ -17,7 +17,7 @@
 //		}
 //	}
 //
-//	func (b *myAPI) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+//	func (b *myAPI) SearchObservation(ctx context.Context, options search.Options) (search.Result, error) {
 //		// return the search result
 //		return search.Result{ ... }, nil
 //	}

@@ -6,445 +6,444 @@ package capabilitiesR4
 
 import (
 	"context"
-	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	r4 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 )
 
 type AccountCreate interface {
-	CreateAccount(ctx context.Context, resource r4.Account) (r4.Account, capabilities.FHIRError)
+	CreateAccount(ctx context.Context, resource r4.Account) (r4.Account, error)
 }
 type ActivityDefinitionCreate interface {
-	CreateActivityDefinition(ctx context.Context, resource r4.ActivityDefinition) (r4.ActivityDefinition, capabilities.FHIRError)
+	CreateActivityDefinition(ctx context.Context, resource r4.ActivityDefinition) (r4.ActivityDefinition, error)
 }
 type AdverseEventCreate interface {
-	CreateAdverseEvent(ctx context.Context, resource r4.AdverseEvent) (r4.AdverseEvent, capabilities.FHIRError)
+	CreateAdverseEvent(ctx context.Context, resource r4.AdverseEvent) (r4.AdverseEvent, error)
 }
 type AllergyIntoleranceCreate interface {
-	CreateAllergyIntolerance(ctx context.Context, resource r4.AllergyIntolerance) (r4.AllergyIntolerance, capabilities.FHIRError)
+	CreateAllergyIntolerance(ctx context.Context, resource r4.AllergyIntolerance) (r4.AllergyIntolerance, error)
 }
 type AppointmentCreate interface {
-	CreateAppointment(ctx context.Context, resource r4.Appointment) (r4.Appointment, capabilities.FHIRError)
+	CreateAppointment(ctx context.Context, resource r4.Appointment) (r4.Appointment, error)
 }
 type AppointmentResponseCreate interface {
-	CreateAppointmentResponse(ctx context.Context, resource r4.AppointmentResponse) (r4.AppointmentResponse, capabilities.FHIRError)
+	CreateAppointmentResponse(ctx context.Context, resource r4.AppointmentResponse) (r4.AppointmentResponse, error)
 }
 type AuditEventCreate interface {
-	CreateAuditEvent(ctx context.Context, resource r4.AuditEvent) (r4.AuditEvent, capabilities.FHIRError)
+	CreateAuditEvent(ctx context.Context, resource r4.AuditEvent) (r4.AuditEvent, error)
 }
 type BasicCreate interface {
-	CreateBasic(ctx context.Context, resource r4.Basic) (r4.Basic, capabilities.FHIRError)
+	CreateBasic(ctx context.Context, resource r4.Basic) (r4.Basic, error)
 }
 type BinaryCreate interface {
-	CreateBinary(ctx context.Context, resource r4.Binary) (r4.Binary, capabilities.FHIRError)
+	CreateBinary(ctx context.Context, resource r4.Binary) (r4.Binary, error)
 }
 type BiologicallyDerivedProductCreate interface {
-	CreateBiologicallyDerivedProduct(ctx context.Context, resource r4.BiologicallyDerivedProduct) (r4.BiologicallyDerivedProduct, capabilities.FHIRError)
+	CreateBiologicallyDerivedProduct(ctx context.Context, resource r4.BiologicallyDerivedProduct) (r4.BiologicallyDerivedProduct, error)
 }
 type BodyStructureCreate interface {
-	CreateBodyStructure(ctx context.Context, resource r4.BodyStructure) (r4.BodyStructure, capabilities.FHIRError)
+	CreateBodyStructure(ctx context.Context, resource r4.BodyStructure) (r4.BodyStructure, error)
 }
 type BundleCreate interface {
-	CreateBundle(ctx context.Context, resource r4.Bundle) (r4.Bundle, capabilities.FHIRError)
+	CreateBundle(ctx context.Context, resource r4.Bundle) (r4.Bundle, error)
 }
 type CapabilityStatementCreate interface {
-	CreateCapabilityStatement(ctx context.Context, resource r4.CapabilityStatement) (r4.CapabilityStatement, capabilities.FHIRError)
+	CreateCapabilityStatement(ctx context.Context, resource r4.CapabilityStatement) (r4.CapabilityStatement, error)
 }
 type CarePlanCreate interface {
-	CreateCarePlan(ctx context.Context, resource r4.CarePlan) (r4.CarePlan, capabilities.FHIRError)
+	CreateCarePlan(ctx context.Context, resource r4.CarePlan) (r4.CarePlan, error)
 }
 type CareTeamCreate interface {
-	CreateCareTeam(ctx context.Context, resource r4.CareTeam) (r4.CareTeam, capabilities.FHIRError)
+	CreateCareTeam(ctx context.Context, resource r4.CareTeam) (r4.CareTeam, error)
 }
 type CatalogEntryCreate interface {
-	CreateCatalogEntry(ctx context.Context, resource r4.CatalogEntry) (r4.CatalogEntry, capabilities.FHIRError)
+	CreateCatalogEntry(ctx context.Context, resource r4.CatalogEntry) (r4.CatalogEntry, error)
 }
 type ChargeItemCreate interface {
-	CreateChargeItem(ctx context.Context, resource r4.ChargeItem) (r4.ChargeItem, capabilities.FHIRError)
+	CreateChargeItem(ctx context.Context, resource r4.ChargeItem) (r4.ChargeItem, error)
 }
 type ChargeItemDefinitionCreate interface {
-	CreateChargeItemDefinition(ctx context.Context, resource r4.ChargeItemDefinition) (r4.ChargeItemDefinition, capabilities.FHIRError)
+	CreateChargeItemDefinition(ctx context.Context, resource r4.ChargeItemDefinition) (r4.ChargeItemDefinition, error)
 }
 type ClaimCreate interface {
-	CreateClaim(ctx context.Context, resource r4.Claim) (r4.Claim, capabilities.FHIRError)
+	CreateClaim(ctx context.Context, resource r4.Claim) (r4.Claim, error)
 }
 type ClaimResponseCreate interface {
-	CreateClaimResponse(ctx context.Context, resource r4.ClaimResponse) (r4.ClaimResponse, capabilities.FHIRError)
+	CreateClaimResponse(ctx context.Context, resource r4.ClaimResponse) (r4.ClaimResponse, error)
 }
 type ClinicalImpressionCreate interface {
-	CreateClinicalImpression(ctx context.Context, resource r4.ClinicalImpression) (r4.ClinicalImpression, capabilities.FHIRError)
+	CreateClinicalImpression(ctx context.Context, resource r4.ClinicalImpression) (r4.ClinicalImpression, error)
 }
 type CodeSystemCreate interface {
-	CreateCodeSystem(ctx context.Context, resource r4.CodeSystem) (r4.CodeSystem, capabilities.FHIRError)
+	CreateCodeSystem(ctx context.Context, resource r4.CodeSystem) (r4.CodeSystem, error)
 }
 type CommunicationCreate interface {
-	CreateCommunication(ctx context.Context, resource r4.Communication) (r4.Communication, capabilities.FHIRError)
+	CreateCommunication(ctx context.Context, resource r4.Communication) (r4.Communication, error)
 }
 type CommunicationRequestCreate interface {
-	CreateCommunicationRequest(ctx context.Context, resource r4.CommunicationRequest) (r4.CommunicationRequest, capabilities.FHIRError)
+	CreateCommunicationRequest(ctx context.Context, resource r4.CommunicationRequest) (r4.CommunicationRequest, error)
 }
 type CompartmentDefinitionCreate interface {
-	CreateCompartmentDefinition(ctx context.Context, resource r4.CompartmentDefinition) (r4.CompartmentDefinition, capabilities.FHIRError)
+	CreateCompartmentDefinition(ctx context.Context, resource r4.CompartmentDefinition) (r4.CompartmentDefinition, error)
 }
 type CompositionCreate interface {
-	CreateComposition(ctx context.Context, resource r4.Composition) (r4.Composition, capabilities.FHIRError)
+	CreateComposition(ctx context.Context, resource r4.Composition) (r4.Composition, error)
 }
 type ConceptMapCreate interface {
-	CreateConceptMap(ctx context.Context, resource r4.ConceptMap) (r4.ConceptMap, capabilities.FHIRError)
+	CreateConceptMap(ctx context.Context, resource r4.ConceptMap) (r4.ConceptMap, error)
 }
 type ConditionCreate interface {
-	CreateCondition(ctx context.Context, resource r4.Condition) (r4.Condition, capabilities.FHIRError)
+	CreateCondition(ctx context.Context, resource r4.Condition) (r4.Condition, error)
 }
 type ConsentCreate interface {
-	CreateConsent(ctx context.Context, resource r4.Consent) (r4.Consent, capabilities.FHIRError)
+	CreateConsent(ctx context.Context, resource r4.Consent) (r4.Consent, error)
 }
 type ContractCreate interface {
-	CreateContract(ctx context.Context, resource r4.Contract) (r4.Contract, capabilities.FHIRError)
+	CreateContract(ctx context.Context, resource r4.Contract) (r4.Contract, error)
 }
 type CoverageCreate interface {
-	CreateCoverage(ctx context.Context, resource r4.Coverage) (r4.Coverage, capabilities.FHIRError)
+	CreateCoverage(ctx context.Context, resource r4.Coverage) (r4.Coverage, error)
 }
 type CoverageEligibilityRequestCreate interface {
-	CreateCoverageEligibilityRequest(ctx context.Context, resource r4.CoverageEligibilityRequest) (r4.CoverageEligibilityRequest, capabilities.FHIRError)
+	CreateCoverageEligibilityRequest(ctx context.Context, resource r4.CoverageEligibilityRequest) (r4.CoverageEligibilityRequest, error)
 }
 type CoverageEligibilityResponseCreate interface {
-	CreateCoverageEligibilityResponse(ctx context.Context, resource r4.CoverageEligibilityResponse) (r4.CoverageEligibilityResponse, capabilities.FHIRError)
+	CreateCoverageEligibilityResponse(ctx context.Context, resource r4.CoverageEligibilityResponse) (r4.CoverageEligibilityResponse, error)
 }
 type DetectedIssueCreate interface {
-	CreateDetectedIssue(ctx context.Context, resource r4.DetectedIssue) (r4.DetectedIssue, capabilities.FHIRError)
+	CreateDetectedIssue(ctx context.Context, resource r4.DetectedIssue) (r4.DetectedIssue, error)
 }
 type DeviceCreate interface {
-	CreateDevice(ctx context.Context, resource r4.Device) (r4.Device, capabilities.FHIRError)
+	CreateDevice(ctx context.Context, resource r4.Device) (r4.Device, error)
 }
 type DeviceDefinitionCreate interface {
-	CreateDeviceDefinition(ctx context.Context, resource r4.DeviceDefinition) (r4.DeviceDefinition, capabilities.FHIRError)
+	CreateDeviceDefinition(ctx context.Context, resource r4.DeviceDefinition) (r4.DeviceDefinition, error)
 }
 type DeviceMetricCreate interface {
-	CreateDeviceMetric(ctx context.Context, resource r4.DeviceMetric) (r4.DeviceMetric, capabilities.FHIRError)
+	CreateDeviceMetric(ctx context.Context, resource r4.DeviceMetric) (r4.DeviceMetric, error)
 }
 type DeviceRequestCreate interface {
-	CreateDeviceRequest(ctx context.Context, resource r4.DeviceRequest) (r4.DeviceRequest, capabilities.FHIRError)
+	CreateDeviceRequest(ctx context.Context, resource r4.DeviceRequest) (r4.DeviceRequest, error)
 }
 type DeviceUseStatementCreate interface {
-	CreateDeviceUseStatement(ctx context.Context, resource r4.DeviceUseStatement) (r4.DeviceUseStatement, capabilities.FHIRError)
+	CreateDeviceUseStatement(ctx context.Context, resource r4.DeviceUseStatement) (r4.DeviceUseStatement, error)
 }
 type DiagnosticReportCreate interface {
-	CreateDiagnosticReport(ctx context.Context, resource r4.DiagnosticReport) (r4.DiagnosticReport, capabilities.FHIRError)
+	CreateDiagnosticReport(ctx context.Context, resource r4.DiagnosticReport) (r4.DiagnosticReport, error)
 }
 type DocumentManifestCreate interface {
-	CreateDocumentManifest(ctx context.Context, resource r4.DocumentManifest) (r4.DocumentManifest, capabilities.FHIRError)
+	CreateDocumentManifest(ctx context.Context, resource r4.DocumentManifest) (r4.DocumentManifest, error)
 }
 type DocumentReferenceCreate interface {
-	CreateDocumentReference(ctx context.Context, resource r4.DocumentReference) (r4.DocumentReference, capabilities.FHIRError)
+	CreateDocumentReference(ctx context.Context, resource r4.DocumentReference) (r4.DocumentReference, error)
 }
 type EffectEvidenceSynthesisCreate interface {
-	CreateEffectEvidenceSynthesis(ctx context.Context, resource r4.EffectEvidenceSynthesis) (r4.EffectEvidenceSynthesis, capabilities.FHIRError)
+	CreateEffectEvidenceSynthesis(ctx context.Context, resource r4.EffectEvidenceSynthesis) (r4.EffectEvidenceSynthesis, error)
 }
 type EncounterCreate interface {
-	CreateEncounter(ctx context.Context, resource r4.Encounter) (r4.Encounter, capabilities.FHIRError)
+	CreateEncounter(ctx context.Context, resource r4.Encounter) (r4.Encounter, error)
 }
 type EndpointCreate interface {
-	CreateEndpoint(ctx context.Context, resource r4.Endpoint) (r4.Endpoint, capabilities.FHIRError)
+	CreateEndpoint(ctx context.Context, resource r4.Endpoint) (r4.Endpoint, error)
 }
 type EnrollmentRequestCreate interface {
-	CreateEnrollmentRequest(ctx context.Context, resource r4.EnrollmentRequest) (r4.EnrollmentRequest, capabilities.FHIRError)
+	CreateEnrollmentRequest(ctx context.Context, resource r4.EnrollmentRequest) (r4.EnrollmentRequest, error)
 }
 type EnrollmentResponseCreate interface {
-	CreateEnrollmentResponse(ctx context.Context, resource r4.EnrollmentResponse) (r4.EnrollmentResponse, capabilities.FHIRError)
+	CreateEnrollmentResponse(ctx context.Context, resource r4.EnrollmentResponse) (r4.EnrollmentResponse, error)
 }
 type EpisodeOfCareCreate interface {
-	CreateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOfCare) (r4.EpisodeOfCare, capabilities.FHIRError)
+	CreateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOfCare) (r4.EpisodeOfCare, error)
 }
 type EventDefinitionCreate interface {
-	CreateEventDefinition(ctx context.Context, resource r4.EventDefinition) (r4.EventDefinition, capabilities.FHIRError)
+	CreateEventDefinition(ctx context.Context, resource r4.EventDefinition) (r4.EventDefinition, error)
 }
 type EvidenceCreate interface {
-	CreateEvidence(ctx context.Context, resource r4.Evidence) (r4.Evidence, capabilities.FHIRError)
+	CreateEvidence(ctx context.Context, resource r4.Evidence) (r4.Evidence, error)
 }
 type EvidenceVariableCreate interface {
-	CreateEvidenceVariable(ctx context.Context, resource r4.EvidenceVariable) (r4.EvidenceVariable, capabilities.FHIRError)
+	CreateEvidenceVariable(ctx context.Context, resource r4.EvidenceVariable) (r4.EvidenceVariable, error)
 }
 type ExampleScenarioCreate interface {
-	CreateExampleScenario(ctx context.Context, resource r4.ExampleScenario) (r4.ExampleScenario, capabilities.FHIRError)
+	CreateExampleScenario(ctx context.Context, resource r4.ExampleScenario) (r4.ExampleScenario, error)
 }
 type ExplanationOfBenefitCreate interface {
-	CreateExplanationOfBenefit(ctx context.Context, resource r4.ExplanationOfBenefit) (r4.ExplanationOfBenefit, capabilities.FHIRError)
+	CreateExplanationOfBenefit(ctx context.Context, resource r4.ExplanationOfBenefit) (r4.ExplanationOfBenefit, error)
 }
 type FamilyMemberHistoryCreate interface {
-	CreateFamilyMemberHistory(ctx context.Context, resource r4.FamilyMemberHistory) (r4.FamilyMemberHistory, capabilities.FHIRError)
+	CreateFamilyMemberHistory(ctx context.Context, resource r4.FamilyMemberHistory) (r4.FamilyMemberHistory, error)
 }
 type FlagCreate interface {
-	CreateFlag(ctx context.Context, resource r4.Flag) (r4.Flag, capabilities.FHIRError)
+	CreateFlag(ctx context.Context, resource r4.Flag) (r4.Flag, error)
 }
 type GoalCreate interface {
-	CreateGoal(ctx context.Context, resource r4.Goal) (r4.Goal, capabilities.FHIRError)
+	CreateGoal(ctx context.Context, resource r4.Goal) (r4.Goal, error)
 }
 type GraphDefinitionCreate interface {
-	CreateGraphDefinition(ctx context.Context, resource r4.GraphDefinition) (r4.GraphDefinition, capabilities.FHIRError)
+	CreateGraphDefinition(ctx context.Context, resource r4.GraphDefinition) (r4.GraphDefinition, error)
 }
 type GroupCreate interface {
-	CreateGroup(ctx context.Context, resource r4.Group) (r4.Group, capabilities.FHIRError)
+	CreateGroup(ctx context.Context, resource r4.Group) (r4.Group, error)
 }
 type GuidanceResponseCreate interface {
-	CreateGuidanceResponse(ctx context.Context, resource r4.GuidanceResponse) (r4.GuidanceResponse, capabilities.FHIRError)
+	CreateGuidanceResponse(ctx context.Context, resource r4.GuidanceResponse) (r4.GuidanceResponse, error)
 }
 type HealthcareServiceCreate interface {
-	CreateHealthcareService(ctx context.Context, resource r4.HealthcareService) (r4.HealthcareService, capabilities.FHIRError)
+	CreateHealthcareService(ctx context.Context, resource r4.HealthcareService) (r4.HealthcareService, error)
 }
 type ImagingStudyCreate interface {
-	CreateImagingStudy(ctx context.Context, resource r4.ImagingStudy) (r4.ImagingStudy, capabilities.FHIRError)
+	CreateImagingStudy(ctx context.Context, resource r4.ImagingStudy) (r4.ImagingStudy, error)
 }
 type ImmunizationCreate interface {
-	CreateImmunization(ctx context.Context, resource r4.Immunization) (r4.Immunization, capabilities.FHIRError)
+	CreateImmunization(ctx context.Context, resource r4.Immunization) (r4.Immunization, error)
 }
 type ImmunizationEvaluationCreate interface {
-	CreateImmunizationEvaluation(ctx context.Context, resource r4.ImmunizationEvaluation) (r4.ImmunizationEvaluation, capabilities.FHIRError)
+	CreateImmunizationEvaluation(ctx context.Context, resource r4.ImmunizationEvaluation) (r4.ImmunizationEvaluation, error)
 }
 type ImmunizationRecommendationCreate interface {
-	CreateImmunizationRecommendation(ctx context.Context, resource r4.ImmunizationRecommendation) (r4.ImmunizationRecommendation, capabilities.FHIRError)
+	CreateImmunizationRecommendation(ctx context.Context, resource r4.ImmunizationRecommendation) (r4.ImmunizationRecommendation, error)
 }
 type ImplementationGuideCreate interface {
-	CreateImplementationGuide(ctx context.Context, resource r4.ImplementationGuide) (r4.ImplementationGuide, capabilities.FHIRError)
+	CreateImplementationGuide(ctx context.Context, resource r4.ImplementationGuide) (r4.ImplementationGuide, error)
 }
 type InsurancePlanCreate interface {
-	CreateInsurancePlan(ctx context.Context, resource r4.InsurancePlan) (r4.InsurancePlan, capabilities.FHIRError)
+	CreateInsurancePlan(ctx context.Context, resource r4.InsurancePlan) (r4.InsurancePlan, error)
 }
 type InvoiceCreate interface {
-	CreateInvoice(ctx context.Context, resource r4.Invoice) (r4.Invoice, capabilities.FHIRError)
+	CreateInvoice(ctx context.Context, resource r4.Invoice) (r4.Invoice, error)
 }
 type LibraryCreate interface {
-	CreateLibrary(ctx context.Context, resource r4.Library) (r4.Library, capabilities.FHIRError)
+	CreateLibrary(ctx context.Context, resource r4.Library) (r4.Library, error)
 }
 type LinkageCreate interface {
-	CreateLinkage(ctx context.Context, resource r4.Linkage) (r4.Linkage, capabilities.FHIRError)
+	CreateLinkage(ctx context.Context, resource r4.Linkage) (r4.Linkage, error)
 }
 type ListCreate interface {
-	CreateList(ctx context.Context, resource r4.List) (r4.List, capabilities.FHIRError)
+	CreateList(ctx context.Context, resource r4.List) (r4.List, error)
 }
 type LocationCreate interface {
-	CreateLocation(ctx context.Context, resource r4.Location) (r4.Location, capabilities.FHIRError)
+	CreateLocation(ctx context.Context, resource r4.Location) (r4.Location, error)
 }
 type MeasureCreate interface {
-	CreateMeasure(ctx context.Context, resource r4.Measure) (r4.Measure, capabilities.FHIRError)
+	CreateMeasure(ctx context.Context, resource r4.Measure) (r4.Measure, error)
 }
 type MeasureReportCreate interface {
-	CreateMeasureReport(ctx context.Context, resource r4.MeasureReport) (r4.MeasureReport, capabilities.FHIRError)
+	CreateMeasureReport(ctx context.Context, resource r4.MeasureReport) (r4.MeasureReport, error)
 }
 type MediaCreate interface {
-	CreateMedia(ctx context.Context, resource r4.Media) (r4.Media, capabilities.FHIRError)
+	CreateMedia(ctx context.Context, resource r4.Media) (r4.Media, error)
 }
 type MedicationCreate interface {
-	CreateMedication(ctx context.Context, resource r4.Medication) (r4.Medication, capabilities.FHIRError)
+	CreateMedication(ctx context.Context, resource r4.Medication) (r4.Medication, error)
 }
 type MedicationAdministrationCreate interface {
-	CreateMedicationAdministration(ctx context.Context, resource r4.MedicationAdministration) (r4.MedicationAdministration, capabilities.FHIRError)
+	CreateMedicationAdministration(ctx context.Context, resource r4.MedicationAdministration) (r4.MedicationAdministration, error)
 }
 type MedicationDispenseCreate interface {
-	CreateMedicationDispense(ctx context.Context, resource r4.MedicationDispense) (r4.MedicationDispense, capabilities.FHIRError)
+	CreateMedicationDispense(ctx context.Context, resource r4.MedicationDispense) (r4.MedicationDispense, error)
 }
 type MedicationKnowledgeCreate interface {
-	CreateMedicationKnowledge(ctx context.Context, resource r4.MedicationKnowledge) (r4.MedicationKnowledge, capabilities.FHIRError)
+	CreateMedicationKnowledge(ctx context.Context, resource r4.MedicationKnowledge) (r4.MedicationKnowledge, error)
 }
 type MedicationRequestCreate interface {
-	CreateMedicationRequest(ctx context.Context, resource r4.MedicationRequest) (r4.MedicationRequest, capabilities.FHIRError)
+	CreateMedicationRequest(ctx context.Context, resource r4.MedicationRequest) (r4.MedicationRequest, error)
 }
 type MedicationStatementCreate interface {
-	CreateMedicationStatement(ctx context.Context, resource r4.MedicationStatement) (r4.MedicationStatement, capabilities.FHIRError)
+	CreateMedicationStatement(ctx context.Context, resource r4.MedicationStatement) (r4.MedicationStatement, error)
 }
 type MedicinalProductCreate interface {
-	CreateMedicinalProduct(ctx context.Context, resource r4.MedicinalProduct) (r4.MedicinalProduct, capabilities.FHIRError)
+	CreateMedicinalProduct(ctx context.Context, resource r4.MedicinalProduct) (r4.MedicinalProduct, error)
 }
 type MedicinalProductAuthorizationCreate interface {
-	CreateMedicinalProductAuthorization(ctx context.Context, resource r4.MedicinalProductAuthorization) (r4.MedicinalProductAuthorization, capabilities.FHIRError)
+	CreateMedicinalProductAuthorization(ctx context.Context, resource r4.MedicinalProductAuthorization) (r4.MedicinalProductAuthorization, error)
 }
 type MedicinalProductContraindicationCreate interface {
-	CreateMedicinalProductContraindication(ctx context.Context, resource r4.MedicinalProductContraindication) (r4.MedicinalProductContraindication, capabilities.FHIRError)
+	CreateMedicinalProductContraindication(ctx context.Context, resource r4.MedicinalProductContraindication) (r4.MedicinalProductContraindication, error)
 }
 type MedicinalProductIndicationCreate interface {
-	CreateMedicinalProductIndication(ctx context.Context, resource r4.MedicinalProductIndication) (r4.MedicinalProductIndication, capabilities.FHIRError)
+	CreateMedicinalProductIndication(ctx context.Context, resource r4.MedicinalProductIndication) (r4.MedicinalProductIndication, error)
 }
 type MedicinalProductIngredientCreate interface {
-	CreateMedicinalProductIngredient(ctx context.Context, resource r4.MedicinalProductIngredient) (r4.MedicinalProductIngredient, capabilities.FHIRError)
+	CreateMedicinalProductIngredient(ctx context.Context, resource r4.MedicinalProductIngredient) (r4.MedicinalProductIngredient, error)
 }
 type MedicinalProductInteractionCreate interface {
-	CreateMedicinalProductInteraction(ctx context.Context, resource r4.MedicinalProductInteraction) (r4.MedicinalProductInteraction, capabilities.FHIRError)
+	CreateMedicinalProductInteraction(ctx context.Context, resource r4.MedicinalProductInteraction) (r4.MedicinalProductInteraction, error)
 }
 type MedicinalProductManufacturedCreate interface {
-	CreateMedicinalProductManufactured(ctx context.Context, resource r4.MedicinalProductManufactured) (r4.MedicinalProductManufactured, capabilities.FHIRError)
+	CreateMedicinalProductManufactured(ctx context.Context, resource r4.MedicinalProductManufactured) (r4.MedicinalProductManufactured, error)
 }
 type MedicinalProductPackagedCreate interface {
-	CreateMedicinalProductPackaged(ctx context.Context, resource r4.MedicinalProductPackaged) (r4.MedicinalProductPackaged, capabilities.FHIRError)
+	CreateMedicinalProductPackaged(ctx context.Context, resource r4.MedicinalProductPackaged) (r4.MedicinalProductPackaged, error)
 }
 type MedicinalProductPharmaceuticalCreate interface {
-	CreateMedicinalProductPharmaceutical(ctx context.Context, resource r4.MedicinalProductPharmaceutical) (r4.MedicinalProductPharmaceutical, capabilities.FHIRError)
+	CreateMedicinalProductPharmaceutical(ctx context.Context, resource r4.MedicinalProductPharmaceutical) (r4.MedicinalProductPharmaceutical, error)
 }
 type MedicinalProductUndesirableEffectCreate interface {
-	CreateMedicinalProductUndesirableEffect(ctx context.Context, resource r4.MedicinalProductUndesirableEffect) (r4.MedicinalProductUndesirableEffect, capabilities.FHIRError)
+	CreateMedicinalProductUndesirableEffect(ctx context.Context, resource r4.MedicinalProductUndesirableEffect) (r4.MedicinalProductUndesirableEffect, error)
 }
 type MessageDefinitionCreate interface {
-	CreateMessageDefinition(ctx context.Context, resource r4.MessageDefinition) (r4.MessageDefinition, capabilities.FHIRError)
+	CreateMessageDefinition(ctx context.Context, resource r4.MessageDefinition) (r4.MessageDefinition, error)
 }
 type MessageHeaderCreate interface {
-	CreateMessageHeader(ctx context.Context, resource r4.MessageHeader) (r4.MessageHeader, capabilities.FHIRError)
+	CreateMessageHeader(ctx context.Context, resource r4.MessageHeader) (r4.MessageHeader, error)
 }
 type MolecularSequenceCreate interface {
-	CreateMolecularSequence(ctx context.Context, resource r4.MolecularSequence) (r4.MolecularSequence, capabilities.FHIRError)
+	CreateMolecularSequence(ctx context.Context, resource r4.MolecularSequence) (r4.MolecularSequence, error)
 }
 type NamingSystemCreate interface {
-	CreateNamingSystem(ctx context.Context, resource r4.NamingSystem) (r4.NamingSystem, capabilities.FHIRError)
+	CreateNamingSystem(ctx context.Context, resource r4.NamingSystem) (r4.NamingSystem, error)
 }
 type NutritionOrderCreate interface {
-	CreateNutritionOrder(ctx context.Context, resource r4.NutritionOrder) (r4.NutritionOrder, capabilities.FHIRError)
+	CreateNutritionOrder(ctx context.Context, resource r4.NutritionOrder) (r4.NutritionOrder, error)
 }
 type ObservationCreate interface {
-	CreateObservation(ctx context.Context, resource r4.Observation) (r4.Observation, capabilities.FHIRError)
+	CreateObservation(ctx context.Context, resource r4.Observation) (r4.Observation, error)
 }
 type ObservationDefinitionCreate interface {
-	CreateObservationDefinition(ctx context.Context, resource r4.ObservationDefinition) (r4.ObservationDefinition, capabilities.FHIRError)
+	CreateObservationDefinition(ctx context.Context, resource r4.ObservationDefinition) (r4.ObservationDefinition, error)
 }
 type OperationDefinitionCreate interface {
-	CreateOperationDefinition(ctx context.Context, resource r4.OperationDefinition) (r4.OperationDefinition, capabilities.FHIRError)
+	CreateOperationDefinition(ctx context.Context, resource r4.OperationDefinition) (r4.OperationDefinition, error)
 }
 type OperationOutcomeCreate interface {
-	CreateOperationOutcome(ctx context.Context, resource r4.OperationOutcome) (r4.OperationOutcome, capabilities.FHIRError)
+	CreateOperationOutcome(ctx context.Context, resource r4.OperationOutcome) (r4.OperationOutcome, error)
 }
 type OrganizationCreate interface {
-	CreateOrganization(ctx context.Context, resource r4.Organization) (r4.Organization, capabilities.FHIRError)
+	CreateOrganization(ctx context.Context, resource r4.Organization) (r4.Organization, error)
 }
 type OrganizationAffiliationCreate interface {
-	CreateOrganizationAffiliation(ctx context.Context, resource r4.OrganizationAffiliation) (r4.OrganizationAffiliation, capabilities.FHIRError)
+	CreateOrganizationAffiliation(ctx context.Context, resource r4.OrganizationAffiliation) (r4.OrganizationAffiliation, error)
 }
 type ParametersCreate interface {
-	CreateParameters(ctx context.Context, resource r4.Parameters) (r4.Parameters, capabilities.FHIRError)
+	CreateParameters(ctx context.Context, resource r4.Parameters) (r4.Parameters, error)
 }
 type PatientCreate interface {
-	CreatePatient(ctx context.Context, resource r4.Patient) (r4.Patient, capabilities.FHIRError)
+	CreatePatient(ctx context.Context, resource r4.Patient) (r4.Patient, error)
 }
 type PaymentNoticeCreate interface {
-	CreatePaymentNotice(ctx context.Context, resource r4.PaymentNotice) (r4.PaymentNotice, capabilities.FHIRError)
+	CreatePaymentNotice(ctx context.Context, resource r4.PaymentNotice) (r4.PaymentNotice, error)
 }
 type PaymentReconciliationCreate interface {
-	CreatePaymentReconciliation(ctx context.Context, resource r4.PaymentReconciliation) (r4.PaymentReconciliation, capabilities.FHIRError)
+	CreatePaymentReconciliation(ctx context.Context, resource r4.PaymentReconciliation) (r4.PaymentReconciliation, error)
 }
 type PersonCreate interface {
-	CreatePerson(ctx context.Context, resource r4.Person) (r4.Person, capabilities.FHIRError)
+	CreatePerson(ctx context.Context, resource r4.Person) (r4.Person, error)
 }
 type PlanDefinitionCreate interface {
-	CreatePlanDefinition(ctx context.Context, resource r4.PlanDefinition) (r4.PlanDefinition, capabilities.FHIRError)
+	CreatePlanDefinition(ctx context.Context, resource r4.PlanDefinition) (r4.PlanDefinition, error)
 }
 type PractitionerCreate interface {
-	CreatePractitioner(ctx context.Context, resource r4.Practitioner) (r4.Practitioner, capabilities.FHIRError)
+	CreatePractitioner(ctx context.Context, resource r4.Practitioner) (r4.Practitioner, error)
 }
 type PractitionerRoleCreate interface {
-	CreatePractitionerRole(ctx context.Context, resource r4.PractitionerRole) (r4.PractitionerRole, capabilities.FHIRError)
+	CreatePractitionerRole(ctx context.Context, resource r4.PractitionerRole) (r4.PractitionerRole, error)
 }
 type ProcedureCreate interface {
-	CreateProcedure(ctx context.Context, resource r4.Procedure) (r4.Procedure, capabilities.FHIRError)
+	CreateProcedure(ctx context.Context, resource r4.Procedure) (r4.Procedure, error)
 }
 type ProvenanceCreate interface {
-	CreateProvenance(ctx context.Context, resource r4.Provenance) (r4.Provenance, capabilities.FHIRError)
+	CreateProvenance(ctx context.Context, resource r4.Provenance) (r4.Provenance, error)
 }
 type QuestionnaireCreate interface {
-	CreateQuestionnaire(ctx context.Context, resource r4.Questionnaire) (r4.Questionnaire, capabilities.FHIRError)
+	CreateQuestionnaire(ctx context.Context, resource r4.Questionnaire) (r4.Questionnaire, error)
 }
 type QuestionnaireResponseCreate interface {
-	CreateQuestionnaireResponse(ctx context.Context, resource r4.QuestionnaireResponse) (r4.QuestionnaireResponse, capabilities.FHIRError)
+	CreateQuestionnaireResponse(ctx context.Context, resource r4.QuestionnaireResponse) (r4.QuestionnaireResponse, error)
 }
 type RelatedPersonCreate interface {
-	CreateRelatedPerson(ctx context.Context, resource r4.RelatedPerson) (r4.RelatedPerson, capabilities.FHIRError)
+	CreateRelatedPerson(ctx context.Context, resource r4.RelatedPerson) (r4.RelatedPerson, error)
 }
 type RequestGroupCreate interface {
-	CreateRequestGroup(ctx context.Context, resource r4.RequestGroup) (r4.RequestGroup, capabilities.FHIRError)
+	CreateRequestGroup(ctx context.Context, resource r4.RequestGroup) (r4.RequestGroup, error)
 }
 type ResearchDefinitionCreate interface {
-	CreateResearchDefinition(ctx context.Context, resource r4.ResearchDefinition) (r4.ResearchDefinition, capabilities.FHIRError)
+	CreateResearchDefinition(ctx context.Context, resource r4.ResearchDefinition) (r4.ResearchDefinition, error)
 }
 type ResearchElementDefinitionCreate interface {
-	CreateResearchElementDefinition(ctx context.Context, resource r4.ResearchElementDefinition) (r4.ResearchElementDefinition, capabilities.FHIRError)
+	CreateResearchElementDefinition(ctx context.Context, resource r4.ResearchElementDefinition) (r4.ResearchElementDefinition, error)
 }
 type ResearchStudyCreate interface {
-	CreateResearchStudy(ctx context.Context, resource r4.ResearchStudy) (r4.ResearchStudy, capabilities.FHIRError)
+	CreateResearchStudy(ctx context.Context, resource r4.ResearchStudy) (r4.ResearchStudy, error)
 }
 type ResearchSubjectCreate interface {
-	CreateResearchSubject(ctx context.Context, resource r4.ResearchSubject) (r4.ResearchSubject, capabilities.FHIRError)
+	CreateResearchSubject(ctx context.Context, resource r4.ResearchSubject) (r4.ResearchSubject, error)
 }
 type RiskAssessmentCreate interface {
-	CreateRiskAssessment(ctx context.Context, resource r4.RiskAssessment) (r4.RiskAssessment, capabilities.FHIRError)
+	CreateRiskAssessment(ctx context.Context, resource r4.RiskAssessment) (r4.RiskAssessment, error)
 }
 type RiskEvidenceSynthesisCreate interface {
-	CreateRiskEvidenceSynthesis(ctx context.Context, resource r4.RiskEvidenceSynthesis) (r4.RiskEvidenceSynthesis, capabilities.FHIRError)
+	CreateRiskEvidenceSynthesis(ctx context.Context, resource r4.RiskEvidenceSynthesis) (r4.RiskEvidenceSynthesis, error)
 }
 type ScheduleCreate interface {
-	CreateSchedule(ctx context.Context, resource r4.Schedule) (r4.Schedule, capabilities.FHIRError)
+	CreateSchedule(ctx context.Context, resource r4.Schedule) (r4.Schedule, error)
 }
 type SearchParameterCreate interface {
-	CreateSearchParameter(ctx context.Context, resource r4.SearchParameter) (r4.SearchParameter, capabilities.FHIRError)
+	CreateSearchParameter(ctx context.Context, resource r4.SearchParameter) (r4.SearchParameter, error)
 }
 type ServiceRequestCreate interface {
-	CreateServiceRequest(ctx context.Context, resource r4.ServiceRequest) (r4.ServiceRequest, capabilities.FHIRError)
+	CreateServiceRequest(ctx context.Context, resource r4.ServiceRequest) (r4.ServiceRequest, error)
 }
 type SlotCreate interface {
-	CreateSlot(ctx context.Context, resource r4.Slot) (r4.Slot, capabilities.FHIRError)
+	CreateSlot(ctx context.Context, resource r4.Slot) (r4.Slot, error)
 }
 type SpecimenCreate interface {
-	CreateSpecimen(ctx context.Context, resource r4.Specimen) (r4.Specimen, capabilities.FHIRError)
+	CreateSpecimen(ctx context.Context, resource r4.Specimen) (r4.Specimen, error)
 }
 type SpecimenDefinitionCreate interface {
-	CreateSpecimenDefinition(ctx context.Context, resource r4.SpecimenDefinition) (r4.SpecimenDefinition, capabilities.FHIRError)
+	CreateSpecimenDefinition(ctx context.Context, resource r4.SpecimenDefinition) (r4.SpecimenDefinition, error)
 }
 type StructureDefinitionCreate interface {
-	CreateStructureDefinition(ctx context.Context, resource r4.StructureDefinition) (r4.StructureDefinition, capabilities.FHIRError)
+	CreateStructureDefinition(ctx context.Context, resource r4.StructureDefinition) (r4.StructureDefinition, error)
 }
 type StructureMapCreate interface {
-	CreateStructureMap(ctx context.Context, resource r4.StructureMap) (r4.StructureMap, capabilities.FHIRError)
+	CreateStructureMap(ctx context.Context, resource r4.StructureMap) (r4.StructureMap, error)
 }
 type SubscriptionCreate interface {
-	CreateSubscription(ctx context.Context, resource r4.Subscription) (r4.Subscription, capabilities.FHIRError)
+	CreateSubscription(ctx context.Context, resource r4.Subscription) (r4.Subscription, error)
 }
 type SubstanceCreate interface {
-	CreateSubstance(ctx context.Context, resource r4.Substance) (r4.Substance, capabilities.FHIRError)
+	CreateSubstance(ctx context.Context, resource r4.Substance) (r4.Substance, error)
 }
 type SubstanceNucleicAcidCreate interface {
-	CreateSubstanceNucleicAcid(ctx context.Context, resource r4.SubstanceNucleicAcid) (r4.SubstanceNucleicAcid, capabilities.FHIRError)
+	CreateSubstanceNucleicAcid(ctx context.Context, resource r4.SubstanceNucleicAcid) (r4.SubstanceNucleicAcid, error)
 }
 type SubstancePolymerCreate interface {
-	CreateSubstancePolymer(ctx context.Context, resource r4.SubstancePolymer) (r4.SubstancePolymer, capabilities.FHIRError)
+	CreateSubstancePolymer(ctx context.Context, resource r4.SubstancePolymer) (r4.SubstancePolymer, error)
 }
 type SubstanceProteinCreate interface {
-	CreateSubstanceProtein(ctx context.Context, resource r4.SubstanceProtein) (r4.SubstanceProtein, capabilities.FHIRError)
+	CreateSubstanceProtein(ctx context.Context, resource r4.SubstanceProtein) (r4.SubstanceProtein, error)
 }
 type SubstanceReferenceInformationCreate interface {
-	CreateSubstanceReferenceInformation(ctx context.Context, resource r4.SubstanceReferenceInformation) (r4.SubstanceReferenceInformation, capabilities.FHIRError)
+	CreateSubstanceReferenceInformation(ctx context.Context, resource r4.SubstanceReferenceInformation) (r4.SubstanceReferenceInformation, error)
 }
 type SubstanceSourceMaterialCreate interface {
-	CreateSubstanceSourceMaterial(ctx context.Context, resource r4.SubstanceSourceMaterial) (r4.SubstanceSourceMaterial, capabilities.FHIRError)
+	CreateSubstanceSourceMaterial(ctx context.Context, resource r4.SubstanceSourceMaterial) (r4.SubstanceSourceMaterial, error)
 }
 type SubstanceSpecificationCreate interface {
-	CreateSubstanceSpecification(ctx context.Context, resource r4.SubstanceSpecification) (r4.SubstanceSpecification, capabilities.FHIRError)
+	CreateSubstanceSpecification(ctx context.Context, resource r4.SubstanceSpecification) (r4.SubstanceSpecification, error)
 }
 type SupplyDeliveryCreate interface {
-	CreateSupplyDelivery(ctx context.Context, resource r4.SupplyDelivery) (r4.SupplyDelivery, capabilities.FHIRError)
+	CreateSupplyDelivery(ctx context.Context, resource r4.SupplyDelivery) (r4.SupplyDelivery, error)
 }
 type SupplyRequestCreate interface {
-	CreateSupplyRequest(ctx context.Context, resource r4.SupplyRequest) (r4.SupplyRequest, capabilities.FHIRError)
+	CreateSupplyRequest(ctx context.Context, resource r4.SupplyRequest) (r4.SupplyRequest, error)
 }
 type TaskCreate interface {
-	CreateTask(ctx context.Context, resource r4.Task) (r4.Task, capabilities.FHIRError)
+	CreateTask(ctx context.Context, resource r4.Task) (r4.Task, error)
 }
 type TerminologyCapabilitiesCreate interface {
-	CreateTerminologyCapabilities(ctx context.Context, resource r4.TerminologyCapabilities) (r4.TerminologyCapabilities, capabilities.FHIRError)
+	CreateTerminologyCapabilities(ctx context.Context, resource r4.TerminologyCapabilities) (r4.TerminologyCapabilities, error)
 }
 type TestReportCreate interface {
-	CreateTestReport(ctx context.Context, resource r4.TestReport) (r4.TestReport, capabilities.FHIRError)
+	CreateTestReport(ctx context.Context, resource r4.TestReport) (r4.TestReport, error)
 }
 type TestScriptCreate interface {
-	CreateTestScript(ctx context.Context, resource r4.TestScript) (r4.TestScript, capabilities.FHIRError)
+	CreateTestScript(ctx context.Context, resource r4.TestScript) (r4.TestScript, error)
 }
 type ValueSetCreate interface {
-	CreateValueSet(ctx context.Context, resource r4.ValueSet) (r4.ValueSet, capabilities.FHIRError)
+	CreateValueSet(ctx context.Context, resource r4.ValueSet) (r4.ValueSet, error)
 }
 type VerificationResultCreate interface {
-	CreateVerificationResult(ctx context.Context, resource r4.VerificationResult) (r4.VerificationResult, capabilities.FHIRError)
+	CreateVerificationResult(ctx context.Context, resource r4.VerificationResult) (r4.VerificationResult, error)
 }
 type VisionPrescriptionCreate interface {
-	CreateVisionPrescription(ctx context.Context, resource r4.VisionPrescription) (r4.VisionPrescription, capabilities.FHIRError)
+	CreateVisionPrescription(ctx context.Context, resource r4.VisionPrescription) (r4.VisionPrescription, error)
 }

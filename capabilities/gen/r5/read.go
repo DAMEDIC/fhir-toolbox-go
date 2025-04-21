@@ -6,481 +6,480 @@ package capabilitiesR5
 
 import (
 	"context"
-	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 )
 
 type AccountRead interface {
-	ReadAccount(ctx context.Context, id string) (r5.Account, capabilities.FHIRError)
+	ReadAccount(ctx context.Context, id string) (r5.Account, error)
 }
 type ActivityDefinitionRead interface {
-	ReadActivityDefinition(ctx context.Context, id string) (r5.ActivityDefinition, capabilities.FHIRError)
+	ReadActivityDefinition(ctx context.Context, id string) (r5.ActivityDefinition, error)
 }
 type ActorDefinitionRead interface {
-	ReadActorDefinition(ctx context.Context, id string) (r5.ActorDefinition, capabilities.FHIRError)
+	ReadActorDefinition(ctx context.Context, id string) (r5.ActorDefinition, error)
 }
 type AdministrableProductDefinitionRead interface {
-	ReadAdministrableProductDefinition(ctx context.Context, id string) (r5.AdministrableProductDefinition, capabilities.FHIRError)
+	ReadAdministrableProductDefinition(ctx context.Context, id string) (r5.AdministrableProductDefinition, error)
 }
 type AdverseEventRead interface {
-	ReadAdverseEvent(ctx context.Context, id string) (r5.AdverseEvent, capabilities.FHIRError)
+	ReadAdverseEvent(ctx context.Context, id string) (r5.AdverseEvent, error)
 }
 type AllergyIntoleranceRead interface {
-	ReadAllergyIntolerance(ctx context.Context, id string) (r5.AllergyIntolerance, capabilities.FHIRError)
+	ReadAllergyIntolerance(ctx context.Context, id string) (r5.AllergyIntolerance, error)
 }
 type AppointmentRead interface {
-	ReadAppointment(ctx context.Context, id string) (r5.Appointment, capabilities.FHIRError)
+	ReadAppointment(ctx context.Context, id string) (r5.Appointment, error)
 }
 type AppointmentResponseRead interface {
-	ReadAppointmentResponse(ctx context.Context, id string) (r5.AppointmentResponse, capabilities.FHIRError)
+	ReadAppointmentResponse(ctx context.Context, id string) (r5.AppointmentResponse, error)
 }
 type ArtifactAssessmentRead interface {
-	ReadArtifactAssessment(ctx context.Context, id string) (r5.ArtifactAssessment, capabilities.FHIRError)
+	ReadArtifactAssessment(ctx context.Context, id string) (r5.ArtifactAssessment, error)
 }
 type AuditEventRead interface {
-	ReadAuditEvent(ctx context.Context, id string) (r5.AuditEvent, capabilities.FHIRError)
+	ReadAuditEvent(ctx context.Context, id string) (r5.AuditEvent, error)
 }
 type BasicRead interface {
-	ReadBasic(ctx context.Context, id string) (r5.Basic, capabilities.FHIRError)
+	ReadBasic(ctx context.Context, id string) (r5.Basic, error)
 }
 type BinaryRead interface {
-	ReadBinary(ctx context.Context, id string) (r5.Binary, capabilities.FHIRError)
+	ReadBinary(ctx context.Context, id string) (r5.Binary, error)
 }
 type BiologicallyDerivedProductRead interface {
-	ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r5.BiologicallyDerivedProduct, capabilities.FHIRError)
+	ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r5.BiologicallyDerivedProduct, error)
 }
 type BiologicallyDerivedProductDispenseRead interface {
-	ReadBiologicallyDerivedProductDispense(ctx context.Context, id string) (r5.BiologicallyDerivedProductDispense, capabilities.FHIRError)
+	ReadBiologicallyDerivedProductDispense(ctx context.Context, id string) (r5.BiologicallyDerivedProductDispense, error)
 }
 type BodyStructureRead interface {
-	ReadBodyStructure(ctx context.Context, id string) (r5.BodyStructure, capabilities.FHIRError)
+	ReadBodyStructure(ctx context.Context, id string) (r5.BodyStructure, error)
 }
 type BundleRead interface {
-	ReadBundle(ctx context.Context, id string) (r5.Bundle, capabilities.FHIRError)
+	ReadBundle(ctx context.Context, id string) (r5.Bundle, error)
 }
 type CapabilityStatementRead interface {
-	ReadCapabilityStatement(ctx context.Context, id string) (r5.CapabilityStatement, capabilities.FHIRError)
+	ReadCapabilityStatement(ctx context.Context, id string) (r5.CapabilityStatement, error)
 }
 type CarePlanRead interface {
-	ReadCarePlan(ctx context.Context, id string) (r5.CarePlan, capabilities.FHIRError)
+	ReadCarePlan(ctx context.Context, id string) (r5.CarePlan, error)
 }
 type CareTeamRead interface {
-	ReadCareTeam(ctx context.Context, id string) (r5.CareTeam, capabilities.FHIRError)
+	ReadCareTeam(ctx context.Context, id string) (r5.CareTeam, error)
 }
 type ChargeItemRead interface {
-	ReadChargeItem(ctx context.Context, id string) (r5.ChargeItem, capabilities.FHIRError)
+	ReadChargeItem(ctx context.Context, id string) (r5.ChargeItem, error)
 }
 type ChargeItemDefinitionRead interface {
-	ReadChargeItemDefinition(ctx context.Context, id string) (r5.ChargeItemDefinition, capabilities.FHIRError)
+	ReadChargeItemDefinition(ctx context.Context, id string) (r5.ChargeItemDefinition, error)
 }
 type CitationRead interface {
-	ReadCitation(ctx context.Context, id string) (r5.Citation, capabilities.FHIRError)
+	ReadCitation(ctx context.Context, id string) (r5.Citation, error)
 }
 type ClaimRead interface {
-	ReadClaim(ctx context.Context, id string) (r5.Claim, capabilities.FHIRError)
+	ReadClaim(ctx context.Context, id string) (r5.Claim, error)
 }
 type ClaimResponseRead interface {
-	ReadClaimResponse(ctx context.Context, id string) (r5.ClaimResponse, capabilities.FHIRError)
+	ReadClaimResponse(ctx context.Context, id string) (r5.ClaimResponse, error)
 }
 type ClinicalImpressionRead interface {
-	ReadClinicalImpression(ctx context.Context, id string) (r5.ClinicalImpression, capabilities.FHIRError)
+	ReadClinicalImpression(ctx context.Context, id string) (r5.ClinicalImpression, error)
 }
 type ClinicalUseDefinitionRead interface {
-	ReadClinicalUseDefinition(ctx context.Context, id string) (r5.ClinicalUseDefinition, capabilities.FHIRError)
+	ReadClinicalUseDefinition(ctx context.Context, id string) (r5.ClinicalUseDefinition, error)
 }
 type CodeSystemRead interface {
-	ReadCodeSystem(ctx context.Context, id string) (r5.CodeSystem, capabilities.FHIRError)
+	ReadCodeSystem(ctx context.Context, id string) (r5.CodeSystem, error)
 }
 type CommunicationRead interface {
-	ReadCommunication(ctx context.Context, id string) (r5.Communication, capabilities.FHIRError)
+	ReadCommunication(ctx context.Context, id string) (r5.Communication, error)
 }
 type CommunicationRequestRead interface {
-	ReadCommunicationRequest(ctx context.Context, id string) (r5.CommunicationRequest, capabilities.FHIRError)
+	ReadCommunicationRequest(ctx context.Context, id string) (r5.CommunicationRequest, error)
 }
 type CompartmentDefinitionRead interface {
-	ReadCompartmentDefinition(ctx context.Context, id string) (r5.CompartmentDefinition, capabilities.FHIRError)
+	ReadCompartmentDefinition(ctx context.Context, id string) (r5.CompartmentDefinition, error)
 }
 type CompositionRead interface {
-	ReadComposition(ctx context.Context, id string) (r5.Composition, capabilities.FHIRError)
+	ReadComposition(ctx context.Context, id string) (r5.Composition, error)
 }
 type ConceptMapRead interface {
-	ReadConceptMap(ctx context.Context, id string) (r5.ConceptMap, capabilities.FHIRError)
+	ReadConceptMap(ctx context.Context, id string) (r5.ConceptMap, error)
 }
 type ConditionRead interface {
-	ReadCondition(ctx context.Context, id string) (r5.Condition, capabilities.FHIRError)
+	ReadCondition(ctx context.Context, id string) (r5.Condition, error)
 }
 type ConditionDefinitionRead interface {
-	ReadConditionDefinition(ctx context.Context, id string) (r5.ConditionDefinition, capabilities.FHIRError)
+	ReadConditionDefinition(ctx context.Context, id string) (r5.ConditionDefinition, error)
 }
 type ConsentRead interface {
-	ReadConsent(ctx context.Context, id string) (r5.Consent, capabilities.FHIRError)
+	ReadConsent(ctx context.Context, id string) (r5.Consent, error)
 }
 type ContractRead interface {
-	ReadContract(ctx context.Context, id string) (r5.Contract, capabilities.FHIRError)
+	ReadContract(ctx context.Context, id string) (r5.Contract, error)
 }
 type CoverageRead interface {
-	ReadCoverage(ctx context.Context, id string) (r5.Coverage, capabilities.FHIRError)
+	ReadCoverage(ctx context.Context, id string) (r5.Coverage, error)
 }
 type CoverageEligibilityRequestRead interface {
-	ReadCoverageEligibilityRequest(ctx context.Context, id string) (r5.CoverageEligibilityRequest, capabilities.FHIRError)
+	ReadCoverageEligibilityRequest(ctx context.Context, id string) (r5.CoverageEligibilityRequest, error)
 }
 type CoverageEligibilityResponseRead interface {
-	ReadCoverageEligibilityResponse(ctx context.Context, id string) (r5.CoverageEligibilityResponse, capabilities.FHIRError)
+	ReadCoverageEligibilityResponse(ctx context.Context, id string) (r5.CoverageEligibilityResponse, error)
 }
 type DetectedIssueRead interface {
-	ReadDetectedIssue(ctx context.Context, id string) (r5.DetectedIssue, capabilities.FHIRError)
+	ReadDetectedIssue(ctx context.Context, id string) (r5.DetectedIssue, error)
 }
 type DeviceRead interface {
-	ReadDevice(ctx context.Context, id string) (r5.Device, capabilities.FHIRError)
+	ReadDevice(ctx context.Context, id string) (r5.Device, error)
 }
 type DeviceAssociationRead interface {
-	ReadDeviceAssociation(ctx context.Context, id string) (r5.DeviceAssociation, capabilities.FHIRError)
+	ReadDeviceAssociation(ctx context.Context, id string) (r5.DeviceAssociation, error)
 }
 type DeviceDefinitionRead interface {
-	ReadDeviceDefinition(ctx context.Context, id string) (r5.DeviceDefinition, capabilities.FHIRError)
+	ReadDeviceDefinition(ctx context.Context, id string) (r5.DeviceDefinition, error)
 }
 type DeviceDispenseRead interface {
-	ReadDeviceDispense(ctx context.Context, id string) (r5.DeviceDispense, capabilities.FHIRError)
+	ReadDeviceDispense(ctx context.Context, id string) (r5.DeviceDispense, error)
 }
 type DeviceMetricRead interface {
-	ReadDeviceMetric(ctx context.Context, id string) (r5.DeviceMetric, capabilities.FHIRError)
+	ReadDeviceMetric(ctx context.Context, id string) (r5.DeviceMetric, error)
 }
 type DeviceRequestRead interface {
-	ReadDeviceRequest(ctx context.Context, id string) (r5.DeviceRequest, capabilities.FHIRError)
+	ReadDeviceRequest(ctx context.Context, id string) (r5.DeviceRequest, error)
 }
 type DeviceUsageRead interface {
-	ReadDeviceUsage(ctx context.Context, id string) (r5.DeviceUsage, capabilities.FHIRError)
+	ReadDeviceUsage(ctx context.Context, id string) (r5.DeviceUsage, error)
 }
 type DiagnosticReportRead interface {
-	ReadDiagnosticReport(ctx context.Context, id string) (r5.DiagnosticReport, capabilities.FHIRError)
+	ReadDiagnosticReport(ctx context.Context, id string) (r5.DiagnosticReport, error)
 }
 type DocumentReferenceRead interface {
-	ReadDocumentReference(ctx context.Context, id string) (r5.DocumentReference, capabilities.FHIRError)
+	ReadDocumentReference(ctx context.Context, id string) (r5.DocumentReference, error)
 }
 type EncounterRead interface {
-	ReadEncounter(ctx context.Context, id string) (r5.Encounter, capabilities.FHIRError)
+	ReadEncounter(ctx context.Context, id string) (r5.Encounter, error)
 }
 type EncounterHistoryRead interface {
-	ReadEncounterHistory(ctx context.Context, id string) (r5.EncounterHistory, capabilities.FHIRError)
+	ReadEncounterHistory(ctx context.Context, id string) (r5.EncounterHistory, error)
 }
 type EndpointRead interface {
-	ReadEndpoint(ctx context.Context, id string) (r5.Endpoint, capabilities.FHIRError)
+	ReadEndpoint(ctx context.Context, id string) (r5.Endpoint, error)
 }
 type EnrollmentRequestRead interface {
-	ReadEnrollmentRequest(ctx context.Context, id string) (r5.EnrollmentRequest, capabilities.FHIRError)
+	ReadEnrollmentRequest(ctx context.Context, id string) (r5.EnrollmentRequest, error)
 }
 type EnrollmentResponseRead interface {
-	ReadEnrollmentResponse(ctx context.Context, id string) (r5.EnrollmentResponse, capabilities.FHIRError)
+	ReadEnrollmentResponse(ctx context.Context, id string) (r5.EnrollmentResponse, error)
 }
 type EpisodeOfCareRead interface {
-	ReadEpisodeOfCare(ctx context.Context, id string) (r5.EpisodeOfCare, capabilities.FHIRError)
+	ReadEpisodeOfCare(ctx context.Context, id string) (r5.EpisodeOfCare, error)
 }
 type EventDefinitionRead interface {
-	ReadEventDefinition(ctx context.Context, id string) (r5.EventDefinition, capabilities.FHIRError)
+	ReadEventDefinition(ctx context.Context, id string) (r5.EventDefinition, error)
 }
 type EvidenceRead interface {
-	ReadEvidence(ctx context.Context, id string) (r5.Evidence, capabilities.FHIRError)
+	ReadEvidence(ctx context.Context, id string) (r5.Evidence, error)
 }
 type EvidenceReportRead interface {
-	ReadEvidenceReport(ctx context.Context, id string) (r5.EvidenceReport, capabilities.FHIRError)
+	ReadEvidenceReport(ctx context.Context, id string) (r5.EvidenceReport, error)
 }
 type EvidenceVariableRead interface {
-	ReadEvidenceVariable(ctx context.Context, id string) (r5.EvidenceVariable, capabilities.FHIRError)
+	ReadEvidenceVariable(ctx context.Context, id string) (r5.EvidenceVariable, error)
 }
 type ExampleScenarioRead interface {
-	ReadExampleScenario(ctx context.Context, id string) (r5.ExampleScenario, capabilities.FHIRError)
+	ReadExampleScenario(ctx context.Context, id string) (r5.ExampleScenario, error)
 }
 type ExplanationOfBenefitRead interface {
-	ReadExplanationOfBenefit(ctx context.Context, id string) (r5.ExplanationOfBenefit, capabilities.FHIRError)
+	ReadExplanationOfBenefit(ctx context.Context, id string) (r5.ExplanationOfBenefit, error)
 }
 type FamilyMemberHistoryRead interface {
-	ReadFamilyMemberHistory(ctx context.Context, id string) (r5.FamilyMemberHistory, capabilities.FHIRError)
+	ReadFamilyMemberHistory(ctx context.Context, id string) (r5.FamilyMemberHistory, error)
 }
 type FlagRead interface {
-	ReadFlag(ctx context.Context, id string) (r5.Flag, capabilities.FHIRError)
+	ReadFlag(ctx context.Context, id string) (r5.Flag, error)
 }
 type FormularyItemRead interface {
-	ReadFormularyItem(ctx context.Context, id string) (r5.FormularyItem, capabilities.FHIRError)
+	ReadFormularyItem(ctx context.Context, id string) (r5.FormularyItem, error)
 }
 type GenomicStudyRead interface {
-	ReadGenomicStudy(ctx context.Context, id string) (r5.GenomicStudy, capabilities.FHIRError)
+	ReadGenomicStudy(ctx context.Context, id string) (r5.GenomicStudy, error)
 }
 type GoalRead interface {
-	ReadGoal(ctx context.Context, id string) (r5.Goal, capabilities.FHIRError)
+	ReadGoal(ctx context.Context, id string) (r5.Goal, error)
 }
 type GraphDefinitionRead interface {
-	ReadGraphDefinition(ctx context.Context, id string) (r5.GraphDefinition, capabilities.FHIRError)
+	ReadGraphDefinition(ctx context.Context, id string) (r5.GraphDefinition, error)
 }
 type GroupRead interface {
-	ReadGroup(ctx context.Context, id string) (r5.Group, capabilities.FHIRError)
+	ReadGroup(ctx context.Context, id string) (r5.Group, error)
 }
 type GuidanceResponseRead interface {
-	ReadGuidanceResponse(ctx context.Context, id string) (r5.GuidanceResponse, capabilities.FHIRError)
+	ReadGuidanceResponse(ctx context.Context, id string) (r5.GuidanceResponse, error)
 }
 type HealthcareServiceRead interface {
-	ReadHealthcareService(ctx context.Context, id string) (r5.HealthcareService, capabilities.FHIRError)
+	ReadHealthcareService(ctx context.Context, id string) (r5.HealthcareService, error)
 }
 type ImagingSelectionRead interface {
-	ReadImagingSelection(ctx context.Context, id string) (r5.ImagingSelection, capabilities.FHIRError)
+	ReadImagingSelection(ctx context.Context, id string) (r5.ImagingSelection, error)
 }
 type ImagingStudyRead interface {
-	ReadImagingStudy(ctx context.Context, id string) (r5.ImagingStudy, capabilities.FHIRError)
+	ReadImagingStudy(ctx context.Context, id string) (r5.ImagingStudy, error)
 }
 type ImmunizationRead interface {
-	ReadImmunization(ctx context.Context, id string) (r5.Immunization, capabilities.FHIRError)
+	ReadImmunization(ctx context.Context, id string) (r5.Immunization, error)
 }
 type ImmunizationEvaluationRead interface {
-	ReadImmunizationEvaluation(ctx context.Context, id string) (r5.ImmunizationEvaluation, capabilities.FHIRError)
+	ReadImmunizationEvaluation(ctx context.Context, id string) (r5.ImmunizationEvaluation, error)
 }
 type ImmunizationRecommendationRead interface {
-	ReadImmunizationRecommendation(ctx context.Context, id string) (r5.ImmunizationRecommendation, capabilities.FHIRError)
+	ReadImmunizationRecommendation(ctx context.Context, id string) (r5.ImmunizationRecommendation, error)
 }
 type ImplementationGuideRead interface {
-	ReadImplementationGuide(ctx context.Context, id string) (r5.ImplementationGuide, capabilities.FHIRError)
+	ReadImplementationGuide(ctx context.Context, id string) (r5.ImplementationGuide, error)
 }
 type IngredientRead interface {
-	ReadIngredient(ctx context.Context, id string) (r5.Ingredient, capabilities.FHIRError)
+	ReadIngredient(ctx context.Context, id string) (r5.Ingredient, error)
 }
 type InsurancePlanRead interface {
-	ReadInsurancePlan(ctx context.Context, id string) (r5.InsurancePlan, capabilities.FHIRError)
+	ReadInsurancePlan(ctx context.Context, id string) (r5.InsurancePlan, error)
 }
 type InventoryItemRead interface {
-	ReadInventoryItem(ctx context.Context, id string) (r5.InventoryItem, capabilities.FHIRError)
+	ReadInventoryItem(ctx context.Context, id string) (r5.InventoryItem, error)
 }
 type InventoryReportRead interface {
-	ReadInventoryReport(ctx context.Context, id string) (r5.InventoryReport, capabilities.FHIRError)
+	ReadInventoryReport(ctx context.Context, id string) (r5.InventoryReport, error)
 }
 type InvoiceRead interface {
-	ReadInvoice(ctx context.Context, id string) (r5.Invoice, capabilities.FHIRError)
+	ReadInvoice(ctx context.Context, id string) (r5.Invoice, error)
 }
 type LibraryRead interface {
-	ReadLibrary(ctx context.Context, id string) (r5.Library, capabilities.FHIRError)
+	ReadLibrary(ctx context.Context, id string) (r5.Library, error)
 }
 type LinkageRead interface {
-	ReadLinkage(ctx context.Context, id string) (r5.Linkage, capabilities.FHIRError)
+	ReadLinkage(ctx context.Context, id string) (r5.Linkage, error)
 }
 type ListRead interface {
-	ReadList(ctx context.Context, id string) (r5.List, capabilities.FHIRError)
+	ReadList(ctx context.Context, id string) (r5.List, error)
 }
 type LocationRead interface {
-	ReadLocation(ctx context.Context, id string) (r5.Location, capabilities.FHIRError)
+	ReadLocation(ctx context.Context, id string) (r5.Location, error)
 }
 type ManufacturedItemDefinitionRead interface {
-	ReadManufacturedItemDefinition(ctx context.Context, id string) (r5.ManufacturedItemDefinition, capabilities.FHIRError)
+	ReadManufacturedItemDefinition(ctx context.Context, id string) (r5.ManufacturedItemDefinition, error)
 }
 type MeasureRead interface {
-	ReadMeasure(ctx context.Context, id string) (r5.Measure, capabilities.FHIRError)
+	ReadMeasure(ctx context.Context, id string) (r5.Measure, error)
 }
 type MeasureReportRead interface {
-	ReadMeasureReport(ctx context.Context, id string) (r5.MeasureReport, capabilities.FHIRError)
+	ReadMeasureReport(ctx context.Context, id string) (r5.MeasureReport, error)
 }
 type MedicationRead interface {
-	ReadMedication(ctx context.Context, id string) (r5.Medication, capabilities.FHIRError)
+	ReadMedication(ctx context.Context, id string) (r5.Medication, error)
 }
 type MedicationAdministrationRead interface {
-	ReadMedicationAdministration(ctx context.Context, id string) (r5.MedicationAdministration, capabilities.FHIRError)
+	ReadMedicationAdministration(ctx context.Context, id string) (r5.MedicationAdministration, error)
 }
 type MedicationDispenseRead interface {
-	ReadMedicationDispense(ctx context.Context, id string) (r5.MedicationDispense, capabilities.FHIRError)
+	ReadMedicationDispense(ctx context.Context, id string) (r5.MedicationDispense, error)
 }
 type MedicationKnowledgeRead interface {
-	ReadMedicationKnowledge(ctx context.Context, id string) (r5.MedicationKnowledge, capabilities.FHIRError)
+	ReadMedicationKnowledge(ctx context.Context, id string) (r5.MedicationKnowledge, error)
 }
 type MedicationRequestRead interface {
-	ReadMedicationRequest(ctx context.Context, id string) (r5.MedicationRequest, capabilities.FHIRError)
+	ReadMedicationRequest(ctx context.Context, id string) (r5.MedicationRequest, error)
 }
 type MedicationStatementRead interface {
-	ReadMedicationStatement(ctx context.Context, id string) (r5.MedicationStatement, capabilities.FHIRError)
+	ReadMedicationStatement(ctx context.Context, id string) (r5.MedicationStatement, error)
 }
 type MedicinalProductDefinitionRead interface {
-	ReadMedicinalProductDefinition(ctx context.Context, id string) (r5.MedicinalProductDefinition, capabilities.FHIRError)
+	ReadMedicinalProductDefinition(ctx context.Context, id string) (r5.MedicinalProductDefinition, error)
 }
 type MessageDefinitionRead interface {
-	ReadMessageDefinition(ctx context.Context, id string) (r5.MessageDefinition, capabilities.FHIRError)
+	ReadMessageDefinition(ctx context.Context, id string) (r5.MessageDefinition, error)
 }
 type MessageHeaderRead interface {
-	ReadMessageHeader(ctx context.Context, id string) (r5.MessageHeader, capabilities.FHIRError)
+	ReadMessageHeader(ctx context.Context, id string) (r5.MessageHeader, error)
 }
 type MolecularSequenceRead interface {
-	ReadMolecularSequence(ctx context.Context, id string) (r5.MolecularSequence, capabilities.FHIRError)
+	ReadMolecularSequence(ctx context.Context, id string) (r5.MolecularSequence, error)
 }
 type NamingSystemRead interface {
-	ReadNamingSystem(ctx context.Context, id string) (r5.NamingSystem, capabilities.FHIRError)
+	ReadNamingSystem(ctx context.Context, id string) (r5.NamingSystem, error)
 }
 type NutritionIntakeRead interface {
-	ReadNutritionIntake(ctx context.Context, id string) (r5.NutritionIntake, capabilities.FHIRError)
+	ReadNutritionIntake(ctx context.Context, id string) (r5.NutritionIntake, error)
 }
 type NutritionOrderRead interface {
-	ReadNutritionOrder(ctx context.Context, id string) (r5.NutritionOrder, capabilities.FHIRError)
+	ReadNutritionOrder(ctx context.Context, id string) (r5.NutritionOrder, error)
 }
 type NutritionProductRead interface {
-	ReadNutritionProduct(ctx context.Context, id string) (r5.NutritionProduct, capabilities.FHIRError)
+	ReadNutritionProduct(ctx context.Context, id string) (r5.NutritionProduct, error)
 }
 type ObservationRead interface {
-	ReadObservation(ctx context.Context, id string) (r5.Observation, capabilities.FHIRError)
+	ReadObservation(ctx context.Context, id string) (r5.Observation, error)
 }
 type ObservationDefinitionRead interface {
-	ReadObservationDefinition(ctx context.Context, id string) (r5.ObservationDefinition, capabilities.FHIRError)
+	ReadObservationDefinition(ctx context.Context, id string) (r5.ObservationDefinition, error)
 }
 type OperationDefinitionRead interface {
-	ReadOperationDefinition(ctx context.Context, id string) (r5.OperationDefinition, capabilities.FHIRError)
+	ReadOperationDefinition(ctx context.Context, id string) (r5.OperationDefinition, error)
 }
 type OperationOutcomeRead interface {
-	ReadOperationOutcome(ctx context.Context, id string) (r5.OperationOutcome, capabilities.FHIRError)
+	ReadOperationOutcome(ctx context.Context, id string) (r5.OperationOutcome, error)
 }
 type OrganizationRead interface {
-	ReadOrganization(ctx context.Context, id string) (r5.Organization, capabilities.FHIRError)
+	ReadOrganization(ctx context.Context, id string) (r5.Organization, error)
 }
 type OrganizationAffiliationRead interface {
-	ReadOrganizationAffiliation(ctx context.Context, id string) (r5.OrganizationAffiliation, capabilities.FHIRError)
+	ReadOrganizationAffiliation(ctx context.Context, id string) (r5.OrganizationAffiliation, error)
 }
 type PackagedProductDefinitionRead interface {
-	ReadPackagedProductDefinition(ctx context.Context, id string) (r5.PackagedProductDefinition, capabilities.FHIRError)
+	ReadPackagedProductDefinition(ctx context.Context, id string) (r5.PackagedProductDefinition, error)
 }
 type ParametersRead interface {
-	ReadParameters(ctx context.Context, id string) (r5.Parameters, capabilities.FHIRError)
+	ReadParameters(ctx context.Context, id string) (r5.Parameters, error)
 }
 type PatientRead interface {
-	ReadPatient(ctx context.Context, id string) (r5.Patient, capabilities.FHIRError)
+	ReadPatient(ctx context.Context, id string) (r5.Patient, error)
 }
 type PaymentNoticeRead interface {
-	ReadPaymentNotice(ctx context.Context, id string) (r5.PaymentNotice, capabilities.FHIRError)
+	ReadPaymentNotice(ctx context.Context, id string) (r5.PaymentNotice, error)
 }
 type PaymentReconciliationRead interface {
-	ReadPaymentReconciliation(ctx context.Context, id string) (r5.PaymentReconciliation, capabilities.FHIRError)
+	ReadPaymentReconciliation(ctx context.Context, id string) (r5.PaymentReconciliation, error)
 }
 type PermissionRead interface {
-	ReadPermission(ctx context.Context, id string) (r5.Permission, capabilities.FHIRError)
+	ReadPermission(ctx context.Context, id string) (r5.Permission, error)
 }
 type PersonRead interface {
-	ReadPerson(ctx context.Context, id string) (r5.Person, capabilities.FHIRError)
+	ReadPerson(ctx context.Context, id string) (r5.Person, error)
 }
 type PlanDefinitionRead interface {
-	ReadPlanDefinition(ctx context.Context, id string) (r5.PlanDefinition, capabilities.FHIRError)
+	ReadPlanDefinition(ctx context.Context, id string) (r5.PlanDefinition, error)
 }
 type PractitionerRead interface {
-	ReadPractitioner(ctx context.Context, id string) (r5.Practitioner, capabilities.FHIRError)
+	ReadPractitioner(ctx context.Context, id string) (r5.Practitioner, error)
 }
 type PractitionerRoleRead interface {
-	ReadPractitionerRole(ctx context.Context, id string) (r5.PractitionerRole, capabilities.FHIRError)
+	ReadPractitionerRole(ctx context.Context, id string) (r5.PractitionerRole, error)
 }
 type ProcedureRead interface {
-	ReadProcedure(ctx context.Context, id string) (r5.Procedure, capabilities.FHIRError)
+	ReadProcedure(ctx context.Context, id string) (r5.Procedure, error)
 }
 type ProvenanceRead interface {
-	ReadProvenance(ctx context.Context, id string) (r5.Provenance, capabilities.FHIRError)
+	ReadProvenance(ctx context.Context, id string) (r5.Provenance, error)
 }
 type QuestionnaireRead interface {
-	ReadQuestionnaire(ctx context.Context, id string) (r5.Questionnaire, capabilities.FHIRError)
+	ReadQuestionnaire(ctx context.Context, id string) (r5.Questionnaire, error)
 }
 type QuestionnaireResponseRead interface {
-	ReadQuestionnaireResponse(ctx context.Context, id string) (r5.QuestionnaireResponse, capabilities.FHIRError)
+	ReadQuestionnaireResponse(ctx context.Context, id string) (r5.QuestionnaireResponse, error)
 }
 type RegulatedAuthorizationRead interface {
-	ReadRegulatedAuthorization(ctx context.Context, id string) (r5.RegulatedAuthorization, capabilities.FHIRError)
+	ReadRegulatedAuthorization(ctx context.Context, id string) (r5.RegulatedAuthorization, error)
 }
 type RelatedPersonRead interface {
-	ReadRelatedPerson(ctx context.Context, id string) (r5.RelatedPerson, capabilities.FHIRError)
+	ReadRelatedPerson(ctx context.Context, id string) (r5.RelatedPerson, error)
 }
 type RequestOrchestrationRead interface {
-	ReadRequestOrchestration(ctx context.Context, id string) (r5.RequestOrchestration, capabilities.FHIRError)
+	ReadRequestOrchestration(ctx context.Context, id string) (r5.RequestOrchestration, error)
 }
 type RequirementsRead interface {
-	ReadRequirements(ctx context.Context, id string) (r5.Requirements, capabilities.FHIRError)
+	ReadRequirements(ctx context.Context, id string) (r5.Requirements, error)
 }
 type ResearchStudyRead interface {
-	ReadResearchStudy(ctx context.Context, id string) (r5.ResearchStudy, capabilities.FHIRError)
+	ReadResearchStudy(ctx context.Context, id string) (r5.ResearchStudy, error)
 }
 type ResearchSubjectRead interface {
-	ReadResearchSubject(ctx context.Context, id string) (r5.ResearchSubject, capabilities.FHIRError)
+	ReadResearchSubject(ctx context.Context, id string) (r5.ResearchSubject, error)
 }
 type RiskAssessmentRead interface {
-	ReadRiskAssessment(ctx context.Context, id string) (r5.RiskAssessment, capabilities.FHIRError)
+	ReadRiskAssessment(ctx context.Context, id string) (r5.RiskAssessment, error)
 }
 type ScheduleRead interface {
-	ReadSchedule(ctx context.Context, id string) (r5.Schedule, capabilities.FHIRError)
+	ReadSchedule(ctx context.Context, id string) (r5.Schedule, error)
 }
 type SearchParameterRead interface {
-	ReadSearchParameter(ctx context.Context, id string) (r5.SearchParameter, capabilities.FHIRError)
+	ReadSearchParameter(ctx context.Context, id string) (r5.SearchParameter, error)
 }
 type ServiceRequestRead interface {
-	ReadServiceRequest(ctx context.Context, id string) (r5.ServiceRequest, capabilities.FHIRError)
+	ReadServiceRequest(ctx context.Context, id string) (r5.ServiceRequest, error)
 }
 type SlotRead interface {
-	ReadSlot(ctx context.Context, id string) (r5.Slot, capabilities.FHIRError)
+	ReadSlot(ctx context.Context, id string) (r5.Slot, error)
 }
 type SpecimenRead interface {
-	ReadSpecimen(ctx context.Context, id string) (r5.Specimen, capabilities.FHIRError)
+	ReadSpecimen(ctx context.Context, id string) (r5.Specimen, error)
 }
 type SpecimenDefinitionRead interface {
-	ReadSpecimenDefinition(ctx context.Context, id string) (r5.SpecimenDefinition, capabilities.FHIRError)
+	ReadSpecimenDefinition(ctx context.Context, id string) (r5.SpecimenDefinition, error)
 }
 type StructureDefinitionRead interface {
-	ReadStructureDefinition(ctx context.Context, id string) (r5.StructureDefinition, capabilities.FHIRError)
+	ReadStructureDefinition(ctx context.Context, id string) (r5.StructureDefinition, error)
 }
 type StructureMapRead interface {
-	ReadStructureMap(ctx context.Context, id string) (r5.StructureMap, capabilities.FHIRError)
+	ReadStructureMap(ctx context.Context, id string) (r5.StructureMap, error)
 }
 type SubscriptionRead interface {
-	ReadSubscription(ctx context.Context, id string) (r5.Subscription, capabilities.FHIRError)
+	ReadSubscription(ctx context.Context, id string) (r5.Subscription, error)
 }
 type SubscriptionStatusRead interface {
-	ReadSubscriptionStatus(ctx context.Context, id string) (r5.SubscriptionStatus, capabilities.FHIRError)
+	ReadSubscriptionStatus(ctx context.Context, id string) (r5.SubscriptionStatus, error)
 }
 type SubscriptionTopicRead interface {
-	ReadSubscriptionTopic(ctx context.Context, id string) (r5.SubscriptionTopic, capabilities.FHIRError)
+	ReadSubscriptionTopic(ctx context.Context, id string) (r5.SubscriptionTopic, error)
 }
 type SubstanceRead interface {
-	ReadSubstance(ctx context.Context, id string) (r5.Substance, capabilities.FHIRError)
+	ReadSubstance(ctx context.Context, id string) (r5.Substance, error)
 }
 type SubstanceDefinitionRead interface {
-	ReadSubstanceDefinition(ctx context.Context, id string) (r5.SubstanceDefinition, capabilities.FHIRError)
+	ReadSubstanceDefinition(ctx context.Context, id string) (r5.SubstanceDefinition, error)
 }
 type SubstanceNucleicAcidRead interface {
-	ReadSubstanceNucleicAcid(ctx context.Context, id string) (r5.SubstanceNucleicAcid, capabilities.FHIRError)
+	ReadSubstanceNucleicAcid(ctx context.Context, id string) (r5.SubstanceNucleicAcid, error)
 }
 type SubstancePolymerRead interface {
-	ReadSubstancePolymer(ctx context.Context, id string) (r5.SubstancePolymer, capabilities.FHIRError)
+	ReadSubstancePolymer(ctx context.Context, id string) (r5.SubstancePolymer, error)
 }
 type SubstanceProteinRead interface {
-	ReadSubstanceProtein(ctx context.Context, id string) (r5.SubstanceProtein, capabilities.FHIRError)
+	ReadSubstanceProtein(ctx context.Context, id string) (r5.SubstanceProtein, error)
 }
 type SubstanceReferenceInformationRead interface {
-	ReadSubstanceReferenceInformation(ctx context.Context, id string) (r5.SubstanceReferenceInformation, capabilities.FHIRError)
+	ReadSubstanceReferenceInformation(ctx context.Context, id string) (r5.SubstanceReferenceInformation, error)
 }
 type SubstanceSourceMaterialRead interface {
-	ReadSubstanceSourceMaterial(ctx context.Context, id string) (r5.SubstanceSourceMaterial, capabilities.FHIRError)
+	ReadSubstanceSourceMaterial(ctx context.Context, id string) (r5.SubstanceSourceMaterial, error)
 }
 type SupplyDeliveryRead interface {
-	ReadSupplyDelivery(ctx context.Context, id string) (r5.SupplyDelivery, capabilities.FHIRError)
+	ReadSupplyDelivery(ctx context.Context, id string) (r5.SupplyDelivery, error)
 }
 type SupplyRequestRead interface {
-	ReadSupplyRequest(ctx context.Context, id string) (r5.SupplyRequest, capabilities.FHIRError)
+	ReadSupplyRequest(ctx context.Context, id string) (r5.SupplyRequest, error)
 }
 type TaskRead interface {
-	ReadTask(ctx context.Context, id string) (r5.Task, capabilities.FHIRError)
+	ReadTask(ctx context.Context, id string) (r5.Task, error)
 }
 type TerminologyCapabilitiesRead interface {
-	ReadTerminologyCapabilities(ctx context.Context, id string) (r5.TerminologyCapabilities, capabilities.FHIRError)
+	ReadTerminologyCapabilities(ctx context.Context, id string) (r5.TerminologyCapabilities, error)
 }
 type TestPlanRead interface {
-	ReadTestPlan(ctx context.Context, id string) (r5.TestPlan, capabilities.FHIRError)
+	ReadTestPlan(ctx context.Context, id string) (r5.TestPlan, error)
 }
 type TestReportRead interface {
-	ReadTestReport(ctx context.Context, id string) (r5.TestReport, capabilities.FHIRError)
+	ReadTestReport(ctx context.Context, id string) (r5.TestReport, error)
 }
 type TestScriptRead interface {
-	ReadTestScript(ctx context.Context, id string) (r5.TestScript, capabilities.FHIRError)
+	ReadTestScript(ctx context.Context, id string) (r5.TestScript, error)
 }
 type TransportRead interface {
-	ReadTransport(ctx context.Context, id string) (r5.Transport, capabilities.FHIRError)
+	ReadTransport(ctx context.Context, id string) (r5.Transport, error)
 }
 type ValueSetRead interface {
-	ReadValueSet(ctx context.Context, id string) (r5.ValueSet, capabilities.FHIRError)
+	ReadValueSet(ctx context.Context, id string) (r5.ValueSet, error)
 }
 type VerificationResultRead interface {
-	ReadVerificationResult(ctx context.Context, id string) (r5.VerificationResult, capabilities.FHIRError)
+	ReadVerificationResult(ctx context.Context, id string) (r5.VerificationResult, error)
 }
 type VisionPrescriptionRead interface {
-	ReadVisionPrescription(ctx context.Context, id string) (r5.VisionPrescription, capabilities.FHIRError)
+	ReadVisionPrescription(ctx context.Context, id string) (r5.VisionPrescription, error)
 }

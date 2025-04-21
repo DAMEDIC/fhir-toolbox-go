@@ -159,6 +159,9 @@ func (r OperationOutcomeIssue) String() string {
 	}
 	return string(buf)
 }
+func (o OperationOutcome) Error() string {
+	return o.String()
+}
 func (r OperationOutcome) MarshalJSON() ([]byte, error) {
 	var b bytes.Buffer
 	err := r.marshalJSON(&b)

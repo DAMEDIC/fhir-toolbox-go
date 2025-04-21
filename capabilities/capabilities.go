@@ -9,15 +9,15 @@
 // The library provides two API styles.
 // The concrete API:
 //
-//	func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {}
+//	func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {}
 //
-//	func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {}
+//	func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, error) {}
 //
 // and the generic API:
 //
-//	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
+//	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, error) {}
 //
-//	func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {}
+//	func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {}
 //
 // You can implement your custom backend or client either way.
 // The concrete API is ideal for building custom FHIR® facades where a limited set of resources is used.

@@ -35,7 +35,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					).
 					Params(
 						Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name),
-						Qual(moduleName+"/capabilities", "FHIRError"),
+						Error(),
 					)
 			case "read":
 				g.Id(interactionName+r.Name).
@@ -45,7 +45,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					).
 					Params(
 						Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name),
-						Qual(moduleName+"/capabilities", "FHIRError"),
+						Error(),
 					)
 			case "update":
 				g.Id(interactionName+r.Name).
@@ -55,12 +55,12 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					).
 					Params(
 						Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)),
-						Qual(moduleName+"/capabilities", "FHIRError"),
+						Error(),
 					)
 			case "search":
 				g.Id("SearchCapabilities"+r.Name).Params(Id("ctx").Qual("context", "Context")).Params(
 					Qual(moduleName+"/capabilities/search", "Capabilities"),
-					Qual(moduleName+"/capabilities", "FHIRError"),
+					Error(),
 				)
 				g.Id(interactionName+r.Name).
 					Params(
@@ -69,7 +69,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					).
 					Params(
 						Qual(moduleName+"/capabilities/search", "Result"),
-						Qual(moduleName+"/capabilities", "FHIRError"),
+						Error(),
 					)
 			}
 		})
@@ -84,12 +84,12 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 		).
 		Params(
 			Qual(moduleName+"/capabilities", "Capabilities"),
-			Qual(moduleName+"/capabilities", "FHIRError"),
+			Error(),
 		).BlockFunc(func(g *Group) {
 		g.Id("allCapabilities").Op(":=").Qual(moduleName+"/capabilities", "Capabilities").Values(Dict{
 			Id("SearchCapabilities"): Make(Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities")),
 		})
-		g.Var().Id("errs").Index().Qual(moduleName+"/capabilities", "FHIRError")
+		g.Var().Id("errs").Index().Error()
 
 		for _, r := range resources {
 			for _, interaction := range []string{"create", "read", "update" /*, "delete"*/} {
@@ -120,6 +120,6 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 			)
 		}
 
-		g.Return(Id("allCapabilities"), Qual(moduleName+"/capabilities", "JoinErrors").Call(Id("errs")))
+		g.Return(Id("allCapabilities"), Qual("errors", "Join").Call(Id("errs").Op("...")))
 	})
 }

@@ -8,26 +8,26 @@ import (
 
 // The GenericCapabilities interface provides a generic capabilities method that returns all capabilities of the underlying concrete implementation.
 type GenericCapabilities interface {
-	AllCapabilities(ctx context.Context) (Capabilities, FHIRError)
+	AllCapabilities(ctx context.Context) (Capabilities, error)
 }
 
 // The GenericCreate interface provides a generic create capability.
 //
 // The persisted resource is returned.
 type GenericCreate interface {
-	Create(ctx context.Context, resource model.Resource) (model.Resource, FHIRError)
+	Create(ctx context.Context, resource model.Resource) (model.Resource, error)
 }
 
 // The GenericRead interface provides a generic read capability by passing the `resourceType` as string.
 type GenericRead interface {
-	Read(ctx context.Context, resourceType, id string) (model.Resource, FHIRError)
+	Read(ctx context.Context, resourceType, id string) (model.Resource, error)
 }
 
 // The GenericUpdate interface provides a generic update capability.
 //
 // The persisted resource is returned.
 type GenericUpdate interface {
-	Update(ctx context.Context, resource model.Resource) (UpdateResult[model.Resource], FHIRError)
+	Update(ctx context.Context, resource model.Resource) (UpdateResult[model.Resource], error)
 }
 
 // UpdateResult is the result of an update operation.
@@ -43,5 +43,14 @@ type UpdateResult[R model.Resource] struct {
 type GenericSearch interface {
 	// GenericCapabilities is required because it includes the search capabilities (parameters etc.).
 	GenericCapabilities
-	Search(ctx context.Context, resourceType string, options search.Options) (search.Result, FHIRError)
+	Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error)
+}
+
+// The GenericAPI interface combines all generic interfaces to provide a complete API.
+type GenericAPI interface {
+	GenericCapabilities
+	GenericCreate
+	GenericRead
+	GenericUpdate
+	GenericSearch
 }

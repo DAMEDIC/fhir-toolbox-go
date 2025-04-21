@@ -3,7 +3,7 @@ package main
 
 import (
 	"context"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
@@ -46,7 +46,7 @@ func main() {
 
 type mockBackend struct{}
 
-func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, capabilities.FHIRError) {
+func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	// forward single resource read to a search for the specific id
 	result, err := b.SearchObservation(ctx, search.Options{
 		Parameters: search.Parameters{
@@ -59,14 +59,22 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 	}
 
 	if len(result.Resources) == 0 {
-		return r5.Observation{}, capabilities.NotFoundError{ResourceType: "Observation", ID: id}
+		return r5.Observation{}, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("not-found")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("Observation with ID %s not found", id))},
+				},
+			},
+		}
 	}
 
 	return *result.Resources[0].(*r5.Observation), nil
 }
 
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
-func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.TypeToken},
@@ -74,7 +82,7 @@ func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search
 	}, nil
 }
 
-func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, error) {
 	return search.Result{
 		Resources: []model.Resource{
 			r5.Observation{
@@ -137,7 +145,7 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 	}, nil
 }
 
-func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, capabilities.FHIRError) {
+func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, error) {
 	result, err := b.SearchComposition(ctx, search.Options{
 		Parameters: search.Parameters{
 			search.ParameterKey{Name: "_id"}: search.All{search.OneOf{search.String(id)}},
@@ -149,14 +157,22 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Compos
 	}
 
 	if len(result.Resources) == 0 {
-		return r5.Composition{}, capabilities.NotFoundError{ResourceType: "Composition", ID: id}
+		return r5.Composition{}, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("not-found")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("Composition with ID %s not found", id))},
+				},
+			},
+		}
 	}
 
 	return *result.Resources[0].(*r5.Composition), nil
 }
 
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
-func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, error) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.TypeToken},
@@ -164,7 +180,7 @@ func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search
 	}, nil
 }
 
-func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result, error) {
 	return search.Result{
 		Resources: []model.Resource{
 			r5.Composition{

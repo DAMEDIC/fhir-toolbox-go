@@ -9,16 +9,21 @@ import (
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	r4b "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
+	utils "github.com/DAMEDIC/fhir-toolbox-go/utils"
 )
 
 type Concrete struct {
 	Generic capabilities.GenericCapabilities
 }
 
-func (w Concrete) CreateAccount(ctx context.Context, resource r4b.Account) (r4b.Account, capabilities.FHIRError) {
+func (w Concrete) CreateAccount(ctx context.Context, resource r4b.Account) (r4b.Account, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Account{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Account"}
+		return r4b.Account{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Account")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -30,14 +35,22 @@ func (w Concrete) CreateAccount(ctx context.Context, resource r4b.Account) (r4b.
 	}
 	r, ok := v.(r4b.Account)
 	if !ok {
-		return r4b.Account{}, capabilities.UnexpectedResourceError{ExpectedType: "Account", GotType: v.ResourceType()}
+		return r4b.Account{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Account" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (r4b.ActivityDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (r4b.ActivityDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ActivityDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ActivityDefinition"}
+		return r4b.ActivityDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ActivityDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -49,14 +62,22 @@ func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r4b.Act
 	}
 	r, ok := v.(r4b.ActivityDefinition)
 	if !ok {
-		return r4b.ActivityDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ActivityDefinition", GotType: v.ResourceType()}
+		return r4b.ActivityDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ActivityDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (r4b.AdministrableProductDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (r4b.AdministrableProductDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.AdministrableProductDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AdministrableProductDefinition"}
+		return r4b.AdministrableProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for AdministrableProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -68,14 +89,22 @@ func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, reso
 	}
 	r, ok := v.(r4b.AdministrableProductDefinition)
 	if !ok {
-		return r4b.AdministrableProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "AdministrableProductDefinition", GotType: v.ResourceType()}
+		return r4b.AdministrableProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AdministrableProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (r4b.AdverseEvent, capabilities.FHIRError) {
+func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (r4b.AdverseEvent, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.AdverseEvent{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AdverseEvent"}
+		return r4b.AdverseEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for AdverseEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -87,14 +116,22 @@ func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r4b.AdverseEv
 	}
 	r, ok := v.(r4b.AdverseEvent)
 	if !ok {
-		return r4b.AdverseEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AdverseEvent", GotType: v.ResourceType()}
+		return r4b.AdverseEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AdverseEvent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (r4b.AllergyIntolerance, capabilities.FHIRError) {
+func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (r4b.AllergyIntolerance, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.AllergyIntolerance{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AllergyIntolerance"}
+		return r4b.AllergyIntolerance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for AllergyIntolerance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -106,14 +143,22 @@ func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r4b.All
 	}
 	r, ok := v.(r4b.AllergyIntolerance)
 	if !ok {
-		return r4b.AllergyIntolerance{}, capabilities.UnexpectedResourceError{ExpectedType: "AllergyIntolerance", GotType: v.ResourceType()}
+		return r4b.AllergyIntolerance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AllergyIntolerance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateAppointment(ctx context.Context, resource r4b.Appointment) (r4b.Appointment, capabilities.FHIRError) {
+func (w Concrete) CreateAppointment(ctx context.Context, resource r4b.Appointment) (r4b.Appointment, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Appointment{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Appointment"}
+		return r4b.Appointment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Appointment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -125,14 +170,22 @@ func (w Concrete) CreateAppointment(ctx context.Context, resource r4b.Appointmen
 	}
 	r, ok := v.(r4b.Appointment)
 	if !ok {
-		return r4b.Appointment{}, capabilities.UnexpectedResourceError{ExpectedType: "Appointment", GotType: v.ResourceType()}
+		return r4b.Appointment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Appointment" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (r4b.AppointmentResponse, capabilities.FHIRError) {
+func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (r4b.AppointmentResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.AppointmentResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AppointmentResponse"}
+		return r4b.AppointmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for AppointmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -144,14 +197,22 @@ func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r4b.Ap
 	}
 	r, ok := v.(r4b.AppointmentResponse)
 	if !ok {
-		return r4b.AppointmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "AppointmentResponse", GotType: v.ResourceType()}
+		return r4b.AppointmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AppointmentResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (r4b.AuditEvent, capabilities.FHIRError) {
+func (w Concrete) CreateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (r4b.AuditEvent, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.AuditEvent{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AuditEvent"}
+		return r4b.AuditEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for AuditEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -163,14 +224,22 @@ func (w Concrete) CreateAuditEvent(ctx context.Context, resource r4b.AuditEvent)
 	}
 	r, ok := v.(r4b.AuditEvent)
 	if !ok {
-		return r4b.AuditEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AuditEvent", GotType: v.ResourceType()}
+		return r4b.AuditEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AuditEvent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateBasic(ctx context.Context, resource r4b.Basic) (r4b.Basic, capabilities.FHIRError) {
+func (w Concrete) CreateBasic(ctx context.Context, resource r4b.Basic) (r4b.Basic, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Basic{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Basic"}
+		return r4b.Basic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Basic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -182,14 +251,22 @@ func (w Concrete) CreateBasic(ctx context.Context, resource r4b.Basic) (r4b.Basi
 	}
 	r, ok := v.(r4b.Basic)
 	if !ok {
-		return r4b.Basic{}, capabilities.UnexpectedResourceError{ExpectedType: "Basic", GotType: v.ResourceType()}
+		return r4b.Basic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Basic" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateBinary(ctx context.Context, resource r4b.Binary) (r4b.Binary, capabilities.FHIRError) {
+func (w Concrete) CreateBinary(ctx context.Context, resource r4b.Binary) (r4b.Binary, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Binary{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Binary"}
+		return r4b.Binary{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Binary")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -201,14 +278,22 @@ func (w Concrete) CreateBinary(ctx context.Context, resource r4b.Binary) (r4b.Bi
 	}
 	r, ok := v.(r4b.Binary)
 	if !ok {
-		return r4b.Binary{}, capabilities.UnexpectedResourceError{ExpectedType: "Binary", GotType: v.ResourceType()}
+		return r4b.Binary{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Binary" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (r4b.BiologicallyDerivedProduct, capabilities.FHIRError) {
+func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (r4b.BiologicallyDerivedProduct, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.BiologicallyDerivedProduct{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "BiologicallyDerivedProduct"}
+		return r4b.BiologicallyDerivedProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for BiologicallyDerivedProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -220,14 +305,22 @@ func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.BiologicallyDerivedProduct)
 	if !ok {
-		return r4b.BiologicallyDerivedProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "BiologicallyDerivedProduct", GotType: v.ResourceType()}
+		return r4b.BiologicallyDerivedProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "BiologicallyDerivedProduct" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (r4b.BodyStructure, capabilities.FHIRError) {
+func (w Concrete) CreateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (r4b.BodyStructure, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.BodyStructure{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "BodyStructure"}
+		return r4b.BodyStructure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for BodyStructure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -239,14 +332,22 @@ func (w Concrete) CreateBodyStructure(ctx context.Context, resource r4b.BodyStru
 	}
 	r, ok := v.(r4b.BodyStructure)
 	if !ok {
-		return r4b.BodyStructure{}, capabilities.UnexpectedResourceError{ExpectedType: "BodyStructure", GotType: v.ResourceType()}
+		return r4b.BodyStructure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "BodyStructure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateBundle(ctx context.Context, resource r4b.Bundle) (r4b.Bundle, capabilities.FHIRError) {
+func (w Concrete) CreateBundle(ctx context.Context, resource r4b.Bundle) (r4b.Bundle, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Bundle{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Bundle"}
+		return r4b.Bundle{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Bundle")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -258,14 +359,22 @@ func (w Concrete) CreateBundle(ctx context.Context, resource r4b.Bundle) (r4b.Bu
 	}
 	r, ok := v.(r4b.Bundle)
 	if !ok {
-		return r4b.Bundle{}, capabilities.UnexpectedResourceError{ExpectedType: "Bundle", GotType: v.ResourceType()}
+		return r4b.Bundle{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Bundle" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (r4b.CapabilityStatement, capabilities.FHIRError) {
+func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (r4b.CapabilityStatement, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CapabilityStatement{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CapabilityStatement"}
+		return r4b.CapabilityStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CapabilityStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -277,14 +386,22 @@ func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r4b.Ca
 	}
 	r, ok := v.(r4b.CapabilityStatement)
 	if !ok {
-		return r4b.CapabilityStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "CapabilityStatement", GotType: v.ResourceType()}
+		return r4b.CapabilityStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CapabilityStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCarePlan(ctx context.Context, resource r4b.CarePlan) (r4b.CarePlan, capabilities.FHIRError) {
+func (w Concrete) CreateCarePlan(ctx context.Context, resource r4b.CarePlan) (r4b.CarePlan, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CarePlan{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CarePlan"}
+		return r4b.CarePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CarePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -296,14 +413,22 @@ func (w Concrete) CreateCarePlan(ctx context.Context, resource r4b.CarePlan) (r4
 	}
 	r, ok := v.(r4b.CarePlan)
 	if !ok {
-		return r4b.CarePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "CarePlan", GotType: v.ResourceType()}
+		return r4b.CarePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CarePlan" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCareTeam(ctx context.Context, resource r4b.CareTeam) (r4b.CareTeam, capabilities.FHIRError) {
+func (w Concrete) CreateCareTeam(ctx context.Context, resource r4b.CareTeam) (r4b.CareTeam, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CareTeam{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CareTeam"}
+		return r4b.CareTeam{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CareTeam")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -315,14 +440,22 @@ func (w Concrete) CreateCareTeam(ctx context.Context, resource r4b.CareTeam) (r4
 	}
 	r, ok := v.(r4b.CareTeam)
 	if !ok {
-		return r4b.CareTeam{}, capabilities.UnexpectedResourceError{ExpectedType: "CareTeam", GotType: v.ResourceType()}
+		return r4b.CareTeam{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CareTeam" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (r4b.CatalogEntry, capabilities.FHIRError) {
+func (w Concrete) CreateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (r4b.CatalogEntry, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CatalogEntry{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CatalogEntry"}
+		return r4b.CatalogEntry{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CatalogEntry")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -334,14 +467,22 @@ func (w Concrete) CreateCatalogEntry(ctx context.Context, resource r4b.CatalogEn
 	}
 	r, ok := v.(r4b.CatalogEntry)
 	if !ok {
-		return r4b.CatalogEntry{}, capabilities.UnexpectedResourceError{ExpectedType: "CatalogEntry", GotType: v.ResourceType()}
+		return r4b.CatalogEntry{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CatalogEntry" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateChargeItem(ctx context.Context, resource r4b.ChargeItem) (r4b.ChargeItem, capabilities.FHIRError) {
+func (w Concrete) CreateChargeItem(ctx context.Context, resource r4b.ChargeItem) (r4b.ChargeItem, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ChargeItem{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ChargeItem"}
+		return r4b.ChargeItem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ChargeItem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -353,14 +494,22 @@ func (w Concrete) CreateChargeItem(ctx context.Context, resource r4b.ChargeItem)
 	}
 	r, ok := v.(r4b.ChargeItem)
 	if !ok {
-		return r4b.ChargeItem{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItem", GotType: v.ResourceType()}
+		return r4b.ChargeItem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ChargeItem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (r4b.ChargeItemDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (r4b.ChargeItemDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ChargeItemDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ChargeItemDefinition"}
+		return r4b.ChargeItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ChargeItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -372,14 +521,22 @@ func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.ChargeItemDefinition)
 	if !ok {
-		return r4b.ChargeItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItemDefinition", GotType: v.ResourceType()}
+		return r4b.ChargeItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ChargeItemDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCitation(ctx context.Context, resource r4b.Citation) (r4b.Citation, capabilities.FHIRError) {
+func (w Concrete) CreateCitation(ctx context.Context, resource r4b.Citation) (r4b.Citation, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Citation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Citation"}
+		return r4b.Citation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Citation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -391,14 +548,22 @@ func (w Concrete) CreateCitation(ctx context.Context, resource r4b.Citation) (r4
 	}
 	r, ok := v.(r4b.Citation)
 	if !ok {
-		return r4b.Citation{}, capabilities.UnexpectedResourceError{ExpectedType: "Citation", GotType: v.ResourceType()}
+		return r4b.Citation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Citation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateClaim(ctx context.Context, resource r4b.Claim) (r4b.Claim, capabilities.FHIRError) {
+func (w Concrete) CreateClaim(ctx context.Context, resource r4b.Claim) (r4b.Claim, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Claim{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Claim"}
+		return r4b.Claim{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Claim")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -410,14 +575,22 @@ func (w Concrete) CreateClaim(ctx context.Context, resource r4b.Claim) (r4b.Clai
 	}
 	r, ok := v.(r4b.Claim)
 	if !ok {
-		return r4b.Claim{}, capabilities.UnexpectedResourceError{ExpectedType: "Claim", GotType: v.ResourceType()}
+		return r4b.Claim{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Claim" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (r4b.ClaimResponse, capabilities.FHIRError) {
+func (w Concrete) CreateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (r4b.ClaimResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ClaimResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClaimResponse"}
+		return r4b.ClaimResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ClaimResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -429,14 +602,22 @@ func (w Concrete) CreateClaimResponse(ctx context.Context, resource r4b.ClaimRes
 	}
 	r, ok := v.(r4b.ClaimResponse)
 	if !ok {
-		return r4b.ClaimResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "ClaimResponse", GotType: v.ResourceType()}
+		return r4b.ClaimResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClaimResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (r4b.ClinicalImpression, capabilities.FHIRError) {
+func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (r4b.ClinicalImpression, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ClinicalImpression{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClinicalImpression"}
+		return r4b.ClinicalImpression{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ClinicalImpression")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -448,14 +629,22 @@ func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r4b.Cli
 	}
 	r, ok := v.(r4b.ClinicalImpression)
 	if !ok {
-		return r4b.ClinicalImpression{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalImpression", GotType: v.ResourceType()}
+		return r4b.ClinicalImpression{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClinicalImpression" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (r4b.ClinicalUseDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (r4b.ClinicalUseDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ClinicalUseDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClinicalUseDefinition"}
+		return r4b.ClinicalUseDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ClinicalUseDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -467,14 +656,22 @@ func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ClinicalUseDefinition)
 	if !ok {
-		return r4b.ClinicalUseDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalUseDefinition", GotType: v.ResourceType()}
+		return r4b.ClinicalUseDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClinicalUseDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (r4b.CodeSystem, capabilities.FHIRError) {
+func (w Concrete) CreateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (r4b.CodeSystem, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CodeSystem{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CodeSystem"}
+		return r4b.CodeSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CodeSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -486,14 +683,22 @@ func (w Concrete) CreateCodeSystem(ctx context.Context, resource r4b.CodeSystem)
 	}
 	r, ok := v.(r4b.CodeSystem)
 	if !ok {
-		return r4b.CodeSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "CodeSystem", GotType: v.ResourceType()}
+		return r4b.CodeSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CodeSystem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCommunication(ctx context.Context, resource r4b.Communication) (r4b.Communication, capabilities.FHIRError) {
+func (w Concrete) CreateCommunication(ctx context.Context, resource r4b.Communication) (r4b.Communication, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Communication{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Communication"}
+		return r4b.Communication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Communication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -505,14 +710,22 @@ func (w Concrete) CreateCommunication(ctx context.Context, resource r4b.Communic
 	}
 	r, ok := v.(r4b.Communication)
 	if !ok {
-		return r4b.Communication{}, capabilities.UnexpectedResourceError{ExpectedType: "Communication", GotType: v.ResourceType()}
+		return r4b.Communication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Communication" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (r4b.CommunicationRequest, capabilities.FHIRError) {
+func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (r4b.CommunicationRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CommunicationRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CommunicationRequest"}
+		return r4b.CommunicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CommunicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -524,14 +737,22 @@ func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.CommunicationRequest)
 	if !ok {
-		return r4b.CommunicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CommunicationRequest", GotType: v.ResourceType()}
+		return r4b.CommunicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CommunicationRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (r4b.CompartmentDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (r4b.CompartmentDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CompartmentDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CompartmentDefinition"}
+		return r4b.CompartmentDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CompartmentDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -543,14 +764,22 @@ func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.CompartmentDefinition)
 	if !ok {
-		return r4b.CompartmentDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "CompartmentDefinition", GotType: v.ResourceType()}
+		return r4b.CompartmentDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CompartmentDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateComposition(ctx context.Context, resource r4b.Composition) (r4b.Composition, capabilities.FHIRError) {
+func (w Concrete) CreateComposition(ctx context.Context, resource r4b.Composition) (r4b.Composition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Composition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Composition"}
+		return r4b.Composition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Composition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -562,14 +791,22 @@ func (w Concrete) CreateComposition(ctx context.Context, resource r4b.Compositio
 	}
 	r, ok := v.(r4b.Composition)
 	if !ok {
-		return r4b.Composition{}, capabilities.UnexpectedResourceError{ExpectedType: "Composition", GotType: v.ResourceType()}
+		return r4b.Composition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Composition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateConceptMap(ctx context.Context, resource r4b.ConceptMap) (r4b.ConceptMap, capabilities.FHIRError) {
+func (w Concrete) CreateConceptMap(ctx context.Context, resource r4b.ConceptMap) (r4b.ConceptMap, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ConceptMap{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ConceptMap"}
+		return r4b.ConceptMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ConceptMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -581,14 +818,22 @@ func (w Concrete) CreateConceptMap(ctx context.Context, resource r4b.ConceptMap)
 	}
 	r, ok := v.(r4b.ConceptMap)
 	if !ok {
-		return r4b.ConceptMap{}, capabilities.UnexpectedResourceError{ExpectedType: "ConceptMap", GotType: v.ResourceType()}
+		return r4b.ConceptMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ConceptMap" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCondition(ctx context.Context, resource r4b.Condition) (r4b.Condition, capabilities.FHIRError) {
+func (w Concrete) CreateCondition(ctx context.Context, resource r4b.Condition) (r4b.Condition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Condition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Condition"}
+		return r4b.Condition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Condition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -600,14 +845,22 @@ func (w Concrete) CreateCondition(ctx context.Context, resource r4b.Condition) (
 	}
 	r, ok := v.(r4b.Condition)
 	if !ok {
-		return r4b.Condition{}, capabilities.UnexpectedResourceError{ExpectedType: "Condition", GotType: v.ResourceType()}
+		return r4b.Condition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Condition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateConsent(ctx context.Context, resource r4b.Consent) (r4b.Consent, capabilities.FHIRError) {
+func (w Concrete) CreateConsent(ctx context.Context, resource r4b.Consent) (r4b.Consent, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Consent{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Consent"}
+		return r4b.Consent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Consent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -619,14 +872,22 @@ func (w Concrete) CreateConsent(ctx context.Context, resource r4b.Consent) (r4b.
 	}
 	r, ok := v.(r4b.Consent)
 	if !ok {
-		return r4b.Consent{}, capabilities.UnexpectedResourceError{ExpectedType: "Consent", GotType: v.ResourceType()}
+		return r4b.Consent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Consent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateContract(ctx context.Context, resource r4b.Contract) (r4b.Contract, capabilities.FHIRError) {
+func (w Concrete) CreateContract(ctx context.Context, resource r4b.Contract) (r4b.Contract, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Contract{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Contract"}
+		return r4b.Contract{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Contract")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -638,14 +899,22 @@ func (w Concrete) CreateContract(ctx context.Context, resource r4b.Contract) (r4
 	}
 	r, ok := v.(r4b.Contract)
 	if !ok {
-		return r4b.Contract{}, capabilities.UnexpectedResourceError{ExpectedType: "Contract", GotType: v.ResourceType()}
+		return r4b.Contract{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Contract" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCoverage(ctx context.Context, resource r4b.Coverage) (r4b.Coverage, capabilities.FHIRError) {
+func (w Concrete) CreateCoverage(ctx context.Context, resource r4b.Coverage) (r4b.Coverage, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Coverage{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Coverage"}
+		return r4b.Coverage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Coverage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -657,14 +926,22 @@ func (w Concrete) CreateCoverage(ctx context.Context, resource r4b.Coverage) (r4
 	}
 	r, ok := v.(r4b.Coverage)
 	if !ok {
-		return r4b.Coverage{}, capabilities.UnexpectedResourceError{ExpectedType: "Coverage", GotType: v.ResourceType()}
+		return r4b.Coverage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Coverage" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (r4b.CoverageEligibilityRequest, capabilities.FHIRError) {
+func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (r4b.CoverageEligibilityRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CoverageEligibilityRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CoverageEligibilityRequest"}
+		return r4b.CoverageEligibilityRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CoverageEligibilityRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -676,14 +953,22 @@ func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.CoverageEligibilityRequest)
 	if !ok {
-		return r4b.CoverageEligibilityRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityRequest", GotType: v.ResourceType()}
+		return r4b.CoverageEligibilityRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CoverageEligibilityRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (r4b.CoverageEligibilityResponse, capabilities.FHIRError) {
+func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (r4b.CoverageEligibilityResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.CoverageEligibilityResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CoverageEligibilityResponse"}
+		return r4b.CoverageEligibilityResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for CoverageEligibilityResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -695,14 +980,22 @@ func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resourc
 	}
 	r, ok := v.(r4b.CoverageEligibilityResponse)
 	if !ok {
-		return r4b.CoverageEligibilityResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityResponse", GotType: v.ResourceType()}
+		return r4b.CoverageEligibilityResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CoverageEligibilityResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (r4b.DetectedIssue, capabilities.FHIRError) {
+func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (r4b.DetectedIssue, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DetectedIssue{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DetectedIssue"}
+		return r4b.DetectedIssue{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DetectedIssue")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -714,14 +1007,22 @@ func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r4b.Detected
 	}
 	r, ok := v.(r4b.DetectedIssue)
 	if !ok {
-		return r4b.DetectedIssue{}, capabilities.UnexpectedResourceError{ExpectedType: "DetectedIssue", GotType: v.ResourceType()}
+		return r4b.DetectedIssue{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DetectedIssue" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDevice(ctx context.Context, resource r4b.Device) (r4b.Device, capabilities.FHIRError) {
+func (w Concrete) CreateDevice(ctx context.Context, resource r4b.Device) (r4b.Device, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Device{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Device"}
+		return r4b.Device{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Device")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -733,14 +1034,22 @@ func (w Concrete) CreateDevice(ctx context.Context, resource r4b.Device) (r4b.De
 	}
 	r, ok := v.(r4b.Device)
 	if !ok {
-		return r4b.Device{}, capabilities.UnexpectedResourceError{ExpectedType: "Device", GotType: v.ResourceType()}
+		return r4b.Device{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Device" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (r4b.DeviceDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (r4b.DeviceDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DeviceDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceDefinition"}
+		return r4b.DeviceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DeviceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -752,14 +1061,22 @@ func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r4b.Devic
 	}
 	r, ok := v.(r4b.DeviceDefinition)
 	if !ok {
-		return r4b.DeviceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceDefinition", GotType: v.ResourceType()}
+		return r4b.DeviceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (r4b.DeviceMetric, capabilities.FHIRError) {
+func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (r4b.DeviceMetric, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DeviceMetric{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceMetric"}
+		return r4b.DeviceMetric{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DeviceMetric")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -771,14 +1088,22 @@ func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r4b.DeviceMet
 	}
 	r, ok := v.(r4b.DeviceMetric)
 	if !ok {
-		return r4b.DeviceMetric{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceMetric", GotType: v.ResourceType()}
+		return r4b.DeviceMetric{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceMetric" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (r4b.DeviceRequest, capabilities.FHIRError) {
+func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (r4b.DeviceRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DeviceRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceRequest"}
+		return r4b.DeviceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DeviceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -790,14 +1115,22 @@ func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r4b.DeviceRe
 	}
 	r, ok := v.(r4b.DeviceRequest)
 	if !ok {
-		return r4b.DeviceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceRequest", GotType: v.ResourceType()}
+		return r4b.DeviceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (r4b.DeviceUseStatement, capabilities.FHIRError) {
+func (w Concrete) CreateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (r4b.DeviceUseStatement, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DeviceUseStatement{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceUseStatement"}
+		return r4b.DeviceUseStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DeviceUseStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -809,14 +1142,22 @@ func (w Concrete) CreateDeviceUseStatement(ctx context.Context, resource r4b.Dev
 	}
 	r, ok := v.(r4b.DeviceUseStatement)
 	if !ok {
-		return r4b.DeviceUseStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceUseStatement", GotType: v.ResourceType()}
+		return r4b.DeviceUseStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceUseStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (r4b.DiagnosticReport, capabilities.FHIRError) {
+func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (r4b.DiagnosticReport, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DiagnosticReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DiagnosticReport"}
+		return r4b.DiagnosticReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DiagnosticReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -828,14 +1169,22 @@ func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r4b.Diagn
 	}
 	r, ok := v.(r4b.DiagnosticReport)
 	if !ok {
-		return r4b.DiagnosticReport{}, capabilities.UnexpectedResourceError{ExpectedType: "DiagnosticReport", GotType: v.ResourceType()}
+		return r4b.DiagnosticReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DiagnosticReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (r4b.DocumentManifest, capabilities.FHIRError) {
+func (w Concrete) CreateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (r4b.DocumentManifest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DocumentManifest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DocumentManifest"}
+		return r4b.DocumentManifest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DocumentManifest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -847,14 +1196,22 @@ func (w Concrete) CreateDocumentManifest(ctx context.Context, resource r4b.Docum
 	}
 	r, ok := v.(r4b.DocumentManifest)
 	if !ok {
-		return r4b.DocumentManifest{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentManifest", GotType: v.ResourceType()}
+		return r4b.DocumentManifest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DocumentManifest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (r4b.DocumentReference, capabilities.FHIRError) {
+func (w Concrete) CreateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (r4b.DocumentReference, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.DocumentReference{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DocumentReference"}
+		return r4b.DocumentReference{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for DocumentReference")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -866,14 +1223,22 @@ func (w Concrete) CreateDocumentReference(ctx context.Context, resource r4b.Docu
 	}
 	r, ok := v.(r4b.DocumentReference)
 	if !ok {
-		return r4b.DocumentReference{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentReference", GotType: v.ResourceType()}
+		return r4b.DocumentReference{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DocumentReference" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEncounter(ctx context.Context, resource r4b.Encounter) (r4b.Encounter, capabilities.FHIRError) {
+func (w Concrete) CreateEncounter(ctx context.Context, resource r4b.Encounter) (r4b.Encounter, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Encounter{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Encounter"}
+		return r4b.Encounter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Encounter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -885,14 +1250,22 @@ func (w Concrete) CreateEncounter(ctx context.Context, resource r4b.Encounter) (
 	}
 	r, ok := v.(r4b.Encounter)
 	if !ok {
-		return r4b.Encounter{}, capabilities.UnexpectedResourceError{ExpectedType: "Encounter", GotType: v.ResourceType()}
+		return r4b.Encounter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Encounter" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEndpoint(ctx context.Context, resource r4b.Endpoint) (r4b.Endpoint, capabilities.FHIRError) {
+func (w Concrete) CreateEndpoint(ctx context.Context, resource r4b.Endpoint) (r4b.Endpoint, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Endpoint{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Endpoint"}
+		return r4b.Endpoint{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Endpoint")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -904,14 +1277,22 @@ func (w Concrete) CreateEndpoint(ctx context.Context, resource r4b.Endpoint) (r4
 	}
 	r, ok := v.(r4b.Endpoint)
 	if !ok {
-		return r4b.Endpoint{}, capabilities.UnexpectedResourceError{ExpectedType: "Endpoint", GotType: v.ResourceType()}
+		return r4b.Endpoint{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Endpoint" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (r4b.EnrollmentRequest, capabilities.FHIRError) {
+func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (r4b.EnrollmentRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.EnrollmentRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EnrollmentRequest"}
+		return r4b.EnrollmentRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for EnrollmentRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -923,14 +1304,22 @@ func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r4b.Enro
 	}
 	r, ok := v.(r4b.EnrollmentRequest)
 	if !ok {
-		return r4b.EnrollmentRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentRequest", GotType: v.ResourceType()}
+		return r4b.EnrollmentRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EnrollmentRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (r4b.EnrollmentResponse, capabilities.FHIRError) {
+func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (r4b.EnrollmentResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.EnrollmentResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EnrollmentResponse"}
+		return r4b.EnrollmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for EnrollmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -942,14 +1331,22 @@ func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r4b.Enr
 	}
 	r, ok := v.(r4b.EnrollmentResponse)
 	if !ok {
-		return r4b.EnrollmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentResponse", GotType: v.ResourceType()}
+		return r4b.EnrollmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EnrollmentResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (r4b.EpisodeOfCare, capabilities.FHIRError) {
+func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (r4b.EpisodeOfCare, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.EpisodeOfCare{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EpisodeOfCare"}
+		return r4b.EpisodeOfCare{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for EpisodeOfCare")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -961,14 +1358,22 @@ func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeO
 	}
 	r, ok := v.(r4b.EpisodeOfCare)
 	if !ok {
-		return r4b.EpisodeOfCare{}, capabilities.UnexpectedResourceError{ExpectedType: "EpisodeOfCare", GotType: v.ResourceType()}
+		return r4b.EpisodeOfCare{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EpisodeOfCare" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (r4b.EventDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (r4b.EventDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.EventDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EventDefinition"}
+		return r4b.EventDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for EventDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -980,14 +1385,22 @@ func (w Concrete) CreateEventDefinition(ctx context.Context, resource r4b.EventD
 	}
 	r, ok := v.(r4b.EventDefinition)
 	if !ok {
-		return r4b.EventDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "EventDefinition", GotType: v.ResourceType()}
+		return r4b.EventDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EventDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEvidence(ctx context.Context, resource r4b.Evidence) (r4b.Evidence, capabilities.FHIRError) {
+func (w Concrete) CreateEvidence(ctx context.Context, resource r4b.Evidence) (r4b.Evidence, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Evidence{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Evidence"}
+		return r4b.Evidence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Evidence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -999,14 +1412,22 @@ func (w Concrete) CreateEvidence(ctx context.Context, resource r4b.Evidence) (r4
 	}
 	r, ok := v.(r4b.Evidence)
 	if !ok {
-		return r4b.Evidence{}, capabilities.UnexpectedResourceError{ExpectedType: "Evidence", GotType: v.ResourceType()}
+		return r4b.Evidence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Evidence" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (r4b.EvidenceReport, capabilities.FHIRError) {
+func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (r4b.EvidenceReport, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.EvidenceReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EvidenceReport"}
+		return r4b.EvidenceReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for EvidenceReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1018,14 +1439,22 @@ func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r4b.Evidenc
 	}
 	r, ok := v.(r4b.EvidenceReport)
 	if !ok {
-		return r4b.EvidenceReport{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceReport", GotType: v.ResourceType()}
+		return r4b.EvidenceReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EvidenceReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (r4b.EvidenceVariable, capabilities.FHIRError) {
+func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (r4b.EvidenceVariable, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.EvidenceVariable{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EvidenceVariable"}
+		return r4b.EvidenceVariable{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for EvidenceVariable")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1037,14 +1466,22 @@ func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r4b.Evide
 	}
 	r, ok := v.(r4b.EvidenceVariable)
 	if !ok {
-		return r4b.EvidenceVariable{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceVariable", GotType: v.ResourceType()}
+		return r4b.EvidenceVariable{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EvidenceVariable" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (r4b.ExampleScenario, capabilities.FHIRError) {
+func (w Concrete) CreateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (r4b.ExampleScenario, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ExampleScenario{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ExampleScenario"}
+		return r4b.ExampleScenario{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ExampleScenario")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1056,14 +1493,22 @@ func (w Concrete) CreateExampleScenario(ctx context.Context, resource r4b.Exampl
 	}
 	r, ok := v.(r4b.ExampleScenario)
 	if !ok {
-		return r4b.ExampleScenario{}, capabilities.UnexpectedResourceError{ExpectedType: "ExampleScenario", GotType: v.ResourceType()}
+		return r4b.ExampleScenario{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ExampleScenario" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (r4b.ExplanationOfBenefit, capabilities.FHIRError) {
+func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (r4b.ExplanationOfBenefit, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ExplanationOfBenefit{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ExplanationOfBenefit"}
+		return r4b.ExplanationOfBenefit{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ExplanationOfBenefit")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1075,14 +1520,22 @@ func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r4b.E
 	}
 	r, ok := v.(r4b.ExplanationOfBenefit)
 	if !ok {
-		return r4b.ExplanationOfBenefit{}, capabilities.UnexpectedResourceError{ExpectedType: "ExplanationOfBenefit", GotType: v.ResourceType()}
+		return r4b.ExplanationOfBenefit{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ExplanationOfBenefit" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (r4b.FamilyMemberHistory, capabilities.FHIRError) {
+func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (r4b.FamilyMemberHistory, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.FamilyMemberHistory{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "FamilyMemberHistory"}
+		return r4b.FamilyMemberHistory{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for FamilyMemberHistory")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1094,14 +1547,22 @@ func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r4b.Fa
 	}
 	r, ok := v.(r4b.FamilyMemberHistory)
 	if !ok {
-		return r4b.FamilyMemberHistory{}, capabilities.UnexpectedResourceError{ExpectedType: "FamilyMemberHistory", GotType: v.ResourceType()}
+		return r4b.FamilyMemberHistory{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "FamilyMemberHistory" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateFlag(ctx context.Context, resource r4b.Flag) (r4b.Flag, capabilities.FHIRError) {
+func (w Concrete) CreateFlag(ctx context.Context, resource r4b.Flag) (r4b.Flag, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Flag{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Flag"}
+		return r4b.Flag{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Flag")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1113,14 +1574,22 @@ func (w Concrete) CreateFlag(ctx context.Context, resource r4b.Flag) (r4b.Flag, 
 	}
 	r, ok := v.(r4b.Flag)
 	if !ok {
-		return r4b.Flag{}, capabilities.UnexpectedResourceError{ExpectedType: "Flag", GotType: v.ResourceType()}
+		return r4b.Flag{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Flag" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateGoal(ctx context.Context, resource r4b.Goal) (r4b.Goal, capabilities.FHIRError) {
+func (w Concrete) CreateGoal(ctx context.Context, resource r4b.Goal) (r4b.Goal, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Goal{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Goal"}
+		return r4b.Goal{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Goal")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1132,14 +1601,22 @@ func (w Concrete) CreateGoal(ctx context.Context, resource r4b.Goal) (r4b.Goal, 
 	}
 	r, ok := v.(r4b.Goal)
 	if !ok {
-		return r4b.Goal{}, capabilities.UnexpectedResourceError{ExpectedType: "Goal", GotType: v.ResourceType()}
+		return r4b.Goal{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Goal" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (r4b.GraphDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (r4b.GraphDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.GraphDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "GraphDefinition"}
+		return r4b.GraphDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for GraphDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1151,14 +1628,22 @@ func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r4b.GraphD
 	}
 	r, ok := v.(r4b.GraphDefinition)
 	if !ok {
-		return r4b.GraphDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "GraphDefinition", GotType: v.ResourceType()}
+		return r4b.GraphDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "GraphDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateGroup(ctx context.Context, resource r4b.Group) (r4b.Group, capabilities.FHIRError) {
+func (w Concrete) CreateGroup(ctx context.Context, resource r4b.Group) (r4b.Group, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Group{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Group"}
+		return r4b.Group{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Group")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1170,14 +1655,22 @@ func (w Concrete) CreateGroup(ctx context.Context, resource r4b.Group) (r4b.Grou
 	}
 	r, ok := v.(r4b.Group)
 	if !ok {
-		return r4b.Group{}, capabilities.UnexpectedResourceError{ExpectedType: "Group", GotType: v.ResourceType()}
+		return r4b.Group{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Group" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (r4b.GuidanceResponse, capabilities.FHIRError) {
+func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (r4b.GuidanceResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.GuidanceResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "GuidanceResponse"}
+		return r4b.GuidanceResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for GuidanceResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1189,14 +1682,22 @@ func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r4b.Guida
 	}
 	r, ok := v.(r4b.GuidanceResponse)
 	if !ok {
-		return r4b.GuidanceResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "GuidanceResponse", GotType: v.ResourceType()}
+		return r4b.GuidanceResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "GuidanceResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (r4b.HealthcareService, capabilities.FHIRError) {
+func (w Concrete) CreateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (r4b.HealthcareService, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.HealthcareService{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "HealthcareService"}
+		return r4b.HealthcareService{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for HealthcareService")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1208,14 +1709,22 @@ func (w Concrete) CreateHealthcareService(ctx context.Context, resource r4b.Heal
 	}
 	r, ok := v.(r4b.HealthcareService)
 	if !ok {
-		return r4b.HealthcareService{}, capabilities.UnexpectedResourceError{ExpectedType: "HealthcareService", GotType: v.ResourceType()}
+		return r4b.HealthcareService{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "HealthcareService" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (r4b.ImagingStudy, capabilities.FHIRError) {
+func (w Concrete) CreateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (r4b.ImagingStudy, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ImagingStudy{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImagingStudy"}
+		return r4b.ImagingStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ImagingStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1227,14 +1736,22 @@ func (w Concrete) CreateImagingStudy(ctx context.Context, resource r4b.ImagingSt
 	}
 	r, ok := v.(r4b.ImagingStudy)
 	if !ok {
-		return r4b.ImagingStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ImagingStudy", GotType: v.ResourceType()}
+		return r4b.ImagingStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImagingStudy" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateImmunization(ctx context.Context, resource r4b.Immunization) (r4b.Immunization, capabilities.FHIRError) {
+func (w Concrete) CreateImmunization(ctx context.Context, resource r4b.Immunization) (r4b.Immunization, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Immunization{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Immunization"}
+		return r4b.Immunization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Immunization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1246,14 +1763,22 @@ func (w Concrete) CreateImmunization(ctx context.Context, resource r4b.Immunizat
 	}
 	r, ok := v.(r4b.Immunization)
 	if !ok {
-		return r4b.Immunization{}, capabilities.UnexpectedResourceError{ExpectedType: "Immunization", GotType: v.ResourceType()}
+		return r4b.Immunization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Immunization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (r4b.ImmunizationEvaluation, capabilities.FHIRError) {
+func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (r4b.ImmunizationEvaluation, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ImmunizationEvaluation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImmunizationEvaluation"}
+		return r4b.ImmunizationEvaluation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ImmunizationEvaluation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1265,14 +1790,22 @@ func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.ImmunizationEvaluation)
 	if !ok {
-		return r4b.ImmunizationEvaluation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationEvaluation", GotType: v.ResourceType()}
+		return r4b.ImmunizationEvaluation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImmunizationEvaluation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (r4b.ImmunizationRecommendation, capabilities.FHIRError) {
+func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (r4b.ImmunizationRecommendation, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ImmunizationRecommendation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImmunizationRecommendation"}
+		return r4b.ImmunizationRecommendation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ImmunizationRecommendation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1284,14 +1817,22 @@ func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ImmunizationRecommendation)
 	if !ok {
-		return r4b.ImmunizationRecommendation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationRecommendation", GotType: v.ResourceType()}
+		return r4b.ImmunizationRecommendation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImmunizationRecommendation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (r4b.ImplementationGuide, capabilities.FHIRError) {
+func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (r4b.ImplementationGuide, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ImplementationGuide{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImplementationGuide"}
+		return r4b.ImplementationGuide{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ImplementationGuide")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1303,14 +1844,22 @@ func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r4b.Im
 	}
 	r, ok := v.(r4b.ImplementationGuide)
 	if !ok {
-		return r4b.ImplementationGuide{}, capabilities.UnexpectedResourceError{ExpectedType: "ImplementationGuide", GotType: v.ResourceType()}
+		return r4b.ImplementationGuide{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImplementationGuide" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateIngredient(ctx context.Context, resource r4b.Ingredient) (r4b.Ingredient, capabilities.FHIRError) {
+func (w Concrete) CreateIngredient(ctx context.Context, resource r4b.Ingredient) (r4b.Ingredient, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Ingredient{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Ingredient"}
+		return r4b.Ingredient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Ingredient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1322,14 +1871,22 @@ func (w Concrete) CreateIngredient(ctx context.Context, resource r4b.Ingredient)
 	}
 	r, ok := v.(r4b.Ingredient)
 	if !ok {
-		return r4b.Ingredient{}, capabilities.UnexpectedResourceError{ExpectedType: "Ingredient", GotType: v.ResourceType()}
+		return r4b.Ingredient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Ingredient" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (r4b.InsurancePlan, capabilities.FHIRError) {
+func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (r4b.InsurancePlan, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.InsurancePlan{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "InsurancePlan"}
+		return r4b.InsurancePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for InsurancePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1341,14 +1898,22 @@ func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r4b.Insuranc
 	}
 	r, ok := v.(r4b.InsurancePlan)
 	if !ok {
-		return r4b.InsurancePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "InsurancePlan", GotType: v.ResourceType()}
+		return r4b.InsurancePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "InsurancePlan" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateInvoice(ctx context.Context, resource r4b.Invoice) (r4b.Invoice, capabilities.FHIRError) {
+func (w Concrete) CreateInvoice(ctx context.Context, resource r4b.Invoice) (r4b.Invoice, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Invoice{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Invoice"}
+		return r4b.Invoice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Invoice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1360,14 +1925,22 @@ func (w Concrete) CreateInvoice(ctx context.Context, resource r4b.Invoice) (r4b.
 	}
 	r, ok := v.(r4b.Invoice)
 	if !ok {
-		return r4b.Invoice{}, capabilities.UnexpectedResourceError{ExpectedType: "Invoice", GotType: v.ResourceType()}
+		return r4b.Invoice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Invoice" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateLibrary(ctx context.Context, resource r4b.Library) (r4b.Library, capabilities.FHIRError) {
+func (w Concrete) CreateLibrary(ctx context.Context, resource r4b.Library) (r4b.Library, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Library{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Library"}
+		return r4b.Library{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Library")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1379,14 +1952,22 @@ func (w Concrete) CreateLibrary(ctx context.Context, resource r4b.Library) (r4b.
 	}
 	r, ok := v.(r4b.Library)
 	if !ok {
-		return r4b.Library{}, capabilities.UnexpectedResourceError{ExpectedType: "Library", GotType: v.ResourceType()}
+		return r4b.Library{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Library" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateLinkage(ctx context.Context, resource r4b.Linkage) (r4b.Linkage, capabilities.FHIRError) {
+func (w Concrete) CreateLinkage(ctx context.Context, resource r4b.Linkage) (r4b.Linkage, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Linkage{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Linkage"}
+		return r4b.Linkage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Linkage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1398,14 +1979,22 @@ func (w Concrete) CreateLinkage(ctx context.Context, resource r4b.Linkage) (r4b.
 	}
 	r, ok := v.(r4b.Linkage)
 	if !ok {
-		return r4b.Linkage{}, capabilities.UnexpectedResourceError{ExpectedType: "Linkage", GotType: v.ResourceType()}
+		return r4b.Linkage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Linkage" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateList(ctx context.Context, resource r4b.List) (r4b.List, capabilities.FHIRError) {
+func (w Concrete) CreateList(ctx context.Context, resource r4b.List) (r4b.List, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.List{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "List"}
+		return r4b.List{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for List")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1417,14 +2006,22 @@ func (w Concrete) CreateList(ctx context.Context, resource r4b.List) (r4b.List, 
 	}
 	r, ok := v.(r4b.List)
 	if !ok {
-		return r4b.List{}, capabilities.UnexpectedResourceError{ExpectedType: "List", GotType: v.ResourceType()}
+		return r4b.List{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "List" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateLocation(ctx context.Context, resource r4b.Location) (r4b.Location, capabilities.FHIRError) {
+func (w Concrete) CreateLocation(ctx context.Context, resource r4b.Location) (r4b.Location, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Location{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Location"}
+		return r4b.Location{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Location")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1436,14 +2033,22 @@ func (w Concrete) CreateLocation(ctx context.Context, resource r4b.Location) (r4
 	}
 	r, ok := v.(r4b.Location)
 	if !ok {
-		return r4b.Location{}, capabilities.UnexpectedResourceError{ExpectedType: "Location", GotType: v.ResourceType()}
+		return r4b.Location{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Location" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (r4b.ManufacturedItemDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (r4b.ManufacturedItemDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ManufacturedItemDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ManufacturedItemDefinition"}
+		return r4b.ManufacturedItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ManufacturedItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1455,14 +2060,22 @@ func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ManufacturedItemDefinition)
 	if !ok {
-		return r4b.ManufacturedItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ManufacturedItemDefinition", GotType: v.ResourceType()}
+		return r4b.ManufacturedItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ManufacturedItemDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMeasure(ctx context.Context, resource r4b.Measure) (r4b.Measure, capabilities.FHIRError) {
+func (w Concrete) CreateMeasure(ctx context.Context, resource r4b.Measure) (r4b.Measure, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Measure{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Measure"}
+		return r4b.Measure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Measure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1474,14 +2087,22 @@ func (w Concrete) CreateMeasure(ctx context.Context, resource r4b.Measure) (r4b.
 	}
 	r, ok := v.(r4b.Measure)
 	if !ok {
-		return r4b.Measure{}, capabilities.UnexpectedResourceError{ExpectedType: "Measure", GotType: v.ResourceType()}
+		return r4b.Measure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Measure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (r4b.MeasureReport, capabilities.FHIRError) {
+func (w Concrete) CreateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (r4b.MeasureReport, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MeasureReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MeasureReport"}
+		return r4b.MeasureReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MeasureReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1493,14 +2114,22 @@ func (w Concrete) CreateMeasureReport(ctx context.Context, resource r4b.MeasureR
 	}
 	r, ok := v.(r4b.MeasureReport)
 	if !ok {
-		return r4b.MeasureReport{}, capabilities.UnexpectedResourceError{ExpectedType: "MeasureReport", GotType: v.ResourceType()}
+		return r4b.MeasureReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MeasureReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedia(ctx context.Context, resource r4b.Media) (r4b.Media, capabilities.FHIRError) {
+func (w Concrete) CreateMedia(ctx context.Context, resource r4b.Media) (r4b.Media, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Media{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Media"}
+		return r4b.Media{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Media")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1512,14 +2141,22 @@ func (w Concrete) CreateMedia(ctx context.Context, resource r4b.Media) (r4b.Medi
 	}
 	r, ok := v.(r4b.Media)
 	if !ok {
-		return r4b.Media{}, capabilities.UnexpectedResourceError{ExpectedType: "Media", GotType: v.ResourceType()}
+		return r4b.Media{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Media" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedication(ctx context.Context, resource r4b.Medication) (r4b.Medication, capabilities.FHIRError) {
+func (w Concrete) CreateMedication(ctx context.Context, resource r4b.Medication) (r4b.Medication, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Medication{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Medication"}
+		return r4b.Medication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Medication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1531,14 +2168,22 @@ func (w Concrete) CreateMedication(ctx context.Context, resource r4b.Medication)
 	}
 	r, ok := v.(r4b.Medication)
 	if !ok {
-		return r4b.Medication{}, capabilities.UnexpectedResourceError{ExpectedType: "Medication", GotType: v.ResourceType()}
+		return r4b.Medication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Medication" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (r4b.MedicationAdministration, capabilities.FHIRError) {
+func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (r4b.MedicationAdministration, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MedicationAdministration{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationAdministration"}
+		return r4b.MedicationAdministration{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MedicationAdministration")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1550,14 +2195,22 @@ func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r
 	}
 	r, ok := v.(r4b.MedicationAdministration)
 	if !ok {
-		return r4b.MedicationAdministration{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationAdministration", GotType: v.ResourceType()}
+		return r4b.MedicationAdministration{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationAdministration" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (r4b.MedicationDispense, capabilities.FHIRError) {
+func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (r4b.MedicationDispense, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MedicationDispense{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationDispense"}
+		return r4b.MedicationDispense{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MedicationDispense")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1569,14 +2222,22 @@ func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r4b.Med
 	}
 	r, ok := v.(r4b.MedicationDispense)
 	if !ok {
-		return r4b.MedicationDispense{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationDispense", GotType: v.ResourceType()}
+		return r4b.MedicationDispense{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationDispense" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (r4b.MedicationKnowledge, capabilities.FHIRError) {
+func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (r4b.MedicationKnowledge, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MedicationKnowledge{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationKnowledge"}
+		return r4b.MedicationKnowledge{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MedicationKnowledge")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1588,14 +2249,22 @@ func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationKnowledge)
 	if !ok {
-		return r4b.MedicationKnowledge{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationKnowledge", GotType: v.ResourceType()}
+		return r4b.MedicationKnowledge{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationKnowledge" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (r4b.MedicationRequest, capabilities.FHIRError) {
+func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (r4b.MedicationRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MedicationRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationRequest"}
+		return r4b.MedicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MedicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1607,14 +2276,22 @@ func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r4b.Medi
 	}
 	r, ok := v.(r4b.MedicationRequest)
 	if !ok {
-		return r4b.MedicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationRequest", GotType: v.ResourceType()}
+		return r4b.MedicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (r4b.MedicationStatement, capabilities.FHIRError) {
+func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (r4b.MedicationStatement, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MedicationStatement{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationStatement"}
+		return r4b.MedicationStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MedicationStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1626,14 +2303,22 @@ func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationStatement)
 	if !ok {
-		return r4b.MedicationStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationStatement", GotType: v.ResourceType()}
+		return r4b.MedicationStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (r4b.MedicinalProductDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (r4b.MedicinalProductDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MedicinalProductDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicinalProductDefinition"}
+		return r4b.MedicinalProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MedicinalProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1645,14 +2330,22 @@ func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.MedicinalProductDefinition)
 	if !ok {
-		return r4b.MedicinalProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicinalProductDefinition", GotType: v.ResourceType()}
+		return r4b.MedicinalProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicinalProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (r4b.MessageDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (r4b.MessageDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MessageDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MessageDefinition"}
+		return r4b.MessageDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MessageDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1664,14 +2357,22 @@ func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r4b.Mess
 	}
 	r, ok := v.(r4b.MessageDefinition)
 	if !ok {
-		return r4b.MessageDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageDefinition", GotType: v.ResourceType()}
+		return r4b.MessageDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MessageDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (r4b.MessageHeader, capabilities.FHIRError) {
+func (w Concrete) CreateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (r4b.MessageHeader, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MessageHeader{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MessageHeader"}
+		return r4b.MessageHeader{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MessageHeader")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1683,14 +2384,22 @@ func (w Concrete) CreateMessageHeader(ctx context.Context, resource r4b.MessageH
 	}
 	r, ok := v.(r4b.MessageHeader)
 	if !ok {
-		return r4b.MessageHeader{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageHeader", GotType: v.ResourceType()}
+		return r4b.MessageHeader{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MessageHeader" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (r4b.MolecularSequence, capabilities.FHIRError) {
+func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (r4b.MolecularSequence, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.MolecularSequence{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MolecularSequence"}
+		return r4b.MolecularSequence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for MolecularSequence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1702,14 +2411,22 @@ func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r4b.Mole
 	}
 	r, ok := v.(r4b.MolecularSequence)
 	if !ok {
-		return r4b.MolecularSequence{}, capabilities.UnexpectedResourceError{ExpectedType: "MolecularSequence", GotType: v.ResourceType()}
+		return r4b.MolecularSequence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MolecularSequence" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (r4b.NamingSystem, capabilities.FHIRError) {
+func (w Concrete) CreateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (r4b.NamingSystem, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.NamingSystem{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NamingSystem"}
+		return r4b.NamingSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for NamingSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1721,14 +2438,22 @@ func (w Concrete) CreateNamingSystem(ctx context.Context, resource r4b.NamingSys
 	}
 	r, ok := v.(r4b.NamingSystem)
 	if !ok {
-		return r4b.NamingSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "NamingSystem", GotType: v.ResourceType()}
+		return r4b.NamingSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NamingSystem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (r4b.NutritionOrder, capabilities.FHIRError) {
+func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (r4b.NutritionOrder, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.NutritionOrder{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NutritionOrder"}
+		return r4b.NutritionOrder{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for NutritionOrder")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1740,14 +2465,22 @@ func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r4b.Nutriti
 	}
 	r, ok := v.(r4b.NutritionOrder)
 	if !ok {
-		return r4b.NutritionOrder{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionOrder", GotType: v.ResourceType()}
+		return r4b.NutritionOrder{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NutritionOrder" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (r4b.NutritionProduct, capabilities.FHIRError) {
+func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (r4b.NutritionProduct, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.NutritionProduct{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NutritionProduct"}
+		return r4b.NutritionProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for NutritionProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1759,14 +2492,22 @@ func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r4b.Nutri
 	}
 	r, ok := v.(r4b.NutritionProduct)
 	if !ok {
-		return r4b.NutritionProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionProduct", GotType: v.ResourceType()}
+		return r4b.NutritionProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NutritionProduct" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateObservation(ctx context.Context, resource r4b.Observation) (r4b.Observation, capabilities.FHIRError) {
+func (w Concrete) CreateObservation(ctx context.Context, resource r4b.Observation) (r4b.Observation, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Observation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Observation"}
+		return r4b.Observation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Observation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1778,14 +2519,22 @@ func (w Concrete) CreateObservation(ctx context.Context, resource r4b.Observatio
 	}
 	r, ok := v.(r4b.Observation)
 	if !ok {
-		return r4b.Observation{}, capabilities.UnexpectedResourceError{ExpectedType: "Observation", GotType: v.ResourceType()}
+		return r4b.Observation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Observation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (r4b.ObservationDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (r4b.ObservationDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ObservationDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ObservationDefinition"}
+		return r4b.ObservationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ObservationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1797,14 +2546,22 @@ func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ObservationDefinition)
 	if !ok {
-		return r4b.ObservationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ObservationDefinition", GotType: v.ResourceType()}
+		return r4b.ObservationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ObservationDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (r4b.OperationDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (r4b.OperationDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.OperationDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OperationDefinition"}
+		return r4b.OperationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for OperationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1816,14 +2573,22 @@ func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r4b.Op
 	}
 	r, ok := v.(r4b.OperationDefinition)
 	if !ok {
-		return r4b.OperationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationDefinition", GotType: v.ResourceType()}
+		return r4b.OperationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OperationDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (r4b.OperationOutcome, capabilities.FHIRError) {
+func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (r4b.OperationOutcome, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.OperationOutcome{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OperationOutcome"}
+		return r4b.OperationOutcome{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for OperationOutcome")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1835,14 +2600,22 @@ func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r4b.Opera
 	}
 	r, ok := v.(r4b.OperationOutcome)
 	if !ok {
-		return r4b.OperationOutcome{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationOutcome", GotType: v.ResourceType()}
+		return r4b.OperationOutcome{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OperationOutcome" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateOrganization(ctx context.Context, resource r4b.Organization) (r4b.Organization, capabilities.FHIRError) {
+func (w Concrete) CreateOrganization(ctx context.Context, resource r4b.Organization) (r4b.Organization, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Organization{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Organization"}
+		return r4b.Organization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Organization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1854,14 +2627,22 @@ func (w Concrete) CreateOrganization(ctx context.Context, resource r4b.Organizat
 	}
 	r, ok := v.(r4b.Organization)
 	if !ok {
-		return r4b.Organization{}, capabilities.UnexpectedResourceError{ExpectedType: "Organization", GotType: v.ResourceType()}
+		return r4b.Organization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Organization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (r4b.OrganizationAffiliation, capabilities.FHIRError) {
+func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (r4b.OrganizationAffiliation, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.OrganizationAffiliation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OrganizationAffiliation"}
+		return r4b.OrganizationAffiliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for OrganizationAffiliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1873,14 +2654,22 @@ func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.OrganizationAffiliation)
 	if !ok {
-		return r4b.OrganizationAffiliation{}, capabilities.UnexpectedResourceError{ExpectedType: "OrganizationAffiliation", GotType: v.ResourceType()}
+		return r4b.OrganizationAffiliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OrganizationAffiliation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (r4b.PackagedProductDefinition, capabilities.FHIRError) {
+func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (r4b.PackagedProductDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.PackagedProductDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PackagedProductDefinition"}
+		return r4b.PackagedProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for PackagedProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1892,14 +2681,22 @@ func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.PackagedProductDefinition)
 	if !ok {
-		return r4b.PackagedProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PackagedProductDefinition", GotType: v.ResourceType()}
+		return r4b.PackagedProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PackagedProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateParameters(ctx context.Context, resource r4b.Parameters) (r4b.Parameters, capabilities.FHIRError) {
+func (w Concrete) CreateParameters(ctx context.Context, resource r4b.Parameters) (r4b.Parameters, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Parameters{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Parameters"}
+		return r4b.Parameters{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Parameters")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1911,14 +2708,22 @@ func (w Concrete) CreateParameters(ctx context.Context, resource r4b.Parameters)
 	}
 	r, ok := v.(r4b.Parameters)
 	if !ok {
-		return r4b.Parameters{}, capabilities.UnexpectedResourceError{ExpectedType: "Parameters", GotType: v.ResourceType()}
+		return r4b.Parameters{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Parameters" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePatient(ctx context.Context, resource r4b.Patient) (r4b.Patient, capabilities.FHIRError) {
+func (w Concrete) CreatePatient(ctx context.Context, resource r4b.Patient) (r4b.Patient, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Patient{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Patient"}
+		return r4b.Patient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Patient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1930,14 +2735,22 @@ func (w Concrete) CreatePatient(ctx context.Context, resource r4b.Patient) (r4b.
 	}
 	r, ok := v.(r4b.Patient)
 	if !ok {
-		return r4b.Patient{}, capabilities.UnexpectedResourceError{ExpectedType: "Patient", GotType: v.ResourceType()}
+		return r4b.Patient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Patient" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (r4b.PaymentNotice, capabilities.FHIRError) {
+func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (r4b.PaymentNotice, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.PaymentNotice{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PaymentNotice"}
+		return r4b.PaymentNotice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for PaymentNotice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1949,14 +2762,22 @@ func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r4b.PaymentN
 	}
 	r, ok := v.(r4b.PaymentNotice)
 	if !ok {
-		return r4b.PaymentNotice{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentNotice", GotType: v.ResourceType()}
+		return r4b.PaymentNotice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PaymentNotice" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (r4b.PaymentReconciliation, capabilities.FHIRError) {
+func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (r4b.PaymentReconciliation, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.PaymentReconciliation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PaymentReconciliation"}
+		return r4b.PaymentReconciliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for PaymentReconciliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1968,14 +2789,22 @@ func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.PaymentReconciliation)
 	if !ok {
-		return r4b.PaymentReconciliation{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentReconciliation", GotType: v.ResourceType()}
+		return r4b.PaymentReconciliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PaymentReconciliation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePerson(ctx context.Context, resource r4b.Person) (r4b.Person, capabilities.FHIRError) {
+func (w Concrete) CreatePerson(ctx context.Context, resource r4b.Person) (r4b.Person, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Person{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Person"}
+		return r4b.Person{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Person")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -1987,14 +2816,22 @@ func (w Concrete) CreatePerson(ctx context.Context, resource r4b.Person) (r4b.Pe
 	}
 	r, ok := v.(r4b.Person)
 	if !ok {
-		return r4b.Person{}, capabilities.UnexpectedResourceError{ExpectedType: "Person", GotType: v.ResourceType()}
+		return r4b.Person{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Person" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (r4b.PlanDefinition, capabilities.FHIRError) {
+func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (r4b.PlanDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.PlanDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PlanDefinition"}
+		return r4b.PlanDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for PlanDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2006,14 +2843,22 @@ func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r4b.PlanDef
 	}
 	r, ok := v.(r4b.PlanDefinition)
 	if !ok {
-		return r4b.PlanDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PlanDefinition", GotType: v.ResourceType()}
+		return r4b.PlanDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PlanDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePractitioner(ctx context.Context, resource r4b.Practitioner) (r4b.Practitioner, capabilities.FHIRError) {
+func (w Concrete) CreatePractitioner(ctx context.Context, resource r4b.Practitioner) (r4b.Practitioner, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Practitioner{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Practitioner"}
+		return r4b.Practitioner{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Practitioner")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2025,14 +2870,22 @@ func (w Concrete) CreatePractitioner(ctx context.Context, resource r4b.Practitio
 	}
 	r, ok := v.(r4b.Practitioner)
 	if !ok {
-		return r4b.Practitioner{}, capabilities.UnexpectedResourceError{ExpectedType: "Practitioner", GotType: v.ResourceType()}
+		return r4b.Practitioner{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Practitioner" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (r4b.PractitionerRole, capabilities.FHIRError) {
+func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (r4b.PractitionerRole, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.PractitionerRole{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PractitionerRole"}
+		return r4b.PractitionerRole{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for PractitionerRole")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2044,14 +2897,22 @@ func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r4b.Pract
 	}
 	r, ok := v.(r4b.PractitionerRole)
 	if !ok {
-		return r4b.PractitionerRole{}, capabilities.UnexpectedResourceError{ExpectedType: "PractitionerRole", GotType: v.ResourceType()}
+		return r4b.PractitionerRole{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PractitionerRole" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateProcedure(ctx context.Context, resource r4b.Procedure) (r4b.Procedure, capabilities.FHIRError) {
+func (w Concrete) CreateProcedure(ctx context.Context, resource r4b.Procedure) (r4b.Procedure, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Procedure{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Procedure"}
+		return r4b.Procedure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Procedure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2063,14 +2924,22 @@ func (w Concrete) CreateProcedure(ctx context.Context, resource r4b.Procedure) (
 	}
 	r, ok := v.(r4b.Procedure)
 	if !ok {
-		return r4b.Procedure{}, capabilities.UnexpectedResourceError{ExpectedType: "Procedure", GotType: v.ResourceType()}
+		return r4b.Procedure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Procedure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateProvenance(ctx context.Context, resource r4b.Provenance) (r4b.Provenance, capabilities.FHIRError) {
+func (w Concrete) CreateProvenance(ctx context.Context, resource r4b.Provenance) (r4b.Provenance, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Provenance{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Provenance"}
+		return r4b.Provenance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Provenance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2082,14 +2951,22 @@ func (w Concrete) CreateProvenance(ctx context.Context, resource r4b.Provenance)
 	}
 	r, ok := v.(r4b.Provenance)
 	if !ok {
-		return r4b.Provenance{}, capabilities.UnexpectedResourceError{ExpectedType: "Provenance", GotType: v.ResourceType()}
+		return r4b.Provenance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Provenance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (r4b.Questionnaire, capabilities.FHIRError) {
+func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (r4b.Questionnaire, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Questionnaire{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Questionnaire"}
+		return r4b.Questionnaire{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Questionnaire")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2101,14 +2978,22 @@ func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r4b.Question
 	}
 	r, ok := v.(r4b.Questionnaire)
 	if !ok {
-		return r4b.Questionnaire{}, capabilities.UnexpectedResourceError{ExpectedType: "Questionnaire", GotType: v.ResourceType()}
+		return r4b.Questionnaire{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Questionnaire" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (r4b.QuestionnaireResponse, capabilities.FHIRError) {
+func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (r4b.QuestionnaireResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.QuestionnaireResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "QuestionnaireResponse"}
+		return r4b.QuestionnaireResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for QuestionnaireResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2120,14 +3005,22 @@ func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.QuestionnaireResponse)
 	if !ok {
-		return r4b.QuestionnaireResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "QuestionnaireResponse", GotType: v.ResourceType()}
+		return r4b.QuestionnaireResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "QuestionnaireResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (r4b.RegulatedAuthorization, capabilities.FHIRError) {
+func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (r4b.RegulatedAuthorization, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.RegulatedAuthorization{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RegulatedAuthorization"}
+		return r4b.RegulatedAuthorization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for RegulatedAuthorization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2139,14 +3032,22 @@ func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.RegulatedAuthorization)
 	if !ok {
-		return r4b.RegulatedAuthorization{}, capabilities.UnexpectedResourceError{ExpectedType: "RegulatedAuthorization", GotType: v.ResourceType()}
+		return r4b.RegulatedAuthorization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RegulatedAuthorization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (r4b.RelatedPerson, capabilities.FHIRError) {
+func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (r4b.RelatedPerson, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.RelatedPerson{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RelatedPerson"}
+		return r4b.RelatedPerson{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for RelatedPerson")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2158,14 +3059,22 @@ func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r4b.RelatedP
 	}
 	r, ok := v.(r4b.RelatedPerson)
 	if !ok {
-		return r4b.RelatedPerson{}, capabilities.UnexpectedResourceError{ExpectedType: "RelatedPerson", GotType: v.ResourceType()}
+		return r4b.RelatedPerson{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RelatedPerson" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (r4b.RequestGroup, capabilities.FHIRError) {
+func (w Concrete) CreateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (r4b.RequestGroup, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.RequestGroup{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RequestGroup"}
+		return r4b.RequestGroup{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for RequestGroup")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2177,14 +3086,22 @@ func (w Concrete) CreateRequestGroup(ctx context.Context, resource r4b.RequestGr
 	}
 	r, ok := v.(r4b.RequestGroup)
 	if !ok {
-		return r4b.RequestGroup{}, capabilities.UnexpectedResourceError{ExpectedType: "RequestGroup", GotType: v.ResourceType()}
+		return r4b.RequestGroup{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RequestGroup" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (r4b.ResearchDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (r4b.ResearchDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ResearchDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchDefinition"}
+		return r4b.ResearchDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ResearchDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2196,14 +3113,22 @@ func (w Concrete) CreateResearchDefinition(ctx context.Context, resource r4b.Res
 	}
 	r, ok := v.(r4b.ResearchDefinition)
 	if !ok {
-		return r4b.ResearchDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchDefinition", GotType: v.ResourceType()}
+		return r4b.ResearchDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (r4b.ResearchElementDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (r4b.ResearchElementDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ResearchElementDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchElementDefinition"}
+		return r4b.ResearchElementDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ResearchElementDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2215,14 +3140,22 @@ func (w Concrete) CreateResearchElementDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.ResearchElementDefinition)
 	if !ok {
-		return r4b.ResearchElementDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchElementDefinition", GotType: v.ResourceType()}
+		return r4b.ResearchElementDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchElementDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (r4b.ResearchStudy, capabilities.FHIRError) {
+func (w Concrete) CreateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (r4b.ResearchStudy, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ResearchStudy{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchStudy"}
+		return r4b.ResearchStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ResearchStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2234,14 +3167,22 @@ func (w Concrete) CreateResearchStudy(ctx context.Context, resource r4b.Research
 	}
 	r, ok := v.(r4b.ResearchStudy)
 	if !ok {
-		return r4b.ResearchStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchStudy", GotType: v.ResourceType()}
+		return r4b.ResearchStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchStudy" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (r4b.ResearchSubject, capabilities.FHIRError) {
+func (w Concrete) CreateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (r4b.ResearchSubject, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ResearchSubject{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchSubject"}
+		return r4b.ResearchSubject{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ResearchSubject")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2253,14 +3194,22 @@ func (w Concrete) CreateResearchSubject(ctx context.Context, resource r4b.Resear
 	}
 	r, ok := v.(r4b.ResearchSubject)
 	if !ok {
-		return r4b.ResearchSubject{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchSubject", GotType: v.ResourceType()}
+		return r4b.ResearchSubject{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchSubject" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (r4b.RiskAssessment, capabilities.FHIRError) {
+func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (r4b.RiskAssessment, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.RiskAssessment{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RiskAssessment"}
+		return r4b.RiskAssessment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for RiskAssessment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2272,14 +3221,22 @@ func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r4b.RiskAss
 	}
 	r, ok := v.(r4b.RiskAssessment)
 	if !ok {
-		return r4b.RiskAssessment{}, capabilities.UnexpectedResourceError{ExpectedType: "RiskAssessment", GotType: v.ResourceType()}
+		return r4b.RiskAssessment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RiskAssessment" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSchedule(ctx context.Context, resource r4b.Schedule) (r4b.Schedule, capabilities.FHIRError) {
+func (w Concrete) CreateSchedule(ctx context.Context, resource r4b.Schedule) (r4b.Schedule, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Schedule{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Schedule"}
+		return r4b.Schedule{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Schedule")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2291,14 +3248,22 @@ func (w Concrete) CreateSchedule(ctx context.Context, resource r4b.Schedule) (r4
 	}
 	r, ok := v.(r4b.Schedule)
 	if !ok {
-		return r4b.Schedule{}, capabilities.UnexpectedResourceError{ExpectedType: "Schedule", GotType: v.ResourceType()}
+		return r4b.Schedule{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Schedule" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (r4b.SearchParameter, capabilities.FHIRError) {
+func (w Concrete) CreateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (r4b.SearchParameter, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.SearchParameter{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SearchParameter"}
+		return r4b.SearchParameter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for SearchParameter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2310,14 +3275,22 @@ func (w Concrete) CreateSearchParameter(ctx context.Context, resource r4b.Search
 	}
 	r, ok := v.(r4b.SearchParameter)
 	if !ok {
-		return r4b.SearchParameter{}, capabilities.UnexpectedResourceError{ExpectedType: "SearchParameter", GotType: v.ResourceType()}
+		return r4b.SearchParameter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SearchParameter" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (r4b.ServiceRequest, capabilities.FHIRError) {
+func (w Concrete) CreateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (r4b.ServiceRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ServiceRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ServiceRequest"}
+		return r4b.ServiceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ServiceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2329,14 +3302,22 @@ func (w Concrete) CreateServiceRequest(ctx context.Context, resource r4b.Service
 	}
 	r, ok := v.(r4b.ServiceRequest)
 	if !ok {
-		return r4b.ServiceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "ServiceRequest", GotType: v.ResourceType()}
+		return r4b.ServiceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ServiceRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSlot(ctx context.Context, resource r4b.Slot) (r4b.Slot, capabilities.FHIRError) {
+func (w Concrete) CreateSlot(ctx context.Context, resource r4b.Slot) (r4b.Slot, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Slot{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Slot"}
+		return r4b.Slot{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Slot")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2348,14 +3329,22 @@ func (w Concrete) CreateSlot(ctx context.Context, resource r4b.Slot) (r4b.Slot, 
 	}
 	r, ok := v.(r4b.Slot)
 	if !ok {
-		return r4b.Slot{}, capabilities.UnexpectedResourceError{ExpectedType: "Slot", GotType: v.ResourceType()}
+		return r4b.Slot{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Slot" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSpecimen(ctx context.Context, resource r4b.Specimen) (r4b.Specimen, capabilities.FHIRError) {
+func (w Concrete) CreateSpecimen(ctx context.Context, resource r4b.Specimen) (r4b.Specimen, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Specimen{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Specimen"}
+		return r4b.Specimen{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Specimen")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2367,14 +3356,22 @@ func (w Concrete) CreateSpecimen(ctx context.Context, resource r4b.Specimen) (r4
 	}
 	r, ok := v.(r4b.Specimen)
 	if !ok {
-		return r4b.Specimen{}, capabilities.UnexpectedResourceError{ExpectedType: "Specimen", GotType: v.ResourceType()}
+		return r4b.Specimen{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Specimen" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (r4b.SpecimenDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (r4b.SpecimenDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.SpecimenDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SpecimenDefinition"}
+		return r4b.SpecimenDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for SpecimenDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2386,14 +3383,22 @@ func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r4b.Spe
 	}
 	r, ok := v.(r4b.SpecimenDefinition)
 	if !ok {
-		return r4b.SpecimenDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SpecimenDefinition", GotType: v.ResourceType()}
+		return r4b.SpecimenDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SpecimenDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (r4b.StructureDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (r4b.StructureDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.StructureDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "StructureDefinition"}
+		return r4b.StructureDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for StructureDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2405,14 +3410,22 @@ func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r4b.St
 	}
 	r, ok := v.(r4b.StructureDefinition)
 	if !ok {
-		return r4b.StructureDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureDefinition", GotType: v.ResourceType()}
+		return r4b.StructureDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "StructureDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateStructureMap(ctx context.Context, resource r4b.StructureMap) (r4b.StructureMap, capabilities.FHIRError) {
+func (w Concrete) CreateStructureMap(ctx context.Context, resource r4b.StructureMap) (r4b.StructureMap, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.StructureMap{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "StructureMap"}
+		return r4b.StructureMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for StructureMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2424,14 +3437,22 @@ func (w Concrete) CreateStructureMap(ctx context.Context, resource r4b.Structure
 	}
 	r, ok := v.(r4b.StructureMap)
 	if !ok {
-		return r4b.StructureMap{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureMap", GotType: v.ResourceType()}
+		return r4b.StructureMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "StructureMap" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSubscription(ctx context.Context, resource r4b.Subscription) (r4b.Subscription, capabilities.FHIRError) {
+func (w Concrete) CreateSubscription(ctx context.Context, resource r4b.Subscription) (r4b.Subscription, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Subscription{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Subscription"}
+		return r4b.Subscription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Subscription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2443,14 +3464,22 @@ func (w Concrete) CreateSubscription(ctx context.Context, resource r4b.Subscript
 	}
 	r, ok := v.(r4b.Subscription)
 	if !ok {
-		return r4b.Subscription{}, capabilities.UnexpectedResourceError{ExpectedType: "Subscription", GotType: v.ResourceType()}
+		return r4b.Subscription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Subscription" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (r4b.SubscriptionStatus, capabilities.FHIRError) {
+func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (r4b.SubscriptionStatus, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.SubscriptionStatus{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubscriptionStatus"}
+		return r4b.SubscriptionStatus{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for SubscriptionStatus")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2462,14 +3491,22 @@ func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r4b.Sub
 	}
 	r, ok := v.(r4b.SubscriptionStatus)
 	if !ok {
-		return r4b.SubscriptionStatus{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionStatus", GotType: v.ResourceType()}
+		return r4b.SubscriptionStatus{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubscriptionStatus" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (r4b.SubscriptionTopic, capabilities.FHIRError) {
+func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (r4b.SubscriptionTopic, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.SubscriptionTopic{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubscriptionTopic"}
+		return r4b.SubscriptionTopic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for SubscriptionTopic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2481,14 +3518,22 @@ func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r4b.Subs
 	}
 	r, ok := v.(r4b.SubscriptionTopic)
 	if !ok {
-		return r4b.SubscriptionTopic{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionTopic", GotType: v.ResourceType()}
+		return r4b.SubscriptionTopic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubscriptionTopic" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSubstance(ctx context.Context, resource r4b.Substance) (r4b.Substance, capabilities.FHIRError) {
+func (w Concrete) CreateSubstance(ctx context.Context, resource r4b.Substance) (r4b.Substance, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Substance{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Substance"}
+		return r4b.Substance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Substance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2500,14 +3545,22 @@ func (w Concrete) CreateSubstance(ctx context.Context, resource r4b.Substance) (
 	}
 	r, ok := v.(r4b.Substance)
 	if !ok {
-		return r4b.Substance{}, capabilities.UnexpectedResourceError{ExpectedType: "Substance", GotType: v.ResourceType()}
+		return r4b.Substance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Substance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (r4b.SubstanceDefinition, capabilities.FHIRError) {
+func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (r4b.SubstanceDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.SubstanceDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstanceDefinition"}
+		return r4b.SubstanceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for SubstanceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2519,14 +3572,22 @@ func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r4b.Su
 	}
 	r, ok := v.(r4b.SubstanceDefinition)
 	if !ok {
-		return r4b.SubstanceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SubstanceDefinition", GotType: v.ResourceType()}
+		return r4b.SubstanceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubstanceDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (r4b.SupplyDelivery, capabilities.FHIRError) {
+func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (r4b.SupplyDelivery, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.SupplyDelivery{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SupplyDelivery"}
+		return r4b.SupplyDelivery{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for SupplyDelivery")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2538,14 +3599,22 @@ func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r4b.SupplyD
 	}
 	r, ok := v.(r4b.SupplyDelivery)
 	if !ok {
-		return r4b.SupplyDelivery{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyDelivery", GotType: v.ResourceType()}
+		return r4b.SupplyDelivery{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SupplyDelivery" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (r4b.SupplyRequest, capabilities.FHIRError) {
+func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (r4b.SupplyRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.SupplyRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SupplyRequest"}
+		return r4b.SupplyRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for SupplyRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2557,14 +3626,22 @@ func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r4b.SupplyRe
 	}
 	r, ok := v.(r4b.SupplyRequest)
 	if !ok {
-		return r4b.SupplyRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyRequest", GotType: v.ResourceType()}
+		return r4b.SupplyRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SupplyRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateTask(ctx context.Context, resource r4b.Task) (r4b.Task, capabilities.FHIRError) {
+func (w Concrete) CreateTask(ctx context.Context, resource r4b.Task) (r4b.Task, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.Task{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Task"}
+		return r4b.Task{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for Task")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2576,14 +3653,22 @@ func (w Concrete) CreateTask(ctx context.Context, resource r4b.Task) (r4b.Task, 
 	}
 	r, ok := v.(r4b.Task)
 	if !ok {
-		return r4b.Task{}, capabilities.UnexpectedResourceError{ExpectedType: "Task", GotType: v.ResourceType()}
+		return r4b.Task{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Task" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (r4b.TerminologyCapabilities, capabilities.FHIRError) {
+func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (r4b.TerminologyCapabilities, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.TerminologyCapabilities{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TerminologyCapabilities"}
+		return r4b.TerminologyCapabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for TerminologyCapabilities")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2595,14 +3680,22 @@ func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.TerminologyCapabilities)
 	if !ok {
-		return r4b.TerminologyCapabilities{}, capabilities.UnexpectedResourceError{ExpectedType: "TerminologyCapabilities", GotType: v.ResourceType()}
+		return r4b.TerminologyCapabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TerminologyCapabilities" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateTestReport(ctx context.Context, resource r4b.TestReport) (r4b.TestReport, capabilities.FHIRError) {
+func (w Concrete) CreateTestReport(ctx context.Context, resource r4b.TestReport) (r4b.TestReport, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.TestReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TestReport"}
+		return r4b.TestReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for TestReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2614,14 +3707,22 @@ func (w Concrete) CreateTestReport(ctx context.Context, resource r4b.TestReport)
 	}
 	r, ok := v.(r4b.TestReport)
 	if !ok {
-		return r4b.TestReport{}, capabilities.UnexpectedResourceError{ExpectedType: "TestReport", GotType: v.ResourceType()}
+		return r4b.TestReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TestReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateTestScript(ctx context.Context, resource r4b.TestScript) (r4b.TestScript, capabilities.FHIRError) {
+func (w Concrete) CreateTestScript(ctx context.Context, resource r4b.TestScript) (r4b.TestScript, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.TestScript{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TestScript"}
+		return r4b.TestScript{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for TestScript")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2633,14 +3734,22 @@ func (w Concrete) CreateTestScript(ctx context.Context, resource r4b.TestScript)
 	}
 	r, ok := v.(r4b.TestScript)
 	if !ok {
-		return r4b.TestScript{}, capabilities.UnexpectedResourceError{ExpectedType: "TestScript", GotType: v.ResourceType()}
+		return r4b.TestScript{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TestScript" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateValueSet(ctx context.Context, resource r4b.ValueSet) (r4b.ValueSet, capabilities.FHIRError) {
+func (w Concrete) CreateValueSet(ctx context.Context, resource r4b.ValueSet) (r4b.ValueSet, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.ValueSet{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ValueSet"}
+		return r4b.ValueSet{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for ValueSet")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2652,14 +3761,22 @@ func (w Concrete) CreateValueSet(ctx context.Context, resource r4b.ValueSet) (r4
 	}
 	r, ok := v.(r4b.ValueSet)
 	if !ok {
-		return r4b.ValueSet{}, capabilities.UnexpectedResourceError{ExpectedType: "ValueSet", GotType: v.ResourceType()}
+		return r4b.ValueSet{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ValueSet" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (r4b.VerificationResult, capabilities.FHIRError) {
+func (w Concrete) CreateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (r4b.VerificationResult, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.VerificationResult{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "VerificationResult"}
+		return r4b.VerificationResult{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for VerificationResult")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2671,14 +3788,22 @@ func (w Concrete) CreateVerificationResult(ctx context.Context, resource r4b.Ver
 	}
 	r, ok := v.(r4b.VerificationResult)
 	if !ok {
-		return r4b.VerificationResult{}, capabilities.UnexpectedResourceError{ExpectedType: "VerificationResult", GotType: v.ResourceType()}
+		return r4b.VerificationResult{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "VerificationResult" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (r4b.VisionPrescription, capabilities.FHIRError) {
+func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (r4b.VisionPrescription, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
-		return r4b.VisionPrescription{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "VisionPrescription"}
+		return r4b.VisionPrescription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Create not implemented for VisionPrescription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Create(ctx, resource)
 	if err != nil {
@@ -2690,14 +3815,22 @@ func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r4b.Vis
 	}
 	r, ok := v.(r4b.VisionPrescription)
 	if !ok {
-		return r4b.VisionPrescription{}, capabilities.UnexpectedResourceError{ExpectedType: "VisionPrescription", GotType: v.ResourceType()}
+		return r4b.VisionPrescription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "VisionPrescription" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadAccount(ctx context.Context, id string) (r4b.Account, capabilities.FHIRError) {
+func (w Concrete) ReadAccount(ctx context.Context, id string) (r4b.Account, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Account{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Account"}
+		return r4b.Account{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Account")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Account", id)
 	if err != nil {
@@ -2709,14 +3842,22 @@ func (w Concrete) ReadAccount(ctx context.Context, id string) (r4b.Account, capa
 	}
 	r, ok := v.(r4b.Account)
 	if !ok {
-		return r4b.Account{}, capabilities.UnexpectedResourceError{ExpectedType: "Account", GotType: v.ResourceType()}
+		return r4b.Account{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Account" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadActivityDefinition(ctx context.Context, id string) (r4b.ActivityDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadActivityDefinition(ctx context.Context, id string) (r4b.ActivityDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ActivityDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ActivityDefinition"}
+		return r4b.ActivityDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ActivityDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ActivityDefinition", id)
 	if err != nil {
@@ -2728,14 +3869,22 @@ func (w Concrete) ReadActivityDefinition(ctx context.Context, id string) (r4b.Ac
 	}
 	r, ok := v.(r4b.ActivityDefinition)
 	if !ok {
-		return r4b.ActivityDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ActivityDefinition", GotType: v.ResourceType()}
+		return r4b.ActivityDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ActivityDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadAdministrableProductDefinition(ctx context.Context, id string) (r4b.AdministrableProductDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadAdministrableProductDefinition(ctx context.Context, id string) (r4b.AdministrableProductDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.AdministrableProductDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AdministrableProductDefinition"}
+		return r4b.AdministrableProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for AdministrableProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "AdministrableProductDefinition", id)
 	if err != nil {
@@ -2747,14 +3896,22 @@ func (w Concrete) ReadAdministrableProductDefinition(ctx context.Context, id str
 	}
 	r, ok := v.(r4b.AdministrableProductDefinition)
 	if !ok {
-		return r4b.AdministrableProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "AdministrableProductDefinition", GotType: v.ResourceType()}
+		return r4b.AdministrableProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AdministrableProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadAdverseEvent(ctx context.Context, id string) (r4b.AdverseEvent, capabilities.FHIRError) {
+func (w Concrete) ReadAdverseEvent(ctx context.Context, id string) (r4b.AdverseEvent, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.AdverseEvent{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AdverseEvent"}
+		return r4b.AdverseEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for AdverseEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "AdverseEvent", id)
 	if err != nil {
@@ -2766,14 +3923,22 @@ func (w Concrete) ReadAdverseEvent(ctx context.Context, id string) (r4b.AdverseE
 	}
 	r, ok := v.(r4b.AdverseEvent)
 	if !ok {
-		return r4b.AdverseEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AdverseEvent", GotType: v.ResourceType()}
+		return r4b.AdverseEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AdverseEvent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadAllergyIntolerance(ctx context.Context, id string) (r4b.AllergyIntolerance, capabilities.FHIRError) {
+func (w Concrete) ReadAllergyIntolerance(ctx context.Context, id string) (r4b.AllergyIntolerance, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.AllergyIntolerance{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AllergyIntolerance"}
+		return r4b.AllergyIntolerance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for AllergyIntolerance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "AllergyIntolerance", id)
 	if err != nil {
@@ -2785,14 +3950,22 @@ func (w Concrete) ReadAllergyIntolerance(ctx context.Context, id string) (r4b.Al
 	}
 	r, ok := v.(r4b.AllergyIntolerance)
 	if !ok {
-		return r4b.AllergyIntolerance{}, capabilities.UnexpectedResourceError{ExpectedType: "AllergyIntolerance", GotType: v.ResourceType()}
+		return r4b.AllergyIntolerance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AllergyIntolerance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadAppointment(ctx context.Context, id string) (r4b.Appointment, capabilities.FHIRError) {
+func (w Concrete) ReadAppointment(ctx context.Context, id string) (r4b.Appointment, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Appointment{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Appointment"}
+		return r4b.Appointment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Appointment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Appointment", id)
 	if err != nil {
@@ -2804,14 +3977,22 @@ func (w Concrete) ReadAppointment(ctx context.Context, id string) (r4b.Appointme
 	}
 	r, ok := v.(r4b.Appointment)
 	if !ok {
-		return r4b.Appointment{}, capabilities.UnexpectedResourceError{ExpectedType: "Appointment", GotType: v.ResourceType()}
+		return r4b.Appointment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Appointment" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadAppointmentResponse(ctx context.Context, id string) (r4b.AppointmentResponse, capabilities.FHIRError) {
+func (w Concrete) ReadAppointmentResponse(ctx context.Context, id string) (r4b.AppointmentResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.AppointmentResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AppointmentResponse"}
+		return r4b.AppointmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for AppointmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "AppointmentResponse", id)
 	if err != nil {
@@ -2823,14 +4004,22 @@ func (w Concrete) ReadAppointmentResponse(ctx context.Context, id string) (r4b.A
 	}
 	r, ok := v.(r4b.AppointmentResponse)
 	if !ok {
-		return r4b.AppointmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "AppointmentResponse", GotType: v.ResourceType()}
+		return r4b.AppointmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AppointmentResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadAuditEvent(ctx context.Context, id string) (r4b.AuditEvent, capabilities.FHIRError) {
+func (w Concrete) ReadAuditEvent(ctx context.Context, id string) (r4b.AuditEvent, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.AuditEvent{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AuditEvent"}
+		return r4b.AuditEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for AuditEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "AuditEvent", id)
 	if err != nil {
@@ -2842,14 +4031,22 @@ func (w Concrete) ReadAuditEvent(ctx context.Context, id string) (r4b.AuditEvent
 	}
 	r, ok := v.(r4b.AuditEvent)
 	if !ok {
-		return r4b.AuditEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AuditEvent", GotType: v.ResourceType()}
+		return r4b.AuditEvent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AuditEvent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadBasic(ctx context.Context, id string) (r4b.Basic, capabilities.FHIRError) {
+func (w Concrete) ReadBasic(ctx context.Context, id string) (r4b.Basic, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Basic{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Basic"}
+		return r4b.Basic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Basic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Basic", id)
 	if err != nil {
@@ -2861,14 +4058,22 @@ func (w Concrete) ReadBasic(ctx context.Context, id string) (r4b.Basic, capabili
 	}
 	r, ok := v.(r4b.Basic)
 	if !ok {
-		return r4b.Basic{}, capabilities.UnexpectedResourceError{ExpectedType: "Basic", GotType: v.ResourceType()}
+		return r4b.Basic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Basic" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadBinary(ctx context.Context, id string) (r4b.Binary, capabilities.FHIRError) {
+func (w Concrete) ReadBinary(ctx context.Context, id string) (r4b.Binary, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Binary{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Binary"}
+		return r4b.Binary{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Binary")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Binary", id)
 	if err != nil {
@@ -2880,14 +4085,22 @@ func (w Concrete) ReadBinary(ctx context.Context, id string) (r4b.Binary, capabi
 	}
 	r, ok := v.(r4b.Binary)
 	if !ok {
-		return r4b.Binary{}, capabilities.UnexpectedResourceError{ExpectedType: "Binary", GotType: v.ResourceType()}
+		return r4b.Binary{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Binary" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r4b.BiologicallyDerivedProduct, capabilities.FHIRError) {
+func (w Concrete) ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r4b.BiologicallyDerivedProduct, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.BiologicallyDerivedProduct{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "BiologicallyDerivedProduct"}
+		return r4b.BiologicallyDerivedProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for BiologicallyDerivedProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "BiologicallyDerivedProduct", id)
 	if err != nil {
@@ -2899,14 +4112,22 @@ func (w Concrete) ReadBiologicallyDerivedProduct(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.BiologicallyDerivedProduct)
 	if !ok {
-		return r4b.BiologicallyDerivedProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "BiologicallyDerivedProduct", GotType: v.ResourceType()}
+		return r4b.BiologicallyDerivedProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "BiologicallyDerivedProduct" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadBodyStructure(ctx context.Context, id string) (r4b.BodyStructure, capabilities.FHIRError) {
+func (w Concrete) ReadBodyStructure(ctx context.Context, id string) (r4b.BodyStructure, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.BodyStructure{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "BodyStructure"}
+		return r4b.BodyStructure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for BodyStructure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "BodyStructure", id)
 	if err != nil {
@@ -2918,14 +4139,22 @@ func (w Concrete) ReadBodyStructure(ctx context.Context, id string) (r4b.BodyStr
 	}
 	r, ok := v.(r4b.BodyStructure)
 	if !ok {
-		return r4b.BodyStructure{}, capabilities.UnexpectedResourceError{ExpectedType: "BodyStructure", GotType: v.ResourceType()}
+		return r4b.BodyStructure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "BodyStructure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadBundle(ctx context.Context, id string) (r4b.Bundle, capabilities.FHIRError) {
+func (w Concrete) ReadBundle(ctx context.Context, id string) (r4b.Bundle, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Bundle{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Bundle"}
+		return r4b.Bundle{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Bundle")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Bundle", id)
 	if err != nil {
@@ -2937,14 +4166,22 @@ func (w Concrete) ReadBundle(ctx context.Context, id string) (r4b.Bundle, capabi
 	}
 	r, ok := v.(r4b.Bundle)
 	if !ok {
-		return r4b.Bundle{}, capabilities.UnexpectedResourceError{ExpectedType: "Bundle", GotType: v.ResourceType()}
+		return r4b.Bundle{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Bundle" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCapabilityStatement(ctx context.Context, id string) (r4b.CapabilityStatement, capabilities.FHIRError) {
+func (w Concrete) ReadCapabilityStatement(ctx context.Context, id string) (r4b.CapabilityStatement, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CapabilityStatement{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CapabilityStatement"}
+		return r4b.CapabilityStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CapabilityStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CapabilityStatement", id)
 	if err != nil {
@@ -2956,14 +4193,22 @@ func (w Concrete) ReadCapabilityStatement(ctx context.Context, id string) (r4b.C
 	}
 	r, ok := v.(r4b.CapabilityStatement)
 	if !ok {
-		return r4b.CapabilityStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "CapabilityStatement", GotType: v.ResourceType()}
+		return r4b.CapabilityStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CapabilityStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCarePlan(ctx context.Context, id string) (r4b.CarePlan, capabilities.FHIRError) {
+func (w Concrete) ReadCarePlan(ctx context.Context, id string) (r4b.CarePlan, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CarePlan{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CarePlan"}
+		return r4b.CarePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CarePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CarePlan", id)
 	if err != nil {
@@ -2975,14 +4220,22 @@ func (w Concrete) ReadCarePlan(ctx context.Context, id string) (r4b.CarePlan, ca
 	}
 	r, ok := v.(r4b.CarePlan)
 	if !ok {
-		return r4b.CarePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "CarePlan", GotType: v.ResourceType()}
+		return r4b.CarePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CarePlan" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCareTeam(ctx context.Context, id string) (r4b.CareTeam, capabilities.FHIRError) {
+func (w Concrete) ReadCareTeam(ctx context.Context, id string) (r4b.CareTeam, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CareTeam{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CareTeam"}
+		return r4b.CareTeam{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CareTeam")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CareTeam", id)
 	if err != nil {
@@ -2994,14 +4247,22 @@ func (w Concrete) ReadCareTeam(ctx context.Context, id string) (r4b.CareTeam, ca
 	}
 	r, ok := v.(r4b.CareTeam)
 	if !ok {
-		return r4b.CareTeam{}, capabilities.UnexpectedResourceError{ExpectedType: "CareTeam", GotType: v.ResourceType()}
+		return r4b.CareTeam{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CareTeam" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCatalogEntry(ctx context.Context, id string) (r4b.CatalogEntry, capabilities.FHIRError) {
+func (w Concrete) ReadCatalogEntry(ctx context.Context, id string) (r4b.CatalogEntry, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CatalogEntry{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CatalogEntry"}
+		return r4b.CatalogEntry{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CatalogEntry")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CatalogEntry", id)
 	if err != nil {
@@ -3013,14 +4274,22 @@ func (w Concrete) ReadCatalogEntry(ctx context.Context, id string) (r4b.CatalogE
 	}
 	r, ok := v.(r4b.CatalogEntry)
 	if !ok {
-		return r4b.CatalogEntry{}, capabilities.UnexpectedResourceError{ExpectedType: "CatalogEntry", GotType: v.ResourceType()}
+		return r4b.CatalogEntry{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CatalogEntry" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadChargeItem(ctx context.Context, id string) (r4b.ChargeItem, capabilities.FHIRError) {
+func (w Concrete) ReadChargeItem(ctx context.Context, id string) (r4b.ChargeItem, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ChargeItem{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ChargeItem"}
+		return r4b.ChargeItem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ChargeItem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ChargeItem", id)
 	if err != nil {
@@ -3032,14 +4301,22 @@ func (w Concrete) ReadChargeItem(ctx context.Context, id string) (r4b.ChargeItem
 	}
 	r, ok := v.(r4b.ChargeItem)
 	if !ok {
-		return r4b.ChargeItem{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItem", GotType: v.ResourceType()}
+		return r4b.ChargeItem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ChargeItem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadChargeItemDefinition(ctx context.Context, id string) (r4b.ChargeItemDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadChargeItemDefinition(ctx context.Context, id string) (r4b.ChargeItemDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ChargeItemDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ChargeItemDefinition"}
+		return r4b.ChargeItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ChargeItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ChargeItemDefinition", id)
 	if err != nil {
@@ -3051,14 +4328,22 @@ func (w Concrete) ReadChargeItemDefinition(ctx context.Context, id string) (r4b.
 	}
 	r, ok := v.(r4b.ChargeItemDefinition)
 	if !ok {
-		return r4b.ChargeItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItemDefinition", GotType: v.ResourceType()}
+		return r4b.ChargeItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ChargeItemDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCitation(ctx context.Context, id string) (r4b.Citation, capabilities.FHIRError) {
+func (w Concrete) ReadCitation(ctx context.Context, id string) (r4b.Citation, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Citation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Citation"}
+		return r4b.Citation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Citation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Citation", id)
 	if err != nil {
@@ -3070,14 +4355,22 @@ func (w Concrete) ReadCitation(ctx context.Context, id string) (r4b.Citation, ca
 	}
 	r, ok := v.(r4b.Citation)
 	if !ok {
-		return r4b.Citation{}, capabilities.UnexpectedResourceError{ExpectedType: "Citation", GotType: v.ResourceType()}
+		return r4b.Citation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Citation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadClaim(ctx context.Context, id string) (r4b.Claim, capabilities.FHIRError) {
+func (w Concrete) ReadClaim(ctx context.Context, id string) (r4b.Claim, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Claim{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Claim"}
+		return r4b.Claim{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Claim")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Claim", id)
 	if err != nil {
@@ -3089,14 +4382,22 @@ func (w Concrete) ReadClaim(ctx context.Context, id string) (r4b.Claim, capabili
 	}
 	r, ok := v.(r4b.Claim)
 	if !ok {
-		return r4b.Claim{}, capabilities.UnexpectedResourceError{ExpectedType: "Claim", GotType: v.ResourceType()}
+		return r4b.Claim{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Claim" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadClaimResponse(ctx context.Context, id string) (r4b.ClaimResponse, capabilities.FHIRError) {
+func (w Concrete) ReadClaimResponse(ctx context.Context, id string) (r4b.ClaimResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ClaimResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ClaimResponse"}
+		return r4b.ClaimResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ClaimResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ClaimResponse", id)
 	if err != nil {
@@ -3108,14 +4409,22 @@ func (w Concrete) ReadClaimResponse(ctx context.Context, id string) (r4b.ClaimRe
 	}
 	r, ok := v.(r4b.ClaimResponse)
 	if !ok {
-		return r4b.ClaimResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "ClaimResponse", GotType: v.ResourceType()}
+		return r4b.ClaimResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClaimResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadClinicalImpression(ctx context.Context, id string) (r4b.ClinicalImpression, capabilities.FHIRError) {
+func (w Concrete) ReadClinicalImpression(ctx context.Context, id string) (r4b.ClinicalImpression, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ClinicalImpression{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ClinicalImpression"}
+		return r4b.ClinicalImpression{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ClinicalImpression")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ClinicalImpression", id)
 	if err != nil {
@@ -3127,14 +4436,22 @@ func (w Concrete) ReadClinicalImpression(ctx context.Context, id string) (r4b.Cl
 	}
 	r, ok := v.(r4b.ClinicalImpression)
 	if !ok {
-		return r4b.ClinicalImpression{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalImpression", GotType: v.ResourceType()}
+		return r4b.ClinicalImpression{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClinicalImpression" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadClinicalUseDefinition(ctx context.Context, id string) (r4b.ClinicalUseDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadClinicalUseDefinition(ctx context.Context, id string) (r4b.ClinicalUseDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ClinicalUseDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ClinicalUseDefinition"}
+		return r4b.ClinicalUseDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ClinicalUseDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ClinicalUseDefinition", id)
 	if err != nil {
@@ -3146,14 +4463,22 @@ func (w Concrete) ReadClinicalUseDefinition(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.ClinicalUseDefinition)
 	if !ok {
-		return r4b.ClinicalUseDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalUseDefinition", GotType: v.ResourceType()}
+		return r4b.ClinicalUseDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClinicalUseDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCodeSystem(ctx context.Context, id string) (r4b.CodeSystem, capabilities.FHIRError) {
+func (w Concrete) ReadCodeSystem(ctx context.Context, id string) (r4b.CodeSystem, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CodeSystem{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CodeSystem"}
+		return r4b.CodeSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CodeSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CodeSystem", id)
 	if err != nil {
@@ -3165,14 +4490,22 @@ func (w Concrete) ReadCodeSystem(ctx context.Context, id string) (r4b.CodeSystem
 	}
 	r, ok := v.(r4b.CodeSystem)
 	if !ok {
-		return r4b.CodeSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "CodeSystem", GotType: v.ResourceType()}
+		return r4b.CodeSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CodeSystem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCommunication(ctx context.Context, id string) (r4b.Communication, capabilities.FHIRError) {
+func (w Concrete) ReadCommunication(ctx context.Context, id string) (r4b.Communication, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Communication{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Communication"}
+		return r4b.Communication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Communication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Communication", id)
 	if err != nil {
@@ -3184,14 +4517,22 @@ func (w Concrete) ReadCommunication(ctx context.Context, id string) (r4b.Communi
 	}
 	r, ok := v.(r4b.Communication)
 	if !ok {
-		return r4b.Communication{}, capabilities.UnexpectedResourceError{ExpectedType: "Communication", GotType: v.ResourceType()}
+		return r4b.Communication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Communication" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCommunicationRequest(ctx context.Context, id string) (r4b.CommunicationRequest, capabilities.FHIRError) {
+func (w Concrete) ReadCommunicationRequest(ctx context.Context, id string) (r4b.CommunicationRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CommunicationRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CommunicationRequest"}
+		return r4b.CommunicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CommunicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CommunicationRequest", id)
 	if err != nil {
@@ -3203,14 +4544,22 @@ func (w Concrete) ReadCommunicationRequest(ctx context.Context, id string) (r4b.
 	}
 	r, ok := v.(r4b.CommunicationRequest)
 	if !ok {
-		return r4b.CommunicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CommunicationRequest", GotType: v.ResourceType()}
+		return r4b.CommunicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CommunicationRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCompartmentDefinition(ctx context.Context, id string) (r4b.CompartmentDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadCompartmentDefinition(ctx context.Context, id string) (r4b.CompartmentDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CompartmentDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CompartmentDefinition"}
+		return r4b.CompartmentDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CompartmentDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CompartmentDefinition", id)
 	if err != nil {
@@ -3222,14 +4571,22 @@ func (w Concrete) ReadCompartmentDefinition(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.CompartmentDefinition)
 	if !ok {
-		return r4b.CompartmentDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "CompartmentDefinition", GotType: v.ResourceType()}
+		return r4b.CompartmentDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CompartmentDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadComposition(ctx context.Context, id string) (r4b.Composition, capabilities.FHIRError) {
+func (w Concrete) ReadComposition(ctx context.Context, id string) (r4b.Composition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Composition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Composition"}
+		return r4b.Composition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Composition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Composition", id)
 	if err != nil {
@@ -3241,14 +4598,22 @@ func (w Concrete) ReadComposition(ctx context.Context, id string) (r4b.Compositi
 	}
 	r, ok := v.(r4b.Composition)
 	if !ok {
-		return r4b.Composition{}, capabilities.UnexpectedResourceError{ExpectedType: "Composition", GotType: v.ResourceType()}
+		return r4b.Composition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Composition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadConceptMap(ctx context.Context, id string) (r4b.ConceptMap, capabilities.FHIRError) {
+func (w Concrete) ReadConceptMap(ctx context.Context, id string) (r4b.ConceptMap, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ConceptMap{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ConceptMap"}
+		return r4b.ConceptMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ConceptMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ConceptMap", id)
 	if err != nil {
@@ -3260,14 +4625,22 @@ func (w Concrete) ReadConceptMap(ctx context.Context, id string) (r4b.ConceptMap
 	}
 	r, ok := v.(r4b.ConceptMap)
 	if !ok {
-		return r4b.ConceptMap{}, capabilities.UnexpectedResourceError{ExpectedType: "ConceptMap", GotType: v.ResourceType()}
+		return r4b.ConceptMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ConceptMap" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCondition(ctx context.Context, id string) (r4b.Condition, capabilities.FHIRError) {
+func (w Concrete) ReadCondition(ctx context.Context, id string) (r4b.Condition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Condition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Condition"}
+		return r4b.Condition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Condition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Condition", id)
 	if err != nil {
@@ -3279,14 +4652,22 @@ func (w Concrete) ReadCondition(ctx context.Context, id string) (r4b.Condition, 
 	}
 	r, ok := v.(r4b.Condition)
 	if !ok {
-		return r4b.Condition{}, capabilities.UnexpectedResourceError{ExpectedType: "Condition", GotType: v.ResourceType()}
+		return r4b.Condition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Condition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadConsent(ctx context.Context, id string) (r4b.Consent, capabilities.FHIRError) {
+func (w Concrete) ReadConsent(ctx context.Context, id string) (r4b.Consent, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Consent{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Consent"}
+		return r4b.Consent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Consent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Consent", id)
 	if err != nil {
@@ -3298,14 +4679,22 @@ func (w Concrete) ReadConsent(ctx context.Context, id string) (r4b.Consent, capa
 	}
 	r, ok := v.(r4b.Consent)
 	if !ok {
-		return r4b.Consent{}, capabilities.UnexpectedResourceError{ExpectedType: "Consent", GotType: v.ResourceType()}
+		return r4b.Consent{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Consent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadContract(ctx context.Context, id string) (r4b.Contract, capabilities.FHIRError) {
+func (w Concrete) ReadContract(ctx context.Context, id string) (r4b.Contract, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Contract{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Contract"}
+		return r4b.Contract{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Contract")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Contract", id)
 	if err != nil {
@@ -3317,14 +4706,22 @@ func (w Concrete) ReadContract(ctx context.Context, id string) (r4b.Contract, ca
 	}
 	r, ok := v.(r4b.Contract)
 	if !ok {
-		return r4b.Contract{}, capabilities.UnexpectedResourceError{ExpectedType: "Contract", GotType: v.ResourceType()}
+		return r4b.Contract{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Contract" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCoverage(ctx context.Context, id string) (r4b.Coverage, capabilities.FHIRError) {
+func (w Concrete) ReadCoverage(ctx context.Context, id string) (r4b.Coverage, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Coverage{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Coverage"}
+		return r4b.Coverage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Coverage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Coverage", id)
 	if err != nil {
@@ -3336,14 +4733,22 @@ func (w Concrete) ReadCoverage(ctx context.Context, id string) (r4b.Coverage, ca
 	}
 	r, ok := v.(r4b.Coverage)
 	if !ok {
-		return r4b.Coverage{}, capabilities.UnexpectedResourceError{ExpectedType: "Coverage", GotType: v.ResourceType()}
+		return r4b.Coverage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Coverage" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCoverageEligibilityRequest(ctx context.Context, id string) (r4b.CoverageEligibilityRequest, capabilities.FHIRError) {
+func (w Concrete) ReadCoverageEligibilityRequest(ctx context.Context, id string) (r4b.CoverageEligibilityRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CoverageEligibilityRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CoverageEligibilityRequest"}
+		return r4b.CoverageEligibilityRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CoverageEligibilityRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CoverageEligibilityRequest", id)
 	if err != nil {
@@ -3355,14 +4760,22 @@ func (w Concrete) ReadCoverageEligibilityRequest(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.CoverageEligibilityRequest)
 	if !ok {
-		return r4b.CoverageEligibilityRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityRequest", GotType: v.ResourceType()}
+		return r4b.CoverageEligibilityRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CoverageEligibilityRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadCoverageEligibilityResponse(ctx context.Context, id string) (r4b.CoverageEligibilityResponse, capabilities.FHIRError) {
+func (w Concrete) ReadCoverageEligibilityResponse(ctx context.Context, id string) (r4b.CoverageEligibilityResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.CoverageEligibilityResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CoverageEligibilityResponse"}
+		return r4b.CoverageEligibilityResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for CoverageEligibilityResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "CoverageEligibilityResponse", id)
 	if err != nil {
@@ -3374,14 +4787,22 @@ func (w Concrete) ReadCoverageEligibilityResponse(ctx context.Context, id string
 	}
 	r, ok := v.(r4b.CoverageEligibilityResponse)
 	if !ok {
-		return r4b.CoverageEligibilityResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityResponse", GotType: v.ResourceType()}
+		return r4b.CoverageEligibilityResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CoverageEligibilityResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDetectedIssue(ctx context.Context, id string) (r4b.DetectedIssue, capabilities.FHIRError) {
+func (w Concrete) ReadDetectedIssue(ctx context.Context, id string) (r4b.DetectedIssue, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DetectedIssue{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DetectedIssue"}
+		return r4b.DetectedIssue{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DetectedIssue")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DetectedIssue", id)
 	if err != nil {
@@ -3393,14 +4814,22 @@ func (w Concrete) ReadDetectedIssue(ctx context.Context, id string) (r4b.Detecte
 	}
 	r, ok := v.(r4b.DetectedIssue)
 	if !ok {
-		return r4b.DetectedIssue{}, capabilities.UnexpectedResourceError{ExpectedType: "DetectedIssue", GotType: v.ResourceType()}
+		return r4b.DetectedIssue{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DetectedIssue" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDevice(ctx context.Context, id string) (r4b.Device, capabilities.FHIRError) {
+func (w Concrete) ReadDevice(ctx context.Context, id string) (r4b.Device, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Device{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Device"}
+		return r4b.Device{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Device")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Device", id)
 	if err != nil {
@@ -3412,14 +4841,22 @@ func (w Concrete) ReadDevice(ctx context.Context, id string) (r4b.Device, capabi
 	}
 	r, ok := v.(r4b.Device)
 	if !ok {
-		return r4b.Device{}, capabilities.UnexpectedResourceError{ExpectedType: "Device", GotType: v.ResourceType()}
+		return r4b.Device{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Device" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDeviceDefinition(ctx context.Context, id string) (r4b.DeviceDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadDeviceDefinition(ctx context.Context, id string) (r4b.DeviceDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DeviceDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceDefinition"}
+		return r4b.DeviceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DeviceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DeviceDefinition", id)
 	if err != nil {
@@ -3431,14 +4868,22 @@ func (w Concrete) ReadDeviceDefinition(ctx context.Context, id string) (r4b.Devi
 	}
 	r, ok := v.(r4b.DeviceDefinition)
 	if !ok {
-		return r4b.DeviceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceDefinition", GotType: v.ResourceType()}
+		return r4b.DeviceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDeviceMetric(ctx context.Context, id string) (r4b.DeviceMetric, capabilities.FHIRError) {
+func (w Concrete) ReadDeviceMetric(ctx context.Context, id string) (r4b.DeviceMetric, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DeviceMetric{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceMetric"}
+		return r4b.DeviceMetric{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DeviceMetric")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DeviceMetric", id)
 	if err != nil {
@@ -3450,14 +4895,22 @@ func (w Concrete) ReadDeviceMetric(ctx context.Context, id string) (r4b.DeviceMe
 	}
 	r, ok := v.(r4b.DeviceMetric)
 	if !ok {
-		return r4b.DeviceMetric{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceMetric", GotType: v.ResourceType()}
+		return r4b.DeviceMetric{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceMetric" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDeviceRequest(ctx context.Context, id string) (r4b.DeviceRequest, capabilities.FHIRError) {
+func (w Concrete) ReadDeviceRequest(ctx context.Context, id string) (r4b.DeviceRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DeviceRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceRequest"}
+		return r4b.DeviceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DeviceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DeviceRequest", id)
 	if err != nil {
@@ -3469,14 +4922,22 @@ func (w Concrete) ReadDeviceRequest(ctx context.Context, id string) (r4b.DeviceR
 	}
 	r, ok := v.(r4b.DeviceRequest)
 	if !ok {
-		return r4b.DeviceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceRequest", GotType: v.ResourceType()}
+		return r4b.DeviceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDeviceUseStatement(ctx context.Context, id string) (r4b.DeviceUseStatement, capabilities.FHIRError) {
+func (w Concrete) ReadDeviceUseStatement(ctx context.Context, id string) (r4b.DeviceUseStatement, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DeviceUseStatement{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceUseStatement"}
+		return r4b.DeviceUseStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DeviceUseStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DeviceUseStatement", id)
 	if err != nil {
@@ -3488,14 +4949,22 @@ func (w Concrete) ReadDeviceUseStatement(ctx context.Context, id string) (r4b.De
 	}
 	r, ok := v.(r4b.DeviceUseStatement)
 	if !ok {
-		return r4b.DeviceUseStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceUseStatement", GotType: v.ResourceType()}
+		return r4b.DeviceUseStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceUseStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDiagnosticReport(ctx context.Context, id string) (r4b.DiagnosticReport, capabilities.FHIRError) {
+func (w Concrete) ReadDiagnosticReport(ctx context.Context, id string) (r4b.DiagnosticReport, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DiagnosticReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DiagnosticReport"}
+		return r4b.DiagnosticReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DiagnosticReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DiagnosticReport", id)
 	if err != nil {
@@ -3507,14 +4976,22 @@ func (w Concrete) ReadDiagnosticReport(ctx context.Context, id string) (r4b.Diag
 	}
 	r, ok := v.(r4b.DiagnosticReport)
 	if !ok {
-		return r4b.DiagnosticReport{}, capabilities.UnexpectedResourceError{ExpectedType: "DiagnosticReport", GotType: v.ResourceType()}
+		return r4b.DiagnosticReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DiagnosticReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDocumentManifest(ctx context.Context, id string) (r4b.DocumentManifest, capabilities.FHIRError) {
+func (w Concrete) ReadDocumentManifest(ctx context.Context, id string) (r4b.DocumentManifest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DocumentManifest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DocumentManifest"}
+		return r4b.DocumentManifest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DocumentManifest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DocumentManifest", id)
 	if err != nil {
@@ -3526,14 +5003,22 @@ func (w Concrete) ReadDocumentManifest(ctx context.Context, id string) (r4b.Docu
 	}
 	r, ok := v.(r4b.DocumentManifest)
 	if !ok {
-		return r4b.DocumentManifest{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentManifest", GotType: v.ResourceType()}
+		return r4b.DocumentManifest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DocumentManifest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadDocumentReference(ctx context.Context, id string) (r4b.DocumentReference, capabilities.FHIRError) {
+func (w Concrete) ReadDocumentReference(ctx context.Context, id string) (r4b.DocumentReference, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.DocumentReference{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DocumentReference"}
+		return r4b.DocumentReference{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for DocumentReference")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "DocumentReference", id)
 	if err != nil {
@@ -3545,14 +5030,22 @@ func (w Concrete) ReadDocumentReference(ctx context.Context, id string) (r4b.Doc
 	}
 	r, ok := v.(r4b.DocumentReference)
 	if !ok {
-		return r4b.DocumentReference{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentReference", GotType: v.ResourceType()}
+		return r4b.DocumentReference{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DocumentReference" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEncounter(ctx context.Context, id string) (r4b.Encounter, capabilities.FHIRError) {
+func (w Concrete) ReadEncounter(ctx context.Context, id string) (r4b.Encounter, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Encounter{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Encounter"}
+		return r4b.Encounter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Encounter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Encounter", id)
 	if err != nil {
@@ -3564,14 +5057,22 @@ func (w Concrete) ReadEncounter(ctx context.Context, id string) (r4b.Encounter, 
 	}
 	r, ok := v.(r4b.Encounter)
 	if !ok {
-		return r4b.Encounter{}, capabilities.UnexpectedResourceError{ExpectedType: "Encounter", GotType: v.ResourceType()}
+		return r4b.Encounter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Encounter" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEndpoint(ctx context.Context, id string) (r4b.Endpoint, capabilities.FHIRError) {
+func (w Concrete) ReadEndpoint(ctx context.Context, id string) (r4b.Endpoint, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Endpoint{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Endpoint"}
+		return r4b.Endpoint{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Endpoint")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Endpoint", id)
 	if err != nil {
@@ -3583,14 +5084,22 @@ func (w Concrete) ReadEndpoint(ctx context.Context, id string) (r4b.Endpoint, ca
 	}
 	r, ok := v.(r4b.Endpoint)
 	if !ok {
-		return r4b.Endpoint{}, capabilities.UnexpectedResourceError{ExpectedType: "Endpoint", GotType: v.ResourceType()}
+		return r4b.Endpoint{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Endpoint" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEnrollmentRequest(ctx context.Context, id string) (r4b.EnrollmentRequest, capabilities.FHIRError) {
+func (w Concrete) ReadEnrollmentRequest(ctx context.Context, id string) (r4b.EnrollmentRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.EnrollmentRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EnrollmentRequest"}
+		return r4b.EnrollmentRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for EnrollmentRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "EnrollmentRequest", id)
 	if err != nil {
@@ -3602,14 +5111,22 @@ func (w Concrete) ReadEnrollmentRequest(ctx context.Context, id string) (r4b.Enr
 	}
 	r, ok := v.(r4b.EnrollmentRequest)
 	if !ok {
-		return r4b.EnrollmentRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentRequest", GotType: v.ResourceType()}
+		return r4b.EnrollmentRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EnrollmentRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEnrollmentResponse(ctx context.Context, id string) (r4b.EnrollmentResponse, capabilities.FHIRError) {
+func (w Concrete) ReadEnrollmentResponse(ctx context.Context, id string) (r4b.EnrollmentResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.EnrollmentResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EnrollmentResponse"}
+		return r4b.EnrollmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for EnrollmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "EnrollmentResponse", id)
 	if err != nil {
@@ -3621,14 +5138,22 @@ func (w Concrete) ReadEnrollmentResponse(ctx context.Context, id string) (r4b.En
 	}
 	r, ok := v.(r4b.EnrollmentResponse)
 	if !ok {
-		return r4b.EnrollmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentResponse", GotType: v.ResourceType()}
+		return r4b.EnrollmentResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EnrollmentResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEpisodeOfCare(ctx context.Context, id string) (r4b.EpisodeOfCare, capabilities.FHIRError) {
+func (w Concrete) ReadEpisodeOfCare(ctx context.Context, id string) (r4b.EpisodeOfCare, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.EpisodeOfCare{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EpisodeOfCare"}
+		return r4b.EpisodeOfCare{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for EpisodeOfCare")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "EpisodeOfCare", id)
 	if err != nil {
@@ -3640,14 +5165,22 @@ func (w Concrete) ReadEpisodeOfCare(ctx context.Context, id string) (r4b.Episode
 	}
 	r, ok := v.(r4b.EpisodeOfCare)
 	if !ok {
-		return r4b.EpisodeOfCare{}, capabilities.UnexpectedResourceError{ExpectedType: "EpisodeOfCare", GotType: v.ResourceType()}
+		return r4b.EpisodeOfCare{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EpisodeOfCare" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEventDefinition(ctx context.Context, id string) (r4b.EventDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadEventDefinition(ctx context.Context, id string) (r4b.EventDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.EventDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EventDefinition"}
+		return r4b.EventDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for EventDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "EventDefinition", id)
 	if err != nil {
@@ -3659,14 +5192,22 @@ func (w Concrete) ReadEventDefinition(ctx context.Context, id string) (r4b.Event
 	}
 	r, ok := v.(r4b.EventDefinition)
 	if !ok {
-		return r4b.EventDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "EventDefinition", GotType: v.ResourceType()}
+		return r4b.EventDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EventDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEvidence(ctx context.Context, id string) (r4b.Evidence, capabilities.FHIRError) {
+func (w Concrete) ReadEvidence(ctx context.Context, id string) (r4b.Evidence, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Evidence{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Evidence"}
+		return r4b.Evidence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Evidence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Evidence", id)
 	if err != nil {
@@ -3678,14 +5219,22 @@ func (w Concrete) ReadEvidence(ctx context.Context, id string) (r4b.Evidence, ca
 	}
 	r, ok := v.(r4b.Evidence)
 	if !ok {
-		return r4b.Evidence{}, capabilities.UnexpectedResourceError{ExpectedType: "Evidence", GotType: v.ResourceType()}
+		return r4b.Evidence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Evidence" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEvidenceReport(ctx context.Context, id string) (r4b.EvidenceReport, capabilities.FHIRError) {
+func (w Concrete) ReadEvidenceReport(ctx context.Context, id string) (r4b.EvidenceReport, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.EvidenceReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EvidenceReport"}
+		return r4b.EvidenceReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for EvidenceReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "EvidenceReport", id)
 	if err != nil {
@@ -3697,14 +5246,22 @@ func (w Concrete) ReadEvidenceReport(ctx context.Context, id string) (r4b.Eviden
 	}
 	r, ok := v.(r4b.EvidenceReport)
 	if !ok {
-		return r4b.EvidenceReport{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceReport", GotType: v.ResourceType()}
+		return r4b.EvidenceReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EvidenceReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadEvidenceVariable(ctx context.Context, id string) (r4b.EvidenceVariable, capabilities.FHIRError) {
+func (w Concrete) ReadEvidenceVariable(ctx context.Context, id string) (r4b.EvidenceVariable, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.EvidenceVariable{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EvidenceVariable"}
+		return r4b.EvidenceVariable{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for EvidenceVariable")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "EvidenceVariable", id)
 	if err != nil {
@@ -3716,14 +5273,22 @@ func (w Concrete) ReadEvidenceVariable(ctx context.Context, id string) (r4b.Evid
 	}
 	r, ok := v.(r4b.EvidenceVariable)
 	if !ok {
-		return r4b.EvidenceVariable{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceVariable", GotType: v.ResourceType()}
+		return r4b.EvidenceVariable{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EvidenceVariable" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadExampleScenario(ctx context.Context, id string) (r4b.ExampleScenario, capabilities.FHIRError) {
+func (w Concrete) ReadExampleScenario(ctx context.Context, id string) (r4b.ExampleScenario, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ExampleScenario{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ExampleScenario"}
+		return r4b.ExampleScenario{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ExampleScenario")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ExampleScenario", id)
 	if err != nil {
@@ -3735,14 +5300,22 @@ func (w Concrete) ReadExampleScenario(ctx context.Context, id string) (r4b.Examp
 	}
 	r, ok := v.(r4b.ExampleScenario)
 	if !ok {
-		return r4b.ExampleScenario{}, capabilities.UnexpectedResourceError{ExpectedType: "ExampleScenario", GotType: v.ResourceType()}
+		return r4b.ExampleScenario{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ExampleScenario" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadExplanationOfBenefit(ctx context.Context, id string) (r4b.ExplanationOfBenefit, capabilities.FHIRError) {
+func (w Concrete) ReadExplanationOfBenefit(ctx context.Context, id string) (r4b.ExplanationOfBenefit, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ExplanationOfBenefit{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ExplanationOfBenefit"}
+		return r4b.ExplanationOfBenefit{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ExplanationOfBenefit")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ExplanationOfBenefit", id)
 	if err != nil {
@@ -3754,14 +5327,22 @@ func (w Concrete) ReadExplanationOfBenefit(ctx context.Context, id string) (r4b.
 	}
 	r, ok := v.(r4b.ExplanationOfBenefit)
 	if !ok {
-		return r4b.ExplanationOfBenefit{}, capabilities.UnexpectedResourceError{ExpectedType: "ExplanationOfBenefit", GotType: v.ResourceType()}
+		return r4b.ExplanationOfBenefit{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ExplanationOfBenefit" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadFamilyMemberHistory(ctx context.Context, id string) (r4b.FamilyMemberHistory, capabilities.FHIRError) {
+func (w Concrete) ReadFamilyMemberHistory(ctx context.Context, id string) (r4b.FamilyMemberHistory, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.FamilyMemberHistory{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "FamilyMemberHistory"}
+		return r4b.FamilyMemberHistory{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for FamilyMemberHistory")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "FamilyMemberHistory", id)
 	if err != nil {
@@ -3773,14 +5354,22 @@ func (w Concrete) ReadFamilyMemberHistory(ctx context.Context, id string) (r4b.F
 	}
 	r, ok := v.(r4b.FamilyMemberHistory)
 	if !ok {
-		return r4b.FamilyMemberHistory{}, capabilities.UnexpectedResourceError{ExpectedType: "FamilyMemberHistory", GotType: v.ResourceType()}
+		return r4b.FamilyMemberHistory{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "FamilyMemberHistory" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadFlag(ctx context.Context, id string) (r4b.Flag, capabilities.FHIRError) {
+func (w Concrete) ReadFlag(ctx context.Context, id string) (r4b.Flag, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Flag{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Flag"}
+		return r4b.Flag{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Flag")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Flag", id)
 	if err != nil {
@@ -3792,14 +5381,22 @@ func (w Concrete) ReadFlag(ctx context.Context, id string) (r4b.Flag, capabiliti
 	}
 	r, ok := v.(r4b.Flag)
 	if !ok {
-		return r4b.Flag{}, capabilities.UnexpectedResourceError{ExpectedType: "Flag", GotType: v.ResourceType()}
+		return r4b.Flag{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Flag" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadGoal(ctx context.Context, id string) (r4b.Goal, capabilities.FHIRError) {
+func (w Concrete) ReadGoal(ctx context.Context, id string) (r4b.Goal, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Goal{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Goal"}
+		return r4b.Goal{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Goal")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Goal", id)
 	if err != nil {
@@ -3811,14 +5408,22 @@ func (w Concrete) ReadGoal(ctx context.Context, id string) (r4b.Goal, capabiliti
 	}
 	r, ok := v.(r4b.Goal)
 	if !ok {
-		return r4b.Goal{}, capabilities.UnexpectedResourceError{ExpectedType: "Goal", GotType: v.ResourceType()}
+		return r4b.Goal{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Goal" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadGraphDefinition(ctx context.Context, id string) (r4b.GraphDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadGraphDefinition(ctx context.Context, id string) (r4b.GraphDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.GraphDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "GraphDefinition"}
+		return r4b.GraphDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for GraphDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "GraphDefinition", id)
 	if err != nil {
@@ -3830,14 +5435,22 @@ func (w Concrete) ReadGraphDefinition(ctx context.Context, id string) (r4b.Graph
 	}
 	r, ok := v.(r4b.GraphDefinition)
 	if !ok {
-		return r4b.GraphDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "GraphDefinition", GotType: v.ResourceType()}
+		return r4b.GraphDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "GraphDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadGroup(ctx context.Context, id string) (r4b.Group, capabilities.FHIRError) {
+func (w Concrete) ReadGroup(ctx context.Context, id string) (r4b.Group, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Group{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Group"}
+		return r4b.Group{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Group")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Group", id)
 	if err != nil {
@@ -3849,14 +5462,22 @@ func (w Concrete) ReadGroup(ctx context.Context, id string) (r4b.Group, capabili
 	}
 	r, ok := v.(r4b.Group)
 	if !ok {
-		return r4b.Group{}, capabilities.UnexpectedResourceError{ExpectedType: "Group", GotType: v.ResourceType()}
+		return r4b.Group{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Group" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadGuidanceResponse(ctx context.Context, id string) (r4b.GuidanceResponse, capabilities.FHIRError) {
+func (w Concrete) ReadGuidanceResponse(ctx context.Context, id string) (r4b.GuidanceResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.GuidanceResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "GuidanceResponse"}
+		return r4b.GuidanceResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for GuidanceResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "GuidanceResponse", id)
 	if err != nil {
@@ -3868,14 +5489,22 @@ func (w Concrete) ReadGuidanceResponse(ctx context.Context, id string) (r4b.Guid
 	}
 	r, ok := v.(r4b.GuidanceResponse)
 	if !ok {
-		return r4b.GuidanceResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "GuidanceResponse", GotType: v.ResourceType()}
+		return r4b.GuidanceResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "GuidanceResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadHealthcareService(ctx context.Context, id string) (r4b.HealthcareService, capabilities.FHIRError) {
+func (w Concrete) ReadHealthcareService(ctx context.Context, id string) (r4b.HealthcareService, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.HealthcareService{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "HealthcareService"}
+		return r4b.HealthcareService{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for HealthcareService")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "HealthcareService", id)
 	if err != nil {
@@ -3887,14 +5516,22 @@ func (w Concrete) ReadHealthcareService(ctx context.Context, id string) (r4b.Hea
 	}
 	r, ok := v.(r4b.HealthcareService)
 	if !ok {
-		return r4b.HealthcareService{}, capabilities.UnexpectedResourceError{ExpectedType: "HealthcareService", GotType: v.ResourceType()}
+		return r4b.HealthcareService{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "HealthcareService" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadImagingStudy(ctx context.Context, id string) (r4b.ImagingStudy, capabilities.FHIRError) {
+func (w Concrete) ReadImagingStudy(ctx context.Context, id string) (r4b.ImagingStudy, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ImagingStudy{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImagingStudy"}
+		return r4b.ImagingStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ImagingStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ImagingStudy", id)
 	if err != nil {
@@ -3906,14 +5543,22 @@ func (w Concrete) ReadImagingStudy(ctx context.Context, id string) (r4b.ImagingS
 	}
 	r, ok := v.(r4b.ImagingStudy)
 	if !ok {
-		return r4b.ImagingStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ImagingStudy", GotType: v.ResourceType()}
+		return r4b.ImagingStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImagingStudy" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadImmunization(ctx context.Context, id string) (r4b.Immunization, capabilities.FHIRError) {
+func (w Concrete) ReadImmunization(ctx context.Context, id string) (r4b.Immunization, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Immunization{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Immunization"}
+		return r4b.Immunization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Immunization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Immunization", id)
 	if err != nil {
@@ -3925,14 +5570,22 @@ func (w Concrete) ReadImmunization(ctx context.Context, id string) (r4b.Immuniza
 	}
 	r, ok := v.(r4b.Immunization)
 	if !ok {
-		return r4b.Immunization{}, capabilities.UnexpectedResourceError{ExpectedType: "Immunization", GotType: v.ResourceType()}
+		return r4b.Immunization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Immunization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadImmunizationEvaluation(ctx context.Context, id string) (r4b.ImmunizationEvaluation, capabilities.FHIRError) {
+func (w Concrete) ReadImmunizationEvaluation(ctx context.Context, id string) (r4b.ImmunizationEvaluation, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ImmunizationEvaluation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImmunizationEvaluation"}
+		return r4b.ImmunizationEvaluation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ImmunizationEvaluation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ImmunizationEvaluation", id)
 	if err != nil {
@@ -3944,14 +5597,22 @@ func (w Concrete) ReadImmunizationEvaluation(ctx context.Context, id string) (r4
 	}
 	r, ok := v.(r4b.ImmunizationEvaluation)
 	if !ok {
-		return r4b.ImmunizationEvaluation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationEvaluation", GotType: v.ResourceType()}
+		return r4b.ImmunizationEvaluation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImmunizationEvaluation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadImmunizationRecommendation(ctx context.Context, id string) (r4b.ImmunizationRecommendation, capabilities.FHIRError) {
+func (w Concrete) ReadImmunizationRecommendation(ctx context.Context, id string) (r4b.ImmunizationRecommendation, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ImmunizationRecommendation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImmunizationRecommendation"}
+		return r4b.ImmunizationRecommendation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ImmunizationRecommendation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ImmunizationRecommendation", id)
 	if err != nil {
@@ -3963,14 +5624,22 @@ func (w Concrete) ReadImmunizationRecommendation(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.ImmunizationRecommendation)
 	if !ok {
-		return r4b.ImmunizationRecommendation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationRecommendation", GotType: v.ResourceType()}
+		return r4b.ImmunizationRecommendation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImmunizationRecommendation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadImplementationGuide(ctx context.Context, id string) (r4b.ImplementationGuide, capabilities.FHIRError) {
+func (w Concrete) ReadImplementationGuide(ctx context.Context, id string) (r4b.ImplementationGuide, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ImplementationGuide{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImplementationGuide"}
+		return r4b.ImplementationGuide{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ImplementationGuide")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ImplementationGuide", id)
 	if err != nil {
@@ -3982,14 +5651,22 @@ func (w Concrete) ReadImplementationGuide(ctx context.Context, id string) (r4b.I
 	}
 	r, ok := v.(r4b.ImplementationGuide)
 	if !ok {
-		return r4b.ImplementationGuide{}, capabilities.UnexpectedResourceError{ExpectedType: "ImplementationGuide", GotType: v.ResourceType()}
+		return r4b.ImplementationGuide{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImplementationGuide" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadIngredient(ctx context.Context, id string) (r4b.Ingredient, capabilities.FHIRError) {
+func (w Concrete) ReadIngredient(ctx context.Context, id string) (r4b.Ingredient, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Ingredient{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Ingredient"}
+		return r4b.Ingredient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Ingredient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Ingredient", id)
 	if err != nil {
@@ -4001,14 +5678,22 @@ func (w Concrete) ReadIngredient(ctx context.Context, id string) (r4b.Ingredient
 	}
 	r, ok := v.(r4b.Ingredient)
 	if !ok {
-		return r4b.Ingredient{}, capabilities.UnexpectedResourceError{ExpectedType: "Ingredient", GotType: v.ResourceType()}
+		return r4b.Ingredient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Ingredient" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadInsurancePlan(ctx context.Context, id string) (r4b.InsurancePlan, capabilities.FHIRError) {
+func (w Concrete) ReadInsurancePlan(ctx context.Context, id string) (r4b.InsurancePlan, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.InsurancePlan{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "InsurancePlan"}
+		return r4b.InsurancePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for InsurancePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "InsurancePlan", id)
 	if err != nil {
@@ -4020,14 +5705,22 @@ func (w Concrete) ReadInsurancePlan(ctx context.Context, id string) (r4b.Insuran
 	}
 	r, ok := v.(r4b.InsurancePlan)
 	if !ok {
-		return r4b.InsurancePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "InsurancePlan", GotType: v.ResourceType()}
+		return r4b.InsurancePlan{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "InsurancePlan" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadInvoice(ctx context.Context, id string) (r4b.Invoice, capabilities.FHIRError) {
+func (w Concrete) ReadInvoice(ctx context.Context, id string) (r4b.Invoice, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Invoice{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Invoice"}
+		return r4b.Invoice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Invoice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Invoice", id)
 	if err != nil {
@@ -4039,14 +5732,22 @@ func (w Concrete) ReadInvoice(ctx context.Context, id string) (r4b.Invoice, capa
 	}
 	r, ok := v.(r4b.Invoice)
 	if !ok {
-		return r4b.Invoice{}, capabilities.UnexpectedResourceError{ExpectedType: "Invoice", GotType: v.ResourceType()}
+		return r4b.Invoice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Invoice" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadLibrary(ctx context.Context, id string) (r4b.Library, capabilities.FHIRError) {
+func (w Concrete) ReadLibrary(ctx context.Context, id string) (r4b.Library, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Library{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Library"}
+		return r4b.Library{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Library")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Library", id)
 	if err != nil {
@@ -4058,14 +5759,22 @@ func (w Concrete) ReadLibrary(ctx context.Context, id string) (r4b.Library, capa
 	}
 	r, ok := v.(r4b.Library)
 	if !ok {
-		return r4b.Library{}, capabilities.UnexpectedResourceError{ExpectedType: "Library", GotType: v.ResourceType()}
+		return r4b.Library{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Library" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadLinkage(ctx context.Context, id string) (r4b.Linkage, capabilities.FHIRError) {
+func (w Concrete) ReadLinkage(ctx context.Context, id string) (r4b.Linkage, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Linkage{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Linkage"}
+		return r4b.Linkage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Linkage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Linkage", id)
 	if err != nil {
@@ -4077,14 +5786,22 @@ func (w Concrete) ReadLinkage(ctx context.Context, id string) (r4b.Linkage, capa
 	}
 	r, ok := v.(r4b.Linkage)
 	if !ok {
-		return r4b.Linkage{}, capabilities.UnexpectedResourceError{ExpectedType: "Linkage", GotType: v.ResourceType()}
+		return r4b.Linkage{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Linkage" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadList(ctx context.Context, id string) (r4b.List, capabilities.FHIRError) {
+func (w Concrete) ReadList(ctx context.Context, id string) (r4b.List, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.List{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "List"}
+		return r4b.List{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for List")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "List", id)
 	if err != nil {
@@ -4096,14 +5813,22 @@ func (w Concrete) ReadList(ctx context.Context, id string) (r4b.List, capabiliti
 	}
 	r, ok := v.(r4b.List)
 	if !ok {
-		return r4b.List{}, capabilities.UnexpectedResourceError{ExpectedType: "List", GotType: v.ResourceType()}
+		return r4b.List{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "List" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadLocation(ctx context.Context, id string) (r4b.Location, capabilities.FHIRError) {
+func (w Concrete) ReadLocation(ctx context.Context, id string) (r4b.Location, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Location{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Location"}
+		return r4b.Location{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Location")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Location", id)
 	if err != nil {
@@ -4115,14 +5840,22 @@ func (w Concrete) ReadLocation(ctx context.Context, id string) (r4b.Location, ca
 	}
 	r, ok := v.(r4b.Location)
 	if !ok {
-		return r4b.Location{}, capabilities.UnexpectedResourceError{ExpectedType: "Location", GotType: v.ResourceType()}
+		return r4b.Location{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Location" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadManufacturedItemDefinition(ctx context.Context, id string) (r4b.ManufacturedItemDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadManufacturedItemDefinition(ctx context.Context, id string) (r4b.ManufacturedItemDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ManufacturedItemDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ManufacturedItemDefinition"}
+		return r4b.ManufacturedItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ManufacturedItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ManufacturedItemDefinition", id)
 	if err != nil {
@@ -4134,14 +5867,22 @@ func (w Concrete) ReadManufacturedItemDefinition(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.ManufacturedItemDefinition)
 	if !ok {
-		return r4b.ManufacturedItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ManufacturedItemDefinition", GotType: v.ResourceType()}
+		return r4b.ManufacturedItemDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ManufacturedItemDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMeasure(ctx context.Context, id string) (r4b.Measure, capabilities.FHIRError) {
+func (w Concrete) ReadMeasure(ctx context.Context, id string) (r4b.Measure, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Measure{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Measure"}
+		return r4b.Measure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Measure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Measure", id)
 	if err != nil {
@@ -4153,14 +5894,22 @@ func (w Concrete) ReadMeasure(ctx context.Context, id string) (r4b.Measure, capa
 	}
 	r, ok := v.(r4b.Measure)
 	if !ok {
-		return r4b.Measure{}, capabilities.UnexpectedResourceError{ExpectedType: "Measure", GotType: v.ResourceType()}
+		return r4b.Measure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Measure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMeasureReport(ctx context.Context, id string) (r4b.MeasureReport, capabilities.FHIRError) {
+func (w Concrete) ReadMeasureReport(ctx context.Context, id string) (r4b.MeasureReport, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MeasureReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MeasureReport"}
+		return r4b.MeasureReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MeasureReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MeasureReport", id)
 	if err != nil {
@@ -4172,14 +5921,22 @@ func (w Concrete) ReadMeasureReport(ctx context.Context, id string) (r4b.Measure
 	}
 	r, ok := v.(r4b.MeasureReport)
 	if !ok {
-		return r4b.MeasureReport{}, capabilities.UnexpectedResourceError{ExpectedType: "MeasureReport", GotType: v.ResourceType()}
+		return r4b.MeasureReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MeasureReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedia(ctx context.Context, id string) (r4b.Media, capabilities.FHIRError) {
+func (w Concrete) ReadMedia(ctx context.Context, id string) (r4b.Media, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Media{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Media"}
+		return r4b.Media{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Media")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Media", id)
 	if err != nil {
@@ -4191,14 +5948,22 @@ func (w Concrete) ReadMedia(ctx context.Context, id string) (r4b.Media, capabili
 	}
 	r, ok := v.(r4b.Media)
 	if !ok {
-		return r4b.Media{}, capabilities.UnexpectedResourceError{ExpectedType: "Media", GotType: v.ResourceType()}
+		return r4b.Media{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Media" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedication(ctx context.Context, id string) (r4b.Medication, capabilities.FHIRError) {
+func (w Concrete) ReadMedication(ctx context.Context, id string) (r4b.Medication, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Medication{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Medication"}
+		return r4b.Medication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Medication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Medication", id)
 	if err != nil {
@@ -4210,14 +5975,22 @@ func (w Concrete) ReadMedication(ctx context.Context, id string) (r4b.Medication
 	}
 	r, ok := v.(r4b.Medication)
 	if !ok {
-		return r4b.Medication{}, capabilities.UnexpectedResourceError{ExpectedType: "Medication", GotType: v.ResourceType()}
+		return r4b.Medication{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Medication" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedicationAdministration(ctx context.Context, id string) (r4b.MedicationAdministration, capabilities.FHIRError) {
+func (w Concrete) ReadMedicationAdministration(ctx context.Context, id string) (r4b.MedicationAdministration, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MedicationAdministration{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationAdministration"}
+		return r4b.MedicationAdministration{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MedicationAdministration")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MedicationAdministration", id)
 	if err != nil {
@@ -4229,14 +6002,22 @@ func (w Concrete) ReadMedicationAdministration(ctx context.Context, id string) (
 	}
 	r, ok := v.(r4b.MedicationAdministration)
 	if !ok {
-		return r4b.MedicationAdministration{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationAdministration", GotType: v.ResourceType()}
+		return r4b.MedicationAdministration{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationAdministration" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedicationDispense(ctx context.Context, id string) (r4b.MedicationDispense, capabilities.FHIRError) {
+func (w Concrete) ReadMedicationDispense(ctx context.Context, id string) (r4b.MedicationDispense, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MedicationDispense{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationDispense"}
+		return r4b.MedicationDispense{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MedicationDispense")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MedicationDispense", id)
 	if err != nil {
@@ -4248,14 +6029,22 @@ func (w Concrete) ReadMedicationDispense(ctx context.Context, id string) (r4b.Me
 	}
 	r, ok := v.(r4b.MedicationDispense)
 	if !ok {
-		return r4b.MedicationDispense{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationDispense", GotType: v.ResourceType()}
+		return r4b.MedicationDispense{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationDispense" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedicationKnowledge(ctx context.Context, id string) (r4b.MedicationKnowledge, capabilities.FHIRError) {
+func (w Concrete) ReadMedicationKnowledge(ctx context.Context, id string) (r4b.MedicationKnowledge, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MedicationKnowledge{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationKnowledge"}
+		return r4b.MedicationKnowledge{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MedicationKnowledge")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MedicationKnowledge", id)
 	if err != nil {
@@ -4267,14 +6056,22 @@ func (w Concrete) ReadMedicationKnowledge(ctx context.Context, id string) (r4b.M
 	}
 	r, ok := v.(r4b.MedicationKnowledge)
 	if !ok {
-		return r4b.MedicationKnowledge{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationKnowledge", GotType: v.ResourceType()}
+		return r4b.MedicationKnowledge{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationKnowledge" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedicationRequest(ctx context.Context, id string) (r4b.MedicationRequest, capabilities.FHIRError) {
+func (w Concrete) ReadMedicationRequest(ctx context.Context, id string) (r4b.MedicationRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MedicationRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationRequest"}
+		return r4b.MedicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MedicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MedicationRequest", id)
 	if err != nil {
@@ -4286,14 +6083,22 @@ func (w Concrete) ReadMedicationRequest(ctx context.Context, id string) (r4b.Med
 	}
 	r, ok := v.(r4b.MedicationRequest)
 	if !ok {
-		return r4b.MedicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationRequest", GotType: v.ResourceType()}
+		return r4b.MedicationRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedicationStatement(ctx context.Context, id string) (r4b.MedicationStatement, capabilities.FHIRError) {
+func (w Concrete) ReadMedicationStatement(ctx context.Context, id string) (r4b.MedicationStatement, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MedicationStatement{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationStatement"}
+		return r4b.MedicationStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MedicationStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MedicationStatement", id)
 	if err != nil {
@@ -4305,14 +6110,22 @@ func (w Concrete) ReadMedicationStatement(ctx context.Context, id string) (r4b.M
 	}
 	r, ok := v.(r4b.MedicationStatement)
 	if !ok {
-		return r4b.MedicationStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationStatement", GotType: v.ResourceType()}
+		return r4b.MedicationStatement{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMedicinalProductDefinition(ctx context.Context, id string) (r4b.MedicinalProductDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadMedicinalProductDefinition(ctx context.Context, id string) (r4b.MedicinalProductDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MedicinalProductDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicinalProductDefinition"}
+		return r4b.MedicinalProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MedicinalProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MedicinalProductDefinition", id)
 	if err != nil {
@@ -4324,14 +6137,22 @@ func (w Concrete) ReadMedicinalProductDefinition(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.MedicinalProductDefinition)
 	if !ok {
-		return r4b.MedicinalProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicinalProductDefinition", GotType: v.ResourceType()}
+		return r4b.MedicinalProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicinalProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMessageDefinition(ctx context.Context, id string) (r4b.MessageDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadMessageDefinition(ctx context.Context, id string) (r4b.MessageDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MessageDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MessageDefinition"}
+		return r4b.MessageDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MessageDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MessageDefinition", id)
 	if err != nil {
@@ -4343,14 +6164,22 @@ func (w Concrete) ReadMessageDefinition(ctx context.Context, id string) (r4b.Mes
 	}
 	r, ok := v.(r4b.MessageDefinition)
 	if !ok {
-		return r4b.MessageDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageDefinition", GotType: v.ResourceType()}
+		return r4b.MessageDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MessageDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMessageHeader(ctx context.Context, id string) (r4b.MessageHeader, capabilities.FHIRError) {
+func (w Concrete) ReadMessageHeader(ctx context.Context, id string) (r4b.MessageHeader, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MessageHeader{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MessageHeader"}
+		return r4b.MessageHeader{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MessageHeader")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MessageHeader", id)
 	if err != nil {
@@ -4362,14 +6191,22 @@ func (w Concrete) ReadMessageHeader(ctx context.Context, id string) (r4b.Message
 	}
 	r, ok := v.(r4b.MessageHeader)
 	if !ok {
-		return r4b.MessageHeader{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageHeader", GotType: v.ResourceType()}
+		return r4b.MessageHeader{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MessageHeader" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadMolecularSequence(ctx context.Context, id string) (r4b.MolecularSequence, capabilities.FHIRError) {
+func (w Concrete) ReadMolecularSequence(ctx context.Context, id string) (r4b.MolecularSequence, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.MolecularSequence{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MolecularSequence"}
+		return r4b.MolecularSequence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for MolecularSequence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "MolecularSequence", id)
 	if err != nil {
@@ -4381,14 +6218,22 @@ func (w Concrete) ReadMolecularSequence(ctx context.Context, id string) (r4b.Mol
 	}
 	r, ok := v.(r4b.MolecularSequence)
 	if !ok {
-		return r4b.MolecularSequence{}, capabilities.UnexpectedResourceError{ExpectedType: "MolecularSequence", GotType: v.ResourceType()}
+		return r4b.MolecularSequence{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MolecularSequence" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadNamingSystem(ctx context.Context, id string) (r4b.NamingSystem, capabilities.FHIRError) {
+func (w Concrete) ReadNamingSystem(ctx context.Context, id string) (r4b.NamingSystem, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.NamingSystem{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "NamingSystem"}
+		return r4b.NamingSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for NamingSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "NamingSystem", id)
 	if err != nil {
@@ -4400,14 +6245,22 @@ func (w Concrete) ReadNamingSystem(ctx context.Context, id string) (r4b.NamingSy
 	}
 	r, ok := v.(r4b.NamingSystem)
 	if !ok {
-		return r4b.NamingSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "NamingSystem", GotType: v.ResourceType()}
+		return r4b.NamingSystem{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NamingSystem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadNutritionOrder(ctx context.Context, id string) (r4b.NutritionOrder, capabilities.FHIRError) {
+func (w Concrete) ReadNutritionOrder(ctx context.Context, id string) (r4b.NutritionOrder, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.NutritionOrder{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "NutritionOrder"}
+		return r4b.NutritionOrder{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for NutritionOrder")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "NutritionOrder", id)
 	if err != nil {
@@ -4419,14 +6272,22 @@ func (w Concrete) ReadNutritionOrder(ctx context.Context, id string) (r4b.Nutrit
 	}
 	r, ok := v.(r4b.NutritionOrder)
 	if !ok {
-		return r4b.NutritionOrder{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionOrder", GotType: v.ResourceType()}
+		return r4b.NutritionOrder{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NutritionOrder" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadNutritionProduct(ctx context.Context, id string) (r4b.NutritionProduct, capabilities.FHIRError) {
+func (w Concrete) ReadNutritionProduct(ctx context.Context, id string) (r4b.NutritionProduct, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.NutritionProduct{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "NutritionProduct"}
+		return r4b.NutritionProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for NutritionProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "NutritionProduct", id)
 	if err != nil {
@@ -4438,14 +6299,22 @@ func (w Concrete) ReadNutritionProduct(ctx context.Context, id string) (r4b.Nutr
 	}
 	r, ok := v.(r4b.NutritionProduct)
 	if !ok {
-		return r4b.NutritionProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionProduct", GotType: v.ResourceType()}
+		return r4b.NutritionProduct{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NutritionProduct" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadObservation(ctx context.Context, id string) (r4b.Observation, capabilities.FHIRError) {
+func (w Concrete) ReadObservation(ctx context.Context, id string) (r4b.Observation, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Observation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Observation"}
+		return r4b.Observation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Observation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Observation", id)
 	if err != nil {
@@ -4457,14 +6326,22 @@ func (w Concrete) ReadObservation(ctx context.Context, id string) (r4b.Observati
 	}
 	r, ok := v.(r4b.Observation)
 	if !ok {
-		return r4b.Observation{}, capabilities.UnexpectedResourceError{ExpectedType: "Observation", GotType: v.ResourceType()}
+		return r4b.Observation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Observation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadObservationDefinition(ctx context.Context, id string) (r4b.ObservationDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadObservationDefinition(ctx context.Context, id string) (r4b.ObservationDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ObservationDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ObservationDefinition"}
+		return r4b.ObservationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ObservationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ObservationDefinition", id)
 	if err != nil {
@@ -4476,14 +6353,22 @@ func (w Concrete) ReadObservationDefinition(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.ObservationDefinition)
 	if !ok {
-		return r4b.ObservationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ObservationDefinition", GotType: v.ResourceType()}
+		return r4b.ObservationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ObservationDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadOperationDefinition(ctx context.Context, id string) (r4b.OperationDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadOperationDefinition(ctx context.Context, id string) (r4b.OperationDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.OperationDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "OperationDefinition"}
+		return r4b.OperationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for OperationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "OperationDefinition", id)
 	if err != nil {
@@ -4495,14 +6380,22 @@ func (w Concrete) ReadOperationDefinition(ctx context.Context, id string) (r4b.O
 	}
 	r, ok := v.(r4b.OperationDefinition)
 	if !ok {
-		return r4b.OperationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationDefinition", GotType: v.ResourceType()}
+		return r4b.OperationDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OperationDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadOperationOutcome(ctx context.Context, id string) (r4b.OperationOutcome, capabilities.FHIRError) {
+func (w Concrete) ReadOperationOutcome(ctx context.Context, id string) (r4b.OperationOutcome, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.OperationOutcome{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "OperationOutcome"}
+		return r4b.OperationOutcome{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for OperationOutcome")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "OperationOutcome", id)
 	if err != nil {
@@ -4514,14 +6407,22 @@ func (w Concrete) ReadOperationOutcome(ctx context.Context, id string) (r4b.Oper
 	}
 	r, ok := v.(r4b.OperationOutcome)
 	if !ok {
-		return r4b.OperationOutcome{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationOutcome", GotType: v.ResourceType()}
+		return r4b.OperationOutcome{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OperationOutcome" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadOrganization(ctx context.Context, id string) (r4b.Organization, capabilities.FHIRError) {
+func (w Concrete) ReadOrganization(ctx context.Context, id string) (r4b.Organization, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Organization{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Organization"}
+		return r4b.Organization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Organization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Organization", id)
 	if err != nil {
@@ -4533,14 +6434,22 @@ func (w Concrete) ReadOrganization(ctx context.Context, id string) (r4b.Organiza
 	}
 	r, ok := v.(r4b.Organization)
 	if !ok {
-		return r4b.Organization{}, capabilities.UnexpectedResourceError{ExpectedType: "Organization", GotType: v.ResourceType()}
+		return r4b.Organization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Organization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadOrganizationAffiliation(ctx context.Context, id string) (r4b.OrganizationAffiliation, capabilities.FHIRError) {
+func (w Concrete) ReadOrganizationAffiliation(ctx context.Context, id string) (r4b.OrganizationAffiliation, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.OrganizationAffiliation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "OrganizationAffiliation"}
+		return r4b.OrganizationAffiliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for OrganizationAffiliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "OrganizationAffiliation", id)
 	if err != nil {
@@ -4552,14 +6461,22 @@ func (w Concrete) ReadOrganizationAffiliation(ctx context.Context, id string) (r
 	}
 	r, ok := v.(r4b.OrganizationAffiliation)
 	if !ok {
-		return r4b.OrganizationAffiliation{}, capabilities.UnexpectedResourceError{ExpectedType: "OrganizationAffiliation", GotType: v.ResourceType()}
+		return r4b.OrganizationAffiliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OrganizationAffiliation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPackagedProductDefinition(ctx context.Context, id string) (r4b.PackagedProductDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadPackagedProductDefinition(ctx context.Context, id string) (r4b.PackagedProductDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.PackagedProductDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PackagedProductDefinition"}
+		return r4b.PackagedProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for PackagedProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "PackagedProductDefinition", id)
 	if err != nil {
@@ -4571,14 +6488,22 @@ func (w Concrete) ReadPackagedProductDefinition(ctx context.Context, id string) 
 	}
 	r, ok := v.(r4b.PackagedProductDefinition)
 	if !ok {
-		return r4b.PackagedProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PackagedProductDefinition", GotType: v.ResourceType()}
+		return r4b.PackagedProductDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PackagedProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadParameters(ctx context.Context, id string) (r4b.Parameters, capabilities.FHIRError) {
+func (w Concrete) ReadParameters(ctx context.Context, id string) (r4b.Parameters, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Parameters{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Parameters"}
+		return r4b.Parameters{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Parameters")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Parameters", id)
 	if err != nil {
@@ -4590,14 +6515,22 @@ func (w Concrete) ReadParameters(ctx context.Context, id string) (r4b.Parameters
 	}
 	r, ok := v.(r4b.Parameters)
 	if !ok {
-		return r4b.Parameters{}, capabilities.UnexpectedResourceError{ExpectedType: "Parameters", GotType: v.ResourceType()}
+		return r4b.Parameters{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Parameters" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPatient(ctx context.Context, id string) (r4b.Patient, capabilities.FHIRError) {
+func (w Concrete) ReadPatient(ctx context.Context, id string) (r4b.Patient, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Patient{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Patient"}
+		return r4b.Patient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Patient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Patient", id)
 	if err != nil {
@@ -4609,14 +6542,22 @@ func (w Concrete) ReadPatient(ctx context.Context, id string) (r4b.Patient, capa
 	}
 	r, ok := v.(r4b.Patient)
 	if !ok {
-		return r4b.Patient{}, capabilities.UnexpectedResourceError{ExpectedType: "Patient", GotType: v.ResourceType()}
+		return r4b.Patient{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Patient" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPaymentNotice(ctx context.Context, id string) (r4b.PaymentNotice, capabilities.FHIRError) {
+func (w Concrete) ReadPaymentNotice(ctx context.Context, id string) (r4b.PaymentNotice, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.PaymentNotice{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PaymentNotice"}
+		return r4b.PaymentNotice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for PaymentNotice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "PaymentNotice", id)
 	if err != nil {
@@ -4628,14 +6569,22 @@ func (w Concrete) ReadPaymentNotice(ctx context.Context, id string) (r4b.Payment
 	}
 	r, ok := v.(r4b.PaymentNotice)
 	if !ok {
-		return r4b.PaymentNotice{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentNotice", GotType: v.ResourceType()}
+		return r4b.PaymentNotice{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PaymentNotice" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPaymentReconciliation(ctx context.Context, id string) (r4b.PaymentReconciliation, capabilities.FHIRError) {
+func (w Concrete) ReadPaymentReconciliation(ctx context.Context, id string) (r4b.PaymentReconciliation, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.PaymentReconciliation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PaymentReconciliation"}
+		return r4b.PaymentReconciliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for PaymentReconciliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "PaymentReconciliation", id)
 	if err != nil {
@@ -4647,14 +6596,22 @@ func (w Concrete) ReadPaymentReconciliation(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.PaymentReconciliation)
 	if !ok {
-		return r4b.PaymentReconciliation{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentReconciliation", GotType: v.ResourceType()}
+		return r4b.PaymentReconciliation{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PaymentReconciliation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPerson(ctx context.Context, id string) (r4b.Person, capabilities.FHIRError) {
+func (w Concrete) ReadPerson(ctx context.Context, id string) (r4b.Person, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Person{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Person"}
+		return r4b.Person{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Person")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Person", id)
 	if err != nil {
@@ -4666,14 +6623,22 @@ func (w Concrete) ReadPerson(ctx context.Context, id string) (r4b.Person, capabi
 	}
 	r, ok := v.(r4b.Person)
 	if !ok {
-		return r4b.Person{}, capabilities.UnexpectedResourceError{ExpectedType: "Person", GotType: v.ResourceType()}
+		return r4b.Person{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Person" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPlanDefinition(ctx context.Context, id string) (r4b.PlanDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadPlanDefinition(ctx context.Context, id string) (r4b.PlanDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.PlanDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PlanDefinition"}
+		return r4b.PlanDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for PlanDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "PlanDefinition", id)
 	if err != nil {
@@ -4685,14 +6650,22 @@ func (w Concrete) ReadPlanDefinition(ctx context.Context, id string) (r4b.PlanDe
 	}
 	r, ok := v.(r4b.PlanDefinition)
 	if !ok {
-		return r4b.PlanDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PlanDefinition", GotType: v.ResourceType()}
+		return r4b.PlanDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PlanDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPractitioner(ctx context.Context, id string) (r4b.Practitioner, capabilities.FHIRError) {
+func (w Concrete) ReadPractitioner(ctx context.Context, id string) (r4b.Practitioner, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Practitioner{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Practitioner"}
+		return r4b.Practitioner{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Practitioner")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Practitioner", id)
 	if err != nil {
@@ -4704,14 +6677,22 @@ func (w Concrete) ReadPractitioner(ctx context.Context, id string) (r4b.Practiti
 	}
 	r, ok := v.(r4b.Practitioner)
 	if !ok {
-		return r4b.Practitioner{}, capabilities.UnexpectedResourceError{ExpectedType: "Practitioner", GotType: v.ResourceType()}
+		return r4b.Practitioner{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Practitioner" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadPractitionerRole(ctx context.Context, id string) (r4b.PractitionerRole, capabilities.FHIRError) {
+func (w Concrete) ReadPractitionerRole(ctx context.Context, id string) (r4b.PractitionerRole, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.PractitionerRole{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PractitionerRole"}
+		return r4b.PractitionerRole{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for PractitionerRole")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "PractitionerRole", id)
 	if err != nil {
@@ -4723,14 +6704,22 @@ func (w Concrete) ReadPractitionerRole(ctx context.Context, id string) (r4b.Prac
 	}
 	r, ok := v.(r4b.PractitionerRole)
 	if !ok {
-		return r4b.PractitionerRole{}, capabilities.UnexpectedResourceError{ExpectedType: "PractitionerRole", GotType: v.ResourceType()}
+		return r4b.PractitionerRole{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PractitionerRole" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadProcedure(ctx context.Context, id string) (r4b.Procedure, capabilities.FHIRError) {
+func (w Concrete) ReadProcedure(ctx context.Context, id string) (r4b.Procedure, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Procedure{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Procedure"}
+		return r4b.Procedure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Procedure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Procedure", id)
 	if err != nil {
@@ -4742,14 +6731,22 @@ func (w Concrete) ReadProcedure(ctx context.Context, id string) (r4b.Procedure, 
 	}
 	r, ok := v.(r4b.Procedure)
 	if !ok {
-		return r4b.Procedure{}, capabilities.UnexpectedResourceError{ExpectedType: "Procedure", GotType: v.ResourceType()}
+		return r4b.Procedure{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Procedure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadProvenance(ctx context.Context, id string) (r4b.Provenance, capabilities.FHIRError) {
+func (w Concrete) ReadProvenance(ctx context.Context, id string) (r4b.Provenance, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Provenance{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Provenance"}
+		return r4b.Provenance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Provenance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Provenance", id)
 	if err != nil {
@@ -4761,14 +6758,22 @@ func (w Concrete) ReadProvenance(ctx context.Context, id string) (r4b.Provenance
 	}
 	r, ok := v.(r4b.Provenance)
 	if !ok {
-		return r4b.Provenance{}, capabilities.UnexpectedResourceError{ExpectedType: "Provenance", GotType: v.ResourceType()}
+		return r4b.Provenance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Provenance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadQuestionnaire(ctx context.Context, id string) (r4b.Questionnaire, capabilities.FHIRError) {
+func (w Concrete) ReadQuestionnaire(ctx context.Context, id string) (r4b.Questionnaire, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Questionnaire{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Questionnaire"}
+		return r4b.Questionnaire{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Questionnaire")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Questionnaire", id)
 	if err != nil {
@@ -4780,14 +6785,22 @@ func (w Concrete) ReadQuestionnaire(ctx context.Context, id string) (r4b.Questio
 	}
 	r, ok := v.(r4b.Questionnaire)
 	if !ok {
-		return r4b.Questionnaire{}, capabilities.UnexpectedResourceError{ExpectedType: "Questionnaire", GotType: v.ResourceType()}
+		return r4b.Questionnaire{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Questionnaire" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadQuestionnaireResponse(ctx context.Context, id string) (r4b.QuestionnaireResponse, capabilities.FHIRError) {
+func (w Concrete) ReadQuestionnaireResponse(ctx context.Context, id string) (r4b.QuestionnaireResponse, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.QuestionnaireResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "QuestionnaireResponse"}
+		return r4b.QuestionnaireResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for QuestionnaireResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "QuestionnaireResponse", id)
 	if err != nil {
@@ -4799,14 +6812,22 @@ func (w Concrete) ReadQuestionnaireResponse(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.QuestionnaireResponse)
 	if !ok {
-		return r4b.QuestionnaireResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "QuestionnaireResponse", GotType: v.ResourceType()}
+		return r4b.QuestionnaireResponse{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "QuestionnaireResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadRegulatedAuthorization(ctx context.Context, id string) (r4b.RegulatedAuthorization, capabilities.FHIRError) {
+func (w Concrete) ReadRegulatedAuthorization(ctx context.Context, id string) (r4b.RegulatedAuthorization, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.RegulatedAuthorization{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RegulatedAuthorization"}
+		return r4b.RegulatedAuthorization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for RegulatedAuthorization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "RegulatedAuthorization", id)
 	if err != nil {
@@ -4818,14 +6839,22 @@ func (w Concrete) ReadRegulatedAuthorization(ctx context.Context, id string) (r4
 	}
 	r, ok := v.(r4b.RegulatedAuthorization)
 	if !ok {
-		return r4b.RegulatedAuthorization{}, capabilities.UnexpectedResourceError{ExpectedType: "RegulatedAuthorization", GotType: v.ResourceType()}
+		return r4b.RegulatedAuthorization{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RegulatedAuthorization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadRelatedPerson(ctx context.Context, id string) (r4b.RelatedPerson, capabilities.FHIRError) {
+func (w Concrete) ReadRelatedPerson(ctx context.Context, id string) (r4b.RelatedPerson, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.RelatedPerson{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RelatedPerson"}
+		return r4b.RelatedPerson{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for RelatedPerson")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "RelatedPerson", id)
 	if err != nil {
@@ -4837,14 +6866,22 @@ func (w Concrete) ReadRelatedPerson(ctx context.Context, id string) (r4b.Related
 	}
 	r, ok := v.(r4b.RelatedPerson)
 	if !ok {
-		return r4b.RelatedPerson{}, capabilities.UnexpectedResourceError{ExpectedType: "RelatedPerson", GotType: v.ResourceType()}
+		return r4b.RelatedPerson{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RelatedPerson" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadRequestGroup(ctx context.Context, id string) (r4b.RequestGroup, capabilities.FHIRError) {
+func (w Concrete) ReadRequestGroup(ctx context.Context, id string) (r4b.RequestGroup, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.RequestGroup{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RequestGroup"}
+		return r4b.RequestGroup{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for RequestGroup")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "RequestGroup", id)
 	if err != nil {
@@ -4856,14 +6893,22 @@ func (w Concrete) ReadRequestGroup(ctx context.Context, id string) (r4b.RequestG
 	}
 	r, ok := v.(r4b.RequestGroup)
 	if !ok {
-		return r4b.RequestGroup{}, capabilities.UnexpectedResourceError{ExpectedType: "RequestGroup", GotType: v.ResourceType()}
+		return r4b.RequestGroup{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RequestGroup" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadResearchDefinition(ctx context.Context, id string) (r4b.ResearchDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadResearchDefinition(ctx context.Context, id string) (r4b.ResearchDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ResearchDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchDefinition"}
+		return r4b.ResearchDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ResearchDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ResearchDefinition", id)
 	if err != nil {
@@ -4875,14 +6920,22 @@ func (w Concrete) ReadResearchDefinition(ctx context.Context, id string) (r4b.Re
 	}
 	r, ok := v.(r4b.ResearchDefinition)
 	if !ok {
-		return r4b.ResearchDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchDefinition", GotType: v.ResourceType()}
+		return r4b.ResearchDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadResearchElementDefinition(ctx context.Context, id string) (r4b.ResearchElementDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadResearchElementDefinition(ctx context.Context, id string) (r4b.ResearchElementDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ResearchElementDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchElementDefinition"}
+		return r4b.ResearchElementDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ResearchElementDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ResearchElementDefinition", id)
 	if err != nil {
@@ -4894,14 +6947,22 @@ func (w Concrete) ReadResearchElementDefinition(ctx context.Context, id string) 
 	}
 	r, ok := v.(r4b.ResearchElementDefinition)
 	if !ok {
-		return r4b.ResearchElementDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchElementDefinition", GotType: v.ResourceType()}
+		return r4b.ResearchElementDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchElementDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadResearchStudy(ctx context.Context, id string) (r4b.ResearchStudy, capabilities.FHIRError) {
+func (w Concrete) ReadResearchStudy(ctx context.Context, id string) (r4b.ResearchStudy, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ResearchStudy{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchStudy"}
+		return r4b.ResearchStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ResearchStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ResearchStudy", id)
 	if err != nil {
@@ -4913,14 +6974,22 @@ func (w Concrete) ReadResearchStudy(ctx context.Context, id string) (r4b.Researc
 	}
 	r, ok := v.(r4b.ResearchStudy)
 	if !ok {
-		return r4b.ResearchStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchStudy", GotType: v.ResourceType()}
+		return r4b.ResearchStudy{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchStudy" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadResearchSubject(ctx context.Context, id string) (r4b.ResearchSubject, capabilities.FHIRError) {
+func (w Concrete) ReadResearchSubject(ctx context.Context, id string) (r4b.ResearchSubject, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ResearchSubject{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchSubject"}
+		return r4b.ResearchSubject{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ResearchSubject")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ResearchSubject", id)
 	if err != nil {
@@ -4932,14 +7001,22 @@ func (w Concrete) ReadResearchSubject(ctx context.Context, id string) (r4b.Resea
 	}
 	r, ok := v.(r4b.ResearchSubject)
 	if !ok {
-		return r4b.ResearchSubject{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchSubject", GotType: v.ResourceType()}
+		return r4b.ResearchSubject{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchSubject" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadRiskAssessment(ctx context.Context, id string) (r4b.RiskAssessment, capabilities.FHIRError) {
+func (w Concrete) ReadRiskAssessment(ctx context.Context, id string) (r4b.RiskAssessment, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.RiskAssessment{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RiskAssessment"}
+		return r4b.RiskAssessment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for RiskAssessment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "RiskAssessment", id)
 	if err != nil {
@@ -4951,14 +7028,22 @@ func (w Concrete) ReadRiskAssessment(ctx context.Context, id string) (r4b.RiskAs
 	}
 	r, ok := v.(r4b.RiskAssessment)
 	if !ok {
-		return r4b.RiskAssessment{}, capabilities.UnexpectedResourceError{ExpectedType: "RiskAssessment", GotType: v.ResourceType()}
+		return r4b.RiskAssessment{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RiskAssessment" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSchedule(ctx context.Context, id string) (r4b.Schedule, capabilities.FHIRError) {
+func (w Concrete) ReadSchedule(ctx context.Context, id string) (r4b.Schedule, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Schedule{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Schedule"}
+		return r4b.Schedule{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Schedule")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Schedule", id)
 	if err != nil {
@@ -4970,14 +7055,22 @@ func (w Concrete) ReadSchedule(ctx context.Context, id string) (r4b.Schedule, ca
 	}
 	r, ok := v.(r4b.Schedule)
 	if !ok {
-		return r4b.Schedule{}, capabilities.UnexpectedResourceError{ExpectedType: "Schedule", GotType: v.ResourceType()}
+		return r4b.Schedule{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Schedule" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSearchParameter(ctx context.Context, id string) (r4b.SearchParameter, capabilities.FHIRError) {
+func (w Concrete) ReadSearchParameter(ctx context.Context, id string) (r4b.SearchParameter, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.SearchParameter{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SearchParameter"}
+		return r4b.SearchParameter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for SearchParameter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "SearchParameter", id)
 	if err != nil {
@@ -4989,14 +7082,22 @@ func (w Concrete) ReadSearchParameter(ctx context.Context, id string) (r4b.Searc
 	}
 	r, ok := v.(r4b.SearchParameter)
 	if !ok {
-		return r4b.SearchParameter{}, capabilities.UnexpectedResourceError{ExpectedType: "SearchParameter", GotType: v.ResourceType()}
+		return r4b.SearchParameter{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SearchParameter" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadServiceRequest(ctx context.Context, id string) (r4b.ServiceRequest, capabilities.FHIRError) {
+func (w Concrete) ReadServiceRequest(ctx context.Context, id string) (r4b.ServiceRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ServiceRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ServiceRequest"}
+		return r4b.ServiceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ServiceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ServiceRequest", id)
 	if err != nil {
@@ -5008,14 +7109,22 @@ func (w Concrete) ReadServiceRequest(ctx context.Context, id string) (r4b.Servic
 	}
 	r, ok := v.(r4b.ServiceRequest)
 	if !ok {
-		return r4b.ServiceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "ServiceRequest", GotType: v.ResourceType()}
+		return r4b.ServiceRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ServiceRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSlot(ctx context.Context, id string) (r4b.Slot, capabilities.FHIRError) {
+func (w Concrete) ReadSlot(ctx context.Context, id string) (r4b.Slot, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Slot{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Slot"}
+		return r4b.Slot{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Slot")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Slot", id)
 	if err != nil {
@@ -5027,14 +7136,22 @@ func (w Concrete) ReadSlot(ctx context.Context, id string) (r4b.Slot, capabiliti
 	}
 	r, ok := v.(r4b.Slot)
 	if !ok {
-		return r4b.Slot{}, capabilities.UnexpectedResourceError{ExpectedType: "Slot", GotType: v.ResourceType()}
+		return r4b.Slot{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Slot" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSpecimen(ctx context.Context, id string) (r4b.Specimen, capabilities.FHIRError) {
+func (w Concrete) ReadSpecimen(ctx context.Context, id string) (r4b.Specimen, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Specimen{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Specimen"}
+		return r4b.Specimen{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Specimen")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Specimen", id)
 	if err != nil {
@@ -5046,14 +7163,22 @@ func (w Concrete) ReadSpecimen(ctx context.Context, id string) (r4b.Specimen, ca
 	}
 	r, ok := v.(r4b.Specimen)
 	if !ok {
-		return r4b.Specimen{}, capabilities.UnexpectedResourceError{ExpectedType: "Specimen", GotType: v.ResourceType()}
+		return r4b.Specimen{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Specimen" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSpecimenDefinition(ctx context.Context, id string) (r4b.SpecimenDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadSpecimenDefinition(ctx context.Context, id string) (r4b.SpecimenDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.SpecimenDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SpecimenDefinition"}
+		return r4b.SpecimenDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for SpecimenDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "SpecimenDefinition", id)
 	if err != nil {
@@ -5065,14 +7190,22 @@ func (w Concrete) ReadSpecimenDefinition(ctx context.Context, id string) (r4b.Sp
 	}
 	r, ok := v.(r4b.SpecimenDefinition)
 	if !ok {
-		return r4b.SpecimenDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SpecimenDefinition", GotType: v.ResourceType()}
+		return r4b.SpecimenDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SpecimenDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadStructureDefinition(ctx context.Context, id string) (r4b.StructureDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadStructureDefinition(ctx context.Context, id string) (r4b.StructureDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.StructureDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "StructureDefinition"}
+		return r4b.StructureDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for StructureDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "StructureDefinition", id)
 	if err != nil {
@@ -5084,14 +7217,22 @@ func (w Concrete) ReadStructureDefinition(ctx context.Context, id string) (r4b.S
 	}
 	r, ok := v.(r4b.StructureDefinition)
 	if !ok {
-		return r4b.StructureDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureDefinition", GotType: v.ResourceType()}
+		return r4b.StructureDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "StructureDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadStructureMap(ctx context.Context, id string) (r4b.StructureMap, capabilities.FHIRError) {
+func (w Concrete) ReadStructureMap(ctx context.Context, id string) (r4b.StructureMap, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.StructureMap{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "StructureMap"}
+		return r4b.StructureMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for StructureMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "StructureMap", id)
 	if err != nil {
@@ -5103,14 +7244,22 @@ func (w Concrete) ReadStructureMap(ctx context.Context, id string) (r4b.Structur
 	}
 	r, ok := v.(r4b.StructureMap)
 	if !ok {
-		return r4b.StructureMap{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureMap", GotType: v.ResourceType()}
+		return r4b.StructureMap{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "StructureMap" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSubscription(ctx context.Context, id string) (r4b.Subscription, capabilities.FHIRError) {
+func (w Concrete) ReadSubscription(ctx context.Context, id string) (r4b.Subscription, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Subscription{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Subscription"}
+		return r4b.Subscription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Subscription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Subscription", id)
 	if err != nil {
@@ -5122,14 +7271,22 @@ func (w Concrete) ReadSubscription(ctx context.Context, id string) (r4b.Subscrip
 	}
 	r, ok := v.(r4b.Subscription)
 	if !ok {
-		return r4b.Subscription{}, capabilities.UnexpectedResourceError{ExpectedType: "Subscription", GotType: v.ResourceType()}
+		return r4b.Subscription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Subscription" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSubscriptionStatus(ctx context.Context, id string) (r4b.SubscriptionStatus, capabilities.FHIRError) {
+func (w Concrete) ReadSubscriptionStatus(ctx context.Context, id string) (r4b.SubscriptionStatus, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.SubscriptionStatus{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SubscriptionStatus"}
+		return r4b.SubscriptionStatus{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for SubscriptionStatus")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "SubscriptionStatus", id)
 	if err != nil {
@@ -5141,14 +7298,22 @@ func (w Concrete) ReadSubscriptionStatus(ctx context.Context, id string) (r4b.Su
 	}
 	r, ok := v.(r4b.SubscriptionStatus)
 	if !ok {
-		return r4b.SubscriptionStatus{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionStatus", GotType: v.ResourceType()}
+		return r4b.SubscriptionStatus{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubscriptionStatus" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSubscriptionTopic(ctx context.Context, id string) (r4b.SubscriptionTopic, capabilities.FHIRError) {
+func (w Concrete) ReadSubscriptionTopic(ctx context.Context, id string) (r4b.SubscriptionTopic, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.SubscriptionTopic{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SubscriptionTopic"}
+		return r4b.SubscriptionTopic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for SubscriptionTopic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "SubscriptionTopic", id)
 	if err != nil {
@@ -5160,14 +7325,22 @@ func (w Concrete) ReadSubscriptionTopic(ctx context.Context, id string) (r4b.Sub
 	}
 	r, ok := v.(r4b.SubscriptionTopic)
 	if !ok {
-		return r4b.SubscriptionTopic{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionTopic", GotType: v.ResourceType()}
+		return r4b.SubscriptionTopic{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubscriptionTopic" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSubstance(ctx context.Context, id string) (r4b.Substance, capabilities.FHIRError) {
+func (w Concrete) ReadSubstance(ctx context.Context, id string) (r4b.Substance, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Substance{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Substance"}
+		return r4b.Substance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Substance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Substance", id)
 	if err != nil {
@@ -5179,14 +7352,22 @@ func (w Concrete) ReadSubstance(ctx context.Context, id string) (r4b.Substance, 
 	}
 	r, ok := v.(r4b.Substance)
 	if !ok {
-		return r4b.Substance{}, capabilities.UnexpectedResourceError{ExpectedType: "Substance", GotType: v.ResourceType()}
+		return r4b.Substance{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Substance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSubstanceDefinition(ctx context.Context, id string) (r4b.SubstanceDefinition, capabilities.FHIRError) {
+func (w Concrete) ReadSubstanceDefinition(ctx context.Context, id string) (r4b.SubstanceDefinition, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.SubstanceDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SubstanceDefinition"}
+		return r4b.SubstanceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for SubstanceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "SubstanceDefinition", id)
 	if err != nil {
@@ -5198,14 +7379,22 @@ func (w Concrete) ReadSubstanceDefinition(ctx context.Context, id string) (r4b.S
 	}
 	r, ok := v.(r4b.SubstanceDefinition)
 	if !ok {
-		return r4b.SubstanceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SubstanceDefinition", GotType: v.ResourceType()}
+		return r4b.SubstanceDefinition{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubstanceDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSupplyDelivery(ctx context.Context, id string) (r4b.SupplyDelivery, capabilities.FHIRError) {
+func (w Concrete) ReadSupplyDelivery(ctx context.Context, id string) (r4b.SupplyDelivery, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.SupplyDelivery{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SupplyDelivery"}
+		return r4b.SupplyDelivery{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for SupplyDelivery")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "SupplyDelivery", id)
 	if err != nil {
@@ -5217,14 +7406,22 @@ func (w Concrete) ReadSupplyDelivery(ctx context.Context, id string) (r4b.Supply
 	}
 	r, ok := v.(r4b.SupplyDelivery)
 	if !ok {
-		return r4b.SupplyDelivery{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyDelivery", GotType: v.ResourceType()}
+		return r4b.SupplyDelivery{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SupplyDelivery" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadSupplyRequest(ctx context.Context, id string) (r4b.SupplyRequest, capabilities.FHIRError) {
+func (w Concrete) ReadSupplyRequest(ctx context.Context, id string) (r4b.SupplyRequest, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.SupplyRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SupplyRequest"}
+		return r4b.SupplyRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for SupplyRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "SupplyRequest", id)
 	if err != nil {
@@ -5236,14 +7433,22 @@ func (w Concrete) ReadSupplyRequest(ctx context.Context, id string) (r4b.SupplyR
 	}
 	r, ok := v.(r4b.SupplyRequest)
 	if !ok {
-		return r4b.SupplyRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyRequest", GotType: v.ResourceType()}
+		return r4b.SupplyRequest{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SupplyRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadTask(ctx context.Context, id string) (r4b.Task, capabilities.FHIRError) {
+func (w Concrete) ReadTask(ctx context.Context, id string) (r4b.Task, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.Task{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Task"}
+		return r4b.Task{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for Task")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "Task", id)
 	if err != nil {
@@ -5255,14 +7460,22 @@ func (w Concrete) ReadTask(ctx context.Context, id string) (r4b.Task, capabiliti
 	}
 	r, ok := v.(r4b.Task)
 	if !ok {
-		return r4b.Task{}, capabilities.UnexpectedResourceError{ExpectedType: "Task", GotType: v.ResourceType()}
+		return r4b.Task{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Task" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadTerminologyCapabilities(ctx context.Context, id string) (r4b.TerminologyCapabilities, capabilities.FHIRError) {
+func (w Concrete) ReadTerminologyCapabilities(ctx context.Context, id string) (r4b.TerminologyCapabilities, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.TerminologyCapabilities{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "TerminologyCapabilities"}
+		return r4b.TerminologyCapabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for TerminologyCapabilities")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "TerminologyCapabilities", id)
 	if err != nil {
@@ -5274,14 +7487,22 @@ func (w Concrete) ReadTerminologyCapabilities(ctx context.Context, id string) (r
 	}
 	r, ok := v.(r4b.TerminologyCapabilities)
 	if !ok {
-		return r4b.TerminologyCapabilities{}, capabilities.UnexpectedResourceError{ExpectedType: "TerminologyCapabilities", GotType: v.ResourceType()}
+		return r4b.TerminologyCapabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TerminologyCapabilities" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadTestReport(ctx context.Context, id string) (r4b.TestReport, capabilities.FHIRError) {
+func (w Concrete) ReadTestReport(ctx context.Context, id string) (r4b.TestReport, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.TestReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "TestReport"}
+		return r4b.TestReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for TestReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "TestReport", id)
 	if err != nil {
@@ -5293,14 +7514,22 @@ func (w Concrete) ReadTestReport(ctx context.Context, id string) (r4b.TestReport
 	}
 	r, ok := v.(r4b.TestReport)
 	if !ok {
-		return r4b.TestReport{}, capabilities.UnexpectedResourceError{ExpectedType: "TestReport", GotType: v.ResourceType()}
+		return r4b.TestReport{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TestReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadTestScript(ctx context.Context, id string) (r4b.TestScript, capabilities.FHIRError) {
+func (w Concrete) ReadTestScript(ctx context.Context, id string) (r4b.TestScript, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.TestScript{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "TestScript"}
+		return r4b.TestScript{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for TestScript")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "TestScript", id)
 	if err != nil {
@@ -5312,14 +7541,22 @@ func (w Concrete) ReadTestScript(ctx context.Context, id string) (r4b.TestScript
 	}
 	r, ok := v.(r4b.TestScript)
 	if !ok {
-		return r4b.TestScript{}, capabilities.UnexpectedResourceError{ExpectedType: "TestScript", GotType: v.ResourceType()}
+		return r4b.TestScript{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TestScript" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadValueSet(ctx context.Context, id string) (r4b.ValueSet, capabilities.FHIRError) {
+func (w Concrete) ReadValueSet(ctx context.Context, id string) (r4b.ValueSet, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.ValueSet{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ValueSet"}
+		return r4b.ValueSet{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for ValueSet")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "ValueSet", id)
 	if err != nil {
@@ -5331,14 +7568,22 @@ func (w Concrete) ReadValueSet(ctx context.Context, id string) (r4b.ValueSet, ca
 	}
 	r, ok := v.(r4b.ValueSet)
 	if !ok {
-		return r4b.ValueSet{}, capabilities.UnexpectedResourceError{ExpectedType: "ValueSet", GotType: v.ResourceType()}
+		return r4b.ValueSet{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ValueSet" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadVerificationResult(ctx context.Context, id string) (r4b.VerificationResult, capabilities.FHIRError) {
+func (w Concrete) ReadVerificationResult(ctx context.Context, id string) (r4b.VerificationResult, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.VerificationResult{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "VerificationResult"}
+		return r4b.VerificationResult{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for VerificationResult")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "VerificationResult", id)
 	if err != nil {
@@ -5350,14 +7595,22 @@ func (w Concrete) ReadVerificationResult(ctx context.Context, id string) (r4b.Ve
 	}
 	r, ok := v.(r4b.VerificationResult)
 	if !ok {
-		return r4b.VerificationResult{}, capabilities.UnexpectedResourceError{ExpectedType: "VerificationResult", GotType: v.ResourceType()}
+		return r4b.VerificationResult{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "VerificationResult" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r4b.VisionPrescription, capabilities.FHIRError) {
+func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r4b.VisionPrescription, error) {
 	g, ok := w.Generic.(capabilities.GenericRead)
 	if !ok {
-		return r4b.VisionPrescription{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "VisionPrescription"}
+		return r4b.VisionPrescription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Read not implemented for VisionPrescription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Read(ctx, "VisionPrescription", id)
 	if err != nil {
@@ -5369,14 +7622,22 @@ func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r4b.Vi
 	}
 	r, ok := v.(r4b.VisionPrescription)
 	if !ok {
-		return r4b.VisionPrescription{}, capabilities.UnexpectedResourceError{ExpectedType: "VisionPrescription", GotType: v.ResourceType()}
+		return r4b.VisionPrescription{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "VisionPrescription" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return r, nil
 }
-func (w Concrete) UpdateAccount(ctx context.Context, resource r4b.Account) (capabilities.UpdateResult[r4b.Account], capabilities.FHIRError) {
+func (w Concrete) UpdateAccount(ctx context.Context, resource r4b.Account) (capabilities.UpdateResult[r4b.Account], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Account]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Account"}
+		return capabilities.UpdateResult[r4b.Account]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Account")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5389,7 +7650,11 @@ func (w Concrete) UpdateAccount(ctx context.Context, resource r4b.Account) (capa
 	}
 	r, ok := v.(r4b.Account)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Account]{}, capabilities.UnexpectedResourceError{ExpectedType: "Account", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Account]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Account" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Account]{
 
@@ -5397,10 +7662,14 @@ func (w Concrete) UpdateAccount(ctx context.Context, resource r4b.Account) (capa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (capabilities.UpdateResult[r4b.ActivityDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (capabilities.UpdateResult[r4b.ActivityDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ActivityDefinition"}
+		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ActivityDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5413,7 +7682,11 @@ func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4b.Act
 	}
 	r, ok := v.(r4b.ActivityDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ActivityDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ActivityDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ActivityDefinition]{
 
@@ -5421,10 +7694,14 @@ func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4b.Act
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (capabilities.UpdateResult[r4b.AdministrableProductDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (capabilities.UpdateResult[r4b.AdministrableProductDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AdministrableProductDefinition"}
+		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for AdministrableProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5437,7 +7714,11 @@ func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, reso
 	}
 	r, ok := v.(r4b.AdministrableProductDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "AdministrableProductDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AdministrableProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{
 
@@ -5445,10 +7726,14 @@ func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, reso
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (capabilities.UpdateResult[r4b.AdverseEvent], capabilities.FHIRError) {
+func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (capabilities.UpdateResult[r4b.AdverseEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AdverseEvent]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AdverseEvent"}
+		return capabilities.UpdateResult[r4b.AdverseEvent]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for AdverseEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5461,7 +7746,11 @@ func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEv
 	}
 	r, ok := v.(r4b.AdverseEvent)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AdverseEvent]{}, capabilities.UnexpectedResourceError{ExpectedType: "AdverseEvent", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.AdverseEvent]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AdverseEvent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.AdverseEvent]{
 
@@ -5469,10 +7758,14 @@ func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEv
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (capabilities.UpdateResult[r4b.AllergyIntolerance], capabilities.FHIRError) {
+func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (capabilities.UpdateResult[r4b.AllergyIntolerance], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AllergyIntolerance"}
+		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for AllergyIntolerance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5485,7 +7778,11 @@ func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4b.All
 	}
 	r, ok := v.(r4b.AllergyIntolerance)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, capabilities.UnexpectedResourceError{ExpectedType: "AllergyIntolerance", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AllergyIntolerance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.AllergyIntolerance]{
 
@@ -5493,10 +7790,14 @@ func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4b.All
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateAppointment(ctx context.Context, resource r4b.Appointment) (capabilities.UpdateResult[r4b.Appointment], capabilities.FHIRError) {
+func (w Concrete) UpdateAppointment(ctx context.Context, resource r4b.Appointment) (capabilities.UpdateResult[r4b.Appointment], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Appointment]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Appointment"}
+		return capabilities.UpdateResult[r4b.Appointment]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Appointment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5509,7 +7810,11 @@ func (w Concrete) UpdateAppointment(ctx context.Context, resource r4b.Appointmen
 	}
 	r, ok := v.(r4b.Appointment)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Appointment]{}, capabilities.UnexpectedResourceError{ExpectedType: "Appointment", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Appointment]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Appointment" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Appointment]{
 
@@ -5517,10 +7822,14 @@ func (w Concrete) UpdateAppointment(ctx context.Context, resource r4b.Appointmen
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (capabilities.UpdateResult[r4b.AppointmentResponse], capabilities.FHIRError) {
+func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (capabilities.UpdateResult[r4b.AppointmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AppointmentResponse"}
+		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for AppointmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5533,7 +7842,11 @@ func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4b.Ap
 	}
 	r, ok := v.(r4b.AppointmentResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "AppointmentResponse", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AppointmentResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.AppointmentResponse]{
 
@@ -5541,10 +7854,14 @@ func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4b.Ap
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (capabilities.UpdateResult[r4b.AuditEvent], capabilities.FHIRError) {
+func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (capabilities.UpdateResult[r4b.AuditEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AuditEvent]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AuditEvent"}
+		return capabilities.UpdateResult[r4b.AuditEvent]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for AuditEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5557,7 +7874,11 @@ func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent)
 	}
 	r, ok := v.(r4b.AuditEvent)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AuditEvent]{}, capabilities.UnexpectedResourceError{ExpectedType: "AuditEvent", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.AuditEvent]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "AuditEvent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.AuditEvent]{
 
@@ -5565,10 +7886,14 @@ func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateBasic(ctx context.Context, resource r4b.Basic) (capabilities.UpdateResult[r4b.Basic], capabilities.FHIRError) {
+func (w Concrete) UpdateBasic(ctx context.Context, resource r4b.Basic) (capabilities.UpdateResult[r4b.Basic], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Basic]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Basic"}
+		return capabilities.UpdateResult[r4b.Basic]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Basic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5581,7 +7906,11 @@ func (w Concrete) UpdateBasic(ctx context.Context, resource r4b.Basic) (capabili
 	}
 	r, ok := v.(r4b.Basic)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Basic]{}, capabilities.UnexpectedResourceError{ExpectedType: "Basic", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Basic]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Basic" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Basic]{
 
@@ -5589,10 +7918,14 @@ func (w Concrete) UpdateBasic(ctx context.Context, resource r4b.Basic) (capabili
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateBinary(ctx context.Context, resource r4b.Binary) (capabilities.UpdateResult[r4b.Binary], capabilities.FHIRError) {
+func (w Concrete) UpdateBinary(ctx context.Context, resource r4b.Binary) (capabilities.UpdateResult[r4b.Binary], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Binary]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Binary"}
+		return capabilities.UpdateResult[r4b.Binary]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Binary")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5605,7 +7938,11 @@ func (w Concrete) UpdateBinary(ctx context.Context, resource r4b.Binary) (capabi
 	}
 	r, ok := v.(r4b.Binary)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Binary]{}, capabilities.UnexpectedResourceError{ExpectedType: "Binary", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Binary]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Binary" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Binary]{
 
@@ -5613,10 +7950,14 @@ func (w Concrete) UpdateBinary(ctx context.Context, resource r4b.Binary) (capabi
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (capabilities.UpdateResult[r4b.BiologicallyDerivedProduct], capabilities.FHIRError) {
+func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (capabilities.UpdateResult[r4b.BiologicallyDerivedProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "BiologicallyDerivedProduct"}
+		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for BiologicallyDerivedProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5629,7 +7970,11 @@ func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.BiologicallyDerivedProduct)
 	if !ok {
-		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, capabilities.UnexpectedResourceError{ExpectedType: "BiologicallyDerivedProduct", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "BiologicallyDerivedProduct" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{
 
@@ -5637,10 +7982,14 @@ func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (capabilities.UpdateResult[r4b.BodyStructure], capabilities.FHIRError) {
+func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (capabilities.UpdateResult[r4b.BodyStructure], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.BodyStructure]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "BodyStructure"}
+		return capabilities.UpdateResult[r4b.BodyStructure]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for BodyStructure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5653,7 +8002,11 @@ func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4b.BodyStru
 	}
 	r, ok := v.(r4b.BodyStructure)
 	if !ok {
-		return capabilities.UpdateResult[r4b.BodyStructure]{}, capabilities.UnexpectedResourceError{ExpectedType: "BodyStructure", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.BodyStructure]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "BodyStructure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.BodyStructure]{
 
@@ -5661,10 +8014,14 @@ func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4b.BodyStru
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabilities.UpdateResult[r4b.Bundle], capabilities.FHIRError) {
+func (w Concrete) UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabilities.UpdateResult[r4b.Bundle], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Bundle]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Bundle"}
+		return capabilities.UpdateResult[r4b.Bundle]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Bundle")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5677,7 +8034,11 @@ func (w Concrete) UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabi
 	}
 	r, ok := v.(r4b.Bundle)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Bundle]{}, capabilities.UnexpectedResourceError{ExpectedType: "Bundle", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Bundle]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Bundle" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Bundle]{
 
@@ -5685,10 +8046,14 @@ func (w Concrete) UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabi
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (capabilities.UpdateResult[r4b.CapabilityStatement], capabilities.FHIRError) {
+func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (capabilities.UpdateResult[r4b.CapabilityStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CapabilityStatement"}
+		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CapabilityStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5701,7 +8066,11 @@ func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4b.Ca
 	}
 	r, ok := v.(r4b.CapabilityStatement)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, capabilities.UnexpectedResourceError{ExpectedType: "CapabilityStatement", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CapabilityStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CapabilityStatement]{
 
@@ -5709,10 +8078,14 @@ func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4b.Ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (capabilities.UpdateResult[r4b.CarePlan], capabilities.FHIRError) {
+func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (capabilities.UpdateResult[r4b.CarePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CarePlan]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CarePlan"}
+		return capabilities.UpdateResult[r4b.CarePlan]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CarePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5725,7 +8098,11 @@ func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (ca
 	}
 	r, ok := v.(r4b.CarePlan)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CarePlan]{}, capabilities.UnexpectedResourceError{ExpectedType: "CarePlan", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CarePlan]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CarePlan" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CarePlan]{
 
@@ -5733,10 +8110,14 @@ func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (capabilities.UpdateResult[r4b.CareTeam], capabilities.FHIRError) {
+func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (capabilities.UpdateResult[r4b.CareTeam], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CareTeam]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CareTeam"}
+		return capabilities.UpdateResult[r4b.CareTeam]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CareTeam")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5749,7 +8130,11 @@ func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (ca
 	}
 	r, ok := v.(r4b.CareTeam)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CareTeam]{}, capabilities.UnexpectedResourceError{ExpectedType: "CareTeam", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CareTeam]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CareTeam" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CareTeam]{
 
@@ -5757,10 +8142,14 @@ func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (capabilities.UpdateResult[r4b.CatalogEntry], capabilities.FHIRError) {
+func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (capabilities.UpdateResult[r4b.CatalogEntry], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CatalogEntry]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CatalogEntry"}
+		return capabilities.UpdateResult[r4b.CatalogEntry]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CatalogEntry")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5773,7 +8162,11 @@ func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEn
 	}
 	r, ok := v.(r4b.CatalogEntry)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CatalogEntry]{}, capabilities.UnexpectedResourceError{ExpectedType: "CatalogEntry", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CatalogEntry]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CatalogEntry" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CatalogEntry]{
 
@@ -5781,10 +8174,14 @@ func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEn
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem) (capabilities.UpdateResult[r4b.ChargeItem], capabilities.FHIRError) {
+func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem) (capabilities.UpdateResult[r4b.ChargeItem], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ChargeItem]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ChargeItem"}
+		return capabilities.UpdateResult[r4b.ChargeItem]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ChargeItem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5797,7 +8194,11 @@ func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem)
 	}
 	r, ok := v.(r4b.ChargeItem)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ChargeItem]{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItem", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ChargeItem]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ChargeItem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ChargeItem]{
 
@@ -5805,10 +8206,14 @@ func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (capabilities.UpdateResult[r4b.ChargeItemDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (capabilities.UpdateResult[r4b.ChargeItemDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ChargeItemDefinition"}
+		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ChargeItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5821,7 +8226,11 @@ func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.ChargeItemDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItemDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ChargeItemDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ChargeItemDefinition]{
 
@@ -5829,10 +8238,14 @@ func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4b.C
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCitation(ctx context.Context, resource r4b.Citation) (capabilities.UpdateResult[r4b.Citation], capabilities.FHIRError) {
+func (w Concrete) UpdateCitation(ctx context.Context, resource r4b.Citation) (capabilities.UpdateResult[r4b.Citation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Citation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Citation"}
+		return capabilities.UpdateResult[r4b.Citation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Citation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5845,7 +8258,11 @@ func (w Concrete) UpdateCitation(ctx context.Context, resource r4b.Citation) (ca
 	}
 	r, ok := v.(r4b.Citation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Citation]{}, capabilities.UnexpectedResourceError{ExpectedType: "Citation", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Citation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Citation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Citation]{
 
@@ -5853,10 +8270,14 @@ func (w Concrete) UpdateCitation(ctx context.Context, resource r4b.Citation) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateClaim(ctx context.Context, resource r4b.Claim) (capabilities.UpdateResult[r4b.Claim], capabilities.FHIRError) {
+func (w Concrete) UpdateClaim(ctx context.Context, resource r4b.Claim) (capabilities.UpdateResult[r4b.Claim], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Claim]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Claim"}
+		return capabilities.UpdateResult[r4b.Claim]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Claim")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5869,7 +8290,11 @@ func (w Concrete) UpdateClaim(ctx context.Context, resource r4b.Claim) (capabili
 	}
 	r, ok := v.(r4b.Claim)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Claim]{}, capabilities.UnexpectedResourceError{ExpectedType: "Claim", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Claim]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Claim" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Claim]{
 
@@ -5877,10 +8302,14 @@ func (w Concrete) UpdateClaim(ctx context.Context, resource r4b.Claim) (capabili
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (capabilities.UpdateResult[r4b.ClaimResponse], capabilities.FHIRError) {
+func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (capabilities.UpdateResult[r4b.ClaimResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClaimResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClaimResponse"}
+		return capabilities.UpdateResult[r4b.ClaimResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ClaimResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5893,7 +8322,11 @@ func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4b.ClaimRes
 	}
 	r, ok := v.(r4b.ClaimResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClaimResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "ClaimResponse", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ClaimResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClaimResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ClaimResponse]{
 
@@ -5901,10 +8334,14 @@ func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4b.ClaimRes
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (capabilities.UpdateResult[r4b.ClinicalImpression], capabilities.FHIRError) {
+func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (capabilities.UpdateResult[r4b.ClinicalImpression], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClinicalImpression"}
+		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ClinicalImpression")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5917,7 +8354,11 @@ func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4b.Cli
 	}
 	r, ok := v.(r4b.ClinicalImpression)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalImpression", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClinicalImpression" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ClinicalImpression]{
 
@@ -5925,10 +8366,14 @@ func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4b.Cli
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (capabilities.UpdateResult[r4b.ClinicalUseDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (capabilities.UpdateResult[r4b.ClinicalUseDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClinicalUseDefinition"}
+		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ClinicalUseDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5941,7 +8386,11 @@ func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ClinicalUseDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalUseDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ClinicalUseDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{
 
@@ -5949,10 +8398,14 @@ func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r4b.
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (capabilities.UpdateResult[r4b.CodeSystem], capabilities.FHIRError) {
+func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (capabilities.UpdateResult[r4b.CodeSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CodeSystem]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CodeSystem"}
+		return capabilities.UpdateResult[r4b.CodeSystem]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CodeSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5965,7 +8418,11 @@ func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem)
 	}
 	r, ok := v.(r4b.CodeSystem)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CodeSystem]{}, capabilities.UnexpectedResourceError{ExpectedType: "CodeSystem", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CodeSystem]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CodeSystem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CodeSystem]{
 
@@ -5973,10 +8430,14 @@ func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCommunication(ctx context.Context, resource r4b.Communication) (capabilities.UpdateResult[r4b.Communication], capabilities.FHIRError) {
+func (w Concrete) UpdateCommunication(ctx context.Context, resource r4b.Communication) (capabilities.UpdateResult[r4b.Communication], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Communication]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Communication"}
+		return capabilities.UpdateResult[r4b.Communication]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Communication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -5989,7 +8450,11 @@ func (w Concrete) UpdateCommunication(ctx context.Context, resource r4b.Communic
 	}
 	r, ok := v.(r4b.Communication)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Communication]{}, capabilities.UnexpectedResourceError{ExpectedType: "Communication", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Communication]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Communication" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Communication]{
 
@@ -5997,10 +8462,14 @@ func (w Concrete) UpdateCommunication(ctx context.Context, resource r4b.Communic
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (capabilities.UpdateResult[r4b.CommunicationRequest], capabilities.FHIRError) {
+func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (capabilities.UpdateResult[r4b.CommunicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CommunicationRequest"}
+		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CommunicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6013,7 +8482,11 @@ func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.CommunicationRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "CommunicationRequest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CommunicationRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CommunicationRequest]{
 
@@ -6021,10 +8494,14 @@ func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4b.C
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (capabilities.UpdateResult[r4b.CompartmentDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (capabilities.UpdateResult[r4b.CompartmentDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CompartmentDefinition"}
+		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CompartmentDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6037,7 +8514,11 @@ func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.CompartmentDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "CompartmentDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CompartmentDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CompartmentDefinition]{
 
@@ -6045,10 +8526,14 @@ func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4b.
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateComposition(ctx context.Context, resource r4b.Composition) (capabilities.UpdateResult[r4b.Composition], capabilities.FHIRError) {
+func (w Concrete) UpdateComposition(ctx context.Context, resource r4b.Composition) (capabilities.UpdateResult[r4b.Composition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Composition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Composition"}
+		return capabilities.UpdateResult[r4b.Composition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Composition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6061,7 +8546,11 @@ func (w Concrete) UpdateComposition(ctx context.Context, resource r4b.Compositio
 	}
 	r, ok := v.(r4b.Composition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Composition]{}, capabilities.UnexpectedResourceError{ExpectedType: "Composition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Composition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Composition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Composition]{
 
@@ -6069,10 +8558,14 @@ func (w Concrete) UpdateComposition(ctx context.Context, resource r4b.Compositio
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap) (capabilities.UpdateResult[r4b.ConceptMap], capabilities.FHIRError) {
+func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap) (capabilities.UpdateResult[r4b.ConceptMap], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ConceptMap]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ConceptMap"}
+		return capabilities.UpdateResult[r4b.ConceptMap]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ConceptMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6085,7 +8578,11 @@ func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap)
 	}
 	r, ok := v.(r4b.ConceptMap)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ConceptMap]{}, capabilities.UnexpectedResourceError{ExpectedType: "ConceptMap", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ConceptMap]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ConceptMap" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ConceptMap]{
 
@@ -6093,10 +8590,14 @@ func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCondition(ctx context.Context, resource r4b.Condition) (capabilities.UpdateResult[r4b.Condition], capabilities.FHIRError) {
+func (w Concrete) UpdateCondition(ctx context.Context, resource r4b.Condition) (capabilities.UpdateResult[r4b.Condition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Condition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Condition"}
+		return capabilities.UpdateResult[r4b.Condition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Condition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6109,7 +8610,11 @@ func (w Concrete) UpdateCondition(ctx context.Context, resource r4b.Condition) (
 	}
 	r, ok := v.(r4b.Condition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Condition]{}, capabilities.UnexpectedResourceError{ExpectedType: "Condition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Condition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Condition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Condition]{
 
@@ -6117,10 +8622,14 @@ func (w Concrete) UpdateCondition(ctx context.Context, resource r4b.Condition) (
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateConsent(ctx context.Context, resource r4b.Consent) (capabilities.UpdateResult[r4b.Consent], capabilities.FHIRError) {
+func (w Concrete) UpdateConsent(ctx context.Context, resource r4b.Consent) (capabilities.UpdateResult[r4b.Consent], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Consent]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Consent"}
+		return capabilities.UpdateResult[r4b.Consent]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Consent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6133,7 +8642,11 @@ func (w Concrete) UpdateConsent(ctx context.Context, resource r4b.Consent) (capa
 	}
 	r, ok := v.(r4b.Consent)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Consent]{}, capabilities.UnexpectedResourceError{ExpectedType: "Consent", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Consent]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Consent" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Consent]{
 
@@ -6141,10 +8654,14 @@ func (w Concrete) UpdateConsent(ctx context.Context, resource r4b.Consent) (capa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateContract(ctx context.Context, resource r4b.Contract) (capabilities.UpdateResult[r4b.Contract], capabilities.FHIRError) {
+func (w Concrete) UpdateContract(ctx context.Context, resource r4b.Contract) (capabilities.UpdateResult[r4b.Contract], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Contract]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Contract"}
+		return capabilities.UpdateResult[r4b.Contract]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Contract")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6157,7 +8674,11 @@ func (w Concrete) UpdateContract(ctx context.Context, resource r4b.Contract) (ca
 	}
 	r, ok := v.(r4b.Contract)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Contract]{}, capabilities.UnexpectedResourceError{ExpectedType: "Contract", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Contract]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Contract" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Contract]{
 
@@ -6165,10 +8686,14 @@ func (w Concrete) UpdateContract(ctx context.Context, resource r4b.Contract) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCoverage(ctx context.Context, resource r4b.Coverage) (capabilities.UpdateResult[r4b.Coverage], capabilities.FHIRError) {
+func (w Concrete) UpdateCoverage(ctx context.Context, resource r4b.Coverage) (capabilities.UpdateResult[r4b.Coverage], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Coverage]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Coverage"}
+		return capabilities.UpdateResult[r4b.Coverage]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Coverage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6181,7 +8706,11 @@ func (w Concrete) UpdateCoverage(ctx context.Context, resource r4b.Coverage) (ca
 	}
 	r, ok := v.(r4b.Coverage)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Coverage]{}, capabilities.UnexpectedResourceError{ExpectedType: "Coverage", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Coverage]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Coverage" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Coverage]{
 
@@ -6189,10 +8718,14 @@ func (w Concrete) UpdateCoverage(ctx context.Context, resource r4b.Coverage) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (capabilities.UpdateResult[r4b.CoverageEligibilityRequest], capabilities.FHIRError) {
+func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (capabilities.UpdateResult[r4b.CoverageEligibilityRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CoverageEligibilityRequest"}
+		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CoverageEligibilityRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6205,7 +8738,11 @@ func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.CoverageEligibilityRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityRequest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CoverageEligibilityRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{
 
@@ -6213,10 +8750,14 @@ func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (capabilities.UpdateResult[r4b.CoverageEligibilityResponse], capabilities.FHIRError) {
+func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (capabilities.UpdateResult[r4b.CoverageEligibilityResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CoverageEligibilityResponse"}
+		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for CoverageEligibilityResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6229,7 +8770,11 @@ func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resourc
 	}
 	r, ok := v.(r4b.CoverageEligibilityResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityResponse", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "CoverageEligibilityResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{
 
@@ -6237,10 +8782,14 @@ func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resourc
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (capabilities.UpdateResult[r4b.DetectedIssue], capabilities.FHIRError) {
+func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (capabilities.UpdateResult[r4b.DetectedIssue], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DetectedIssue]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DetectedIssue"}
+		return capabilities.UpdateResult[r4b.DetectedIssue]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DetectedIssue")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6253,7 +8802,11 @@ func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4b.Detected
 	}
 	r, ok := v.(r4b.DetectedIssue)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DetectedIssue]{}, capabilities.UnexpectedResourceError{ExpectedType: "DetectedIssue", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DetectedIssue]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DetectedIssue" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DetectedIssue]{
 
@@ -6261,10 +8814,14 @@ func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4b.Detected
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDevice(ctx context.Context, resource r4b.Device) (capabilities.UpdateResult[r4b.Device], capabilities.FHIRError) {
+func (w Concrete) UpdateDevice(ctx context.Context, resource r4b.Device) (capabilities.UpdateResult[r4b.Device], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Device]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Device"}
+		return capabilities.UpdateResult[r4b.Device]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Device")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6277,7 +8834,11 @@ func (w Concrete) UpdateDevice(ctx context.Context, resource r4b.Device) (capabi
 	}
 	r, ok := v.(r4b.Device)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Device]{}, capabilities.UnexpectedResourceError{ExpectedType: "Device", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Device]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Device" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Device]{
 
@@ -6285,10 +8846,14 @@ func (w Concrete) UpdateDevice(ctx context.Context, resource r4b.Device) (capabi
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (capabilities.UpdateResult[r4b.DeviceDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (capabilities.UpdateResult[r4b.DeviceDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceDefinition"}
+		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DeviceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6301,7 +8866,11 @@ func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4b.Devic
 	}
 	r, ok := v.(r4b.DeviceDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DeviceDefinition]{
 
@@ -6309,10 +8878,14 @@ func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4b.Devic
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (capabilities.UpdateResult[r4b.DeviceMetric], capabilities.FHIRError) {
+func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (capabilities.UpdateResult[r4b.DeviceMetric], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceMetric]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceMetric"}
+		return capabilities.UpdateResult[r4b.DeviceMetric]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DeviceMetric")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6325,7 +8898,11 @@ func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMet
 	}
 	r, ok := v.(r4b.DeviceMetric)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceMetric]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceMetric", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DeviceMetric]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceMetric" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DeviceMetric]{
 
@@ -6333,10 +8910,14 @@ func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMet
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (capabilities.UpdateResult[r4b.DeviceRequest], capabilities.FHIRError) {
+func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (capabilities.UpdateResult[r4b.DeviceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceRequest"}
+		return capabilities.UpdateResult[r4b.DeviceRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DeviceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6349,7 +8930,11 @@ func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRe
 	}
 	r, ok := v.(r4b.DeviceRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceRequest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DeviceRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DeviceRequest]{
 
@@ -6357,10 +8942,14 @@ func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRe
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (capabilities.UpdateResult[r4b.DeviceUseStatement], capabilities.FHIRError) {
+func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (capabilities.UpdateResult[r4b.DeviceUseStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceUseStatement"}
+		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DeviceUseStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6373,7 +8962,11 @@ func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4b.Dev
 	}
 	r, ok := v.(r4b.DeviceUseStatement)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceUseStatement", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DeviceUseStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DeviceUseStatement]{
 
@@ -6381,10 +8974,14 @@ func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4b.Dev
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (capabilities.UpdateResult[r4b.DiagnosticReport], capabilities.FHIRError) {
+func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (capabilities.UpdateResult[r4b.DiagnosticReport], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DiagnosticReport"}
+		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DiagnosticReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6397,7 +8994,11 @@ func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4b.Diagn
 	}
 	r, ok := v.(r4b.DiagnosticReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "DiagnosticReport", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DiagnosticReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DiagnosticReport]{
 
@@ -6405,10 +9006,14 @@ func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4b.Diagn
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (capabilities.UpdateResult[r4b.DocumentManifest], capabilities.FHIRError) {
+func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (capabilities.UpdateResult[r4b.DocumentManifest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DocumentManifest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DocumentManifest"}
+		return capabilities.UpdateResult[r4b.DocumentManifest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DocumentManifest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6421,7 +9026,11 @@ func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4b.Docum
 	}
 	r, ok := v.(r4b.DocumentManifest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DocumentManifest]{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentManifest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DocumentManifest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DocumentManifest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DocumentManifest]{
 
@@ -6429,10 +9038,14 @@ func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4b.Docum
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (capabilities.UpdateResult[r4b.DocumentReference], capabilities.FHIRError) {
+func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (capabilities.UpdateResult[r4b.DocumentReference], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DocumentReference]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DocumentReference"}
+		return capabilities.UpdateResult[r4b.DocumentReference]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for DocumentReference")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6445,7 +9058,11 @@ func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4b.Docu
 	}
 	r, ok := v.(r4b.DocumentReference)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DocumentReference]{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentReference", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.DocumentReference]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "DocumentReference" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.DocumentReference]{
 
@@ -6453,10 +9070,14 @@ func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4b.Docu
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEncounter(ctx context.Context, resource r4b.Encounter) (capabilities.UpdateResult[r4b.Encounter], capabilities.FHIRError) {
+func (w Concrete) UpdateEncounter(ctx context.Context, resource r4b.Encounter) (capabilities.UpdateResult[r4b.Encounter], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Encounter]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Encounter"}
+		return capabilities.UpdateResult[r4b.Encounter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Encounter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6469,7 +9090,11 @@ func (w Concrete) UpdateEncounter(ctx context.Context, resource r4b.Encounter) (
 	}
 	r, ok := v.(r4b.Encounter)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Encounter]{}, capabilities.UnexpectedResourceError{ExpectedType: "Encounter", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Encounter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Encounter" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Encounter]{
 
@@ -6477,10 +9102,14 @@ func (w Concrete) UpdateEncounter(ctx context.Context, resource r4b.Encounter) (
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (capabilities.UpdateResult[r4b.Endpoint], capabilities.FHIRError) {
+func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (capabilities.UpdateResult[r4b.Endpoint], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Endpoint]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Endpoint"}
+		return capabilities.UpdateResult[r4b.Endpoint]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Endpoint")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6493,7 +9122,11 @@ func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (ca
 	}
 	r, ok := v.(r4b.Endpoint)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Endpoint]{}, capabilities.UnexpectedResourceError{ExpectedType: "Endpoint", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Endpoint]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Endpoint" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Endpoint]{
 
@@ -6501,10 +9134,14 @@ func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (capabilities.UpdateResult[r4b.EnrollmentRequest], capabilities.FHIRError) {
+func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (capabilities.UpdateResult[r4b.EnrollmentRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EnrollmentRequest"}
+		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for EnrollmentRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6517,7 +9154,11 @@ func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4b.Enro
 	}
 	r, ok := v.(r4b.EnrollmentRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentRequest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EnrollmentRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.EnrollmentRequest]{
 
@@ -6525,10 +9166,14 @@ func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4b.Enro
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (capabilities.UpdateResult[r4b.EnrollmentResponse], capabilities.FHIRError) {
+func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (capabilities.UpdateResult[r4b.EnrollmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EnrollmentResponse"}
+		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for EnrollmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6541,7 +9186,11 @@ func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4b.Enr
 	}
 	r, ok := v.(r4b.EnrollmentResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentResponse", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EnrollmentResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.EnrollmentResponse]{
 
@@ -6549,10 +9198,14 @@ func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4b.Enr
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (capabilities.UpdateResult[r4b.EpisodeOfCare], capabilities.FHIRError) {
+func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (capabilities.UpdateResult[r4b.EpisodeOfCare], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EpisodeOfCare"}
+		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for EpisodeOfCare")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6565,7 +9218,11 @@ func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeO
 	}
 	r, ok := v.(r4b.EpisodeOfCare)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, capabilities.UnexpectedResourceError{ExpectedType: "EpisodeOfCare", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EpisodeOfCare" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.EpisodeOfCare]{
 
@@ -6573,10 +9230,14 @@ func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeO
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (capabilities.UpdateResult[r4b.EventDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (capabilities.UpdateResult[r4b.EventDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EventDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EventDefinition"}
+		return capabilities.UpdateResult[r4b.EventDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for EventDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6589,7 +9250,11 @@ func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4b.EventD
 	}
 	r, ok := v.(r4b.EventDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EventDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "EventDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.EventDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EventDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.EventDefinition]{
 
@@ -6597,10 +9262,14 @@ func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4b.EventD
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEvidence(ctx context.Context, resource r4b.Evidence) (capabilities.UpdateResult[r4b.Evidence], capabilities.FHIRError) {
+func (w Concrete) UpdateEvidence(ctx context.Context, resource r4b.Evidence) (capabilities.UpdateResult[r4b.Evidence], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Evidence]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Evidence"}
+		return capabilities.UpdateResult[r4b.Evidence]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Evidence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6613,7 +9282,11 @@ func (w Concrete) UpdateEvidence(ctx context.Context, resource r4b.Evidence) (ca
 	}
 	r, ok := v.(r4b.Evidence)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Evidence]{}, capabilities.UnexpectedResourceError{ExpectedType: "Evidence", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Evidence]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Evidence" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Evidence]{
 
@@ -6621,10 +9294,14 @@ func (w Concrete) UpdateEvidence(ctx context.Context, resource r4b.Evidence) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (capabilities.UpdateResult[r4b.EvidenceReport], capabilities.FHIRError) {
+func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (capabilities.UpdateResult[r4b.EvidenceReport], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EvidenceReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EvidenceReport"}
+		return capabilities.UpdateResult[r4b.EvidenceReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for EvidenceReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6637,7 +9314,11 @@ func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r4b.Evidenc
 	}
 	r, ok := v.(r4b.EvidenceReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EvidenceReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceReport", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.EvidenceReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EvidenceReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.EvidenceReport]{
 
@@ -6645,10 +9326,14 @@ func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r4b.Evidenc
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (capabilities.UpdateResult[r4b.EvidenceVariable], capabilities.FHIRError) {
+func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (capabilities.UpdateResult[r4b.EvidenceVariable], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EvidenceVariable"}
+		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for EvidenceVariable")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6661,7 +9346,11 @@ func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4b.Evide
 	}
 	r, ok := v.(r4b.EvidenceVariable)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceVariable", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "EvidenceVariable" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.EvidenceVariable]{
 
@@ -6669,10 +9358,14 @@ func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4b.Evide
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (capabilities.UpdateResult[r4b.ExampleScenario], capabilities.FHIRError) {
+func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (capabilities.UpdateResult[r4b.ExampleScenario], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ExampleScenario]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ExampleScenario"}
+		return capabilities.UpdateResult[r4b.ExampleScenario]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ExampleScenario")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6685,7 +9378,11 @@ func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4b.Exampl
 	}
 	r, ok := v.(r4b.ExampleScenario)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ExampleScenario]{}, capabilities.UnexpectedResourceError{ExpectedType: "ExampleScenario", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ExampleScenario]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ExampleScenario" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ExampleScenario]{
 
@@ -6693,10 +9390,14 @@ func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4b.Exampl
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (capabilities.UpdateResult[r4b.ExplanationOfBenefit], capabilities.FHIRError) {
+func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (capabilities.UpdateResult[r4b.ExplanationOfBenefit], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ExplanationOfBenefit"}
+		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ExplanationOfBenefit")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6709,7 +9410,11 @@ func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4b.E
 	}
 	r, ok := v.(r4b.ExplanationOfBenefit)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, capabilities.UnexpectedResourceError{ExpectedType: "ExplanationOfBenefit", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ExplanationOfBenefit" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{
 
@@ -6717,10 +9422,14 @@ func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4b.E
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (capabilities.UpdateResult[r4b.FamilyMemberHistory], capabilities.FHIRError) {
+func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (capabilities.UpdateResult[r4b.FamilyMemberHistory], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "FamilyMemberHistory"}
+		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for FamilyMemberHistory")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6733,7 +9442,11 @@ func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4b.Fa
 	}
 	r, ok := v.(r4b.FamilyMemberHistory)
 	if !ok {
-		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, capabilities.UnexpectedResourceError{ExpectedType: "FamilyMemberHistory", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "FamilyMemberHistory" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.FamilyMemberHistory]{
 
@@ -6741,10 +9454,14 @@ func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4b.Fa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateFlag(ctx context.Context, resource r4b.Flag) (capabilities.UpdateResult[r4b.Flag], capabilities.FHIRError) {
+func (w Concrete) UpdateFlag(ctx context.Context, resource r4b.Flag) (capabilities.UpdateResult[r4b.Flag], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Flag]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Flag"}
+		return capabilities.UpdateResult[r4b.Flag]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Flag")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6757,7 +9474,11 @@ func (w Concrete) UpdateFlag(ctx context.Context, resource r4b.Flag) (capabiliti
 	}
 	r, ok := v.(r4b.Flag)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Flag]{}, capabilities.UnexpectedResourceError{ExpectedType: "Flag", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Flag]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Flag" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Flag]{
 
@@ -6765,10 +9486,14 @@ func (w Concrete) UpdateFlag(ctx context.Context, resource r4b.Flag) (capabiliti
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateGoal(ctx context.Context, resource r4b.Goal) (capabilities.UpdateResult[r4b.Goal], capabilities.FHIRError) {
+func (w Concrete) UpdateGoal(ctx context.Context, resource r4b.Goal) (capabilities.UpdateResult[r4b.Goal], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Goal]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Goal"}
+		return capabilities.UpdateResult[r4b.Goal]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Goal")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6781,7 +9506,11 @@ func (w Concrete) UpdateGoal(ctx context.Context, resource r4b.Goal) (capabiliti
 	}
 	r, ok := v.(r4b.Goal)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Goal]{}, capabilities.UnexpectedResourceError{ExpectedType: "Goal", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Goal]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Goal" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Goal]{
 
@@ -6789,10 +9518,14 @@ func (w Concrete) UpdateGoal(ctx context.Context, resource r4b.Goal) (capabiliti
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (capabilities.UpdateResult[r4b.GraphDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (capabilities.UpdateResult[r4b.GraphDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.GraphDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "GraphDefinition"}
+		return capabilities.UpdateResult[r4b.GraphDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for GraphDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6805,7 +9538,11 @@ func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4b.GraphD
 	}
 	r, ok := v.(r4b.GraphDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.GraphDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "GraphDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.GraphDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "GraphDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.GraphDefinition]{
 
@@ -6813,10 +9550,14 @@ func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4b.GraphD
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateGroup(ctx context.Context, resource r4b.Group) (capabilities.UpdateResult[r4b.Group], capabilities.FHIRError) {
+func (w Concrete) UpdateGroup(ctx context.Context, resource r4b.Group) (capabilities.UpdateResult[r4b.Group], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Group]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Group"}
+		return capabilities.UpdateResult[r4b.Group]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Group")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6829,7 +9570,11 @@ func (w Concrete) UpdateGroup(ctx context.Context, resource r4b.Group) (capabili
 	}
 	r, ok := v.(r4b.Group)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Group]{}, capabilities.UnexpectedResourceError{ExpectedType: "Group", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Group]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Group" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Group]{
 
@@ -6837,10 +9582,14 @@ func (w Concrete) UpdateGroup(ctx context.Context, resource r4b.Group) (capabili
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (capabilities.UpdateResult[r4b.GuidanceResponse], capabilities.FHIRError) {
+func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (capabilities.UpdateResult[r4b.GuidanceResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "GuidanceResponse"}
+		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for GuidanceResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6853,7 +9602,11 @@ func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4b.Guida
 	}
 	r, ok := v.(r4b.GuidanceResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "GuidanceResponse", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "GuidanceResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.GuidanceResponse]{
 
@@ -6861,10 +9614,14 @@ func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4b.Guida
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (capabilities.UpdateResult[r4b.HealthcareService], capabilities.FHIRError) {
+func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (capabilities.UpdateResult[r4b.HealthcareService], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.HealthcareService]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "HealthcareService"}
+		return capabilities.UpdateResult[r4b.HealthcareService]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for HealthcareService")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6877,7 +9634,11 @@ func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4b.Heal
 	}
 	r, ok := v.(r4b.HealthcareService)
 	if !ok {
-		return capabilities.UpdateResult[r4b.HealthcareService]{}, capabilities.UnexpectedResourceError{ExpectedType: "HealthcareService", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.HealthcareService]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "HealthcareService" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.HealthcareService]{
 
@@ -6885,10 +9646,14 @@ func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4b.Heal
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (capabilities.UpdateResult[r4b.ImagingStudy], capabilities.FHIRError) {
+func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (capabilities.UpdateResult[r4b.ImagingStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImagingStudy]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImagingStudy"}
+		return capabilities.UpdateResult[r4b.ImagingStudy]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ImagingStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6901,7 +9666,11 @@ func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4b.ImagingSt
 	}
 	r, ok := v.(r4b.ImagingStudy)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImagingStudy]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImagingStudy", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ImagingStudy]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImagingStudy" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ImagingStudy]{
 
@@ -6909,10 +9678,14 @@ func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4b.ImagingSt
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateImmunization(ctx context.Context, resource r4b.Immunization) (capabilities.UpdateResult[r4b.Immunization], capabilities.FHIRError) {
+func (w Concrete) UpdateImmunization(ctx context.Context, resource r4b.Immunization) (capabilities.UpdateResult[r4b.Immunization], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Immunization]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Immunization"}
+		return capabilities.UpdateResult[r4b.Immunization]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Immunization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6925,7 +9698,11 @@ func (w Concrete) UpdateImmunization(ctx context.Context, resource r4b.Immunizat
 	}
 	r, ok := v.(r4b.Immunization)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Immunization]{}, capabilities.UnexpectedResourceError{ExpectedType: "Immunization", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Immunization]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Immunization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Immunization]{
 
@@ -6933,10 +9710,14 @@ func (w Concrete) UpdateImmunization(ctx context.Context, resource r4b.Immunizat
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (capabilities.UpdateResult[r4b.ImmunizationEvaluation], capabilities.FHIRError) {
+func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (capabilities.UpdateResult[r4b.ImmunizationEvaluation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImmunizationEvaluation"}
+		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ImmunizationEvaluation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6949,7 +9730,11 @@ func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.ImmunizationEvaluation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationEvaluation", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImmunizationEvaluation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{
 
@@ -6957,10 +9742,14 @@ func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4b
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (capabilities.UpdateResult[r4b.ImmunizationRecommendation], capabilities.FHIRError) {
+func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (capabilities.UpdateResult[r4b.ImmunizationRecommendation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImmunizationRecommendation"}
+		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ImmunizationRecommendation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6973,7 +9762,11 @@ func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ImmunizationRecommendation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationRecommendation", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImmunizationRecommendation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{
 
@@ -6981,10 +9774,14 @@ func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (capabilities.UpdateResult[r4b.ImplementationGuide], capabilities.FHIRError) {
+func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (capabilities.UpdateResult[r4b.ImplementationGuide], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImplementationGuide"}
+		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ImplementationGuide")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -6997,7 +9794,11 @@ func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4b.Im
 	}
 	r, ok := v.(r4b.ImplementationGuide)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImplementationGuide", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ImplementationGuide" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ImplementationGuide]{
 
@@ -7005,10 +9806,14 @@ func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4b.Im
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateIngredient(ctx context.Context, resource r4b.Ingredient) (capabilities.UpdateResult[r4b.Ingredient], capabilities.FHIRError) {
+func (w Concrete) UpdateIngredient(ctx context.Context, resource r4b.Ingredient) (capabilities.UpdateResult[r4b.Ingredient], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Ingredient]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Ingredient"}
+		return capabilities.UpdateResult[r4b.Ingredient]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Ingredient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7021,7 +9826,11 @@ func (w Concrete) UpdateIngredient(ctx context.Context, resource r4b.Ingredient)
 	}
 	r, ok := v.(r4b.Ingredient)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Ingredient]{}, capabilities.UnexpectedResourceError{ExpectedType: "Ingredient", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Ingredient]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Ingredient" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Ingredient]{
 
@@ -7029,10 +9838,14 @@ func (w Concrete) UpdateIngredient(ctx context.Context, resource r4b.Ingredient)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (capabilities.UpdateResult[r4b.InsurancePlan], capabilities.FHIRError) {
+func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (capabilities.UpdateResult[r4b.InsurancePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.InsurancePlan]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "InsurancePlan"}
+		return capabilities.UpdateResult[r4b.InsurancePlan]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for InsurancePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7045,7 +9858,11 @@ func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4b.Insuranc
 	}
 	r, ok := v.(r4b.InsurancePlan)
 	if !ok {
-		return capabilities.UpdateResult[r4b.InsurancePlan]{}, capabilities.UnexpectedResourceError{ExpectedType: "InsurancePlan", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.InsurancePlan]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "InsurancePlan" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.InsurancePlan]{
 
@@ -7053,10 +9870,14 @@ func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4b.Insuranc
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capabilities.UpdateResult[r4b.Invoice], capabilities.FHIRError) {
+func (w Concrete) UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capabilities.UpdateResult[r4b.Invoice], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Invoice]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Invoice"}
+		return capabilities.UpdateResult[r4b.Invoice]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Invoice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7069,7 +9890,11 @@ func (w Concrete) UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capa
 	}
 	r, ok := v.(r4b.Invoice)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Invoice]{}, capabilities.UnexpectedResourceError{ExpectedType: "Invoice", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Invoice]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Invoice" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Invoice]{
 
@@ -7077,10 +9902,14 @@ func (w Concrete) UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateLibrary(ctx context.Context, resource r4b.Library) (capabilities.UpdateResult[r4b.Library], capabilities.FHIRError) {
+func (w Concrete) UpdateLibrary(ctx context.Context, resource r4b.Library) (capabilities.UpdateResult[r4b.Library], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Library]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Library"}
+		return capabilities.UpdateResult[r4b.Library]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Library")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7093,7 +9922,11 @@ func (w Concrete) UpdateLibrary(ctx context.Context, resource r4b.Library) (capa
 	}
 	r, ok := v.(r4b.Library)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Library]{}, capabilities.UnexpectedResourceError{ExpectedType: "Library", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Library]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Library" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Library]{
 
@@ -7101,10 +9934,14 @@ func (w Concrete) UpdateLibrary(ctx context.Context, resource r4b.Library) (capa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capabilities.UpdateResult[r4b.Linkage], capabilities.FHIRError) {
+func (w Concrete) UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capabilities.UpdateResult[r4b.Linkage], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Linkage]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Linkage"}
+		return capabilities.UpdateResult[r4b.Linkage]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Linkage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7117,7 +9954,11 @@ func (w Concrete) UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capa
 	}
 	r, ok := v.(r4b.Linkage)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Linkage]{}, capabilities.UnexpectedResourceError{ExpectedType: "Linkage", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Linkage]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Linkage" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Linkage]{
 
@@ -7125,10 +9966,14 @@ func (w Concrete) UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateList(ctx context.Context, resource r4b.List) (capabilities.UpdateResult[r4b.List], capabilities.FHIRError) {
+func (w Concrete) UpdateList(ctx context.Context, resource r4b.List) (capabilities.UpdateResult[r4b.List], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.List]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "List"}
+		return capabilities.UpdateResult[r4b.List]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for List")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7141,7 +9986,11 @@ func (w Concrete) UpdateList(ctx context.Context, resource r4b.List) (capabiliti
 	}
 	r, ok := v.(r4b.List)
 	if !ok {
-		return capabilities.UpdateResult[r4b.List]{}, capabilities.UnexpectedResourceError{ExpectedType: "List", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.List]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "List" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.List]{
 
@@ -7149,10 +9998,14 @@ func (w Concrete) UpdateList(ctx context.Context, resource r4b.List) (capabiliti
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateLocation(ctx context.Context, resource r4b.Location) (capabilities.UpdateResult[r4b.Location], capabilities.FHIRError) {
+func (w Concrete) UpdateLocation(ctx context.Context, resource r4b.Location) (capabilities.UpdateResult[r4b.Location], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Location]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Location"}
+		return capabilities.UpdateResult[r4b.Location]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Location")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7165,7 +10018,11 @@ func (w Concrete) UpdateLocation(ctx context.Context, resource r4b.Location) (ca
 	}
 	r, ok := v.(r4b.Location)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Location]{}, capabilities.UnexpectedResourceError{ExpectedType: "Location", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Location]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Location" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Location]{
 
@@ -7173,10 +10030,14 @@ func (w Concrete) UpdateLocation(ctx context.Context, resource r4b.Location) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (capabilities.UpdateResult[r4b.ManufacturedItemDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (capabilities.UpdateResult[r4b.ManufacturedItemDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ManufacturedItemDefinition"}
+		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ManufacturedItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7189,7 +10050,11 @@ func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ManufacturedItemDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ManufacturedItemDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ManufacturedItemDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{
 
@@ -7197,10 +10062,14 @@ func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMeasure(ctx context.Context, resource r4b.Measure) (capabilities.UpdateResult[r4b.Measure], capabilities.FHIRError) {
+func (w Concrete) UpdateMeasure(ctx context.Context, resource r4b.Measure) (capabilities.UpdateResult[r4b.Measure], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Measure]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Measure"}
+		return capabilities.UpdateResult[r4b.Measure]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Measure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7213,7 +10082,11 @@ func (w Concrete) UpdateMeasure(ctx context.Context, resource r4b.Measure) (capa
 	}
 	r, ok := v.(r4b.Measure)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Measure]{}, capabilities.UnexpectedResourceError{ExpectedType: "Measure", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Measure]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Measure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Measure]{
 
@@ -7221,10 +10094,14 @@ func (w Concrete) UpdateMeasure(ctx context.Context, resource r4b.Measure) (capa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (capabilities.UpdateResult[r4b.MeasureReport], capabilities.FHIRError) {
+func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (capabilities.UpdateResult[r4b.MeasureReport], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MeasureReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MeasureReport"}
+		return capabilities.UpdateResult[r4b.MeasureReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MeasureReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7237,7 +10114,11 @@ func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4b.MeasureR
 	}
 	r, ok := v.(r4b.MeasureReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MeasureReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "MeasureReport", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MeasureReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MeasureReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MeasureReport]{
 
@@ -7245,10 +10126,14 @@ func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4b.MeasureR
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedia(ctx context.Context, resource r4b.Media) (capabilities.UpdateResult[r4b.Media], capabilities.FHIRError) {
+func (w Concrete) UpdateMedia(ctx context.Context, resource r4b.Media) (capabilities.UpdateResult[r4b.Media], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Media]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Media"}
+		return capabilities.UpdateResult[r4b.Media]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Media")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7261,7 +10146,11 @@ func (w Concrete) UpdateMedia(ctx context.Context, resource r4b.Media) (capabili
 	}
 	r, ok := v.(r4b.Media)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Media]{}, capabilities.UnexpectedResourceError{ExpectedType: "Media", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Media]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Media" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Media]{
 
@@ -7269,10 +10158,14 @@ func (w Concrete) UpdateMedia(ctx context.Context, resource r4b.Media) (capabili
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedication(ctx context.Context, resource r4b.Medication) (capabilities.UpdateResult[r4b.Medication], capabilities.FHIRError) {
+func (w Concrete) UpdateMedication(ctx context.Context, resource r4b.Medication) (capabilities.UpdateResult[r4b.Medication], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Medication]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Medication"}
+		return capabilities.UpdateResult[r4b.Medication]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Medication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7285,7 +10178,11 @@ func (w Concrete) UpdateMedication(ctx context.Context, resource r4b.Medication)
 	}
 	r, ok := v.(r4b.Medication)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Medication]{}, capabilities.UnexpectedResourceError{ExpectedType: "Medication", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Medication]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Medication" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Medication]{
 
@@ -7293,10 +10190,14 @@ func (w Concrete) UpdateMedication(ctx context.Context, resource r4b.Medication)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (capabilities.UpdateResult[r4b.MedicationAdministration], capabilities.FHIRError) {
+func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (capabilities.UpdateResult[r4b.MedicationAdministration], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationAdministration"}
+		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MedicationAdministration")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7309,7 +10210,11 @@ func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r
 	}
 	r, ok := v.(r4b.MedicationAdministration)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationAdministration", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationAdministration" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MedicationAdministration]{
 
@@ -7317,10 +10222,14 @@ func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (capabilities.UpdateResult[r4b.MedicationDispense], capabilities.FHIRError) {
+func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (capabilities.UpdateResult[r4b.MedicationDispense], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationDispense]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationDispense"}
+		return capabilities.UpdateResult[r4b.MedicationDispense]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MedicationDispense")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7333,7 +10242,11 @@ func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4b.Med
 	}
 	r, ok := v.(r4b.MedicationDispense)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationDispense]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationDispense", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MedicationDispense]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationDispense" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MedicationDispense]{
 
@@ -7341,10 +10254,14 @@ func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4b.Med
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (capabilities.UpdateResult[r4b.MedicationKnowledge], capabilities.FHIRError) {
+func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (capabilities.UpdateResult[r4b.MedicationKnowledge], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationKnowledge"}
+		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MedicationKnowledge")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7357,7 +10274,11 @@ func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationKnowledge)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationKnowledge", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationKnowledge" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MedicationKnowledge]{
 
@@ -7365,10 +10286,14 @@ func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4b.Me
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (capabilities.UpdateResult[r4b.MedicationRequest], capabilities.FHIRError) {
+func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (capabilities.UpdateResult[r4b.MedicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationRequest"}
+		return capabilities.UpdateResult[r4b.MedicationRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MedicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7381,7 +10306,11 @@ func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4b.Medi
 	}
 	r, ok := v.(r4b.MedicationRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationRequest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MedicationRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MedicationRequest]{
 
@@ -7389,10 +10318,14 @@ func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4b.Medi
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (capabilities.UpdateResult[r4b.MedicationStatement], capabilities.FHIRError) {
+func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (capabilities.UpdateResult[r4b.MedicationStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationStatement]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationStatement"}
+		return capabilities.UpdateResult[r4b.MedicationStatement]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MedicationStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7405,7 +10338,11 @@ func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationStatement)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationStatement]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationStatement", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MedicationStatement]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicationStatement" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MedicationStatement]{
 
@@ -7413,10 +10350,14 @@ func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4b.Me
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (capabilities.UpdateResult[r4b.MedicinalProductDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (capabilities.UpdateResult[r4b.MedicinalProductDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicinalProductDefinition"}
+		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MedicinalProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7429,7 +10370,11 @@ func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.MedicinalProductDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicinalProductDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MedicinalProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{
 
@@ -7437,10 +10382,14 @@ func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (capabilities.UpdateResult[r4b.MessageDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (capabilities.UpdateResult[r4b.MessageDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MessageDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MessageDefinition"}
+		return capabilities.UpdateResult[r4b.MessageDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MessageDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7453,7 +10402,11 @@ func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4b.Mess
 	}
 	r, ok := v.(r4b.MessageDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MessageDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MessageDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MessageDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MessageDefinition]{
 
@@ -7461,10 +10414,14 @@ func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4b.Mess
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (capabilities.UpdateResult[r4b.MessageHeader], capabilities.FHIRError) {
+func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (capabilities.UpdateResult[r4b.MessageHeader], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MessageHeader]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MessageHeader"}
+		return capabilities.UpdateResult[r4b.MessageHeader]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MessageHeader")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7477,7 +10434,11 @@ func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4b.MessageH
 	}
 	r, ok := v.(r4b.MessageHeader)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MessageHeader]{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageHeader", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MessageHeader]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MessageHeader" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MessageHeader]{
 
@@ -7485,10 +10446,14 @@ func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4b.MessageH
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (capabilities.UpdateResult[r4b.MolecularSequence], capabilities.FHIRError) {
+func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (capabilities.UpdateResult[r4b.MolecularSequence], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MolecularSequence]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MolecularSequence"}
+		return capabilities.UpdateResult[r4b.MolecularSequence]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for MolecularSequence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7501,7 +10466,11 @@ func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4b.Mole
 	}
 	r, ok := v.(r4b.MolecularSequence)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MolecularSequence]{}, capabilities.UnexpectedResourceError{ExpectedType: "MolecularSequence", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.MolecularSequence]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "MolecularSequence" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.MolecularSequence]{
 
@@ -7509,10 +10478,14 @@ func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4b.Mole
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (capabilities.UpdateResult[r4b.NamingSystem], capabilities.FHIRError) {
+func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (capabilities.UpdateResult[r4b.NamingSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NamingSystem]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NamingSystem"}
+		return capabilities.UpdateResult[r4b.NamingSystem]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for NamingSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7525,7 +10498,11 @@ func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4b.NamingSys
 	}
 	r, ok := v.(r4b.NamingSystem)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NamingSystem]{}, capabilities.UnexpectedResourceError{ExpectedType: "NamingSystem", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.NamingSystem]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NamingSystem" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.NamingSystem]{
 
@@ -7533,10 +10510,14 @@ func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4b.NamingSys
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (capabilities.UpdateResult[r4b.NutritionOrder], capabilities.FHIRError) {
+func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (capabilities.UpdateResult[r4b.NutritionOrder], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NutritionOrder]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NutritionOrder"}
+		return capabilities.UpdateResult[r4b.NutritionOrder]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for NutritionOrder")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7549,7 +10530,11 @@ func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4b.Nutriti
 	}
 	r, ok := v.(r4b.NutritionOrder)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NutritionOrder]{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionOrder", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.NutritionOrder]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NutritionOrder" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.NutritionOrder]{
 
@@ -7557,10 +10542,14 @@ func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4b.Nutriti
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (capabilities.UpdateResult[r4b.NutritionProduct], capabilities.FHIRError) {
+func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (capabilities.UpdateResult[r4b.NutritionProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NutritionProduct]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NutritionProduct"}
+		return capabilities.UpdateResult[r4b.NutritionProduct]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for NutritionProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7573,7 +10562,11 @@ func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r4b.Nutri
 	}
 	r, ok := v.(r4b.NutritionProduct)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NutritionProduct]{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionProduct", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.NutritionProduct]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "NutritionProduct" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.NutritionProduct]{
 
@@ -7581,10 +10574,14 @@ func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r4b.Nutri
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateObservation(ctx context.Context, resource r4b.Observation) (capabilities.UpdateResult[r4b.Observation], capabilities.FHIRError) {
+func (w Concrete) UpdateObservation(ctx context.Context, resource r4b.Observation) (capabilities.UpdateResult[r4b.Observation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Observation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Observation"}
+		return capabilities.UpdateResult[r4b.Observation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Observation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7597,7 +10594,11 @@ func (w Concrete) UpdateObservation(ctx context.Context, resource r4b.Observatio
 	}
 	r, ok := v.(r4b.Observation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Observation]{}, capabilities.UnexpectedResourceError{ExpectedType: "Observation", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Observation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Observation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Observation]{
 
@@ -7605,10 +10606,14 @@ func (w Concrete) UpdateObservation(ctx context.Context, resource r4b.Observatio
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (capabilities.UpdateResult[r4b.ObservationDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (capabilities.UpdateResult[r4b.ObservationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ObservationDefinition"}
+		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ObservationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7621,7 +10626,11 @@ func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ObservationDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ObservationDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ObservationDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ObservationDefinition]{
 
@@ -7629,10 +10638,14 @@ func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4b.
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (capabilities.UpdateResult[r4b.OperationDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (capabilities.UpdateResult[r4b.OperationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OperationDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OperationDefinition"}
+		return capabilities.UpdateResult[r4b.OperationDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for OperationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7645,7 +10658,11 @@ func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4b.Op
 	}
 	r, ok := v.(r4b.OperationDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OperationDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.OperationDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OperationDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.OperationDefinition]{
 
@@ -7653,10 +10670,14 @@ func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4b.Op
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (capabilities.UpdateResult[r4b.OperationOutcome], capabilities.FHIRError) {
+func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (capabilities.UpdateResult[r4b.OperationOutcome], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OperationOutcome]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OperationOutcome"}
+		return capabilities.UpdateResult[r4b.OperationOutcome]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for OperationOutcome")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7669,7 +10690,11 @@ func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4b.Opera
 	}
 	r, ok := v.(r4b.OperationOutcome)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OperationOutcome]{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationOutcome", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.OperationOutcome]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OperationOutcome" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.OperationOutcome]{
 
@@ -7677,10 +10702,14 @@ func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4b.Opera
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateOrganization(ctx context.Context, resource r4b.Organization) (capabilities.UpdateResult[r4b.Organization], capabilities.FHIRError) {
+func (w Concrete) UpdateOrganization(ctx context.Context, resource r4b.Organization) (capabilities.UpdateResult[r4b.Organization], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Organization]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Organization"}
+		return capabilities.UpdateResult[r4b.Organization]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Organization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7693,7 +10722,11 @@ func (w Concrete) UpdateOrganization(ctx context.Context, resource r4b.Organizat
 	}
 	r, ok := v.(r4b.Organization)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Organization]{}, capabilities.UnexpectedResourceError{ExpectedType: "Organization", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Organization]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Organization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Organization]{
 
@@ -7701,10 +10734,14 @@ func (w Concrete) UpdateOrganization(ctx context.Context, resource r4b.Organizat
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (capabilities.UpdateResult[r4b.OrganizationAffiliation], capabilities.FHIRError) {
+func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (capabilities.UpdateResult[r4b.OrganizationAffiliation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OrganizationAffiliation"}
+		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for OrganizationAffiliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7717,7 +10754,11 @@ func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.OrganizationAffiliation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, capabilities.UnexpectedResourceError{ExpectedType: "OrganizationAffiliation", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "OrganizationAffiliation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.OrganizationAffiliation]{
 
@@ -7725,10 +10766,14 @@ func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (capabilities.UpdateResult[r4b.PackagedProductDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (capabilities.UpdateResult[r4b.PackagedProductDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PackagedProductDefinition"}
+		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for PackagedProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7741,7 +10786,11 @@ func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.PackagedProductDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "PackagedProductDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PackagedProductDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.PackagedProductDefinition]{
 
@@ -7749,10 +10798,14 @@ func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource 
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateParameters(ctx context.Context, resource r4b.Parameters) (capabilities.UpdateResult[r4b.Parameters], capabilities.FHIRError) {
+func (w Concrete) UpdateParameters(ctx context.Context, resource r4b.Parameters) (capabilities.UpdateResult[r4b.Parameters], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Parameters]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Parameters"}
+		return capabilities.UpdateResult[r4b.Parameters]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Parameters")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7765,7 +10818,11 @@ func (w Concrete) UpdateParameters(ctx context.Context, resource r4b.Parameters)
 	}
 	r, ok := v.(r4b.Parameters)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Parameters]{}, capabilities.UnexpectedResourceError{ExpectedType: "Parameters", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Parameters]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Parameters" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Parameters]{
 
@@ -7773,10 +10830,14 @@ func (w Concrete) UpdateParameters(ctx context.Context, resource r4b.Parameters)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePatient(ctx context.Context, resource r4b.Patient) (capabilities.UpdateResult[r4b.Patient], capabilities.FHIRError) {
+func (w Concrete) UpdatePatient(ctx context.Context, resource r4b.Patient) (capabilities.UpdateResult[r4b.Patient], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Patient]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Patient"}
+		return capabilities.UpdateResult[r4b.Patient]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Patient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7789,7 +10850,11 @@ func (w Concrete) UpdatePatient(ctx context.Context, resource r4b.Patient) (capa
 	}
 	r, ok := v.(r4b.Patient)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Patient]{}, capabilities.UnexpectedResourceError{ExpectedType: "Patient", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Patient]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Patient" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Patient]{
 
@@ -7797,10 +10862,14 @@ func (w Concrete) UpdatePatient(ctx context.Context, resource r4b.Patient) (capa
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (capabilities.UpdateResult[r4b.PaymentNotice], capabilities.FHIRError) {
+func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (capabilities.UpdateResult[r4b.PaymentNotice], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PaymentNotice]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PaymentNotice"}
+		return capabilities.UpdateResult[r4b.PaymentNotice]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for PaymentNotice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7813,7 +10882,11 @@ func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentN
 	}
 	r, ok := v.(r4b.PaymentNotice)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PaymentNotice]{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentNotice", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.PaymentNotice]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PaymentNotice" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.PaymentNotice]{
 
@@ -7821,10 +10894,14 @@ func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentN
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (capabilities.UpdateResult[r4b.PaymentReconciliation], capabilities.FHIRError) {
+func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (capabilities.UpdateResult[r4b.PaymentReconciliation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PaymentReconciliation"}
+		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for PaymentReconciliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7837,7 +10914,11 @@ func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.PaymentReconciliation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentReconciliation", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PaymentReconciliation" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.PaymentReconciliation]{
 
@@ -7845,10 +10926,14 @@ func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4b.
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePerson(ctx context.Context, resource r4b.Person) (capabilities.UpdateResult[r4b.Person], capabilities.FHIRError) {
+func (w Concrete) UpdatePerson(ctx context.Context, resource r4b.Person) (capabilities.UpdateResult[r4b.Person], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Person]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Person"}
+		return capabilities.UpdateResult[r4b.Person]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Person")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7861,7 +10946,11 @@ func (w Concrete) UpdatePerson(ctx context.Context, resource r4b.Person) (capabi
 	}
 	r, ok := v.(r4b.Person)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Person]{}, capabilities.UnexpectedResourceError{ExpectedType: "Person", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Person]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Person" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Person]{
 
@@ -7869,10 +10958,14 @@ func (w Concrete) UpdatePerson(ctx context.Context, resource r4b.Person) (capabi
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (capabilities.UpdateResult[r4b.PlanDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (capabilities.UpdateResult[r4b.PlanDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PlanDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PlanDefinition"}
+		return capabilities.UpdateResult[r4b.PlanDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for PlanDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7885,7 +10978,11 @@ func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDef
 	}
 	r, ok := v.(r4b.PlanDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PlanDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "PlanDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.PlanDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PlanDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.PlanDefinition]{
 
@@ -7893,10 +10990,14 @@ func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDef
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4b.Practitioner) (capabilities.UpdateResult[r4b.Practitioner], capabilities.FHIRError) {
+func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4b.Practitioner) (capabilities.UpdateResult[r4b.Practitioner], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Practitioner]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Practitioner"}
+		return capabilities.UpdateResult[r4b.Practitioner]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Practitioner")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7909,7 +11010,11 @@ func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4b.Practitio
 	}
 	r, ok := v.(r4b.Practitioner)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Practitioner]{}, capabilities.UnexpectedResourceError{ExpectedType: "Practitioner", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Practitioner]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Practitioner" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Practitioner]{
 
@@ -7917,10 +11022,14 @@ func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4b.Practitio
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (capabilities.UpdateResult[r4b.PractitionerRole], capabilities.FHIRError) {
+func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (capabilities.UpdateResult[r4b.PractitionerRole], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PractitionerRole]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PractitionerRole"}
+		return capabilities.UpdateResult[r4b.PractitionerRole]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for PractitionerRole")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7933,7 +11042,11 @@ func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4b.Pract
 	}
 	r, ok := v.(r4b.PractitionerRole)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PractitionerRole]{}, capabilities.UnexpectedResourceError{ExpectedType: "PractitionerRole", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.PractitionerRole]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "PractitionerRole" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.PractitionerRole]{
 
@@ -7941,10 +11054,14 @@ func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4b.Pract
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateProcedure(ctx context.Context, resource r4b.Procedure) (capabilities.UpdateResult[r4b.Procedure], capabilities.FHIRError) {
+func (w Concrete) UpdateProcedure(ctx context.Context, resource r4b.Procedure) (capabilities.UpdateResult[r4b.Procedure], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Procedure]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Procedure"}
+		return capabilities.UpdateResult[r4b.Procedure]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Procedure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7957,7 +11074,11 @@ func (w Concrete) UpdateProcedure(ctx context.Context, resource r4b.Procedure) (
 	}
 	r, ok := v.(r4b.Procedure)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Procedure]{}, capabilities.UnexpectedResourceError{ExpectedType: "Procedure", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Procedure]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Procedure" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Procedure]{
 
@@ -7965,10 +11086,14 @@ func (w Concrete) UpdateProcedure(ctx context.Context, resource r4b.Procedure) (
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateProvenance(ctx context.Context, resource r4b.Provenance) (capabilities.UpdateResult[r4b.Provenance], capabilities.FHIRError) {
+func (w Concrete) UpdateProvenance(ctx context.Context, resource r4b.Provenance) (capabilities.UpdateResult[r4b.Provenance], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Provenance]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Provenance"}
+		return capabilities.UpdateResult[r4b.Provenance]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Provenance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -7981,7 +11106,11 @@ func (w Concrete) UpdateProvenance(ctx context.Context, resource r4b.Provenance)
 	}
 	r, ok := v.(r4b.Provenance)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Provenance]{}, capabilities.UnexpectedResourceError{ExpectedType: "Provenance", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Provenance]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Provenance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Provenance]{
 
@@ -7989,10 +11118,14 @@ func (w Concrete) UpdateProvenance(ctx context.Context, resource r4b.Provenance)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (capabilities.UpdateResult[r4b.Questionnaire], capabilities.FHIRError) {
+func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (capabilities.UpdateResult[r4b.Questionnaire], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Questionnaire]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Questionnaire"}
+		return capabilities.UpdateResult[r4b.Questionnaire]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Questionnaire")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8005,7 +11138,11 @@ func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4b.Question
 	}
 	r, ok := v.(r4b.Questionnaire)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Questionnaire]{}, capabilities.UnexpectedResourceError{ExpectedType: "Questionnaire", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Questionnaire]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Questionnaire" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Questionnaire]{
 
@@ -8013,10 +11150,14 @@ func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4b.Question
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (capabilities.UpdateResult[r4b.QuestionnaireResponse], capabilities.FHIRError) {
+func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (capabilities.UpdateResult[r4b.QuestionnaireResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "QuestionnaireResponse"}
+		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for QuestionnaireResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8029,7 +11170,11 @@ func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.QuestionnaireResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "QuestionnaireResponse", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "QuestionnaireResponse" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.QuestionnaireResponse]{
 
@@ -8037,10 +11182,14 @@ func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4b.
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (capabilities.UpdateResult[r4b.RegulatedAuthorization], capabilities.FHIRError) {
+func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (capabilities.UpdateResult[r4b.RegulatedAuthorization], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RegulatedAuthorization"}
+		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for RegulatedAuthorization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8053,7 +11202,11 @@ func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.RegulatedAuthorization)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, capabilities.UnexpectedResourceError{ExpectedType: "RegulatedAuthorization", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RegulatedAuthorization" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.RegulatedAuthorization]{
 
@@ -8061,10 +11214,14 @@ func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r4b
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (capabilities.UpdateResult[r4b.RelatedPerson], capabilities.FHIRError) {
+func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (capabilities.UpdateResult[r4b.RelatedPerson], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RelatedPerson]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RelatedPerson"}
+		return capabilities.UpdateResult[r4b.RelatedPerson]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for RelatedPerson")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8077,7 +11234,11 @@ func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedP
 	}
 	r, ok := v.(r4b.RelatedPerson)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RelatedPerson]{}, capabilities.UnexpectedResourceError{ExpectedType: "RelatedPerson", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.RelatedPerson]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RelatedPerson" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.RelatedPerson]{
 
@@ -8085,10 +11246,14 @@ func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedP
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (capabilities.UpdateResult[r4b.RequestGroup], capabilities.FHIRError) {
+func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (capabilities.UpdateResult[r4b.RequestGroup], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RequestGroup]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RequestGroup"}
+		return capabilities.UpdateResult[r4b.RequestGroup]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for RequestGroup")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8101,7 +11266,11 @@ func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4b.RequestGr
 	}
 	r, ok := v.(r4b.RequestGroup)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RequestGroup]{}, capabilities.UnexpectedResourceError{ExpectedType: "RequestGroup", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.RequestGroup]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RequestGroup" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.RequestGroup]{
 
@@ -8109,10 +11278,14 @@ func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4b.RequestGr
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (capabilities.UpdateResult[r4b.ResearchDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (capabilities.UpdateResult[r4b.ResearchDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchDefinition"}
+		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ResearchDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8125,7 +11298,11 @@ func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4b.Res
 	}
 	r, ok := v.(r4b.ResearchDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ResearchDefinition]{
 
@@ -8133,10 +11310,14 @@ func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4b.Res
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (capabilities.UpdateResult[r4b.ResearchElementDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (capabilities.UpdateResult[r4b.ResearchElementDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchElementDefinition"}
+		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ResearchElementDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8149,7 +11330,11 @@ func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.ResearchElementDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchElementDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchElementDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ResearchElementDefinition]{
 
@@ -8157,10 +11342,14 @@ func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource 
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (capabilities.UpdateResult[r4b.ResearchStudy], capabilities.FHIRError) {
+func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (capabilities.UpdateResult[r4b.ResearchStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchStudy]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchStudy"}
+		return capabilities.UpdateResult[r4b.ResearchStudy]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ResearchStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8173,7 +11362,11 @@ func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4b.Research
 	}
 	r, ok := v.(r4b.ResearchStudy)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchStudy]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchStudy", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ResearchStudy]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchStudy" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ResearchStudy]{
 
@@ -8181,10 +11374,14 @@ func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4b.Research
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (capabilities.UpdateResult[r4b.ResearchSubject], capabilities.FHIRError) {
+func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (capabilities.UpdateResult[r4b.ResearchSubject], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchSubject]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchSubject"}
+		return capabilities.UpdateResult[r4b.ResearchSubject]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ResearchSubject")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8197,7 +11394,11 @@ func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4b.Resear
 	}
 	r, ok := v.(r4b.ResearchSubject)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchSubject]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchSubject", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ResearchSubject]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ResearchSubject" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ResearchSubject]{
 
@@ -8205,10 +11406,14 @@ func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4b.Resear
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (capabilities.UpdateResult[r4b.RiskAssessment], capabilities.FHIRError) {
+func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (capabilities.UpdateResult[r4b.RiskAssessment], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RiskAssessment]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RiskAssessment"}
+		return capabilities.UpdateResult[r4b.RiskAssessment]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for RiskAssessment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8221,7 +11426,11 @@ func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAss
 	}
 	r, ok := v.(r4b.RiskAssessment)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RiskAssessment]{}, capabilities.UnexpectedResourceError{ExpectedType: "RiskAssessment", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.RiskAssessment]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "RiskAssessment" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.RiskAssessment]{
 
@@ -8229,10 +11438,14 @@ func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAss
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSchedule(ctx context.Context, resource r4b.Schedule) (capabilities.UpdateResult[r4b.Schedule], capabilities.FHIRError) {
+func (w Concrete) UpdateSchedule(ctx context.Context, resource r4b.Schedule) (capabilities.UpdateResult[r4b.Schedule], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Schedule]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Schedule"}
+		return capabilities.UpdateResult[r4b.Schedule]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Schedule")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8245,7 +11458,11 @@ func (w Concrete) UpdateSchedule(ctx context.Context, resource r4b.Schedule) (ca
 	}
 	r, ok := v.(r4b.Schedule)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Schedule]{}, capabilities.UnexpectedResourceError{ExpectedType: "Schedule", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Schedule]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Schedule" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Schedule]{
 
@@ -8253,10 +11470,14 @@ func (w Concrete) UpdateSchedule(ctx context.Context, resource r4b.Schedule) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (capabilities.UpdateResult[r4b.SearchParameter], capabilities.FHIRError) {
+func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (capabilities.UpdateResult[r4b.SearchParameter], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SearchParameter]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SearchParameter"}
+		return capabilities.UpdateResult[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for SearchParameter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8269,7 +11490,11 @@ func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4b.Search
 	}
 	r, ok := v.(r4b.SearchParameter)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SearchParameter]{}, capabilities.UnexpectedResourceError{ExpectedType: "SearchParameter", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SearchParameter" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.SearchParameter]{
 
@@ -8277,10 +11502,14 @@ func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4b.Search
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (capabilities.UpdateResult[r4b.ServiceRequest], capabilities.FHIRError) {
+func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (capabilities.UpdateResult[r4b.ServiceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ServiceRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ServiceRequest"}
+		return capabilities.UpdateResult[r4b.ServiceRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ServiceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8293,7 +11522,11 @@ func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4b.Service
 	}
 	r, ok := v.(r4b.ServiceRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ServiceRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "ServiceRequest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ServiceRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ServiceRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ServiceRequest]{
 
@@ -8301,10 +11534,14 @@ func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4b.Service
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSlot(ctx context.Context, resource r4b.Slot) (capabilities.UpdateResult[r4b.Slot], capabilities.FHIRError) {
+func (w Concrete) UpdateSlot(ctx context.Context, resource r4b.Slot) (capabilities.UpdateResult[r4b.Slot], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Slot]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Slot"}
+		return capabilities.UpdateResult[r4b.Slot]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Slot")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8317,7 +11554,11 @@ func (w Concrete) UpdateSlot(ctx context.Context, resource r4b.Slot) (capabiliti
 	}
 	r, ok := v.(r4b.Slot)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Slot]{}, capabilities.UnexpectedResourceError{ExpectedType: "Slot", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Slot]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Slot" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Slot]{
 
@@ -8325,10 +11566,14 @@ func (w Concrete) UpdateSlot(ctx context.Context, resource r4b.Slot) (capabiliti
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (capabilities.UpdateResult[r4b.Specimen], capabilities.FHIRError) {
+func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (capabilities.UpdateResult[r4b.Specimen], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Specimen]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Specimen"}
+		return capabilities.UpdateResult[r4b.Specimen]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Specimen")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8341,7 +11586,11 @@ func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (ca
 	}
 	r, ok := v.(r4b.Specimen)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Specimen]{}, capabilities.UnexpectedResourceError{ExpectedType: "Specimen", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Specimen]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Specimen" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Specimen]{
 
@@ -8349,10 +11598,14 @@ func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (capabilities.UpdateResult[r4b.SpecimenDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (capabilities.UpdateResult[r4b.SpecimenDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SpecimenDefinition"}
+		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for SpecimenDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8365,7 +11618,11 @@ func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4b.Spe
 	}
 	r, ok := v.(r4b.SpecimenDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "SpecimenDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SpecimenDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.SpecimenDefinition]{
 
@@ -8373,10 +11630,14 @@ func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4b.Spe
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (capabilities.UpdateResult[r4b.StructureDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (capabilities.UpdateResult[r4b.StructureDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.StructureDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "StructureDefinition"}
+		return capabilities.UpdateResult[r4b.StructureDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for StructureDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8389,7 +11650,11 @@ func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4b.St
 	}
 	r, ok := v.(r4b.StructureDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.StructureDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.StructureDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "StructureDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.StructureDefinition]{
 
@@ -8397,10 +11662,14 @@ func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4b.St
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4b.StructureMap) (capabilities.UpdateResult[r4b.StructureMap], capabilities.FHIRError) {
+func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4b.StructureMap) (capabilities.UpdateResult[r4b.StructureMap], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.StructureMap]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "StructureMap"}
+		return capabilities.UpdateResult[r4b.StructureMap]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for StructureMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8413,7 +11682,11 @@ func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4b.Structure
 	}
 	r, ok := v.(r4b.StructureMap)
 	if !ok {
-		return capabilities.UpdateResult[r4b.StructureMap]{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureMap", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.StructureMap]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "StructureMap" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.StructureMap]{
 
@@ -8421,10 +11694,14 @@ func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4b.Structure
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSubscription(ctx context.Context, resource r4b.Subscription) (capabilities.UpdateResult[r4b.Subscription], capabilities.FHIRError) {
+func (w Concrete) UpdateSubscription(ctx context.Context, resource r4b.Subscription) (capabilities.UpdateResult[r4b.Subscription], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Subscription]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Subscription"}
+		return capabilities.UpdateResult[r4b.Subscription]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Subscription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8437,7 +11714,11 @@ func (w Concrete) UpdateSubscription(ctx context.Context, resource r4b.Subscript
 	}
 	r, ok := v.(r4b.Subscription)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Subscription]{}, capabilities.UnexpectedResourceError{ExpectedType: "Subscription", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Subscription]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Subscription" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Subscription]{
 
@@ -8445,10 +11726,14 @@ func (w Concrete) UpdateSubscription(ctx context.Context, resource r4b.Subscript
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (capabilities.UpdateResult[r4b.SubscriptionStatus], capabilities.FHIRError) {
+func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (capabilities.UpdateResult[r4b.SubscriptionStatus], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubscriptionStatus"}
+		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for SubscriptionStatus")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8461,7 +11746,11 @@ func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r4b.Sub
 	}
 	r, ok := v.(r4b.SubscriptionStatus)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionStatus", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubscriptionStatus" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.SubscriptionStatus]{
 
@@ -8469,10 +11758,14 @@ func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r4b.Sub
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (capabilities.UpdateResult[r4b.SubscriptionTopic], capabilities.FHIRError) {
+func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (capabilities.UpdateResult[r4b.SubscriptionTopic], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubscriptionTopic"}
+		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for SubscriptionTopic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8485,7 +11778,11 @@ func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r4b.Subs
 	}
 	r, ok := v.(r4b.SubscriptionTopic)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionTopic", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubscriptionTopic" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.SubscriptionTopic]{
 
@@ -8493,10 +11790,14 @@ func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r4b.Subs
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSubstance(ctx context.Context, resource r4b.Substance) (capabilities.UpdateResult[r4b.Substance], capabilities.FHIRError) {
+func (w Concrete) UpdateSubstance(ctx context.Context, resource r4b.Substance) (capabilities.UpdateResult[r4b.Substance], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Substance]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Substance"}
+		return capabilities.UpdateResult[r4b.Substance]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Substance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8509,7 +11810,11 @@ func (w Concrete) UpdateSubstance(ctx context.Context, resource r4b.Substance) (
 	}
 	r, ok := v.(r4b.Substance)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Substance]{}, capabilities.UnexpectedResourceError{ExpectedType: "Substance", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Substance]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Substance" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Substance]{
 
@@ -8517,10 +11822,14 @@ func (w Concrete) UpdateSubstance(ctx context.Context, resource r4b.Substance) (
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (capabilities.UpdateResult[r4b.SubstanceDefinition], capabilities.FHIRError) {
+func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (capabilities.UpdateResult[r4b.SubstanceDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubstanceDefinition"}
+		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for SubstanceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8533,7 +11842,11 @@ func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r4b.Su
 	}
 	r, ok := v.(r4b.SubstanceDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "SubstanceDefinition", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SubstanceDefinition" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.SubstanceDefinition]{
 
@@ -8541,10 +11854,14 @@ func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r4b.Su
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (capabilities.UpdateResult[r4b.SupplyDelivery], capabilities.FHIRError) {
+func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (capabilities.UpdateResult[r4b.SupplyDelivery], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SupplyDelivery"}
+		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for SupplyDelivery")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8557,7 +11874,11 @@ func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyD
 	}
 	r, ok := v.(r4b.SupplyDelivery)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyDelivery", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SupplyDelivery" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.SupplyDelivery]{
 
@@ -8565,10 +11886,14 @@ func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyD
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (capabilities.UpdateResult[r4b.SupplyRequest], capabilities.FHIRError) {
+func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (capabilities.UpdateResult[r4b.SupplyRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SupplyRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SupplyRequest"}
+		return capabilities.UpdateResult[r4b.SupplyRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for SupplyRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8581,7 +11906,11 @@ func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRe
 	}
 	r, ok := v.(r4b.SupplyRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SupplyRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyRequest", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.SupplyRequest]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "SupplyRequest" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.SupplyRequest]{
 
@@ -8589,10 +11918,14 @@ func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRe
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateTask(ctx context.Context, resource r4b.Task) (capabilities.UpdateResult[r4b.Task], capabilities.FHIRError) {
+func (w Concrete) UpdateTask(ctx context.Context, resource r4b.Task) (capabilities.UpdateResult[r4b.Task], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Task]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Task"}
+		return capabilities.UpdateResult[r4b.Task]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for Task")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8605,7 +11938,11 @@ func (w Concrete) UpdateTask(ctx context.Context, resource r4b.Task) (capabiliti
 	}
 	r, ok := v.(r4b.Task)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Task]{}, capabilities.UnexpectedResourceError{ExpectedType: "Task", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.Task]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "Task" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.Task]{
 
@@ -8613,10 +11950,14 @@ func (w Concrete) UpdateTask(ctx context.Context, resource r4b.Task) (capabiliti
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (capabilities.UpdateResult[r4b.TerminologyCapabilities], capabilities.FHIRError) {
+func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (capabilities.UpdateResult[r4b.TerminologyCapabilities], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TerminologyCapabilities"}
+		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for TerminologyCapabilities")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8629,7 +11970,11 @@ func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.TerminologyCapabilities)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, capabilities.UnexpectedResourceError{ExpectedType: "TerminologyCapabilities", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TerminologyCapabilities" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.TerminologyCapabilities]{
 
@@ -8637,10 +11982,14 @@ func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateTestReport(ctx context.Context, resource r4b.TestReport) (capabilities.UpdateResult[r4b.TestReport], capabilities.FHIRError) {
+func (w Concrete) UpdateTestReport(ctx context.Context, resource r4b.TestReport) (capabilities.UpdateResult[r4b.TestReport], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TestReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TestReport"}
+		return capabilities.UpdateResult[r4b.TestReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for TestReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8653,7 +12002,11 @@ func (w Concrete) UpdateTestReport(ctx context.Context, resource r4b.TestReport)
 	}
 	r, ok := v.(r4b.TestReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TestReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "TestReport", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.TestReport]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TestReport" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.TestReport]{
 
@@ -8661,10 +12014,14 @@ func (w Concrete) UpdateTestReport(ctx context.Context, resource r4b.TestReport)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateTestScript(ctx context.Context, resource r4b.TestScript) (capabilities.UpdateResult[r4b.TestScript], capabilities.FHIRError) {
+func (w Concrete) UpdateTestScript(ctx context.Context, resource r4b.TestScript) (capabilities.UpdateResult[r4b.TestScript], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TestScript]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TestScript"}
+		return capabilities.UpdateResult[r4b.TestScript]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for TestScript")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8677,7 +12034,11 @@ func (w Concrete) UpdateTestScript(ctx context.Context, resource r4b.TestScript)
 	}
 	r, ok := v.(r4b.TestScript)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TestScript]{}, capabilities.UnexpectedResourceError{ExpectedType: "TestScript", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.TestScript]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "TestScript" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.TestScript]{
 
@@ -8685,10 +12046,14 @@ func (w Concrete) UpdateTestScript(ctx context.Context, resource r4b.TestScript)
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (capabilities.UpdateResult[r4b.ValueSet], capabilities.FHIRError) {
+func (w Concrete) UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (capabilities.UpdateResult[r4b.ValueSet], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ValueSet]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ValueSet"}
+		return capabilities.UpdateResult[r4b.ValueSet]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for ValueSet")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8701,7 +12066,11 @@ func (w Concrete) UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (ca
 	}
 	r, ok := v.(r4b.ValueSet)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ValueSet]{}, capabilities.UnexpectedResourceError{ExpectedType: "ValueSet", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.ValueSet]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "ValueSet" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.ValueSet]{
 
@@ -8709,10 +12078,14 @@ func (w Concrete) UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (ca
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (capabilities.UpdateResult[r4b.VerificationResult], capabilities.FHIRError) {
+func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (capabilities.UpdateResult[r4b.VerificationResult], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.VerificationResult]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "VerificationResult"}
+		return capabilities.UpdateResult[r4b.VerificationResult]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for VerificationResult")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8725,7 +12098,11 @@ func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4b.Ver
 	}
 	r, ok := v.(r4b.VerificationResult)
 	if !ok {
-		return capabilities.UpdateResult[r4b.VerificationResult]{}, capabilities.UnexpectedResourceError{ExpectedType: "VerificationResult", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.VerificationResult]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "VerificationResult" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.VerificationResult]{
 
@@ -8733,10 +12110,14 @@ func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4b.Ver
 		Resource: r,
 	}, nil
 }
-func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (capabilities.UpdateResult[r4b.VisionPrescription], capabilities.FHIRError) {
+func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (capabilities.UpdateResult[r4b.VisionPrescription], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
 	if !ok {
-		return capabilities.UpdateResult[r4b.VisionPrescription]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "VisionPrescription"}
+		return capabilities.UpdateResult[r4b.VisionPrescription]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Update not implemented for VisionPrescription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	result, err := g.Update(ctx, resource)
 	if err != nil {
@@ -8749,7 +12130,11 @@ func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4b.Vis
 	}
 	r, ok := v.(r4b.VisionPrescription)
 	if !ok {
-		return capabilities.UpdateResult[r4b.VisionPrescription]{}, capabilities.UnexpectedResourceError{ExpectedType: "VisionPrescription", GotType: v.ResourceType()}
+		return capabilities.UpdateResult[r4b.VisionPrescription]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("expected " + "VisionPrescription" + " but got " + v.ResourceType())},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	return capabilities.UpdateResult[r4b.VisionPrescription]{
 
@@ -8757,17 +12142,21 @@ func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4b.Vis
 		Resource: r,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Account"], err
 }
-func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Account"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Account")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Account", options)
 	if err != nil {
@@ -8775,17 +12164,21 @@ func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ActivityDefinition"], err
 }
-func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ActivityDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ActivityDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ActivityDefinition", options)
 	if err != nil {
@@ -8793,17 +12186,21 @@ func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["AdministrableProductDefinition"], err
 }
-func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AdministrableProductDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for AdministrableProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "AdministrableProductDefinition", options)
 	if err != nil {
@@ -8811,17 +12208,21 @@ func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["AdverseEvent"], err
 }
-func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AdverseEvent"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for AdverseEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "AdverseEvent", options)
 	if err != nil {
@@ -8829,17 +12230,21 @@ func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["AllergyIntolerance"], err
 }
-func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AllergyIntolerance"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for AllergyIntolerance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "AllergyIntolerance", options)
 	if err != nil {
@@ -8847,17 +12252,21 @@ func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Appointment"], err
 }
-func (w Concrete) SearchAppointment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchAppointment(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Appointment"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Appointment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Appointment", options)
 	if err != nil {
@@ -8865,17 +12274,21 @@ func (w Concrete) SearchAppointment(ctx context.Context, options search.Options)
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["AppointmentResponse"], err
 }
-func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AppointmentResponse"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for AppointmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "AppointmentResponse", options)
 	if err != nil {
@@ -8883,17 +12296,21 @@ func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["AuditEvent"], err
 }
-func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AuditEvent"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for AuditEvent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "AuditEvent", options)
 	if err != nil {
@@ -8901,17 +12318,21 @@ func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Basic"], err
 }
-func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Basic"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Basic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Basic", options)
 	if err != nil {
@@ -8919,17 +12340,21 @@ func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Binary"], err
 }
-func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Binary"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Binary")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Binary", options)
 	if err != nil {
@@ -8937,17 +12362,21 @@ func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["BiologicallyDerivedProduct"], err
 }
-func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BiologicallyDerivedProduct"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for BiologicallyDerivedProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "BiologicallyDerivedProduct", options)
 	if err != nil {
@@ -8955,17 +12384,21 @@ func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["BodyStructure"], err
 }
-func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BodyStructure"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for BodyStructure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "BodyStructure", options)
 	if err != nil {
@@ -8973,17 +12406,21 @@ func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Bundle"], err
 }
-func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Bundle"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Bundle")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Bundle", options)
 	if err != nil {
@@ -8991,17 +12428,21 @@ func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CapabilityStatement"], err
 }
-func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CapabilityStatement"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CapabilityStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CapabilityStatement", options)
 	if err != nil {
@@ -9009,17 +12450,21 @@ func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CarePlan"], err
 }
-func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CarePlan"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CarePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CarePlan", options)
 	if err != nil {
@@ -9027,17 +12472,21 @@ func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CareTeam"], err
 }
-func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CareTeam"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CareTeam")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CareTeam", options)
 	if err != nil {
@@ -9045,17 +12494,21 @@ func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CatalogEntry"], err
 }
-func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CatalogEntry"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CatalogEntry")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CatalogEntry", options)
 	if err != nil {
@@ -9063,17 +12516,21 @@ func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ChargeItem"], err
 }
-func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItem"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ChargeItem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ChargeItem", options)
 	if err != nil {
@@ -9081,17 +12538,21 @@ func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ChargeItemDefinition"], err
 }
-func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItemDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ChargeItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ChargeItemDefinition", options)
 	if err != nil {
@@ -9099,17 +12560,21 @@ func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Citation"], err
 }
-func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Citation"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Citation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Citation", options)
 	if err != nil {
@@ -9117,17 +12582,21 @@ func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Claim"], err
 }
-func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Claim"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Claim")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Claim", options)
 	if err != nil {
@@ -9135,17 +12604,21 @@ func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ClaimResponse"], err
 }
-func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClaimResponse"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ClaimResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ClaimResponse", options)
 	if err != nil {
@@ -9153,17 +12626,21 @@ func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ClinicalImpression"], err
 }
-func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClinicalImpression"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ClinicalImpression")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ClinicalImpression", options)
 	if err != nil {
@@ -9171,17 +12648,21 @@ func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ClinicalUseDefinition"], err
 }
-func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClinicalUseDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ClinicalUseDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ClinicalUseDefinition", options)
 	if err != nil {
@@ -9189,17 +12670,21 @@ func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CodeSystem"], err
 }
-func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CodeSystem"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CodeSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CodeSystem", options)
 	if err != nil {
@@ -9207,17 +12692,21 @@ func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Communication"], err
 }
-func (w Concrete) SearchCommunication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCommunication(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Communication"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Communication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Communication", options)
 	if err != nil {
@@ -9225,17 +12714,21 @@ func (w Concrete) SearchCommunication(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CommunicationRequest"], err
 }
-func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CommunicationRequest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CommunicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CommunicationRequest", options)
 	if err != nil {
@@ -9243,17 +12736,21 @@ func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CompartmentDefinition"], err
 }
-func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CompartmentDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CompartmentDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CompartmentDefinition", options)
 	if err != nil {
@@ -9261,17 +12758,21 @@ func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Composition"], err
 }
-func (w Concrete) SearchComposition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchComposition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Composition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Composition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Composition", options)
 	if err != nil {
@@ -9279,17 +12780,21 @@ func (w Concrete) SearchComposition(ctx context.Context, options search.Options)
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ConceptMap"], err
 }
-func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ConceptMap"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ConceptMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ConceptMap", options)
 	if err != nil {
@@ -9297,17 +12802,21 @@ func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Condition"], err
 }
-func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Condition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Condition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Condition", options)
 	if err != nil {
@@ -9315,17 +12824,21 @@ func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Consent"], err
 }
-func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Consent"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Consent")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Consent", options)
 	if err != nil {
@@ -9333,17 +12846,21 @@ func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Contract"], err
 }
-func (w Concrete) SearchContract(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchContract(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Contract"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Contract")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Contract", options)
 	if err != nil {
@@ -9351,17 +12868,21 @@ func (w Concrete) SearchContract(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Coverage"], err
 }
-func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Coverage"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Coverage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Coverage", options)
 	if err != nil {
@@ -9369,17 +12890,21 @@ func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CoverageEligibilityRequest"], err
 }
-func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityRequest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CoverageEligibilityRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CoverageEligibilityRequest", options)
 	if err != nil {
@@ -9387,17 +12912,21 @@ func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["CoverageEligibilityResponse"], err
 }
-func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityResponse"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for CoverageEligibilityResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "CoverageEligibilityResponse", options)
 	if err != nil {
@@ -9405,17 +12934,21 @@ func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DetectedIssue"], err
 }
-func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DetectedIssue"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DetectedIssue")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DetectedIssue", options)
 	if err != nil {
@@ -9423,17 +12956,21 @@ func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Device"], err
 }
-func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Device"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Device")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Device", options)
 	if err != nil {
@@ -9441,17 +12978,21 @@ func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DeviceDefinition"], err
 }
-func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DeviceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DeviceDefinition", options)
 	if err != nil {
@@ -9459,17 +13000,21 @@ func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DeviceMetric"], err
 }
-func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceMetric"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DeviceMetric")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DeviceMetric", options)
 	if err != nil {
@@ -9477,17 +13022,21 @@ func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DeviceRequest"], err
 }
-func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceRequest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DeviceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DeviceRequest", options)
 	if err != nil {
@@ -9495,17 +13044,21 @@ func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DeviceUseStatement"], err
 }
-func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceUseStatement"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DeviceUseStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DeviceUseStatement", options)
 	if err != nil {
@@ -9513,17 +13066,21 @@ func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DiagnosticReport"], err
 }
-func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DiagnosticReport"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DiagnosticReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DiagnosticReport", options)
 	if err != nil {
@@ -9531,17 +13088,21 @@ func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DocumentManifest"], err
 }
-func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DocumentManifest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DocumentManifest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DocumentManifest", options)
 	if err != nil {
@@ -9549,17 +13110,21 @@ func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["DocumentReference"], err
 }
-func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DocumentReference"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for DocumentReference")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "DocumentReference", options)
 	if err != nil {
@@ -9567,17 +13132,21 @@ func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Encounter"], err
 }
-func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Encounter"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Encounter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Encounter", options)
 	if err != nil {
@@ -9585,17 +13154,21 @@ func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Endpoint"], err
 }
-func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Endpoint"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Endpoint")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Endpoint", options)
 	if err != nil {
@@ -9603,17 +13176,21 @@ func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["EnrollmentRequest"], err
 }
-func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentRequest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for EnrollmentRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "EnrollmentRequest", options)
 	if err != nil {
@@ -9621,17 +13198,21 @@ func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["EnrollmentResponse"], err
 }
-func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentResponse"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for EnrollmentResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "EnrollmentResponse", options)
 	if err != nil {
@@ -9639,17 +13220,21 @@ func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["EpisodeOfCare"], err
 }
-func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EpisodeOfCare"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for EpisodeOfCare")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "EpisodeOfCare", options)
 	if err != nil {
@@ -9657,17 +13242,21 @@ func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["EventDefinition"], err
 }
-func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EventDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for EventDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "EventDefinition", options)
 	if err != nil {
@@ -9675,17 +13264,21 @@ func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Evidence"], err
 }
-func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Evidence"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Evidence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Evidence", options)
 	if err != nil {
@@ -9693,17 +13286,21 @@ func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["EvidenceReport"], err
 }
-func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EvidenceReport"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for EvidenceReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "EvidenceReport", options)
 	if err != nil {
@@ -9711,17 +13308,21 @@ func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["EvidenceVariable"], err
 }
-func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EvidenceVariable"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for EvidenceVariable")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "EvidenceVariable", options)
 	if err != nil {
@@ -9729,17 +13330,21 @@ func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ExampleScenario"], err
 }
-func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExampleScenario"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ExampleScenario")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ExampleScenario", options)
 	if err != nil {
@@ -9747,17 +13352,21 @@ func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ExplanationOfBenefit"], err
 }
-func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExplanationOfBenefit"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ExplanationOfBenefit")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ExplanationOfBenefit", options)
 	if err != nil {
@@ -9765,17 +13374,21 @@ func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["FamilyMemberHistory"], err
 }
-func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "FamilyMemberHistory"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for FamilyMemberHistory")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "FamilyMemberHistory", options)
 	if err != nil {
@@ -9783,17 +13396,21 @@ func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Flag"], err
 }
-func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Flag"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Flag")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Flag", options)
 	if err != nil {
@@ -9801,17 +13418,21 @@ func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Goal"], err
 }
-func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Goal"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Goal")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Goal", options)
 	if err != nil {
@@ -9819,17 +13440,21 @@ func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["GraphDefinition"], err
 }
-func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GraphDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for GraphDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "GraphDefinition", options)
 	if err != nil {
@@ -9837,17 +13462,21 @@ func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Group"], err
 }
-func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Group"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Group")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Group", options)
 	if err != nil {
@@ -9855,17 +13484,21 @@ func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["GuidanceResponse"], err
 }
-func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GuidanceResponse"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for GuidanceResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "GuidanceResponse", options)
 	if err != nil {
@@ -9873,17 +13506,21 @@ func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["HealthcareService"], err
 }
-func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "HealthcareService"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for HealthcareService")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "HealthcareService", options)
 	if err != nil {
@@ -9891,17 +13528,21 @@ func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ImagingStudy"], err
 }
-func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImagingStudy"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ImagingStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ImagingStudy", options)
 	if err != nil {
@@ -9909,17 +13550,21 @@ func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Immunization"], err
 }
-func (w Concrete) SearchImmunization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchImmunization(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Immunization"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Immunization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Immunization", options)
 	if err != nil {
@@ -9927,17 +13572,21 @@ func (w Concrete) SearchImmunization(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ImmunizationEvaluation"], err
 }
-func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationEvaluation"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ImmunizationEvaluation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ImmunizationEvaluation", options)
 	if err != nil {
@@ -9945,17 +13594,21 @@ func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ImmunizationRecommendation"], err
 }
-func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationRecommendation"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ImmunizationRecommendation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ImmunizationRecommendation", options)
 	if err != nil {
@@ -9963,17 +13616,21 @@ func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ImplementationGuide"], err
 }
-func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImplementationGuide"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ImplementationGuide")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ImplementationGuide", options)
 	if err != nil {
@@ -9981,17 +13638,21 @@ func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Ingredient"], err
 }
-func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Ingredient"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Ingredient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Ingredient", options)
 	if err != nil {
@@ -9999,17 +13660,21 @@ func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["InsurancePlan"], err
 }
-func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "InsurancePlan"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for InsurancePlan")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "InsurancePlan", options)
 	if err != nil {
@@ -10017,17 +13682,21 @@ func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Invoice"], err
 }
-func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Invoice"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Invoice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Invoice", options)
 	if err != nil {
@@ -10035,17 +13704,21 @@ func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Library"], err
 }
-func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Library"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Library")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Library", options)
 	if err != nil {
@@ -10053,17 +13726,21 @@ func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Linkage"], err
 }
-func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Linkage"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Linkage")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Linkage", options)
 	if err != nil {
@@ -10071,17 +13748,21 @@ func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["List"], err
 }
-func (w Concrete) SearchList(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchList(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "List"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for List")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "List", options)
 	if err != nil {
@@ -10089,17 +13770,21 @@ func (w Concrete) SearchList(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Location"], err
 }
-func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Location"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Location")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Location", options)
 	if err != nil {
@@ -10107,17 +13792,21 @@ func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ManufacturedItemDefinition"], err
 }
-func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ManufacturedItemDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ManufacturedItemDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ManufacturedItemDefinition", options)
 	if err != nil {
@@ -10125,17 +13814,21 @@ func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Measure"], err
 }
-func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Measure"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Measure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Measure", options)
 	if err != nil {
@@ -10143,17 +13836,21 @@ func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MeasureReport"], err
 }
-func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MeasureReport"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MeasureReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MeasureReport", options)
 	if err != nil {
@@ -10161,17 +13858,21 @@ func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Media"], err
 }
-func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Media"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Media")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Media", options)
 	if err != nil {
@@ -10179,17 +13880,21 @@ func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Medication"], err
 }
-func (w Concrete) SearchMedication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedication(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Medication"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Medication")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Medication", options)
 	if err != nil {
@@ -10197,17 +13902,21 @@ func (w Concrete) SearchMedication(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MedicationAdministration"], err
 }
-func (w Concrete) SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationAdministration"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MedicationAdministration")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MedicationAdministration", options)
 	if err != nil {
@@ -10215,17 +13924,21 @@ func (w Concrete) SearchMedicationAdministration(ctx context.Context, options se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MedicationDispense"], err
 }
-func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationDispense"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MedicationDispense")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MedicationDispense", options)
 	if err != nil {
@@ -10233,17 +13946,21 @@ func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MedicationKnowledge"], err
 }
-func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationKnowledge"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MedicationKnowledge")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MedicationKnowledge", options)
 	if err != nil {
@@ -10251,17 +13968,21 @@ func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MedicationRequest"], err
 }
-func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationRequest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MedicationRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MedicationRequest", options)
 	if err != nil {
@@ -10269,17 +13990,21 @@ func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MedicationStatement"], err
 }
-func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationStatement"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MedicationStatement")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MedicationStatement", options)
 	if err != nil {
@@ -10287,17 +14012,21 @@ func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MedicinalProductDefinition"], err
 }
-func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MedicinalProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MedicinalProductDefinition", options)
 	if err != nil {
@@ -10305,17 +14034,21 @@ func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MessageDefinition"], err
 }
-func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MessageDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MessageDefinition", options)
 	if err != nil {
@@ -10323,17 +14056,21 @@ func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MessageHeader"], err
 }
-func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageHeader"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MessageHeader")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MessageHeader", options)
 	if err != nil {
@@ -10341,17 +14078,21 @@ func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["MolecularSequence"], err
 }
-func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MolecularSequence"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for MolecularSequence")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "MolecularSequence", options)
 	if err != nil {
@@ -10359,17 +14100,21 @@ func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["NamingSystem"], err
 }
-func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NamingSystem"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for NamingSystem")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "NamingSystem", options)
 	if err != nil {
@@ -10377,17 +14122,21 @@ func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["NutritionOrder"], err
 }
-func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionOrder"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for NutritionOrder")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "NutritionOrder", options)
 	if err != nil {
@@ -10395,17 +14144,21 @@ func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["NutritionProduct"], err
 }
-func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionProduct"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for NutritionProduct")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "NutritionProduct", options)
 	if err != nil {
@@ -10413,17 +14166,21 @@ func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Observation"], err
 }
-func (w Concrete) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchObservation(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Observation"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Observation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Observation", options)
 	if err != nil {
@@ -10431,17 +14188,21 @@ func (w Concrete) SearchObservation(ctx context.Context, options search.Options)
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ObservationDefinition"], err
 }
-func (w Concrete) SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ObservationDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ObservationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ObservationDefinition", options)
 	if err != nil {
@@ -10449,17 +14210,21 @@ func (w Concrete) SearchObservationDefinition(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["OperationDefinition"], err
 }
-func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for OperationDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "OperationDefinition", options)
 	if err != nil {
@@ -10467,17 +14232,21 @@ func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["OperationOutcome"], err
 }
-func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationOutcome"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for OperationOutcome")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "OperationOutcome", options)
 	if err != nil {
@@ -10485,17 +14254,21 @@ func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Organization"], err
 }
-func (w Concrete) SearchOrganization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchOrganization(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Organization"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Organization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Organization", options)
 	if err != nil {
@@ -10503,17 +14276,21 @@ func (w Concrete) SearchOrganization(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["OrganizationAffiliation"], err
 }
-func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OrganizationAffiliation"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for OrganizationAffiliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "OrganizationAffiliation", options)
 	if err != nil {
@@ -10521,17 +14298,21 @@ func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["PackagedProductDefinition"], err
 }
-func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PackagedProductDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for PackagedProductDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "PackagedProductDefinition", options)
 	if err != nil {
@@ -10539,17 +14320,21 @@ func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Parameters"], err
 }
-func (w Concrete) SearchParameters(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchParameters(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Parameters"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Parameters")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Parameters", options)
 	if err != nil {
@@ -10557,17 +14342,21 @@ func (w Concrete) SearchParameters(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Patient"], err
 }
-func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Patient"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Patient")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Patient", options)
 	if err != nil {
@@ -10575,17 +14364,21 @@ func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (se
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["PaymentNotice"], err
 }
-func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentNotice"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for PaymentNotice")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "PaymentNotice", options)
 	if err != nil {
@@ -10593,17 +14386,21 @@ func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["PaymentReconciliation"], err
 }
-func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentReconciliation"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for PaymentReconciliation")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "PaymentReconciliation", options)
 	if err != nil {
@@ -10611,17 +14408,21 @@ func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Person"], err
 }
-func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Person"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Person")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Person", options)
 	if err != nil {
@@ -10629,17 +14430,21 @@ func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["PlanDefinition"], err
 }
-func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PlanDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for PlanDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "PlanDefinition", options)
 	if err != nil {
@@ -10647,17 +14452,21 @@ func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Practitioner"], err
 }
-func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Practitioner"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Practitioner")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Practitioner", options)
 	if err != nil {
@@ -10665,17 +14474,21 @@ func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["PractitionerRole"], err
 }
-func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PractitionerRole"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for PractitionerRole")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "PractitionerRole", options)
 	if err != nil {
@@ -10683,17 +14496,21 @@ func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Opt
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Procedure"], err
 }
-func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Procedure"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Procedure")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Procedure", options)
 	if err != nil {
@@ -10701,17 +14518,21 @@ func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Provenance"], err
 }
-func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Provenance"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Provenance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Provenance", options)
 	if err != nil {
@@ -10719,17 +14540,21 @@ func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Questionnaire"], err
 }
-func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Questionnaire"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Questionnaire")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Questionnaire", options)
 	if err != nil {
@@ -10737,17 +14562,21 @@ func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["QuestionnaireResponse"], err
 }
-func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "QuestionnaireResponse"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for QuestionnaireResponse")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "QuestionnaireResponse", options)
 	if err != nil {
@@ -10755,17 +14584,21 @@ func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["RegulatedAuthorization"], err
 }
-func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RegulatedAuthorization"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for RegulatedAuthorization")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "RegulatedAuthorization", options)
 	if err != nil {
@@ -10773,17 +14606,21 @@ func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options sear
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["RelatedPerson"], err
 }
-func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RelatedPerson"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for RelatedPerson")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "RelatedPerson", options)
 	if err != nil {
@@ -10791,17 +14628,21 @@ func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["RequestGroup"], err
 }
-func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RequestGroup"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for RequestGroup")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "RequestGroup", options)
 	if err != nil {
@@ -10809,17 +14650,21 @@ func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ResearchDefinition"], err
 }
-func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ResearchDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ResearchDefinition", options)
 	if err != nil {
@@ -10827,17 +14672,21 @@ func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ResearchElementDefinition"], err
 }
-func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchElementDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ResearchElementDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ResearchElementDefinition", options)
 	if err != nil {
@@ -10845,17 +14694,21 @@ func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ResearchStudy"], err
 }
-func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchStudy"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ResearchStudy")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ResearchStudy", options)
 	if err != nil {
@@ -10863,17 +14716,21 @@ func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ResearchSubject"], err
 }
-func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchSubject"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ResearchSubject")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ResearchSubject", options)
 	if err != nil {
@@ -10881,17 +14738,21 @@ func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["RiskAssessment"], err
 }
-func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RiskAssessment"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for RiskAssessment")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "RiskAssessment", options)
 	if err != nil {
@@ -10899,17 +14760,21 @@ func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Schedule"], err
 }
-func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Schedule"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Schedule")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Schedule", options)
 	if err != nil {
@@ -10917,17 +14782,21 @@ func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["SearchParameter"], err
 }
-func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SearchParameter"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for SearchParameter")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "SearchParameter", options)
 	if err != nil {
@@ -10935,17 +14804,21 @@ func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Opti
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ServiceRequest"], err
 }
-func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ServiceRequest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ServiceRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ServiceRequest", options)
 	if err != nil {
@@ -10953,17 +14826,21 @@ func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Slot"], err
 }
-func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Slot"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Slot")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Slot", options)
 	if err != nil {
@@ -10971,17 +14848,21 @@ func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Specimen"], err
 }
-func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Specimen"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Specimen")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Specimen", options)
 	if err != nil {
@@ -10989,17 +14870,21 @@ func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["SpecimenDefinition"], err
 }
-func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SpecimenDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for SpecimenDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "SpecimenDefinition", options)
 	if err != nil {
@@ -11007,17 +14892,21 @@ func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["StructureDefinition"], err
 }
-func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for StructureDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "StructureDefinition", options)
 	if err != nil {
@@ -11025,17 +14914,21 @@ func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["StructureMap"], err
 }
-func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureMap"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for StructureMap")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "StructureMap", options)
 	if err != nil {
@@ -11043,17 +14936,21 @@ func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Subscription"], err
 }
-func (w Concrete) SearchSubscription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSubscription(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Subscription"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Subscription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Subscription", options)
 	if err != nil {
@@ -11061,17 +14958,21 @@ func (w Concrete) SearchSubscription(ctx context.Context, options search.Options
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["SubscriptionStatus"], err
 }
-func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubscriptionStatus"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for SubscriptionStatus")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "SubscriptionStatus", options)
 	if err != nil {
@@ -11079,17 +14980,21 @@ func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["SubscriptionTopic"], err
 }
-func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubscriptionTopic"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for SubscriptionTopic")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "SubscriptionTopic", options)
 	if err != nil {
@@ -11097,17 +15002,21 @@ func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Op
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Substance"], err
 }
-func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Substance"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Substance")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Substance", options)
 	if err != nil {
@@ -11115,17 +15024,21 @@ func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["SubstanceDefinition"], err
 }
-func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceDefinition"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for SubstanceDefinition")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "SubstanceDefinition", options)
 	if err != nil {
@@ -11133,17 +15046,21 @@ func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["SupplyDelivery"], err
 }
-func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyDelivery"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for SupplyDelivery")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "SupplyDelivery", options)
 	if err != nil {
@@ -11151,17 +15068,21 @@ func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Optio
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["SupplyRequest"], err
 }
-func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyRequest"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for SupplyRequest")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "SupplyRequest", options)
 	if err != nil {
@@ -11169,17 +15090,21 @@ func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Option
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["Task"], err
 }
-func (w Concrete) SearchTask(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchTask(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Task"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for Task")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "Task", options)
 	if err != nil {
@@ -11187,17 +15112,21 @@ func (w Concrete) SearchTask(ctx context.Context, options search.Options) (searc
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["TerminologyCapabilities"], err
 }
-func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TerminologyCapabilities"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for TerminologyCapabilities")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "TerminologyCapabilities", options)
 	if err != nil {
@@ -11205,17 +15134,21 @@ func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options sea
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["TestReport"], err
 }
-func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestReport"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for TestReport")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "TestReport", options)
 	if err != nil {
@@ -11223,17 +15156,21 @@ func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["TestScript"], err
 }
-func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestScript"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for TestScript")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "TestScript", options)
 	if err != nil {
@@ -11241,17 +15178,21 @@ func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) 
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["ValueSet"], err
 }
-func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ValueSet"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for ValueSet")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "ValueSet", options)
 	if err != nil {
@@ -11259,17 +15200,21 @@ func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (s
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["VerificationResult"], err
 }
-func (w Concrete) SearchVerificationResult(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchVerificationResult(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VerificationResult"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for VerificationResult")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "VerificationResult", options)
 	if err != nil {
@@ -11277,17 +15222,21 @@ func (w Concrete) SearchVerificationResult(ctx context.Context, options search.O
 	}
 	return v, nil
 }
-func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, capabilities.FHIRError) {
+func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
 		return search.Capabilities{}, err
 	}
 	return allCapabilities.SearchCapabilities["VisionPrescription"], err
 }
-func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result, error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
-		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VisionPrescription"}
+		return search.Result{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("Search not implemented for VisionPrescription")},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
 	}
 	v, err := g.Search(ctx, "VisionPrescription", options)
 	if err != nil {

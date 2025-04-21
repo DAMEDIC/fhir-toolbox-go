@@ -11,425 +11,425 @@ import (
 )
 
 type AccountUpdate interface {
-	UpdateAccount(ctx context.Context, resource r4b.Account) (capabilities.UpdateResult[r4b.Account], capabilities.FHIRError)
+	UpdateAccount(ctx context.Context, resource r4b.Account) (capabilities.UpdateResult[r4b.Account], error)
 }
 type ActivityDefinitionUpdate interface {
-	UpdateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (capabilities.UpdateResult[r4b.ActivityDefinition], capabilities.FHIRError)
+	UpdateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (capabilities.UpdateResult[r4b.ActivityDefinition], error)
 }
 type AdministrableProductDefinitionUpdate interface {
-	UpdateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (capabilities.UpdateResult[r4b.AdministrableProductDefinition], capabilities.FHIRError)
+	UpdateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (capabilities.UpdateResult[r4b.AdministrableProductDefinition], error)
 }
 type AdverseEventUpdate interface {
-	UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (capabilities.UpdateResult[r4b.AdverseEvent], capabilities.FHIRError)
+	UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (capabilities.UpdateResult[r4b.AdverseEvent], error)
 }
 type AllergyIntoleranceUpdate interface {
-	UpdateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (capabilities.UpdateResult[r4b.AllergyIntolerance], capabilities.FHIRError)
+	UpdateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (capabilities.UpdateResult[r4b.AllergyIntolerance], error)
 }
 type AppointmentUpdate interface {
-	UpdateAppointment(ctx context.Context, resource r4b.Appointment) (capabilities.UpdateResult[r4b.Appointment], capabilities.FHIRError)
+	UpdateAppointment(ctx context.Context, resource r4b.Appointment) (capabilities.UpdateResult[r4b.Appointment], error)
 }
 type AppointmentResponseUpdate interface {
-	UpdateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (capabilities.UpdateResult[r4b.AppointmentResponse], capabilities.FHIRError)
+	UpdateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (capabilities.UpdateResult[r4b.AppointmentResponse], error)
 }
 type AuditEventUpdate interface {
-	UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (capabilities.UpdateResult[r4b.AuditEvent], capabilities.FHIRError)
+	UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (capabilities.UpdateResult[r4b.AuditEvent], error)
 }
 type BasicUpdate interface {
-	UpdateBasic(ctx context.Context, resource r4b.Basic) (capabilities.UpdateResult[r4b.Basic], capabilities.FHIRError)
+	UpdateBasic(ctx context.Context, resource r4b.Basic) (capabilities.UpdateResult[r4b.Basic], error)
 }
 type BinaryUpdate interface {
-	UpdateBinary(ctx context.Context, resource r4b.Binary) (capabilities.UpdateResult[r4b.Binary], capabilities.FHIRError)
+	UpdateBinary(ctx context.Context, resource r4b.Binary) (capabilities.UpdateResult[r4b.Binary], error)
 }
 type BiologicallyDerivedProductUpdate interface {
-	UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (capabilities.UpdateResult[r4b.BiologicallyDerivedProduct], capabilities.FHIRError)
+	UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (capabilities.UpdateResult[r4b.BiologicallyDerivedProduct], error)
 }
 type BodyStructureUpdate interface {
-	UpdateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (capabilities.UpdateResult[r4b.BodyStructure], capabilities.FHIRError)
+	UpdateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (capabilities.UpdateResult[r4b.BodyStructure], error)
 }
 type BundleUpdate interface {
-	UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabilities.UpdateResult[r4b.Bundle], capabilities.FHIRError)
+	UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabilities.UpdateResult[r4b.Bundle], error)
 }
 type CapabilityStatementUpdate interface {
-	UpdateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (capabilities.UpdateResult[r4b.CapabilityStatement], capabilities.FHIRError)
+	UpdateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (capabilities.UpdateResult[r4b.CapabilityStatement], error)
 }
 type CarePlanUpdate interface {
-	UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (capabilities.UpdateResult[r4b.CarePlan], capabilities.FHIRError)
+	UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (capabilities.UpdateResult[r4b.CarePlan], error)
 }
 type CareTeamUpdate interface {
-	UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (capabilities.UpdateResult[r4b.CareTeam], capabilities.FHIRError)
+	UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (capabilities.UpdateResult[r4b.CareTeam], error)
 }
 type CatalogEntryUpdate interface {
-	UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (capabilities.UpdateResult[r4b.CatalogEntry], capabilities.FHIRError)
+	UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (capabilities.UpdateResult[r4b.CatalogEntry], error)
 }
 type ChargeItemUpdate interface {
-	UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem) (capabilities.UpdateResult[r4b.ChargeItem], capabilities.FHIRError)
+	UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem) (capabilities.UpdateResult[r4b.ChargeItem], error)
 }
 type ChargeItemDefinitionUpdate interface {
-	UpdateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (capabilities.UpdateResult[r4b.ChargeItemDefinition], capabilities.FHIRError)
+	UpdateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (capabilities.UpdateResult[r4b.ChargeItemDefinition], error)
 }
 type CitationUpdate interface {
-	UpdateCitation(ctx context.Context, resource r4b.Citation) (capabilities.UpdateResult[r4b.Citation], capabilities.FHIRError)
+	UpdateCitation(ctx context.Context, resource r4b.Citation) (capabilities.UpdateResult[r4b.Citation], error)
 }
 type ClaimUpdate interface {
-	UpdateClaim(ctx context.Context, resource r4b.Claim) (capabilities.UpdateResult[r4b.Claim], capabilities.FHIRError)
+	UpdateClaim(ctx context.Context, resource r4b.Claim) (capabilities.UpdateResult[r4b.Claim], error)
 }
 type ClaimResponseUpdate interface {
-	UpdateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (capabilities.UpdateResult[r4b.ClaimResponse], capabilities.FHIRError)
+	UpdateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (capabilities.UpdateResult[r4b.ClaimResponse], error)
 }
 type ClinicalImpressionUpdate interface {
-	UpdateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (capabilities.UpdateResult[r4b.ClinicalImpression], capabilities.FHIRError)
+	UpdateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (capabilities.UpdateResult[r4b.ClinicalImpression], error)
 }
 type ClinicalUseDefinitionUpdate interface {
-	UpdateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (capabilities.UpdateResult[r4b.ClinicalUseDefinition], capabilities.FHIRError)
+	UpdateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (capabilities.UpdateResult[r4b.ClinicalUseDefinition], error)
 }
 type CodeSystemUpdate interface {
-	UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (capabilities.UpdateResult[r4b.CodeSystem], capabilities.FHIRError)
+	UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (capabilities.UpdateResult[r4b.CodeSystem], error)
 }
 type CommunicationUpdate interface {
-	UpdateCommunication(ctx context.Context, resource r4b.Communication) (capabilities.UpdateResult[r4b.Communication], capabilities.FHIRError)
+	UpdateCommunication(ctx context.Context, resource r4b.Communication) (capabilities.UpdateResult[r4b.Communication], error)
 }
 type CommunicationRequestUpdate interface {
-	UpdateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (capabilities.UpdateResult[r4b.CommunicationRequest], capabilities.FHIRError)
+	UpdateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (capabilities.UpdateResult[r4b.CommunicationRequest], error)
 }
 type CompartmentDefinitionUpdate interface {
-	UpdateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (capabilities.UpdateResult[r4b.CompartmentDefinition], capabilities.FHIRError)
+	UpdateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (capabilities.UpdateResult[r4b.CompartmentDefinition], error)
 }
 type CompositionUpdate interface {
-	UpdateComposition(ctx context.Context, resource r4b.Composition) (capabilities.UpdateResult[r4b.Composition], capabilities.FHIRError)
+	UpdateComposition(ctx context.Context, resource r4b.Composition) (capabilities.UpdateResult[r4b.Composition], error)
 }
 type ConceptMapUpdate interface {
-	UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap) (capabilities.UpdateResult[r4b.ConceptMap], capabilities.FHIRError)
+	UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap) (capabilities.UpdateResult[r4b.ConceptMap], error)
 }
 type ConditionUpdate interface {
-	UpdateCondition(ctx context.Context, resource r4b.Condition) (capabilities.UpdateResult[r4b.Condition], capabilities.FHIRError)
+	UpdateCondition(ctx context.Context, resource r4b.Condition) (capabilities.UpdateResult[r4b.Condition], error)
 }
 type ConsentUpdate interface {
-	UpdateConsent(ctx context.Context, resource r4b.Consent) (capabilities.UpdateResult[r4b.Consent], capabilities.FHIRError)
+	UpdateConsent(ctx context.Context, resource r4b.Consent) (capabilities.UpdateResult[r4b.Consent], error)
 }
 type ContractUpdate interface {
-	UpdateContract(ctx context.Context, resource r4b.Contract) (capabilities.UpdateResult[r4b.Contract], capabilities.FHIRError)
+	UpdateContract(ctx context.Context, resource r4b.Contract) (capabilities.UpdateResult[r4b.Contract], error)
 }
 type CoverageUpdate interface {
-	UpdateCoverage(ctx context.Context, resource r4b.Coverage) (capabilities.UpdateResult[r4b.Coverage], capabilities.FHIRError)
+	UpdateCoverage(ctx context.Context, resource r4b.Coverage) (capabilities.UpdateResult[r4b.Coverage], error)
 }
 type CoverageEligibilityRequestUpdate interface {
-	UpdateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (capabilities.UpdateResult[r4b.CoverageEligibilityRequest], capabilities.FHIRError)
+	UpdateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (capabilities.UpdateResult[r4b.CoverageEligibilityRequest], error)
 }
 type CoverageEligibilityResponseUpdate interface {
-	UpdateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (capabilities.UpdateResult[r4b.CoverageEligibilityResponse], capabilities.FHIRError)
+	UpdateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (capabilities.UpdateResult[r4b.CoverageEligibilityResponse], error)
 }
 type DetectedIssueUpdate interface {
-	UpdateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (capabilities.UpdateResult[r4b.DetectedIssue], capabilities.FHIRError)
+	UpdateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (capabilities.UpdateResult[r4b.DetectedIssue], error)
 }
 type DeviceUpdate interface {
-	UpdateDevice(ctx context.Context, resource r4b.Device) (capabilities.UpdateResult[r4b.Device], capabilities.FHIRError)
+	UpdateDevice(ctx context.Context, resource r4b.Device) (capabilities.UpdateResult[r4b.Device], error)
 }
 type DeviceDefinitionUpdate interface {
-	UpdateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (capabilities.UpdateResult[r4b.DeviceDefinition], capabilities.FHIRError)
+	UpdateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (capabilities.UpdateResult[r4b.DeviceDefinition], error)
 }
 type DeviceMetricUpdate interface {
-	UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (capabilities.UpdateResult[r4b.DeviceMetric], capabilities.FHIRError)
+	UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (capabilities.UpdateResult[r4b.DeviceMetric], error)
 }
 type DeviceRequestUpdate interface {
-	UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (capabilities.UpdateResult[r4b.DeviceRequest], capabilities.FHIRError)
+	UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (capabilities.UpdateResult[r4b.DeviceRequest], error)
 }
 type DeviceUseStatementUpdate interface {
-	UpdateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (capabilities.UpdateResult[r4b.DeviceUseStatement], capabilities.FHIRError)
+	UpdateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (capabilities.UpdateResult[r4b.DeviceUseStatement], error)
 }
 type DiagnosticReportUpdate interface {
-	UpdateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (capabilities.UpdateResult[r4b.DiagnosticReport], capabilities.FHIRError)
+	UpdateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (capabilities.UpdateResult[r4b.DiagnosticReport], error)
 }
 type DocumentManifestUpdate interface {
-	UpdateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (capabilities.UpdateResult[r4b.DocumentManifest], capabilities.FHIRError)
+	UpdateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (capabilities.UpdateResult[r4b.DocumentManifest], error)
 }
 type DocumentReferenceUpdate interface {
-	UpdateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (capabilities.UpdateResult[r4b.DocumentReference], capabilities.FHIRError)
+	UpdateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (capabilities.UpdateResult[r4b.DocumentReference], error)
 }
 type EncounterUpdate interface {
-	UpdateEncounter(ctx context.Context, resource r4b.Encounter) (capabilities.UpdateResult[r4b.Encounter], capabilities.FHIRError)
+	UpdateEncounter(ctx context.Context, resource r4b.Encounter) (capabilities.UpdateResult[r4b.Encounter], error)
 }
 type EndpointUpdate interface {
-	UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (capabilities.UpdateResult[r4b.Endpoint], capabilities.FHIRError)
+	UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (capabilities.UpdateResult[r4b.Endpoint], error)
 }
 type EnrollmentRequestUpdate interface {
-	UpdateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (capabilities.UpdateResult[r4b.EnrollmentRequest], capabilities.FHIRError)
+	UpdateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (capabilities.UpdateResult[r4b.EnrollmentRequest], error)
 }
 type EnrollmentResponseUpdate interface {
-	UpdateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (capabilities.UpdateResult[r4b.EnrollmentResponse], capabilities.FHIRError)
+	UpdateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (capabilities.UpdateResult[r4b.EnrollmentResponse], error)
 }
 type EpisodeOfCareUpdate interface {
-	UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (capabilities.UpdateResult[r4b.EpisodeOfCare], capabilities.FHIRError)
+	UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (capabilities.UpdateResult[r4b.EpisodeOfCare], error)
 }
 type EventDefinitionUpdate interface {
-	UpdateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (capabilities.UpdateResult[r4b.EventDefinition], capabilities.FHIRError)
+	UpdateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (capabilities.UpdateResult[r4b.EventDefinition], error)
 }
 type EvidenceUpdate interface {
-	UpdateEvidence(ctx context.Context, resource r4b.Evidence) (capabilities.UpdateResult[r4b.Evidence], capabilities.FHIRError)
+	UpdateEvidence(ctx context.Context, resource r4b.Evidence) (capabilities.UpdateResult[r4b.Evidence], error)
 }
 type EvidenceReportUpdate interface {
-	UpdateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (capabilities.UpdateResult[r4b.EvidenceReport], capabilities.FHIRError)
+	UpdateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (capabilities.UpdateResult[r4b.EvidenceReport], error)
 }
 type EvidenceVariableUpdate interface {
-	UpdateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (capabilities.UpdateResult[r4b.EvidenceVariable], capabilities.FHIRError)
+	UpdateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (capabilities.UpdateResult[r4b.EvidenceVariable], error)
 }
 type ExampleScenarioUpdate interface {
-	UpdateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (capabilities.UpdateResult[r4b.ExampleScenario], capabilities.FHIRError)
+	UpdateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (capabilities.UpdateResult[r4b.ExampleScenario], error)
 }
 type ExplanationOfBenefitUpdate interface {
-	UpdateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (capabilities.UpdateResult[r4b.ExplanationOfBenefit], capabilities.FHIRError)
+	UpdateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (capabilities.UpdateResult[r4b.ExplanationOfBenefit], error)
 }
 type FamilyMemberHistoryUpdate interface {
-	UpdateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (capabilities.UpdateResult[r4b.FamilyMemberHistory], capabilities.FHIRError)
+	UpdateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (capabilities.UpdateResult[r4b.FamilyMemberHistory], error)
 }
 type FlagUpdate interface {
-	UpdateFlag(ctx context.Context, resource r4b.Flag) (capabilities.UpdateResult[r4b.Flag], capabilities.FHIRError)
+	UpdateFlag(ctx context.Context, resource r4b.Flag) (capabilities.UpdateResult[r4b.Flag], error)
 }
 type GoalUpdate interface {
-	UpdateGoal(ctx context.Context, resource r4b.Goal) (capabilities.UpdateResult[r4b.Goal], capabilities.FHIRError)
+	UpdateGoal(ctx context.Context, resource r4b.Goal) (capabilities.UpdateResult[r4b.Goal], error)
 }
 type GraphDefinitionUpdate interface {
-	UpdateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (capabilities.UpdateResult[r4b.GraphDefinition], capabilities.FHIRError)
+	UpdateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (capabilities.UpdateResult[r4b.GraphDefinition], error)
 }
 type GroupUpdate interface {
-	UpdateGroup(ctx context.Context, resource r4b.Group) (capabilities.UpdateResult[r4b.Group], capabilities.FHIRError)
+	UpdateGroup(ctx context.Context, resource r4b.Group) (capabilities.UpdateResult[r4b.Group], error)
 }
 type GuidanceResponseUpdate interface {
-	UpdateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (capabilities.UpdateResult[r4b.GuidanceResponse], capabilities.FHIRError)
+	UpdateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (capabilities.UpdateResult[r4b.GuidanceResponse], error)
 }
 type HealthcareServiceUpdate interface {
-	UpdateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (capabilities.UpdateResult[r4b.HealthcareService], capabilities.FHIRError)
+	UpdateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (capabilities.UpdateResult[r4b.HealthcareService], error)
 }
 type ImagingStudyUpdate interface {
-	UpdateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (capabilities.UpdateResult[r4b.ImagingStudy], capabilities.FHIRError)
+	UpdateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (capabilities.UpdateResult[r4b.ImagingStudy], error)
 }
 type ImmunizationUpdate interface {
-	UpdateImmunization(ctx context.Context, resource r4b.Immunization) (capabilities.UpdateResult[r4b.Immunization], capabilities.FHIRError)
+	UpdateImmunization(ctx context.Context, resource r4b.Immunization) (capabilities.UpdateResult[r4b.Immunization], error)
 }
 type ImmunizationEvaluationUpdate interface {
-	UpdateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (capabilities.UpdateResult[r4b.ImmunizationEvaluation], capabilities.FHIRError)
+	UpdateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (capabilities.UpdateResult[r4b.ImmunizationEvaluation], error)
 }
 type ImmunizationRecommendationUpdate interface {
-	UpdateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (capabilities.UpdateResult[r4b.ImmunizationRecommendation], capabilities.FHIRError)
+	UpdateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (capabilities.UpdateResult[r4b.ImmunizationRecommendation], error)
 }
 type ImplementationGuideUpdate interface {
-	UpdateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (capabilities.UpdateResult[r4b.ImplementationGuide], capabilities.FHIRError)
+	UpdateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (capabilities.UpdateResult[r4b.ImplementationGuide], error)
 }
 type IngredientUpdate interface {
-	UpdateIngredient(ctx context.Context, resource r4b.Ingredient) (capabilities.UpdateResult[r4b.Ingredient], capabilities.FHIRError)
+	UpdateIngredient(ctx context.Context, resource r4b.Ingredient) (capabilities.UpdateResult[r4b.Ingredient], error)
 }
 type InsurancePlanUpdate interface {
-	UpdateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (capabilities.UpdateResult[r4b.InsurancePlan], capabilities.FHIRError)
+	UpdateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (capabilities.UpdateResult[r4b.InsurancePlan], error)
 }
 type InvoiceUpdate interface {
-	UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capabilities.UpdateResult[r4b.Invoice], capabilities.FHIRError)
+	UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capabilities.UpdateResult[r4b.Invoice], error)
 }
 type LibraryUpdate interface {
-	UpdateLibrary(ctx context.Context, resource r4b.Library) (capabilities.UpdateResult[r4b.Library], capabilities.FHIRError)
+	UpdateLibrary(ctx context.Context, resource r4b.Library) (capabilities.UpdateResult[r4b.Library], error)
 }
 type LinkageUpdate interface {
-	UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capabilities.UpdateResult[r4b.Linkage], capabilities.FHIRError)
+	UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capabilities.UpdateResult[r4b.Linkage], error)
 }
 type ListUpdate interface {
-	UpdateList(ctx context.Context, resource r4b.List) (capabilities.UpdateResult[r4b.List], capabilities.FHIRError)
+	UpdateList(ctx context.Context, resource r4b.List) (capabilities.UpdateResult[r4b.List], error)
 }
 type LocationUpdate interface {
-	UpdateLocation(ctx context.Context, resource r4b.Location) (capabilities.UpdateResult[r4b.Location], capabilities.FHIRError)
+	UpdateLocation(ctx context.Context, resource r4b.Location) (capabilities.UpdateResult[r4b.Location], error)
 }
 type ManufacturedItemDefinitionUpdate interface {
-	UpdateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (capabilities.UpdateResult[r4b.ManufacturedItemDefinition], capabilities.FHIRError)
+	UpdateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (capabilities.UpdateResult[r4b.ManufacturedItemDefinition], error)
 }
 type MeasureUpdate interface {
-	UpdateMeasure(ctx context.Context, resource r4b.Measure) (capabilities.UpdateResult[r4b.Measure], capabilities.FHIRError)
+	UpdateMeasure(ctx context.Context, resource r4b.Measure) (capabilities.UpdateResult[r4b.Measure], error)
 }
 type MeasureReportUpdate interface {
-	UpdateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (capabilities.UpdateResult[r4b.MeasureReport], capabilities.FHIRError)
+	UpdateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (capabilities.UpdateResult[r4b.MeasureReport], error)
 }
 type MediaUpdate interface {
-	UpdateMedia(ctx context.Context, resource r4b.Media) (capabilities.UpdateResult[r4b.Media], capabilities.FHIRError)
+	UpdateMedia(ctx context.Context, resource r4b.Media) (capabilities.UpdateResult[r4b.Media], error)
 }
 type MedicationUpdate interface {
-	UpdateMedication(ctx context.Context, resource r4b.Medication) (capabilities.UpdateResult[r4b.Medication], capabilities.FHIRError)
+	UpdateMedication(ctx context.Context, resource r4b.Medication) (capabilities.UpdateResult[r4b.Medication], error)
 }
 type MedicationAdministrationUpdate interface {
-	UpdateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (capabilities.UpdateResult[r4b.MedicationAdministration], capabilities.FHIRError)
+	UpdateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (capabilities.UpdateResult[r4b.MedicationAdministration], error)
 }
 type MedicationDispenseUpdate interface {
-	UpdateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (capabilities.UpdateResult[r4b.MedicationDispense], capabilities.FHIRError)
+	UpdateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (capabilities.UpdateResult[r4b.MedicationDispense], error)
 }
 type MedicationKnowledgeUpdate interface {
-	UpdateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (capabilities.UpdateResult[r4b.MedicationKnowledge], capabilities.FHIRError)
+	UpdateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (capabilities.UpdateResult[r4b.MedicationKnowledge], error)
 }
 type MedicationRequestUpdate interface {
-	UpdateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (capabilities.UpdateResult[r4b.MedicationRequest], capabilities.FHIRError)
+	UpdateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (capabilities.UpdateResult[r4b.MedicationRequest], error)
 }
 type MedicationStatementUpdate interface {
-	UpdateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (capabilities.UpdateResult[r4b.MedicationStatement], capabilities.FHIRError)
+	UpdateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (capabilities.UpdateResult[r4b.MedicationStatement], error)
 }
 type MedicinalProductDefinitionUpdate interface {
-	UpdateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (capabilities.UpdateResult[r4b.MedicinalProductDefinition], capabilities.FHIRError)
+	UpdateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (capabilities.UpdateResult[r4b.MedicinalProductDefinition], error)
 }
 type MessageDefinitionUpdate interface {
-	UpdateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (capabilities.UpdateResult[r4b.MessageDefinition], capabilities.FHIRError)
+	UpdateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (capabilities.UpdateResult[r4b.MessageDefinition], error)
 }
 type MessageHeaderUpdate interface {
-	UpdateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (capabilities.UpdateResult[r4b.MessageHeader], capabilities.FHIRError)
+	UpdateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (capabilities.UpdateResult[r4b.MessageHeader], error)
 }
 type MolecularSequenceUpdate interface {
-	UpdateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (capabilities.UpdateResult[r4b.MolecularSequence], capabilities.FHIRError)
+	UpdateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (capabilities.UpdateResult[r4b.MolecularSequence], error)
 }
 type NamingSystemUpdate interface {
-	UpdateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (capabilities.UpdateResult[r4b.NamingSystem], capabilities.FHIRError)
+	UpdateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (capabilities.UpdateResult[r4b.NamingSystem], error)
 }
 type NutritionOrderUpdate interface {
-	UpdateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (capabilities.UpdateResult[r4b.NutritionOrder], capabilities.FHIRError)
+	UpdateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (capabilities.UpdateResult[r4b.NutritionOrder], error)
 }
 type NutritionProductUpdate interface {
-	UpdateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (capabilities.UpdateResult[r4b.NutritionProduct], capabilities.FHIRError)
+	UpdateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (capabilities.UpdateResult[r4b.NutritionProduct], error)
 }
 type ObservationUpdate interface {
-	UpdateObservation(ctx context.Context, resource r4b.Observation) (capabilities.UpdateResult[r4b.Observation], capabilities.FHIRError)
+	UpdateObservation(ctx context.Context, resource r4b.Observation) (capabilities.UpdateResult[r4b.Observation], error)
 }
 type ObservationDefinitionUpdate interface {
-	UpdateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (capabilities.UpdateResult[r4b.ObservationDefinition], capabilities.FHIRError)
+	UpdateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (capabilities.UpdateResult[r4b.ObservationDefinition], error)
 }
 type OperationDefinitionUpdate interface {
-	UpdateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (capabilities.UpdateResult[r4b.OperationDefinition], capabilities.FHIRError)
+	UpdateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (capabilities.UpdateResult[r4b.OperationDefinition], error)
 }
 type OperationOutcomeUpdate interface {
-	UpdateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (capabilities.UpdateResult[r4b.OperationOutcome], capabilities.FHIRError)
+	UpdateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (capabilities.UpdateResult[r4b.OperationOutcome], error)
 }
 type OrganizationUpdate interface {
-	UpdateOrganization(ctx context.Context, resource r4b.Organization) (capabilities.UpdateResult[r4b.Organization], capabilities.FHIRError)
+	UpdateOrganization(ctx context.Context, resource r4b.Organization) (capabilities.UpdateResult[r4b.Organization], error)
 }
 type OrganizationAffiliationUpdate interface {
-	UpdateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (capabilities.UpdateResult[r4b.OrganizationAffiliation], capabilities.FHIRError)
+	UpdateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (capabilities.UpdateResult[r4b.OrganizationAffiliation], error)
 }
 type PackagedProductDefinitionUpdate interface {
-	UpdatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (capabilities.UpdateResult[r4b.PackagedProductDefinition], capabilities.FHIRError)
+	UpdatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (capabilities.UpdateResult[r4b.PackagedProductDefinition], error)
 }
 type ParametersUpdate interface {
-	UpdateParameters(ctx context.Context, resource r4b.Parameters) (capabilities.UpdateResult[r4b.Parameters], capabilities.FHIRError)
+	UpdateParameters(ctx context.Context, resource r4b.Parameters) (capabilities.UpdateResult[r4b.Parameters], error)
 }
 type PatientUpdate interface {
-	UpdatePatient(ctx context.Context, resource r4b.Patient) (capabilities.UpdateResult[r4b.Patient], capabilities.FHIRError)
+	UpdatePatient(ctx context.Context, resource r4b.Patient) (capabilities.UpdateResult[r4b.Patient], error)
 }
 type PaymentNoticeUpdate interface {
-	UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (capabilities.UpdateResult[r4b.PaymentNotice], capabilities.FHIRError)
+	UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (capabilities.UpdateResult[r4b.PaymentNotice], error)
 }
 type PaymentReconciliationUpdate interface {
-	UpdatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (capabilities.UpdateResult[r4b.PaymentReconciliation], capabilities.FHIRError)
+	UpdatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (capabilities.UpdateResult[r4b.PaymentReconciliation], error)
 }
 type PersonUpdate interface {
-	UpdatePerson(ctx context.Context, resource r4b.Person) (capabilities.UpdateResult[r4b.Person], capabilities.FHIRError)
+	UpdatePerson(ctx context.Context, resource r4b.Person) (capabilities.UpdateResult[r4b.Person], error)
 }
 type PlanDefinitionUpdate interface {
-	UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (capabilities.UpdateResult[r4b.PlanDefinition], capabilities.FHIRError)
+	UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (capabilities.UpdateResult[r4b.PlanDefinition], error)
 }
 type PractitionerUpdate interface {
-	UpdatePractitioner(ctx context.Context, resource r4b.Practitioner) (capabilities.UpdateResult[r4b.Practitioner], capabilities.FHIRError)
+	UpdatePractitioner(ctx context.Context, resource r4b.Practitioner) (capabilities.UpdateResult[r4b.Practitioner], error)
 }
 type PractitionerRoleUpdate interface {
-	UpdatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (capabilities.UpdateResult[r4b.PractitionerRole], capabilities.FHIRError)
+	UpdatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (capabilities.UpdateResult[r4b.PractitionerRole], error)
 }
 type ProcedureUpdate interface {
-	UpdateProcedure(ctx context.Context, resource r4b.Procedure) (capabilities.UpdateResult[r4b.Procedure], capabilities.FHIRError)
+	UpdateProcedure(ctx context.Context, resource r4b.Procedure) (capabilities.UpdateResult[r4b.Procedure], error)
 }
 type ProvenanceUpdate interface {
-	UpdateProvenance(ctx context.Context, resource r4b.Provenance) (capabilities.UpdateResult[r4b.Provenance], capabilities.FHIRError)
+	UpdateProvenance(ctx context.Context, resource r4b.Provenance) (capabilities.UpdateResult[r4b.Provenance], error)
 }
 type QuestionnaireUpdate interface {
-	UpdateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (capabilities.UpdateResult[r4b.Questionnaire], capabilities.FHIRError)
+	UpdateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (capabilities.UpdateResult[r4b.Questionnaire], error)
 }
 type QuestionnaireResponseUpdate interface {
-	UpdateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (capabilities.UpdateResult[r4b.QuestionnaireResponse], capabilities.FHIRError)
+	UpdateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (capabilities.UpdateResult[r4b.QuestionnaireResponse], error)
 }
 type RegulatedAuthorizationUpdate interface {
-	UpdateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (capabilities.UpdateResult[r4b.RegulatedAuthorization], capabilities.FHIRError)
+	UpdateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (capabilities.UpdateResult[r4b.RegulatedAuthorization], error)
 }
 type RelatedPersonUpdate interface {
-	UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (capabilities.UpdateResult[r4b.RelatedPerson], capabilities.FHIRError)
+	UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (capabilities.UpdateResult[r4b.RelatedPerson], error)
 }
 type RequestGroupUpdate interface {
-	UpdateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (capabilities.UpdateResult[r4b.RequestGroup], capabilities.FHIRError)
+	UpdateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (capabilities.UpdateResult[r4b.RequestGroup], error)
 }
 type ResearchDefinitionUpdate interface {
-	UpdateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (capabilities.UpdateResult[r4b.ResearchDefinition], capabilities.FHIRError)
+	UpdateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (capabilities.UpdateResult[r4b.ResearchDefinition], error)
 }
 type ResearchElementDefinitionUpdate interface {
-	UpdateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (capabilities.UpdateResult[r4b.ResearchElementDefinition], capabilities.FHIRError)
+	UpdateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (capabilities.UpdateResult[r4b.ResearchElementDefinition], error)
 }
 type ResearchStudyUpdate interface {
-	UpdateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (capabilities.UpdateResult[r4b.ResearchStudy], capabilities.FHIRError)
+	UpdateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (capabilities.UpdateResult[r4b.ResearchStudy], error)
 }
 type ResearchSubjectUpdate interface {
-	UpdateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (capabilities.UpdateResult[r4b.ResearchSubject], capabilities.FHIRError)
+	UpdateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (capabilities.UpdateResult[r4b.ResearchSubject], error)
 }
 type RiskAssessmentUpdate interface {
-	UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (capabilities.UpdateResult[r4b.RiskAssessment], capabilities.FHIRError)
+	UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (capabilities.UpdateResult[r4b.RiskAssessment], error)
 }
 type ScheduleUpdate interface {
-	UpdateSchedule(ctx context.Context, resource r4b.Schedule) (capabilities.UpdateResult[r4b.Schedule], capabilities.FHIRError)
+	UpdateSchedule(ctx context.Context, resource r4b.Schedule) (capabilities.UpdateResult[r4b.Schedule], error)
 }
 type SearchParameterUpdate interface {
-	UpdateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (capabilities.UpdateResult[r4b.SearchParameter], capabilities.FHIRError)
+	UpdateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (capabilities.UpdateResult[r4b.SearchParameter], error)
 }
 type ServiceRequestUpdate interface {
-	UpdateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (capabilities.UpdateResult[r4b.ServiceRequest], capabilities.FHIRError)
+	UpdateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (capabilities.UpdateResult[r4b.ServiceRequest], error)
 }
 type SlotUpdate interface {
-	UpdateSlot(ctx context.Context, resource r4b.Slot) (capabilities.UpdateResult[r4b.Slot], capabilities.FHIRError)
+	UpdateSlot(ctx context.Context, resource r4b.Slot) (capabilities.UpdateResult[r4b.Slot], error)
 }
 type SpecimenUpdate interface {
-	UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (capabilities.UpdateResult[r4b.Specimen], capabilities.FHIRError)
+	UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (capabilities.UpdateResult[r4b.Specimen], error)
 }
 type SpecimenDefinitionUpdate interface {
-	UpdateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (capabilities.UpdateResult[r4b.SpecimenDefinition], capabilities.FHIRError)
+	UpdateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (capabilities.UpdateResult[r4b.SpecimenDefinition], error)
 }
 type StructureDefinitionUpdate interface {
-	UpdateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (capabilities.UpdateResult[r4b.StructureDefinition], capabilities.FHIRError)
+	UpdateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (capabilities.UpdateResult[r4b.StructureDefinition], error)
 }
 type StructureMapUpdate interface {
-	UpdateStructureMap(ctx context.Context, resource r4b.StructureMap) (capabilities.UpdateResult[r4b.StructureMap], capabilities.FHIRError)
+	UpdateStructureMap(ctx context.Context, resource r4b.StructureMap) (capabilities.UpdateResult[r4b.StructureMap], error)
 }
 type SubscriptionUpdate interface {
-	UpdateSubscription(ctx context.Context, resource r4b.Subscription) (capabilities.UpdateResult[r4b.Subscription], capabilities.FHIRError)
+	UpdateSubscription(ctx context.Context, resource r4b.Subscription) (capabilities.UpdateResult[r4b.Subscription], error)
 }
 type SubscriptionStatusUpdate interface {
-	UpdateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (capabilities.UpdateResult[r4b.SubscriptionStatus], capabilities.FHIRError)
+	UpdateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (capabilities.UpdateResult[r4b.SubscriptionStatus], error)
 }
 type SubscriptionTopicUpdate interface {
-	UpdateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (capabilities.UpdateResult[r4b.SubscriptionTopic], capabilities.FHIRError)
+	UpdateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (capabilities.UpdateResult[r4b.SubscriptionTopic], error)
 }
 type SubstanceUpdate interface {
-	UpdateSubstance(ctx context.Context, resource r4b.Substance) (capabilities.UpdateResult[r4b.Substance], capabilities.FHIRError)
+	UpdateSubstance(ctx context.Context, resource r4b.Substance) (capabilities.UpdateResult[r4b.Substance], error)
 }
 type SubstanceDefinitionUpdate interface {
-	UpdateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (capabilities.UpdateResult[r4b.SubstanceDefinition], capabilities.FHIRError)
+	UpdateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (capabilities.UpdateResult[r4b.SubstanceDefinition], error)
 }
 type SupplyDeliveryUpdate interface {
-	UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (capabilities.UpdateResult[r4b.SupplyDelivery], capabilities.FHIRError)
+	UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (capabilities.UpdateResult[r4b.SupplyDelivery], error)
 }
 type SupplyRequestUpdate interface {
-	UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (capabilities.UpdateResult[r4b.SupplyRequest], capabilities.FHIRError)
+	UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (capabilities.UpdateResult[r4b.SupplyRequest], error)
 }
 type TaskUpdate interface {
-	UpdateTask(ctx context.Context, resource r4b.Task) (capabilities.UpdateResult[r4b.Task], capabilities.FHIRError)
+	UpdateTask(ctx context.Context, resource r4b.Task) (capabilities.UpdateResult[r4b.Task], error)
 }
 type TerminologyCapabilitiesUpdate interface {
-	UpdateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (capabilities.UpdateResult[r4b.TerminologyCapabilities], capabilities.FHIRError)
+	UpdateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (capabilities.UpdateResult[r4b.TerminologyCapabilities], error)
 }
 type TestReportUpdate interface {
-	UpdateTestReport(ctx context.Context, resource r4b.TestReport) (capabilities.UpdateResult[r4b.TestReport], capabilities.FHIRError)
+	UpdateTestReport(ctx context.Context, resource r4b.TestReport) (capabilities.UpdateResult[r4b.TestReport], error)
 }
 type TestScriptUpdate interface {
-	UpdateTestScript(ctx context.Context, resource r4b.TestScript) (capabilities.UpdateResult[r4b.TestScript], capabilities.FHIRError)
+	UpdateTestScript(ctx context.Context, resource r4b.TestScript) (capabilities.UpdateResult[r4b.TestScript], error)
 }
 type ValueSetUpdate interface {
-	UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (capabilities.UpdateResult[r4b.ValueSet], capabilities.FHIRError)
+	UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (capabilities.UpdateResult[r4b.ValueSet], error)
 }
 type VerificationResultUpdate interface {
-	UpdateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (capabilities.UpdateResult[r4b.VerificationResult], capabilities.FHIRError)
+	UpdateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (capabilities.UpdateResult[r4b.VerificationResult], error)
 }
 type VisionPrescriptionUpdate interface {
-	UpdateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (capabilities.UpdateResult[r4b.VisionPrescription], capabilities.FHIRError)
+	UpdateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (capabilities.UpdateResult[r4b.VisionPrescription], error)
 }

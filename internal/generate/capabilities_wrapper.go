@@ -67,12 +67,12 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		shortcutParams = append(shortcutParams, Id("resourceType"), Id("options"))
 		passParams = append(passParams, Id("options"))
 		returnType = Qual(moduleName+"/capabilities/search", "Result")
-		f.Add(generateGenericSearchCapabilities(resources))
+		f.Add(generateGenericSearchCapabilities(release, resources))
 	}
 
 	f.Func().Params(Id("w").Id(genericWrapperName)).Id(interactionName).
 		Params(params...).
-		Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
+		Params(returnType, Error()).
 		Block(
 			List(Id("g"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Qual(moduleName+"/capabilities", "Generic"+interactionName)),
 			If(Id("ok")).Block(
@@ -86,28 +86,28 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 					for _, r := range resources {
 						g.Case(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)).BlockFunc(func(g *Group) {
 							g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
-							g.If(Op("!").Id("ok")).Block(Return(Nil(), notImplementedError(interactionName, r.Name)))
+							g.If(Op("!").Id("ok")).Block(Return(Nil(), notImplementedError(release, interaction, r.Name)))
 							g.Return(Id("impl." + interactionName + r.Name).Call(passParams...))
 						})
 					}
 
-					g.Default().Block(Return(Nil(), unknownError(Id("resource").Dot("ResourceType").Call())))
+					g.Default().Block(Return(Nil(), invalidResourceTypeError(release, Id("resource").Dot("ResourceType").Call())))
 				case "read":
 					for _, r := range resources {
 						g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
 							g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
-							g.If(Op("!").Id("ok")).Block(Return(Nil(), notImplementedError(interactionName, r.Name)))
+							g.If(Op("!").Id("ok")).Block(Return(Nil(), notImplementedError(release, interaction, r.Name)))
 							g.Return(Id("impl." + interactionName + r.Name).Call(passParams...))
 						})
 					}
 
-					g.Default().Block(Return(Nil(), unknownError(Id("resourceType"))))
+					g.Default().Block(Return(Nil(), invalidResourceTypeError(release, Id("resourceType"))))
 				case "update":
 					for _, r := range resources {
 						g.Case(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)).BlockFunc(func(g *Group) {
 							g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
 							g.If(Op("!").Id("ok")).Block(
-								Return(returnType.Clone().Block(), notImplementedError(interactionName, r.Name)),
+								Return(returnType.Clone().Block(), notImplementedError(release, interaction, r.Name)),
 							)
 							g.List(Id("result"), Id("err")).Op(":=").Id("impl." + interactionName + r.Name).Call(passParams...)
 							g.If(Id("err").Op("!=").Nil()).Block(
@@ -123,19 +123,19 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 						})
 					}
 
-					g.Default().Block(Return(returnType.Clone().Block(), unknownError(Id("resource").Dot("ResourceType").Call())))
+					g.Default().Block(Return(returnType.Clone().Block(), invalidResourceTypeError(release, Id("resource").Dot("ResourceType").Call())))
 				case "search":
 					for _, r := range resources {
 						g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
 							g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
-							g.If(Op("!").Id("ok")).Block(Return(returnType.Clone().Block(), notImplementedError(interactionName, r.Name)))
+							g.If(Op("!").Id("ok")).Block(Return(returnType.Clone().Block(), notImplementedError(release, interaction, r.Name)))
 							g.Return(Id("impl." + interactionName + r.Name).Call(passParams...))
 						})
 					}
 
 					g.Default().Block(Return(
 						Qual(moduleName+"/capabilities/search", "Result").Block(),
-						unknownError(Id("resourceType")),
+						invalidResourceTypeError(release, Id("resourceType")),
 					))
 				}
 
@@ -143,10 +143,10 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		)
 }
 
-func generateGenericSearchCapabilities(resources []ir.ResourceOrType) Code {
+func generateGenericSearchCapabilities(release string, resources []ir.ResourceOrType) Code {
 	return Func().Params(Id("w").Id(genericWrapperName)).Id("SearchCapabilities").
 		Params(Id("ctx").Qual("context", "Context"), Id("resourceType").String()).
-		Params(Qual(moduleName+"/capabilities/search", "Capabilities"), Qual(moduleName+"/capabilities", "FHIRError")).
+		Params(Qual(moduleName+"/capabilities/search", "Capabilities"), Error()).
 		Block(
 			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
 				for _, r := range resources {
@@ -155,14 +155,14 @@ func generateGenericSearchCapabilities(resources []ir.ResourceOrType) Code {
 						If(Op("!").Id("ok")).Block(
 							Return(
 								Qual(moduleName+"/capabilities/search", "Capabilities").Block(),
-								notImplementedError("search", r.Name),
+								notImplementedError(release, "search", r.Name),
 							),
 						),
 						Return(Id("impl.SearchCapabilities"+r.Name).Call(Id("ctx"))),
 					)
 				}
 
-				g.Default().Block(Return(Qual(moduleName+"/capabilities/search", "Capabilities").Block(), unknownError(Id("resourceType"))))
+				g.Default().Block(Return(Qual(moduleName+"/capabilities/search", "Capabilities").Block(), invalidResourceTypeError(release, Id("resourceType"))))
 			}),
 		)
 }
@@ -172,7 +172,7 @@ func generateWrapperAllCapabilities(f *File) {
 		Params(Id("ctx").Qual("context", "Context")).
 		Params(
 			Qual(moduleName+"/capabilities", "Capabilities"),
-			Qual(moduleName+"/capabilities", "FHIRError"),
+			Error(),
 		).
 		Block(
 			List(Id("g"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Qual(moduleName+"/capabilities", "GenericCapabilities")),
@@ -220,11 +220,11 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 
 		f.Func().Params(Id("w").Id(concreteWrapperName)).Id(interactionName+r.Name).
 			Params(params...).
-			Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
+			Params(returnType, Error()).
 			BlockFunc(func(g *Group) {
 				g.List(Id("g"), Id("ok")).Op(":=").Id("w.Generic").Assert(Qual(moduleName+"/capabilities", "Generic"+interactionName))
 				g.If(Id("!ok")).Block(
-					Return(returnType.Clone().Block(), notImplementedError(interactionName, r.Name)),
+					Return(returnType.Clone().Block(), notImplementedError(release, interactionName, r.Name)),
 				)
 
 				switch interaction {
@@ -240,7 +240,7 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 					)
 					g.List(Id("r"), Id("ok")).Op(":=").Id("v").Assert(returnType)
 					g.If(Id("!ok")).Block(
-						Return(returnType.Clone().Block(), unexpectedError(Lit(r.Name), Id("v").Dot("ResourceType").Call())),
+						Return(returnType.Clone().Block(), unexpectedResourceTypeError(release, Lit(r.Name), Id("v").Dot("ResourceType").Call())),
 					)
 					g.Return(Id("r"), Nil())
 				case "update":
@@ -258,7 +258,7 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 						Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name),
 					)
 					g.If(Id("!ok")).Block(
-						Return(returnType.Clone().Block(), unexpectedError(Lit(r.Name), Id("v").Dot("ResourceType").Call())),
+						Return(returnType.Clone().Block(), unexpectedResourceTypeError(release, Lit(r.Name), Id("v").Dot("ResourceType").Call())),
 					)
 					g.Return(
 						returnType.Clone().Block(Dict{
@@ -281,7 +281,7 @@ func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 	returnType := Qual(moduleName+"/capabilities/search", "Capabilities")
 	return Func().Params(Id("w").Id(concreteWrapperName)).Id("SearchCapabilities"+r.Name).
 		Params(Id("ctx").Qual("context", "Context")).
-		Params(returnType, Qual(moduleName+"/capabilities", "FHIRError")).
+		Params(returnType, Error()).
 		BlockFunc(func(g *Group) {
 			g.List(Id("allCapabilities"), Id("err")).Op(":=").Id("w.Generic.AllCapabilities").Call(Id("ctx"))
 			g.If(Id("err").Op("!=").Nil()).Block(
@@ -291,22 +291,59 @@ func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 		})
 }
 
-func notImplementedError(interaction, resourceType string) Code {
-	return Qual(moduleName+"/capabilities", "NotImplementedError").Values(
-		Id("Interaction").Op(":").Lit(strings.ToLower(interaction)),
-		Id("ResourceType").Op(":").Lit(resourceType),
-	)
+func notImplementedError(release, interaction, resourceType string) Code {
+	r := strings.ToLower(release)
+	return Qual(moduleName+"/model/gen/"+r, "OperationOutcome").Values(Dict{
+		Id("Issue"): Index().Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(
+			Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(Dict{
+				Id("Severity"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("fatal")),
+				}),
+				Id("Code"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("not-supported")),
+				}),
+				Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+r, "String").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit(interaction + " not implemented for " + resourceType)),
+				}),
+			}),
+		),
+	})
 }
 
-func unknownError(resourceType Code) Code {
-	return Qual(moduleName+"/capabilities", "InvalidResourceError").Values(
-		Id("ResourceType").Op(":").Add(resourceType),
-	)
+func invalidResourceTypeError(release string, resourceType Code) Code {
+	r := strings.ToLower(release)
+	return Qual(moduleName+"/model/gen/"+r, "OperationOutcome").Values(Dict{
+		Id("Issue"): Index().Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(
+			Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(Dict{
+				Id("Severity"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("fatal")),
+				}),
+				Id("Code"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("processing")),
+				}),
+				Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+r, "String").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("invalid resource type: ").Op("+").Add(resourceType)),
+				}),
+			}),
+		),
+	})
 }
 
-func unexpectedError(expectedType, gotType Code) Code {
-	return Qual(moduleName+"/capabilities", "UnexpectedResourceError").Values(
-		Id("ExpectedType").Op(":").Add(expectedType),
-		Id("GotType").Op(":").Add(gotType),
-	)
+func unexpectedResourceTypeError(release string, expectedType, gotType Code) Code {
+	r := strings.ToLower(release)
+	return Qual(moduleName+"/model/gen/"+r, "OperationOutcome").Values(Dict{
+		Id("Issue"): Index().Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(
+			Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(Dict{
+				Id("Severity"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("fatal")),
+				}),
+				Id("Code"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("processing")),
+				}),
+				Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+r, "String").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("expected ").Op("+").Add(expectedType).Op("+").Lit(" but got ").Op("+").Add(gotType)),
+				}),
+			}),
+		),
+	})
 }
