@@ -92,7 +92,7 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 	}
 }
 
-// overrides for errors in the test xml
+// overrides for fhirerrors in the test xml
 var testOverrides = map[string]testdata.FHIRPathTest{
 	"testPrecedence3": {
 		// test expression has wrong precedence

@@ -381,7 +381,7 @@ func TestHandleCreate(t *testing.T) {
 					{
 						"severity": "fatal",
 						"code": "processing",
-						"diagnostics": "request body is not of type Patient"
+						"diagnostics": "unexpected resource from client: expected Patient, got Observation"
 					}
 				]
 			}`,
@@ -553,7 +553,7 @@ func TestHandleRead(t *testing.T) {
 					{
 						"severity": "fatal",
 						"code": "not-supported",
-						"diagnostics":"unknown resource type UnknownType"
+						"diagnostics":"invalid resource type UnknownType"
 					}
 				]
 			}`,
@@ -857,7 +857,7 @@ func TestHandleSearch(t *testing.T) {
 					{
 						"severity":"fatal",
 						"code":"not-supported",
-						"diagnostics":"unknown resource type UnknownType"
+						"diagnostics":"invalid resource type UnknownType"
 					}
 				]
 			}`,

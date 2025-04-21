@@ -108,16 +108,16 @@ or standalone FHIR® servers.
 
 #### Interoperability
 
-The `capabilities/wrap` package provides two wrapper functions to wrap a concrete into the generic API:
+Wrapper structs facilitate interoperability between the generic and the concrete API.
 
 ```Go
-genericAPI := wrap.Generic[model.R4](concreteAPI)
+genericAPI := r4.Generic{Concrete: concreteAPI}
 ```
 
 and vice versa:
 
 ```Go
-concreteAPI := wrap.ConcreteR4(genericAPI)
+concreteAPI := r4.Concrete{Generic: genericAPI}
 ```
 
 ## FHIRPath

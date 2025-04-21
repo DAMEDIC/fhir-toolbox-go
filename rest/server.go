@@ -37,9 +37,9 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/wrap"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/wrap"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"log/slog"
 	"net/http"
@@ -70,7 +70,7 @@ func NewServer[R model.Release](backend any, config Config) (http.Handler, error
 
 func registerRoutes[R model.Release](
 	mux *http.ServeMux,
-	backend capabilities.GenericAPI,
+	backend capabilities.GenericCapabilities,
 	config Config,
 ) error {
 	date, _, err := search.ParseDate(config.Date, config.Timezone)
@@ -87,7 +87,7 @@ func registerRoutes[R model.Release](
 }
 
 func metadataHandler[R model.Release](
-	backend capabilities.GenericAPI,
+	backend capabilities.GenericCapabilities,
 	config Config,
 	date time.Time,
 ) http.Handler {
@@ -106,13 +106,23 @@ func metadataHandler[R model.Release](
 }
 
 func createHandler[R model.Release](
-	backend capabilities.GenericAPI,
+	anyBackend any,
 	config Config,
 ) http.Handler {
+	backend, implemented := anyBackend.(capabilities.GenericCreate)
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		requestFormat := detectFormat(r, "Content-Type", config.DefaultFormat)
 		responseFormat := detectFormat(r, "Accept", requestFormat)
 		resourceType := r.PathValue("type")
+
+		if !implemented {
+			err := capabilities.NotImplementedError{
+				Interaction: "create",
+			}
+			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
+			return
+		}
 
 		status, resource := dispatchCreate[R](r, backend, requestFormat, resourceType)
 		if status != http.StatusCreated {
@@ -131,15 +141,21 @@ type wrongRequestBodyError struct {
 	ResourceType string
 }
 
-func (e wrongRequestBodyError) Error() string {
-	return fmt.Sprintf("request body is not of type %s", e.ResourceType)
+// An UnexpectedResourceError is returned when an unexpected resource type is returned.
+type unexpectedResourceClientError struct {
+	ExpectedType string
+	GotType      string
 }
 
-func (e wrongRequestBodyError) StatusCode() int {
+func (e unexpectedResourceClientError) Error() string {
+	return fmt.Sprintf("unexpected resource from client: expected %s, got %s", e.ExpectedType, e.GotType)
+}
+
+func (e unexpectedResourceClientError) StatusCode() int {
 	return 400
 }
 
-func (e wrongRequestBodyError) OperationOutcome() basic.OperationOutcome {
+func (e unexpectedResourceClientError) OperationOutcome() basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
@@ -150,10 +166,9 @@ func (e wrongRequestBodyError) OperationOutcome() basic.OperationOutcome {
 		},
 	}
 }
-
 func dispatchCreate[R model.Release](
 	r *http.Request,
-	backend capabilities.GenericAPI,
+	backend capabilities.GenericCreate,
 	requestFormat format,
 	resourceType string,
 ) (int, model.Resource) {
@@ -171,8 +186,11 @@ func dispatchCreate[R model.Release](
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
-	if resource == nil || resource.ResourceType() != resourceType {
-		err = wrongRequestBodyError{ResourceType: resourceType}
+	if resourceType != resource.ResourceType() {
+		err = unexpectedResourceClientError{
+			ExpectedType: resourceType,
+			GotType:      resource.ResourceType(),
+		}
 		return err.StatusCode(), err.OperationOutcome()
 	}
 
@@ -185,13 +203,23 @@ func dispatchCreate[R model.Release](
 }
 
 func readHandler(
-	backend capabilities.GenericAPI,
+	anyBackend any,
 	config Config,
 ) http.Handler {
+	backend, implemented := anyBackend.(capabilities.GenericRead)
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
+
+		if !implemented {
+			err := capabilities.NotImplementedError{
+				Interaction: "read",
+			}
+			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
+			return
+		}
 
 		status, resource := dispatchRead(r.Context(), backend, resourceType, resourceID)
 		if status != http.StatusOK {
@@ -204,7 +232,7 @@ func readHandler(
 
 func dispatchRead(
 	ctx context.Context,
-	backend capabilities.GenericAPI,
+	backend capabilities.GenericRead,
 	resourceType string,
 	resourceID string,
 ) (int, model.Resource) {
@@ -216,13 +244,23 @@ func dispatchRead(
 }
 
 func searchHandler(
-	backend capabilities.GenericAPI,
+	anyBackend any,
 	config Config,
 	tz *time.Location,
 ) http.Handler {
+	backend, implemented := anyBackend.(capabilities.GenericSearch)
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 		resourceType := r.PathValue("type")
+
+		if !implemented {
+			err := capabilities.NotImplementedError{
+				Interaction: "search-type",
+			}
+			returnResult(w, responseFormat, err.StatusCode(), err.OperationOutcome())
+			return
+		}
 
 		status, resource := dispatchSearch(
 			r.Context(),
@@ -242,7 +280,7 @@ func searchHandler(
 
 func dispatchSearch(
 	ctx context.Context,
-	backend capabilities.GenericAPI,
+	backend capabilities.GenericSearch,
 	config Config,
 	resourceType string,
 	parameters url.Values,

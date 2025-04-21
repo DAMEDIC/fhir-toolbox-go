@@ -11,296 +11,16 @@ import (
 	r4b "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 )
 
-type ConcreteAPI interface {
-	AccountRead
-	AccountSearch
-	ActivityDefinitionRead
-	ActivityDefinitionSearch
-	AdministrableProductDefinitionRead
-	AdministrableProductDefinitionSearch
-	AdverseEventRead
-	AdverseEventSearch
-	AllergyIntoleranceRead
-	AllergyIntoleranceSearch
-	AppointmentRead
-	AppointmentSearch
-	AppointmentResponseRead
-	AppointmentResponseSearch
-	AuditEventRead
-	AuditEventSearch
-	BasicRead
-	BasicSearch
-	BinaryRead
-	BinarySearch
-	BiologicallyDerivedProductRead
-	BiologicallyDerivedProductSearch
-	BodyStructureRead
-	BodyStructureSearch
-	BundleRead
-	BundleSearch
-	CapabilityStatementRead
-	CapabilityStatementSearch
-	CarePlanRead
-	CarePlanSearch
-	CareTeamRead
-	CareTeamSearch
-	CatalogEntryRead
-	CatalogEntrySearch
-	ChargeItemRead
-	ChargeItemSearch
-	ChargeItemDefinitionRead
-	ChargeItemDefinitionSearch
-	CitationRead
-	CitationSearch
-	ClaimRead
-	ClaimSearch
-	ClaimResponseRead
-	ClaimResponseSearch
-	ClinicalImpressionRead
-	ClinicalImpressionSearch
-	ClinicalUseDefinitionRead
-	ClinicalUseDefinitionSearch
-	CodeSystemRead
-	CodeSystemSearch
-	CommunicationRead
-	CommunicationSearch
-	CommunicationRequestRead
-	CommunicationRequestSearch
-	CompartmentDefinitionRead
-	CompartmentDefinitionSearch
-	CompositionRead
-	CompositionSearch
-	ConceptMapRead
-	ConceptMapSearch
-	ConditionRead
-	ConditionSearch
-	ConsentRead
-	ConsentSearch
-	ContractRead
-	ContractSearch
-	CoverageRead
-	CoverageSearch
-	CoverageEligibilityRequestRead
-	CoverageEligibilityRequestSearch
-	CoverageEligibilityResponseRead
-	CoverageEligibilityResponseSearch
-	DetectedIssueRead
-	DetectedIssueSearch
-	DeviceRead
-	DeviceSearch
-	DeviceDefinitionRead
-	DeviceDefinitionSearch
-	DeviceMetricRead
-	DeviceMetricSearch
-	DeviceRequestRead
-	DeviceRequestSearch
-	DeviceUseStatementRead
-	DeviceUseStatementSearch
-	DiagnosticReportRead
-	DiagnosticReportSearch
-	DocumentManifestRead
-	DocumentManifestSearch
-	DocumentReferenceRead
-	DocumentReferenceSearch
-	EncounterRead
-	EncounterSearch
-	EndpointRead
-	EndpointSearch
-	EnrollmentRequestRead
-	EnrollmentRequestSearch
-	EnrollmentResponseRead
-	EnrollmentResponseSearch
-	EpisodeOfCareRead
-	EpisodeOfCareSearch
-	EventDefinitionRead
-	EventDefinitionSearch
-	EvidenceRead
-	EvidenceSearch
-	EvidenceReportRead
-	EvidenceReportSearch
-	EvidenceVariableRead
-	EvidenceVariableSearch
-	ExampleScenarioRead
-	ExampleScenarioSearch
-	ExplanationOfBenefitRead
-	ExplanationOfBenefitSearch
-	FamilyMemberHistoryRead
-	FamilyMemberHistorySearch
-	FlagRead
-	FlagSearch
-	GoalRead
-	GoalSearch
-	GraphDefinitionRead
-	GraphDefinitionSearch
-	GroupRead
-	GroupSearch
-	GuidanceResponseRead
-	GuidanceResponseSearch
-	HealthcareServiceRead
-	HealthcareServiceSearch
-	ImagingStudyRead
-	ImagingStudySearch
-	ImmunizationRead
-	ImmunizationSearch
-	ImmunizationEvaluationRead
-	ImmunizationEvaluationSearch
-	ImmunizationRecommendationRead
-	ImmunizationRecommendationSearch
-	ImplementationGuideRead
-	ImplementationGuideSearch
-	IngredientRead
-	IngredientSearch
-	InsurancePlanRead
-	InsurancePlanSearch
-	InvoiceRead
-	InvoiceSearch
-	LibraryRead
-	LibrarySearch
-	LinkageRead
-	LinkageSearch
-	ListRead
-	ListSearch
-	LocationRead
-	LocationSearch
-	ManufacturedItemDefinitionRead
-	ManufacturedItemDefinitionSearch
-	MeasureRead
-	MeasureSearch
-	MeasureReportRead
-	MeasureReportSearch
-	MediaRead
-	MediaSearch
-	MedicationRead
-	MedicationSearch
-	MedicationAdministrationRead
-	MedicationAdministrationSearch
-	MedicationDispenseRead
-	MedicationDispenseSearch
-	MedicationKnowledgeRead
-	MedicationKnowledgeSearch
-	MedicationRequestRead
-	MedicationRequestSearch
-	MedicationStatementRead
-	MedicationStatementSearch
-	MedicinalProductDefinitionRead
-	MedicinalProductDefinitionSearch
-	MessageDefinitionRead
-	MessageDefinitionSearch
-	MessageHeaderRead
-	MessageHeaderSearch
-	MolecularSequenceRead
-	MolecularSequenceSearch
-	NamingSystemRead
-	NamingSystemSearch
-	NutritionOrderRead
-	NutritionOrderSearch
-	NutritionProductRead
-	NutritionProductSearch
-	ObservationRead
-	ObservationSearch
-	ObservationDefinitionRead
-	ObservationDefinitionSearch
-	OperationDefinitionRead
-	OperationDefinitionSearch
-	OperationOutcomeRead
-	OperationOutcomeSearch
-	OrganizationRead
-	OrganizationSearch
-	OrganizationAffiliationRead
-	OrganizationAffiliationSearch
-	PackagedProductDefinitionRead
-	PackagedProductDefinitionSearch
-	ParametersRead
-	ParametersSearch
-	PatientRead
-	PatientSearch
-	PaymentNoticeRead
-	PaymentNoticeSearch
-	PaymentReconciliationRead
-	PaymentReconciliationSearch
-	PersonRead
-	PersonSearch
-	PlanDefinitionRead
-	PlanDefinitionSearch
-	PractitionerRead
-	PractitionerSearch
-	PractitionerRoleRead
-	PractitionerRoleSearch
-	ProcedureRead
-	ProcedureSearch
-	ProvenanceRead
-	ProvenanceSearch
-	QuestionnaireRead
-	QuestionnaireSearch
-	QuestionnaireResponseRead
-	QuestionnaireResponseSearch
-	RegulatedAuthorizationRead
-	RegulatedAuthorizationSearch
-	RelatedPersonRead
-	RelatedPersonSearch
-	RequestGroupRead
-	RequestGroupSearch
-	ResearchDefinitionRead
-	ResearchDefinitionSearch
-	ResearchElementDefinitionRead
-	ResearchElementDefinitionSearch
-	ResearchStudyRead
-	ResearchStudySearch
-	ResearchSubjectRead
-	ResearchSubjectSearch
-	RiskAssessmentRead
-	RiskAssessmentSearch
-	ScheduleRead
-	ScheduleSearch
-	SearchParameterRead
-	SearchParameterSearch
-	ServiceRequestRead
-	ServiceRequestSearch
-	SlotRead
-	SlotSearch
-	SpecimenRead
-	SpecimenSearch
-	SpecimenDefinitionRead
-	SpecimenDefinitionSearch
-	StructureDefinitionRead
-	StructureDefinitionSearch
-	StructureMapRead
-	StructureMapSearch
-	SubscriptionRead
-	SubscriptionSearch
-	SubscriptionStatusRead
-	SubscriptionStatusSearch
-	SubscriptionTopicRead
-	SubscriptionTopicSearch
-	SubstanceRead
-	SubstanceSearch
-	SubstanceDefinitionRead
-	SubstanceDefinitionSearch
-	SupplyDeliveryRead
-	SupplyDeliverySearch
-	SupplyRequestRead
-	SupplyRequestSearch
-	TaskRead
-	TaskSearch
-	TerminologyCapabilitiesRead
-	TerminologyCapabilitiesSearch
-	TestReportRead
-	TestReportSearch
-	TestScriptRead
-	TestScriptSearch
-	ValueSetRead
-	ValueSetSearch
-	VerificationResultRead
-	VerificationResultSearch
-	VisionPrescriptionRead
-	VisionPrescriptionSearch
-}
 type Concrete struct {
-	Generic capabilities.GenericAPI
+	Generic capabilities.GenericCapabilities
 }
 
 func (w Concrete) CreateAccount(ctx context.Context, resource r4b.Account) (r4b.Account, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Account{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Account"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Account{}, err
 	}
@@ -310,12 +30,16 @@ func (w Concrete) CreateAccount(ctx context.Context, resource r4b.Account) (r4b.
 	}
 	r, ok := v.(r4b.Account)
 	if !ok {
-		return r4b.Account{}, capabilities.InvalidResourceError{ResourceType: "Account"}
+		return r4b.Account{}, capabilities.UnexpectedResourceError{ExpectedType: "Account", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (r4b.ActivityDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ActivityDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ActivityDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ActivityDefinition{}, err
 	}
@@ -325,12 +49,16 @@ func (w Concrete) CreateActivityDefinition(ctx context.Context, resource r4b.Act
 	}
 	r, ok := v.(r4b.ActivityDefinition)
 	if !ok {
-		return r4b.ActivityDefinition{}, capabilities.InvalidResourceError{ResourceType: "ActivityDefinition"}
+		return r4b.ActivityDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ActivityDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (r4b.AdministrableProductDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.AdministrableProductDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AdministrableProductDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.AdministrableProductDefinition{}, err
 	}
@@ -340,12 +68,16 @@ func (w Concrete) CreateAdministrableProductDefinition(ctx context.Context, reso
 	}
 	r, ok := v.(r4b.AdministrableProductDefinition)
 	if !ok {
-		return r4b.AdministrableProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "AdministrableProductDefinition"}
+		return r4b.AdministrableProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "AdministrableProductDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (r4b.AdverseEvent, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.AdverseEvent{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AdverseEvent"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.AdverseEvent{}, err
 	}
@@ -355,12 +87,16 @@ func (w Concrete) CreateAdverseEvent(ctx context.Context, resource r4b.AdverseEv
 	}
 	r, ok := v.(r4b.AdverseEvent)
 	if !ok {
-		return r4b.AdverseEvent{}, capabilities.InvalidResourceError{ResourceType: "AdverseEvent"}
+		return r4b.AdverseEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AdverseEvent", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (r4b.AllergyIntolerance, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.AllergyIntolerance{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AllergyIntolerance"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.AllergyIntolerance{}, err
 	}
@@ -370,12 +106,16 @@ func (w Concrete) CreateAllergyIntolerance(ctx context.Context, resource r4b.All
 	}
 	r, ok := v.(r4b.AllergyIntolerance)
 	if !ok {
-		return r4b.AllergyIntolerance{}, capabilities.InvalidResourceError{ResourceType: "AllergyIntolerance"}
+		return r4b.AllergyIntolerance{}, capabilities.UnexpectedResourceError{ExpectedType: "AllergyIntolerance", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateAppointment(ctx context.Context, resource r4b.Appointment) (r4b.Appointment, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Appointment{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Appointment"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Appointment{}, err
 	}
@@ -385,12 +125,16 @@ func (w Concrete) CreateAppointment(ctx context.Context, resource r4b.Appointmen
 	}
 	r, ok := v.(r4b.Appointment)
 	if !ok {
-		return r4b.Appointment{}, capabilities.InvalidResourceError{ResourceType: "Appointment"}
+		return r4b.Appointment{}, capabilities.UnexpectedResourceError{ExpectedType: "Appointment", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (r4b.AppointmentResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.AppointmentResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AppointmentResponse"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.AppointmentResponse{}, err
 	}
@@ -400,12 +144,16 @@ func (w Concrete) CreateAppointmentResponse(ctx context.Context, resource r4b.Ap
 	}
 	r, ok := v.(r4b.AppointmentResponse)
 	if !ok {
-		return r4b.AppointmentResponse{}, capabilities.InvalidResourceError{ResourceType: "AppointmentResponse"}
+		return r4b.AppointmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "AppointmentResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (r4b.AuditEvent, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.AuditEvent{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "AuditEvent"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.AuditEvent{}, err
 	}
@@ -415,12 +163,16 @@ func (w Concrete) CreateAuditEvent(ctx context.Context, resource r4b.AuditEvent)
 	}
 	r, ok := v.(r4b.AuditEvent)
 	if !ok {
-		return r4b.AuditEvent{}, capabilities.InvalidResourceError{ResourceType: "AuditEvent"}
+		return r4b.AuditEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AuditEvent", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateBasic(ctx context.Context, resource r4b.Basic) (r4b.Basic, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Basic{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Basic"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Basic{}, err
 	}
@@ -430,12 +182,16 @@ func (w Concrete) CreateBasic(ctx context.Context, resource r4b.Basic) (r4b.Basi
 	}
 	r, ok := v.(r4b.Basic)
 	if !ok {
-		return r4b.Basic{}, capabilities.InvalidResourceError{ResourceType: "Basic"}
+		return r4b.Basic{}, capabilities.UnexpectedResourceError{ExpectedType: "Basic", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateBinary(ctx context.Context, resource r4b.Binary) (r4b.Binary, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Binary{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Binary"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Binary{}, err
 	}
@@ -445,12 +201,16 @@ func (w Concrete) CreateBinary(ctx context.Context, resource r4b.Binary) (r4b.Bi
 	}
 	r, ok := v.(r4b.Binary)
 	if !ok {
-		return r4b.Binary{}, capabilities.InvalidResourceError{ResourceType: "Binary"}
+		return r4b.Binary{}, capabilities.UnexpectedResourceError{ExpectedType: "Binary", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (r4b.BiologicallyDerivedProduct, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.BiologicallyDerivedProduct{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "BiologicallyDerivedProduct"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.BiologicallyDerivedProduct{}, err
 	}
@@ -460,12 +220,16 @@ func (w Concrete) CreateBiologicallyDerivedProduct(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.BiologicallyDerivedProduct)
 	if !ok {
-		return r4b.BiologicallyDerivedProduct{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProduct"}
+		return r4b.BiologicallyDerivedProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "BiologicallyDerivedProduct", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (r4b.BodyStructure, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.BodyStructure{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "BodyStructure"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.BodyStructure{}, err
 	}
@@ -475,12 +239,16 @@ func (w Concrete) CreateBodyStructure(ctx context.Context, resource r4b.BodyStru
 	}
 	r, ok := v.(r4b.BodyStructure)
 	if !ok {
-		return r4b.BodyStructure{}, capabilities.InvalidResourceError{ResourceType: "BodyStructure"}
+		return r4b.BodyStructure{}, capabilities.UnexpectedResourceError{ExpectedType: "BodyStructure", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateBundle(ctx context.Context, resource r4b.Bundle) (r4b.Bundle, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Bundle{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Bundle"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Bundle{}, err
 	}
@@ -490,12 +258,16 @@ func (w Concrete) CreateBundle(ctx context.Context, resource r4b.Bundle) (r4b.Bu
 	}
 	r, ok := v.(r4b.Bundle)
 	if !ok {
-		return r4b.Bundle{}, capabilities.InvalidResourceError{ResourceType: "Bundle"}
+		return r4b.Bundle{}, capabilities.UnexpectedResourceError{ExpectedType: "Bundle", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (r4b.CapabilityStatement, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CapabilityStatement{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CapabilityStatement"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CapabilityStatement{}, err
 	}
@@ -505,12 +277,16 @@ func (w Concrete) CreateCapabilityStatement(ctx context.Context, resource r4b.Ca
 	}
 	r, ok := v.(r4b.CapabilityStatement)
 	if !ok {
-		return r4b.CapabilityStatement{}, capabilities.InvalidResourceError{ResourceType: "CapabilityStatement"}
+		return r4b.CapabilityStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "CapabilityStatement", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCarePlan(ctx context.Context, resource r4b.CarePlan) (r4b.CarePlan, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CarePlan{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CarePlan"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CarePlan{}, err
 	}
@@ -520,12 +296,16 @@ func (w Concrete) CreateCarePlan(ctx context.Context, resource r4b.CarePlan) (r4
 	}
 	r, ok := v.(r4b.CarePlan)
 	if !ok {
-		return r4b.CarePlan{}, capabilities.InvalidResourceError{ResourceType: "CarePlan"}
+		return r4b.CarePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "CarePlan", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCareTeam(ctx context.Context, resource r4b.CareTeam) (r4b.CareTeam, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CareTeam{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CareTeam"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CareTeam{}, err
 	}
@@ -535,12 +315,16 @@ func (w Concrete) CreateCareTeam(ctx context.Context, resource r4b.CareTeam) (r4
 	}
 	r, ok := v.(r4b.CareTeam)
 	if !ok {
-		return r4b.CareTeam{}, capabilities.InvalidResourceError{ResourceType: "CareTeam"}
+		return r4b.CareTeam{}, capabilities.UnexpectedResourceError{ExpectedType: "CareTeam", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (r4b.CatalogEntry, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CatalogEntry{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CatalogEntry"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CatalogEntry{}, err
 	}
@@ -550,12 +334,16 @@ func (w Concrete) CreateCatalogEntry(ctx context.Context, resource r4b.CatalogEn
 	}
 	r, ok := v.(r4b.CatalogEntry)
 	if !ok {
-		return r4b.CatalogEntry{}, capabilities.InvalidResourceError{ResourceType: "CatalogEntry"}
+		return r4b.CatalogEntry{}, capabilities.UnexpectedResourceError{ExpectedType: "CatalogEntry", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateChargeItem(ctx context.Context, resource r4b.ChargeItem) (r4b.ChargeItem, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ChargeItem{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ChargeItem"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ChargeItem{}, err
 	}
@@ -565,12 +353,16 @@ func (w Concrete) CreateChargeItem(ctx context.Context, resource r4b.ChargeItem)
 	}
 	r, ok := v.(r4b.ChargeItem)
 	if !ok {
-		return r4b.ChargeItem{}, capabilities.InvalidResourceError{ResourceType: "ChargeItem"}
+		return r4b.ChargeItem{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItem", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (r4b.ChargeItemDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ChargeItemDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ChargeItemDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ChargeItemDefinition{}, err
 	}
@@ -580,12 +372,16 @@ func (w Concrete) CreateChargeItemDefinition(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.ChargeItemDefinition)
 	if !ok {
-		return r4b.ChargeItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ChargeItemDefinition"}
+		return r4b.ChargeItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItemDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCitation(ctx context.Context, resource r4b.Citation) (r4b.Citation, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Citation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Citation"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Citation{}, err
 	}
@@ -595,12 +391,16 @@ func (w Concrete) CreateCitation(ctx context.Context, resource r4b.Citation) (r4
 	}
 	r, ok := v.(r4b.Citation)
 	if !ok {
-		return r4b.Citation{}, capabilities.InvalidResourceError{ResourceType: "Citation"}
+		return r4b.Citation{}, capabilities.UnexpectedResourceError{ExpectedType: "Citation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateClaim(ctx context.Context, resource r4b.Claim) (r4b.Claim, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Claim{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Claim"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Claim{}, err
 	}
@@ -610,12 +410,16 @@ func (w Concrete) CreateClaim(ctx context.Context, resource r4b.Claim) (r4b.Clai
 	}
 	r, ok := v.(r4b.Claim)
 	if !ok {
-		return r4b.Claim{}, capabilities.InvalidResourceError{ResourceType: "Claim"}
+		return r4b.Claim{}, capabilities.UnexpectedResourceError{ExpectedType: "Claim", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (r4b.ClaimResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ClaimResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClaimResponse"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ClaimResponse{}, err
 	}
@@ -625,12 +429,16 @@ func (w Concrete) CreateClaimResponse(ctx context.Context, resource r4b.ClaimRes
 	}
 	r, ok := v.(r4b.ClaimResponse)
 	if !ok {
-		return r4b.ClaimResponse{}, capabilities.InvalidResourceError{ResourceType: "ClaimResponse"}
+		return r4b.ClaimResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "ClaimResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (r4b.ClinicalImpression, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ClinicalImpression{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClinicalImpression"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ClinicalImpression{}, err
 	}
@@ -640,12 +448,16 @@ func (w Concrete) CreateClinicalImpression(ctx context.Context, resource r4b.Cli
 	}
 	r, ok := v.(r4b.ClinicalImpression)
 	if !ok {
-		return r4b.ClinicalImpression{}, capabilities.InvalidResourceError{ResourceType: "ClinicalImpression"}
+		return r4b.ClinicalImpression{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalImpression", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (r4b.ClinicalUseDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ClinicalUseDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ClinicalUseDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ClinicalUseDefinition{}, err
 	}
@@ -655,12 +467,16 @@ func (w Concrete) CreateClinicalUseDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ClinicalUseDefinition)
 	if !ok {
-		return r4b.ClinicalUseDefinition{}, capabilities.InvalidResourceError{ResourceType: "ClinicalUseDefinition"}
+		return r4b.ClinicalUseDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalUseDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (r4b.CodeSystem, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CodeSystem{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CodeSystem"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CodeSystem{}, err
 	}
@@ -670,12 +486,16 @@ func (w Concrete) CreateCodeSystem(ctx context.Context, resource r4b.CodeSystem)
 	}
 	r, ok := v.(r4b.CodeSystem)
 	if !ok {
-		return r4b.CodeSystem{}, capabilities.InvalidResourceError{ResourceType: "CodeSystem"}
+		return r4b.CodeSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "CodeSystem", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCommunication(ctx context.Context, resource r4b.Communication) (r4b.Communication, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Communication{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Communication"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Communication{}, err
 	}
@@ -685,12 +505,16 @@ func (w Concrete) CreateCommunication(ctx context.Context, resource r4b.Communic
 	}
 	r, ok := v.(r4b.Communication)
 	if !ok {
-		return r4b.Communication{}, capabilities.InvalidResourceError{ResourceType: "Communication"}
+		return r4b.Communication{}, capabilities.UnexpectedResourceError{ExpectedType: "Communication", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (r4b.CommunicationRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CommunicationRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CommunicationRequest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CommunicationRequest{}, err
 	}
@@ -700,12 +524,16 @@ func (w Concrete) CreateCommunicationRequest(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.CommunicationRequest)
 	if !ok {
-		return r4b.CommunicationRequest{}, capabilities.InvalidResourceError{ResourceType: "CommunicationRequest"}
+		return r4b.CommunicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CommunicationRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (r4b.CompartmentDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CompartmentDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CompartmentDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CompartmentDefinition{}, err
 	}
@@ -715,12 +543,16 @@ func (w Concrete) CreateCompartmentDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.CompartmentDefinition)
 	if !ok {
-		return r4b.CompartmentDefinition{}, capabilities.InvalidResourceError{ResourceType: "CompartmentDefinition"}
+		return r4b.CompartmentDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "CompartmentDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateComposition(ctx context.Context, resource r4b.Composition) (r4b.Composition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Composition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Composition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Composition{}, err
 	}
@@ -730,12 +562,16 @@ func (w Concrete) CreateComposition(ctx context.Context, resource r4b.Compositio
 	}
 	r, ok := v.(r4b.Composition)
 	if !ok {
-		return r4b.Composition{}, capabilities.InvalidResourceError{ResourceType: "Composition"}
+		return r4b.Composition{}, capabilities.UnexpectedResourceError{ExpectedType: "Composition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateConceptMap(ctx context.Context, resource r4b.ConceptMap) (r4b.ConceptMap, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ConceptMap{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ConceptMap"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ConceptMap{}, err
 	}
@@ -745,12 +581,16 @@ func (w Concrete) CreateConceptMap(ctx context.Context, resource r4b.ConceptMap)
 	}
 	r, ok := v.(r4b.ConceptMap)
 	if !ok {
-		return r4b.ConceptMap{}, capabilities.InvalidResourceError{ResourceType: "ConceptMap"}
+		return r4b.ConceptMap{}, capabilities.UnexpectedResourceError{ExpectedType: "ConceptMap", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCondition(ctx context.Context, resource r4b.Condition) (r4b.Condition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Condition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Condition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Condition{}, err
 	}
@@ -760,12 +600,16 @@ func (w Concrete) CreateCondition(ctx context.Context, resource r4b.Condition) (
 	}
 	r, ok := v.(r4b.Condition)
 	if !ok {
-		return r4b.Condition{}, capabilities.InvalidResourceError{ResourceType: "Condition"}
+		return r4b.Condition{}, capabilities.UnexpectedResourceError{ExpectedType: "Condition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateConsent(ctx context.Context, resource r4b.Consent) (r4b.Consent, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Consent{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Consent"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Consent{}, err
 	}
@@ -775,12 +619,16 @@ func (w Concrete) CreateConsent(ctx context.Context, resource r4b.Consent) (r4b.
 	}
 	r, ok := v.(r4b.Consent)
 	if !ok {
-		return r4b.Consent{}, capabilities.InvalidResourceError{ResourceType: "Consent"}
+		return r4b.Consent{}, capabilities.UnexpectedResourceError{ExpectedType: "Consent", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateContract(ctx context.Context, resource r4b.Contract) (r4b.Contract, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Contract{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Contract"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Contract{}, err
 	}
@@ -790,12 +638,16 @@ func (w Concrete) CreateContract(ctx context.Context, resource r4b.Contract) (r4
 	}
 	r, ok := v.(r4b.Contract)
 	if !ok {
-		return r4b.Contract{}, capabilities.InvalidResourceError{ResourceType: "Contract"}
+		return r4b.Contract{}, capabilities.UnexpectedResourceError{ExpectedType: "Contract", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCoverage(ctx context.Context, resource r4b.Coverage) (r4b.Coverage, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Coverage{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Coverage"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Coverage{}, err
 	}
@@ -805,12 +657,16 @@ func (w Concrete) CreateCoverage(ctx context.Context, resource r4b.Coverage) (r4
 	}
 	r, ok := v.(r4b.Coverage)
 	if !ok {
-		return r4b.Coverage{}, capabilities.InvalidResourceError{ResourceType: "Coverage"}
+		return r4b.Coverage{}, capabilities.UnexpectedResourceError{ExpectedType: "Coverage", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (r4b.CoverageEligibilityRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CoverageEligibilityRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CoverageEligibilityRequest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CoverageEligibilityRequest{}, err
 	}
@@ -820,12 +676,16 @@ func (w Concrete) CreateCoverageEligibilityRequest(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.CoverageEligibilityRequest)
 	if !ok {
-		return r4b.CoverageEligibilityRequest{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityRequest"}
+		return r4b.CoverageEligibilityRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (r4b.CoverageEligibilityResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.CoverageEligibilityResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "CoverageEligibilityResponse"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.CoverageEligibilityResponse{}, err
 	}
@@ -835,12 +695,16 @@ func (w Concrete) CreateCoverageEligibilityResponse(ctx context.Context, resourc
 	}
 	r, ok := v.(r4b.CoverageEligibilityResponse)
 	if !ok {
-		return r4b.CoverageEligibilityResponse{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityResponse"}
+		return r4b.CoverageEligibilityResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (r4b.DetectedIssue, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DetectedIssue{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DetectedIssue"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DetectedIssue{}, err
 	}
@@ -850,12 +714,16 @@ func (w Concrete) CreateDetectedIssue(ctx context.Context, resource r4b.Detected
 	}
 	r, ok := v.(r4b.DetectedIssue)
 	if !ok {
-		return r4b.DetectedIssue{}, capabilities.InvalidResourceError{ResourceType: "DetectedIssue"}
+		return r4b.DetectedIssue{}, capabilities.UnexpectedResourceError{ExpectedType: "DetectedIssue", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDevice(ctx context.Context, resource r4b.Device) (r4b.Device, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Device{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Device"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Device{}, err
 	}
@@ -865,12 +733,16 @@ func (w Concrete) CreateDevice(ctx context.Context, resource r4b.Device) (r4b.De
 	}
 	r, ok := v.(r4b.Device)
 	if !ok {
-		return r4b.Device{}, capabilities.InvalidResourceError{ResourceType: "Device"}
+		return r4b.Device{}, capabilities.UnexpectedResourceError{ExpectedType: "Device", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (r4b.DeviceDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DeviceDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DeviceDefinition{}, err
 	}
@@ -880,12 +752,16 @@ func (w Concrete) CreateDeviceDefinition(ctx context.Context, resource r4b.Devic
 	}
 	r, ok := v.(r4b.DeviceDefinition)
 	if !ok {
-		return r4b.DeviceDefinition{}, capabilities.InvalidResourceError{ResourceType: "DeviceDefinition"}
+		return r4b.DeviceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (r4b.DeviceMetric, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DeviceMetric{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceMetric"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DeviceMetric{}, err
 	}
@@ -895,12 +771,16 @@ func (w Concrete) CreateDeviceMetric(ctx context.Context, resource r4b.DeviceMet
 	}
 	r, ok := v.(r4b.DeviceMetric)
 	if !ok {
-		return r4b.DeviceMetric{}, capabilities.InvalidResourceError{ResourceType: "DeviceMetric"}
+		return r4b.DeviceMetric{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceMetric", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (r4b.DeviceRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DeviceRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceRequest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DeviceRequest{}, err
 	}
@@ -910,12 +790,16 @@ func (w Concrete) CreateDeviceRequest(ctx context.Context, resource r4b.DeviceRe
 	}
 	r, ok := v.(r4b.DeviceRequest)
 	if !ok {
-		return r4b.DeviceRequest{}, capabilities.InvalidResourceError{ResourceType: "DeviceRequest"}
+		return r4b.DeviceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (r4b.DeviceUseStatement, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DeviceUseStatement{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DeviceUseStatement"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DeviceUseStatement{}, err
 	}
@@ -925,12 +809,16 @@ func (w Concrete) CreateDeviceUseStatement(ctx context.Context, resource r4b.Dev
 	}
 	r, ok := v.(r4b.DeviceUseStatement)
 	if !ok {
-		return r4b.DeviceUseStatement{}, capabilities.InvalidResourceError{ResourceType: "DeviceUseStatement"}
+		return r4b.DeviceUseStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceUseStatement", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (r4b.DiagnosticReport, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DiagnosticReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DiagnosticReport"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DiagnosticReport{}, err
 	}
@@ -940,12 +828,16 @@ func (w Concrete) CreateDiagnosticReport(ctx context.Context, resource r4b.Diagn
 	}
 	r, ok := v.(r4b.DiagnosticReport)
 	if !ok {
-		return r4b.DiagnosticReport{}, capabilities.InvalidResourceError{ResourceType: "DiagnosticReport"}
+		return r4b.DiagnosticReport{}, capabilities.UnexpectedResourceError{ExpectedType: "DiagnosticReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (r4b.DocumentManifest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DocumentManifest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DocumentManifest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DocumentManifest{}, err
 	}
@@ -955,12 +847,16 @@ func (w Concrete) CreateDocumentManifest(ctx context.Context, resource r4b.Docum
 	}
 	r, ok := v.(r4b.DocumentManifest)
 	if !ok {
-		return r4b.DocumentManifest{}, capabilities.InvalidResourceError{ResourceType: "DocumentManifest"}
+		return r4b.DocumentManifest{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentManifest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (r4b.DocumentReference, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.DocumentReference{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "DocumentReference"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.DocumentReference{}, err
 	}
@@ -970,12 +866,16 @@ func (w Concrete) CreateDocumentReference(ctx context.Context, resource r4b.Docu
 	}
 	r, ok := v.(r4b.DocumentReference)
 	if !ok {
-		return r4b.DocumentReference{}, capabilities.InvalidResourceError{ResourceType: "DocumentReference"}
+		return r4b.DocumentReference{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentReference", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEncounter(ctx context.Context, resource r4b.Encounter) (r4b.Encounter, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Encounter{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Encounter"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Encounter{}, err
 	}
@@ -985,12 +885,16 @@ func (w Concrete) CreateEncounter(ctx context.Context, resource r4b.Encounter) (
 	}
 	r, ok := v.(r4b.Encounter)
 	if !ok {
-		return r4b.Encounter{}, capabilities.InvalidResourceError{ResourceType: "Encounter"}
+		return r4b.Encounter{}, capabilities.UnexpectedResourceError{ExpectedType: "Encounter", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEndpoint(ctx context.Context, resource r4b.Endpoint) (r4b.Endpoint, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Endpoint{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Endpoint"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Endpoint{}, err
 	}
@@ -1000,12 +904,16 @@ func (w Concrete) CreateEndpoint(ctx context.Context, resource r4b.Endpoint) (r4
 	}
 	r, ok := v.(r4b.Endpoint)
 	if !ok {
-		return r4b.Endpoint{}, capabilities.InvalidResourceError{ResourceType: "Endpoint"}
+		return r4b.Endpoint{}, capabilities.UnexpectedResourceError{ExpectedType: "Endpoint", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (r4b.EnrollmentRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.EnrollmentRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EnrollmentRequest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.EnrollmentRequest{}, err
 	}
@@ -1015,12 +923,16 @@ func (w Concrete) CreateEnrollmentRequest(ctx context.Context, resource r4b.Enro
 	}
 	r, ok := v.(r4b.EnrollmentRequest)
 	if !ok {
-		return r4b.EnrollmentRequest{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentRequest"}
+		return r4b.EnrollmentRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (r4b.EnrollmentResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.EnrollmentResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EnrollmentResponse"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.EnrollmentResponse{}, err
 	}
@@ -1030,12 +942,16 @@ func (w Concrete) CreateEnrollmentResponse(ctx context.Context, resource r4b.Enr
 	}
 	r, ok := v.(r4b.EnrollmentResponse)
 	if !ok {
-		return r4b.EnrollmentResponse{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentResponse"}
+		return r4b.EnrollmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (r4b.EpisodeOfCare, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.EpisodeOfCare{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EpisodeOfCare"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.EpisodeOfCare{}, err
 	}
@@ -1045,12 +961,16 @@ func (w Concrete) CreateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeO
 	}
 	r, ok := v.(r4b.EpisodeOfCare)
 	if !ok {
-		return r4b.EpisodeOfCare{}, capabilities.InvalidResourceError{ResourceType: "EpisodeOfCare"}
+		return r4b.EpisodeOfCare{}, capabilities.UnexpectedResourceError{ExpectedType: "EpisodeOfCare", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (r4b.EventDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.EventDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EventDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.EventDefinition{}, err
 	}
@@ -1060,12 +980,16 @@ func (w Concrete) CreateEventDefinition(ctx context.Context, resource r4b.EventD
 	}
 	r, ok := v.(r4b.EventDefinition)
 	if !ok {
-		return r4b.EventDefinition{}, capabilities.InvalidResourceError{ResourceType: "EventDefinition"}
+		return r4b.EventDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "EventDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEvidence(ctx context.Context, resource r4b.Evidence) (r4b.Evidence, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Evidence{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Evidence"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Evidence{}, err
 	}
@@ -1075,12 +999,16 @@ func (w Concrete) CreateEvidence(ctx context.Context, resource r4b.Evidence) (r4
 	}
 	r, ok := v.(r4b.Evidence)
 	if !ok {
-		return r4b.Evidence{}, capabilities.InvalidResourceError{ResourceType: "Evidence"}
+		return r4b.Evidence{}, capabilities.UnexpectedResourceError{ExpectedType: "Evidence", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (r4b.EvidenceReport, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.EvidenceReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EvidenceReport"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.EvidenceReport{}, err
 	}
@@ -1090,12 +1018,16 @@ func (w Concrete) CreateEvidenceReport(ctx context.Context, resource r4b.Evidenc
 	}
 	r, ok := v.(r4b.EvidenceReport)
 	if !ok {
-		return r4b.EvidenceReport{}, capabilities.InvalidResourceError{ResourceType: "EvidenceReport"}
+		return r4b.EvidenceReport{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (r4b.EvidenceVariable, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.EvidenceVariable{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "EvidenceVariable"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.EvidenceVariable{}, err
 	}
@@ -1105,12 +1037,16 @@ func (w Concrete) CreateEvidenceVariable(ctx context.Context, resource r4b.Evide
 	}
 	r, ok := v.(r4b.EvidenceVariable)
 	if !ok {
-		return r4b.EvidenceVariable{}, capabilities.InvalidResourceError{ResourceType: "EvidenceVariable"}
+		return r4b.EvidenceVariable{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceVariable", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (r4b.ExampleScenario, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ExampleScenario{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ExampleScenario"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ExampleScenario{}, err
 	}
@@ -1120,12 +1056,16 @@ func (w Concrete) CreateExampleScenario(ctx context.Context, resource r4b.Exampl
 	}
 	r, ok := v.(r4b.ExampleScenario)
 	if !ok {
-		return r4b.ExampleScenario{}, capabilities.InvalidResourceError{ResourceType: "ExampleScenario"}
+		return r4b.ExampleScenario{}, capabilities.UnexpectedResourceError{ExpectedType: "ExampleScenario", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (r4b.ExplanationOfBenefit, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ExplanationOfBenefit{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ExplanationOfBenefit"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ExplanationOfBenefit{}, err
 	}
@@ -1135,12 +1075,16 @@ func (w Concrete) CreateExplanationOfBenefit(ctx context.Context, resource r4b.E
 	}
 	r, ok := v.(r4b.ExplanationOfBenefit)
 	if !ok {
-		return r4b.ExplanationOfBenefit{}, capabilities.InvalidResourceError{ResourceType: "ExplanationOfBenefit"}
+		return r4b.ExplanationOfBenefit{}, capabilities.UnexpectedResourceError{ExpectedType: "ExplanationOfBenefit", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (r4b.FamilyMemberHistory, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.FamilyMemberHistory{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "FamilyMemberHistory"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.FamilyMemberHistory{}, err
 	}
@@ -1150,12 +1094,16 @@ func (w Concrete) CreateFamilyMemberHistory(ctx context.Context, resource r4b.Fa
 	}
 	r, ok := v.(r4b.FamilyMemberHistory)
 	if !ok {
-		return r4b.FamilyMemberHistory{}, capabilities.InvalidResourceError{ResourceType: "FamilyMemberHistory"}
+		return r4b.FamilyMemberHistory{}, capabilities.UnexpectedResourceError{ExpectedType: "FamilyMemberHistory", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateFlag(ctx context.Context, resource r4b.Flag) (r4b.Flag, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Flag{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Flag"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Flag{}, err
 	}
@@ -1165,12 +1113,16 @@ func (w Concrete) CreateFlag(ctx context.Context, resource r4b.Flag) (r4b.Flag, 
 	}
 	r, ok := v.(r4b.Flag)
 	if !ok {
-		return r4b.Flag{}, capabilities.InvalidResourceError{ResourceType: "Flag"}
+		return r4b.Flag{}, capabilities.UnexpectedResourceError{ExpectedType: "Flag", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateGoal(ctx context.Context, resource r4b.Goal) (r4b.Goal, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Goal{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Goal"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Goal{}, err
 	}
@@ -1180,12 +1132,16 @@ func (w Concrete) CreateGoal(ctx context.Context, resource r4b.Goal) (r4b.Goal, 
 	}
 	r, ok := v.(r4b.Goal)
 	if !ok {
-		return r4b.Goal{}, capabilities.InvalidResourceError{ResourceType: "Goal"}
+		return r4b.Goal{}, capabilities.UnexpectedResourceError{ExpectedType: "Goal", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (r4b.GraphDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.GraphDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "GraphDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.GraphDefinition{}, err
 	}
@@ -1195,12 +1151,16 @@ func (w Concrete) CreateGraphDefinition(ctx context.Context, resource r4b.GraphD
 	}
 	r, ok := v.(r4b.GraphDefinition)
 	if !ok {
-		return r4b.GraphDefinition{}, capabilities.InvalidResourceError{ResourceType: "GraphDefinition"}
+		return r4b.GraphDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "GraphDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateGroup(ctx context.Context, resource r4b.Group) (r4b.Group, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Group{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Group"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Group{}, err
 	}
@@ -1210,12 +1170,16 @@ func (w Concrete) CreateGroup(ctx context.Context, resource r4b.Group) (r4b.Grou
 	}
 	r, ok := v.(r4b.Group)
 	if !ok {
-		return r4b.Group{}, capabilities.InvalidResourceError{ResourceType: "Group"}
+		return r4b.Group{}, capabilities.UnexpectedResourceError{ExpectedType: "Group", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (r4b.GuidanceResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.GuidanceResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "GuidanceResponse"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.GuidanceResponse{}, err
 	}
@@ -1225,12 +1189,16 @@ func (w Concrete) CreateGuidanceResponse(ctx context.Context, resource r4b.Guida
 	}
 	r, ok := v.(r4b.GuidanceResponse)
 	if !ok {
-		return r4b.GuidanceResponse{}, capabilities.InvalidResourceError{ResourceType: "GuidanceResponse"}
+		return r4b.GuidanceResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "GuidanceResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (r4b.HealthcareService, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.HealthcareService{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "HealthcareService"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.HealthcareService{}, err
 	}
@@ -1240,12 +1208,16 @@ func (w Concrete) CreateHealthcareService(ctx context.Context, resource r4b.Heal
 	}
 	r, ok := v.(r4b.HealthcareService)
 	if !ok {
-		return r4b.HealthcareService{}, capabilities.InvalidResourceError{ResourceType: "HealthcareService"}
+		return r4b.HealthcareService{}, capabilities.UnexpectedResourceError{ExpectedType: "HealthcareService", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (r4b.ImagingStudy, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ImagingStudy{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImagingStudy"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ImagingStudy{}, err
 	}
@@ -1255,12 +1227,16 @@ func (w Concrete) CreateImagingStudy(ctx context.Context, resource r4b.ImagingSt
 	}
 	r, ok := v.(r4b.ImagingStudy)
 	if !ok {
-		return r4b.ImagingStudy{}, capabilities.InvalidResourceError{ResourceType: "ImagingStudy"}
+		return r4b.ImagingStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ImagingStudy", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateImmunization(ctx context.Context, resource r4b.Immunization) (r4b.Immunization, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Immunization{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Immunization"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Immunization{}, err
 	}
@@ -1270,12 +1246,16 @@ func (w Concrete) CreateImmunization(ctx context.Context, resource r4b.Immunizat
 	}
 	r, ok := v.(r4b.Immunization)
 	if !ok {
-		return r4b.Immunization{}, capabilities.InvalidResourceError{ResourceType: "Immunization"}
+		return r4b.Immunization{}, capabilities.UnexpectedResourceError{ExpectedType: "Immunization", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (r4b.ImmunizationEvaluation, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ImmunizationEvaluation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImmunizationEvaluation"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ImmunizationEvaluation{}, err
 	}
@@ -1285,12 +1265,16 @@ func (w Concrete) CreateImmunizationEvaluation(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.ImmunizationEvaluation)
 	if !ok {
-		return r4b.ImmunizationEvaluation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationEvaluation"}
+		return r4b.ImmunizationEvaluation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationEvaluation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (r4b.ImmunizationRecommendation, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ImmunizationRecommendation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImmunizationRecommendation"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ImmunizationRecommendation{}, err
 	}
@@ -1300,12 +1284,16 @@ func (w Concrete) CreateImmunizationRecommendation(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ImmunizationRecommendation)
 	if !ok {
-		return r4b.ImmunizationRecommendation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationRecommendation"}
+		return r4b.ImmunizationRecommendation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationRecommendation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (r4b.ImplementationGuide, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ImplementationGuide{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ImplementationGuide"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ImplementationGuide{}, err
 	}
@@ -1315,12 +1303,16 @@ func (w Concrete) CreateImplementationGuide(ctx context.Context, resource r4b.Im
 	}
 	r, ok := v.(r4b.ImplementationGuide)
 	if !ok {
-		return r4b.ImplementationGuide{}, capabilities.InvalidResourceError{ResourceType: "ImplementationGuide"}
+		return r4b.ImplementationGuide{}, capabilities.UnexpectedResourceError{ExpectedType: "ImplementationGuide", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateIngredient(ctx context.Context, resource r4b.Ingredient) (r4b.Ingredient, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Ingredient{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Ingredient"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Ingredient{}, err
 	}
@@ -1330,12 +1322,16 @@ func (w Concrete) CreateIngredient(ctx context.Context, resource r4b.Ingredient)
 	}
 	r, ok := v.(r4b.Ingredient)
 	if !ok {
-		return r4b.Ingredient{}, capabilities.InvalidResourceError{ResourceType: "Ingredient"}
+		return r4b.Ingredient{}, capabilities.UnexpectedResourceError{ExpectedType: "Ingredient", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (r4b.InsurancePlan, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.InsurancePlan{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "InsurancePlan"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.InsurancePlan{}, err
 	}
@@ -1345,12 +1341,16 @@ func (w Concrete) CreateInsurancePlan(ctx context.Context, resource r4b.Insuranc
 	}
 	r, ok := v.(r4b.InsurancePlan)
 	if !ok {
-		return r4b.InsurancePlan{}, capabilities.InvalidResourceError{ResourceType: "InsurancePlan"}
+		return r4b.InsurancePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "InsurancePlan", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateInvoice(ctx context.Context, resource r4b.Invoice) (r4b.Invoice, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Invoice{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Invoice"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Invoice{}, err
 	}
@@ -1360,12 +1360,16 @@ func (w Concrete) CreateInvoice(ctx context.Context, resource r4b.Invoice) (r4b.
 	}
 	r, ok := v.(r4b.Invoice)
 	if !ok {
-		return r4b.Invoice{}, capabilities.InvalidResourceError{ResourceType: "Invoice"}
+		return r4b.Invoice{}, capabilities.UnexpectedResourceError{ExpectedType: "Invoice", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateLibrary(ctx context.Context, resource r4b.Library) (r4b.Library, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Library{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Library"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Library{}, err
 	}
@@ -1375,12 +1379,16 @@ func (w Concrete) CreateLibrary(ctx context.Context, resource r4b.Library) (r4b.
 	}
 	r, ok := v.(r4b.Library)
 	if !ok {
-		return r4b.Library{}, capabilities.InvalidResourceError{ResourceType: "Library"}
+		return r4b.Library{}, capabilities.UnexpectedResourceError{ExpectedType: "Library", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateLinkage(ctx context.Context, resource r4b.Linkage) (r4b.Linkage, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Linkage{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Linkage"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Linkage{}, err
 	}
@@ -1390,12 +1398,16 @@ func (w Concrete) CreateLinkage(ctx context.Context, resource r4b.Linkage) (r4b.
 	}
 	r, ok := v.(r4b.Linkage)
 	if !ok {
-		return r4b.Linkage{}, capabilities.InvalidResourceError{ResourceType: "Linkage"}
+		return r4b.Linkage{}, capabilities.UnexpectedResourceError{ExpectedType: "Linkage", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateList(ctx context.Context, resource r4b.List) (r4b.List, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.List{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "List"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.List{}, err
 	}
@@ -1405,12 +1417,16 @@ func (w Concrete) CreateList(ctx context.Context, resource r4b.List) (r4b.List, 
 	}
 	r, ok := v.(r4b.List)
 	if !ok {
-		return r4b.List{}, capabilities.InvalidResourceError{ResourceType: "List"}
+		return r4b.List{}, capabilities.UnexpectedResourceError{ExpectedType: "List", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateLocation(ctx context.Context, resource r4b.Location) (r4b.Location, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Location{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Location"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Location{}, err
 	}
@@ -1420,12 +1436,16 @@ func (w Concrete) CreateLocation(ctx context.Context, resource r4b.Location) (r4
 	}
 	r, ok := v.(r4b.Location)
 	if !ok {
-		return r4b.Location{}, capabilities.InvalidResourceError{ResourceType: "Location"}
+		return r4b.Location{}, capabilities.UnexpectedResourceError{ExpectedType: "Location", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (r4b.ManufacturedItemDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ManufacturedItemDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ManufacturedItemDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ManufacturedItemDefinition{}, err
 	}
@@ -1435,12 +1455,16 @@ func (w Concrete) CreateManufacturedItemDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ManufacturedItemDefinition)
 	if !ok {
-		return r4b.ManufacturedItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ManufacturedItemDefinition"}
+		return r4b.ManufacturedItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ManufacturedItemDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMeasure(ctx context.Context, resource r4b.Measure) (r4b.Measure, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Measure{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Measure"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Measure{}, err
 	}
@@ -1450,12 +1474,16 @@ func (w Concrete) CreateMeasure(ctx context.Context, resource r4b.Measure) (r4b.
 	}
 	r, ok := v.(r4b.Measure)
 	if !ok {
-		return r4b.Measure{}, capabilities.InvalidResourceError{ResourceType: "Measure"}
+		return r4b.Measure{}, capabilities.UnexpectedResourceError{ExpectedType: "Measure", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (r4b.MeasureReport, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MeasureReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MeasureReport"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MeasureReport{}, err
 	}
@@ -1465,12 +1493,16 @@ func (w Concrete) CreateMeasureReport(ctx context.Context, resource r4b.MeasureR
 	}
 	r, ok := v.(r4b.MeasureReport)
 	if !ok {
-		return r4b.MeasureReport{}, capabilities.InvalidResourceError{ResourceType: "MeasureReport"}
+		return r4b.MeasureReport{}, capabilities.UnexpectedResourceError{ExpectedType: "MeasureReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedia(ctx context.Context, resource r4b.Media) (r4b.Media, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Media{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Media"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Media{}, err
 	}
@@ -1480,12 +1512,16 @@ func (w Concrete) CreateMedia(ctx context.Context, resource r4b.Media) (r4b.Medi
 	}
 	r, ok := v.(r4b.Media)
 	if !ok {
-		return r4b.Media{}, capabilities.InvalidResourceError{ResourceType: "Media"}
+		return r4b.Media{}, capabilities.UnexpectedResourceError{ExpectedType: "Media", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedication(ctx context.Context, resource r4b.Medication) (r4b.Medication, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Medication{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Medication"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Medication{}, err
 	}
@@ -1495,12 +1531,16 @@ func (w Concrete) CreateMedication(ctx context.Context, resource r4b.Medication)
 	}
 	r, ok := v.(r4b.Medication)
 	if !ok {
-		return r4b.Medication{}, capabilities.InvalidResourceError{ResourceType: "Medication"}
+		return r4b.Medication{}, capabilities.UnexpectedResourceError{ExpectedType: "Medication", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (r4b.MedicationAdministration, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MedicationAdministration{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationAdministration"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MedicationAdministration{}, err
 	}
@@ -1510,12 +1550,16 @@ func (w Concrete) CreateMedicationAdministration(ctx context.Context, resource r
 	}
 	r, ok := v.(r4b.MedicationAdministration)
 	if !ok {
-		return r4b.MedicationAdministration{}, capabilities.InvalidResourceError{ResourceType: "MedicationAdministration"}
+		return r4b.MedicationAdministration{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationAdministration", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (r4b.MedicationDispense, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MedicationDispense{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationDispense"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MedicationDispense{}, err
 	}
@@ -1525,12 +1569,16 @@ func (w Concrete) CreateMedicationDispense(ctx context.Context, resource r4b.Med
 	}
 	r, ok := v.(r4b.MedicationDispense)
 	if !ok {
-		return r4b.MedicationDispense{}, capabilities.InvalidResourceError{ResourceType: "MedicationDispense"}
+		return r4b.MedicationDispense{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationDispense", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (r4b.MedicationKnowledge, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MedicationKnowledge{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationKnowledge"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MedicationKnowledge{}, err
 	}
@@ -1540,12 +1588,16 @@ func (w Concrete) CreateMedicationKnowledge(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationKnowledge)
 	if !ok {
-		return r4b.MedicationKnowledge{}, capabilities.InvalidResourceError{ResourceType: "MedicationKnowledge"}
+		return r4b.MedicationKnowledge{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationKnowledge", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (r4b.MedicationRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MedicationRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationRequest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MedicationRequest{}, err
 	}
@@ -1555,12 +1607,16 @@ func (w Concrete) CreateMedicationRequest(ctx context.Context, resource r4b.Medi
 	}
 	r, ok := v.(r4b.MedicationRequest)
 	if !ok {
-		return r4b.MedicationRequest{}, capabilities.InvalidResourceError{ResourceType: "MedicationRequest"}
+		return r4b.MedicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (r4b.MedicationStatement, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MedicationStatement{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicationStatement"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MedicationStatement{}, err
 	}
@@ -1570,12 +1626,16 @@ func (w Concrete) CreateMedicationStatement(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationStatement)
 	if !ok {
-		return r4b.MedicationStatement{}, capabilities.InvalidResourceError{ResourceType: "MedicationStatement"}
+		return r4b.MedicationStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationStatement", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (r4b.MedicinalProductDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MedicinalProductDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MedicinalProductDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MedicinalProductDefinition{}, err
 	}
@@ -1585,12 +1645,16 @@ func (w Concrete) CreateMedicinalProductDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.MedicinalProductDefinition)
 	if !ok {
-		return r4b.MedicinalProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "MedicinalProductDefinition"}
+		return r4b.MedicinalProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicinalProductDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (r4b.MessageDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MessageDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MessageDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MessageDefinition{}, err
 	}
@@ -1600,12 +1664,16 @@ func (w Concrete) CreateMessageDefinition(ctx context.Context, resource r4b.Mess
 	}
 	r, ok := v.(r4b.MessageDefinition)
 	if !ok {
-		return r4b.MessageDefinition{}, capabilities.InvalidResourceError{ResourceType: "MessageDefinition"}
+		return r4b.MessageDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (r4b.MessageHeader, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MessageHeader{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MessageHeader"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MessageHeader{}, err
 	}
@@ -1615,12 +1683,16 @@ func (w Concrete) CreateMessageHeader(ctx context.Context, resource r4b.MessageH
 	}
 	r, ok := v.(r4b.MessageHeader)
 	if !ok {
-		return r4b.MessageHeader{}, capabilities.InvalidResourceError{ResourceType: "MessageHeader"}
+		return r4b.MessageHeader{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageHeader", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (r4b.MolecularSequence, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.MolecularSequence{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "MolecularSequence"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.MolecularSequence{}, err
 	}
@@ -1630,12 +1702,16 @@ func (w Concrete) CreateMolecularSequence(ctx context.Context, resource r4b.Mole
 	}
 	r, ok := v.(r4b.MolecularSequence)
 	if !ok {
-		return r4b.MolecularSequence{}, capabilities.InvalidResourceError{ResourceType: "MolecularSequence"}
+		return r4b.MolecularSequence{}, capabilities.UnexpectedResourceError{ExpectedType: "MolecularSequence", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (r4b.NamingSystem, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.NamingSystem{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NamingSystem"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.NamingSystem{}, err
 	}
@@ -1645,12 +1721,16 @@ func (w Concrete) CreateNamingSystem(ctx context.Context, resource r4b.NamingSys
 	}
 	r, ok := v.(r4b.NamingSystem)
 	if !ok {
-		return r4b.NamingSystem{}, capabilities.InvalidResourceError{ResourceType: "NamingSystem"}
+		return r4b.NamingSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "NamingSystem", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (r4b.NutritionOrder, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.NutritionOrder{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NutritionOrder"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.NutritionOrder{}, err
 	}
@@ -1660,12 +1740,16 @@ func (w Concrete) CreateNutritionOrder(ctx context.Context, resource r4b.Nutriti
 	}
 	r, ok := v.(r4b.NutritionOrder)
 	if !ok {
-		return r4b.NutritionOrder{}, capabilities.InvalidResourceError{ResourceType: "NutritionOrder"}
+		return r4b.NutritionOrder{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionOrder", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (r4b.NutritionProduct, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.NutritionProduct{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "NutritionProduct"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.NutritionProduct{}, err
 	}
@@ -1675,12 +1759,16 @@ func (w Concrete) CreateNutritionProduct(ctx context.Context, resource r4b.Nutri
 	}
 	r, ok := v.(r4b.NutritionProduct)
 	if !ok {
-		return r4b.NutritionProduct{}, capabilities.InvalidResourceError{ResourceType: "NutritionProduct"}
+		return r4b.NutritionProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionProduct", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateObservation(ctx context.Context, resource r4b.Observation) (r4b.Observation, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Observation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Observation"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Observation{}, err
 	}
@@ -1690,12 +1778,16 @@ func (w Concrete) CreateObservation(ctx context.Context, resource r4b.Observatio
 	}
 	r, ok := v.(r4b.Observation)
 	if !ok {
-		return r4b.Observation{}, capabilities.InvalidResourceError{ResourceType: "Observation"}
+		return r4b.Observation{}, capabilities.UnexpectedResourceError{ExpectedType: "Observation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (r4b.ObservationDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ObservationDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ObservationDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ObservationDefinition{}, err
 	}
@@ -1705,12 +1797,16 @@ func (w Concrete) CreateObservationDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ObservationDefinition)
 	if !ok {
-		return r4b.ObservationDefinition{}, capabilities.InvalidResourceError{ResourceType: "ObservationDefinition"}
+		return r4b.ObservationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ObservationDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (r4b.OperationDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.OperationDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OperationDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.OperationDefinition{}, err
 	}
@@ -1720,12 +1816,16 @@ func (w Concrete) CreateOperationDefinition(ctx context.Context, resource r4b.Op
 	}
 	r, ok := v.(r4b.OperationDefinition)
 	if !ok {
-		return r4b.OperationDefinition{}, capabilities.InvalidResourceError{ResourceType: "OperationDefinition"}
+		return r4b.OperationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (r4b.OperationOutcome, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.OperationOutcome{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OperationOutcome"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.OperationOutcome{}, err
 	}
@@ -1735,12 +1835,16 @@ func (w Concrete) CreateOperationOutcome(ctx context.Context, resource r4b.Opera
 	}
 	r, ok := v.(r4b.OperationOutcome)
 	if !ok {
-		return r4b.OperationOutcome{}, capabilities.InvalidResourceError{ResourceType: "OperationOutcome"}
+		return r4b.OperationOutcome{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationOutcome", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateOrganization(ctx context.Context, resource r4b.Organization) (r4b.Organization, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Organization{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Organization"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Organization{}, err
 	}
@@ -1750,12 +1854,16 @@ func (w Concrete) CreateOrganization(ctx context.Context, resource r4b.Organizat
 	}
 	r, ok := v.(r4b.Organization)
 	if !ok {
-		return r4b.Organization{}, capabilities.InvalidResourceError{ResourceType: "Organization"}
+		return r4b.Organization{}, capabilities.UnexpectedResourceError{ExpectedType: "Organization", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (r4b.OrganizationAffiliation, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.OrganizationAffiliation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "OrganizationAffiliation"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.OrganizationAffiliation{}, err
 	}
@@ -1765,12 +1873,16 @@ func (w Concrete) CreateOrganizationAffiliation(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.OrganizationAffiliation)
 	if !ok {
-		return r4b.OrganizationAffiliation{}, capabilities.InvalidResourceError{ResourceType: "OrganizationAffiliation"}
+		return r4b.OrganizationAffiliation{}, capabilities.UnexpectedResourceError{ExpectedType: "OrganizationAffiliation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (r4b.PackagedProductDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.PackagedProductDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PackagedProductDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.PackagedProductDefinition{}, err
 	}
@@ -1780,12 +1892,16 @@ func (w Concrete) CreatePackagedProductDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.PackagedProductDefinition)
 	if !ok {
-		return r4b.PackagedProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "PackagedProductDefinition"}
+		return r4b.PackagedProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PackagedProductDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateParameters(ctx context.Context, resource r4b.Parameters) (r4b.Parameters, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Parameters{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Parameters"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Parameters{}, err
 	}
@@ -1795,12 +1911,16 @@ func (w Concrete) CreateParameters(ctx context.Context, resource r4b.Parameters)
 	}
 	r, ok := v.(r4b.Parameters)
 	if !ok {
-		return r4b.Parameters{}, capabilities.InvalidResourceError{ResourceType: "Parameters"}
+		return r4b.Parameters{}, capabilities.UnexpectedResourceError{ExpectedType: "Parameters", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePatient(ctx context.Context, resource r4b.Patient) (r4b.Patient, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Patient{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Patient"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Patient{}, err
 	}
@@ -1810,12 +1930,16 @@ func (w Concrete) CreatePatient(ctx context.Context, resource r4b.Patient) (r4b.
 	}
 	r, ok := v.(r4b.Patient)
 	if !ok {
-		return r4b.Patient{}, capabilities.InvalidResourceError{ResourceType: "Patient"}
+		return r4b.Patient{}, capabilities.UnexpectedResourceError{ExpectedType: "Patient", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (r4b.PaymentNotice, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.PaymentNotice{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PaymentNotice"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.PaymentNotice{}, err
 	}
@@ -1825,12 +1949,16 @@ func (w Concrete) CreatePaymentNotice(ctx context.Context, resource r4b.PaymentN
 	}
 	r, ok := v.(r4b.PaymentNotice)
 	if !ok {
-		return r4b.PaymentNotice{}, capabilities.InvalidResourceError{ResourceType: "PaymentNotice"}
+		return r4b.PaymentNotice{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentNotice", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (r4b.PaymentReconciliation, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.PaymentReconciliation{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PaymentReconciliation"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.PaymentReconciliation{}, err
 	}
@@ -1840,12 +1968,16 @@ func (w Concrete) CreatePaymentReconciliation(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.PaymentReconciliation)
 	if !ok {
-		return r4b.PaymentReconciliation{}, capabilities.InvalidResourceError{ResourceType: "PaymentReconciliation"}
+		return r4b.PaymentReconciliation{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentReconciliation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePerson(ctx context.Context, resource r4b.Person) (r4b.Person, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Person{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Person"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Person{}, err
 	}
@@ -1855,12 +1987,16 @@ func (w Concrete) CreatePerson(ctx context.Context, resource r4b.Person) (r4b.Pe
 	}
 	r, ok := v.(r4b.Person)
 	if !ok {
-		return r4b.Person{}, capabilities.InvalidResourceError{ResourceType: "Person"}
+		return r4b.Person{}, capabilities.UnexpectedResourceError{ExpectedType: "Person", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (r4b.PlanDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.PlanDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PlanDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.PlanDefinition{}, err
 	}
@@ -1870,12 +2006,16 @@ func (w Concrete) CreatePlanDefinition(ctx context.Context, resource r4b.PlanDef
 	}
 	r, ok := v.(r4b.PlanDefinition)
 	if !ok {
-		return r4b.PlanDefinition{}, capabilities.InvalidResourceError{ResourceType: "PlanDefinition"}
+		return r4b.PlanDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PlanDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePractitioner(ctx context.Context, resource r4b.Practitioner) (r4b.Practitioner, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Practitioner{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Practitioner"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Practitioner{}, err
 	}
@@ -1885,12 +2025,16 @@ func (w Concrete) CreatePractitioner(ctx context.Context, resource r4b.Practitio
 	}
 	r, ok := v.(r4b.Practitioner)
 	if !ok {
-		return r4b.Practitioner{}, capabilities.InvalidResourceError{ResourceType: "Practitioner"}
+		return r4b.Practitioner{}, capabilities.UnexpectedResourceError{ExpectedType: "Practitioner", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (r4b.PractitionerRole, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.PractitionerRole{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "PractitionerRole"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.PractitionerRole{}, err
 	}
@@ -1900,12 +2044,16 @@ func (w Concrete) CreatePractitionerRole(ctx context.Context, resource r4b.Pract
 	}
 	r, ok := v.(r4b.PractitionerRole)
 	if !ok {
-		return r4b.PractitionerRole{}, capabilities.InvalidResourceError{ResourceType: "PractitionerRole"}
+		return r4b.PractitionerRole{}, capabilities.UnexpectedResourceError{ExpectedType: "PractitionerRole", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateProcedure(ctx context.Context, resource r4b.Procedure) (r4b.Procedure, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Procedure{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Procedure"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Procedure{}, err
 	}
@@ -1915,12 +2063,16 @@ func (w Concrete) CreateProcedure(ctx context.Context, resource r4b.Procedure) (
 	}
 	r, ok := v.(r4b.Procedure)
 	if !ok {
-		return r4b.Procedure{}, capabilities.InvalidResourceError{ResourceType: "Procedure"}
+		return r4b.Procedure{}, capabilities.UnexpectedResourceError{ExpectedType: "Procedure", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateProvenance(ctx context.Context, resource r4b.Provenance) (r4b.Provenance, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Provenance{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Provenance"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Provenance{}, err
 	}
@@ -1930,12 +2082,16 @@ func (w Concrete) CreateProvenance(ctx context.Context, resource r4b.Provenance)
 	}
 	r, ok := v.(r4b.Provenance)
 	if !ok {
-		return r4b.Provenance{}, capabilities.InvalidResourceError{ResourceType: "Provenance"}
+		return r4b.Provenance{}, capabilities.UnexpectedResourceError{ExpectedType: "Provenance", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (r4b.Questionnaire, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Questionnaire{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Questionnaire"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Questionnaire{}, err
 	}
@@ -1945,12 +2101,16 @@ func (w Concrete) CreateQuestionnaire(ctx context.Context, resource r4b.Question
 	}
 	r, ok := v.(r4b.Questionnaire)
 	if !ok {
-		return r4b.Questionnaire{}, capabilities.InvalidResourceError{ResourceType: "Questionnaire"}
+		return r4b.Questionnaire{}, capabilities.UnexpectedResourceError{ExpectedType: "Questionnaire", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (r4b.QuestionnaireResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.QuestionnaireResponse{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "QuestionnaireResponse"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.QuestionnaireResponse{}, err
 	}
@@ -1960,12 +2120,16 @@ func (w Concrete) CreateQuestionnaireResponse(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.QuestionnaireResponse)
 	if !ok {
-		return r4b.QuestionnaireResponse{}, capabilities.InvalidResourceError{ResourceType: "QuestionnaireResponse"}
+		return r4b.QuestionnaireResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "QuestionnaireResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (r4b.RegulatedAuthorization, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.RegulatedAuthorization{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RegulatedAuthorization"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.RegulatedAuthorization{}, err
 	}
@@ -1975,12 +2139,16 @@ func (w Concrete) CreateRegulatedAuthorization(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.RegulatedAuthorization)
 	if !ok {
-		return r4b.RegulatedAuthorization{}, capabilities.InvalidResourceError{ResourceType: "RegulatedAuthorization"}
+		return r4b.RegulatedAuthorization{}, capabilities.UnexpectedResourceError{ExpectedType: "RegulatedAuthorization", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (r4b.RelatedPerson, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.RelatedPerson{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RelatedPerson"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.RelatedPerson{}, err
 	}
@@ -1990,12 +2158,16 @@ func (w Concrete) CreateRelatedPerson(ctx context.Context, resource r4b.RelatedP
 	}
 	r, ok := v.(r4b.RelatedPerson)
 	if !ok {
-		return r4b.RelatedPerson{}, capabilities.InvalidResourceError{ResourceType: "RelatedPerson"}
+		return r4b.RelatedPerson{}, capabilities.UnexpectedResourceError{ExpectedType: "RelatedPerson", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (r4b.RequestGroup, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.RequestGroup{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RequestGroup"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.RequestGroup{}, err
 	}
@@ -2005,12 +2177,16 @@ func (w Concrete) CreateRequestGroup(ctx context.Context, resource r4b.RequestGr
 	}
 	r, ok := v.(r4b.RequestGroup)
 	if !ok {
-		return r4b.RequestGroup{}, capabilities.InvalidResourceError{ResourceType: "RequestGroup"}
+		return r4b.RequestGroup{}, capabilities.UnexpectedResourceError{ExpectedType: "RequestGroup", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (r4b.ResearchDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ResearchDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ResearchDefinition{}, err
 	}
@@ -2020,12 +2196,16 @@ func (w Concrete) CreateResearchDefinition(ctx context.Context, resource r4b.Res
 	}
 	r, ok := v.(r4b.ResearchDefinition)
 	if !ok {
-		return r4b.ResearchDefinition{}, capabilities.InvalidResourceError{ResourceType: "ResearchDefinition"}
+		return r4b.ResearchDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (r4b.ResearchElementDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ResearchElementDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchElementDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ResearchElementDefinition{}, err
 	}
@@ -2035,12 +2215,16 @@ func (w Concrete) CreateResearchElementDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.ResearchElementDefinition)
 	if !ok {
-		return r4b.ResearchElementDefinition{}, capabilities.InvalidResourceError{ResourceType: "ResearchElementDefinition"}
+		return r4b.ResearchElementDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchElementDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (r4b.ResearchStudy, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ResearchStudy{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchStudy"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ResearchStudy{}, err
 	}
@@ -2050,12 +2234,16 @@ func (w Concrete) CreateResearchStudy(ctx context.Context, resource r4b.Research
 	}
 	r, ok := v.(r4b.ResearchStudy)
 	if !ok {
-		return r4b.ResearchStudy{}, capabilities.InvalidResourceError{ResourceType: "ResearchStudy"}
+		return r4b.ResearchStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchStudy", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (r4b.ResearchSubject, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ResearchSubject{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ResearchSubject"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ResearchSubject{}, err
 	}
@@ -2065,12 +2253,16 @@ func (w Concrete) CreateResearchSubject(ctx context.Context, resource r4b.Resear
 	}
 	r, ok := v.(r4b.ResearchSubject)
 	if !ok {
-		return r4b.ResearchSubject{}, capabilities.InvalidResourceError{ResourceType: "ResearchSubject"}
+		return r4b.ResearchSubject{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchSubject", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (r4b.RiskAssessment, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.RiskAssessment{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "RiskAssessment"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.RiskAssessment{}, err
 	}
@@ -2080,12 +2272,16 @@ func (w Concrete) CreateRiskAssessment(ctx context.Context, resource r4b.RiskAss
 	}
 	r, ok := v.(r4b.RiskAssessment)
 	if !ok {
-		return r4b.RiskAssessment{}, capabilities.InvalidResourceError{ResourceType: "RiskAssessment"}
+		return r4b.RiskAssessment{}, capabilities.UnexpectedResourceError{ExpectedType: "RiskAssessment", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSchedule(ctx context.Context, resource r4b.Schedule) (r4b.Schedule, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Schedule{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Schedule"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Schedule{}, err
 	}
@@ -2095,12 +2291,16 @@ func (w Concrete) CreateSchedule(ctx context.Context, resource r4b.Schedule) (r4
 	}
 	r, ok := v.(r4b.Schedule)
 	if !ok {
-		return r4b.Schedule{}, capabilities.InvalidResourceError{ResourceType: "Schedule"}
+		return r4b.Schedule{}, capabilities.UnexpectedResourceError{ExpectedType: "Schedule", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (r4b.SearchParameter, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.SearchParameter{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SearchParameter"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.SearchParameter{}, err
 	}
@@ -2110,12 +2310,16 @@ func (w Concrete) CreateSearchParameter(ctx context.Context, resource r4b.Search
 	}
 	r, ok := v.(r4b.SearchParameter)
 	if !ok {
-		return r4b.SearchParameter{}, capabilities.InvalidResourceError{ResourceType: "SearchParameter"}
+		return r4b.SearchParameter{}, capabilities.UnexpectedResourceError{ExpectedType: "SearchParameter", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (r4b.ServiceRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ServiceRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ServiceRequest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ServiceRequest{}, err
 	}
@@ -2125,12 +2329,16 @@ func (w Concrete) CreateServiceRequest(ctx context.Context, resource r4b.Service
 	}
 	r, ok := v.(r4b.ServiceRequest)
 	if !ok {
-		return r4b.ServiceRequest{}, capabilities.InvalidResourceError{ResourceType: "ServiceRequest"}
+		return r4b.ServiceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "ServiceRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSlot(ctx context.Context, resource r4b.Slot) (r4b.Slot, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Slot{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Slot"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Slot{}, err
 	}
@@ -2140,12 +2348,16 @@ func (w Concrete) CreateSlot(ctx context.Context, resource r4b.Slot) (r4b.Slot, 
 	}
 	r, ok := v.(r4b.Slot)
 	if !ok {
-		return r4b.Slot{}, capabilities.InvalidResourceError{ResourceType: "Slot"}
+		return r4b.Slot{}, capabilities.UnexpectedResourceError{ExpectedType: "Slot", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSpecimen(ctx context.Context, resource r4b.Specimen) (r4b.Specimen, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Specimen{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Specimen"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Specimen{}, err
 	}
@@ -2155,12 +2367,16 @@ func (w Concrete) CreateSpecimen(ctx context.Context, resource r4b.Specimen) (r4
 	}
 	r, ok := v.(r4b.Specimen)
 	if !ok {
-		return r4b.Specimen{}, capabilities.InvalidResourceError{ResourceType: "Specimen"}
+		return r4b.Specimen{}, capabilities.UnexpectedResourceError{ExpectedType: "Specimen", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (r4b.SpecimenDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.SpecimenDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SpecimenDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.SpecimenDefinition{}, err
 	}
@@ -2170,12 +2386,16 @@ func (w Concrete) CreateSpecimenDefinition(ctx context.Context, resource r4b.Spe
 	}
 	r, ok := v.(r4b.SpecimenDefinition)
 	if !ok {
-		return r4b.SpecimenDefinition{}, capabilities.InvalidResourceError{ResourceType: "SpecimenDefinition"}
+		return r4b.SpecimenDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SpecimenDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (r4b.StructureDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.StructureDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "StructureDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.StructureDefinition{}, err
 	}
@@ -2185,12 +2405,16 @@ func (w Concrete) CreateStructureDefinition(ctx context.Context, resource r4b.St
 	}
 	r, ok := v.(r4b.StructureDefinition)
 	if !ok {
-		return r4b.StructureDefinition{}, capabilities.InvalidResourceError{ResourceType: "StructureDefinition"}
+		return r4b.StructureDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateStructureMap(ctx context.Context, resource r4b.StructureMap) (r4b.StructureMap, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.StructureMap{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "StructureMap"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.StructureMap{}, err
 	}
@@ -2200,12 +2424,16 @@ func (w Concrete) CreateStructureMap(ctx context.Context, resource r4b.Structure
 	}
 	r, ok := v.(r4b.StructureMap)
 	if !ok {
-		return r4b.StructureMap{}, capabilities.InvalidResourceError{ResourceType: "StructureMap"}
+		return r4b.StructureMap{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureMap", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSubscription(ctx context.Context, resource r4b.Subscription) (r4b.Subscription, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Subscription{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Subscription"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Subscription{}, err
 	}
@@ -2215,12 +2443,16 @@ func (w Concrete) CreateSubscription(ctx context.Context, resource r4b.Subscript
 	}
 	r, ok := v.(r4b.Subscription)
 	if !ok {
-		return r4b.Subscription{}, capabilities.InvalidResourceError{ResourceType: "Subscription"}
+		return r4b.Subscription{}, capabilities.UnexpectedResourceError{ExpectedType: "Subscription", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (r4b.SubscriptionStatus, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.SubscriptionStatus{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubscriptionStatus"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.SubscriptionStatus{}, err
 	}
@@ -2230,12 +2462,16 @@ func (w Concrete) CreateSubscriptionStatus(ctx context.Context, resource r4b.Sub
 	}
 	r, ok := v.(r4b.SubscriptionStatus)
 	if !ok {
-		return r4b.SubscriptionStatus{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionStatus"}
+		return r4b.SubscriptionStatus{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionStatus", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (r4b.SubscriptionTopic, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.SubscriptionTopic{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubscriptionTopic"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.SubscriptionTopic{}, err
 	}
@@ -2245,12 +2481,16 @@ func (w Concrete) CreateSubscriptionTopic(ctx context.Context, resource r4b.Subs
 	}
 	r, ok := v.(r4b.SubscriptionTopic)
 	if !ok {
-		return r4b.SubscriptionTopic{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionTopic"}
+		return r4b.SubscriptionTopic{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionTopic", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSubstance(ctx context.Context, resource r4b.Substance) (r4b.Substance, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Substance{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Substance"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Substance{}, err
 	}
@@ -2260,12 +2500,16 @@ func (w Concrete) CreateSubstance(ctx context.Context, resource r4b.Substance) (
 	}
 	r, ok := v.(r4b.Substance)
 	if !ok {
-		return r4b.Substance{}, capabilities.InvalidResourceError{ResourceType: "Substance"}
+		return r4b.Substance{}, capabilities.UnexpectedResourceError{ExpectedType: "Substance", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (r4b.SubstanceDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.SubstanceDefinition{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SubstanceDefinition"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.SubstanceDefinition{}, err
 	}
@@ -2275,12 +2519,16 @@ func (w Concrete) CreateSubstanceDefinition(ctx context.Context, resource r4b.Su
 	}
 	r, ok := v.(r4b.SubstanceDefinition)
 	if !ok {
-		return r4b.SubstanceDefinition{}, capabilities.InvalidResourceError{ResourceType: "SubstanceDefinition"}
+		return r4b.SubstanceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SubstanceDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (r4b.SupplyDelivery, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.SupplyDelivery{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SupplyDelivery"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.SupplyDelivery{}, err
 	}
@@ -2290,12 +2538,16 @@ func (w Concrete) CreateSupplyDelivery(ctx context.Context, resource r4b.SupplyD
 	}
 	r, ok := v.(r4b.SupplyDelivery)
 	if !ok {
-		return r4b.SupplyDelivery{}, capabilities.InvalidResourceError{ResourceType: "SupplyDelivery"}
+		return r4b.SupplyDelivery{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyDelivery", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (r4b.SupplyRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.SupplyRequest{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "SupplyRequest"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.SupplyRequest{}, err
 	}
@@ -2305,12 +2557,16 @@ func (w Concrete) CreateSupplyRequest(ctx context.Context, resource r4b.SupplyRe
 	}
 	r, ok := v.(r4b.SupplyRequest)
 	if !ok {
-		return r4b.SupplyRequest{}, capabilities.InvalidResourceError{ResourceType: "SupplyRequest"}
+		return r4b.SupplyRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateTask(ctx context.Context, resource r4b.Task) (r4b.Task, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.Task{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "Task"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.Task{}, err
 	}
@@ -2320,12 +2576,16 @@ func (w Concrete) CreateTask(ctx context.Context, resource r4b.Task) (r4b.Task, 
 	}
 	r, ok := v.(r4b.Task)
 	if !ok {
-		return r4b.Task{}, capabilities.InvalidResourceError{ResourceType: "Task"}
+		return r4b.Task{}, capabilities.UnexpectedResourceError{ExpectedType: "Task", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (r4b.TerminologyCapabilities, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.TerminologyCapabilities{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TerminologyCapabilities"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.TerminologyCapabilities{}, err
 	}
@@ -2335,12 +2595,16 @@ func (w Concrete) CreateTerminologyCapabilities(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.TerminologyCapabilities)
 	if !ok {
-		return r4b.TerminologyCapabilities{}, capabilities.InvalidResourceError{ResourceType: "TerminologyCapabilities"}
+		return r4b.TerminologyCapabilities{}, capabilities.UnexpectedResourceError{ExpectedType: "TerminologyCapabilities", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateTestReport(ctx context.Context, resource r4b.TestReport) (r4b.TestReport, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.TestReport{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TestReport"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.TestReport{}, err
 	}
@@ -2350,12 +2614,16 @@ func (w Concrete) CreateTestReport(ctx context.Context, resource r4b.TestReport)
 	}
 	r, ok := v.(r4b.TestReport)
 	if !ok {
-		return r4b.TestReport{}, capabilities.InvalidResourceError{ResourceType: "TestReport"}
+		return r4b.TestReport{}, capabilities.UnexpectedResourceError{ExpectedType: "TestReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateTestScript(ctx context.Context, resource r4b.TestScript) (r4b.TestScript, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.TestScript{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "TestScript"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.TestScript{}, err
 	}
@@ -2365,12 +2633,16 @@ func (w Concrete) CreateTestScript(ctx context.Context, resource r4b.TestScript)
 	}
 	r, ok := v.(r4b.TestScript)
 	if !ok {
-		return r4b.TestScript{}, capabilities.InvalidResourceError{ResourceType: "TestScript"}
+		return r4b.TestScript{}, capabilities.UnexpectedResourceError{ExpectedType: "TestScript", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateValueSet(ctx context.Context, resource r4b.ValueSet) (r4b.ValueSet, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.ValueSet{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "ValueSet"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.ValueSet{}, err
 	}
@@ -2380,12 +2652,16 @@ func (w Concrete) CreateValueSet(ctx context.Context, resource r4b.ValueSet) (r4
 	}
 	r, ok := v.(r4b.ValueSet)
 	if !ok {
-		return r4b.ValueSet{}, capabilities.InvalidResourceError{ResourceType: "ValueSet"}
+		return r4b.ValueSet{}, capabilities.UnexpectedResourceError{ExpectedType: "ValueSet", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (r4b.VerificationResult, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.VerificationResult{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "VerificationResult"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.VerificationResult{}, err
 	}
@@ -2395,12 +2671,16 @@ func (w Concrete) CreateVerificationResult(ctx context.Context, resource r4b.Ver
 	}
 	r, ok := v.(r4b.VerificationResult)
 	if !ok {
-		return r4b.VerificationResult{}, capabilities.InvalidResourceError{ResourceType: "VerificationResult"}
+		return r4b.VerificationResult{}, capabilities.UnexpectedResourceError{ExpectedType: "VerificationResult", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (r4b.VisionPrescription, capabilities.FHIRError) {
-	v, err := w.Generic.Create(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericCreate)
+	if !ok {
+		return r4b.VisionPrescription{}, capabilities.NotImplementedError{Interaction: "create", ResourceType: "VisionPrescription"}
+	}
+	v, err := g.Create(ctx, resource)
 	if err != nil {
 		return r4b.VisionPrescription{}, err
 	}
@@ -2410,12 +2690,16 @@ func (w Concrete) CreateVisionPrescription(ctx context.Context, resource r4b.Vis
 	}
 	r, ok := v.(r4b.VisionPrescription)
 	if !ok {
-		return r4b.VisionPrescription{}, capabilities.InvalidResourceError{ResourceType: "VisionPrescription"}
+		return r4b.VisionPrescription{}, capabilities.UnexpectedResourceError{ExpectedType: "VisionPrescription", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadAccount(ctx context.Context, id string) (r4b.Account, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Account", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Account{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Account"}
+	}
+	v, err := g.Read(ctx, "Account", id)
 	if err != nil {
 		return r4b.Account{}, err
 	}
@@ -2425,12 +2709,16 @@ func (w Concrete) ReadAccount(ctx context.Context, id string) (r4b.Account, capa
 	}
 	r, ok := v.(r4b.Account)
 	if !ok {
-		return r4b.Account{}, capabilities.InvalidResourceError{ResourceType: "Account"}
+		return r4b.Account{}, capabilities.UnexpectedResourceError{ExpectedType: "Account", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadActivityDefinition(ctx context.Context, id string) (r4b.ActivityDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ActivityDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ActivityDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ActivityDefinition"}
+	}
+	v, err := g.Read(ctx, "ActivityDefinition", id)
 	if err != nil {
 		return r4b.ActivityDefinition{}, err
 	}
@@ -2440,12 +2728,16 @@ func (w Concrete) ReadActivityDefinition(ctx context.Context, id string) (r4b.Ac
 	}
 	r, ok := v.(r4b.ActivityDefinition)
 	if !ok {
-		return r4b.ActivityDefinition{}, capabilities.InvalidResourceError{ResourceType: "ActivityDefinition"}
+		return r4b.ActivityDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ActivityDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadAdministrableProductDefinition(ctx context.Context, id string) (r4b.AdministrableProductDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "AdministrableProductDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.AdministrableProductDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AdministrableProductDefinition"}
+	}
+	v, err := g.Read(ctx, "AdministrableProductDefinition", id)
 	if err != nil {
 		return r4b.AdministrableProductDefinition{}, err
 	}
@@ -2455,12 +2747,16 @@ func (w Concrete) ReadAdministrableProductDefinition(ctx context.Context, id str
 	}
 	r, ok := v.(r4b.AdministrableProductDefinition)
 	if !ok {
-		return r4b.AdministrableProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "AdministrableProductDefinition"}
+		return r4b.AdministrableProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "AdministrableProductDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadAdverseEvent(ctx context.Context, id string) (r4b.AdverseEvent, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "AdverseEvent", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.AdverseEvent{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AdverseEvent"}
+	}
+	v, err := g.Read(ctx, "AdverseEvent", id)
 	if err != nil {
 		return r4b.AdverseEvent{}, err
 	}
@@ -2470,12 +2766,16 @@ func (w Concrete) ReadAdverseEvent(ctx context.Context, id string) (r4b.AdverseE
 	}
 	r, ok := v.(r4b.AdverseEvent)
 	if !ok {
-		return r4b.AdverseEvent{}, capabilities.InvalidResourceError{ResourceType: "AdverseEvent"}
+		return r4b.AdverseEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AdverseEvent", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadAllergyIntolerance(ctx context.Context, id string) (r4b.AllergyIntolerance, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "AllergyIntolerance", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.AllergyIntolerance{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AllergyIntolerance"}
+	}
+	v, err := g.Read(ctx, "AllergyIntolerance", id)
 	if err != nil {
 		return r4b.AllergyIntolerance{}, err
 	}
@@ -2485,12 +2785,16 @@ func (w Concrete) ReadAllergyIntolerance(ctx context.Context, id string) (r4b.Al
 	}
 	r, ok := v.(r4b.AllergyIntolerance)
 	if !ok {
-		return r4b.AllergyIntolerance{}, capabilities.InvalidResourceError{ResourceType: "AllergyIntolerance"}
+		return r4b.AllergyIntolerance{}, capabilities.UnexpectedResourceError{ExpectedType: "AllergyIntolerance", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadAppointment(ctx context.Context, id string) (r4b.Appointment, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Appointment", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Appointment{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Appointment"}
+	}
+	v, err := g.Read(ctx, "Appointment", id)
 	if err != nil {
 		return r4b.Appointment{}, err
 	}
@@ -2500,12 +2804,16 @@ func (w Concrete) ReadAppointment(ctx context.Context, id string) (r4b.Appointme
 	}
 	r, ok := v.(r4b.Appointment)
 	if !ok {
-		return r4b.Appointment{}, capabilities.InvalidResourceError{ResourceType: "Appointment"}
+		return r4b.Appointment{}, capabilities.UnexpectedResourceError{ExpectedType: "Appointment", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadAppointmentResponse(ctx context.Context, id string) (r4b.AppointmentResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "AppointmentResponse", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.AppointmentResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AppointmentResponse"}
+	}
+	v, err := g.Read(ctx, "AppointmentResponse", id)
 	if err != nil {
 		return r4b.AppointmentResponse{}, err
 	}
@@ -2515,12 +2823,16 @@ func (w Concrete) ReadAppointmentResponse(ctx context.Context, id string) (r4b.A
 	}
 	r, ok := v.(r4b.AppointmentResponse)
 	if !ok {
-		return r4b.AppointmentResponse{}, capabilities.InvalidResourceError{ResourceType: "AppointmentResponse"}
+		return r4b.AppointmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "AppointmentResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadAuditEvent(ctx context.Context, id string) (r4b.AuditEvent, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "AuditEvent", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.AuditEvent{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "AuditEvent"}
+	}
+	v, err := g.Read(ctx, "AuditEvent", id)
 	if err != nil {
 		return r4b.AuditEvent{}, err
 	}
@@ -2530,12 +2842,16 @@ func (w Concrete) ReadAuditEvent(ctx context.Context, id string) (r4b.AuditEvent
 	}
 	r, ok := v.(r4b.AuditEvent)
 	if !ok {
-		return r4b.AuditEvent{}, capabilities.InvalidResourceError{ResourceType: "AuditEvent"}
+		return r4b.AuditEvent{}, capabilities.UnexpectedResourceError{ExpectedType: "AuditEvent", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadBasic(ctx context.Context, id string) (r4b.Basic, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Basic", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Basic{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Basic"}
+	}
+	v, err := g.Read(ctx, "Basic", id)
 	if err != nil {
 		return r4b.Basic{}, err
 	}
@@ -2545,12 +2861,16 @@ func (w Concrete) ReadBasic(ctx context.Context, id string) (r4b.Basic, capabili
 	}
 	r, ok := v.(r4b.Basic)
 	if !ok {
-		return r4b.Basic{}, capabilities.InvalidResourceError{ResourceType: "Basic"}
+		return r4b.Basic{}, capabilities.UnexpectedResourceError{ExpectedType: "Basic", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadBinary(ctx context.Context, id string) (r4b.Binary, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Binary", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Binary{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Binary"}
+	}
+	v, err := g.Read(ctx, "Binary", id)
 	if err != nil {
 		return r4b.Binary{}, err
 	}
@@ -2560,12 +2880,16 @@ func (w Concrete) ReadBinary(ctx context.Context, id string) (r4b.Binary, capabi
 	}
 	r, ok := v.(r4b.Binary)
 	if !ok {
-		return r4b.Binary{}, capabilities.InvalidResourceError{ResourceType: "Binary"}
+		return r4b.Binary{}, capabilities.UnexpectedResourceError{ExpectedType: "Binary", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r4b.BiologicallyDerivedProduct, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "BiologicallyDerivedProduct", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.BiologicallyDerivedProduct{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "BiologicallyDerivedProduct"}
+	}
+	v, err := g.Read(ctx, "BiologicallyDerivedProduct", id)
 	if err != nil {
 		return r4b.BiologicallyDerivedProduct{}, err
 	}
@@ -2575,12 +2899,16 @@ func (w Concrete) ReadBiologicallyDerivedProduct(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.BiologicallyDerivedProduct)
 	if !ok {
-		return r4b.BiologicallyDerivedProduct{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProduct"}
+		return r4b.BiologicallyDerivedProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "BiologicallyDerivedProduct", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadBodyStructure(ctx context.Context, id string) (r4b.BodyStructure, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "BodyStructure", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.BodyStructure{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "BodyStructure"}
+	}
+	v, err := g.Read(ctx, "BodyStructure", id)
 	if err != nil {
 		return r4b.BodyStructure{}, err
 	}
@@ -2590,12 +2918,16 @@ func (w Concrete) ReadBodyStructure(ctx context.Context, id string) (r4b.BodyStr
 	}
 	r, ok := v.(r4b.BodyStructure)
 	if !ok {
-		return r4b.BodyStructure{}, capabilities.InvalidResourceError{ResourceType: "BodyStructure"}
+		return r4b.BodyStructure{}, capabilities.UnexpectedResourceError{ExpectedType: "BodyStructure", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadBundle(ctx context.Context, id string) (r4b.Bundle, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Bundle", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Bundle{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Bundle"}
+	}
+	v, err := g.Read(ctx, "Bundle", id)
 	if err != nil {
 		return r4b.Bundle{}, err
 	}
@@ -2605,12 +2937,16 @@ func (w Concrete) ReadBundle(ctx context.Context, id string) (r4b.Bundle, capabi
 	}
 	r, ok := v.(r4b.Bundle)
 	if !ok {
-		return r4b.Bundle{}, capabilities.InvalidResourceError{ResourceType: "Bundle"}
+		return r4b.Bundle{}, capabilities.UnexpectedResourceError{ExpectedType: "Bundle", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCapabilityStatement(ctx context.Context, id string) (r4b.CapabilityStatement, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CapabilityStatement", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CapabilityStatement{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CapabilityStatement"}
+	}
+	v, err := g.Read(ctx, "CapabilityStatement", id)
 	if err != nil {
 		return r4b.CapabilityStatement{}, err
 	}
@@ -2620,12 +2956,16 @@ func (w Concrete) ReadCapabilityStatement(ctx context.Context, id string) (r4b.C
 	}
 	r, ok := v.(r4b.CapabilityStatement)
 	if !ok {
-		return r4b.CapabilityStatement{}, capabilities.InvalidResourceError{ResourceType: "CapabilityStatement"}
+		return r4b.CapabilityStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "CapabilityStatement", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCarePlan(ctx context.Context, id string) (r4b.CarePlan, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CarePlan", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CarePlan{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CarePlan"}
+	}
+	v, err := g.Read(ctx, "CarePlan", id)
 	if err != nil {
 		return r4b.CarePlan{}, err
 	}
@@ -2635,12 +2975,16 @@ func (w Concrete) ReadCarePlan(ctx context.Context, id string) (r4b.CarePlan, ca
 	}
 	r, ok := v.(r4b.CarePlan)
 	if !ok {
-		return r4b.CarePlan{}, capabilities.InvalidResourceError{ResourceType: "CarePlan"}
+		return r4b.CarePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "CarePlan", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCareTeam(ctx context.Context, id string) (r4b.CareTeam, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CareTeam", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CareTeam{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CareTeam"}
+	}
+	v, err := g.Read(ctx, "CareTeam", id)
 	if err != nil {
 		return r4b.CareTeam{}, err
 	}
@@ -2650,12 +2994,16 @@ func (w Concrete) ReadCareTeam(ctx context.Context, id string) (r4b.CareTeam, ca
 	}
 	r, ok := v.(r4b.CareTeam)
 	if !ok {
-		return r4b.CareTeam{}, capabilities.InvalidResourceError{ResourceType: "CareTeam"}
+		return r4b.CareTeam{}, capabilities.UnexpectedResourceError{ExpectedType: "CareTeam", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCatalogEntry(ctx context.Context, id string) (r4b.CatalogEntry, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CatalogEntry", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CatalogEntry{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CatalogEntry"}
+	}
+	v, err := g.Read(ctx, "CatalogEntry", id)
 	if err != nil {
 		return r4b.CatalogEntry{}, err
 	}
@@ -2665,12 +3013,16 @@ func (w Concrete) ReadCatalogEntry(ctx context.Context, id string) (r4b.CatalogE
 	}
 	r, ok := v.(r4b.CatalogEntry)
 	if !ok {
-		return r4b.CatalogEntry{}, capabilities.InvalidResourceError{ResourceType: "CatalogEntry"}
+		return r4b.CatalogEntry{}, capabilities.UnexpectedResourceError{ExpectedType: "CatalogEntry", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadChargeItem(ctx context.Context, id string) (r4b.ChargeItem, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ChargeItem", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ChargeItem{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ChargeItem"}
+	}
+	v, err := g.Read(ctx, "ChargeItem", id)
 	if err != nil {
 		return r4b.ChargeItem{}, err
 	}
@@ -2680,12 +3032,16 @@ func (w Concrete) ReadChargeItem(ctx context.Context, id string) (r4b.ChargeItem
 	}
 	r, ok := v.(r4b.ChargeItem)
 	if !ok {
-		return r4b.ChargeItem{}, capabilities.InvalidResourceError{ResourceType: "ChargeItem"}
+		return r4b.ChargeItem{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItem", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadChargeItemDefinition(ctx context.Context, id string) (r4b.ChargeItemDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ChargeItemDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ChargeItemDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ChargeItemDefinition"}
+	}
+	v, err := g.Read(ctx, "ChargeItemDefinition", id)
 	if err != nil {
 		return r4b.ChargeItemDefinition{}, err
 	}
@@ -2695,12 +3051,16 @@ func (w Concrete) ReadChargeItemDefinition(ctx context.Context, id string) (r4b.
 	}
 	r, ok := v.(r4b.ChargeItemDefinition)
 	if !ok {
-		return r4b.ChargeItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ChargeItemDefinition"}
+		return r4b.ChargeItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItemDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCitation(ctx context.Context, id string) (r4b.Citation, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Citation", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Citation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Citation"}
+	}
+	v, err := g.Read(ctx, "Citation", id)
 	if err != nil {
 		return r4b.Citation{}, err
 	}
@@ -2710,12 +3070,16 @@ func (w Concrete) ReadCitation(ctx context.Context, id string) (r4b.Citation, ca
 	}
 	r, ok := v.(r4b.Citation)
 	if !ok {
-		return r4b.Citation{}, capabilities.InvalidResourceError{ResourceType: "Citation"}
+		return r4b.Citation{}, capabilities.UnexpectedResourceError{ExpectedType: "Citation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadClaim(ctx context.Context, id string) (r4b.Claim, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Claim", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Claim{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Claim"}
+	}
+	v, err := g.Read(ctx, "Claim", id)
 	if err != nil {
 		return r4b.Claim{}, err
 	}
@@ -2725,12 +3089,16 @@ func (w Concrete) ReadClaim(ctx context.Context, id string) (r4b.Claim, capabili
 	}
 	r, ok := v.(r4b.Claim)
 	if !ok {
-		return r4b.Claim{}, capabilities.InvalidResourceError{ResourceType: "Claim"}
+		return r4b.Claim{}, capabilities.UnexpectedResourceError{ExpectedType: "Claim", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadClaimResponse(ctx context.Context, id string) (r4b.ClaimResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ClaimResponse", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ClaimResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ClaimResponse"}
+	}
+	v, err := g.Read(ctx, "ClaimResponse", id)
 	if err != nil {
 		return r4b.ClaimResponse{}, err
 	}
@@ -2740,12 +3108,16 @@ func (w Concrete) ReadClaimResponse(ctx context.Context, id string) (r4b.ClaimRe
 	}
 	r, ok := v.(r4b.ClaimResponse)
 	if !ok {
-		return r4b.ClaimResponse{}, capabilities.InvalidResourceError{ResourceType: "ClaimResponse"}
+		return r4b.ClaimResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "ClaimResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadClinicalImpression(ctx context.Context, id string) (r4b.ClinicalImpression, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ClinicalImpression", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ClinicalImpression{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ClinicalImpression"}
+	}
+	v, err := g.Read(ctx, "ClinicalImpression", id)
 	if err != nil {
 		return r4b.ClinicalImpression{}, err
 	}
@@ -2755,12 +3127,16 @@ func (w Concrete) ReadClinicalImpression(ctx context.Context, id string) (r4b.Cl
 	}
 	r, ok := v.(r4b.ClinicalImpression)
 	if !ok {
-		return r4b.ClinicalImpression{}, capabilities.InvalidResourceError{ResourceType: "ClinicalImpression"}
+		return r4b.ClinicalImpression{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalImpression", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadClinicalUseDefinition(ctx context.Context, id string) (r4b.ClinicalUseDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ClinicalUseDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ClinicalUseDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ClinicalUseDefinition"}
+	}
+	v, err := g.Read(ctx, "ClinicalUseDefinition", id)
 	if err != nil {
 		return r4b.ClinicalUseDefinition{}, err
 	}
@@ -2770,12 +3146,16 @@ func (w Concrete) ReadClinicalUseDefinition(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.ClinicalUseDefinition)
 	if !ok {
-		return r4b.ClinicalUseDefinition{}, capabilities.InvalidResourceError{ResourceType: "ClinicalUseDefinition"}
+		return r4b.ClinicalUseDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalUseDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCodeSystem(ctx context.Context, id string) (r4b.CodeSystem, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CodeSystem", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CodeSystem{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CodeSystem"}
+	}
+	v, err := g.Read(ctx, "CodeSystem", id)
 	if err != nil {
 		return r4b.CodeSystem{}, err
 	}
@@ -2785,12 +3165,16 @@ func (w Concrete) ReadCodeSystem(ctx context.Context, id string) (r4b.CodeSystem
 	}
 	r, ok := v.(r4b.CodeSystem)
 	if !ok {
-		return r4b.CodeSystem{}, capabilities.InvalidResourceError{ResourceType: "CodeSystem"}
+		return r4b.CodeSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "CodeSystem", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCommunication(ctx context.Context, id string) (r4b.Communication, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Communication", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Communication{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Communication"}
+	}
+	v, err := g.Read(ctx, "Communication", id)
 	if err != nil {
 		return r4b.Communication{}, err
 	}
@@ -2800,12 +3184,16 @@ func (w Concrete) ReadCommunication(ctx context.Context, id string) (r4b.Communi
 	}
 	r, ok := v.(r4b.Communication)
 	if !ok {
-		return r4b.Communication{}, capabilities.InvalidResourceError{ResourceType: "Communication"}
+		return r4b.Communication{}, capabilities.UnexpectedResourceError{ExpectedType: "Communication", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCommunicationRequest(ctx context.Context, id string) (r4b.CommunicationRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CommunicationRequest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CommunicationRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CommunicationRequest"}
+	}
+	v, err := g.Read(ctx, "CommunicationRequest", id)
 	if err != nil {
 		return r4b.CommunicationRequest{}, err
 	}
@@ -2815,12 +3203,16 @@ func (w Concrete) ReadCommunicationRequest(ctx context.Context, id string) (r4b.
 	}
 	r, ok := v.(r4b.CommunicationRequest)
 	if !ok {
-		return r4b.CommunicationRequest{}, capabilities.InvalidResourceError{ResourceType: "CommunicationRequest"}
+		return r4b.CommunicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CommunicationRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCompartmentDefinition(ctx context.Context, id string) (r4b.CompartmentDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CompartmentDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CompartmentDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CompartmentDefinition"}
+	}
+	v, err := g.Read(ctx, "CompartmentDefinition", id)
 	if err != nil {
 		return r4b.CompartmentDefinition{}, err
 	}
@@ -2830,12 +3222,16 @@ func (w Concrete) ReadCompartmentDefinition(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.CompartmentDefinition)
 	if !ok {
-		return r4b.CompartmentDefinition{}, capabilities.InvalidResourceError{ResourceType: "CompartmentDefinition"}
+		return r4b.CompartmentDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "CompartmentDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadComposition(ctx context.Context, id string) (r4b.Composition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Composition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Composition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Composition"}
+	}
+	v, err := g.Read(ctx, "Composition", id)
 	if err != nil {
 		return r4b.Composition{}, err
 	}
@@ -2845,12 +3241,16 @@ func (w Concrete) ReadComposition(ctx context.Context, id string) (r4b.Compositi
 	}
 	r, ok := v.(r4b.Composition)
 	if !ok {
-		return r4b.Composition{}, capabilities.InvalidResourceError{ResourceType: "Composition"}
+		return r4b.Composition{}, capabilities.UnexpectedResourceError{ExpectedType: "Composition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadConceptMap(ctx context.Context, id string) (r4b.ConceptMap, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ConceptMap", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ConceptMap{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ConceptMap"}
+	}
+	v, err := g.Read(ctx, "ConceptMap", id)
 	if err != nil {
 		return r4b.ConceptMap{}, err
 	}
@@ -2860,12 +3260,16 @@ func (w Concrete) ReadConceptMap(ctx context.Context, id string) (r4b.ConceptMap
 	}
 	r, ok := v.(r4b.ConceptMap)
 	if !ok {
-		return r4b.ConceptMap{}, capabilities.InvalidResourceError{ResourceType: "ConceptMap"}
+		return r4b.ConceptMap{}, capabilities.UnexpectedResourceError{ExpectedType: "ConceptMap", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCondition(ctx context.Context, id string) (r4b.Condition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Condition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Condition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Condition"}
+	}
+	v, err := g.Read(ctx, "Condition", id)
 	if err != nil {
 		return r4b.Condition{}, err
 	}
@@ -2875,12 +3279,16 @@ func (w Concrete) ReadCondition(ctx context.Context, id string) (r4b.Condition, 
 	}
 	r, ok := v.(r4b.Condition)
 	if !ok {
-		return r4b.Condition{}, capabilities.InvalidResourceError{ResourceType: "Condition"}
+		return r4b.Condition{}, capabilities.UnexpectedResourceError{ExpectedType: "Condition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadConsent(ctx context.Context, id string) (r4b.Consent, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Consent", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Consent{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Consent"}
+	}
+	v, err := g.Read(ctx, "Consent", id)
 	if err != nil {
 		return r4b.Consent{}, err
 	}
@@ -2890,12 +3298,16 @@ func (w Concrete) ReadConsent(ctx context.Context, id string) (r4b.Consent, capa
 	}
 	r, ok := v.(r4b.Consent)
 	if !ok {
-		return r4b.Consent{}, capabilities.InvalidResourceError{ResourceType: "Consent"}
+		return r4b.Consent{}, capabilities.UnexpectedResourceError{ExpectedType: "Consent", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadContract(ctx context.Context, id string) (r4b.Contract, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Contract", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Contract{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Contract"}
+	}
+	v, err := g.Read(ctx, "Contract", id)
 	if err != nil {
 		return r4b.Contract{}, err
 	}
@@ -2905,12 +3317,16 @@ func (w Concrete) ReadContract(ctx context.Context, id string) (r4b.Contract, ca
 	}
 	r, ok := v.(r4b.Contract)
 	if !ok {
-		return r4b.Contract{}, capabilities.InvalidResourceError{ResourceType: "Contract"}
+		return r4b.Contract{}, capabilities.UnexpectedResourceError{ExpectedType: "Contract", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCoverage(ctx context.Context, id string) (r4b.Coverage, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Coverage", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Coverage{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Coverage"}
+	}
+	v, err := g.Read(ctx, "Coverage", id)
 	if err != nil {
 		return r4b.Coverage{}, err
 	}
@@ -2920,12 +3336,16 @@ func (w Concrete) ReadCoverage(ctx context.Context, id string) (r4b.Coverage, ca
 	}
 	r, ok := v.(r4b.Coverage)
 	if !ok {
-		return r4b.Coverage{}, capabilities.InvalidResourceError{ResourceType: "Coverage"}
+		return r4b.Coverage{}, capabilities.UnexpectedResourceError{ExpectedType: "Coverage", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCoverageEligibilityRequest(ctx context.Context, id string) (r4b.CoverageEligibilityRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CoverageEligibilityRequest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CoverageEligibilityRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CoverageEligibilityRequest"}
+	}
+	v, err := g.Read(ctx, "CoverageEligibilityRequest", id)
 	if err != nil {
 		return r4b.CoverageEligibilityRequest{}, err
 	}
@@ -2935,12 +3355,16 @@ func (w Concrete) ReadCoverageEligibilityRequest(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.CoverageEligibilityRequest)
 	if !ok {
-		return r4b.CoverageEligibilityRequest{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityRequest"}
+		return r4b.CoverageEligibilityRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadCoverageEligibilityResponse(ctx context.Context, id string) (r4b.CoverageEligibilityResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "CoverageEligibilityResponse", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.CoverageEligibilityResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "CoverageEligibilityResponse"}
+	}
+	v, err := g.Read(ctx, "CoverageEligibilityResponse", id)
 	if err != nil {
 		return r4b.CoverageEligibilityResponse{}, err
 	}
@@ -2950,12 +3374,16 @@ func (w Concrete) ReadCoverageEligibilityResponse(ctx context.Context, id string
 	}
 	r, ok := v.(r4b.CoverageEligibilityResponse)
 	if !ok {
-		return r4b.CoverageEligibilityResponse{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityResponse"}
+		return r4b.CoverageEligibilityResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDetectedIssue(ctx context.Context, id string) (r4b.DetectedIssue, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DetectedIssue", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DetectedIssue{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DetectedIssue"}
+	}
+	v, err := g.Read(ctx, "DetectedIssue", id)
 	if err != nil {
 		return r4b.DetectedIssue{}, err
 	}
@@ -2965,12 +3393,16 @@ func (w Concrete) ReadDetectedIssue(ctx context.Context, id string) (r4b.Detecte
 	}
 	r, ok := v.(r4b.DetectedIssue)
 	if !ok {
-		return r4b.DetectedIssue{}, capabilities.InvalidResourceError{ResourceType: "DetectedIssue"}
+		return r4b.DetectedIssue{}, capabilities.UnexpectedResourceError{ExpectedType: "DetectedIssue", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDevice(ctx context.Context, id string) (r4b.Device, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Device", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Device{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Device"}
+	}
+	v, err := g.Read(ctx, "Device", id)
 	if err != nil {
 		return r4b.Device{}, err
 	}
@@ -2980,12 +3412,16 @@ func (w Concrete) ReadDevice(ctx context.Context, id string) (r4b.Device, capabi
 	}
 	r, ok := v.(r4b.Device)
 	if !ok {
-		return r4b.Device{}, capabilities.InvalidResourceError{ResourceType: "Device"}
+		return r4b.Device{}, capabilities.UnexpectedResourceError{ExpectedType: "Device", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDeviceDefinition(ctx context.Context, id string) (r4b.DeviceDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DeviceDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DeviceDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceDefinition"}
+	}
+	v, err := g.Read(ctx, "DeviceDefinition", id)
 	if err != nil {
 		return r4b.DeviceDefinition{}, err
 	}
@@ -2995,12 +3431,16 @@ func (w Concrete) ReadDeviceDefinition(ctx context.Context, id string) (r4b.Devi
 	}
 	r, ok := v.(r4b.DeviceDefinition)
 	if !ok {
-		return r4b.DeviceDefinition{}, capabilities.InvalidResourceError{ResourceType: "DeviceDefinition"}
+		return r4b.DeviceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDeviceMetric(ctx context.Context, id string) (r4b.DeviceMetric, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DeviceMetric", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DeviceMetric{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceMetric"}
+	}
+	v, err := g.Read(ctx, "DeviceMetric", id)
 	if err != nil {
 		return r4b.DeviceMetric{}, err
 	}
@@ -3010,12 +3450,16 @@ func (w Concrete) ReadDeviceMetric(ctx context.Context, id string) (r4b.DeviceMe
 	}
 	r, ok := v.(r4b.DeviceMetric)
 	if !ok {
-		return r4b.DeviceMetric{}, capabilities.InvalidResourceError{ResourceType: "DeviceMetric"}
+		return r4b.DeviceMetric{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceMetric", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDeviceRequest(ctx context.Context, id string) (r4b.DeviceRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DeviceRequest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DeviceRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceRequest"}
+	}
+	v, err := g.Read(ctx, "DeviceRequest", id)
 	if err != nil {
 		return r4b.DeviceRequest{}, err
 	}
@@ -3025,12 +3469,16 @@ func (w Concrete) ReadDeviceRequest(ctx context.Context, id string) (r4b.DeviceR
 	}
 	r, ok := v.(r4b.DeviceRequest)
 	if !ok {
-		return r4b.DeviceRequest{}, capabilities.InvalidResourceError{ResourceType: "DeviceRequest"}
+		return r4b.DeviceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDeviceUseStatement(ctx context.Context, id string) (r4b.DeviceUseStatement, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DeviceUseStatement", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DeviceUseStatement{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DeviceUseStatement"}
+	}
+	v, err := g.Read(ctx, "DeviceUseStatement", id)
 	if err != nil {
 		return r4b.DeviceUseStatement{}, err
 	}
@@ -3040,12 +3488,16 @@ func (w Concrete) ReadDeviceUseStatement(ctx context.Context, id string) (r4b.De
 	}
 	r, ok := v.(r4b.DeviceUseStatement)
 	if !ok {
-		return r4b.DeviceUseStatement{}, capabilities.InvalidResourceError{ResourceType: "DeviceUseStatement"}
+		return r4b.DeviceUseStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceUseStatement", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDiagnosticReport(ctx context.Context, id string) (r4b.DiagnosticReport, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DiagnosticReport", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DiagnosticReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DiagnosticReport"}
+	}
+	v, err := g.Read(ctx, "DiagnosticReport", id)
 	if err != nil {
 		return r4b.DiagnosticReport{}, err
 	}
@@ -3055,12 +3507,16 @@ func (w Concrete) ReadDiagnosticReport(ctx context.Context, id string) (r4b.Diag
 	}
 	r, ok := v.(r4b.DiagnosticReport)
 	if !ok {
-		return r4b.DiagnosticReport{}, capabilities.InvalidResourceError{ResourceType: "DiagnosticReport"}
+		return r4b.DiagnosticReport{}, capabilities.UnexpectedResourceError{ExpectedType: "DiagnosticReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDocumentManifest(ctx context.Context, id string) (r4b.DocumentManifest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DocumentManifest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DocumentManifest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DocumentManifest"}
+	}
+	v, err := g.Read(ctx, "DocumentManifest", id)
 	if err != nil {
 		return r4b.DocumentManifest{}, err
 	}
@@ -3070,12 +3526,16 @@ func (w Concrete) ReadDocumentManifest(ctx context.Context, id string) (r4b.Docu
 	}
 	r, ok := v.(r4b.DocumentManifest)
 	if !ok {
-		return r4b.DocumentManifest{}, capabilities.InvalidResourceError{ResourceType: "DocumentManifest"}
+		return r4b.DocumentManifest{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentManifest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadDocumentReference(ctx context.Context, id string) (r4b.DocumentReference, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "DocumentReference", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.DocumentReference{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "DocumentReference"}
+	}
+	v, err := g.Read(ctx, "DocumentReference", id)
 	if err != nil {
 		return r4b.DocumentReference{}, err
 	}
@@ -3085,12 +3545,16 @@ func (w Concrete) ReadDocumentReference(ctx context.Context, id string) (r4b.Doc
 	}
 	r, ok := v.(r4b.DocumentReference)
 	if !ok {
-		return r4b.DocumentReference{}, capabilities.InvalidResourceError{ResourceType: "DocumentReference"}
+		return r4b.DocumentReference{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentReference", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEncounter(ctx context.Context, id string) (r4b.Encounter, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Encounter", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Encounter{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Encounter"}
+	}
+	v, err := g.Read(ctx, "Encounter", id)
 	if err != nil {
 		return r4b.Encounter{}, err
 	}
@@ -3100,12 +3564,16 @@ func (w Concrete) ReadEncounter(ctx context.Context, id string) (r4b.Encounter, 
 	}
 	r, ok := v.(r4b.Encounter)
 	if !ok {
-		return r4b.Encounter{}, capabilities.InvalidResourceError{ResourceType: "Encounter"}
+		return r4b.Encounter{}, capabilities.UnexpectedResourceError{ExpectedType: "Encounter", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEndpoint(ctx context.Context, id string) (r4b.Endpoint, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Endpoint", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Endpoint{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Endpoint"}
+	}
+	v, err := g.Read(ctx, "Endpoint", id)
 	if err != nil {
 		return r4b.Endpoint{}, err
 	}
@@ -3115,12 +3583,16 @@ func (w Concrete) ReadEndpoint(ctx context.Context, id string) (r4b.Endpoint, ca
 	}
 	r, ok := v.(r4b.Endpoint)
 	if !ok {
-		return r4b.Endpoint{}, capabilities.InvalidResourceError{ResourceType: "Endpoint"}
+		return r4b.Endpoint{}, capabilities.UnexpectedResourceError{ExpectedType: "Endpoint", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEnrollmentRequest(ctx context.Context, id string) (r4b.EnrollmentRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "EnrollmentRequest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.EnrollmentRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EnrollmentRequest"}
+	}
+	v, err := g.Read(ctx, "EnrollmentRequest", id)
 	if err != nil {
 		return r4b.EnrollmentRequest{}, err
 	}
@@ -3130,12 +3602,16 @@ func (w Concrete) ReadEnrollmentRequest(ctx context.Context, id string) (r4b.Enr
 	}
 	r, ok := v.(r4b.EnrollmentRequest)
 	if !ok {
-		return r4b.EnrollmentRequest{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentRequest"}
+		return r4b.EnrollmentRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEnrollmentResponse(ctx context.Context, id string) (r4b.EnrollmentResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "EnrollmentResponse", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.EnrollmentResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EnrollmentResponse"}
+	}
+	v, err := g.Read(ctx, "EnrollmentResponse", id)
 	if err != nil {
 		return r4b.EnrollmentResponse{}, err
 	}
@@ -3145,12 +3621,16 @@ func (w Concrete) ReadEnrollmentResponse(ctx context.Context, id string) (r4b.En
 	}
 	r, ok := v.(r4b.EnrollmentResponse)
 	if !ok {
-		return r4b.EnrollmentResponse{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentResponse"}
+		return r4b.EnrollmentResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEpisodeOfCare(ctx context.Context, id string) (r4b.EpisodeOfCare, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "EpisodeOfCare", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.EpisodeOfCare{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EpisodeOfCare"}
+	}
+	v, err := g.Read(ctx, "EpisodeOfCare", id)
 	if err != nil {
 		return r4b.EpisodeOfCare{}, err
 	}
@@ -3160,12 +3640,16 @@ func (w Concrete) ReadEpisodeOfCare(ctx context.Context, id string) (r4b.Episode
 	}
 	r, ok := v.(r4b.EpisodeOfCare)
 	if !ok {
-		return r4b.EpisodeOfCare{}, capabilities.InvalidResourceError{ResourceType: "EpisodeOfCare"}
+		return r4b.EpisodeOfCare{}, capabilities.UnexpectedResourceError{ExpectedType: "EpisodeOfCare", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEventDefinition(ctx context.Context, id string) (r4b.EventDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "EventDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.EventDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EventDefinition"}
+	}
+	v, err := g.Read(ctx, "EventDefinition", id)
 	if err != nil {
 		return r4b.EventDefinition{}, err
 	}
@@ -3175,12 +3659,16 @@ func (w Concrete) ReadEventDefinition(ctx context.Context, id string) (r4b.Event
 	}
 	r, ok := v.(r4b.EventDefinition)
 	if !ok {
-		return r4b.EventDefinition{}, capabilities.InvalidResourceError{ResourceType: "EventDefinition"}
+		return r4b.EventDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "EventDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEvidence(ctx context.Context, id string) (r4b.Evidence, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Evidence", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Evidence{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Evidence"}
+	}
+	v, err := g.Read(ctx, "Evidence", id)
 	if err != nil {
 		return r4b.Evidence{}, err
 	}
@@ -3190,12 +3678,16 @@ func (w Concrete) ReadEvidence(ctx context.Context, id string) (r4b.Evidence, ca
 	}
 	r, ok := v.(r4b.Evidence)
 	if !ok {
-		return r4b.Evidence{}, capabilities.InvalidResourceError{ResourceType: "Evidence"}
+		return r4b.Evidence{}, capabilities.UnexpectedResourceError{ExpectedType: "Evidence", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEvidenceReport(ctx context.Context, id string) (r4b.EvidenceReport, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "EvidenceReport", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.EvidenceReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EvidenceReport"}
+	}
+	v, err := g.Read(ctx, "EvidenceReport", id)
 	if err != nil {
 		return r4b.EvidenceReport{}, err
 	}
@@ -3205,12 +3697,16 @@ func (w Concrete) ReadEvidenceReport(ctx context.Context, id string) (r4b.Eviden
 	}
 	r, ok := v.(r4b.EvidenceReport)
 	if !ok {
-		return r4b.EvidenceReport{}, capabilities.InvalidResourceError{ResourceType: "EvidenceReport"}
+		return r4b.EvidenceReport{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadEvidenceVariable(ctx context.Context, id string) (r4b.EvidenceVariable, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "EvidenceVariable", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.EvidenceVariable{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "EvidenceVariable"}
+	}
+	v, err := g.Read(ctx, "EvidenceVariable", id)
 	if err != nil {
 		return r4b.EvidenceVariable{}, err
 	}
@@ -3220,12 +3716,16 @@ func (w Concrete) ReadEvidenceVariable(ctx context.Context, id string) (r4b.Evid
 	}
 	r, ok := v.(r4b.EvidenceVariable)
 	if !ok {
-		return r4b.EvidenceVariable{}, capabilities.InvalidResourceError{ResourceType: "EvidenceVariable"}
+		return r4b.EvidenceVariable{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceVariable", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadExampleScenario(ctx context.Context, id string) (r4b.ExampleScenario, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ExampleScenario", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ExampleScenario{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ExampleScenario"}
+	}
+	v, err := g.Read(ctx, "ExampleScenario", id)
 	if err != nil {
 		return r4b.ExampleScenario{}, err
 	}
@@ -3235,12 +3735,16 @@ func (w Concrete) ReadExampleScenario(ctx context.Context, id string) (r4b.Examp
 	}
 	r, ok := v.(r4b.ExampleScenario)
 	if !ok {
-		return r4b.ExampleScenario{}, capabilities.InvalidResourceError{ResourceType: "ExampleScenario"}
+		return r4b.ExampleScenario{}, capabilities.UnexpectedResourceError{ExpectedType: "ExampleScenario", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadExplanationOfBenefit(ctx context.Context, id string) (r4b.ExplanationOfBenefit, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ExplanationOfBenefit", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ExplanationOfBenefit{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ExplanationOfBenefit"}
+	}
+	v, err := g.Read(ctx, "ExplanationOfBenefit", id)
 	if err != nil {
 		return r4b.ExplanationOfBenefit{}, err
 	}
@@ -3250,12 +3754,16 @@ func (w Concrete) ReadExplanationOfBenefit(ctx context.Context, id string) (r4b.
 	}
 	r, ok := v.(r4b.ExplanationOfBenefit)
 	if !ok {
-		return r4b.ExplanationOfBenefit{}, capabilities.InvalidResourceError{ResourceType: "ExplanationOfBenefit"}
+		return r4b.ExplanationOfBenefit{}, capabilities.UnexpectedResourceError{ExpectedType: "ExplanationOfBenefit", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadFamilyMemberHistory(ctx context.Context, id string) (r4b.FamilyMemberHistory, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "FamilyMemberHistory", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.FamilyMemberHistory{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "FamilyMemberHistory"}
+	}
+	v, err := g.Read(ctx, "FamilyMemberHistory", id)
 	if err != nil {
 		return r4b.FamilyMemberHistory{}, err
 	}
@@ -3265,12 +3773,16 @@ func (w Concrete) ReadFamilyMemberHistory(ctx context.Context, id string) (r4b.F
 	}
 	r, ok := v.(r4b.FamilyMemberHistory)
 	if !ok {
-		return r4b.FamilyMemberHistory{}, capabilities.InvalidResourceError{ResourceType: "FamilyMemberHistory"}
+		return r4b.FamilyMemberHistory{}, capabilities.UnexpectedResourceError{ExpectedType: "FamilyMemberHistory", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadFlag(ctx context.Context, id string) (r4b.Flag, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Flag", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Flag{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Flag"}
+	}
+	v, err := g.Read(ctx, "Flag", id)
 	if err != nil {
 		return r4b.Flag{}, err
 	}
@@ -3280,12 +3792,16 @@ func (w Concrete) ReadFlag(ctx context.Context, id string) (r4b.Flag, capabiliti
 	}
 	r, ok := v.(r4b.Flag)
 	if !ok {
-		return r4b.Flag{}, capabilities.InvalidResourceError{ResourceType: "Flag"}
+		return r4b.Flag{}, capabilities.UnexpectedResourceError{ExpectedType: "Flag", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadGoal(ctx context.Context, id string) (r4b.Goal, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Goal", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Goal{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Goal"}
+	}
+	v, err := g.Read(ctx, "Goal", id)
 	if err != nil {
 		return r4b.Goal{}, err
 	}
@@ -3295,12 +3811,16 @@ func (w Concrete) ReadGoal(ctx context.Context, id string) (r4b.Goal, capabiliti
 	}
 	r, ok := v.(r4b.Goal)
 	if !ok {
-		return r4b.Goal{}, capabilities.InvalidResourceError{ResourceType: "Goal"}
+		return r4b.Goal{}, capabilities.UnexpectedResourceError{ExpectedType: "Goal", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadGraphDefinition(ctx context.Context, id string) (r4b.GraphDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "GraphDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.GraphDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "GraphDefinition"}
+	}
+	v, err := g.Read(ctx, "GraphDefinition", id)
 	if err != nil {
 		return r4b.GraphDefinition{}, err
 	}
@@ -3310,12 +3830,16 @@ func (w Concrete) ReadGraphDefinition(ctx context.Context, id string) (r4b.Graph
 	}
 	r, ok := v.(r4b.GraphDefinition)
 	if !ok {
-		return r4b.GraphDefinition{}, capabilities.InvalidResourceError{ResourceType: "GraphDefinition"}
+		return r4b.GraphDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "GraphDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadGroup(ctx context.Context, id string) (r4b.Group, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Group", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Group{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Group"}
+	}
+	v, err := g.Read(ctx, "Group", id)
 	if err != nil {
 		return r4b.Group{}, err
 	}
@@ -3325,12 +3849,16 @@ func (w Concrete) ReadGroup(ctx context.Context, id string) (r4b.Group, capabili
 	}
 	r, ok := v.(r4b.Group)
 	if !ok {
-		return r4b.Group{}, capabilities.InvalidResourceError{ResourceType: "Group"}
+		return r4b.Group{}, capabilities.UnexpectedResourceError{ExpectedType: "Group", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadGuidanceResponse(ctx context.Context, id string) (r4b.GuidanceResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "GuidanceResponse", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.GuidanceResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "GuidanceResponse"}
+	}
+	v, err := g.Read(ctx, "GuidanceResponse", id)
 	if err != nil {
 		return r4b.GuidanceResponse{}, err
 	}
@@ -3340,12 +3868,16 @@ func (w Concrete) ReadGuidanceResponse(ctx context.Context, id string) (r4b.Guid
 	}
 	r, ok := v.(r4b.GuidanceResponse)
 	if !ok {
-		return r4b.GuidanceResponse{}, capabilities.InvalidResourceError{ResourceType: "GuidanceResponse"}
+		return r4b.GuidanceResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "GuidanceResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadHealthcareService(ctx context.Context, id string) (r4b.HealthcareService, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "HealthcareService", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.HealthcareService{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "HealthcareService"}
+	}
+	v, err := g.Read(ctx, "HealthcareService", id)
 	if err != nil {
 		return r4b.HealthcareService{}, err
 	}
@@ -3355,12 +3887,16 @@ func (w Concrete) ReadHealthcareService(ctx context.Context, id string) (r4b.Hea
 	}
 	r, ok := v.(r4b.HealthcareService)
 	if !ok {
-		return r4b.HealthcareService{}, capabilities.InvalidResourceError{ResourceType: "HealthcareService"}
+		return r4b.HealthcareService{}, capabilities.UnexpectedResourceError{ExpectedType: "HealthcareService", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadImagingStudy(ctx context.Context, id string) (r4b.ImagingStudy, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ImagingStudy", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ImagingStudy{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImagingStudy"}
+	}
+	v, err := g.Read(ctx, "ImagingStudy", id)
 	if err != nil {
 		return r4b.ImagingStudy{}, err
 	}
@@ -3370,12 +3906,16 @@ func (w Concrete) ReadImagingStudy(ctx context.Context, id string) (r4b.ImagingS
 	}
 	r, ok := v.(r4b.ImagingStudy)
 	if !ok {
-		return r4b.ImagingStudy{}, capabilities.InvalidResourceError{ResourceType: "ImagingStudy"}
+		return r4b.ImagingStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ImagingStudy", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadImmunization(ctx context.Context, id string) (r4b.Immunization, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Immunization", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Immunization{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Immunization"}
+	}
+	v, err := g.Read(ctx, "Immunization", id)
 	if err != nil {
 		return r4b.Immunization{}, err
 	}
@@ -3385,12 +3925,16 @@ func (w Concrete) ReadImmunization(ctx context.Context, id string) (r4b.Immuniza
 	}
 	r, ok := v.(r4b.Immunization)
 	if !ok {
-		return r4b.Immunization{}, capabilities.InvalidResourceError{ResourceType: "Immunization"}
+		return r4b.Immunization{}, capabilities.UnexpectedResourceError{ExpectedType: "Immunization", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadImmunizationEvaluation(ctx context.Context, id string) (r4b.ImmunizationEvaluation, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ImmunizationEvaluation", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ImmunizationEvaluation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImmunizationEvaluation"}
+	}
+	v, err := g.Read(ctx, "ImmunizationEvaluation", id)
 	if err != nil {
 		return r4b.ImmunizationEvaluation{}, err
 	}
@@ -3400,12 +3944,16 @@ func (w Concrete) ReadImmunizationEvaluation(ctx context.Context, id string) (r4
 	}
 	r, ok := v.(r4b.ImmunizationEvaluation)
 	if !ok {
-		return r4b.ImmunizationEvaluation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationEvaluation"}
+		return r4b.ImmunizationEvaluation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationEvaluation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadImmunizationRecommendation(ctx context.Context, id string) (r4b.ImmunizationRecommendation, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ImmunizationRecommendation", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ImmunizationRecommendation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImmunizationRecommendation"}
+	}
+	v, err := g.Read(ctx, "ImmunizationRecommendation", id)
 	if err != nil {
 		return r4b.ImmunizationRecommendation{}, err
 	}
@@ -3415,12 +3963,16 @@ func (w Concrete) ReadImmunizationRecommendation(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.ImmunizationRecommendation)
 	if !ok {
-		return r4b.ImmunizationRecommendation{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationRecommendation"}
+		return r4b.ImmunizationRecommendation{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationRecommendation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadImplementationGuide(ctx context.Context, id string) (r4b.ImplementationGuide, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ImplementationGuide", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ImplementationGuide{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ImplementationGuide"}
+	}
+	v, err := g.Read(ctx, "ImplementationGuide", id)
 	if err != nil {
 		return r4b.ImplementationGuide{}, err
 	}
@@ -3430,12 +3982,16 @@ func (w Concrete) ReadImplementationGuide(ctx context.Context, id string) (r4b.I
 	}
 	r, ok := v.(r4b.ImplementationGuide)
 	if !ok {
-		return r4b.ImplementationGuide{}, capabilities.InvalidResourceError{ResourceType: "ImplementationGuide"}
+		return r4b.ImplementationGuide{}, capabilities.UnexpectedResourceError{ExpectedType: "ImplementationGuide", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadIngredient(ctx context.Context, id string) (r4b.Ingredient, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Ingredient", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Ingredient{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Ingredient"}
+	}
+	v, err := g.Read(ctx, "Ingredient", id)
 	if err != nil {
 		return r4b.Ingredient{}, err
 	}
@@ -3445,12 +4001,16 @@ func (w Concrete) ReadIngredient(ctx context.Context, id string) (r4b.Ingredient
 	}
 	r, ok := v.(r4b.Ingredient)
 	if !ok {
-		return r4b.Ingredient{}, capabilities.InvalidResourceError{ResourceType: "Ingredient"}
+		return r4b.Ingredient{}, capabilities.UnexpectedResourceError{ExpectedType: "Ingredient", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadInsurancePlan(ctx context.Context, id string) (r4b.InsurancePlan, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "InsurancePlan", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.InsurancePlan{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "InsurancePlan"}
+	}
+	v, err := g.Read(ctx, "InsurancePlan", id)
 	if err != nil {
 		return r4b.InsurancePlan{}, err
 	}
@@ -3460,12 +4020,16 @@ func (w Concrete) ReadInsurancePlan(ctx context.Context, id string) (r4b.Insuran
 	}
 	r, ok := v.(r4b.InsurancePlan)
 	if !ok {
-		return r4b.InsurancePlan{}, capabilities.InvalidResourceError{ResourceType: "InsurancePlan"}
+		return r4b.InsurancePlan{}, capabilities.UnexpectedResourceError{ExpectedType: "InsurancePlan", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadInvoice(ctx context.Context, id string) (r4b.Invoice, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Invoice", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Invoice{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Invoice"}
+	}
+	v, err := g.Read(ctx, "Invoice", id)
 	if err != nil {
 		return r4b.Invoice{}, err
 	}
@@ -3475,12 +4039,16 @@ func (w Concrete) ReadInvoice(ctx context.Context, id string) (r4b.Invoice, capa
 	}
 	r, ok := v.(r4b.Invoice)
 	if !ok {
-		return r4b.Invoice{}, capabilities.InvalidResourceError{ResourceType: "Invoice"}
+		return r4b.Invoice{}, capabilities.UnexpectedResourceError{ExpectedType: "Invoice", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadLibrary(ctx context.Context, id string) (r4b.Library, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Library", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Library{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Library"}
+	}
+	v, err := g.Read(ctx, "Library", id)
 	if err != nil {
 		return r4b.Library{}, err
 	}
@@ -3490,12 +4058,16 @@ func (w Concrete) ReadLibrary(ctx context.Context, id string) (r4b.Library, capa
 	}
 	r, ok := v.(r4b.Library)
 	if !ok {
-		return r4b.Library{}, capabilities.InvalidResourceError{ResourceType: "Library"}
+		return r4b.Library{}, capabilities.UnexpectedResourceError{ExpectedType: "Library", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadLinkage(ctx context.Context, id string) (r4b.Linkage, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Linkage", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Linkage{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Linkage"}
+	}
+	v, err := g.Read(ctx, "Linkage", id)
 	if err != nil {
 		return r4b.Linkage{}, err
 	}
@@ -3505,12 +4077,16 @@ func (w Concrete) ReadLinkage(ctx context.Context, id string) (r4b.Linkage, capa
 	}
 	r, ok := v.(r4b.Linkage)
 	if !ok {
-		return r4b.Linkage{}, capabilities.InvalidResourceError{ResourceType: "Linkage"}
+		return r4b.Linkage{}, capabilities.UnexpectedResourceError{ExpectedType: "Linkage", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadList(ctx context.Context, id string) (r4b.List, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "List", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.List{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "List"}
+	}
+	v, err := g.Read(ctx, "List", id)
 	if err != nil {
 		return r4b.List{}, err
 	}
@@ -3520,12 +4096,16 @@ func (w Concrete) ReadList(ctx context.Context, id string) (r4b.List, capabiliti
 	}
 	r, ok := v.(r4b.List)
 	if !ok {
-		return r4b.List{}, capabilities.InvalidResourceError{ResourceType: "List"}
+		return r4b.List{}, capabilities.UnexpectedResourceError{ExpectedType: "List", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadLocation(ctx context.Context, id string) (r4b.Location, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Location", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Location{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Location"}
+	}
+	v, err := g.Read(ctx, "Location", id)
 	if err != nil {
 		return r4b.Location{}, err
 	}
@@ -3535,12 +4115,16 @@ func (w Concrete) ReadLocation(ctx context.Context, id string) (r4b.Location, ca
 	}
 	r, ok := v.(r4b.Location)
 	if !ok {
-		return r4b.Location{}, capabilities.InvalidResourceError{ResourceType: "Location"}
+		return r4b.Location{}, capabilities.UnexpectedResourceError{ExpectedType: "Location", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadManufacturedItemDefinition(ctx context.Context, id string) (r4b.ManufacturedItemDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ManufacturedItemDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ManufacturedItemDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ManufacturedItemDefinition"}
+	}
+	v, err := g.Read(ctx, "ManufacturedItemDefinition", id)
 	if err != nil {
 		return r4b.ManufacturedItemDefinition{}, err
 	}
@@ -3550,12 +4134,16 @@ func (w Concrete) ReadManufacturedItemDefinition(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.ManufacturedItemDefinition)
 	if !ok {
-		return r4b.ManufacturedItemDefinition{}, capabilities.InvalidResourceError{ResourceType: "ManufacturedItemDefinition"}
+		return r4b.ManufacturedItemDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ManufacturedItemDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMeasure(ctx context.Context, id string) (r4b.Measure, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Measure", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Measure{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Measure"}
+	}
+	v, err := g.Read(ctx, "Measure", id)
 	if err != nil {
 		return r4b.Measure{}, err
 	}
@@ -3565,12 +4153,16 @@ func (w Concrete) ReadMeasure(ctx context.Context, id string) (r4b.Measure, capa
 	}
 	r, ok := v.(r4b.Measure)
 	if !ok {
-		return r4b.Measure{}, capabilities.InvalidResourceError{ResourceType: "Measure"}
+		return r4b.Measure{}, capabilities.UnexpectedResourceError{ExpectedType: "Measure", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMeasureReport(ctx context.Context, id string) (r4b.MeasureReport, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MeasureReport", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MeasureReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MeasureReport"}
+	}
+	v, err := g.Read(ctx, "MeasureReport", id)
 	if err != nil {
 		return r4b.MeasureReport{}, err
 	}
@@ -3580,12 +4172,16 @@ func (w Concrete) ReadMeasureReport(ctx context.Context, id string) (r4b.Measure
 	}
 	r, ok := v.(r4b.MeasureReport)
 	if !ok {
-		return r4b.MeasureReport{}, capabilities.InvalidResourceError{ResourceType: "MeasureReport"}
+		return r4b.MeasureReport{}, capabilities.UnexpectedResourceError{ExpectedType: "MeasureReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedia(ctx context.Context, id string) (r4b.Media, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Media", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Media{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Media"}
+	}
+	v, err := g.Read(ctx, "Media", id)
 	if err != nil {
 		return r4b.Media{}, err
 	}
@@ -3595,12 +4191,16 @@ func (w Concrete) ReadMedia(ctx context.Context, id string) (r4b.Media, capabili
 	}
 	r, ok := v.(r4b.Media)
 	if !ok {
-		return r4b.Media{}, capabilities.InvalidResourceError{ResourceType: "Media"}
+		return r4b.Media{}, capabilities.UnexpectedResourceError{ExpectedType: "Media", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedication(ctx context.Context, id string) (r4b.Medication, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Medication", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Medication{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Medication"}
+	}
+	v, err := g.Read(ctx, "Medication", id)
 	if err != nil {
 		return r4b.Medication{}, err
 	}
@@ -3610,12 +4210,16 @@ func (w Concrete) ReadMedication(ctx context.Context, id string) (r4b.Medication
 	}
 	r, ok := v.(r4b.Medication)
 	if !ok {
-		return r4b.Medication{}, capabilities.InvalidResourceError{ResourceType: "Medication"}
+		return r4b.Medication{}, capabilities.UnexpectedResourceError{ExpectedType: "Medication", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedicationAdministration(ctx context.Context, id string) (r4b.MedicationAdministration, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MedicationAdministration", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MedicationAdministration{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationAdministration"}
+	}
+	v, err := g.Read(ctx, "MedicationAdministration", id)
 	if err != nil {
 		return r4b.MedicationAdministration{}, err
 	}
@@ -3625,12 +4229,16 @@ func (w Concrete) ReadMedicationAdministration(ctx context.Context, id string) (
 	}
 	r, ok := v.(r4b.MedicationAdministration)
 	if !ok {
-		return r4b.MedicationAdministration{}, capabilities.InvalidResourceError{ResourceType: "MedicationAdministration"}
+		return r4b.MedicationAdministration{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationAdministration", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedicationDispense(ctx context.Context, id string) (r4b.MedicationDispense, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MedicationDispense", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MedicationDispense{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationDispense"}
+	}
+	v, err := g.Read(ctx, "MedicationDispense", id)
 	if err != nil {
 		return r4b.MedicationDispense{}, err
 	}
@@ -3640,12 +4248,16 @@ func (w Concrete) ReadMedicationDispense(ctx context.Context, id string) (r4b.Me
 	}
 	r, ok := v.(r4b.MedicationDispense)
 	if !ok {
-		return r4b.MedicationDispense{}, capabilities.InvalidResourceError{ResourceType: "MedicationDispense"}
+		return r4b.MedicationDispense{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationDispense", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedicationKnowledge(ctx context.Context, id string) (r4b.MedicationKnowledge, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MedicationKnowledge", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MedicationKnowledge{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationKnowledge"}
+	}
+	v, err := g.Read(ctx, "MedicationKnowledge", id)
 	if err != nil {
 		return r4b.MedicationKnowledge{}, err
 	}
@@ -3655,12 +4267,16 @@ func (w Concrete) ReadMedicationKnowledge(ctx context.Context, id string) (r4b.M
 	}
 	r, ok := v.(r4b.MedicationKnowledge)
 	if !ok {
-		return r4b.MedicationKnowledge{}, capabilities.InvalidResourceError{ResourceType: "MedicationKnowledge"}
+		return r4b.MedicationKnowledge{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationKnowledge", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedicationRequest(ctx context.Context, id string) (r4b.MedicationRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MedicationRequest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MedicationRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationRequest"}
+	}
+	v, err := g.Read(ctx, "MedicationRequest", id)
 	if err != nil {
 		return r4b.MedicationRequest{}, err
 	}
@@ -3670,12 +4286,16 @@ func (w Concrete) ReadMedicationRequest(ctx context.Context, id string) (r4b.Med
 	}
 	r, ok := v.(r4b.MedicationRequest)
 	if !ok {
-		return r4b.MedicationRequest{}, capabilities.InvalidResourceError{ResourceType: "MedicationRequest"}
+		return r4b.MedicationRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedicationStatement(ctx context.Context, id string) (r4b.MedicationStatement, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MedicationStatement", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MedicationStatement{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicationStatement"}
+	}
+	v, err := g.Read(ctx, "MedicationStatement", id)
 	if err != nil {
 		return r4b.MedicationStatement{}, err
 	}
@@ -3685,12 +4305,16 @@ func (w Concrete) ReadMedicationStatement(ctx context.Context, id string) (r4b.M
 	}
 	r, ok := v.(r4b.MedicationStatement)
 	if !ok {
-		return r4b.MedicationStatement{}, capabilities.InvalidResourceError{ResourceType: "MedicationStatement"}
+		return r4b.MedicationStatement{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationStatement", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMedicinalProductDefinition(ctx context.Context, id string) (r4b.MedicinalProductDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MedicinalProductDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MedicinalProductDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MedicinalProductDefinition"}
+	}
+	v, err := g.Read(ctx, "MedicinalProductDefinition", id)
 	if err != nil {
 		return r4b.MedicinalProductDefinition{}, err
 	}
@@ -3700,12 +4324,16 @@ func (w Concrete) ReadMedicinalProductDefinition(ctx context.Context, id string)
 	}
 	r, ok := v.(r4b.MedicinalProductDefinition)
 	if !ok {
-		return r4b.MedicinalProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "MedicinalProductDefinition"}
+		return r4b.MedicinalProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicinalProductDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMessageDefinition(ctx context.Context, id string) (r4b.MessageDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MessageDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MessageDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MessageDefinition"}
+	}
+	v, err := g.Read(ctx, "MessageDefinition", id)
 	if err != nil {
 		return r4b.MessageDefinition{}, err
 	}
@@ -3715,12 +4343,16 @@ func (w Concrete) ReadMessageDefinition(ctx context.Context, id string) (r4b.Mes
 	}
 	r, ok := v.(r4b.MessageDefinition)
 	if !ok {
-		return r4b.MessageDefinition{}, capabilities.InvalidResourceError{ResourceType: "MessageDefinition"}
+		return r4b.MessageDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMessageHeader(ctx context.Context, id string) (r4b.MessageHeader, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MessageHeader", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MessageHeader{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MessageHeader"}
+	}
+	v, err := g.Read(ctx, "MessageHeader", id)
 	if err != nil {
 		return r4b.MessageHeader{}, err
 	}
@@ -3730,12 +4362,16 @@ func (w Concrete) ReadMessageHeader(ctx context.Context, id string) (r4b.Message
 	}
 	r, ok := v.(r4b.MessageHeader)
 	if !ok {
-		return r4b.MessageHeader{}, capabilities.InvalidResourceError{ResourceType: "MessageHeader"}
+		return r4b.MessageHeader{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageHeader", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadMolecularSequence(ctx context.Context, id string) (r4b.MolecularSequence, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "MolecularSequence", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.MolecularSequence{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "MolecularSequence"}
+	}
+	v, err := g.Read(ctx, "MolecularSequence", id)
 	if err != nil {
 		return r4b.MolecularSequence{}, err
 	}
@@ -3745,12 +4381,16 @@ func (w Concrete) ReadMolecularSequence(ctx context.Context, id string) (r4b.Mol
 	}
 	r, ok := v.(r4b.MolecularSequence)
 	if !ok {
-		return r4b.MolecularSequence{}, capabilities.InvalidResourceError{ResourceType: "MolecularSequence"}
+		return r4b.MolecularSequence{}, capabilities.UnexpectedResourceError{ExpectedType: "MolecularSequence", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadNamingSystem(ctx context.Context, id string) (r4b.NamingSystem, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "NamingSystem", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.NamingSystem{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "NamingSystem"}
+	}
+	v, err := g.Read(ctx, "NamingSystem", id)
 	if err != nil {
 		return r4b.NamingSystem{}, err
 	}
@@ -3760,12 +4400,16 @@ func (w Concrete) ReadNamingSystem(ctx context.Context, id string) (r4b.NamingSy
 	}
 	r, ok := v.(r4b.NamingSystem)
 	if !ok {
-		return r4b.NamingSystem{}, capabilities.InvalidResourceError{ResourceType: "NamingSystem"}
+		return r4b.NamingSystem{}, capabilities.UnexpectedResourceError{ExpectedType: "NamingSystem", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadNutritionOrder(ctx context.Context, id string) (r4b.NutritionOrder, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "NutritionOrder", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.NutritionOrder{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "NutritionOrder"}
+	}
+	v, err := g.Read(ctx, "NutritionOrder", id)
 	if err != nil {
 		return r4b.NutritionOrder{}, err
 	}
@@ -3775,12 +4419,16 @@ func (w Concrete) ReadNutritionOrder(ctx context.Context, id string) (r4b.Nutrit
 	}
 	r, ok := v.(r4b.NutritionOrder)
 	if !ok {
-		return r4b.NutritionOrder{}, capabilities.InvalidResourceError{ResourceType: "NutritionOrder"}
+		return r4b.NutritionOrder{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionOrder", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadNutritionProduct(ctx context.Context, id string) (r4b.NutritionProduct, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "NutritionProduct", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.NutritionProduct{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "NutritionProduct"}
+	}
+	v, err := g.Read(ctx, "NutritionProduct", id)
 	if err != nil {
 		return r4b.NutritionProduct{}, err
 	}
@@ -3790,12 +4438,16 @@ func (w Concrete) ReadNutritionProduct(ctx context.Context, id string) (r4b.Nutr
 	}
 	r, ok := v.(r4b.NutritionProduct)
 	if !ok {
-		return r4b.NutritionProduct{}, capabilities.InvalidResourceError{ResourceType: "NutritionProduct"}
+		return r4b.NutritionProduct{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionProduct", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadObservation(ctx context.Context, id string) (r4b.Observation, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Observation", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Observation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Observation"}
+	}
+	v, err := g.Read(ctx, "Observation", id)
 	if err != nil {
 		return r4b.Observation{}, err
 	}
@@ -3805,12 +4457,16 @@ func (w Concrete) ReadObservation(ctx context.Context, id string) (r4b.Observati
 	}
 	r, ok := v.(r4b.Observation)
 	if !ok {
-		return r4b.Observation{}, capabilities.InvalidResourceError{ResourceType: "Observation"}
+		return r4b.Observation{}, capabilities.UnexpectedResourceError{ExpectedType: "Observation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadObservationDefinition(ctx context.Context, id string) (r4b.ObservationDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ObservationDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ObservationDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ObservationDefinition"}
+	}
+	v, err := g.Read(ctx, "ObservationDefinition", id)
 	if err != nil {
 		return r4b.ObservationDefinition{}, err
 	}
@@ -3820,12 +4476,16 @@ func (w Concrete) ReadObservationDefinition(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.ObservationDefinition)
 	if !ok {
-		return r4b.ObservationDefinition{}, capabilities.InvalidResourceError{ResourceType: "ObservationDefinition"}
+		return r4b.ObservationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ObservationDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadOperationDefinition(ctx context.Context, id string) (r4b.OperationDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "OperationDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.OperationDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "OperationDefinition"}
+	}
+	v, err := g.Read(ctx, "OperationDefinition", id)
 	if err != nil {
 		return r4b.OperationDefinition{}, err
 	}
@@ -3835,12 +4495,16 @@ func (w Concrete) ReadOperationDefinition(ctx context.Context, id string) (r4b.O
 	}
 	r, ok := v.(r4b.OperationDefinition)
 	if !ok {
-		return r4b.OperationDefinition{}, capabilities.InvalidResourceError{ResourceType: "OperationDefinition"}
+		return r4b.OperationDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadOperationOutcome(ctx context.Context, id string) (r4b.OperationOutcome, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "OperationOutcome", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.OperationOutcome{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "OperationOutcome"}
+	}
+	v, err := g.Read(ctx, "OperationOutcome", id)
 	if err != nil {
 		return r4b.OperationOutcome{}, err
 	}
@@ -3850,12 +4514,16 @@ func (w Concrete) ReadOperationOutcome(ctx context.Context, id string) (r4b.Oper
 	}
 	r, ok := v.(r4b.OperationOutcome)
 	if !ok {
-		return r4b.OperationOutcome{}, capabilities.InvalidResourceError{ResourceType: "OperationOutcome"}
+		return r4b.OperationOutcome{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationOutcome", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadOrganization(ctx context.Context, id string) (r4b.Organization, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Organization", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Organization{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Organization"}
+	}
+	v, err := g.Read(ctx, "Organization", id)
 	if err != nil {
 		return r4b.Organization{}, err
 	}
@@ -3865,12 +4533,16 @@ func (w Concrete) ReadOrganization(ctx context.Context, id string) (r4b.Organiza
 	}
 	r, ok := v.(r4b.Organization)
 	if !ok {
-		return r4b.Organization{}, capabilities.InvalidResourceError{ResourceType: "Organization"}
+		return r4b.Organization{}, capabilities.UnexpectedResourceError{ExpectedType: "Organization", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadOrganizationAffiliation(ctx context.Context, id string) (r4b.OrganizationAffiliation, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "OrganizationAffiliation", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.OrganizationAffiliation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "OrganizationAffiliation"}
+	}
+	v, err := g.Read(ctx, "OrganizationAffiliation", id)
 	if err != nil {
 		return r4b.OrganizationAffiliation{}, err
 	}
@@ -3880,12 +4552,16 @@ func (w Concrete) ReadOrganizationAffiliation(ctx context.Context, id string) (r
 	}
 	r, ok := v.(r4b.OrganizationAffiliation)
 	if !ok {
-		return r4b.OrganizationAffiliation{}, capabilities.InvalidResourceError{ResourceType: "OrganizationAffiliation"}
+		return r4b.OrganizationAffiliation{}, capabilities.UnexpectedResourceError{ExpectedType: "OrganizationAffiliation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPackagedProductDefinition(ctx context.Context, id string) (r4b.PackagedProductDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "PackagedProductDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.PackagedProductDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PackagedProductDefinition"}
+	}
+	v, err := g.Read(ctx, "PackagedProductDefinition", id)
 	if err != nil {
 		return r4b.PackagedProductDefinition{}, err
 	}
@@ -3895,12 +4571,16 @@ func (w Concrete) ReadPackagedProductDefinition(ctx context.Context, id string) 
 	}
 	r, ok := v.(r4b.PackagedProductDefinition)
 	if !ok {
-		return r4b.PackagedProductDefinition{}, capabilities.InvalidResourceError{ResourceType: "PackagedProductDefinition"}
+		return r4b.PackagedProductDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PackagedProductDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadParameters(ctx context.Context, id string) (r4b.Parameters, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Parameters", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Parameters{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Parameters"}
+	}
+	v, err := g.Read(ctx, "Parameters", id)
 	if err != nil {
 		return r4b.Parameters{}, err
 	}
@@ -3910,12 +4590,16 @@ func (w Concrete) ReadParameters(ctx context.Context, id string) (r4b.Parameters
 	}
 	r, ok := v.(r4b.Parameters)
 	if !ok {
-		return r4b.Parameters{}, capabilities.InvalidResourceError{ResourceType: "Parameters"}
+		return r4b.Parameters{}, capabilities.UnexpectedResourceError{ExpectedType: "Parameters", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPatient(ctx context.Context, id string) (r4b.Patient, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Patient", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Patient{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Patient"}
+	}
+	v, err := g.Read(ctx, "Patient", id)
 	if err != nil {
 		return r4b.Patient{}, err
 	}
@@ -3925,12 +4609,16 @@ func (w Concrete) ReadPatient(ctx context.Context, id string) (r4b.Patient, capa
 	}
 	r, ok := v.(r4b.Patient)
 	if !ok {
-		return r4b.Patient{}, capabilities.InvalidResourceError{ResourceType: "Patient"}
+		return r4b.Patient{}, capabilities.UnexpectedResourceError{ExpectedType: "Patient", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPaymentNotice(ctx context.Context, id string) (r4b.PaymentNotice, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "PaymentNotice", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.PaymentNotice{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PaymentNotice"}
+	}
+	v, err := g.Read(ctx, "PaymentNotice", id)
 	if err != nil {
 		return r4b.PaymentNotice{}, err
 	}
@@ -3940,12 +4628,16 @@ func (w Concrete) ReadPaymentNotice(ctx context.Context, id string) (r4b.Payment
 	}
 	r, ok := v.(r4b.PaymentNotice)
 	if !ok {
-		return r4b.PaymentNotice{}, capabilities.InvalidResourceError{ResourceType: "PaymentNotice"}
+		return r4b.PaymentNotice{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentNotice", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPaymentReconciliation(ctx context.Context, id string) (r4b.PaymentReconciliation, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "PaymentReconciliation", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.PaymentReconciliation{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PaymentReconciliation"}
+	}
+	v, err := g.Read(ctx, "PaymentReconciliation", id)
 	if err != nil {
 		return r4b.PaymentReconciliation{}, err
 	}
@@ -3955,12 +4647,16 @@ func (w Concrete) ReadPaymentReconciliation(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.PaymentReconciliation)
 	if !ok {
-		return r4b.PaymentReconciliation{}, capabilities.InvalidResourceError{ResourceType: "PaymentReconciliation"}
+		return r4b.PaymentReconciliation{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentReconciliation", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPerson(ctx context.Context, id string) (r4b.Person, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Person", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Person{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Person"}
+	}
+	v, err := g.Read(ctx, "Person", id)
 	if err != nil {
 		return r4b.Person{}, err
 	}
@@ -3970,12 +4666,16 @@ func (w Concrete) ReadPerson(ctx context.Context, id string) (r4b.Person, capabi
 	}
 	r, ok := v.(r4b.Person)
 	if !ok {
-		return r4b.Person{}, capabilities.InvalidResourceError{ResourceType: "Person"}
+		return r4b.Person{}, capabilities.UnexpectedResourceError{ExpectedType: "Person", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPlanDefinition(ctx context.Context, id string) (r4b.PlanDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "PlanDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.PlanDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PlanDefinition"}
+	}
+	v, err := g.Read(ctx, "PlanDefinition", id)
 	if err != nil {
 		return r4b.PlanDefinition{}, err
 	}
@@ -3985,12 +4685,16 @@ func (w Concrete) ReadPlanDefinition(ctx context.Context, id string) (r4b.PlanDe
 	}
 	r, ok := v.(r4b.PlanDefinition)
 	if !ok {
-		return r4b.PlanDefinition{}, capabilities.InvalidResourceError{ResourceType: "PlanDefinition"}
+		return r4b.PlanDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "PlanDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPractitioner(ctx context.Context, id string) (r4b.Practitioner, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Practitioner", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Practitioner{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Practitioner"}
+	}
+	v, err := g.Read(ctx, "Practitioner", id)
 	if err != nil {
 		return r4b.Practitioner{}, err
 	}
@@ -4000,12 +4704,16 @@ func (w Concrete) ReadPractitioner(ctx context.Context, id string) (r4b.Practiti
 	}
 	r, ok := v.(r4b.Practitioner)
 	if !ok {
-		return r4b.Practitioner{}, capabilities.InvalidResourceError{ResourceType: "Practitioner"}
+		return r4b.Practitioner{}, capabilities.UnexpectedResourceError{ExpectedType: "Practitioner", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadPractitionerRole(ctx context.Context, id string) (r4b.PractitionerRole, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "PractitionerRole", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.PractitionerRole{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "PractitionerRole"}
+	}
+	v, err := g.Read(ctx, "PractitionerRole", id)
 	if err != nil {
 		return r4b.PractitionerRole{}, err
 	}
@@ -4015,12 +4723,16 @@ func (w Concrete) ReadPractitionerRole(ctx context.Context, id string) (r4b.Prac
 	}
 	r, ok := v.(r4b.PractitionerRole)
 	if !ok {
-		return r4b.PractitionerRole{}, capabilities.InvalidResourceError{ResourceType: "PractitionerRole"}
+		return r4b.PractitionerRole{}, capabilities.UnexpectedResourceError{ExpectedType: "PractitionerRole", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadProcedure(ctx context.Context, id string) (r4b.Procedure, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Procedure", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Procedure{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Procedure"}
+	}
+	v, err := g.Read(ctx, "Procedure", id)
 	if err != nil {
 		return r4b.Procedure{}, err
 	}
@@ -4030,12 +4742,16 @@ func (w Concrete) ReadProcedure(ctx context.Context, id string) (r4b.Procedure, 
 	}
 	r, ok := v.(r4b.Procedure)
 	if !ok {
-		return r4b.Procedure{}, capabilities.InvalidResourceError{ResourceType: "Procedure"}
+		return r4b.Procedure{}, capabilities.UnexpectedResourceError{ExpectedType: "Procedure", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadProvenance(ctx context.Context, id string) (r4b.Provenance, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Provenance", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Provenance{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Provenance"}
+	}
+	v, err := g.Read(ctx, "Provenance", id)
 	if err != nil {
 		return r4b.Provenance{}, err
 	}
@@ -4045,12 +4761,16 @@ func (w Concrete) ReadProvenance(ctx context.Context, id string) (r4b.Provenance
 	}
 	r, ok := v.(r4b.Provenance)
 	if !ok {
-		return r4b.Provenance{}, capabilities.InvalidResourceError{ResourceType: "Provenance"}
+		return r4b.Provenance{}, capabilities.UnexpectedResourceError{ExpectedType: "Provenance", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadQuestionnaire(ctx context.Context, id string) (r4b.Questionnaire, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Questionnaire", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Questionnaire{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Questionnaire"}
+	}
+	v, err := g.Read(ctx, "Questionnaire", id)
 	if err != nil {
 		return r4b.Questionnaire{}, err
 	}
@@ -4060,12 +4780,16 @@ func (w Concrete) ReadQuestionnaire(ctx context.Context, id string) (r4b.Questio
 	}
 	r, ok := v.(r4b.Questionnaire)
 	if !ok {
-		return r4b.Questionnaire{}, capabilities.InvalidResourceError{ResourceType: "Questionnaire"}
+		return r4b.Questionnaire{}, capabilities.UnexpectedResourceError{ExpectedType: "Questionnaire", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadQuestionnaireResponse(ctx context.Context, id string) (r4b.QuestionnaireResponse, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "QuestionnaireResponse", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.QuestionnaireResponse{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "QuestionnaireResponse"}
+	}
+	v, err := g.Read(ctx, "QuestionnaireResponse", id)
 	if err != nil {
 		return r4b.QuestionnaireResponse{}, err
 	}
@@ -4075,12 +4799,16 @@ func (w Concrete) ReadQuestionnaireResponse(ctx context.Context, id string) (r4b
 	}
 	r, ok := v.(r4b.QuestionnaireResponse)
 	if !ok {
-		return r4b.QuestionnaireResponse{}, capabilities.InvalidResourceError{ResourceType: "QuestionnaireResponse"}
+		return r4b.QuestionnaireResponse{}, capabilities.UnexpectedResourceError{ExpectedType: "QuestionnaireResponse", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadRegulatedAuthorization(ctx context.Context, id string) (r4b.RegulatedAuthorization, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "RegulatedAuthorization", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.RegulatedAuthorization{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RegulatedAuthorization"}
+	}
+	v, err := g.Read(ctx, "RegulatedAuthorization", id)
 	if err != nil {
 		return r4b.RegulatedAuthorization{}, err
 	}
@@ -4090,12 +4818,16 @@ func (w Concrete) ReadRegulatedAuthorization(ctx context.Context, id string) (r4
 	}
 	r, ok := v.(r4b.RegulatedAuthorization)
 	if !ok {
-		return r4b.RegulatedAuthorization{}, capabilities.InvalidResourceError{ResourceType: "RegulatedAuthorization"}
+		return r4b.RegulatedAuthorization{}, capabilities.UnexpectedResourceError{ExpectedType: "RegulatedAuthorization", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadRelatedPerson(ctx context.Context, id string) (r4b.RelatedPerson, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "RelatedPerson", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.RelatedPerson{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RelatedPerson"}
+	}
+	v, err := g.Read(ctx, "RelatedPerson", id)
 	if err != nil {
 		return r4b.RelatedPerson{}, err
 	}
@@ -4105,12 +4837,16 @@ func (w Concrete) ReadRelatedPerson(ctx context.Context, id string) (r4b.Related
 	}
 	r, ok := v.(r4b.RelatedPerson)
 	if !ok {
-		return r4b.RelatedPerson{}, capabilities.InvalidResourceError{ResourceType: "RelatedPerson"}
+		return r4b.RelatedPerson{}, capabilities.UnexpectedResourceError{ExpectedType: "RelatedPerson", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadRequestGroup(ctx context.Context, id string) (r4b.RequestGroup, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "RequestGroup", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.RequestGroup{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RequestGroup"}
+	}
+	v, err := g.Read(ctx, "RequestGroup", id)
 	if err != nil {
 		return r4b.RequestGroup{}, err
 	}
@@ -4120,12 +4856,16 @@ func (w Concrete) ReadRequestGroup(ctx context.Context, id string) (r4b.RequestG
 	}
 	r, ok := v.(r4b.RequestGroup)
 	if !ok {
-		return r4b.RequestGroup{}, capabilities.InvalidResourceError{ResourceType: "RequestGroup"}
+		return r4b.RequestGroup{}, capabilities.UnexpectedResourceError{ExpectedType: "RequestGroup", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadResearchDefinition(ctx context.Context, id string) (r4b.ResearchDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ResearchDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ResearchDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchDefinition"}
+	}
+	v, err := g.Read(ctx, "ResearchDefinition", id)
 	if err != nil {
 		return r4b.ResearchDefinition{}, err
 	}
@@ -4135,12 +4875,16 @@ func (w Concrete) ReadResearchDefinition(ctx context.Context, id string) (r4b.Re
 	}
 	r, ok := v.(r4b.ResearchDefinition)
 	if !ok {
-		return r4b.ResearchDefinition{}, capabilities.InvalidResourceError{ResourceType: "ResearchDefinition"}
+		return r4b.ResearchDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadResearchElementDefinition(ctx context.Context, id string) (r4b.ResearchElementDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ResearchElementDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ResearchElementDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchElementDefinition"}
+	}
+	v, err := g.Read(ctx, "ResearchElementDefinition", id)
 	if err != nil {
 		return r4b.ResearchElementDefinition{}, err
 	}
@@ -4150,12 +4894,16 @@ func (w Concrete) ReadResearchElementDefinition(ctx context.Context, id string) 
 	}
 	r, ok := v.(r4b.ResearchElementDefinition)
 	if !ok {
-		return r4b.ResearchElementDefinition{}, capabilities.InvalidResourceError{ResourceType: "ResearchElementDefinition"}
+		return r4b.ResearchElementDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchElementDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadResearchStudy(ctx context.Context, id string) (r4b.ResearchStudy, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ResearchStudy", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ResearchStudy{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchStudy"}
+	}
+	v, err := g.Read(ctx, "ResearchStudy", id)
 	if err != nil {
 		return r4b.ResearchStudy{}, err
 	}
@@ -4165,12 +4913,16 @@ func (w Concrete) ReadResearchStudy(ctx context.Context, id string) (r4b.Researc
 	}
 	r, ok := v.(r4b.ResearchStudy)
 	if !ok {
-		return r4b.ResearchStudy{}, capabilities.InvalidResourceError{ResourceType: "ResearchStudy"}
+		return r4b.ResearchStudy{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchStudy", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadResearchSubject(ctx context.Context, id string) (r4b.ResearchSubject, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ResearchSubject", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ResearchSubject{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ResearchSubject"}
+	}
+	v, err := g.Read(ctx, "ResearchSubject", id)
 	if err != nil {
 		return r4b.ResearchSubject{}, err
 	}
@@ -4180,12 +4932,16 @@ func (w Concrete) ReadResearchSubject(ctx context.Context, id string) (r4b.Resea
 	}
 	r, ok := v.(r4b.ResearchSubject)
 	if !ok {
-		return r4b.ResearchSubject{}, capabilities.InvalidResourceError{ResourceType: "ResearchSubject"}
+		return r4b.ResearchSubject{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchSubject", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadRiskAssessment(ctx context.Context, id string) (r4b.RiskAssessment, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "RiskAssessment", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.RiskAssessment{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "RiskAssessment"}
+	}
+	v, err := g.Read(ctx, "RiskAssessment", id)
 	if err != nil {
 		return r4b.RiskAssessment{}, err
 	}
@@ -4195,12 +4951,16 @@ func (w Concrete) ReadRiskAssessment(ctx context.Context, id string) (r4b.RiskAs
 	}
 	r, ok := v.(r4b.RiskAssessment)
 	if !ok {
-		return r4b.RiskAssessment{}, capabilities.InvalidResourceError{ResourceType: "RiskAssessment"}
+		return r4b.RiskAssessment{}, capabilities.UnexpectedResourceError{ExpectedType: "RiskAssessment", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSchedule(ctx context.Context, id string) (r4b.Schedule, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Schedule", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Schedule{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Schedule"}
+	}
+	v, err := g.Read(ctx, "Schedule", id)
 	if err != nil {
 		return r4b.Schedule{}, err
 	}
@@ -4210,12 +4970,16 @@ func (w Concrete) ReadSchedule(ctx context.Context, id string) (r4b.Schedule, ca
 	}
 	r, ok := v.(r4b.Schedule)
 	if !ok {
-		return r4b.Schedule{}, capabilities.InvalidResourceError{ResourceType: "Schedule"}
+		return r4b.Schedule{}, capabilities.UnexpectedResourceError{ExpectedType: "Schedule", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSearchParameter(ctx context.Context, id string) (r4b.SearchParameter, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "SearchParameter", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.SearchParameter{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SearchParameter"}
+	}
+	v, err := g.Read(ctx, "SearchParameter", id)
 	if err != nil {
 		return r4b.SearchParameter{}, err
 	}
@@ -4225,12 +4989,16 @@ func (w Concrete) ReadSearchParameter(ctx context.Context, id string) (r4b.Searc
 	}
 	r, ok := v.(r4b.SearchParameter)
 	if !ok {
-		return r4b.SearchParameter{}, capabilities.InvalidResourceError{ResourceType: "SearchParameter"}
+		return r4b.SearchParameter{}, capabilities.UnexpectedResourceError{ExpectedType: "SearchParameter", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadServiceRequest(ctx context.Context, id string) (r4b.ServiceRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ServiceRequest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ServiceRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ServiceRequest"}
+	}
+	v, err := g.Read(ctx, "ServiceRequest", id)
 	if err != nil {
 		return r4b.ServiceRequest{}, err
 	}
@@ -4240,12 +5008,16 @@ func (w Concrete) ReadServiceRequest(ctx context.Context, id string) (r4b.Servic
 	}
 	r, ok := v.(r4b.ServiceRequest)
 	if !ok {
-		return r4b.ServiceRequest{}, capabilities.InvalidResourceError{ResourceType: "ServiceRequest"}
+		return r4b.ServiceRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "ServiceRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSlot(ctx context.Context, id string) (r4b.Slot, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Slot", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Slot{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Slot"}
+	}
+	v, err := g.Read(ctx, "Slot", id)
 	if err != nil {
 		return r4b.Slot{}, err
 	}
@@ -4255,12 +5027,16 @@ func (w Concrete) ReadSlot(ctx context.Context, id string) (r4b.Slot, capabiliti
 	}
 	r, ok := v.(r4b.Slot)
 	if !ok {
-		return r4b.Slot{}, capabilities.InvalidResourceError{ResourceType: "Slot"}
+		return r4b.Slot{}, capabilities.UnexpectedResourceError{ExpectedType: "Slot", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSpecimen(ctx context.Context, id string) (r4b.Specimen, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Specimen", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Specimen{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Specimen"}
+	}
+	v, err := g.Read(ctx, "Specimen", id)
 	if err != nil {
 		return r4b.Specimen{}, err
 	}
@@ -4270,12 +5046,16 @@ func (w Concrete) ReadSpecimen(ctx context.Context, id string) (r4b.Specimen, ca
 	}
 	r, ok := v.(r4b.Specimen)
 	if !ok {
-		return r4b.Specimen{}, capabilities.InvalidResourceError{ResourceType: "Specimen"}
+		return r4b.Specimen{}, capabilities.UnexpectedResourceError{ExpectedType: "Specimen", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSpecimenDefinition(ctx context.Context, id string) (r4b.SpecimenDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "SpecimenDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.SpecimenDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SpecimenDefinition"}
+	}
+	v, err := g.Read(ctx, "SpecimenDefinition", id)
 	if err != nil {
 		return r4b.SpecimenDefinition{}, err
 	}
@@ -4285,12 +5065,16 @@ func (w Concrete) ReadSpecimenDefinition(ctx context.Context, id string) (r4b.Sp
 	}
 	r, ok := v.(r4b.SpecimenDefinition)
 	if !ok {
-		return r4b.SpecimenDefinition{}, capabilities.InvalidResourceError{ResourceType: "SpecimenDefinition"}
+		return r4b.SpecimenDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SpecimenDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadStructureDefinition(ctx context.Context, id string) (r4b.StructureDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "StructureDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.StructureDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "StructureDefinition"}
+	}
+	v, err := g.Read(ctx, "StructureDefinition", id)
 	if err != nil {
 		return r4b.StructureDefinition{}, err
 	}
@@ -4300,12 +5084,16 @@ func (w Concrete) ReadStructureDefinition(ctx context.Context, id string) (r4b.S
 	}
 	r, ok := v.(r4b.StructureDefinition)
 	if !ok {
-		return r4b.StructureDefinition{}, capabilities.InvalidResourceError{ResourceType: "StructureDefinition"}
+		return r4b.StructureDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadStructureMap(ctx context.Context, id string) (r4b.StructureMap, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "StructureMap", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.StructureMap{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "StructureMap"}
+	}
+	v, err := g.Read(ctx, "StructureMap", id)
 	if err != nil {
 		return r4b.StructureMap{}, err
 	}
@@ -4315,12 +5103,16 @@ func (w Concrete) ReadStructureMap(ctx context.Context, id string) (r4b.Structur
 	}
 	r, ok := v.(r4b.StructureMap)
 	if !ok {
-		return r4b.StructureMap{}, capabilities.InvalidResourceError{ResourceType: "StructureMap"}
+		return r4b.StructureMap{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureMap", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSubscription(ctx context.Context, id string) (r4b.Subscription, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Subscription", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Subscription{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Subscription"}
+	}
+	v, err := g.Read(ctx, "Subscription", id)
 	if err != nil {
 		return r4b.Subscription{}, err
 	}
@@ -4330,12 +5122,16 @@ func (w Concrete) ReadSubscription(ctx context.Context, id string) (r4b.Subscrip
 	}
 	r, ok := v.(r4b.Subscription)
 	if !ok {
-		return r4b.Subscription{}, capabilities.InvalidResourceError{ResourceType: "Subscription"}
+		return r4b.Subscription{}, capabilities.UnexpectedResourceError{ExpectedType: "Subscription", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSubscriptionStatus(ctx context.Context, id string) (r4b.SubscriptionStatus, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "SubscriptionStatus", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.SubscriptionStatus{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SubscriptionStatus"}
+	}
+	v, err := g.Read(ctx, "SubscriptionStatus", id)
 	if err != nil {
 		return r4b.SubscriptionStatus{}, err
 	}
@@ -4345,12 +5141,16 @@ func (w Concrete) ReadSubscriptionStatus(ctx context.Context, id string) (r4b.Su
 	}
 	r, ok := v.(r4b.SubscriptionStatus)
 	if !ok {
-		return r4b.SubscriptionStatus{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionStatus"}
+		return r4b.SubscriptionStatus{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionStatus", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSubscriptionTopic(ctx context.Context, id string) (r4b.SubscriptionTopic, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "SubscriptionTopic", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.SubscriptionTopic{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SubscriptionTopic"}
+	}
+	v, err := g.Read(ctx, "SubscriptionTopic", id)
 	if err != nil {
 		return r4b.SubscriptionTopic{}, err
 	}
@@ -4360,12 +5160,16 @@ func (w Concrete) ReadSubscriptionTopic(ctx context.Context, id string) (r4b.Sub
 	}
 	r, ok := v.(r4b.SubscriptionTopic)
 	if !ok {
-		return r4b.SubscriptionTopic{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionTopic"}
+		return r4b.SubscriptionTopic{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionTopic", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSubstance(ctx context.Context, id string) (r4b.Substance, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Substance", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Substance{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Substance"}
+	}
+	v, err := g.Read(ctx, "Substance", id)
 	if err != nil {
 		return r4b.Substance{}, err
 	}
@@ -4375,12 +5179,16 @@ func (w Concrete) ReadSubstance(ctx context.Context, id string) (r4b.Substance, 
 	}
 	r, ok := v.(r4b.Substance)
 	if !ok {
-		return r4b.Substance{}, capabilities.InvalidResourceError{ResourceType: "Substance"}
+		return r4b.Substance{}, capabilities.UnexpectedResourceError{ExpectedType: "Substance", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSubstanceDefinition(ctx context.Context, id string) (r4b.SubstanceDefinition, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "SubstanceDefinition", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.SubstanceDefinition{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SubstanceDefinition"}
+	}
+	v, err := g.Read(ctx, "SubstanceDefinition", id)
 	if err != nil {
 		return r4b.SubstanceDefinition{}, err
 	}
@@ -4390,12 +5198,16 @@ func (w Concrete) ReadSubstanceDefinition(ctx context.Context, id string) (r4b.S
 	}
 	r, ok := v.(r4b.SubstanceDefinition)
 	if !ok {
-		return r4b.SubstanceDefinition{}, capabilities.InvalidResourceError{ResourceType: "SubstanceDefinition"}
+		return r4b.SubstanceDefinition{}, capabilities.UnexpectedResourceError{ExpectedType: "SubstanceDefinition", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSupplyDelivery(ctx context.Context, id string) (r4b.SupplyDelivery, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "SupplyDelivery", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.SupplyDelivery{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SupplyDelivery"}
+	}
+	v, err := g.Read(ctx, "SupplyDelivery", id)
 	if err != nil {
 		return r4b.SupplyDelivery{}, err
 	}
@@ -4405,12 +5217,16 @@ func (w Concrete) ReadSupplyDelivery(ctx context.Context, id string) (r4b.Supply
 	}
 	r, ok := v.(r4b.SupplyDelivery)
 	if !ok {
-		return r4b.SupplyDelivery{}, capabilities.InvalidResourceError{ResourceType: "SupplyDelivery"}
+		return r4b.SupplyDelivery{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyDelivery", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadSupplyRequest(ctx context.Context, id string) (r4b.SupplyRequest, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "SupplyRequest", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.SupplyRequest{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "SupplyRequest"}
+	}
+	v, err := g.Read(ctx, "SupplyRequest", id)
 	if err != nil {
 		return r4b.SupplyRequest{}, err
 	}
@@ -4420,12 +5236,16 @@ func (w Concrete) ReadSupplyRequest(ctx context.Context, id string) (r4b.SupplyR
 	}
 	r, ok := v.(r4b.SupplyRequest)
 	if !ok {
-		return r4b.SupplyRequest{}, capabilities.InvalidResourceError{ResourceType: "SupplyRequest"}
+		return r4b.SupplyRequest{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyRequest", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadTask(ctx context.Context, id string) (r4b.Task, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "Task", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.Task{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "Task"}
+	}
+	v, err := g.Read(ctx, "Task", id)
 	if err != nil {
 		return r4b.Task{}, err
 	}
@@ -4435,12 +5255,16 @@ func (w Concrete) ReadTask(ctx context.Context, id string) (r4b.Task, capabiliti
 	}
 	r, ok := v.(r4b.Task)
 	if !ok {
-		return r4b.Task{}, capabilities.InvalidResourceError{ResourceType: "Task"}
+		return r4b.Task{}, capabilities.UnexpectedResourceError{ExpectedType: "Task", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadTerminologyCapabilities(ctx context.Context, id string) (r4b.TerminologyCapabilities, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "TerminologyCapabilities", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.TerminologyCapabilities{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "TerminologyCapabilities"}
+	}
+	v, err := g.Read(ctx, "TerminologyCapabilities", id)
 	if err != nil {
 		return r4b.TerminologyCapabilities{}, err
 	}
@@ -4450,12 +5274,16 @@ func (w Concrete) ReadTerminologyCapabilities(ctx context.Context, id string) (r
 	}
 	r, ok := v.(r4b.TerminologyCapabilities)
 	if !ok {
-		return r4b.TerminologyCapabilities{}, capabilities.InvalidResourceError{ResourceType: "TerminologyCapabilities"}
+		return r4b.TerminologyCapabilities{}, capabilities.UnexpectedResourceError{ExpectedType: "TerminologyCapabilities", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadTestReport(ctx context.Context, id string) (r4b.TestReport, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "TestReport", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.TestReport{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "TestReport"}
+	}
+	v, err := g.Read(ctx, "TestReport", id)
 	if err != nil {
 		return r4b.TestReport{}, err
 	}
@@ -4465,12 +5293,16 @@ func (w Concrete) ReadTestReport(ctx context.Context, id string) (r4b.TestReport
 	}
 	r, ok := v.(r4b.TestReport)
 	if !ok {
-		return r4b.TestReport{}, capabilities.InvalidResourceError{ResourceType: "TestReport"}
+		return r4b.TestReport{}, capabilities.UnexpectedResourceError{ExpectedType: "TestReport", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadTestScript(ctx context.Context, id string) (r4b.TestScript, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "TestScript", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.TestScript{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "TestScript"}
+	}
+	v, err := g.Read(ctx, "TestScript", id)
 	if err != nil {
 		return r4b.TestScript{}, err
 	}
@@ -4480,12 +5312,16 @@ func (w Concrete) ReadTestScript(ctx context.Context, id string) (r4b.TestScript
 	}
 	r, ok := v.(r4b.TestScript)
 	if !ok {
-		return r4b.TestScript{}, capabilities.InvalidResourceError{ResourceType: "TestScript"}
+		return r4b.TestScript{}, capabilities.UnexpectedResourceError{ExpectedType: "TestScript", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadValueSet(ctx context.Context, id string) (r4b.ValueSet, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "ValueSet", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.ValueSet{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "ValueSet"}
+	}
+	v, err := g.Read(ctx, "ValueSet", id)
 	if err != nil {
 		return r4b.ValueSet{}, err
 	}
@@ -4495,12 +5331,16 @@ func (w Concrete) ReadValueSet(ctx context.Context, id string) (r4b.ValueSet, ca
 	}
 	r, ok := v.(r4b.ValueSet)
 	if !ok {
-		return r4b.ValueSet{}, capabilities.InvalidResourceError{ResourceType: "ValueSet"}
+		return r4b.ValueSet{}, capabilities.UnexpectedResourceError{ExpectedType: "ValueSet", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadVerificationResult(ctx context.Context, id string) (r4b.VerificationResult, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "VerificationResult", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.VerificationResult{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "VerificationResult"}
+	}
+	v, err := g.Read(ctx, "VerificationResult", id)
 	if err != nil {
 		return r4b.VerificationResult{}, err
 	}
@@ -4510,12 +5350,16 @@ func (w Concrete) ReadVerificationResult(ctx context.Context, id string) (r4b.Ve
 	}
 	r, ok := v.(r4b.VerificationResult)
 	if !ok {
-		return r4b.VerificationResult{}, capabilities.InvalidResourceError{ResourceType: "VerificationResult"}
+		return r4b.VerificationResult{}, capabilities.UnexpectedResourceError{ExpectedType: "VerificationResult", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r4b.VisionPrescription, capabilities.FHIRError) {
-	v, err := w.Generic.Read(ctx, "VisionPrescription", id)
+	g, ok := w.Generic.(capabilities.GenericRead)
+	if !ok {
+		return r4b.VisionPrescription{}, capabilities.NotImplementedError{Interaction: "read", ResourceType: "VisionPrescription"}
+	}
+	v, err := g.Read(ctx, "VisionPrescription", id)
 	if err != nil {
 		return r4b.VisionPrescription{}, err
 	}
@@ -4525,12 +5369,16 @@ func (w Concrete) ReadVisionPrescription(ctx context.Context, id string) (r4b.Vi
 	}
 	r, ok := v.(r4b.VisionPrescription)
 	if !ok {
-		return r4b.VisionPrescription{}, capabilities.InvalidResourceError{ResourceType: "VisionPrescription"}
+		return r4b.VisionPrescription{}, capabilities.UnexpectedResourceError{ExpectedType: "VisionPrescription", GotType: v.ResourceType()}
 	}
 	return r, nil
 }
 func (w Concrete) UpdateAccount(ctx context.Context, resource r4b.Account) (capabilities.UpdateResult[r4b.Account], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Account]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Account"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Account]{}, err
 	}
@@ -4541,7 +5389,7 @@ func (w Concrete) UpdateAccount(ctx context.Context, resource r4b.Account) (capa
 	}
 	r, ok := v.(r4b.Account)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Account]{}, capabilities.InvalidResourceError{ResourceType: "Account"}
+		return capabilities.UpdateResult[r4b.Account]{}, capabilities.UnexpectedResourceError{ExpectedType: "Account", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Account]{
 
@@ -4550,7 +5398,11 @@ func (w Concrete) UpdateAccount(ctx context.Context, resource r4b.Account) (capa
 	}, nil
 }
 func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (capabilities.UpdateResult[r4b.ActivityDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ActivityDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, err
 	}
@@ -4561,7 +5413,7 @@ func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4b.Act
 	}
 	r, ok := v.(r4b.ActivityDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ActivityDefinition"}
+		return capabilities.UpdateResult[r4b.ActivityDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ActivityDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ActivityDefinition]{
 
@@ -4570,7 +5422,11 @@ func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4b.Act
 	}, nil
 }
 func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (capabilities.UpdateResult[r4b.AdministrableProductDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AdministrableProductDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, err
 	}
@@ -4581,7 +5437,7 @@ func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, reso
 	}
 	r, ok := v.(r4b.AdministrableProductDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, capabilities.InvalidResourceError{ResourceType: "AdministrableProductDefinition"}
+		return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "AdministrableProductDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.AdministrableProductDefinition]{
 
@@ -4590,7 +5446,11 @@ func (w Concrete) UpdateAdministrableProductDefinition(ctx context.Context, reso
 	}, nil
 }
 func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (capabilities.UpdateResult[r4b.AdverseEvent], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.AdverseEvent]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AdverseEvent"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.AdverseEvent]{}, err
 	}
@@ -4601,7 +5461,7 @@ func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEv
 	}
 	r, ok := v.(r4b.AdverseEvent)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AdverseEvent]{}, capabilities.InvalidResourceError{ResourceType: "AdverseEvent"}
+		return capabilities.UpdateResult[r4b.AdverseEvent]{}, capabilities.UnexpectedResourceError{ExpectedType: "AdverseEvent", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.AdverseEvent]{
 
@@ -4610,7 +5470,11 @@ func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4b.AdverseEv
 	}, nil
 }
 func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (capabilities.UpdateResult[r4b.AllergyIntolerance], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AllergyIntolerance"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, err
 	}
@@ -4621,7 +5485,7 @@ func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4b.All
 	}
 	r, ok := v.(r4b.AllergyIntolerance)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, capabilities.InvalidResourceError{ResourceType: "AllergyIntolerance"}
+		return capabilities.UpdateResult[r4b.AllergyIntolerance]{}, capabilities.UnexpectedResourceError{ExpectedType: "AllergyIntolerance", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.AllergyIntolerance]{
 
@@ -4630,7 +5494,11 @@ func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4b.All
 	}, nil
 }
 func (w Concrete) UpdateAppointment(ctx context.Context, resource r4b.Appointment) (capabilities.UpdateResult[r4b.Appointment], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Appointment]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Appointment"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Appointment]{}, err
 	}
@@ -4641,7 +5509,7 @@ func (w Concrete) UpdateAppointment(ctx context.Context, resource r4b.Appointmen
 	}
 	r, ok := v.(r4b.Appointment)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Appointment]{}, capabilities.InvalidResourceError{ResourceType: "Appointment"}
+		return capabilities.UpdateResult[r4b.Appointment]{}, capabilities.UnexpectedResourceError{ExpectedType: "Appointment", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Appointment]{
 
@@ -4650,7 +5518,11 @@ func (w Concrete) UpdateAppointment(ctx context.Context, resource r4b.Appointmen
 	}, nil
 }
 func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (capabilities.UpdateResult[r4b.AppointmentResponse], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AppointmentResponse"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, err
 	}
@@ -4661,7 +5533,7 @@ func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4b.Ap
 	}
 	r, ok := v.(r4b.AppointmentResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, capabilities.InvalidResourceError{ResourceType: "AppointmentResponse"}
+		return capabilities.UpdateResult[r4b.AppointmentResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "AppointmentResponse", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.AppointmentResponse]{
 
@@ -4670,7 +5542,11 @@ func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4b.Ap
 	}, nil
 }
 func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (capabilities.UpdateResult[r4b.AuditEvent], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.AuditEvent]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "AuditEvent"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.AuditEvent]{}, err
 	}
@@ -4681,7 +5557,7 @@ func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent)
 	}
 	r, ok := v.(r4b.AuditEvent)
 	if !ok {
-		return capabilities.UpdateResult[r4b.AuditEvent]{}, capabilities.InvalidResourceError{ResourceType: "AuditEvent"}
+		return capabilities.UpdateResult[r4b.AuditEvent]{}, capabilities.UnexpectedResourceError{ExpectedType: "AuditEvent", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.AuditEvent]{
 
@@ -4690,7 +5566,11 @@ func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4b.AuditEvent)
 	}, nil
 }
 func (w Concrete) UpdateBasic(ctx context.Context, resource r4b.Basic) (capabilities.UpdateResult[r4b.Basic], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Basic]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Basic"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Basic]{}, err
 	}
@@ -4701,7 +5581,7 @@ func (w Concrete) UpdateBasic(ctx context.Context, resource r4b.Basic) (capabili
 	}
 	r, ok := v.(r4b.Basic)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Basic]{}, capabilities.InvalidResourceError{ResourceType: "Basic"}
+		return capabilities.UpdateResult[r4b.Basic]{}, capabilities.UnexpectedResourceError{ExpectedType: "Basic", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Basic]{
 
@@ -4710,7 +5590,11 @@ func (w Concrete) UpdateBasic(ctx context.Context, resource r4b.Basic) (capabili
 	}, nil
 }
 func (w Concrete) UpdateBinary(ctx context.Context, resource r4b.Binary) (capabilities.UpdateResult[r4b.Binary], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Binary]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Binary"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Binary]{}, err
 	}
@@ -4721,7 +5605,7 @@ func (w Concrete) UpdateBinary(ctx context.Context, resource r4b.Binary) (capabi
 	}
 	r, ok := v.(r4b.Binary)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Binary]{}, capabilities.InvalidResourceError{ResourceType: "Binary"}
+		return capabilities.UpdateResult[r4b.Binary]{}, capabilities.UnexpectedResourceError{ExpectedType: "Binary", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Binary]{
 
@@ -4730,7 +5614,11 @@ func (w Concrete) UpdateBinary(ctx context.Context, resource r4b.Binary) (capabi
 	}, nil
 }
 func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (capabilities.UpdateResult[r4b.BiologicallyDerivedProduct], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "BiologicallyDerivedProduct"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, err
 	}
@@ -4741,7 +5629,7 @@ func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.BiologicallyDerivedProduct)
 	if !ok {
-		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, capabilities.InvalidResourceError{ResourceType: "BiologicallyDerivedProduct"}
+		return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{}, capabilities.UnexpectedResourceError{ExpectedType: "BiologicallyDerivedProduct", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.BiologicallyDerivedProduct]{
 
@@ -4750,7 +5638,11 @@ func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (capabilities.UpdateResult[r4b.BodyStructure], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.BodyStructure]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "BodyStructure"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.BodyStructure]{}, err
 	}
@@ -4761,7 +5653,7 @@ func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4b.BodyStru
 	}
 	r, ok := v.(r4b.BodyStructure)
 	if !ok {
-		return capabilities.UpdateResult[r4b.BodyStructure]{}, capabilities.InvalidResourceError{ResourceType: "BodyStructure"}
+		return capabilities.UpdateResult[r4b.BodyStructure]{}, capabilities.UnexpectedResourceError{ExpectedType: "BodyStructure", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.BodyStructure]{
 
@@ -4770,7 +5662,11 @@ func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4b.BodyStru
 	}, nil
 }
 func (w Concrete) UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabilities.UpdateResult[r4b.Bundle], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Bundle]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Bundle"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Bundle]{}, err
 	}
@@ -4781,7 +5677,7 @@ func (w Concrete) UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabi
 	}
 	r, ok := v.(r4b.Bundle)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Bundle]{}, capabilities.InvalidResourceError{ResourceType: "Bundle"}
+		return capabilities.UpdateResult[r4b.Bundle]{}, capabilities.UnexpectedResourceError{ExpectedType: "Bundle", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Bundle]{
 
@@ -4790,7 +5686,11 @@ func (w Concrete) UpdateBundle(ctx context.Context, resource r4b.Bundle) (capabi
 	}, nil
 }
 func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (capabilities.UpdateResult[r4b.CapabilityStatement], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CapabilityStatement"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, err
 	}
@@ -4801,7 +5701,7 @@ func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4b.Ca
 	}
 	r, ok := v.(r4b.CapabilityStatement)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, capabilities.InvalidResourceError{ResourceType: "CapabilityStatement"}
+		return capabilities.UpdateResult[r4b.CapabilityStatement]{}, capabilities.UnexpectedResourceError{ExpectedType: "CapabilityStatement", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CapabilityStatement]{
 
@@ -4810,7 +5710,11 @@ func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4b.Ca
 	}, nil
 }
 func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (capabilities.UpdateResult[r4b.CarePlan], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CarePlan]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CarePlan"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CarePlan]{}, err
 	}
@@ -4821,7 +5725,7 @@ func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (ca
 	}
 	r, ok := v.(r4b.CarePlan)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CarePlan]{}, capabilities.InvalidResourceError{ResourceType: "CarePlan"}
+		return capabilities.UpdateResult[r4b.CarePlan]{}, capabilities.UnexpectedResourceError{ExpectedType: "CarePlan", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CarePlan]{
 
@@ -4830,7 +5734,11 @@ func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4b.CarePlan) (ca
 	}, nil
 }
 func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (capabilities.UpdateResult[r4b.CareTeam], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CareTeam]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CareTeam"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CareTeam]{}, err
 	}
@@ -4841,7 +5749,7 @@ func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (ca
 	}
 	r, ok := v.(r4b.CareTeam)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CareTeam]{}, capabilities.InvalidResourceError{ResourceType: "CareTeam"}
+		return capabilities.UpdateResult[r4b.CareTeam]{}, capabilities.UnexpectedResourceError{ExpectedType: "CareTeam", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CareTeam]{
 
@@ -4850,7 +5758,11 @@ func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4b.CareTeam) (ca
 	}, nil
 }
 func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (capabilities.UpdateResult[r4b.CatalogEntry], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CatalogEntry]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CatalogEntry"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CatalogEntry]{}, err
 	}
@@ -4861,7 +5773,7 @@ func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEn
 	}
 	r, ok := v.(r4b.CatalogEntry)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CatalogEntry]{}, capabilities.InvalidResourceError{ResourceType: "CatalogEntry"}
+		return capabilities.UpdateResult[r4b.CatalogEntry]{}, capabilities.UnexpectedResourceError{ExpectedType: "CatalogEntry", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CatalogEntry]{
 
@@ -4870,7 +5782,11 @@ func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4b.CatalogEn
 	}, nil
 }
 func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem) (capabilities.UpdateResult[r4b.ChargeItem], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ChargeItem]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ChargeItem"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ChargeItem]{}, err
 	}
@@ -4881,7 +5797,7 @@ func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem)
 	}
 	r, ok := v.(r4b.ChargeItem)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ChargeItem]{}, capabilities.InvalidResourceError{ResourceType: "ChargeItem"}
+		return capabilities.UpdateResult[r4b.ChargeItem]{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItem", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ChargeItem]{
 
@@ -4890,7 +5806,11 @@ func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4b.ChargeItem)
 	}, nil
 }
 func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (capabilities.UpdateResult[r4b.ChargeItemDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ChargeItemDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, err
 	}
@@ -4901,7 +5821,7 @@ func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.ChargeItemDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ChargeItemDefinition"}
+		return capabilities.UpdateResult[r4b.ChargeItemDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ChargeItemDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ChargeItemDefinition]{
 
@@ -4910,7 +5830,11 @@ func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4b.C
 	}, nil
 }
 func (w Concrete) UpdateCitation(ctx context.Context, resource r4b.Citation) (capabilities.UpdateResult[r4b.Citation], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Citation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Citation"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Citation]{}, err
 	}
@@ -4921,7 +5845,7 @@ func (w Concrete) UpdateCitation(ctx context.Context, resource r4b.Citation) (ca
 	}
 	r, ok := v.(r4b.Citation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Citation]{}, capabilities.InvalidResourceError{ResourceType: "Citation"}
+		return capabilities.UpdateResult[r4b.Citation]{}, capabilities.UnexpectedResourceError{ExpectedType: "Citation", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Citation]{
 
@@ -4930,7 +5854,11 @@ func (w Concrete) UpdateCitation(ctx context.Context, resource r4b.Citation) (ca
 	}, nil
 }
 func (w Concrete) UpdateClaim(ctx context.Context, resource r4b.Claim) (capabilities.UpdateResult[r4b.Claim], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Claim]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Claim"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Claim]{}, err
 	}
@@ -4941,7 +5869,7 @@ func (w Concrete) UpdateClaim(ctx context.Context, resource r4b.Claim) (capabili
 	}
 	r, ok := v.(r4b.Claim)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Claim]{}, capabilities.InvalidResourceError{ResourceType: "Claim"}
+		return capabilities.UpdateResult[r4b.Claim]{}, capabilities.UnexpectedResourceError{ExpectedType: "Claim", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Claim]{
 
@@ -4950,7 +5878,11 @@ func (w Concrete) UpdateClaim(ctx context.Context, resource r4b.Claim) (capabili
 	}, nil
 }
 func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (capabilities.UpdateResult[r4b.ClaimResponse], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ClaimResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClaimResponse"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ClaimResponse]{}, err
 	}
@@ -4961,7 +5893,7 @@ func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4b.ClaimRes
 	}
 	r, ok := v.(r4b.ClaimResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClaimResponse]{}, capabilities.InvalidResourceError{ResourceType: "ClaimResponse"}
+		return capabilities.UpdateResult[r4b.ClaimResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "ClaimResponse", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ClaimResponse]{
 
@@ -4970,7 +5902,11 @@ func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4b.ClaimRes
 	}, nil
 }
 func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (capabilities.UpdateResult[r4b.ClinicalImpression], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClinicalImpression"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, err
 	}
@@ -4981,7 +5917,7 @@ func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4b.Cli
 	}
 	r, ok := v.(r4b.ClinicalImpression)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, capabilities.InvalidResourceError{ResourceType: "ClinicalImpression"}
+		return capabilities.UpdateResult[r4b.ClinicalImpression]{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalImpression", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ClinicalImpression]{
 
@@ -4990,7 +5926,11 @@ func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4b.Cli
 	}, nil
 }
 func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (capabilities.UpdateResult[r4b.ClinicalUseDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ClinicalUseDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, err
 	}
@@ -5001,7 +5941,7 @@ func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ClinicalUseDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ClinicalUseDefinition"}
+		return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ClinicalUseDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ClinicalUseDefinition]{
 
@@ -5010,7 +5950,11 @@ func (w Concrete) UpdateClinicalUseDefinition(ctx context.Context, resource r4b.
 	}, nil
 }
 func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (capabilities.UpdateResult[r4b.CodeSystem], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CodeSystem]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CodeSystem"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CodeSystem]{}, err
 	}
@@ -5021,7 +5965,7 @@ func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem)
 	}
 	r, ok := v.(r4b.CodeSystem)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CodeSystem]{}, capabilities.InvalidResourceError{ResourceType: "CodeSystem"}
+		return capabilities.UpdateResult[r4b.CodeSystem]{}, capabilities.UnexpectedResourceError{ExpectedType: "CodeSystem", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CodeSystem]{
 
@@ -5030,7 +5974,11 @@ func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4b.CodeSystem)
 	}, nil
 }
 func (w Concrete) UpdateCommunication(ctx context.Context, resource r4b.Communication) (capabilities.UpdateResult[r4b.Communication], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Communication]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Communication"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Communication]{}, err
 	}
@@ -5041,7 +5989,7 @@ func (w Concrete) UpdateCommunication(ctx context.Context, resource r4b.Communic
 	}
 	r, ok := v.(r4b.Communication)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Communication]{}, capabilities.InvalidResourceError{ResourceType: "Communication"}
+		return capabilities.UpdateResult[r4b.Communication]{}, capabilities.UnexpectedResourceError{ExpectedType: "Communication", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Communication]{
 
@@ -5050,7 +5998,11 @@ func (w Concrete) UpdateCommunication(ctx context.Context, resource r4b.Communic
 	}, nil
 }
 func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (capabilities.UpdateResult[r4b.CommunicationRequest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CommunicationRequest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, err
 	}
@@ -5061,7 +6013,7 @@ func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4b.C
 	}
 	r, ok := v.(r4b.CommunicationRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, capabilities.InvalidResourceError{ResourceType: "CommunicationRequest"}
+		return capabilities.UpdateResult[r4b.CommunicationRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "CommunicationRequest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CommunicationRequest]{
 
@@ -5070,7 +6022,11 @@ func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4b.C
 	}, nil
 }
 func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (capabilities.UpdateResult[r4b.CompartmentDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CompartmentDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, err
 	}
@@ -5081,7 +6037,7 @@ func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.CompartmentDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, capabilities.InvalidResourceError{ResourceType: "CompartmentDefinition"}
+		return capabilities.UpdateResult[r4b.CompartmentDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "CompartmentDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CompartmentDefinition]{
 
@@ -5090,7 +6046,11 @@ func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4b.
 	}, nil
 }
 func (w Concrete) UpdateComposition(ctx context.Context, resource r4b.Composition) (capabilities.UpdateResult[r4b.Composition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Composition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Composition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Composition]{}, err
 	}
@@ -5101,7 +6061,7 @@ func (w Concrete) UpdateComposition(ctx context.Context, resource r4b.Compositio
 	}
 	r, ok := v.(r4b.Composition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Composition]{}, capabilities.InvalidResourceError{ResourceType: "Composition"}
+		return capabilities.UpdateResult[r4b.Composition]{}, capabilities.UnexpectedResourceError{ExpectedType: "Composition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Composition]{
 
@@ -5110,7 +6070,11 @@ func (w Concrete) UpdateComposition(ctx context.Context, resource r4b.Compositio
 	}, nil
 }
 func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap) (capabilities.UpdateResult[r4b.ConceptMap], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ConceptMap]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ConceptMap"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ConceptMap]{}, err
 	}
@@ -5121,7 +6085,7 @@ func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap)
 	}
 	r, ok := v.(r4b.ConceptMap)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ConceptMap]{}, capabilities.InvalidResourceError{ResourceType: "ConceptMap"}
+		return capabilities.UpdateResult[r4b.ConceptMap]{}, capabilities.UnexpectedResourceError{ExpectedType: "ConceptMap", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ConceptMap]{
 
@@ -5130,7 +6094,11 @@ func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4b.ConceptMap)
 	}, nil
 }
 func (w Concrete) UpdateCondition(ctx context.Context, resource r4b.Condition) (capabilities.UpdateResult[r4b.Condition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Condition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Condition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Condition]{}, err
 	}
@@ -5141,7 +6109,7 @@ func (w Concrete) UpdateCondition(ctx context.Context, resource r4b.Condition) (
 	}
 	r, ok := v.(r4b.Condition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Condition]{}, capabilities.InvalidResourceError{ResourceType: "Condition"}
+		return capabilities.UpdateResult[r4b.Condition]{}, capabilities.UnexpectedResourceError{ExpectedType: "Condition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Condition]{
 
@@ -5150,7 +6118,11 @@ func (w Concrete) UpdateCondition(ctx context.Context, resource r4b.Condition) (
 	}, nil
 }
 func (w Concrete) UpdateConsent(ctx context.Context, resource r4b.Consent) (capabilities.UpdateResult[r4b.Consent], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Consent]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Consent"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Consent]{}, err
 	}
@@ -5161,7 +6133,7 @@ func (w Concrete) UpdateConsent(ctx context.Context, resource r4b.Consent) (capa
 	}
 	r, ok := v.(r4b.Consent)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Consent]{}, capabilities.InvalidResourceError{ResourceType: "Consent"}
+		return capabilities.UpdateResult[r4b.Consent]{}, capabilities.UnexpectedResourceError{ExpectedType: "Consent", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Consent]{
 
@@ -5170,7 +6142,11 @@ func (w Concrete) UpdateConsent(ctx context.Context, resource r4b.Consent) (capa
 	}, nil
 }
 func (w Concrete) UpdateContract(ctx context.Context, resource r4b.Contract) (capabilities.UpdateResult[r4b.Contract], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Contract]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Contract"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Contract]{}, err
 	}
@@ -5181,7 +6157,7 @@ func (w Concrete) UpdateContract(ctx context.Context, resource r4b.Contract) (ca
 	}
 	r, ok := v.(r4b.Contract)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Contract]{}, capabilities.InvalidResourceError{ResourceType: "Contract"}
+		return capabilities.UpdateResult[r4b.Contract]{}, capabilities.UnexpectedResourceError{ExpectedType: "Contract", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Contract]{
 
@@ -5190,7 +6166,11 @@ func (w Concrete) UpdateContract(ctx context.Context, resource r4b.Contract) (ca
 	}, nil
 }
 func (w Concrete) UpdateCoverage(ctx context.Context, resource r4b.Coverage) (capabilities.UpdateResult[r4b.Coverage], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Coverage]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Coverage"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Coverage]{}, err
 	}
@@ -5201,7 +6181,7 @@ func (w Concrete) UpdateCoverage(ctx context.Context, resource r4b.Coverage) (ca
 	}
 	r, ok := v.(r4b.Coverage)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Coverage]{}, capabilities.InvalidResourceError{ResourceType: "Coverage"}
+		return capabilities.UpdateResult[r4b.Coverage]{}, capabilities.UnexpectedResourceError{ExpectedType: "Coverage", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Coverage]{
 
@@ -5210,7 +6190,11 @@ func (w Concrete) UpdateCoverage(ctx context.Context, resource r4b.Coverage) (ca
 	}, nil
 }
 func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (capabilities.UpdateResult[r4b.CoverageEligibilityRequest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CoverageEligibilityRequest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, err
 	}
@@ -5221,7 +6205,7 @@ func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.CoverageEligibilityRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityRequest"}
+		return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityRequest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CoverageEligibilityRequest]{
 
@@ -5230,7 +6214,11 @@ func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (capabilities.UpdateResult[r4b.CoverageEligibilityResponse], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "CoverageEligibilityResponse"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, err
 	}
@@ -5241,7 +6229,7 @@ func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resourc
 	}
 	r, ok := v.(r4b.CoverageEligibilityResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, capabilities.InvalidResourceError{ResourceType: "CoverageEligibilityResponse"}
+		return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "CoverageEligibilityResponse", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.CoverageEligibilityResponse]{
 
@@ -5250,7 +6238,11 @@ func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resourc
 	}, nil
 }
 func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (capabilities.UpdateResult[r4b.DetectedIssue], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DetectedIssue]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DetectedIssue"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DetectedIssue]{}, err
 	}
@@ -5261,7 +6253,7 @@ func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4b.Detected
 	}
 	r, ok := v.(r4b.DetectedIssue)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DetectedIssue]{}, capabilities.InvalidResourceError{ResourceType: "DetectedIssue"}
+		return capabilities.UpdateResult[r4b.DetectedIssue]{}, capabilities.UnexpectedResourceError{ExpectedType: "DetectedIssue", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DetectedIssue]{
 
@@ -5270,7 +6262,11 @@ func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4b.Detected
 	}, nil
 }
 func (w Concrete) UpdateDevice(ctx context.Context, resource r4b.Device) (capabilities.UpdateResult[r4b.Device], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Device]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Device"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Device]{}, err
 	}
@@ -5281,7 +6277,7 @@ func (w Concrete) UpdateDevice(ctx context.Context, resource r4b.Device) (capabi
 	}
 	r, ok := v.(r4b.Device)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Device]{}, capabilities.InvalidResourceError{ResourceType: "Device"}
+		return capabilities.UpdateResult[r4b.Device]{}, capabilities.UnexpectedResourceError{ExpectedType: "Device", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Device]{
 
@@ -5290,7 +6286,11 @@ func (w Concrete) UpdateDevice(ctx context.Context, resource r4b.Device) (capabi
 	}, nil
 }
 func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (capabilities.UpdateResult[r4b.DeviceDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, err
 	}
@@ -5301,7 +6301,7 @@ func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4b.Devic
 	}
 	r, ok := v.(r4b.DeviceDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, capabilities.InvalidResourceError{ResourceType: "DeviceDefinition"}
+		return capabilities.UpdateResult[r4b.DeviceDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DeviceDefinition]{
 
@@ -5310,7 +6310,11 @@ func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4b.Devic
 	}, nil
 }
 func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (capabilities.UpdateResult[r4b.DeviceMetric], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DeviceMetric]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceMetric"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DeviceMetric]{}, err
 	}
@@ -5321,7 +6325,7 @@ func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMet
 	}
 	r, ok := v.(r4b.DeviceMetric)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceMetric]{}, capabilities.InvalidResourceError{ResourceType: "DeviceMetric"}
+		return capabilities.UpdateResult[r4b.DeviceMetric]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceMetric", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DeviceMetric]{
 
@@ -5330,7 +6334,11 @@ func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4b.DeviceMet
 	}, nil
 }
 func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (capabilities.UpdateResult[r4b.DeviceRequest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DeviceRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceRequest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DeviceRequest]{}, err
 	}
@@ -5341,7 +6349,7 @@ func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRe
 	}
 	r, ok := v.(r4b.DeviceRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceRequest]{}, capabilities.InvalidResourceError{ResourceType: "DeviceRequest"}
+		return capabilities.UpdateResult[r4b.DeviceRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceRequest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DeviceRequest]{
 
@@ -5350,7 +6358,11 @@ func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4b.DeviceRe
 	}, nil
 }
 func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (capabilities.UpdateResult[r4b.DeviceUseStatement], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DeviceUseStatement"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, err
 	}
@@ -5361,7 +6373,7 @@ func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4b.Dev
 	}
 	r, ok := v.(r4b.DeviceUseStatement)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, capabilities.InvalidResourceError{ResourceType: "DeviceUseStatement"}
+		return capabilities.UpdateResult[r4b.DeviceUseStatement]{}, capabilities.UnexpectedResourceError{ExpectedType: "DeviceUseStatement", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DeviceUseStatement]{
 
@@ -5370,7 +6382,11 @@ func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4b.Dev
 	}, nil
 }
 func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (capabilities.UpdateResult[r4b.DiagnosticReport], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DiagnosticReport"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, err
 	}
@@ -5381,7 +6397,7 @@ func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4b.Diagn
 	}
 	r, ok := v.(r4b.DiagnosticReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, capabilities.InvalidResourceError{ResourceType: "DiagnosticReport"}
+		return capabilities.UpdateResult[r4b.DiagnosticReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "DiagnosticReport", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DiagnosticReport]{
 
@@ -5390,7 +6406,11 @@ func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4b.Diagn
 	}, nil
 }
 func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (capabilities.UpdateResult[r4b.DocumentManifest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DocumentManifest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DocumentManifest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DocumentManifest]{}, err
 	}
@@ -5401,7 +6421,7 @@ func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4b.Docum
 	}
 	r, ok := v.(r4b.DocumentManifest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DocumentManifest]{}, capabilities.InvalidResourceError{ResourceType: "DocumentManifest"}
+		return capabilities.UpdateResult[r4b.DocumentManifest]{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentManifest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DocumentManifest]{
 
@@ -5410,7 +6430,11 @@ func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4b.Docum
 	}, nil
 }
 func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (capabilities.UpdateResult[r4b.DocumentReference], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.DocumentReference]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "DocumentReference"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.DocumentReference]{}, err
 	}
@@ -5421,7 +6445,7 @@ func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4b.Docu
 	}
 	r, ok := v.(r4b.DocumentReference)
 	if !ok {
-		return capabilities.UpdateResult[r4b.DocumentReference]{}, capabilities.InvalidResourceError{ResourceType: "DocumentReference"}
+		return capabilities.UpdateResult[r4b.DocumentReference]{}, capabilities.UnexpectedResourceError{ExpectedType: "DocumentReference", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.DocumentReference]{
 
@@ -5430,7 +6454,11 @@ func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4b.Docu
 	}, nil
 }
 func (w Concrete) UpdateEncounter(ctx context.Context, resource r4b.Encounter) (capabilities.UpdateResult[r4b.Encounter], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Encounter]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Encounter"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Encounter]{}, err
 	}
@@ -5441,7 +6469,7 @@ func (w Concrete) UpdateEncounter(ctx context.Context, resource r4b.Encounter) (
 	}
 	r, ok := v.(r4b.Encounter)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Encounter]{}, capabilities.InvalidResourceError{ResourceType: "Encounter"}
+		return capabilities.UpdateResult[r4b.Encounter]{}, capabilities.UnexpectedResourceError{ExpectedType: "Encounter", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Encounter]{
 
@@ -5450,7 +6478,11 @@ func (w Concrete) UpdateEncounter(ctx context.Context, resource r4b.Encounter) (
 	}, nil
 }
 func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (capabilities.UpdateResult[r4b.Endpoint], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Endpoint]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Endpoint"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Endpoint]{}, err
 	}
@@ -5461,7 +6493,7 @@ func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (ca
 	}
 	r, ok := v.(r4b.Endpoint)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Endpoint]{}, capabilities.InvalidResourceError{ResourceType: "Endpoint"}
+		return capabilities.UpdateResult[r4b.Endpoint]{}, capabilities.UnexpectedResourceError{ExpectedType: "Endpoint", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Endpoint]{
 
@@ -5470,7 +6502,11 @@ func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4b.Endpoint) (ca
 	}, nil
 }
 func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (capabilities.UpdateResult[r4b.EnrollmentRequest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EnrollmentRequest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, err
 	}
@@ -5481,7 +6517,7 @@ func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4b.Enro
 	}
 	r, ok := v.(r4b.EnrollmentRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentRequest"}
+		return capabilities.UpdateResult[r4b.EnrollmentRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentRequest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.EnrollmentRequest]{
 
@@ -5490,7 +6526,11 @@ func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4b.Enro
 	}, nil
 }
 func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (capabilities.UpdateResult[r4b.EnrollmentResponse], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EnrollmentResponse"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, err
 	}
@@ -5501,7 +6541,7 @@ func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4b.Enr
 	}
 	r, ok := v.(r4b.EnrollmentResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, capabilities.InvalidResourceError{ResourceType: "EnrollmentResponse"}
+		return capabilities.UpdateResult[r4b.EnrollmentResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "EnrollmentResponse", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.EnrollmentResponse]{
 
@@ -5510,7 +6550,11 @@ func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4b.Enr
 	}, nil
 }
 func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (capabilities.UpdateResult[r4b.EpisodeOfCare], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EpisodeOfCare"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, err
 	}
@@ -5521,7 +6565,7 @@ func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeO
 	}
 	r, ok := v.(r4b.EpisodeOfCare)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, capabilities.InvalidResourceError{ResourceType: "EpisodeOfCare"}
+		return capabilities.UpdateResult[r4b.EpisodeOfCare]{}, capabilities.UnexpectedResourceError{ExpectedType: "EpisodeOfCare", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.EpisodeOfCare]{
 
@@ -5530,7 +6574,11 @@ func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeO
 	}, nil
 }
 func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (capabilities.UpdateResult[r4b.EventDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.EventDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EventDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.EventDefinition]{}, err
 	}
@@ -5541,7 +6589,7 @@ func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4b.EventD
 	}
 	r, ok := v.(r4b.EventDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EventDefinition]{}, capabilities.InvalidResourceError{ResourceType: "EventDefinition"}
+		return capabilities.UpdateResult[r4b.EventDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "EventDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.EventDefinition]{
 
@@ -5550,7 +6598,11 @@ func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4b.EventD
 	}, nil
 }
 func (w Concrete) UpdateEvidence(ctx context.Context, resource r4b.Evidence) (capabilities.UpdateResult[r4b.Evidence], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Evidence]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Evidence"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Evidence]{}, err
 	}
@@ -5561,7 +6613,7 @@ func (w Concrete) UpdateEvidence(ctx context.Context, resource r4b.Evidence) (ca
 	}
 	r, ok := v.(r4b.Evidence)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Evidence]{}, capabilities.InvalidResourceError{ResourceType: "Evidence"}
+		return capabilities.UpdateResult[r4b.Evidence]{}, capabilities.UnexpectedResourceError{ExpectedType: "Evidence", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Evidence]{
 
@@ -5570,7 +6622,11 @@ func (w Concrete) UpdateEvidence(ctx context.Context, resource r4b.Evidence) (ca
 	}, nil
 }
 func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (capabilities.UpdateResult[r4b.EvidenceReport], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.EvidenceReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EvidenceReport"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.EvidenceReport]{}, err
 	}
@@ -5581,7 +6637,7 @@ func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r4b.Evidenc
 	}
 	r, ok := v.(r4b.EvidenceReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EvidenceReport]{}, capabilities.InvalidResourceError{ResourceType: "EvidenceReport"}
+		return capabilities.UpdateResult[r4b.EvidenceReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceReport", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.EvidenceReport]{
 
@@ -5590,7 +6646,11 @@ func (w Concrete) UpdateEvidenceReport(ctx context.Context, resource r4b.Evidenc
 	}, nil
 }
 func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (capabilities.UpdateResult[r4b.EvidenceVariable], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "EvidenceVariable"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, err
 	}
@@ -5601,7 +6661,7 @@ func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4b.Evide
 	}
 	r, ok := v.(r4b.EvidenceVariable)
 	if !ok {
-		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, capabilities.InvalidResourceError{ResourceType: "EvidenceVariable"}
+		return capabilities.UpdateResult[r4b.EvidenceVariable]{}, capabilities.UnexpectedResourceError{ExpectedType: "EvidenceVariable", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.EvidenceVariable]{
 
@@ -5610,7 +6670,11 @@ func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4b.Evide
 	}, nil
 }
 func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (capabilities.UpdateResult[r4b.ExampleScenario], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ExampleScenario]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ExampleScenario"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ExampleScenario]{}, err
 	}
@@ -5621,7 +6685,7 @@ func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4b.Exampl
 	}
 	r, ok := v.(r4b.ExampleScenario)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ExampleScenario]{}, capabilities.InvalidResourceError{ResourceType: "ExampleScenario"}
+		return capabilities.UpdateResult[r4b.ExampleScenario]{}, capabilities.UnexpectedResourceError{ExpectedType: "ExampleScenario", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ExampleScenario]{
 
@@ -5630,7 +6694,11 @@ func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4b.Exampl
 	}, nil
 }
 func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (capabilities.UpdateResult[r4b.ExplanationOfBenefit], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ExplanationOfBenefit"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, err
 	}
@@ -5641,7 +6709,7 @@ func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4b.E
 	}
 	r, ok := v.(r4b.ExplanationOfBenefit)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, capabilities.InvalidResourceError{ResourceType: "ExplanationOfBenefit"}
+		return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{}, capabilities.UnexpectedResourceError{ExpectedType: "ExplanationOfBenefit", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ExplanationOfBenefit]{
 
@@ -5650,7 +6718,11 @@ func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4b.E
 	}, nil
 }
 func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (capabilities.UpdateResult[r4b.FamilyMemberHistory], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "FamilyMemberHistory"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, err
 	}
@@ -5661,7 +6733,7 @@ func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4b.Fa
 	}
 	r, ok := v.(r4b.FamilyMemberHistory)
 	if !ok {
-		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, capabilities.InvalidResourceError{ResourceType: "FamilyMemberHistory"}
+		return capabilities.UpdateResult[r4b.FamilyMemberHistory]{}, capabilities.UnexpectedResourceError{ExpectedType: "FamilyMemberHistory", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.FamilyMemberHistory]{
 
@@ -5670,7 +6742,11 @@ func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4b.Fa
 	}, nil
 }
 func (w Concrete) UpdateFlag(ctx context.Context, resource r4b.Flag) (capabilities.UpdateResult[r4b.Flag], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Flag]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Flag"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Flag]{}, err
 	}
@@ -5681,7 +6757,7 @@ func (w Concrete) UpdateFlag(ctx context.Context, resource r4b.Flag) (capabiliti
 	}
 	r, ok := v.(r4b.Flag)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Flag]{}, capabilities.InvalidResourceError{ResourceType: "Flag"}
+		return capabilities.UpdateResult[r4b.Flag]{}, capabilities.UnexpectedResourceError{ExpectedType: "Flag", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Flag]{
 
@@ -5690,7 +6766,11 @@ func (w Concrete) UpdateFlag(ctx context.Context, resource r4b.Flag) (capabiliti
 	}, nil
 }
 func (w Concrete) UpdateGoal(ctx context.Context, resource r4b.Goal) (capabilities.UpdateResult[r4b.Goal], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Goal]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Goal"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Goal]{}, err
 	}
@@ -5701,7 +6781,7 @@ func (w Concrete) UpdateGoal(ctx context.Context, resource r4b.Goal) (capabiliti
 	}
 	r, ok := v.(r4b.Goal)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Goal]{}, capabilities.InvalidResourceError{ResourceType: "Goal"}
+		return capabilities.UpdateResult[r4b.Goal]{}, capabilities.UnexpectedResourceError{ExpectedType: "Goal", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Goal]{
 
@@ -5710,7 +6790,11 @@ func (w Concrete) UpdateGoal(ctx context.Context, resource r4b.Goal) (capabiliti
 	}, nil
 }
 func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (capabilities.UpdateResult[r4b.GraphDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.GraphDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "GraphDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.GraphDefinition]{}, err
 	}
@@ -5721,7 +6805,7 @@ func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4b.GraphD
 	}
 	r, ok := v.(r4b.GraphDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.GraphDefinition]{}, capabilities.InvalidResourceError{ResourceType: "GraphDefinition"}
+		return capabilities.UpdateResult[r4b.GraphDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "GraphDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.GraphDefinition]{
 
@@ -5730,7 +6814,11 @@ func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4b.GraphD
 	}, nil
 }
 func (w Concrete) UpdateGroup(ctx context.Context, resource r4b.Group) (capabilities.UpdateResult[r4b.Group], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Group]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Group"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Group]{}, err
 	}
@@ -5741,7 +6829,7 @@ func (w Concrete) UpdateGroup(ctx context.Context, resource r4b.Group) (capabili
 	}
 	r, ok := v.(r4b.Group)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Group]{}, capabilities.InvalidResourceError{ResourceType: "Group"}
+		return capabilities.UpdateResult[r4b.Group]{}, capabilities.UnexpectedResourceError{ExpectedType: "Group", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Group]{
 
@@ -5750,7 +6838,11 @@ func (w Concrete) UpdateGroup(ctx context.Context, resource r4b.Group) (capabili
 	}, nil
 }
 func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (capabilities.UpdateResult[r4b.GuidanceResponse], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "GuidanceResponse"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, err
 	}
@@ -5761,7 +6853,7 @@ func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4b.Guida
 	}
 	r, ok := v.(r4b.GuidanceResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, capabilities.InvalidResourceError{ResourceType: "GuidanceResponse"}
+		return capabilities.UpdateResult[r4b.GuidanceResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "GuidanceResponse", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.GuidanceResponse]{
 
@@ -5770,7 +6862,11 @@ func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4b.Guida
 	}, nil
 }
 func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (capabilities.UpdateResult[r4b.HealthcareService], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.HealthcareService]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "HealthcareService"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.HealthcareService]{}, err
 	}
@@ -5781,7 +6877,7 @@ func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4b.Heal
 	}
 	r, ok := v.(r4b.HealthcareService)
 	if !ok {
-		return capabilities.UpdateResult[r4b.HealthcareService]{}, capabilities.InvalidResourceError{ResourceType: "HealthcareService"}
+		return capabilities.UpdateResult[r4b.HealthcareService]{}, capabilities.UnexpectedResourceError{ExpectedType: "HealthcareService", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.HealthcareService]{
 
@@ -5790,7 +6886,11 @@ func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4b.Heal
 	}, nil
 }
 func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (capabilities.UpdateResult[r4b.ImagingStudy], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ImagingStudy]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImagingStudy"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ImagingStudy]{}, err
 	}
@@ -5801,7 +6901,7 @@ func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4b.ImagingSt
 	}
 	r, ok := v.(r4b.ImagingStudy)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImagingStudy]{}, capabilities.InvalidResourceError{ResourceType: "ImagingStudy"}
+		return capabilities.UpdateResult[r4b.ImagingStudy]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImagingStudy", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ImagingStudy]{
 
@@ -5810,7 +6910,11 @@ func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4b.ImagingSt
 	}, nil
 }
 func (w Concrete) UpdateImmunization(ctx context.Context, resource r4b.Immunization) (capabilities.UpdateResult[r4b.Immunization], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Immunization]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Immunization"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Immunization]{}, err
 	}
@@ -5821,7 +6925,7 @@ func (w Concrete) UpdateImmunization(ctx context.Context, resource r4b.Immunizat
 	}
 	r, ok := v.(r4b.Immunization)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Immunization]{}, capabilities.InvalidResourceError{ResourceType: "Immunization"}
+		return capabilities.UpdateResult[r4b.Immunization]{}, capabilities.UnexpectedResourceError{ExpectedType: "Immunization", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Immunization]{
 
@@ -5830,7 +6934,11 @@ func (w Concrete) UpdateImmunization(ctx context.Context, resource r4b.Immunizat
 	}, nil
 }
 func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (capabilities.UpdateResult[r4b.ImmunizationEvaluation], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImmunizationEvaluation"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, err
 	}
@@ -5841,7 +6949,7 @@ func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.ImmunizationEvaluation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationEvaluation"}
+		return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationEvaluation", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ImmunizationEvaluation]{
 
@@ -5850,7 +6958,11 @@ func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4b
 	}, nil
 }
 func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (capabilities.UpdateResult[r4b.ImmunizationRecommendation], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImmunizationRecommendation"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, err
 	}
@@ -5861,7 +6973,7 @@ func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ImmunizationRecommendation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, capabilities.InvalidResourceError{ResourceType: "ImmunizationRecommendation"}
+		return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImmunizationRecommendation", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ImmunizationRecommendation]{
 
@@ -5870,7 +6982,11 @@ func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (capabilities.UpdateResult[r4b.ImplementationGuide], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ImplementationGuide"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, err
 	}
@@ -5881,7 +6997,7 @@ func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4b.Im
 	}
 	r, ok := v.(r4b.ImplementationGuide)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, capabilities.InvalidResourceError{ResourceType: "ImplementationGuide"}
+		return capabilities.UpdateResult[r4b.ImplementationGuide]{}, capabilities.UnexpectedResourceError{ExpectedType: "ImplementationGuide", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ImplementationGuide]{
 
@@ -5890,7 +7006,11 @@ func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4b.Im
 	}, nil
 }
 func (w Concrete) UpdateIngredient(ctx context.Context, resource r4b.Ingredient) (capabilities.UpdateResult[r4b.Ingredient], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Ingredient]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Ingredient"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Ingredient]{}, err
 	}
@@ -5901,7 +7021,7 @@ func (w Concrete) UpdateIngredient(ctx context.Context, resource r4b.Ingredient)
 	}
 	r, ok := v.(r4b.Ingredient)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Ingredient]{}, capabilities.InvalidResourceError{ResourceType: "Ingredient"}
+		return capabilities.UpdateResult[r4b.Ingredient]{}, capabilities.UnexpectedResourceError{ExpectedType: "Ingredient", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Ingredient]{
 
@@ -5910,7 +7030,11 @@ func (w Concrete) UpdateIngredient(ctx context.Context, resource r4b.Ingredient)
 	}, nil
 }
 func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (capabilities.UpdateResult[r4b.InsurancePlan], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.InsurancePlan]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "InsurancePlan"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.InsurancePlan]{}, err
 	}
@@ -5921,7 +7045,7 @@ func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4b.Insuranc
 	}
 	r, ok := v.(r4b.InsurancePlan)
 	if !ok {
-		return capabilities.UpdateResult[r4b.InsurancePlan]{}, capabilities.InvalidResourceError{ResourceType: "InsurancePlan"}
+		return capabilities.UpdateResult[r4b.InsurancePlan]{}, capabilities.UnexpectedResourceError{ExpectedType: "InsurancePlan", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.InsurancePlan]{
 
@@ -5930,7 +7054,11 @@ func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4b.Insuranc
 	}, nil
 }
 func (w Concrete) UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capabilities.UpdateResult[r4b.Invoice], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Invoice]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Invoice"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Invoice]{}, err
 	}
@@ -5941,7 +7069,7 @@ func (w Concrete) UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capa
 	}
 	r, ok := v.(r4b.Invoice)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Invoice]{}, capabilities.InvalidResourceError{ResourceType: "Invoice"}
+		return capabilities.UpdateResult[r4b.Invoice]{}, capabilities.UnexpectedResourceError{ExpectedType: "Invoice", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Invoice]{
 
@@ -5950,7 +7078,11 @@ func (w Concrete) UpdateInvoice(ctx context.Context, resource r4b.Invoice) (capa
 	}, nil
 }
 func (w Concrete) UpdateLibrary(ctx context.Context, resource r4b.Library) (capabilities.UpdateResult[r4b.Library], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Library]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Library"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Library]{}, err
 	}
@@ -5961,7 +7093,7 @@ func (w Concrete) UpdateLibrary(ctx context.Context, resource r4b.Library) (capa
 	}
 	r, ok := v.(r4b.Library)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Library]{}, capabilities.InvalidResourceError{ResourceType: "Library"}
+		return capabilities.UpdateResult[r4b.Library]{}, capabilities.UnexpectedResourceError{ExpectedType: "Library", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Library]{
 
@@ -5970,7 +7102,11 @@ func (w Concrete) UpdateLibrary(ctx context.Context, resource r4b.Library) (capa
 	}, nil
 }
 func (w Concrete) UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capabilities.UpdateResult[r4b.Linkage], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Linkage]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Linkage"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Linkage]{}, err
 	}
@@ -5981,7 +7117,7 @@ func (w Concrete) UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capa
 	}
 	r, ok := v.(r4b.Linkage)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Linkage]{}, capabilities.InvalidResourceError{ResourceType: "Linkage"}
+		return capabilities.UpdateResult[r4b.Linkage]{}, capabilities.UnexpectedResourceError{ExpectedType: "Linkage", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Linkage]{
 
@@ -5990,7 +7126,11 @@ func (w Concrete) UpdateLinkage(ctx context.Context, resource r4b.Linkage) (capa
 	}, nil
 }
 func (w Concrete) UpdateList(ctx context.Context, resource r4b.List) (capabilities.UpdateResult[r4b.List], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.List]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "List"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.List]{}, err
 	}
@@ -6001,7 +7141,7 @@ func (w Concrete) UpdateList(ctx context.Context, resource r4b.List) (capabiliti
 	}
 	r, ok := v.(r4b.List)
 	if !ok {
-		return capabilities.UpdateResult[r4b.List]{}, capabilities.InvalidResourceError{ResourceType: "List"}
+		return capabilities.UpdateResult[r4b.List]{}, capabilities.UnexpectedResourceError{ExpectedType: "List", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.List]{
 
@@ -6010,7 +7150,11 @@ func (w Concrete) UpdateList(ctx context.Context, resource r4b.List) (capabiliti
 	}, nil
 }
 func (w Concrete) UpdateLocation(ctx context.Context, resource r4b.Location) (capabilities.UpdateResult[r4b.Location], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Location]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Location"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Location]{}, err
 	}
@@ -6021,7 +7165,7 @@ func (w Concrete) UpdateLocation(ctx context.Context, resource r4b.Location) (ca
 	}
 	r, ok := v.(r4b.Location)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Location]{}, capabilities.InvalidResourceError{ResourceType: "Location"}
+		return capabilities.UpdateResult[r4b.Location]{}, capabilities.UnexpectedResourceError{ExpectedType: "Location", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Location]{
 
@@ -6030,7 +7174,11 @@ func (w Concrete) UpdateLocation(ctx context.Context, resource r4b.Location) (ca
 	}, nil
 }
 func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (capabilities.UpdateResult[r4b.ManufacturedItemDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ManufacturedItemDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, err
 	}
@@ -6041,7 +7189,7 @@ func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.ManufacturedItemDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ManufacturedItemDefinition"}
+		return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ManufacturedItemDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ManufacturedItemDefinition]{
 
@@ -6050,7 +7198,11 @@ func (w Concrete) UpdateManufacturedItemDefinition(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateMeasure(ctx context.Context, resource r4b.Measure) (capabilities.UpdateResult[r4b.Measure], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Measure]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Measure"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Measure]{}, err
 	}
@@ -6061,7 +7213,7 @@ func (w Concrete) UpdateMeasure(ctx context.Context, resource r4b.Measure) (capa
 	}
 	r, ok := v.(r4b.Measure)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Measure]{}, capabilities.InvalidResourceError{ResourceType: "Measure"}
+		return capabilities.UpdateResult[r4b.Measure]{}, capabilities.UnexpectedResourceError{ExpectedType: "Measure", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Measure]{
 
@@ -6070,7 +7222,11 @@ func (w Concrete) UpdateMeasure(ctx context.Context, resource r4b.Measure) (capa
 	}, nil
 }
 func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (capabilities.UpdateResult[r4b.MeasureReport], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MeasureReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MeasureReport"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MeasureReport]{}, err
 	}
@@ -6081,7 +7237,7 @@ func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4b.MeasureR
 	}
 	r, ok := v.(r4b.MeasureReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MeasureReport]{}, capabilities.InvalidResourceError{ResourceType: "MeasureReport"}
+		return capabilities.UpdateResult[r4b.MeasureReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "MeasureReport", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MeasureReport]{
 
@@ -6090,7 +7246,11 @@ func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4b.MeasureR
 	}, nil
 }
 func (w Concrete) UpdateMedia(ctx context.Context, resource r4b.Media) (capabilities.UpdateResult[r4b.Media], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Media]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Media"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Media]{}, err
 	}
@@ -6101,7 +7261,7 @@ func (w Concrete) UpdateMedia(ctx context.Context, resource r4b.Media) (capabili
 	}
 	r, ok := v.(r4b.Media)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Media]{}, capabilities.InvalidResourceError{ResourceType: "Media"}
+		return capabilities.UpdateResult[r4b.Media]{}, capabilities.UnexpectedResourceError{ExpectedType: "Media", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Media]{
 
@@ -6110,7 +7270,11 @@ func (w Concrete) UpdateMedia(ctx context.Context, resource r4b.Media) (capabili
 	}, nil
 }
 func (w Concrete) UpdateMedication(ctx context.Context, resource r4b.Medication) (capabilities.UpdateResult[r4b.Medication], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Medication]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Medication"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Medication]{}, err
 	}
@@ -6121,7 +7285,7 @@ func (w Concrete) UpdateMedication(ctx context.Context, resource r4b.Medication)
 	}
 	r, ok := v.(r4b.Medication)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Medication]{}, capabilities.InvalidResourceError{ResourceType: "Medication"}
+		return capabilities.UpdateResult[r4b.Medication]{}, capabilities.UnexpectedResourceError{ExpectedType: "Medication", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Medication]{
 
@@ -6130,7 +7294,11 @@ func (w Concrete) UpdateMedication(ctx context.Context, resource r4b.Medication)
 	}, nil
 }
 func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (capabilities.UpdateResult[r4b.MedicationAdministration], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationAdministration"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, err
 	}
@@ -6141,7 +7309,7 @@ func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r
 	}
 	r, ok := v.(r4b.MedicationAdministration)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, capabilities.InvalidResourceError{ResourceType: "MedicationAdministration"}
+		return capabilities.UpdateResult[r4b.MedicationAdministration]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationAdministration", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MedicationAdministration]{
 
@@ -6150,7 +7318,11 @@ func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r
 	}, nil
 }
 func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (capabilities.UpdateResult[r4b.MedicationDispense], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MedicationDispense]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationDispense"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MedicationDispense]{}, err
 	}
@@ -6161,7 +7333,7 @@ func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4b.Med
 	}
 	r, ok := v.(r4b.MedicationDispense)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationDispense]{}, capabilities.InvalidResourceError{ResourceType: "MedicationDispense"}
+		return capabilities.UpdateResult[r4b.MedicationDispense]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationDispense", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MedicationDispense]{
 
@@ -6170,7 +7342,11 @@ func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4b.Med
 	}, nil
 }
 func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (capabilities.UpdateResult[r4b.MedicationKnowledge], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationKnowledge"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, err
 	}
@@ -6181,7 +7357,7 @@ func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationKnowledge)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, capabilities.InvalidResourceError{ResourceType: "MedicationKnowledge"}
+		return capabilities.UpdateResult[r4b.MedicationKnowledge]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationKnowledge", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MedicationKnowledge]{
 
@@ -6190,7 +7366,11 @@ func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4b.Me
 	}, nil
 }
 func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (capabilities.UpdateResult[r4b.MedicationRequest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MedicationRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationRequest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MedicationRequest]{}, err
 	}
@@ -6201,7 +7381,7 @@ func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4b.Medi
 	}
 	r, ok := v.(r4b.MedicationRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationRequest]{}, capabilities.InvalidResourceError{ResourceType: "MedicationRequest"}
+		return capabilities.UpdateResult[r4b.MedicationRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationRequest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MedicationRequest]{
 
@@ -6210,7 +7390,11 @@ func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4b.Medi
 	}, nil
 }
 func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (capabilities.UpdateResult[r4b.MedicationStatement], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MedicationStatement]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicationStatement"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MedicationStatement]{}, err
 	}
@@ -6221,7 +7405,7 @@ func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4b.Me
 	}
 	r, ok := v.(r4b.MedicationStatement)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicationStatement]{}, capabilities.InvalidResourceError{ResourceType: "MedicationStatement"}
+		return capabilities.UpdateResult[r4b.MedicationStatement]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicationStatement", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MedicationStatement]{
 
@@ -6230,7 +7414,11 @@ func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4b.Me
 	}, nil
 }
 func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (capabilities.UpdateResult[r4b.MedicinalProductDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MedicinalProductDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, err
 	}
@@ -6241,7 +7429,7 @@ func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource
 	}
 	r, ok := v.(r4b.MedicinalProductDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, capabilities.InvalidResourceError{ResourceType: "MedicinalProductDefinition"}
+		return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "MedicinalProductDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MedicinalProductDefinition]{
 
@@ -6250,7 +7438,11 @@ func (w Concrete) UpdateMedicinalProductDefinition(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (capabilities.UpdateResult[r4b.MessageDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MessageDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MessageDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MessageDefinition]{}, err
 	}
@@ -6261,7 +7453,7 @@ func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4b.Mess
 	}
 	r, ok := v.(r4b.MessageDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MessageDefinition]{}, capabilities.InvalidResourceError{ResourceType: "MessageDefinition"}
+		return capabilities.UpdateResult[r4b.MessageDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MessageDefinition]{
 
@@ -6270,7 +7462,11 @@ func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4b.Mess
 	}, nil
 }
 func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (capabilities.UpdateResult[r4b.MessageHeader], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MessageHeader]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MessageHeader"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MessageHeader]{}, err
 	}
@@ -6281,7 +7477,7 @@ func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4b.MessageH
 	}
 	r, ok := v.(r4b.MessageHeader)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MessageHeader]{}, capabilities.InvalidResourceError{ResourceType: "MessageHeader"}
+		return capabilities.UpdateResult[r4b.MessageHeader]{}, capabilities.UnexpectedResourceError{ExpectedType: "MessageHeader", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MessageHeader]{
 
@@ -6290,7 +7486,11 @@ func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4b.MessageH
 	}, nil
 }
 func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (capabilities.UpdateResult[r4b.MolecularSequence], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.MolecularSequence]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "MolecularSequence"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.MolecularSequence]{}, err
 	}
@@ -6301,7 +7501,7 @@ func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4b.Mole
 	}
 	r, ok := v.(r4b.MolecularSequence)
 	if !ok {
-		return capabilities.UpdateResult[r4b.MolecularSequence]{}, capabilities.InvalidResourceError{ResourceType: "MolecularSequence"}
+		return capabilities.UpdateResult[r4b.MolecularSequence]{}, capabilities.UnexpectedResourceError{ExpectedType: "MolecularSequence", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.MolecularSequence]{
 
@@ -6310,7 +7510,11 @@ func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4b.Mole
 	}, nil
 }
 func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (capabilities.UpdateResult[r4b.NamingSystem], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.NamingSystem]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NamingSystem"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.NamingSystem]{}, err
 	}
@@ -6321,7 +7525,7 @@ func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4b.NamingSys
 	}
 	r, ok := v.(r4b.NamingSystem)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NamingSystem]{}, capabilities.InvalidResourceError{ResourceType: "NamingSystem"}
+		return capabilities.UpdateResult[r4b.NamingSystem]{}, capabilities.UnexpectedResourceError{ExpectedType: "NamingSystem", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.NamingSystem]{
 
@@ -6330,7 +7534,11 @@ func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4b.NamingSys
 	}, nil
 }
 func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (capabilities.UpdateResult[r4b.NutritionOrder], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.NutritionOrder]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NutritionOrder"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.NutritionOrder]{}, err
 	}
@@ -6341,7 +7549,7 @@ func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4b.Nutriti
 	}
 	r, ok := v.(r4b.NutritionOrder)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NutritionOrder]{}, capabilities.InvalidResourceError{ResourceType: "NutritionOrder"}
+		return capabilities.UpdateResult[r4b.NutritionOrder]{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionOrder", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.NutritionOrder]{
 
@@ -6350,7 +7558,11 @@ func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4b.Nutriti
 	}, nil
 }
 func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (capabilities.UpdateResult[r4b.NutritionProduct], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.NutritionProduct]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "NutritionProduct"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.NutritionProduct]{}, err
 	}
@@ -6361,7 +7573,7 @@ func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r4b.Nutri
 	}
 	r, ok := v.(r4b.NutritionProduct)
 	if !ok {
-		return capabilities.UpdateResult[r4b.NutritionProduct]{}, capabilities.InvalidResourceError{ResourceType: "NutritionProduct"}
+		return capabilities.UpdateResult[r4b.NutritionProduct]{}, capabilities.UnexpectedResourceError{ExpectedType: "NutritionProduct", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.NutritionProduct]{
 
@@ -6370,7 +7582,11 @@ func (w Concrete) UpdateNutritionProduct(ctx context.Context, resource r4b.Nutri
 	}, nil
 }
 func (w Concrete) UpdateObservation(ctx context.Context, resource r4b.Observation) (capabilities.UpdateResult[r4b.Observation], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Observation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Observation"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Observation]{}, err
 	}
@@ -6381,7 +7597,7 @@ func (w Concrete) UpdateObservation(ctx context.Context, resource r4b.Observatio
 	}
 	r, ok := v.(r4b.Observation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Observation]{}, capabilities.InvalidResourceError{ResourceType: "Observation"}
+		return capabilities.UpdateResult[r4b.Observation]{}, capabilities.UnexpectedResourceError{ExpectedType: "Observation", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Observation]{
 
@@ -6390,7 +7606,11 @@ func (w Concrete) UpdateObservation(ctx context.Context, resource r4b.Observatio
 	}, nil
 }
 func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (capabilities.UpdateResult[r4b.ObservationDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ObservationDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, err
 	}
@@ -6401,7 +7621,7 @@ func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.ObservationDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ObservationDefinition"}
+		return capabilities.UpdateResult[r4b.ObservationDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ObservationDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ObservationDefinition]{
 
@@ -6410,7 +7630,11 @@ func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4b.
 	}, nil
 }
 func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (capabilities.UpdateResult[r4b.OperationDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.OperationDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OperationDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.OperationDefinition]{}, err
 	}
@@ -6421,7 +7645,7 @@ func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4b.Op
 	}
 	r, ok := v.(r4b.OperationDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OperationDefinition]{}, capabilities.InvalidResourceError{ResourceType: "OperationDefinition"}
+		return capabilities.UpdateResult[r4b.OperationDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.OperationDefinition]{
 
@@ -6430,7 +7654,11 @@ func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4b.Op
 	}, nil
 }
 func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (capabilities.UpdateResult[r4b.OperationOutcome], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.OperationOutcome]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OperationOutcome"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.OperationOutcome]{}, err
 	}
@@ -6441,7 +7669,7 @@ func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4b.Opera
 	}
 	r, ok := v.(r4b.OperationOutcome)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OperationOutcome]{}, capabilities.InvalidResourceError{ResourceType: "OperationOutcome"}
+		return capabilities.UpdateResult[r4b.OperationOutcome]{}, capabilities.UnexpectedResourceError{ExpectedType: "OperationOutcome", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.OperationOutcome]{
 
@@ -6450,7 +7678,11 @@ func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4b.Opera
 	}, nil
 }
 func (w Concrete) UpdateOrganization(ctx context.Context, resource r4b.Organization) (capabilities.UpdateResult[r4b.Organization], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Organization]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Organization"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Organization]{}, err
 	}
@@ -6461,7 +7693,7 @@ func (w Concrete) UpdateOrganization(ctx context.Context, resource r4b.Organizat
 	}
 	r, ok := v.(r4b.Organization)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Organization]{}, capabilities.InvalidResourceError{ResourceType: "Organization"}
+		return capabilities.UpdateResult[r4b.Organization]{}, capabilities.UnexpectedResourceError{ExpectedType: "Organization", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Organization]{
 
@@ -6470,7 +7702,11 @@ func (w Concrete) UpdateOrganization(ctx context.Context, resource r4b.Organizat
 	}, nil
 }
 func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (capabilities.UpdateResult[r4b.OrganizationAffiliation], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "OrganizationAffiliation"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, err
 	}
@@ -6481,7 +7717,7 @@ func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.OrganizationAffiliation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, capabilities.InvalidResourceError{ResourceType: "OrganizationAffiliation"}
+		return capabilities.UpdateResult[r4b.OrganizationAffiliation]{}, capabilities.UnexpectedResourceError{ExpectedType: "OrganizationAffiliation", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.OrganizationAffiliation]{
 
@@ -6490,7 +7726,11 @@ func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4
 	}, nil
 }
 func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (capabilities.UpdateResult[r4b.PackagedProductDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PackagedProductDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, err
 	}
@@ -6501,7 +7741,7 @@ func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.PackagedProductDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, capabilities.InvalidResourceError{ResourceType: "PackagedProductDefinition"}
+		return capabilities.UpdateResult[r4b.PackagedProductDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "PackagedProductDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.PackagedProductDefinition]{
 
@@ -6510,7 +7750,11 @@ func (w Concrete) UpdatePackagedProductDefinition(ctx context.Context, resource 
 	}, nil
 }
 func (w Concrete) UpdateParameters(ctx context.Context, resource r4b.Parameters) (capabilities.UpdateResult[r4b.Parameters], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Parameters]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Parameters"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Parameters]{}, err
 	}
@@ -6521,7 +7765,7 @@ func (w Concrete) UpdateParameters(ctx context.Context, resource r4b.Parameters)
 	}
 	r, ok := v.(r4b.Parameters)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Parameters]{}, capabilities.InvalidResourceError{ResourceType: "Parameters"}
+		return capabilities.UpdateResult[r4b.Parameters]{}, capabilities.UnexpectedResourceError{ExpectedType: "Parameters", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Parameters]{
 
@@ -6530,7 +7774,11 @@ func (w Concrete) UpdateParameters(ctx context.Context, resource r4b.Parameters)
 	}, nil
 }
 func (w Concrete) UpdatePatient(ctx context.Context, resource r4b.Patient) (capabilities.UpdateResult[r4b.Patient], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Patient]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Patient"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Patient]{}, err
 	}
@@ -6541,7 +7789,7 @@ func (w Concrete) UpdatePatient(ctx context.Context, resource r4b.Patient) (capa
 	}
 	r, ok := v.(r4b.Patient)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Patient]{}, capabilities.InvalidResourceError{ResourceType: "Patient"}
+		return capabilities.UpdateResult[r4b.Patient]{}, capabilities.UnexpectedResourceError{ExpectedType: "Patient", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Patient]{
 
@@ -6550,7 +7798,11 @@ func (w Concrete) UpdatePatient(ctx context.Context, resource r4b.Patient) (capa
 	}, nil
 }
 func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (capabilities.UpdateResult[r4b.PaymentNotice], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.PaymentNotice]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PaymentNotice"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.PaymentNotice]{}, err
 	}
@@ -6561,7 +7813,7 @@ func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentN
 	}
 	r, ok := v.(r4b.PaymentNotice)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PaymentNotice]{}, capabilities.InvalidResourceError{ResourceType: "PaymentNotice"}
+		return capabilities.UpdateResult[r4b.PaymentNotice]{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentNotice", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.PaymentNotice]{
 
@@ -6570,7 +7822,11 @@ func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4b.PaymentN
 	}, nil
 }
 func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (capabilities.UpdateResult[r4b.PaymentReconciliation], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PaymentReconciliation"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, err
 	}
@@ -6581,7 +7837,7 @@ func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.PaymentReconciliation)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, capabilities.InvalidResourceError{ResourceType: "PaymentReconciliation"}
+		return capabilities.UpdateResult[r4b.PaymentReconciliation]{}, capabilities.UnexpectedResourceError{ExpectedType: "PaymentReconciliation", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.PaymentReconciliation]{
 
@@ -6590,7 +7846,11 @@ func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4b.
 	}, nil
 }
 func (w Concrete) UpdatePerson(ctx context.Context, resource r4b.Person) (capabilities.UpdateResult[r4b.Person], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Person]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Person"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Person]{}, err
 	}
@@ -6601,7 +7861,7 @@ func (w Concrete) UpdatePerson(ctx context.Context, resource r4b.Person) (capabi
 	}
 	r, ok := v.(r4b.Person)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Person]{}, capabilities.InvalidResourceError{ResourceType: "Person"}
+		return capabilities.UpdateResult[r4b.Person]{}, capabilities.UnexpectedResourceError{ExpectedType: "Person", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Person]{
 
@@ -6610,7 +7870,11 @@ func (w Concrete) UpdatePerson(ctx context.Context, resource r4b.Person) (capabi
 	}, nil
 }
 func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (capabilities.UpdateResult[r4b.PlanDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.PlanDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PlanDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.PlanDefinition]{}, err
 	}
@@ -6621,7 +7885,7 @@ func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDef
 	}
 	r, ok := v.(r4b.PlanDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PlanDefinition]{}, capabilities.InvalidResourceError{ResourceType: "PlanDefinition"}
+		return capabilities.UpdateResult[r4b.PlanDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "PlanDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.PlanDefinition]{
 
@@ -6630,7 +7894,11 @@ func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4b.PlanDef
 	}, nil
 }
 func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4b.Practitioner) (capabilities.UpdateResult[r4b.Practitioner], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Practitioner]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Practitioner"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Practitioner]{}, err
 	}
@@ -6641,7 +7909,7 @@ func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4b.Practitio
 	}
 	r, ok := v.(r4b.Practitioner)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Practitioner]{}, capabilities.InvalidResourceError{ResourceType: "Practitioner"}
+		return capabilities.UpdateResult[r4b.Practitioner]{}, capabilities.UnexpectedResourceError{ExpectedType: "Practitioner", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Practitioner]{
 
@@ -6650,7 +7918,11 @@ func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4b.Practitio
 	}, nil
 }
 func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (capabilities.UpdateResult[r4b.PractitionerRole], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.PractitionerRole]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "PractitionerRole"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.PractitionerRole]{}, err
 	}
@@ -6661,7 +7933,7 @@ func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4b.Pract
 	}
 	r, ok := v.(r4b.PractitionerRole)
 	if !ok {
-		return capabilities.UpdateResult[r4b.PractitionerRole]{}, capabilities.InvalidResourceError{ResourceType: "PractitionerRole"}
+		return capabilities.UpdateResult[r4b.PractitionerRole]{}, capabilities.UnexpectedResourceError{ExpectedType: "PractitionerRole", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.PractitionerRole]{
 
@@ -6670,7 +7942,11 @@ func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4b.Pract
 	}, nil
 }
 func (w Concrete) UpdateProcedure(ctx context.Context, resource r4b.Procedure) (capabilities.UpdateResult[r4b.Procedure], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Procedure]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Procedure"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Procedure]{}, err
 	}
@@ -6681,7 +7957,7 @@ func (w Concrete) UpdateProcedure(ctx context.Context, resource r4b.Procedure) (
 	}
 	r, ok := v.(r4b.Procedure)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Procedure]{}, capabilities.InvalidResourceError{ResourceType: "Procedure"}
+		return capabilities.UpdateResult[r4b.Procedure]{}, capabilities.UnexpectedResourceError{ExpectedType: "Procedure", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Procedure]{
 
@@ -6690,7 +7966,11 @@ func (w Concrete) UpdateProcedure(ctx context.Context, resource r4b.Procedure) (
 	}, nil
 }
 func (w Concrete) UpdateProvenance(ctx context.Context, resource r4b.Provenance) (capabilities.UpdateResult[r4b.Provenance], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Provenance]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Provenance"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Provenance]{}, err
 	}
@@ -6701,7 +7981,7 @@ func (w Concrete) UpdateProvenance(ctx context.Context, resource r4b.Provenance)
 	}
 	r, ok := v.(r4b.Provenance)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Provenance]{}, capabilities.InvalidResourceError{ResourceType: "Provenance"}
+		return capabilities.UpdateResult[r4b.Provenance]{}, capabilities.UnexpectedResourceError{ExpectedType: "Provenance", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Provenance]{
 
@@ -6710,7 +7990,11 @@ func (w Concrete) UpdateProvenance(ctx context.Context, resource r4b.Provenance)
 	}, nil
 }
 func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (capabilities.UpdateResult[r4b.Questionnaire], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Questionnaire]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Questionnaire"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Questionnaire]{}, err
 	}
@@ -6721,7 +8005,7 @@ func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4b.Question
 	}
 	r, ok := v.(r4b.Questionnaire)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Questionnaire]{}, capabilities.InvalidResourceError{ResourceType: "Questionnaire"}
+		return capabilities.UpdateResult[r4b.Questionnaire]{}, capabilities.UnexpectedResourceError{ExpectedType: "Questionnaire", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Questionnaire]{
 
@@ -6730,7 +8014,11 @@ func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4b.Question
 	}, nil
 }
 func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (capabilities.UpdateResult[r4b.QuestionnaireResponse], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "QuestionnaireResponse"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, err
 	}
@@ -6741,7 +8029,7 @@ func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4b.
 	}
 	r, ok := v.(r4b.QuestionnaireResponse)
 	if !ok {
-		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, capabilities.InvalidResourceError{ResourceType: "QuestionnaireResponse"}
+		return capabilities.UpdateResult[r4b.QuestionnaireResponse]{}, capabilities.UnexpectedResourceError{ExpectedType: "QuestionnaireResponse", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.QuestionnaireResponse]{
 
@@ -6750,7 +8038,11 @@ func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4b.
 	}, nil
 }
 func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (capabilities.UpdateResult[r4b.RegulatedAuthorization], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RegulatedAuthorization"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, err
 	}
@@ -6761,7 +8053,7 @@ func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r4b
 	}
 	r, ok := v.(r4b.RegulatedAuthorization)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, capabilities.InvalidResourceError{ResourceType: "RegulatedAuthorization"}
+		return capabilities.UpdateResult[r4b.RegulatedAuthorization]{}, capabilities.UnexpectedResourceError{ExpectedType: "RegulatedAuthorization", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.RegulatedAuthorization]{
 
@@ -6770,7 +8062,11 @@ func (w Concrete) UpdateRegulatedAuthorization(ctx context.Context, resource r4b
 	}, nil
 }
 func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (capabilities.UpdateResult[r4b.RelatedPerson], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.RelatedPerson]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RelatedPerson"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.RelatedPerson]{}, err
 	}
@@ -6781,7 +8077,7 @@ func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedP
 	}
 	r, ok := v.(r4b.RelatedPerson)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RelatedPerson]{}, capabilities.InvalidResourceError{ResourceType: "RelatedPerson"}
+		return capabilities.UpdateResult[r4b.RelatedPerson]{}, capabilities.UnexpectedResourceError{ExpectedType: "RelatedPerson", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.RelatedPerson]{
 
@@ -6790,7 +8086,11 @@ func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4b.RelatedP
 	}, nil
 }
 func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (capabilities.UpdateResult[r4b.RequestGroup], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.RequestGroup]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RequestGroup"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.RequestGroup]{}, err
 	}
@@ -6801,7 +8101,7 @@ func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4b.RequestGr
 	}
 	r, ok := v.(r4b.RequestGroup)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RequestGroup]{}, capabilities.InvalidResourceError{ResourceType: "RequestGroup"}
+		return capabilities.UpdateResult[r4b.RequestGroup]{}, capabilities.UnexpectedResourceError{ExpectedType: "RequestGroup", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.RequestGroup]{
 
@@ -6810,7 +8110,11 @@ func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4b.RequestGr
 	}, nil
 }
 func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (capabilities.UpdateResult[r4b.ResearchDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, err
 	}
@@ -6821,7 +8125,7 @@ func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4b.Res
 	}
 	r, ok := v.(r4b.ResearchDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ResearchDefinition"}
+		return capabilities.UpdateResult[r4b.ResearchDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ResearchDefinition]{
 
@@ -6830,7 +8134,11 @@ func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4b.Res
 	}, nil
 }
 func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (capabilities.UpdateResult[r4b.ResearchElementDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchElementDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, err
 	}
@@ -6841,7 +8149,7 @@ func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource 
 	}
 	r, ok := v.(r4b.ResearchElementDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, capabilities.InvalidResourceError{ResourceType: "ResearchElementDefinition"}
+		return capabilities.UpdateResult[r4b.ResearchElementDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchElementDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ResearchElementDefinition]{
 
@@ -6850,7 +8158,11 @@ func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource 
 	}, nil
 }
 func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (capabilities.UpdateResult[r4b.ResearchStudy], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ResearchStudy]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchStudy"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ResearchStudy]{}, err
 	}
@@ -6861,7 +8173,7 @@ func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4b.Research
 	}
 	r, ok := v.(r4b.ResearchStudy)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchStudy]{}, capabilities.InvalidResourceError{ResourceType: "ResearchStudy"}
+		return capabilities.UpdateResult[r4b.ResearchStudy]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchStudy", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ResearchStudy]{
 
@@ -6870,7 +8182,11 @@ func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4b.Research
 	}, nil
 }
 func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (capabilities.UpdateResult[r4b.ResearchSubject], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ResearchSubject]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ResearchSubject"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ResearchSubject]{}, err
 	}
@@ -6881,7 +8197,7 @@ func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4b.Resear
 	}
 	r, ok := v.(r4b.ResearchSubject)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ResearchSubject]{}, capabilities.InvalidResourceError{ResourceType: "ResearchSubject"}
+		return capabilities.UpdateResult[r4b.ResearchSubject]{}, capabilities.UnexpectedResourceError{ExpectedType: "ResearchSubject", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ResearchSubject]{
 
@@ -6890,7 +8206,11 @@ func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4b.Resear
 	}, nil
 }
 func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (capabilities.UpdateResult[r4b.RiskAssessment], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.RiskAssessment]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "RiskAssessment"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.RiskAssessment]{}, err
 	}
@@ -6901,7 +8221,7 @@ func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAss
 	}
 	r, ok := v.(r4b.RiskAssessment)
 	if !ok {
-		return capabilities.UpdateResult[r4b.RiskAssessment]{}, capabilities.InvalidResourceError{ResourceType: "RiskAssessment"}
+		return capabilities.UpdateResult[r4b.RiskAssessment]{}, capabilities.UnexpectedResourceError{ExpectedType: "RiskAssessment", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.RiskAssessment]{
 
@@ -6910,7 +8230,11 @@ func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4b.RiskAss
 	}, nil
 }
 func (w Concrete) UpdateSchedule(ctx context.Context, resource r4b.Schedule) (capabilities.UpdateResult[r4b.Schedule], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Schedule]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Schedule"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Schedule]{}, err
 	}
@@ -6921,7 +8245,7 @@ func (w Concrete) UpdateSchedule(ctx context.Context, resource r4b.Schedule) (ca
 	}
 	r, ok := v.(r4b.Schedule)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Schedule]{}, capabilities.InvalidResourceError{ResourceType: "Schedule"}
+		return capabilities.UpdateResult[r4b.Schedule]{}, capabilities.UnexpectedResourceError{ExpectedType: "Schedule", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Schedule]{
 
@@ -6930,7 +8254,11 @@ func (w Concrete) UpdateSchedule(ctx context.Context, resource r4b.Schedule) (ca
 	}, nil
 }
 func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (capabilities.UpdateResult[r4b.SearchParameter], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.SearchParameter]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SearchParameter"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.SearchParameter]{}, err
 	}
@@ -6941,7 +8269,7 @@ func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4b.Search
 	}
 	r, ok := v.(r4b.SearchParameter)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SearchParameter]{}, capabilities.InvalidResourceError{ResourceType: "SearchParameter"}
+		return capabilities.UpdateResult[r4b.SearchParameter]{}, capabilities.UnexpectedResourceError{ExpectedType: "SearchParameter", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.SearchParameter]{
 
@@ -6950,7 +8278,11 @@ func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4b.Search
 	}, nil
 }
 func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (capabilities.UpdateResult[r4b.ServiceRequest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ServiceRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ServiceRequest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ServiceRequest]{}, err
 	}
@@ -6961,7 +8293,7 @@ func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4b.Service
 	}
 	r, ok := v.(r4b.ServiceRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ServiceRequest]{}, capabilities.InvalidResourceError{ResourceType: "ServiceRequest"}
+		return capabilities.UpdateResult[r4b.ServiceRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "ServiceRequest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ServiceRequest]{
 
@@ -6970,7 +8302,11 @@ func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4b.Service
 	}, nil
 }
 func (w Concrete) UpdateSlot(ctx context.Context, resource r4b.Slot) (capabilities.UpdateResult[r4b.Slot], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Slot]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Slot"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Slot]{}, err
 	}
@@ -6981,7 +8317,7 @@ func (w Concrete) UpdateSlot(ctx context.Context, resource r4b.Slot) (capabiliti
 	}
 	r, ok := v.(r4b.Slot)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Slot]{}, capabilities.InvalidResourceError{ResourceType: "Slot"}
+		return capabilities.UpdateResult[r4b.Slot]{}, capabilities.UnexpectedResourceError{ExpectedType: "Slot", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Slot]{
 
@@ -6990,7 +8326,11 @@ func (w Concrete) UpdateSlot(ctx context.Context, resource r4b.Slot) (capabiliti
 	}, nil
 }
 func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (capabilities.UpdateResult[r4b.Specimen], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Specimen]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Specimen"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Specimen]{}, err
 	}
@@ -7001,7 +8341,7 @@ func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (ca
 	}
 	r, ok := v.(r4b.Specimen)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Specimen]{}, capabilities.InvalidResourceError{ResourceType: "Specimen"}
+		return capabilities.UpdateResult[r4b.Specimen]{}, capabilities.UnexpectedResourceError{ExpectedType: "Specimen", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Specimen]{
 
@@ -7010,7 +8350,11 @@ func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4b.Specimen) (ca
 	}, nil
 }
 func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (capabilities.UpdateResult[r4b.SpecimenDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SpecimenDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, err
 	}
@@ -7021,7 +8365,7 @@ func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4b.Spe
 	}
 	r, ok := v.(r4b.SpecimenDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, capabilities.InvalidResourceError{ResourceType: "SpecimenDefinition"}
+		return capabilities.UpdateResult[r4b.SpecimenDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "SpecimenDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.SpecimenDefinition]{
 
@@ -7030,7 +8374,11 @@ func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4b.Spe
 	}, nil
 }
 func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (capabilities.UpdateResult[r4b.StructureDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.StructureDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "StructureDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.StructureDefinition]{}, err
 	}
@@ -7041,7 +8389,7 @@ func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4b.St
 	}
 	r, ok := v.(r4b.StructureDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.StructureDefinition]{}, capabilities.InvalidResourceError{ResourceType: "StructureDefinition"}
+		return capabilities.UpdateResult[r4b.StructureDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.StructureDefinition]{
 
@@ -7050,7 +8398,11 @@ func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4b.St
 	}, nil
 }
 func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4b.StructureMap) (capabilities.UpdateResult[r4b.StructureMap], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.StructureMap]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "StructureMap"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.StructureMap]{}, err
 	}
@@ -7061,7 +8413,7 @@ func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4b.Structure
 	}
 	r, ok := v.(r4b.StructureMap)
 	if !ok {
-		return capabilities.UpdateResult[r4b.StructureMap]{}, capabilities.InvalidResourceError{ResourceType: "StructureMap"}
+		return capabilities.UpdateResult[r4b.StructureMap]{}, capabilities.UnexpectedResourceError{ExpectedType: "StructureMap", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.StructureMap]{
 
@@ -7070,7 +8422,11 @@ func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4b.Structure
 	}, nil
 }
 func (w Concrete) UpdateSubscription(ctx context.Context, resource r4b.Subscription) (capabilities.UpdateResult[r4b.Subscription], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Subscription]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Subscription"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Subscription]{}, err
 	}
@@ -7081,7 +8437,7 @@ func (w Concrete) UpdateSubscription(ctx context.Context, resource r4b.Subscript
 	}
 	r, ok := v.(r4b.Subscription)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Subscription]{}, capabilities.InvalidResourceError{ResourceType: "Subscription"}
+		return capabilities.UpdateResult[r4b.Subscription]{}, capabilities.UnexpectedResourceError{ExpectedType: "Subscription", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Subscription]{
 
@@ -7090,7 +8446,11 @@ func (w Concrete) UpdateSubscription(ctx context.Context, resource r4b.Subscript
 	}, nil
 }
 func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (capabilities.UpdateResult[r4b.SubscriptionStatus], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubscriptionStatus"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, err
 	}
@@ -7101,7 +8461,7 @@ func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r4b.Sub
 	}
 	r, ok := v.(r4b.SubscriptionStatus)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionStatus"}
+		return capabilities.UpdateResult[r4b.SubscriptionStatus]{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionStatus", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.SubscriptionStatus]{
 
@@ -7110,7 +8470,11 @@ func (w Concrete) UpdateSubscriptionStatus(ctx context.Context, resource r4b.Sub
 	}, nil
 }
 func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (capabilities.UpdateResult[r4b.SubscriptionTopic], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubscriptionTopic"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, err
 	}
@@ -7121,7 +8485,7 @@ func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r4b.Subs
 	}
 	r, ok := v.(r4b.SubscriptionTopic)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, capabilities.InvalidResourceError{ResourceType: "SubscriptionTopic"}
+		return capabilities.UpdateResult[r4b.SubscriptionTopic]{}, capabilities.UnexpectedResourceError{ExpectedType: "SubscriptionTopic", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.SubscriptionTopic]{
 
@@ -7130,7 +8494,11 @@ func (w Concrete) UpdateSubscriptionTopic(ctx context.Context, resource r4b.Subs
 	}, nil
 }
 func (w Concrete) UpdateSubstance(ctx context.Context, resource r4b.Substance) (capabilities.UpdateResult[r4b.Substance], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Substance]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Substance"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Substance]{}, err
 	}
@@ -7141,7 +8509,7 @@ func (w Concrete) UpdateSubstance(ctx context.Context, resource r4b.Substance) (
 	}
 	r, ok := v.(r4b.Substance)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Substance]{}, capabilities.InvalidResourceError{ResourceType: "Substance"}
+		return capabilities.UpdateResult[r4b.Substance]{}, capabilities.UnexpectedResourceError{ExpectedType: "Substance", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Substance]{
 
@@ -7150,7 +8518,11 @@ func (w Concrete) UpdateSubstance(ctx context.Context, resource r4b.Substance) (
 	}, nil
 }
 func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (capabilities.UpdateResult[r4b.SubstanceDefinition], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SubstanceDefinition"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, err
 	}
@@ -7161,7 +8533,7 @@ func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r4b.Su
 	}
 	r, ok := v.(r4b.SubstanceDefinition)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, capabilities.InvalidResourceError{ResourceType: "SubstanceDefinition"}
+		return capabilities.UpdateResult[r4b.SubstanceDefinition]{}, capabilities.UnexpectedResourceError{ExpectedType: "SubstanceDefinition", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.SubstanceDefinition]{
 
@@ -7170,7 +8542,11 @@ func (w Concrete) UpdateSubstanceDefinition(ctx context.Context, resource r4b.Su
 	}, nil
 }
 func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (capabilities.UpdateResult[r4b.SupplyDelivery], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SupplyDelivery"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, err
 	}
@@ -7181,7 +8557,7 @@ func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyD
 	}
 	r, ok := v.(r4b.SupplyDelivery)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, capabilities.InvalidResourceError{ResourceType: "SupplyDelivery"}
+		return capabilities.UpdateResult[r4b.SupplyDelivery]{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyDelivery", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.SupplyDelivery]{
 
@@ -7190,7 +8566,11 @@ func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4b.SupplyD
 	}, nil
 }
 func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (capabilities.UpdateResult[r4b.SupplyRequest], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.SupplyRequest]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "SupplyRequest"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.SupplyRequest]{}, err
 	}
@@ -7201,7 +8581,7 @@ func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRe
 	}
 	r, ok := v.(r4b.SupplyRequest)
 	if !ok {
-		return capabilities.UpdateResult[r4b.SupplyRequest]{}, capabilities.InvalidResourceError{ResourceType: "SupplyRequest"}
+		return capabilities.UpdateResult[r4b.SupplyRequest]{}, capabilities.UnexpectedResourceError{ExpectedType: "SupplyRequest", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.SupplyRequest]{
 
@@ -7210,7 +8590,11 @@ func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4b.SupplyRe
 	}, nil
 }
 func (w Concrete) UpdateTask(ctx context.Context, resource r4b.Task) (capabilities.UpdateResult[r4b.Task], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.Task]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "Task"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.Task]{}, err
 	}
@@ -7221,7 +8605,7 @@ func (w Concrete) UpdateTask(ctx context.Context, resource r4b.Task) (capabiliti
 	}
 	r, ok := v.(r4b.Task)
 	if !ok {
-		return capabilities.UpdateResult[r4b.Task]{}, capabilities.InvalidResourceError{ResourceType: "Task"}
+		return capabilities.UpdateResult[r4b.Task]{}, capabilities.UnexpectedResourceError{ExpectedType: "Task", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.Task]{
 
@@ -7230,7 +8614,11 @@ func (w Concrete) UpdateTask(ctx context.Context, resource r4b.Task) (capabiliti
 	}, nil
 }
 func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (capabilities.UpdateResult[r4b.TerminologyCapabilities], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TerminologyCapabilities"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, err
 	}
@@ -7241,7 +8629,7 @@ func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4
 	}
 	r, ok := v.(r4b.TerminologyCapabilities)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, capabilities.InvalidResourceError{ResourceType: "TerminologyCapabilities"}
+		return capabilities.UpdateResult[r4b.TerminologyCapabilities]{}, capabilities.UnexpectedResourceError{ExpectedType: "TerminologyCapabilities", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.TerminologyCapabilities]{
 
@@ -7250,7 +8638,11 @@ func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4
 	}, nil
 }
 func (w Concrete) UpdateTestReport(ctx context.Context, resource r4b.TestReport) (capabilities.UpdateResult[r4b.TestReport], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.TestReport]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TestReport"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.TestReport]{}, err
 	}
@@ -7261,7 +8653,7 @@ func (w Concrete) UpdateTestReport(ctx context.Context, resource r4b.TestReport)
 	}
 	r, ok := v.(r4b.TestReport)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TestReport]{}, capabilities.InvalidResourceError{ResourceType: "TestReport"}
+		return capabilities.UpdateResult[r4b.TestReport]{}, capabilities.UnexpectedResourceError{ExpectedType: "TestReport", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.TestReport]{
 
@@ -7270,7 +8662,11 @@ func (w Concrete) UpdateTestReport(ctx context.Context, resource r4b.TestReport)
 	}, nil
 }
 func (w Concrete) UpdateTestScript(ctx context.Context, resource r4b.TestScript) (capabilities.UpdateResult[r4b.TestScript], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.TestScript]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "TestScript"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.TestScript]{}, err
 	}
@@ -7281,7 +8677,7 @@ func (w Concrete) UpdateTestScript(ctx context.Context, resource r4b.TestScript)
 	}
 	r, ok := v.(r4b.TestScript)
 	if !ok {
-		return capabilities.UpdateResult[r4b.TestScript]{}, capabilities.InvalidResourceError{ResourceType: "TestScript"}
+		return capabilities.UpdateResult[r4b.TestScript]{}, capabilities.UnexpectedResourceError{ExpectedType: "TestScript", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.TestScript]{
 
@@ -7290,7 +8686,11 @@ func (w Concrete) UpdateTestScript(ctx context.Context, resource r4b.TestScript)
 	}, nil
 }
 func (w Concrete) UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (capabilities.UpdateResult[r4b.ValueSet], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.ValueSet]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "ValueSet"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.ValueSet]{}, err
 	}
@@ -7301,7 +8701,7 @@ func (w Concrete) UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (ca
 	}
 	r, ok := v.(r4b.ValueSet)
 	if !ok {
-		return capabilities.UpdateResult[r4b.ValueSet]{}, capabilities.InvalidResourceError{ResourceType: "ValueSet"}
+		return capabilities.UpdateResult[r4b.ValueSet]{}, capabilities.UnexpectedResourceError{ExpectedType: "ValueSet", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.ValueSet]{
 
@@ -7310,7 +8710,11 @@ func (w Concrete) UpdateValueSet(ctx context.Context, resource r4b.ValueSet) (ca
 	}, nil
 }
 func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (capabilities.UpdateResult[r4b.VerificationResult], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.VerificationResult]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "VerificationResult"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.VerificationResult]{}, err
 	}
@@ -7321,7 +8725,7 @@ func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4b.Ver
 	}
 	r, ok := v.(r4b.VerificationResult)
 	if !ok {
-		return capabilities.UpdateResult[r4b.VerificationResult]{}, capabilities.InvalidResourceError{ResourceType: "VerificationResult"}
+		return capabilities.UpdateResult[r4b.VerificationResult]{}, capabilities.UnexpectedResourceError{ExpectedType: "VerificationResult", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.VerificationResult]{
 
@@ -7330,7 +8734,11 @@ func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4b.Ver
 	}, nil
 }
 func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (capabilities.UpdateResult[r4b.VisionPrescription], capabilities.FHIRError) {
-	result, err := w.Generic.Update(ctx, resource)
+	g, ok := w.Generic.(capabilities.GenericUpdate)
+	if !ok {
+		return capabilities.UpdateResult[r4b.VisionPrescription]{}, capabilities.NotImplementedError{Interaction: "update", ResourceType: "VisionPrescription"}
+	}
+	result, err := g.Update(ctx, resource)
 	if err != nil {
 		return capabilities.UpdateResult[r4b.VisionPrescription]{}, err
 	}
@@ -7341,7 +8749,7 @@ func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4b.Vis
 	}
 	r, ok := v.(r4b.VisionPrescription)
 	if !ok {
-		return capabilities.UpdateResult[r4b.VisionPrescription]{}, capabilities.InvalidResourceError{ResourceType: "VisionPrescription"}
+		return capabilities.UpdateResult[r4b.VisionPrescription]{}, capabilities.UnexpectedResourceError{ExpectedType: "VisionPrescription", GotType: v.ResourceType()}
 	}
 	return capabilities.UpdateResult[r4b.VisionPrescription]{
 
@@ -7357,7 +8765,11 @@ func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabil
 	return allCapabilities.SearchCapabilities["Account"], err
 }
 func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Account", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Account"}
+	}
+	v, err := g.Search(ctx, "Account", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7371,7 +8783,11 @@ func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["ActivityDefinition"], err
 }
 func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ActivityDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ActivityDefinition"}
+	}
+	v, err := g.Search(ctx, "ActivityDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7385,7 +8801,11 @@ func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.C
 	return allCapabilities.SearchCapabilities["AdministrableProductDefinition"], err
 }
 func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "AdministrableProductDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AdministrableProductDefinition"}
+	}
+	v, err := g.Search(ctx, "AdministrableProductDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7399,7 +8819,11 @@ func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["AdverseEvent"], err
 }
 func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "AdverseEvent", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AdverseEvent"}
+	}
+	v, err := g.Search(ctx, "AdverseEvent", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7413,7 +8837,11 @@ func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["AllergyIntolerance"], err
 }
 func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "AllergyIntolerance", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AllergyIntolerance"}
+	}
+	v, err := g.Search(ctx, "AllergyIntolerance", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7427,7 +8855,11 @@ func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Cap
 	return allCapabilities.SearchCapabilities["Appointment"], err
 }
 func (w Concrete) SearchAppointment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Appointment", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Appointment"}
+	}
+	v, err := g.Search(ctx, "Appointment", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7441,7 +8873,11 @@ func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["AppointmentResponse"], err
 }
 func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "AppointmentResponse", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AppointmentResponse"}
+	}
+	v, err := g.Search(ctx, "AppointmentResponse", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7455,7 +8891,11 @@ func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["AuditEvent"], err
 }
 func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "AuditEvent", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "AuditEvent"}
+	}
+	v, err := g.Search(ctx, "AuditEvent", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7469,7 +8909,11 @@ func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilit
 	return allCapabilities.SearchCapabilities["Basic"], err
 }
 func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Basic", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Basic"}
+	}
+	v, err := g.Search(ctx, "Basic", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7483,7 +8927,11 @@ func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabili
 	return allCapabilities.SearchCapabilities["Binary"], err
 }
 func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Binary", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Binary"}
+	}
+	v, err := g.Search(ctx, "Binary", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7497,7 +8945,11 @@ func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Conte
 	return allCapabilities.SearchCapabilities["BiologicallyDerivedProduct"], err
 }
 func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "BiologicallyDerivedProduct", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BiologicallyDerivedProduct"}
+	}
+	v, err := g.Search(ctx, "BiologicallyDerivedProduct", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7511,7 +8963,11 @@ func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["BodyStructure"], err
 }
 func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "BodyStructure", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "BodyStructure"}
+	}
+	v, err := g.Search(ctx, "BodyStructure", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7525,7 +8981,11 @@ func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabili
 	return allCapabilities.SearchCapabilities["Bundle"], err
 }
 func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Bundle", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Bundle"}
+	}
+	v, err := g.Search(ctx, "Bundle", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7539,7 +8999,11 @@ func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["CapabilityStatement"], err
 }
 func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CapabilityStatement", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CapabilityStatement"}
+	}
+	v, err := g.Search(ctx, "CapabilityStatement", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7553,7 +9017,11 @@ func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["CarePlan"], err
 }
 func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CarePlan", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CarePlan"}
+	}
+	v, err := g.Search(ctx, "CarePlan", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7567,7 +9035,11 @@ func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["CareTeam"], err
 }
 func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CareTeam", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CareTeam"}
+	}
+	v, err := g.Search(ctx, "CareTeam", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7581,7 +9053,11 @@ func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["CatalogEntry"], err
 }
 func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CatalogEntry", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CatalogEntry"}
+	}
+	v, err := g.Search(ctx, "CatalogEntry", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7595,7 +9071,11 @@ func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["ChargeItem"], err
 }
 func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ChargeItem", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItem"}
+	}
+	v, err := g.Search(ctx, "ChargeItem", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7609,7 +9089,11 @@ func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (s
 	return allCapabilities.SearchCapabilities["ChargeItemDefinition"], err
 }
 func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ChargeItemDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ChargeItemDefinition"}
+	}
+	v, err := g.Search(ctx, "ChargeItemDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7623,7 +9107,11 @@ func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Citation"], err
 }
 func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Citation", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Citation"}
+	}
+	v, err := g.Search(ctx, "Citation", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7637,7 +9125,11 @@ func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilit
 	return allCapabilities.SearchCapabilities["Claim"], err
 }
 func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Claim", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Claim"}
+	}
+	v, err := g.Search(ctx, "Claim", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7651,7 +9143,11 @@ func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["ClaimResponse"], err
 }
 func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ClaimResponse", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClaimResponse"}
+	}
+	v, err := g.Search(ctx, "ClaimResponse", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7665,7 +9161,11 @@ func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["ClinicalImpression"], err
 }
 func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ClinicalImpression", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClinicalImpression"}
+	}
+	v, err := g.Search(ctx, "ClinicalImpression", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7679,7 +9179,11 @@ func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (
 	return allCapabilities.SearchCapabilities["ClinicalUseDefinition"], err
 }
 func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ClinicalUseDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ClinicalUseDefinition"}
+	}
+	v, err := g.Search(ctx, "ClinicalUseDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7693,7 +9197,11 @@ func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["CodeSystem"], err
 }
 func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CodeSystem", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CodeSystem"}
+	}
+	v, err := g.Search(ctx, "CodeSystem", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7707,7 +9215,11 @@ func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["Communication"], err
 }
 func (w Concrete) SearchCommunication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Communication", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Communication"}
+	}
+	v, err := g.Search(ctx, "Communication", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7721,7 +9233,11 @@ func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (s
 	return allCapabilities.SearchCapabilities["CommunicationRequest"], err
 }
 func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CommunicationRequest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CommunicationRequest"}
+	}
+	v, err := g.Search(ctx, "CommunicationRequest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7735,7 +9251,11 @@ func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (
 	return allCapabilities.SearchCapabilities["CompartmentDefinition"], err
 }
 func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CompartmentDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CompartmentDefinition"}
+	}
+	v, err := g.Search(ctx, "CompartmentDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7749,7 +9269,11 @@ func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Cap
 	return allCapabilities.SearchCapabilities["Composition"], err
 }
 func (w Concrete) SearchComposition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Composition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Composition"}
+	}
+	v, err := g.Search(ctx, "Composition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7763,7 +9287,11 @@ func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["ConceptMap"], err
 }
 func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ConceptMap", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ConceptMap"}
+	}
+	v, err := g.Search(ctx, "ConceptMap", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7777,7 +9305,11 @@ func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capab
 	return allCapabilities.SearchCapabilities["Condition"], err
 }
 func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Condition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Condition"}
+	}
+	v, err := g.Search(ctx, "Condition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7791,7 +9323,11 @@ func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabil
 	return allCapabilities.SearchCapabilities["Consent"], err
 }
 func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Consent", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Consent"}
+	}
+	v, err := g.Search(ctx, "Consent", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7805,7 +9341,11 @@ func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Contract"], err
 }
 func (w Concrete) SearchContract(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Contract", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Contract"}
+	}
+	v, err := g.Search(ctx, "Contract", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7819,7 +9359,11 @@ func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Coverage"], err
 }
 func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Coverage", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Coverage"}
+	}
+	v, err := g.Search(ctx, "Coverage", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7833,7 +9377,11 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Conte
 	return allCapabilities.SearchCapabilities["CoverageEligibilityRequest"], err
 }
 func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CoverageEligibilityRequest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityRequest"}
+	}
+	v, err := g.Search(ctx, "CoverageEligibilityRequest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7847,7 +9395,11 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Cont
 	return allCapabilities.SearchCapabilities["CoverageEligibilityResponse"], err
 }
 func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "CoverageEligibilityResponse", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "CoverageEligibilityResponse"}
+	}
+	v, err := g.Search(ctx, "CoverageEligibilityResponse", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7861,7 +9413,11 @@ func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["DetectedIssue"], err
 }
 func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DetectedIssue", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DetectedIssue"}
+	}
+	v, err := g.Search(ctx, "DetectedIssue", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7875,7 +9431,11 @@ func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabili
 	return allCapabilities.SearchCapabilities["Device"], err
 }
 func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Device", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Device"}
+	}
+	v, err := g.Search(ctx, "Device", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7889,7 +9449,11 @@ func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["DeviceDefinition"], err
 }
 func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DeviceDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceDefinition"}
+	}
+	v, err := g.Search(ctx, "DeviceDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7903,7 +9467,11 @@ func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["DeviceMetric"], err
 }
 func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DeviceMetric", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceMetric"}
+	}
+	v, err := g.Search(ctx, "DeviceMetric", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7917,7 +9485,11 @@ func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["DeviceRequest"], err
 }
 func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DeviceRequest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceRequest"}
+	}
+	v, err := g.Search(ctx, "DeviceRequest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7931,7 +9503,11 @@ func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["DeviceUseStatement"], err
 }
 func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DeviceUseStatement", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DeviceUseStatement"}
+	}
+	v, err := g.Search(ctx, "DeviceUseStatement", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7945,7 +9521,11 @@ func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["DiagnosticReport"], err
 }
 func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DiagnosticReport", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DiagnosticReport"}
+	}
+	v, err := g.Search(ctx, "DiagnosticReport", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7959,7 +9539,11 @@ func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["DocumentManifest"], err
 }
 func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DocumentManifest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DocumentManifest"}
+	}
+	v, err := g.Search(ctx, "DocumentManifest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7973,7 +9557,11 @@ func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (sear
 	return allCapabilities.SearchCapabilities["DocumentReference"], err
 }
 func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "DocumentReference", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "DocumentReference"}
+	}
+	v, err := g.Search(ctx, "DocumentReference", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -7987,7 +9575,11 @@ func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capab
 	return allCapabilities.SearchCapabilities["Encounter"], err
 }
 func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Encounter", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Encounter"}
+	}
+	v, err := g.Search(ctx, "Encounter", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8001,7 +9593,11 @@ func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Endpoint"], err
 }
 func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Endpoint", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Endpoint"}
+	}
+	v, err := g.Search(ctx, "Endpoint", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8015,7 +9611,11 @@ func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (sear
 	return allCapabilities.SearchCapabilities["EnrollmentRequest"], err
 }
 func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "EnrollmentRequest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentRequest"}
+	}
+	v, err := g.Search(ctx, "EnrollmentRequest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8029,7 +9629,11 @@ func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["EnrollmentResponse"], err
 }
 func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "EnrollmentResponse", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EnrollmentResponse"}
+	}
+	v, err := g.Search(ctx, "EnrollmentResponse", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8043,7 +9647,11 @@ func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["EpisodeOfCare"], err
 }
 func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "EpisodeOfCare", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EpisodeOfCare"}
+	}
+	v, err := g.Search(ctx, "EpisodeOfCare", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8057,7 +9665,11 @@ func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search
 	return allCapabilities.SearchCapabilities["EventDefinition"], err
 }
 func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "EventDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EventDefinition"}
+	}
+	v, err := g.Search(ctx, "EventDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8071,7 +9683,11 @@ func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Evidence"], err
 }
 func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Evidence", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Evidence"}
+	}
+	v, err := g.Search(ctx, "Evidence", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8085,7 +9701,11 @@ func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (search.
 	return allCapabilities.SearchCapabilities["EvidenceReport"], err
 }
 func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "EvidenceReport", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EvidenceReport"}
+	}
+	v, err := g.Search(ctx, "EvidenceReport", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8099,7 +9719,11 @@ func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["EvidenceVariable"], err
 }
 func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "EvidenceVariable", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "EvidenceVariable"}
+	}
+	v, err := g.Search(ctx, "EvidenceVariable", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8113,7 +9737,11 @@ func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search
 	return allCapabilities.SearchCapabilities["ExampleScenario"], err
 }
 func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ExampleScenario", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExampleScenario"}
+	}
+	v, err := g.Search(ctx, "ExampleScenario", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8127,7 +9755,11 @@ func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (s
 	return allCapabilities.SearchCapabilities["ExplanationOfBenefit"], err
 }
 func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ExplanationOfBenefit", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ExplanationOfBenefit"}
+	}
+	v, err := g.Search(ctx, "ExplanationOfBenefit", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8141,7 +9773,11 @@ func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["FamilyMemberHistory"], err
 }
 func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "FamilyMemberHistory", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "FamilyMemberHistory"}
+	}
+	v, err := g.Search(ctx, "FamilyMemberHistory", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8155,7 +9791,11 @@ func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabiliti
 	return allCapabilities.SearchCapabilities["Flag"], err
 }
 func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Flag", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Flag"}
+	}
+	v, err := g.Search(ctx, "Flag", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8169,7 +9809,11 @@ func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabiliti
 	return allCapabilities.SearchCapabilities["Goal"], err
 }
 func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Goal", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Goal"}
+	}
+	v, err := g.Search(ctx, "Goal", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8183,7 +9827,11 @@ func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search
 	return allCapabilities.SearchCapabilities["GraphDefinition"], err
 }
 func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "GraphDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GraphDefinition"}
+	}
+	v, err := g.Search(ctx, "GraphDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8197,7 +9845,11 @@ func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilit
 	return allCapabilities.SearchCapabilities["Group"], err
 }
 func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Group", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Group"}
+	}
+	v, err := g.Search(ctx, "Group", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8211,7 +9863,11 @@ func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["GuidanceResponse"], err
 }
 func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "GuidanceResponse", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "GuidanceResponse"}
+	}
+	v, err := g.Search(ctx, "GuidanceResponse", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8225,7 +9881,11 @@ func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (sear
 	return allCapabilities.SearchCapabilities["HealthcareService"], err
 }
 func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "HealthcareService", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "HealthcareService"}
+	}
+	v, err := g.Search(ctx, "HealthcareService", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8239,7 +9899,11 @@ func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["ImagingStudy"], err
 }
 func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ImagingStudy", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImagingStudy"}
+	}
+	v, err := g.Search(ctx, "ImagingStudy", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8253,7 +9917,11 @@ func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["Immunization"], err
 }
 func (w Concrete) SearchImmunization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Immunization", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Immunization"}
+	}
+	v, err := g.Search(ctx, "Immunization", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8267,7 +9935,11 @@ func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) 
 	return allCapabilities.SearchCapabilities["ImmunizationEvaluation"], err
 }
 func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ImmunizationEvaluation", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationEvaluation"}
+	}
+	v, err := g.Search(ctx, "ImmunizationEvaluation", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8281,7 +9953,11 @@ func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Conte
 	return allCapabilities.SearchCapabilities["ImmunizationRecommendation"], err
 }
 func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ImmunizationRecommendation", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImmunizationRecommendation"}
+	}
+	v, err := g.Search(ctx, "ImmunizationRecommendation", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8295,7 +9971,11 @@ func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["ImplementationGuide"], err
 }
 func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ImplementationGuide", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ImplementationGuide"}
+	}
+	v, err := g.Search(ctx, "ImplementationGuide", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8309,7 +9989,11 @@ func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["Ingredient"], err
 }
 func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Ingredient", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Ingredient"}
+	}
+	v, err := g.Search(ctx, "Ingredient", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8323,7 +10007,11 @@ func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["InsurancePlan"], err
 }
 func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "InsurancePlan", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "InsurancePlan"}
+	}
+	v, err := g.Search(ctx, "InsurancePlan", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8337,7 +10025,11 @@ func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabil
 	return allCapabilities.SearchCapabilities["Invoice"], err
 }
 func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Invoice", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Invoice"}
+	}
+	v, err := g.Search(ctx, "Invoice", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8351,7 +10043,11 @@ func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabil
 	return allCapabilities.SearchCapabilities["Library"], err
 }
 func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Library", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Library"}
+	}
+	v, err := g.Search(ctx, "Library", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8365,7 +10061,11 @@ func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabil
 	return allCapabilities.SearchCapabilities["Linkage"], err
 }
 func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Linkage", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Linkage"}
+	}
+	v, err := g.Search(ctx, "Linkage", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8379,7 +10079,11 @@ func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabiliti
 	return allCapabilities.SearchCapabilities["List"], err
 }
 func (w Concrete) SearchList(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "List", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "List"}
+	}
+	v, err := g.Search(ctx, "List", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8393,7 +10097,11 @@ func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Location"], err
 }
 func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Location", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Location"}
+	}
+	v, err := g.Search(ctx, "Location", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8407,7 +10115,11 @@ func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Conte
 	return allCapabilities.SearchCapabilities["ManufacturedItemDefinition"], err
 }
 func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ManufacturedItemDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ManufacturedItemDefinition"}
+	}
+	v, err := g.Search(ctx, "ManufacturedItemDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8421,7 +10133,11 @@ func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabil
 	return allCapabilities.SearchCapabilities["Measure"], err
 }
 func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Measure", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Measure"}
+	}
+	v, err := g.Search(ctx, "Measure", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8435,7 +10151,11 @@ func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["MeasureReport"], err
 }
 func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MeasureReport", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MeasureReport"}
+	}
+	v, err := g.Search(ctx, "MeasureReport", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8449,7 +10169,11 @@ func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilit
 	return allCapabilities.SearchCapabilities["Media"], err
 }
 func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Media", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Media"}
+	}
+	v, err := g.Search(ctx, "Media", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8463,7 +10187,11 @@ func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["Medication"], err
 }
 func (w Concrete) SearchMedication(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Medication", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Medication"}
+	}
+	v, err := g.Search(ctx, "Medication", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8477,7 +10205,11 @@ func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context
 	return allCapabilities.SearchCapabilities["MedicationAdministration"], err
 }
 func (w Concrete) SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MedicationAdministration", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationAdministration"}
+	}
+	v, err := g.Search(ctx, "MedicationAdministration", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8491,7 +10223,11 @@ func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["MedicationDispense"], err
 }
 func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MedicationDispense", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationDispense"}
+	}
+	v, err := g.Search(ctx, "MedicationDispense", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8505,7 +10241,11 @@ func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["MedicationKnowledge"], err
 }
 func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MedicationKnowledge", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationKnowledge"}
+	}
+	v, err := g.Search(ctx, "MedicationKnowledge", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8519,7 +10259,11 @@ func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (sear
 	return allCapabilities.SearchCapabilities["MedicationRequest"], err
 }
 func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MedicationRequest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationRequest"}
+	}
+	v, err := g.Search(ctx, "MedicationRequest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8533,7 +10277,11 @@ func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["MedicationStatement"], err
 }
 func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MedicationStatement", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicationStatement"}
+	}
+	v, err := g.Search(ctx, "MedicationStatement", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8547,7 +10295,11 @@ func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Conte
 	return allCapabilities.SearchCapabilities["MedicinalProductDefinition"], err
 }
 func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MedicinalProductDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MedicinalProductDefinition"}
+	}
+	v, err := g.Search(ctx, "MedicinalProductDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8561,7 +10313,11 @@ func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (sear
 	return allCapabilities.SearchCapabilities["MessageDefinition"], err
 }
 func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MessageDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageDefinition"}
+	}
+	v, err := g.Search(ctx, "MessageDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8575,7 +10331,11 @@ func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["MessageHeader"], err
 }
 func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MessageHeader", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MessageHeader"}
+	}
+	v, err := g.Search(ctx, "MessageHeader", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8589,7 +10349,11 @@ func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (sear
 	return allCapabilities.SearchCapabilities["MolecularSequence"], err
 }
 func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "MolecularSequence", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "MolecularSequence"}
+	}
+	v, err := g.Search(ctx, "MolecularSequence", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8603,7 +10367,11 @@ func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["NamingSystem"], err
 }
 func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "NamingSystem", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NamingSystem"}
+	}
+	v, err := g.Search(ctx, "NamingSystem", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8617,7 +10385,11 @@ func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.
 	return allCapabilities.SearchCapabilities["NutritionOrder"], err
 }
 func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "NutritionOrder", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionOrder"}
+	}
+	v, err := g.Search(ctx, "NutritionOrder", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8631,7 +10403,11 @@ func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["NutritionProduct"], err
 }
 func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "NutritionProduct", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "NutritionProduct"}
+	}
+	v, err := g.Search(ctx, "NutritionProduct", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8645,7 +10421,11 @@ func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Cap
 	return allCapabilities.SearchCapabilities["Observation"], err
 }
 func (w Concrete) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Observation", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Observation"}
+	}
+	v, err := g.Search(ctx, "Observation", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8659,7 +10439,11 @@ func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (
 	return allCapabilities.SearchCapabilities["ObservationDefinition"], err
 }
 func (w Concrete) SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ObservationDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ObservationDefinition"}
+	}
+	v, err := g.Search(ctx, "ObservationDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8673,7 +10457,11 @@ func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["OperationDefinition"], err
 }
 func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "OperationDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationDefinition"}
+	}
+	v, err := g.Search(ctx, "OperationDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8687,7 +10475,11 @@ func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["OperationOutcome"], err
 }
 func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "OperationOutcome", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OperationOutcome"}
+	}
+	v, err := g.Search(ctx, "OperationOutcome", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8701,7 +10493,11 @@ func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["Organization"], err
 }
 func (w Concrete) SearchOrganization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Organization", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Organization"}
+	}
+	v, err := g.Search(ctx, "Organization", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8715,7 +10511,11 @@ func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context)
 	return allCapabilities.SearchCapabilities["OrganizationAffiliation"], err
 }
 func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "OrganizationAffiliation", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "OrganizationAffiliation"}
+	}
+	v, err := g.Search(ctx, "OrganizationAffiliation", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8729,7 +10529,11 @@ func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Contex
 	return allCapabilities.SearchCapabilities["PackagedProductDefinition"], err
 }
 func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "PackagedProductDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PackagedProductDefinition"}
+	}
+	v, err := g.Search(ctx, "PackagedProductDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8743,7 +10547,11 @@ func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["Parameters"], err
 }
 func (w Concrete) SearchParameters(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Parameters", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Parameters"}
+	}
+	v, err := g.Search(ctx, "Parameters", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8757,7 +10565,11 @@ func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabil
 	return allCapabilities.SearchCapabilities["Patient"], err
 }
 func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Patient", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Patient"}
+	}
+	v, err := g.Search(ctx, "Patient", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8771,7 +10583,11 @@ func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["PaymentNotice"], err
 }
 func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "PaymentNotice", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentNotice"}
+	}
+	v, err := g.Search(ctx, "PaymentNotice", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8785,7 +10601,11 @@ func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (
 	return allCapabilities.SearchCapabilities["PaymentReconciliation"], err
 }
 func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "PaymentReconciliation", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PaymentReconciliation"}
+	}
+	v, err := g.Search(ctx, "PaymentReconciliation", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8799,7 +10619,11 @@ func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabili
 	return allCapabilities.SearchCapabilities["Person"], err
 }
 func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Person", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Person"}
+	}
+	v, err := g.Search(ctx, "Person", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8813,7 +10637,11 @@ func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.
 	return allCapabilities.SearchCapabilities["PlanDefinition"], err
 }
 func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "PlanDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PlanDefinition"}
+	}
+	v, err := g.Search(ctx, "PlanDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8827,7 +10655,11 @@ func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["Practitioner"], err
 }
 func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Practitioner", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Practitioner"}
+	}
+	v, err := g.Search(ctx, "Practitioner", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8841,7 +10673,11 @@ func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (searc
 	return allCapabilities.SearchCapabilities["PractitionerRole"], err
 }
 func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "PractitionerRole", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "PractitionerRole"}
+	}
+	v, err := g.Search(ctx, "PractitionerRole", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8855,7 +10691,11 @@ func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capab
 	return allCapabilities.SearchCapabilities["Procedure"], err
 }
 func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Procedure", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Procedure"}
+	}
+	v, err := g.Search(ctx, "Procedure", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8869,7 +10709,11 @@ func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["Provenance"], err
 }
 func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Provenance", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Provenance"}
+	}
+	v, err := g.Search(ctx, "Provenance", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8883,7 +10727,11 @@ func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["Questionnaire"], err
 }
 func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Questionnaire", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Questionnaire"}
+	}
+	v, err := g.Search(ctx, "Questionnaire", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8897,7 +10745,11 @@ func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (
 	return allCapabilities.SearchCapabilities["QuestionnaireResponse"], err
 }
 func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "QuestionnaireResponse", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "QuestionnaireResponse"}
+	}
+	v, err := g.Search(ctx, "QuestionnaireResponse", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8911,7 +10763,11 @@ func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) 
 	return allCapabilities.SearchCapabilities["RegulatedAuthorization"], err
 }
 func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "RegulatedAuthorization", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RegulatedAuthorization"}
+	}
+	v, err := g.Search(ctx, "RegulatedAuthorization", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8925,7 +10781,11 @@ func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["RelatedPerson"], err
 }
 func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "RelatedPerson", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RelatedPerson"}
+	}
+	v, err := g.Search(ctx, "RelatedPerson", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8939,7 +10799,11 @@ func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["RequestGroup"], err
 }
 func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "RequestGroup", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RequestGroup"}
+	}
+	v, err := g.Search(ctx, "RequestGroup", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8953,7 +10817,11 @@ func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["ResearchDefinition"], err
 }
 func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ResearchDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchDefinition"}
+	}
+	v, err := g.Search(ctx, "ResearchDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8967,7 +10835,11 @@ func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Contex
 	return allCapabilities.SearchCapabilities["ResearchElementDefinition"], err
 }
 func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ResearchElementDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchElementDefinition"}
+	}
+	v, err := g.Search(ctx, "ResearchElementDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8981,7 +10853,11 @@ func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["ResearchStudy"], err
 }
 func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ResearchStudy", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchStudy"}
+	}
+	v, err := g.Search(ctx, "ResearchStudy", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -8995,7 +10871,11 @@ func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search
 	return allCapabilities.SearchCapabilities["ResearchSubject"], err
 }
 func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ResearchSubject", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ResearchSubject"}
+	}
+	v, err := g.Search(ctx, "ResearchSubject", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9009,7 +10889,11 @@ func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.
 	return allCapabilities.SearchCapabilities["RiskAssessment"], err
 }
 func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "RiskAssessment", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "RiskAssessment"}
+	}
+	v, err := g.Search(ctx, "RiskAssessment", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9023,7 +10907,11 @@ func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Schedule"], err
 }
 func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Schedule", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Schedule"}
+	}
+	v, err := g.Search(ctx, "Schedule", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9037,7 +10925,11 @@ func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search
 	return allCapabilities.SearchCapabilities["SearchParameter"], err
 }
 func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "SearchParameter", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SearchParameter"}
+	}
+	v, err := g.Search(ctx, "SearchParameter", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9051,7 +10943,11 @@ func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.
 	return allCapabilities.SearchCapabilities["ServiceRequest"], err
 }
 func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ServiceRequest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ServiceRequest"}
+	}
+	v, err := g.Search(ctx, "ServiceRequest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9065,7 +10961,11 @@ func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabiliti
 	return allCapabilities.SearchCapabilities["Slot"], err
 }
 func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Slot", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Slot"}
+	}
+	v, err := g.Search(ctx, "Slot", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9079,7 +10979,11 @@ func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["Specimen"], err
 }
 func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Specimen", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Specimen"}
+	}
+	v, err := g.Search(ctx, "Specimen", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9093,7 +10997,11 @@ func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["SpecimenDefinition"], err
 }
 func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "SpecimenDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SpecimenDefinition"}
+	}
+	v, err := g.Search(ctx, "SpecimenDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9107,7 +11015,11 @@ func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["StructureDefinition"], err
 }
 func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "StructureDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureDefinition"}
+	}
+	v, err := g.Search(ctx, "StructureDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9121,7 +11033,11 @@ func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["StructureMap"], err
 }
 func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "StructureMap", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "StructureMap"}
+	}
+	v, err := g.Search(ctx, "StructureMap", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9135,7 +11051,11 @@ func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Ca
 	return allCapabilities.SearchCapabilities["Subscription"], err
 }
 func (w Concrete) SearchSubscription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Subscription", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Subscription"}
+	}
+	v, err := g.Search(ctx, "Subscription", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9149,7 +11069,11 @@ func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["SubscriptionStatus"], err
 }
 func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "SubscriptionStatus", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubscriptionStatus"}
+	}
+	v, err := g.Search(ctx, "SubscriptionStatus", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9163,7 +11087,11 @@ func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (sear
 	return allCapabilities.SearchCapabilities["SubscriptionTopic"], err
 }
 func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "SubscriptionTopic", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubscriptionTopic"}
+	}
+	v, err := g.Search(ctx, "SubscriptionTopic", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9177,7 +11105,11 @@ func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capab
 	return allCapabilities.SearchCapabilities["Substance"], err
 }
 func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Substance", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Substance"}
+	}
+	v, err := g.Search(ctx, "Substance", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9191,7 +11123,11 @@ func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (se
 	return allCapabilities.SearchCapabilities["SubstanceDefinition"], err
 }
 func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "SubstanceDefinition", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SubstanceDefinition"}
+	}
+	v, err := g.Search(ctx, "SubstanceDefinition", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9205,7 +11141,11 @@ func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.
 	return allCapabilities.SearchCapabilities["SupplyDelivery"], err
 }
 func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "SupplyDelivery", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyDelivery"}
+	}
+	v, err := g.Search(ctx, "SupplyDelivery", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9219,7 +11159,11 @@ func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.C
 	return allCapabilities.SearchCapabilities["SupplyRequest"], err
 }
 func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "SupplyRequest", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "SupplyRequest"}
+	}
+	v, err := g.Search(ctx, "SupplyRequest", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9233,7 +11177,11 @@ func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabiliti
 	return allCapabilities.SearchCapabilities["Task"], err
 }
 func (w Concrete) SearchTask(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "Task", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "Task"}
+	}
+	v, err := g.Search(ctx, "Task", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9247,7 +11195,11 @@ func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context)
 	return allCapabilities.SearchCapabilities["TerminologyCapabilities"], err
 }
 func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "TerminologyCapabilities", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TerminologyCapabilities"}
+	}
+	v, err := g.Search(ctx, "TerminologyCapabilities", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9261,7 +11213,11 @@ func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["TestReport"], err
 }
 func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "TestReport", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestReport"}
+	}
+	v, err := g.Search(ctx, "TestReport", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9275,7 +11231,11 @@ func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capa
 	return allCapabilities.SearchCapabilities["TestScript"], err
 }
 func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "TestScript", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "TestScript"}
+	}
+	v, err := g.Search(ctx, "TestScript", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9289,7 +11249,11 @@ func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabi
 	return allCapabilities.SearchCapabilities["ValueSet"], err
 }
 func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "ValueSet", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "ValueSet"}
+	}
+	v, err := g.Search(ctx, "ValueSet", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9303,7 +11267,11 @@ func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["VerificationResult"], err
 }
 func (w Concrete) SearchVerificationResult(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "VerificationResult", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VerificationResult"}
+	}
+	v, err := g.Search(ctx, "VerificationResult", options)
 	if err != nil {
 		return search.Result{}, err
 	}
@@ -9317,7 +11285,11 @@ func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (sea
 	return allCapabilities.SearchCapabilities["VisionPrescription"], err
 }
 func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	v, err := w.Generic.Search(ctx, "VisionPrescription", options)
+	g, ok := w.Generic.(capabilities.GenericSearch)
+	if !ok {
+		return search.Result{}, capabilities.NotImplementedError{Interaction: "search", ResourceType: "VisionPrescription"}
+	}
+	v, err := g.Search(ctx, "VisionPrescription", options)
 	if err != nil {
 		return search.Result{}, err
 	}

@@ -16,7 +16,7 @@ type FHIRError interface {
 	OperationOutcome() basic.OperationOutcome
 }
 
-// ReleaseNotSupported means that the FHIR version is not supported by the server.
+// ReleaseNotSupported means that the server does not support the FHIR version.
 type ReleaseNotSupported struct {
 	Release string
 }
@@ -41,13 +41,16 @@ func (e ReleaseNotSupported) OperationOutcome() basic.OperationOutcome {
 	}
 }
 
-// NotImplementedError means that the requested Interaction is not supported on requested ResourceType.
+// NotImplementedError means that the requested Interaction is not supported on the requested ResourceType.
 type NotImplementedError struct {
 	Interaction  string
 	ResourceType string
 }
 
 func (e NotImplementedError) Error() string {
+	if e.ResourceType == "" {
+		return fmt.Sprintf("%s not implemented for any resource", e.Interaction)
+	}
 	return fmt.Sprintf("%s not implemented for resource type %s", e.Interaction, e.ResourceType)
 }
 
@@ -67,38 +70,13 @@ func (e NotImplementedError) OperationOutcome() basic.OperationOutcome {
 	}
 }
 
-// UnknownResourceError means that the requested ResourceType is not supported.
-type UnknownResourceError struct {
-	ResourceType string
-}
-
-func (e UnknownResourceError) Error() string {
-	return fmt.Sprintf("unknown resource type %s", e.ResourceType)
-}
-
-func (e UnknownResourceError) StatusCode() int {
-	return 404
-}
-
-func (e UnknownResourceError) OperationOutcome() basic.OperationOutcome {
-	return basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{
-				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("not-supported")},
-				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
-			},
-		},
-	}
-}
-
 // InvalidResourceError means that the requested ResourceType is not a valid FHIR resource.
 type InvalidResourceError struct {
 	ResourceType string
 }
 
 func (e InvalidResourceError) Error() string {
-	return fmt.Sprintf("%s is not a valid FHIR resource", e.ResourceType)
+	return fmt.Sprintf("invalid resource type %s", e.ResourceType)
 }
 
 func (e InvalidResourceError) StatusCode() int {
@@ -110,6 +88,32 @@ func (e InvalidResourceError) OperationOutcome() basic.OperationOutcome {
 		Issue: []basic.OperationOutcomeIssue{
 			{
 				Severity:    basic.Code{Value: utils.Ptr("fatal")},
+				Code:        basic.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
+			},
+		},
+	}
+}
+
+// An UnexpectedResourceError is returned when an unexpected resource type is returned.
+type UnexpectedResourceError struct {
+	ExpectedType string
+	GotType      string
+}
+
+func (e UnexpectedResourceError) Error() string {
+	return fmt.Sprintf("backend returned unexpected resource: expected %s, got %s from %s", e.ExpectedType, e.GotType)
+}
+
+func (e UnexpectedResourceError) StatusCode() int {
+	return 500
+}
+
+func (e UnexpectedResourceError) OperationOutcome() basic.OperationOutcome {
+	return basic.OperationOutcome{
+		Issue: []basic.OperationOutcomeIssue{
+			{
+				Severity:    basic.Code{Value: utils.Ptr("fatal")},
 				Code:        basic.Code{Value: utils.Ptr("processing")},
 				Diagnostics: &basic.String{Value: utils.Ptr(e.Error())},
 			},
@@ -117,7 +121,7 @@ func (e InvalidResourceError) OperationOutcome() basic.OperationOutcome {
 	}
 }
 
-// NotFoundError means that the ResourceType with the requested ID was not found.
+// NotFoundError means that the resource with the requested ID was not found.
 type NotFoundError struct {
 	ResourceType string
 	ID           string

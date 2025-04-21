@@ -28,7 +28,7 @@
 // If the txtar file is missing a trailing newline on the final line,
 // parsers should consider a final newline to be present anyway.
 //
-// There are no possible syntax errors in a txtar archive.
+// There are no possible syntax fhirerrors in a txtar archive.
 package txtar
 
 import (

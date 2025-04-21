@@ -10,7 +10,7 @@ import (
 	"github.com/antlr4-go/antlr/v4"
 )
 
-// Suppress unused import errors
+// Suppress unused import fhirerrors
 var _ = fmt.Printf
 var _ = strconv.Itoa
 var _ = sync.Once{}

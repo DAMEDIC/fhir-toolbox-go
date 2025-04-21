@@ -17,6 +17,11 @@ type Generic struct {
 }
 
 func (w Generic) AllCapabilities(ctx context.Context) (capabilities.Capabilities, capabilities.FHIRError) {
+	g, ok := w.Concrete.(capabilities.GenericCapabilities)
+	if ok {
+		// shortcut for the case that the underlying implementation already implements the generic API
+		return g.AllCapabilities(ctx)
+	}
 	return AllCapabilities(ctx, w.Concrete)
 }
 func (w Generic) Create(ctx context.Context, resource model.Resource) (model.Resource, capabilities.FHIRError) {
@@ -903,7 +908,7 @@ func (w Generic) Create(ctx context.Context, resource model.Resource) (model.Res
 		}
 		return impl.CreateVisionPrescription(ctx, r)
 	default:
-		return nil, capabilities.UnknownResourceError{ResourceType: resource.ResourceType()}
+		return nil, capabilities.InvalidResourceError{ResourceType: resource.ResourceType()}
 	}
 }
 func (w Generic) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
@@ -1790,7 +1795,7 @@ func (w Generic) Read(ctx context.Context, resourceType string, id string) (mode
 		}
 		return impl.ReadVisionPrescription(ctx, id)
 	default:
-		return nil, capabilities.UnknownResourceError{ResourceType: resourceType}
+		return nil, capabilities.InvalidResourceError{ResourceType: resourceType}
 	}
 }
 func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilities.UpdateResult[model.Resource], capabilities.FHIRError) {
@@ -3845,7 +3850,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 			Resource: result.Resource,
 		}, nil
 	default:
-		return capabilities.UpdateResult[model.Resource]{}, capabilities.UnknownResourceError{ResourceType: resource.ResourceType()}
+		return capabilities.UpdateResult[model.Resource]{}, capabilities.InvalidResourceError{ResourceType: resource.ResourceType()}
 	}
 }
 func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, capabilities.FHIRError) {
@@ -4727,7 +4732,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 		}
 		return impl.SearchCapabilitiesVisionPrescription(ctx)
 	default:
-		return search.Capabilities{}, capabilities.UnknownResourceError{ResourceType: resourceType}
+		return search.Capabilities{}, capabilities.InvalidResourceError{ResourceType: resourceType}
 	}
 }
 func (w Generic) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {
@@ -5614,6 +5619,6 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 		}
 		return impl.SearchVisionPrescription(ctx, options)
 	default:
-		return search.Result{}, capabilities.UnknownResourceError{ResourceType: resourceType}
+		return search.Result{}, capabilities.InvalidResourceError{ResourceType: resourceType}
 	}
 }
