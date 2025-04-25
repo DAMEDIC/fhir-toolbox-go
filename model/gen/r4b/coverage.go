@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Financial instrument which may be used to reimburse or pay for health care products and services. Includes both insurance and self-payment.
@@ -144,7 +144,7 @@ func (r Coverage) ResourceId() (string, bool) {
 }
 func (r Coverage) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -163,20 +163,20 @@ func (r Coverage) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -189,7 +189,7 @@ func (r Coverage) MemSize() int {
 	if r.SubscriberId != nil {
 		s += r.SubscriberId.MemSize()
 	}
-	s += r.Beneficiary.MemSize() - int(unsafe.Sizeof(r.Beneficiary))
+	s += r.Beneficiary.MemSize() - int(reflect.TypeOf(r.Beneficiary).Size())
 	if r.Dependent != nil {
 		s += r.Dependent.MemSize()
 	}
@@ -202,11 +202,11 @@ func (r Coverage) MemSize() int {
 	for _, i := range r.Payor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Payor) - len(r.Payor)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Payor) - len(r.Payor)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Class {
 		s += i.MemSize()
 	}
-	s += (cap(r.Class) - len(r.Class)) * int(unsafe.Sizeof(CoverageClass{}))
+	s += (cap(r.Class) - len(r.Class)) * int(reflect.TypeOf(CoverageClass{}).Size())
 	if r.Order != nil {
 		s += r.Order.MemSize()
 	}
@@ -216,49 +216,49 @@ func (r Coverage) MemSize() int {
 	for _, i := range r.CostToBeneficiary {
 		s += i.MemSize()
 	}
-	s += (cap(r.CostToBeneficiary) - len(r.CostToBeneficiary)) * int(unsafe.Sizeof(CoverageCostToBeneficiary{}))
+	s += (cap(r.CostToBeneficiary) - len(r.CostToBeneficiary)) * int(reflect.TypeOf(CoverageCostToBeneficiary{}).Size())
 	if r.Subrogation != nil {
 		s += r.Subrogation.MemSize()
 	}
 	for _, i := range r.Contract {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contract) - len(r.Contract)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Contract) - len(r.Contract)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r CoverageClass) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
 	return s
 }
 func (r CoverageCostToBeneficiary) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -268,23 +268,23 @@ func (r CoverageCostToBeneficiary) MemSize() int {
 	for _, i := range r.Exception {
 		s += i.MemSize()
 	}
-	s += (cap(r.Exception) - len(r.Exception)) * int(unsafe.Sizeof(CoverageCostToBeneficiaryException{}))
+	s += (cap(r.Exception) - len(r.Exception)) * int(reflect.TypeOf(CoverageCostToBeneficiaryException{}).Size())
 	return s
 }
 func (r CoverageCostToBeneficiaryException) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}

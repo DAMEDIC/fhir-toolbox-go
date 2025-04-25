@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A set of analyses performed to analyze and generate genomic data.
@@ -200,7 +200,7 @@ func (r GenomicStudy) ResourceId() (string, bool) {
 }
 func (r GenomicStudy) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -219,25 +219,25 @@ func (r GenomicStudy) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -247,18 +247,18 @@ func (r GenomicStudy) MemSize() int {
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Referrer != nil {
 		s += r.Referrer.MemSize()
 	}
 	for _, i := range r.Interpreter {
 		s += i.MemSize()
 	}
-	s += (cap(r.Interpreter) - len(r.Interpreter)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Interpreter) - len(r.Interpreter)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Reason {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Reason) - len(r.Reason)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	if r.InstantiatesCanonical != nil {
 		s += r.InstantiatesCanonical.MemSize()
 	}
@@ -268,41 +268,41 @@ func (r GenomicStudy) MemSize() int {
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.Analysis {
 		s += i.MemSize()
 	}
-	s += (cap(r.Analysis) - len(r.Analysis)) * int(unsafe.Sizeof(GenomicStudyAnalysis{}))
+	s += (cap(r.Analysis) - len(r.Analysis)) * int(reflect.TypeOf(GenomicStudyAnalysis{}).Size())
 	return s
 }
 func (r GenomicStudyAnalysis) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.MethodType {
 		s += i.MemSize()
 	}
-	s += (cap(r.MethodType) - len(r.MethodType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.MethodType) - len(r.MethodType)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ChangeType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ChangeType) - len(r.ChangeType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ChangeType) - len(r.ChangeType)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.GenomeBuild != nil {
 		s += r.GenomeBuild.MemSize()
 	}
@@ -318,60 +318,60 @@ func (r GenomicStudyAnalysis) MemSize() int {
 	for _, i := range r.Focus {
 		s += i.MemSize()
 	}
-	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Focus) - len(r.Focus)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Specimen {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Date != nil {
 		s += r.Date.MemSize()
 	}
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	if r.ProtocolPerformed != nil {
 		s += r.ProtocolPerformed.MemSize()
 	}
 	for _, i := range r.RegionsStudied {
 		s += i.MemSize()
 	}
-	s += (cap(r.RegionsStudied) - len(r.RegionsStudied)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.RegionsStudied) - len(r.RegionsStudied)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.RegionsCalled {
 		s += i.MemSize()
 	}
-	s += (cap(r.RegionsCalled) - len(r.RegionsCalled)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.RegionsCalled) - len(r.RegionsCalled)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Input {
 		s += i.MemSize()
 	}
-	s += (cap(r.Input) - len(r.Input)) * int(unsafe.Sizeof(GenomicStudyAnalysisInput{}))
+	s += (cap(r.Input) - len(r.Input)) * int(reflect.TypeOf(GenomicStudyAnalysisInput{}).Size())
 	for _, i := range r.Output {
 		s += i.MemSize()
 	}
-	s += (cap(r.Output) - len(r.Output)) * int(unsafe.Sizeof(GenomicStudyAnalysisOutput{}))
+	s += (cap(r.Output) - len(r.Output)) * int(reflect.TypeOf(GenomicStudyAnalysisOutput{}).Size())
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(GenomicStudyAnalysisPerformer{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(GenomicStudyAnalysisPerformer{}).Size())
 	for _, i := range r.Device {
 		s += i.MemSize()
 	}
-	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(GenomicStudyAnalysisDevice{}))
+	s += (cap(r.Device) - len(r.Device)) * int(reflect.TypeOf(GenomicStudyAnalysisDevice{}).Size())
 	return s
 }
 func (r GenomicStudyAnalysisInput) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.File != nil {
 		s += r.File.MemSize()
 	}
@@ -384,18 +384,18 @@ func (r GenomicStudyAnalysisInput) MemSize() int {
 	return s
 }
 func (r GenomicStudyAnalysisOutput) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.File != nil {
 		s += r.File.MemSize()
 	}
@@ -405,18 +405,18 @@ func (r GenomicStudyAnalysisOutput) MemSize() int {
 	return s
 }
 func (r GenomicStudyAnalysisPerformer) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Actor != nil {
 		s += r.Actor.MemSize()
 	}
@@ -426,18 +426,18 @@ func (r GenomicStudyAnalysisPerformer) MemSize() int {
 	return s
 }
 func (r GenomicStudyAnalysisDevice) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Device != nil {
 		s += r.Device.MemSize()
 	}

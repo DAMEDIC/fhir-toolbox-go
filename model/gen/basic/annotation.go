@@ -8,8 +8,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for Annotation Type: A  text note which also  contains information about who made the statement and when.
@@ -33,21 +33,21 @@ type isAnnotationAuthor interface {
 func (r Reference) isAnnotationAuthor() {}
 func (r String) isAnnotationAuthor()    {}
 func (r Annotation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Author != nil {
 		s += r.Author.MemSize()
 	}
 	if r.Time != nil {
 		s += r.Time.MemSize()
 	}
-	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	s += r.Text.MemSize() - int(reflect.TypeOf(r.Text).Size())
 	return s
 }
 func (r Annotation) String() string {

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // This resource provides the insurance enrollment details to the insurer regarding a specified coverage.
@@ -63,7 +63,7 @@ func (r EnrollmentRequest) ResourceId() (string, bool) {
 }
 func (r EnrollmentRequest) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -82,19 +82,19 @@ func (r EnrollmentRequest) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}

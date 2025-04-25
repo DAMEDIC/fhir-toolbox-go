@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describes a comparison of an immunization event against published recommendations to determine if the administration is "valid" in relation to those  recommendations.
@@ -75,7 +75,7 @@ func (r ImmunizationEvaluation) ResourceId() (string, bool) {
 }
 func (r ImmunizationEvaluation) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -94,34 +94,34 @@ func (r ImmunizationEvaluation) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
 	if r.Date != nil {
 		s += r.Date.MemSize()
 	}
 	if r.Authority != nil {
 		s += r.Authority.MemSize()
 	}
-	s += r.TargetDisease.MemSize() - int(unsafe.Sizeof(r.TargetDisease))
-	s += r.ImmunizationEvent.MemSize() - int(unsafe.Sizeof(r.ImmunizationEvent))
-	s += r.DoseStatus.MemSize() - int(unsafe.Sizeof(r.DoseStatus))
+	s += r.TargetDisease.MemSize() - int(reflect.TypeOf(r.TargetDisease).Size())
+	s += r.ImmunizationEvent.MemSize() - int(reflect.TypeOf(r.ImmunizationEvent).Size())
+	s += r.DoseStatus.MemSize() - int(reflect.TypeOf(r.DoseStatus).Size())
 	for _, i := range r.DoseStatusReason {
 		s += i.MemSize()
 	}
-	s += (cap(r.DoseStatusReason) - len(r.DoseStatusReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.DoseStatusReason) - len(r.DoseStatusReason)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // An interaction between healthcare provider(s), and/or patient(s) for the purpose of providing healthcare service(s) or assessing the health status of patient(s).
@@ -199,7 +199,7 @@ func (r Encounter) ResourceId() (string, bool) {
 }
 func (r Encounter) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -218,35 +218,35 @@ func (r Encounter) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.Class {
 		s += i.MemSize()
 	}
-	s += (cap(r.Class) - len(r.Class)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Class) - len(r.Class)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Priority != nil {
 		s += r.Priority.MemSize()
 	}
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ServiceType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
@@ -256,15 +256,15 @@ func (r Encounter) MemSize() int {
 	for _, i := range r.EpisodeOfCare {
 		s += i.MemSize()
 	}
-	s += (cap(r.EpisodeOfCare) - len(r.EpisodeOfCare)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.EpisodeOfCare) - len(r.EpisodeOfCare)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.CareTeam {
 		s += i.MemSize()
 	}
-	s += (cap(r.CareTeam) - len(r.CareTeam)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.CareTeam) - len(r.CareTeam)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.PartOf != nil {
 		s += r.PartOf.MemSize()
 	}
@@ -274,15 +274,15 @@ func (r Encounter) MemSize() int {
 	for _, i := range r.Participant {
 		s += i.MemSize()
 	}
-	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(EncounterParticipant{}))
+	s += (cap(r.Participant) - len(r.Participant)) * int(reflect.TypeOf(EncounterParticipant{}).Size())
 	for _, i := range r.Appointment {
 		s += i.MemSize()
 	}
-	s += (cap(r.Appointment) - len(r.Appointment)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Appointment) - len(r.Appointment)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.VirtualService {
 		s += i.MemSize()
 	}
-	s += (cap(r.VirtualService) - len(r.VirtualService)) * int(unsafe.Sizeof(VirtualServiceDetail{}))
+	s += (cap(r.VirtualService) - len(r.VirtualService)) * int(reflect.TypeOf(VirtualServiceDetail{}).Size())
 	if r.ActualPeriod != nil {
 		s += r.ActualPeriod.MemSize()
 	}
@@ -298,53 +298,53 @@ func (r Encounter) MemSize() int {
 	for _, i := range r.Reason {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(EncounterReason{}))
+	s += (cap(r.Reason) - len(r.Reason)) * int(reflect.TypeOf(EncounterReason{}).Size())
 	for _, i := range r.Diagnosis {
 		s += i.MemSize()
 	}
-	s += (cap(r.Diagnosis) - len(r.Diagnosis)) * int(unsafe.Sizeof(EncounterDiagnosis{}))
+	s += (cap(r.Diagnosis) - len(r.Diagnosis)) * int(reflect.TypeOf(EncounterDiagnosis{}).Size())
 	for _, i := range r.Account {
 		s += i.MemSize()
 	}
-	s += (cap(r.Account) - len(r.Account)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Account) - len(r.Account)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.DietPreference {
 		s += i.MemSize()
 	}
-	s += (cap(r.DietPreference) - len(r.DietPreference)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.DietPreference) - len(r.DietPreference)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.SpecialArrangement {
 		s += i.MemSize()
 	}
-	s += (cap(r.SpecialArrangement) - len(r.SpecialArrangement)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.SpecialArrangement) - len(r.SpecialArrangement)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.SpecialCourtesy {
 		s += i.MemSize()
 	}
-	s += (cap(r.SpecialCourtesy) - len(r.SpecialCourtesy)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.SpecialCourtesy) - len(r.SpecialCourtesy)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Admission != nil {
 		s += r.Admission.MemSize()
 	}
 	for _, i := range r.Location {
 		s += i.MemSize()
 	}
-	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(EncounterLocation{}))
+	s += (cap(r.Location) - len(r.Location)) * int(reflect.TypeOf(EncounterLocation{}).Size())
 	return s
 }
 func (r EncounterParticipant) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}
@@ -354,64 +354,64 @@ func (r EncounterParticipant) MemSize() int {
 	return s
 }
 func (r EncounterReason) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Use {
 		s += i.MemSize()
 	}
-	s += (cap(r.Use) - len(r.Use)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Use) - len(r.Use)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Value {
 		s += i.MemSize()
 	}
-	s += (cap(r.Value) - len(r.Value)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Value) - len(r.Value)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	return s
 }
 func (r EncounterDiagnosis) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Condition {
 		s += i.MemSize()
 	}
-	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Condition) - len(r.Condition)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Use {
 		s += i.MemSize()
 	}
-	s += (cap(r.Use) - len(r.Use)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Use) - len(r.Use)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r EncounterAdmission) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.PreAdmissionIdentifier != nil {
 		s += r.PreAdmissionIdentifier.MemSize()
 	}
@@ -433,19 +433,19 @@ func (r EncounterAdmission) MemSize() int {
 	return s
 }
 func (r EncounterLocation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Location.MemSize() - int(unsafe.Sizeof(r.Location))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Location.MemSize() - int(reflect.TypeOf(r.Location).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}

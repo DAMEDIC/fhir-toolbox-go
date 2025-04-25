@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // This resource is a non-persisted resource used to pass information into and back from an [operation](operations.html). It has no other use, and there is no RESTful endpoint associated with it.
@@ -114,7 +114,7 @@ func (r Parameters) ResourceId() (string, bool) {
 	return *r.Id.Value, true
 }
 func (r Parameters) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -130,23 +130,23 @@ func (r Parameters) MemSize() int {
 	for _, i := range r.Parameter {
 		s += i.MemSize()
 	}
-	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(ParametersParameter{}))
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(reflect.TypeOf(ParametersParameter{}).Size())
 	return s
 }
 func (r ParametersParameter) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Name.MemSize() - int(reflect.TypeOf(r.Name).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
@@ -156,7 +156,7 @@ func (r ParametersParameter) MemSize() int {
 	for _, i := range r.Part {
 		s += i.MemSize()
 	}
-	s += (cap(r.Part) - len(r.Part)) * int(unsafe.Sizeof(ParametersParameter{}))
+	s += (cap(r.Part) - len(r.Part)) * int(reflect.TypeOf(ParametersParameter{}).Size())
 	return s
 }
 func (r Parameters) String() string {

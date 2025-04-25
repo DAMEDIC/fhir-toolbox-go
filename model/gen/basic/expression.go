@@ -7,8 +7,8 @@ import (
 	"errors"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for Expression Type: A expression that is evaluated in a specified context and returns a value. The context of use of the expression must specify the context in which the expression is evaluated, and how the result of the expression is used.
@@ -30,21 +30,21 @@ type Expression struct {
 }
 
 func (r Expression) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
-	s += r.Language.MemSize() - int(unsafe.Sizeof(r.Language))
+	s += r.Language.MemSize() - int(reflect.TypeOf(r.Language).Size())
 	if r.Expression != nil {
 		s += r.Expression.MemSize()
 	}

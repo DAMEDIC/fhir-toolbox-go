@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Details of a Health Insurance product/plan provided by an organization.
@@ -225,7 +225,7 @@ func (r InsurancePlan) ResourceId() (string, bool) {
 }
 func (r InsurancePlan) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -244,33 +244,33 @@ func (r InsurancePlan) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
 	for _, i := range r.Alias {
 		s += i.MemSize()
 	}
-	s += (cap(r.Alias) - len(r.Alias)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Alias) - len(r.Alias)) * int(reflect.TypeOf(String{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}
@@ -283,89 +283,89 @@ func (r InsurancePlan) MemSize() int {
 	for _, i := range r.CoverageArea {
 		s += i.MemSize()
 	}
-	s += (cap(r.CoverageArea) - len(r.CoverageArea)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.CoverageArea) - len(r.CoverageArea)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ExtendedContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ExtendedContactDetail{}).Size())
 	for _, i := range r.Endpoint {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Network {
 		s += i.MemSize()
 	}
-	s += (cap(r.Network) - len(r.Network)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Network) - len(r.Network)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Coverage {
 		s += i.MemSize()
 	}
-	s += (cap(r.Coverage) - len(r.Coverage)) * int(unsafe.Sizeof(InsurancePlanCoverage{}))
+	s += (cap(r.Coverage) - len(r.Coverage)) * int(reflect.TypeOf(InsurancePlanCoverage{}).Size())
 	for _, i := range r.Plan {
 		s += i.MemSize()
 	}
-	s += (cap(r.Plan) - len(r.Plan)) * int(unsafe.Sizeof(InsurancePlanPlan{}))
+	s += (cap(r.Plan) - len(r.Plan)) * int(reflect.TypeOf(InsurancePlanPlan{}).Size())
 	return s
 }
 func (r InsurancePlanCoverage) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.Network {
 		s += i.MemSize()
 	}
-	s += (cap(r.Network) - len(r.Network)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Network) - len(r.Network)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Benefit {
 		s += i.MemSize()
 	}
-	s += (cap(r.Benefit) - len(r.Benefit)) * int(unsafe.Sizeof(InsurancePlanCoverageBenefit{}))
+	s += (cap(r.Benefit) - len(r.Benefit)) * int(reflect.TypeOf(InsurancePlanCoverageBenefit{}).Size())
 	return s
 }
 func (r InsurancePlanCoverageBenefit) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Requirement != nil {
 		s += r.Requirement.MemSize()
 	}
 	for _, i := range r.Limit {
 		s += i.MemSize()
 	}
-	s += (cap(r.Limit) - len(r.Limit)) * int(unsafe.Sizeof(InsurancePlanCoverageBenefitLimit{}))
+	s += (cap(r.Limit) - len(r.Limit)) * int(reflect.TypeOf(InsurancePlanCoverageBenefitLimit{}).Size())
 	return s
 }
 func (r InsurancePlanCoverageBenefitLimit) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
@@ -375,56 +375,56 @@ func (r InsurancePlanCoverageBenefitLimit) MemSize() int {
 	return s
 }
 func (r InsurancePlanPlan) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	for _, i := range r.CoverageArea {
 		s += i.MemSize()
 	}
-	s += (cap(r.CoverageArea) - len(r.CoverageArea)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.CoverageArea) - len(r.CoverageArea)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Network {
 		s += i.MemSize()
 	}
-	s += (cap(r.Network) - len(r.Network)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Network) - len(r.Network)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.GeneralCost {
 		s += i.MemSize()
 	}
-	s += (cap(r.GeneralCost) - len(r.GeneralCost)) * int(unsafe.Sizeof(InsurancePlanPlanGeneralCost{}))
+	s += (cap(r.GeneralCost) - len(r.GeneralCost)) * int(reflect.TypeOf(InsurancePlanPlanGeneralCost{}).Size())
 	for _, i := range r.SpecificCost {
 		s += i.MemSize()
 	}
-	s += (cap(r.SpecificCost) - len(r.SpecificCost)) * int(unsafe.Sizeof(InsurancePlanPlanSpecificCost{}))
+	s += (cap(r.SpecificCost) - len(r.SpecificCost)) * int(reflect.TypeOf(InsurancePlanPlanSpecificCost{}).Size())
 	return s
 }
 func (r InsurancePlanPlanGeneralCost) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -440,66 +440,66 @@ func (r InsurancePlanPlanGeneralCost) MemSize() int {
 	return s
 }
 func (r InsurancePlanPlanSpecificCost) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Category.MemSize() - int(unsafe.Sizeof(r.Category))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Category.MemSize() - int(reflect.TypeOf(r.Category).Size())
 	for _, i := range r.Benefit {
 		s += i.MemSize()
 	}
-	s += (cap(r.Benefit) - len(r.Benefit)) * int(unsafe.Sizeof(InsurancePlanPlanSpecificCostBenefit{}))
+	s += (cap(r.Benefit) - len(r.Benefit)) * int(reflect.TypeOf(InsurancePlanPlanSpecificCostBenefit{}).Size())
 	return s
 }
 func (r InsurancePlanPlanSpecificCostBenefit) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.Cost {
 		s += i.MemSize()
 	}
-	s += (cap(r.Cost) - len(r.Cost)) * int(unsafe.Sizeof(InsurancePlanPlanSpecificCostBenefitCost{}))
+	s += (cap(r.Cost) - len(r.Cost)) * int(reflect.TypeOf(InsurancePlanPlanSpecificCostBenefitCost{}).Size())
 	return s
 }
 func (r InsurancePlanPlanSpecificCostBenefitCost) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Applicability != nil {
 		s += r.Applicability.MemSize()
 	}
 	for _, i := range r.Qualifiers {
 		s += i.MemSize()
 	}
-	s += (cap(r.Qualifiers) - len(r.Qualifiers)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Qualifiers) - len(r.Qualifiers)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}

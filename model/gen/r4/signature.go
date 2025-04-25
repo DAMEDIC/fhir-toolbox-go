@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for Signature Type: A signature along with supporting context. The signature may be a digital signature that is cryptographic in nature, or some other signature acceptable to the domain. This other signature may be as simple as a graphical image representing a hand-written signature, or a signature ceremony Different signature approaches have different utilities.
@@ -37,20 +37,20 @@ type Signature struct {
 }
 
 func (r Signature) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(Coding{}))
-	s += r.When.MemSize() - int(unsafe.Sizeof(r.When))
-	s += r.Who.MemSize() - int(unsafe.Sizeof(r.Who))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(Coding{}).Size())
+	s += r.When.MemSize() - int(reflect.TypeOf(r.When).Size())
+	s += r.Who.MemSize() - int(reflect.TypeOf(r.Who).Size())
 	if r.OnBehalfOf != nil {
 		s += r.OnBehalfOf.MemSize()
 	}

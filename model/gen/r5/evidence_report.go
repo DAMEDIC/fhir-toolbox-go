@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The EvidenceReport Resource is a specialized container for a collection of resources and codeable concepts, adapted to support compositions of Evidence, EvidenceVariable, and Citation resources and related concepts.
@@ -210,7 +210,7 @@ func (r EvidenceReport) ResourceId() (string, bool) {
 }
 func (r EvidenceReport) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -229,31 +229,31 @@ func (r EvidenceReport) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.RelatedIdentifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedIdentifier) - len(r.RelatedIdentifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.RelatedIdentifier) - len(r.RelatedIdentifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.CiteAs != nil {
 		s += r.CiteAs.MemSize()
 	}
@@ -263,82 +263,82 @@ func (r EvidenceReport) MemSize() int {
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.RelatedArtifact {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Publisher != nil {
 		s += r.Publisher.MemSize()
 	}
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Editor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Editor) - len(r.Editor)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Reviewer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Endorser {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.RelatesTo {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(unsafe.Sizeof(EvidenceReportRelatesTo{}))
+	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(reflect.TypeOf(EvidenceReportRelatesTo{}).Size())
 	for _, i := range r.Section {
 		s += i.MemSize()
 	}
-	s += (cap(r.Section) - len(r.Section)) * int(unsafe.Sizeof(EvidenceReportSection{}))
+	s += (cap(r.Section) - len(r.Section)) * int(reflect.TypeOf(EvidenceReportSection{}).Size())
 	return s
 }
 func (r EvidenceReportSubject) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Characteristic {
 		s += i.MemSize()
 	}
-	s += (cap(r.Characteristic) - len(r.Characteristic)) * int(unsafe.Sizeof(EvidenceReportSubjectCharacteristic{}))
+	s += (cap(r.Characteristic) - len(r.Characteristic)) * int(reflect.TypeOf(EvidenceReportSubjectCharacteristic{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	return s
 }
 func (r EvidenceReportSubjectCharacteristic) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
@@ -351,35 +351,35 @@ func (r EvidenceReportSubjectCharacteristic) MemSize() int {
 	return s
 }
 func (r EvidenceReportRelatesTo) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
-	s += r.Target.MemSize() - int(unsafe.Sizeof(r.Target))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
+	s += r.Target.MemSize() - int(reflect.TypeOf(r.Target).Size())
 	return s
 }
 func (r EvidenceReportRelatesToTarget) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
@@ -395,18 +395,18 @@ func (r EvidenceReportRelatesToTarget) MemSize() int {
 	return s
 }
 func (r EvidenceReportSection) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
@@ -419,7 +419,7 @@ func (r EvidenceReportSection) MemSize() int {
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Text != nil {
 		s += r.Text.MemSize()
 	}
@@ -432,22 +432,22 @@ func (r EvidenceReportSection) MemSize() int {
 	for _, i := range r.EntryClassifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.EntryClassifier) - len(r.EntryClassifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.EntryClassifier) - len(r.EntryClassifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.EntryReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.EntryReference) - len(r.EntryReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.EntryReference) - len(r.EntryReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.EntryQuantity {
 		s += i.MemSize()
 	}
-	s += (cap(r.EntryQuantity) - len(r.EntryQuantity)) * int(unsafe.Sizeof(Quantity{}))
+	s += (cap(r.EntryQuantity) - len(r.EntryQuantity)) * int(reflect.TypeOf(Quantity{}).Size())
 	if r.EmptyReason != nil {
 		s += r.EmptyReason.MemSize()
 	}
 	for _, i := range r.Section {
 		s += i.MemSize()
 	}
-	s += (cap(r.Section) - len(r.Section)) * int(unsafe.Sizeof(EvidenceReportSection{}))
+	s += (cap(r.Section) - len(r.Section)) * int(reflect.TypeOf(EvidenceReportSection{}).Size())
 	return s
 }
 func (r EvidenceReport) String() string {

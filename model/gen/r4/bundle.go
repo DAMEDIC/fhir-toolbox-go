@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A container for a collection of resources.
@@ -156,7 +156,7 @@ func (r Bundle) ResourceId() (string, bool) {
 	return *r.Id.Value, true
 }
 func (r Bundle) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -172,7 +172,7 @@ func (r Bundle) MemSize() int {
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Timestamp != nil {
 		s += r.Timestamp.MemSize()
 	}
@@ -182,50 +182,50 @@ func (r Bundle) MemSize() int {
 	for _, i := range r.Link {
 		s += i.MemSize()
 	}
-	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(BundleLink{}))
+	s += (cap(r.Link) - len(r.Link)) * int(reflect.TypeOf(BundleLink{}).Size())
 	for _, i := range r.Entry {
 		s += i.MemSize()
 	}
-	s += (cap(r.Entry) - len(r.Entry)) * int(unsafe.Sizeof(BundleEntry{}))
+	s += (cap(r.Entry) - len(r.Entry)) * int(reflect.TypeOf(BundleEntry{}).Size())
 	if r.Signature != nil {
 		s += r.Signature.MemSize()
 	}
 	return s
 }
 func (r BundleLink) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Relation.MemSize() - int(unsafe.Sizeof(r.Relation))
-	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Relation.MemSize() - int(reflect.TypeOf(r.Relation).Size())
+	s += r.Url.MemSize() - int(reflect.TypeOf(r.Url).Size())
 	return s
 }
 func (r BundleEntry) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Link {
 		s += i.MemSize()
 	}
-	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(BundleLink{}))
+	s += (cap(r.Link) - len(r.Link)) * int(reflect.TypeOf(BundleLink{}).Size())
 	if r.FullUrl != nil {
 		s += r.FullUrl.MemSize()
 	}
@@ -244,18 +244,18 @@ func (r BundleEntry) MemSize() int {
 	return s
 }
 func (r BundleEntrySearch) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Mode != nil {
 		s += r.Mode.MemSize()
 	}
@@ -265,20 +265,20 @@ func (r BundleEntrySearch) MemSize() int {
 	return s
 }
 func (r BundleEntryRequest) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Method.MemSize() - int(unsafe.Sizeof(r.Method))
-	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Method.MemSize() - int(reflect.TypeOf(r.Method).Size())
+	s += r.Url.MemSize() - int(reflect.TypeOf(r.Url).Size())
 	if r.IfNoneMatch != nil {
 		s += r.IfNoneMatch.MemSize()
 	}
@@ -294,19 +294,19 @@ func (r BundleEntryRequest) MemSize() int {
 	return s
 }
 func (r BundleEntryResponse) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Location != nil {
 		s += r.Location.MemSize()
 	}

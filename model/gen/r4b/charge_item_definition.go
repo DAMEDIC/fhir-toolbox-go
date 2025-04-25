@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The ChargeItemDefinition resource provides the properties that apply to the (billing) codes necessary to calculate costs and prices. The properties may differ largely depending on type and realm, therefore this resource gives only a rough structure and requires profiling for each type of billing code system.
@@ -149,7 +149,7 @@ func (r ChargeItemDefinition) ResourceId() (string, bool) {
 }
 func (r ChargeItemDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -168,20 +168,20 @@ func (r ChargeItemDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Url.MemSize() - int(reflect.TypeOf(r.Url).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -191,16 +191,16 @@ func (r ChargeItemDefinition) MemSize() int {
 	for _, i := range r.DerivedFromUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.DerivedFromUri) - len(r.DerivedFromUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.DerivedFromUri) - len(r.DerivedFromUri)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.Replaces {
 		s += i.MemSize()
 	}
-	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Canonical{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(reflect.TypeOf(Canonical{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -213,18 +213,18 @@ func (r ChargeItemDefinition) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Copyright != nil {
 		s += r.Copyright.MemSize()
 	}
@@ -243,30 +243,30 @@ func (r ChargeItemDefinition) MemSize() int {
 	for _, i := range r.Instance {
 		s += i.MemSize()
 	}
-	s += (cap(r.Instance) - len(r.Instance)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Instance) - len(r.Instance)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Applicability {
 		s += i.MemSize()
 	}
-	s += (cap(r.Applicability) - len(r.Applicability)) * int(unsafe.Sizeof(ChargeItemDefinitionApplicability{}))
+	s += (cap(r.Applicability) - len(r.Applicability)) * int(reflect.TypeOf(ChargeItemDefinitionApplicability{}).Size())
 	for _, i := range r.PropertyGroup {
 		s += i.MemSize()
 	}
-	s += (cap(r.PropertyGroup) - len(r.PropertyGroup)) * int(unsafe.Sizeof(ChargeItemDefinitionPropertyGroup{}))
+	s += (cap(r.PropertyGroup) - len(r.PropertyGroup)) * int(reflect.TypeOf(ChargeItemDefinitionPropertyGroup{}).Size())
 	return s
 }
 func (r ChargeItemDefinitionApplicability) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -279,42 +279,42 @@ func (r ChargeItemDefinitionApplicability) MemSize() int {
 	return s
 }
 func (r ChargeItemDefinitionPropertyGroup) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Applicability {
 		s += i.MemSize()
 	}
-	s += (cap(r.Applicability) - len(r.Applicability)) * int(unsafe.Sizeof(ChargeItemDefinitionApplicability{}))
+	s += (cap(r.Applicability) - len(r.Applicability)) * int(reflect.TypeOf(ChargeItemDefinitionApplicability{}).Size())
 	for _, i := range r.PriceComponent {
 		s += i.MemSize()
 	}
-	s += (cap(r.PriceComponent) - len(r.PriceComponent)) * int(unsafe.Sizeof(ChargeItemDefinitionPropertyGroupPriceComponent{}))
+	s += (cap(r.PriceComponent) - len(r.PriceComponent)) * int(reflect.TypeOf(ChargeItemDefinitionPropertyGroupPriceComponent{}).Size())
 	return s
 }
 func (r ChargeItemDefinitionPropertyGroupPriceComponent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}

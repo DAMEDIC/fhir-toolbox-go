@@ -7,8 +7,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/cockroachdb/apd/v3"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for decimal Type: A rational number with implicit precision
@@ -22,14 +22,14 @@ type Decimal struct {
 }
 
 func (r Decimal) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Value != nil {
 		s += int(r.Value.Size())
 	}

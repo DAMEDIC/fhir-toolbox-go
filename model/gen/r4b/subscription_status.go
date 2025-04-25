@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The SubscriptionStatus resource describes the state of a Subscription during notifications.
@@ -83,7 +83,7 @@ func (r SubscriptionStatus) ResourceId() (string, bool) {
 }
 func (r SubscriptionStatus) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -102,50 +102,50 @@ func (r SubscriptionStatus) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.EventsSinceSubscriptionStart != nil {
 		s += r.EventsSinceSubscriptionStart.MemSize()
 	}
 	for _, i := range r.NotificationEvent {
 		s += i.MemSize()
 	}
-	s += (cap(r.NotificationEvent) - len(r.NotificationEvent)) * int(unsafe.Sizeof(SubscriptionStatusNotificationEvent{}))
-	s += r.Subscription.MemSize() - int(unsafe.Sizeof(r.Subscription))
+	s += (cap(r.NotificationEvent) - len(r.NotificationEvent)) * int(reflect.TypeOf(SubscriptionStatusNotificationEvent{}).Size())
+	s += r.Subscription.MemSize() - int(reflect.TypeOf(r.Subscription).Size())
 	if r.Topic != nil {
 		s += r.Topic.MemSize()
 	}
 	for _, i := range r.Error {
 		s += i.MemSize()
 	}
-	s += (cap(r.Error) - len(r.Error)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Error) - len(r.Error)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r SubscriptionStatusNotificationEvent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.EventNumber.MemSize() - int(unsafe.Sizeof(r.EventNumber))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.EventNumber.MemSize() - int(reflect.TypeOf(r.EventNumber).Size())
 	if r.Timestamp != nil {
 		s += r.Timestamp.MemSize()
 	}
@@ -155,7 +155,7 @@ func (r SubscriptionStatusNotificationEvent) MemSize() int {
 	for _, i := range r.AdditionalContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.AdditionalContext) - len(r.AdditionalContext)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.AdditionalContext) - len(r.AdditionalContext)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r SubscriptionStatus) String() string {

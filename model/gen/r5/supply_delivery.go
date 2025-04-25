@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Record of delivery of what is supplied.
@@ -101,7 +101,7 @@ func (r SupplyDelivery) ResourceId() (string, bool) {
 }
 func (r SupplyDelivery) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -120,27 +120,27 @@ func (r SupplyDelivery) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
@@ -153,7 +153,7 @@ func (r SupplyDelivery) MemSize() int {
 	for _, i := range r.SuppliedItem {
 		s += i.MemSize()
 	}
-	s += (cap(r.SuppliedItem) - len(r.SuppliedItem)) * int(unsafe.Sizeof(SupplyDeliverySuppliedItem{}))
+	s += (cap(r.SuppliedItem) - len(r.SuppliedItem)) * int(reflect.TypeOf(SupplyDeliverySuppliedItem{}).Size())
 	if r.Occurrence != nil {
 		s += r.Occurrence.MemSize()
 	}
@@ -166,22 +166,22 @@ func (r SupplyDelivery) MemSize() int {
 	for _, i := range r.Receiver {
 		s += i.MemSize()
 	}
-	s += (cap(r.Receiver) - len(r.Receiver)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Receiver) - len(r.Receiver)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r SupplyDeliverySuppliedItem) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Quantity != nil {
 		s += r.Quantity.MemSize()
 	}

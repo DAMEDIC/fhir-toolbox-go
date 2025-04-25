@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describes validation requirements, source(s), status and dates for one or more elements.
@@ -149,7 +149,7 @@ func (r VerificationResult) ResourceId() (string, bool) {
 }
 func (r VerificationResult) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -168,27 +168,27 @@ func (r VerificationResult) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Target {
 		s += i.MemSize()
 	}
-	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Target) - len(r.Target)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.TargetLocation {
 		s += i.MemSize()
 	}
-	s += (cap(r.TargetLocation) - len(r.TargetLocation)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.TargetLocation) - len(r.TargetLocation)) * int(reflect.TypeOf(String{}).Size())
 	if r.Need != nil {
 		s += r.Need.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.StatusDate != nil {
 		s += r.StatusDate.MemSize()
 	}
@@ -198,7 +198,7 @@ func (r VerificationResult) MemSize() int {
 	for _, i := range r.ValidationProcess {
 		s += i.MemSize()
 	}
-	s += (cap(r.ValidationProcess) - len(r.ValidationProcess)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ValidationProcess) - len(r.ValidationProcess)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Frequency != nil {
 		s += r.Frequency.MemSize()
 	}
@@ -214,40 +214,40 @@ func (r VerificationResult) MemSize() int {
 	for _, i := range r.PrimarySource {
 		s += i.MemSize()
 	}
-	s += (cap(r.PrimarySource) - len(r.PrimarySource)) * int(unsafe.Sizeof(VerificationResultPrimarySource{}))
+	s += (cap(r.PrimarySource) - len(r.PrimarySource)) * int(reflect.TypeOf(VerificationResultPrimarySource{}).Size())
 	if r.Attestation != nil {
 		s += r.Attestation.MemSize()
 	}
 	for _, i := range r.Validator {
 		s += i.MemSize()
 	}
-	s += (cap(r.Validator) - len(r.Validator)) * int(unsafe.Sizeof(VerificationResultValidator{}))
+	s += (cap(r.Validator) - len(r.Validator)) * int(reflect.TypeOf(VerificationResultValidator{}).Size())
 	return s
 }
 func (r VerificationResultPrimarySource) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Who != nil {
 		s += r.Who.MemSize()
 	}
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.CommunicationMethod {
 		s += i.MemSize()
 	}
-	s += (cap(r.CommunicationMethod) - len(r.CommunicationMethod)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.CommunicationMethod) - len(r.CommunicationMethod)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.ValidationStatus != nil {
 		s += r.ValidationStatus.MemSize()
 	}
@@ -260,22 +260,22 @@ func (r VerificationResultPrimarySource) MemSize() int {
 	for _, i := range r.PushTypeAvailable {
 		s += i.MemSize()
 	}
-	s += (cap(r.PushTypeAvailable) - len(r.PushTypeAvailable)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.PushTypeAvailable) - len(r.PushTypeAvailable)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r VerificationResultAttestation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Who != nil {
 		s += r.Who.MemSize()
 	}
@@ -303,19 +303,19 @@ func (r VerificationResultAttestation) MemSize() int {
 	return s
 }
 func (r VerificationResultValidator) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Organization.MemSize() - int(unsafe.Sizeof(r.Organization))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Organization.MemSize() - int(reflect.TypeOf(r.Organization).Size())
 	if r.IdentityCertificate != nil {
 		s += r.IdentityCertificate.MemSize()
 	}

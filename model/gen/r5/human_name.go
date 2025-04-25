@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // HumanName Type: A name, normally of a human, that can be used for other living entities (e.g. animals but not organizations) that have been assigned names by a human and may need the use of name parts or the need for usage information.
@@ -37,14 +37,14 @@ type HumanName struct {
 }
 
 func (r HumanName) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Use != nil {
 		s += r.Use.MemSize()
 	}
@@ -57,15 +57,15 @@ func (r HumanName) MemSize() int {
 	for _, i := range r.Given {
 		s += i.MemSize()
 	}
-	s += (cap(r.Given) - len(r.Given)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Given) - len(r.Given)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.Prefix {
 		s += i.MemSize()
 	}
-	s += (cap(r.Prefix) - len(r.Prefix)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Prefix) - len(r.Prefix)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.Suffix {
 		s += i.MemSize()
 	}
-	s += (cap(r.Suffix) - len(r.Suffix)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Suffix) - len(r.Suffix)) * int(reflect.TypeOf(String{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}

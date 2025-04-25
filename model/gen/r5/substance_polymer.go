@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Properties of a substance specific to it being a polymer.
@@ -179,7 +179,7 @@ func (r SubstancePolymer) ResourceId() (string, bool) {
 }
 func (r SubstancePolymer) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -198,15 +198,15 @@ func (r SubstancePolymer) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}
@@ -219,55 +219,55 @@ func (r SubstancePolymer) MemSize() int {
 	for _, i := range r.CopolymerConnectivity {
 		s += i.MemSize()
 	}
-	s += (cap(r.CopolymerConnectivity) - len(r.CopolymerConnectivity)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.CopolymerConnectivity) - len(r.CopolymerConnectivity)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Modification != nil {
 		s += r.Modification.MemSize()
 	}
 	for _, i := range r.MonomerSet {
 		s += i.MemSize()
 	}
-	s += (cap(r.MonomerSet) - len(r.MonomerSet)) * int(unsafe.Sizeof(SubstancePolymerMonomerSet{}))
+	s += (cap(r.MonomerSet) - len(r.MonomerSet)) * int(reflect.TypeOf(SubstancePolymerMonomerSet{}).Size())
 	for _, i := range r.Repeat {
 		s += i.MemSize()
 	}
-	s += (cap(r.Repeat) - len(r.Repeat)) * int(unsafe.Sizeof(SubstancePolymerRepeat{}))
+	s += (cap(r.Repeat) - len(r.Repeat)) * int(reflect.TypeOf(SubstancePolymerRepeat{}).Size())
 	return s
 }
 func (r SubstancePolymerMonomerSet) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.RatioType != nil {
 		s += r.RatioType.MemSize()
 	}
 	for _, i := range r.StartingMaterial {
 		s += i.MemSize()
 	}
-	s += (cap(r.StartingMaterial) - len(r.StartingMaterial)) * int(unsafe.Sizeof(SubstancePolymerMonomerSetStartingMaterial{}))
+	s += (cap(r.StartingMaterial) - len(r.StartingMaterial)) * int(reflect.TypeOf(SubstancePolymerMonomerSetStartingMaterial{}).Size())
 	return s
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}
@@ -283,18 +283,18 @@ func (r SubstancePolymerMonomerSetStartingMaterial) MemSize() int {
 	return s
 }
 func (r SubstancePolymerRepeat) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.AverageMolecularFormula != nil {
 		s += r.AverageMolecularFormula.MemSize()
 	}
@@ -304,22 +304,22 @@ func (r SubstancePolymerRepeat) MemSize() int {
 	for _, i := range r.RepeatUnit {
 		s += i.MemSize()
 	}
-	s += (cap(r.RepeatUnit) - len(r.RepeatUnit)) * int(unsafe.Sizeof(SubstancePolymerRepeatRepeatUnit{}))
+	s += (cap(r.RepeatUnit) - len(r.RepeatUnit)) * int(reflect.TypeOf(SubstancePolymerRepeatRepeatUnit{}).Size())
 	return s
 }
 func (r SubstancePolymerRepeatRepeatUnit) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Unit != nil {
 		s += r.Unit.MemSize()
 	}
@@ -332,26 +332,26 @@ func (r SubstancePolymerRepeatRepeatUnit) MemSize() int {
 	for _, i := range r.DegreeOfPolymerisation {
 		s += i.MemSize()
 	}
-	s += (cap(r.DegreeOfPolymerisation) - len(r.DegreeOfPolymerisation)) * int(unsafe.Sizeof(SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation{}))
+	s += (cap(r.DegreeOfPolymerisation) - len(r.DegreeOfPolymerisation)) * int(reflect.TypeOf(SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation{}).Size())
 	for _, i := range r.StructuralRepresentation {
 		s += i.MemSize()
 	}
-	s += (cap(r.StructuralRepresentation) - len(r.StructuralRepresentation)) * int(unsafe.Sizeof(SubstancePolymerRepeatRepeatUnitStructuralRepresentation{}))
+	s += (cap(r.StructuralRepresentation) - len(r.StructuralRepresentation)) * int(reflect.TypeOf(SubstancePolymerRepeatRepeatUnitStructuralRepresentation{}).Size())
 	return s
 }
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -367,18 +367,18 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) MemSize() int {
 	return s
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}

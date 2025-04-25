@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A medicinal product in the final form which is suitable for administering to a patient (after any mixing of multiple components, dissolution etc. has been performed).
@@ -161,7 +161,7 @@ func (r AdministrableProductDefinition) ResourceId() (string, bool) {
 }
 func (r AdministrableProductDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -180,24 +180,24 @@ func (r AdministrableProductDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.FormOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.FormOf) - len(r.FormOf)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.FormOf) - len(r.FormOf)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.AdministrableDoseForm != nil {
 		s += r.AdministrableDoseForm.MemSize()
 	}
@@ -207,11 +207,11 @@ func (r AdministrableProductDefinition) MemSize() int {
 	for _, i := range r.ProducedFrom {
 		s += i.MemSize()
 	}
-	s += (cap(r.ProducedFrom) - len(r.ProducedFrom)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ProducedFrom) - len(r.ProducedFrom)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Ingredient {
 		s += i.MemSize()
 	}
-	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Device != nil {
 		s += r.Device.MemSize()
 	}
@@ -221,27 +221,27 @@ func (r AdministrableProductDefinition) MemSize() int {
 	for _, i := range r.Property {
 		s += i.MemSize()
 	}
-	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(AdministrableProductDefinitionProperty{}))
+	s += (cap(r.Property) - len(r.Property)) * int(reflect.TypeOf(AdministrableProductDefinitionProperty{}).Size())
 	for _, i := range r.RouteOfAdministration {
 		s += i.MemSize()
 	}
-	s += (cap(r.RouteOfAdministration) - len(r.RouteOfAdministration)) * int(unsafe.Sizeof(AdministrableProductDefinitionRouteOfAdministration{}))
+	s += (cap(r.RouteOfAdministration) - len(r.RouteOfAdministration)) * int(reflect.TypeOf(AdministrableProductDefinitionRouteOfAdministration{}).Size())
 	return s
 }
 func (r AdministrableProductDefinitionProperty) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
@@ -251,19 +251,19 @@ func (r AdministrableProductDefinitionProperty) MemSize() int {
 	return s
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.FirstDose != nil {
 		s += r.FirstDose.MemSize()
 	}
@@ -282,44 +282,44 @@ func (r AdministrableProductDefinitionRouteOfAdministration) MemSize() int {
 	for _, i := range r.TargetSpecies {
 		s += i.MemSize()
 	}
-	s += (cap(r.TargetSpecies) - len(r.TargetSpecies)) * int(unsafe.Sizeof(AdministrableProductDefinitionRouteOfAdministrationTargetSpecies{}))
+	s += (cap(r.TargetSpecies) - len(r.TargetSpecies)) * int(reflect.TypeOf(AdministrableProductDefinitionRouteOfAdministrationTargetSpecies{}).Size())
 	return s
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.WithdrawalPeriod {
 		s += i.MemSize()
 	}
-	s += (cap(r.WithdrawalPeriod) - len(r.WithdrawalPeriod)) * int(unsafe.Sizeof(AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod{}))
+	s += (cap(r.WithdrawalPeriod) - len(r.WithdrawalPeriod)) * int(reflect.TypeOf(AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod{}).Size())
 	return s
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Tissue.MemSize() - int(unsafe.Sizeof(r.Tissue))
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Tissue.MemSize() - int(reflect.TypeOf(r.Tissue).Size())
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	if r.SupportingInformation != nil {
 		s += r.SupportingInformation.MemSize()
 	}

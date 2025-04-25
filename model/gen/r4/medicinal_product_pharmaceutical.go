@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A pharmaceutical product described in terms of its composition and dose form.
@@ -139,7 +139,7 @@ func (r MedicinalProductPharmaceutical) ResourceId() (string, bool) {
 }
 func (r MedicinalProductPharmaceutical) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -158,74 +158,74 @@ func (r MedicinalProductPharmaceutical) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.AdministrableDoseForm.MemSize() - int(unsafe.Sizeof(r.AdministrableDoseForm))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.AdministrableDoseForm.MemSize() - int(reflect.TypeOf(r.AdministrableDoseForm).Size())
 	if r.UnitOfPresentation != nil {
 		s += r.UnitOfPresentation.MemSize()
 	}
 	for _, i := range r.Ingredient {
 		s += i.MemSize()
 	}
-	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Device {
 		s += i.MemSize()
 	}
-	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Device) - len(r.Device)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Characteristics {
 		s += i.MemSize()
 	}
-	s += (cap(r.Characteristics) - len(r.Characteristics)) * int(unsafe.Sizeof(MedicinalProductPharmaceuticalCharacteristics{}))
+	s += (cap(r.Characteristics) - len(r.Characteristics)) * int(reflect.TypeOf(MedicinalProductPharmaceuticalCharacteristics{}).Size())
 	for _, i := range r.RouteOfAdministration {
 		s += i.MemSize()
 	}
-	s += (cap(r.RouteOfAdministration) - len(r.RouteOfAdministration)) * int(unsafe.Sizeof(MedicinalProductPharmaceuticalRouteOfAdministration{}))
+	s += (cap(r.RouteOfAdministration) - len(r.RouteOfAdministration)) * int(reflect.TypeOf(MedicinalProductPharmaceuticalRouteOfAdministration{}).Size())
 	return s
 }
 func (r MedicinalProductPharmaceuticalCharacteristics) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
 	return s
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.FirstDose != nil {
 		s += r.FirstDose.MemSize()
 	}
@@ -244,44 +244,44 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministration) MemSize() int {
 	for _, i := range r.TargetSpecies {
 		s += i.MemSize()
 	}
-	s += (cap(r.TargetSpecies) - len(r.TargetSpecies)) * int(unsafe.Sizeof(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies{}))
+	s += (cap(r.TargetSpecies) - len(r.TargetSpecies)) * int(reflect.TypeOf(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies{}).Size())
 	return s
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.WithdrawalPeriod {
 		s += i.MemSize()
 	}
-	s += (cap(r.WithdrawalPeriod) - len(r.WithdrawalPeriod)) * int(unsafe.Sizeof(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod{}))
+	s += (cap(r.WithdrawalPeriod) - len(r.WithdrawalPeriod)) * int(reflect.TypeOf(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod{}).Size())
 	return s
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Tissue.MemSize() - int(unsafe.Sizeof(r.Tissue))
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Tissue.MemSize() - int(reflect.TypeOf(r.Tissue).Size())
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	if r.SupportingInformation != nil {
 		s += r.SupportingInformation.MemSize()
 	}

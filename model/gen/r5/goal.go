@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.
@@ -125,7 +125,7 @@ func (r Goal) ResourceId() (string, bool) {
 }
 func (r Goal) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -144,42 +144,42 @@ func (r Goal) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.LifecycleStatus.MemSize() - int(unsafe.Sizeof(r.LifecycleStatus))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.LifecycleStatus.MemSize() - int(reflect.TypeOf(r.LifecycleStatus).Size())
 	if r.AchievementStatus != nil {
 		s += r.AchievementStatus.MemSize()
 	}
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Continuous != nil {
 		s += r.Continuous.MemSize()
 	}
 	if r.Priority != nil {
 		s += r.Priority.MemSize()
 	}
-	s += r.Description.MemSize() - int(unsafe.Sizeof(r.Description))
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Description.MemSize() - int(reflect.TypeOf(r.Description).Size())
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Start != nil {
 		s += r.Start.MemSize()
 	}
 	for _, i := range r.Target {
 		s += i.MemSize()
 	}
-	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(GoalTarget{}))
+	s += (cap(r.Target) - len(r.Target)) * int(reflect.TypeOf(GoalTarget{}).Size())
 	if r.StatusDate != nil {
 		s += r.StatusDate.MemSize()
 	}
@@ -192,30 +192,30 @@ func (r Goal) MemSize() int {
 	for _, i := range r.Addresses {
 		s += i.MemSize()
 	}
-	s += (cap(r.Addresses) - len(r.Addresses)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Addresses) - len(r.Addresses)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.Outcome {
 		s += i.MemSize()
 	}
-	s += (cap(r.Outcome) - len(r.Outcome)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Outcome) - len(r.Outcome)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	return s
 }
 func (r GoalTarget) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Measure != nil {
 		s += r.Measure.MemSize()
 	}

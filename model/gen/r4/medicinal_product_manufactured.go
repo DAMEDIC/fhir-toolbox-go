@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The manufactured item as contained in the packaged medicinal product.
@@ -63,7 +63,7 @@ func (r MedicinalProductManufactured) ResourceId() (string, bool) {
 }
 func (r MedicinalProductManufactured) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -82,35 +82,35 @@ func (r MedicinalProductManufactured) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.ManufacturedDoseForm.MemSize() - int(unsafe.Sizeof(r.ManufacturedDoseForm))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.ManufacturedDoseForm.MemSize() - int(reflect.TypeOf(r.ManufacturedDoseForm).Size())
 	if r.UnitOfPresentation != nil {
 		s += r.UnitOfPresentation.MemSize()
 	}
-	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	s += r.Quantity.MemSize() - int(reflect.TypeOf(r.Quantity).Size())
 	for _, i := range r.Manufacturer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Ingredient {
 		s += i.MemSize()
 	}
-	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.PhysicalCharacteristics != nil {
 		s += r.PhysicalCharacteristics.MemSize()
 	}
 	for _, i := range r.OtherCharacteristics {
 		s += i.MemSize()
 	}
-	s += (cap(r.OtherCharacteristics) - len(r.OtherCharacteristics)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.OtherCharacteristics) - len(r.OtherCharacteristics)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r MedicinalProductManufactured) String() string {

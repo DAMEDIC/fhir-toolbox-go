@@ -6,8 +6,8 @@ import (
 	"encoding/xml"
 	"errors"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for uri Type: String of characters used to identify a name or a resource
@@ -21,16 +21,16 @@ type Uri struct {
 }
 
 func (r Uri) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Value != nil {
-		s += len(*r.Value) + int(unsafe.Sizeof(*r.Value))
+		s += len(*r.Value) + int(reflect.TypeOf(*r.Value).Size())
 	}
 	return s
 }

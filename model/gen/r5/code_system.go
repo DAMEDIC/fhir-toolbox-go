@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The CodeSystem resource is used to declare the existence of and describe a code system or code system supplement and its key properties, and optionally define a part or all of its content.
@@ -241,7 +241,7 @@ func (r CodeSystem) ResourceId() (string, bool) {
 }
 func (r CodeSystem) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -260,22 +260,22 @@ func (r CodeSystem) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -288,7 +288,7 @@ func (r CodeSystem) MemSize() int {
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -301,18 +301,18 @@ func (r CodeSystem) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -334,27 +334,27 @@ func (r CodeSystem) MemSize() int {
 	for _, i := range r.Topic {
 		s += i.MemSize()
 	}
-	s += (cap(r.Topic) - len(r.Topic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Topic) - len(r.Topic)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Editor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Editor) - len(r.Editor)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Reviewer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Endorser {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.RelatedArtifact {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
 	if r.CaseSensitive != nil {
 		s += r.CaseSensitive.MemSize()
 	}
@@ -370,7 +370,7 @@ func (r CodeSystem) MemSize() int {
 	if r.VersionNeeded != nil {
 		s += r.VersionNeeded.MemSize()
 	}
-	s += r.Content.MemSize() - int(unsafe.Sizeof(r.Content))
+	s += r.Content.MemSize() - int(reflect.TypeOf(r.Content).Size())
 	if r.Supplements != nil {
 		s += r.Supplements.MemSize()
 	}
@@ -380,78 +380,78 @@ func (r CodeSystem) MemSize() int {
 	for _, i := range r.Filter {
 		s += i.MemSize()
 	}
-	s += (cap(r.Filter) - len(r.Filter)) * int(unsafe.Sizeof(CodeSystemFilter{}))
+	s += (cap(r.Filter) - len(r.Filter)) * int(reflect.TypeOf(CodeSystemFilter{}).Size())
 	for _, i := range r.Property {
 		s += i.MemSize()
 	}
-	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(CodeSystemProperty{}))
+	s += (cap(r.Property) - len(r.Property)) * int(reflect.TypeOf(CodeSystemProperty{}).Size())
 	for _, i := range r.Concept {
 		s += i.MemSize()
 	}
-	s += (cap(r.Concept) - len(r.Concept)) * int(unsafe.Sizeof(CodeSystemConcept{}))
+	s += (cap(r.Concept) - len(r.Concept)) * int(reflect.TypeOf(CodeSystemConcept{}).Size())
 	return s
 }
 func (r CodeSystemFilter) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.Operator {
 		s += i.MemSize()
 	}
-	s += (cap(r.Operator) - len(r.Operator)) * int(unsafe.Sizeof(Code{}))
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += (cap(r.Operator) - len(r.Operator)) * int(reflect.TypeOf(Code{}).Size())
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	return s
 }
 func (r CodeSystemProperty) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Uri != nil {
 		s += r.Uri.MemSize()
 	}
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	return s
 }
 func (r CodeSystemConcept) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Display != nil {
 		s += r.Display.MemSize()
 	}
@@ -461,30 +461,30 @@ func (r CodeSystemConcept) MemSize() int {
 	for _, i := range r.Designation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Designation) - len(r.Designation)) * int(unsafe.Sizeof(CodeSystemConceptDesignation{}))
+	s += (cap(r.Designation) - len(r.Designation)) * int(reflect.TypeOf(CodeSystemConceptDesignation{}).Size())
 	for _, i := range r.Property {
 		s += i.MemSize()
 	}
-	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(CodeSystemConceptProperty{}))
+	s += (cap(r.Property) - len(r.Property)) * int(reflect.TypeOf(CodeSystemConceptProperty{}).Size())
 	for _, i := range r.Concept {
 		s += i.MemSize()
 	}
-	s += (cap(r.Concept) - len(r.Concept)) * int(unsafe.Sizeof(CodeSystemConcept{}))
+	s += (cap(r.Concept) - len(r.Concept)) * int(reflect.TypeOf(CodeSystemConcept{}).Size())
 	return s
 }
 func (r CodeSystemConceptDesignation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Language != nil {
 		s += r.Language.MemSize()
 	}
@@ -494,24 +494,24 @@ func (r CodeSystemConceptDesignation) MemSize() int {
 	for _, i := range r.AdditionalUse {
 		s += i.MemSize()
 	}
-	s += (cap(r.AdditionalUse) - len(r.AdditionalUse)) * int(unsafe.Sizeof(Coding{}))
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += (cap(r.AdditionalUse) - len(r.AdditionalUse)) * int(reflect.TypeOf(Coding{}).Size())
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	return s
 }
 func (r CodeSystemConceptProperty) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}

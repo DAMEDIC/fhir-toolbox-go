@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // ElementDefinition Type: Captures constraints on each element within the resource, profile, or extension.
@@ -526,23 +526,23 @@ type ElementDefinitionMapping struct {
 }
 
 func (r ElementDefinition) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Path.MemSize() - int(reflect.TypeOf(r.Path).Size())
 	for _, i := range r.Representation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Representation) - len(r.Representation)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Representation) - len(r.Representation)) * int(reflect.TypeOf(Code{}).Size())
 	if r.SliceName != nil {
 		s += r.SliceName.MemSize()
 	}
@@ -555,7 +555,7 @@ func (r ElementDefinition) MemSize() int {
 	for _, i := range r.Code {
 		s += i.MemSize()
 	}
-	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Code) - len(r.Code)) * int(reflect.TypeOf(Coding{}).Size())
 	if r.Slicing != nil {
 		s += r.Slicing.MemSize()
 	}
@@ -574,7 +574,7 @@ func (r ElementDefinition) MemSize() int {
 	for _, i := range r.Alias {
 		s += i.MemSize()
 	}
-	s += (cap(r.Alias) - len(r.Alias)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Alias) - len(r.Alias)) * int(reflect.TypeOf(String{}).Size())
 	if r.Min != nil {
 		s += r.Min.MemSize()
 	}
@@ -590,7 +590,7 @@ func (r ElementDefinition) MemSize() int {
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(ElementDefinitionType{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(ElementDefinitionType{}).Size())
 	if r.DefaultValue != nil {
 		s += r.DefaultValue.MemSize()
 	}
@@ -609,7 +609,7 @@ func (r ElementDefinition) MemSize() int {
 	for _, i := range r.Example {
 		s += i.MemSize()
 	}
-	s += (cap(r.Example) - len(r.Example)) * int(unsafe.Sizeof(ElementDefinitionExample{}))
+	s += (cap(r.Example) - len(r.Example)) * int(reflect.TypeOf(ElementDefinitionExample{}).Size())
 	if r.MinValue != nil {
 		s += r.MinValue.MemSize()
 	}
@@ -622,18 +622,18 @@ func (r ElementDefinition) MemSize() int {
 	for _, i := range r.Condition {
 		s += i.MemSize()
 	}
-	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(Id{}))
+	s += (cap(r.Condition) - len(r.Condition)) * int(reflect.TypeOf(Id{}).Size())
 	for _, i := range r.Constraint {
 		s += i.MemSize()
 	}
-	s += (cap(r.Constraint) - len(r.Constraint)) * int(unsafe.Sizeof(ElementDefinitionConstraint{}))
+	s += (cap(r.Constraint) - len(r.Constraint)) * int(reflect.TypeOf(ElementDefinitionConstraint{}).Size())
 	if r.MustHaveValue != nil {
 		s += r.MustHaveValue.MemSize()
 	}
 	for _, i := range r.ValueAlternatives {
 		s += i.MemSize()
 	}
-	s += (cap(r.ValueAlternatives) - len(r.ValueAlternatives)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.ValueAlternatives) - len(r.ValueAlternatives)) * int(reflect.TypeOf(Canonical{}).Size())
 	if r.MustSupport != nil {
 		s += r.MustSupport.MemSize()
 	}
@@ -652,118 +652,118 @@ func (r ElementDefinition) MemSize() int {
 	for _, i := range r.Mapping {
 		s += i.MemSize()
 	}
-	s += (cap(r.Mapping) - len(r.Mapping)) * int(unsafe.Sizeof(ElementDefinitionMapping{}))
+	s += (cap(r.Mapping) - len(r.Mapping)) * int(reflect.TypeOf(ElementDefinitionMapping{}).Size())
 	return s
 }
 func (r ElementDefinitionSlicing) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Discriminator {
 		s += i.MemSize()
 	}
-	s += (cap(r.Discriminator) - len(r.Discriminator)) * int(unsafe.Sizeof(ElementDefinitionSlicingDiscriminator{}))
+	s += (cap(r.Discriminator) - len(r.Discriminator)) * int(reflect.TypeOf(ElementDefinitionSlicingDiscriminator{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	if r.Ordered != nil {
 		s += r.Ordered.MemSize()
 	}
-	s += r.Rules.MemSize() - int(unsafe.Sizeof(r.Rules))
+	s += r.Rules.MemSize() - int(reflect.TypeOf(r.Rules).Size())
 	return s
 }
 func (r ElementDefinitionSlicingDiscriminator) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
-	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
+	s += r.Path.MemSize() - int(reflect.TypeOf(r.Path).Size())
 	return s
 }
 func (r ElementDefinitionBase) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
-	s += r.Min.MemSize() - int(unsafe.Sizeof(r.Min))
-	s += r.Max.MemSize() - int(unsafe.Sizeof(r.Max))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Path.MemSize() - int(reflect.TypeOf(r.Path).Size())
+	s += r.Min.MemSize() - int(reflect.TypeOf(r.Min).Size())
+	s += r.Max.MemSize() - int(reflect.TypeOf(r.Max).Size())
 	return s
 }
 func (r ElementDefinitionType) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.Profile {
 		s += i.MemSize()
 	}
-	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Profile) - len(r.Profile)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.TargetProfile {
 		s += i.MemSize()
 	}
-	s += (cap(r.TargetProfile) - len(r.TargetProfile)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.TargetProfile) - len(r.TargetProfile)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.Aggregation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Aggregation) - len(r.Aggregation)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Aggregation) - len(r.Aggregation)) * int(reflect.TypeOf(Code{}).Size())
 	if r.Versioning != nil {
 		s += r.Versioning.MemSize()
 	}
 	return s
 }
 func (r ElementDefinitionExample) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Label.MemSize() - int(unsafe.Sizeof(r.Label))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Label.MemSize() - int(reflect.TypeOf(r.Label).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
 	return s
 }
 func (r ElementDefinitionConstraint) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Key.MemSize() - int(unsafe.Sizeof(r.Key))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Key.MemSize() - int(reflect.TypeOf(r.Key).Size())
 	if r.Requirements != nil {
 		s += r.Requirements.MemSize()
 	}
-	s += r.Severity.MemSize() - int(unsafe.Sizeof(r.Severity))
+	s += r.Severity.MemSize() - int(reflect.TypeOf(r.Severity).Size())
 	if r.Suppress != nil {
 		s += r.Suppress.MemSize()
 	}
-	s += r.Human.MemSize() - int(unsafe.Sizeof(r.Human))
+	s += r.Human.MemSize() - int(reflect.TypeOf(r.Human).Size())
 	if r.Expression != nil {
 		s += r.Expression.MemSize()
 	}
@@ -773,15 +773,15 @@ func (r ElementDefinitionConstraint) MemSize() int {
 	return s
 }
 func (r ElementDefinitionBinding) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Strength.MemSize() - int(unsafe.Sizeof(r.Strength))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Strength.MemSize() - int(reflect.TypeOf(r.Strength).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -791,20 +791,20 @@ func (r ElementDefinitionBinding) MemSize() int {
 	for _, i := range r.Additional {
 		s += i.MemSize()
 	}
-	s += (cap(r.Additional) - len(r.Additional)) * int(unsafe.Sizeof(ElementDefinitionBindingAdditional{}))
+	s += (cap(r.Additional) - len(r.Additional)) * int(reflect.TypeOf(ElementDefinitionBindingAdditional{}).Size())
 	return s
 }
 func (r ElementDefinitionBindingAdditional) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Purpose.MemSize() - int(unsafe.Sizeof(r.Purpose))
-	s += r.ValueSet.MemSize() - int(unsafe.Sizeof(r.ValueSet))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Purpose.MemSize() - int(reflect.TypeOf(r.Purpose).Size())
+	s += r.ValueSet.MemSize() - int(reflect.TypeOf(r.ValueSet).Size())
 	if r.Documentation != nil {
 		s += r.Documentation.MemSize()
 	}
@@ -814,26 +814,26 @@ func (r ElementDefinitionBindingAdditional) MemSize() int {
 	for _, i := range r.Usage {
 		s += i.MemSize()
 	}
-	s += (cap(r.Usage) - len(r.Usage)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.Usage) - len(r.Usage)) * int(reflect.TypeOf(UsageContext{}).Size())
 	if r.Any != nil {
 		s += r.Any.MemSize()
 	}
 	return s
 }
 func (r ElementDefinitionMapping) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Identity.MemSize() - int(unsafe.Sizeof(r.Identity))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Identity.MemSize() - int(reflect.TypeOf(r.Identity).Size())
 	if r.Language != nil {
 		s += r.Language.MemSize()
 	}
-	s += r.Map.MemSize() - int(unsafe.Sizeof(r.Map))
+	s += r.Map.MemSize() - int(reflect.TypeOf(r.Map).Size())
 	if r.Comment != nil {
 		s += r.Comment.MemSize()
 	}

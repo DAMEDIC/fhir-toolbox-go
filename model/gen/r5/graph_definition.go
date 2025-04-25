@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A formal computable definition of a graph of resources - that is, a coherent set of resources that form a graph by following references. The Graph Definition resource defines a set and makes rules about the set.
@@ -168,7 +168,7 @@ func (r GraphDefinition) ResourceId() (string, bool) {
 }
 func (r GraphDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -187,33 +187,33 @@ func (r GraphDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
 	if r.VersionAlgorithm != nil {
 		s += r.VersionAlgorithm.MemSize()
 	}
-	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Name.MemSize() - int(reflect.TypeOf(r.Name).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -226,18 +226,18 @@ func (r GraphDefinition) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -253,49 +253,49 @@ func (r GraphDefinition) MemSize() int {
 	for _, i := range r.Node {
 		s += i.MemSize()
 	}
-	s += (cap(r.Node) - len(r.Node)) * int(unsafe.Sizeof(GraphDefinitionNode{}))
+	s += (cap(r.Node) - len(r.Node)) * int(reflect.TypeOf(GraphDefinitionNode{}).Size())
 	for _, i := range r.Link {
 		s += i.MemSize()
 	}
-	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(GraphDefinitionLink{}))
+	s += (cap(r.Link) - len(r.Link)) * int(reflect.TypeOf(GraphDefinitionLink{}).Size())
 	return s
 }
 func (r GraphDefinitionNode) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.NodeId.MemSize() - int(unsafe.Sizeof(r.NodeId))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.NodeId.MemSize() - int(reflect.TypeOf(r.NodeId).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Profile != nil {
 		s += r.Profile.MemSize()
 	}
 	return s
 }
 func (r GraphDefinitionLink) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -305,39 +305,39 @@ func (r GraphDefinitionLink) MemSize() int {
 	if r.Max != nil {
 		s += r.Max.MemSize()
 	}
-	s += r.SourceId.MemSize() - int(unsafe.Sizeof(r.SourceId))
+	s += r.SourceId.MemSize() - int(reflect.TypeOf(r.SourceId).Size())
 	if r.Path != nil {
 		s += r.Path.MemSize()
 	}
 	if r.SliceName != nil {
 		s += r.SliceName.MemSize()
 	}
-	s += r.TargetId.MemSize() - int(unsafe.Sizeof(r.TargetId))
+	s += r.TargetId.MemSize() - int(reflect.TypeOf(r.TargetId).Size())
 	if r.Params != nil {
 		s += r.Params.MemSize()
 	}
 	for _, i := range r.Compartment {
 		s += i.MemSize()
 	}
-	s += (cap(r.Compartment) - len(r.Compartment)) * int(unsafe.Sizeof(GraphDefinitionLinkCompartment{}))
+	s += (cap(r.Compartment) - len(r.Compartment)) * int(reflect.TypeOf(GraphDefinitionLinkCompartment{}).Size())
 	return s
 }
 func (r GraphDefinitionLinkCompartment) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Use.MemSize() - int(unsafe.Sizeof(r.Use))
-	s += r.Rule.MemSize() - int(unsafe.Sizeof(r.Rule))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Use.MemSize() - int(reflect.TypeOf(r.Use).Size())
+	s += r.Rule.MemSize() - int(reflect.TypeOf(r.Rule).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Expression != nil {
 		s += r.Expression.MemSize()
 	}

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Representation of a molecular sequence.
@@ -145,7 +145,7 @@ func (r MolecularSequence) ResourceId() (string, bool) {
 }
 func (r MolecularSequence) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -164,19 +164,19 @@ func (r MolecularSequence) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -186,7 +186,7 @@ func (r MolecularSequence) MemSize() int {
 	for _, i := range r.Focus {
 		s += i.MemSize()
 	}
-	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Focus) - len(r.Focus)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Specimen != nil {
 		s += r.Specimen.MemSize()
 	}
@@ -202,27 +202,27 @@ func (r MolecularSequence) MemSize() int {
 	for _, i := range r.Formatted {
 		s += i.MemSize()
 	}
-	s += (cap(r.Formatted) - len(r.Formatted)) * int(unsafe.Sizeof(Attachment{}))
+	s += (cap(r.Formatted) - len(r.Formatted)) * int(reflect.TypeOf(Attachment{}).Size())
 	for _, i := range r.Relative {
 		s += i.MemSize()
 	}
-	s += (cap(r.Relative) - len(r.Relative)) * int(unsafe.Sizeof(MolecularSequenceRelative{}))
+	s += (cap(r.Relative) - len(r.Relative)) * int(reflect.TypeOf(MolecularSequenceRelative{}).Size())
 	return s
 }
 func (r MolecularSequenceRelative) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.CoordinateSystem.MemSize() - int(unsafe.Sizeof(r.CoordinateSystem))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.CoordinateSystem.MemSize() - int(reflect.TypeOf(r.CoordinateSystem).Size())
 	if r.OrdinalPosition != nil {
 		s += r.OrdinalPosition.MemSize()
 	}
@@ -235,22 +235,22 @@ func (r MolecularSequenceRelative) MemSize() int {
 	for _, i := range r.Edit {
 		s += i.MemSize()
 	}
-	s += (cap(r.Edit) - len(r.Edit)) * int(unsafe.Sizeof(MolecularSequenceRelativeEdit{}))
+	s += (cap(r.Edit) - len(r.Edit)) * int(reflect.TypeOf(MolecularSequenceRelativeEdit{}).Size())
 	return s
 }
 func (r MolecularSequenceRelativeStartingSequence) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.GenomeAssembly != nil {
 		s += r.GenomeAssembly.MemSize()
 	}
@@ -275,18 +275,18 @@ func (r MolecularSequenceRelativeStartingSequence) MemSize() int {
 	return s
 }
 func (r MolecularSequenceRelativeEdit) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Start != nil {
 		s += r.Start.MemSize()
 	}

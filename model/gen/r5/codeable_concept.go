@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // CodeableConcept Type: A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.
@@ -27,18 +27,18 @@ type CodeableConcept struct {
 }
 
 func (r CodeableConcept) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Coding {
 		s += i.MemSize()
 	}
-	s += (cap(r.Coding) - len(r.Coding)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Coding) - len(r.Coding)) * int(reflect.TypeOf(Coding{}).Size())
 	if r.Text != nil {
 		s += r.Text.MemSize()
 	}

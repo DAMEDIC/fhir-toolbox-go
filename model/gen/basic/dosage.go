@@ -8,8 +8,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for Dosage Type: Indicates how the medication is/was taken or should be taken by the patient.
@@ -87,18 +87,18 @@ func (r Ratio) isDosageDoseAndRateRate()    {}
 func (r Range) isDosageDoseAndRateRate()    {}
 func (r Quantity) isDosageDoseAndRateRate() {}
 func (r Dosage) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Sequence != nil {
 		s += r.Sequence.MemSize()
 	}
@@ -108,7 +108,7 @@ func (r Dosage) MemSize() int {
 	for _, i := range r.AdditionalInstruction {
 		s += i.MemSize()
 	}
-	s += (cap(r.AdditionalInstruction) - len(r.AdditionalInstruction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.AdditionalInstruction) - len(r.AdditionalInstruction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.PatientInstruction != nil {
 		s += r.PatientInstruction.MemSize()
 	}
@@ -130,7 +130,7 @@ func (r Dosage) MemSize() int {
 	for _, i := range r.DoseAndRate {
 		s += i.MemSize()
 	}
-	s += (cap(r.DoseAndRate) - len(r.DoseAndRate)) * int(unsafe.Sizeof(DosageDoseAndRate{}))
+	s += (cap(r.DoseAndRate) - len(r.DoseAndRate)) * int(reflect.TypeOf(DosageDoseAndRate{}).Size())
 	if r.MaxDosePerPeriod != nil {
 		s += r.MaxDosePerPeriod.MemSize()
 	}
@@ -143,14 +143,14 @@ func (r Dosage) MemSize() int {
 	return s
 }
 func (r DosageDoseAndRate) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}

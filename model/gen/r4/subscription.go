@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The subscription resource is used to define a push-based subscription from a server to another system. Once a subscription is registered with the server, the server checks every resource that is created or updated, and if the resource matches the given criteria, it sends a message on the defined "channel" so that another system can take an appropriate action.
@@ -83,7 +83,7 @@ func (r Subscription) ResourceId() (string, bool) {
 }
 func (r Subscription) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -102,45 +102,45 @@ func (r Subscription) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactPoint{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactPoint{}).Size())
 	if r.End != nil {
 		s += r.End.MemSize()
 	}
-	s += r.Reason.MemSize() - int(unsafe.Sizeof(r.Reason))
-	s += r.Criteria.MemSize() - int(unsafe.Sizeof(r.Criteria))
+	s += r.Reason.MemSize() - int(reflect.TypeOf(r.Reason).Size())
+	s += r.Criteria.MemSize() - int(reflect.TypeOf(r.Criteria).Size())
 	if r.Error != nil {
 		s += r.Error.MemSize()
 	}
-	s += r.Channel.MemSize() - int(unsafe.Sizeof(r.Channel))
+	s += r.Channel.MemSize() - int(reflect.TypeOf(r.Channel).Size())
 	return s
 }
 func (r SubscriptionChannel) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Endpoint != nil {
 		s += r.Endpoint.MemSize()
 	}
@@ -150,7 +150,7 @@ func (r SubscriptionChannel) MemSize() int {
 	for _, i := range r.Header {
 		s += i.MemSize()
 	}
-	s += (cap(r.Header) - len(r.Header)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Header) - len(r.Header)) * int(reflect.TypeOf(String{}).Size())
 	return s
 }
 func (r Subscription) String() string {

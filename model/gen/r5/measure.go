@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The Measure resource provides the definition of a quality measure.
@@ -309,7 +309,7 @@ func (r Measure) ResourceId() (string, bool) {
 }
 func (r Measure) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -328,22 +328,22 @@ func (r Measure) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -359,7 +359,7 @@ func (r Measure) MemSize() int {
 	if r.Subtitle != nil {
 		s += r.Subtitle.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -378,18 +378,18 @@ func (r Measure) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -414,31 +414,31 @@ func (r Measure) MemSize() int {
 	for _, i := range r.Topic {
 		s += i.MemSize()
 	}
-	s += (cap(r.Topic) - len(r.Topic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Topic) - len(r.Topic)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Editor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Editor) - len(r.Editor)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Reviewer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Endorser {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.RelatedArtifact {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
 	for _, i := range r.Library {
 		s += i.MemSize()
 	}
-	s += (cap(r.Library) - len(r.Library)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Library) - len(r.Library)) * int(reflect.TypeOf(Canonical{}).Size())
 	if r.Disclaimer != nil {
 		s += r.Disclaimer.MemSize()
 	}
@@ -454,7 +454,7 @@ func (r Measure) MemSize() int {
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.RiskAdjustment != nil {
 		s += r.RiskAdjustment.MemSize()
 	}
@@ -473,33 +473,33 @@ func (r Measure) MemSize() int {
 	for _, i := range r.Term {
 		s += i.MemSize()
 	}
-	s += (cap(r.Term) - len(r.Term)) * int(unsafe.Sizeof(MeasureTerm{}))
+	s += (cap(r.Term) - len(r.Term)) * int(reflect.TypeOf(MeasureTerm{}).Size())
 	if r.Guidance != nil {
 		s += r.Guidance.MemSize()
 	}
 	for _, i := range r.Group {
 		s += i.MemSize()
 	}
-	s += (cap(r.Group) - len(r.Group)) * int(unsafe.Sizeof(MeasureGroup{}))
+	s += (cap(r.Group) - len(r.Group)) * int(reflect.TypeOf(MeasureGroup{}).Size())
 	for _, i := range r.SupplementalData {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupplementalData) - len(r.SupplementalData)) * int(unsafe.Sizeof(MeasureSupplementalData{}))
+	s += (cap(r.SupplementalData) - len(r.SupplementalData)) * int(reflect.TypeOf(MeasureSupplementalData{}).Size())
 	return s
 }
 func (r MeasureTerm) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}
@@ -509,18 +509,18 @@ func (r MeasureTerm) MemSize() int {
 	return s
 }
 func (r MeasureGroup) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.LinkId != nil {
 		s += r.LinkId.MemSize()
 	}
@@ -533,7 +533,7 @@ func (r MeasureGroup) MemSize() int {
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
@@ -555,30 +555,30 @@ func (r MeasureGroup) MemSize() int {
 	for _, i := range r.Library {
 		s += i.MemSize()
 	}
-	s += (cap(r.Library) - len(r.Library)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Library) - len(r.Library)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.Population {
 		s += i.MemSize()
 	}
-	s += (cap(r.Population) - len(r.Population)) * int(unsafe.Sizeof(MeasureGroupPopulation{}))
+	s += (cap(r.Population) - len(r.Population)) * int(reflect.TypeOf(MeasureGroupPopulation{}).Size())
 	for _, i := range r.Stratifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Stratifier) - len(r.Stratifier)) * int(unsafe.Sizeof(MeasureGroupStratifier{}))
+	s += (cap(r.Stratifier) - len(r.Stratifier)) * int(reflect.TypeOf(MeasureGroupStratifier{}).Size())
 	return s
 }
 func (r MeasureGroupPopulation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.LinkId != nil {
 		s += r.LinkId.MemSize()
 	}
@@ -603,18 +603,18 @@ func (r MeasureGroupPopulation) MemSize() int {
 	return s
 }
 func (r MeasureGroupStratifier) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.LinkId != nil {
 		s += r.LinkId.MemSize()
 	}
@@ -633,22 +633,22 @@ func (r MeasureGroupStratifier) MemSize() int {
 	for _, i := range r.Component {
 		s += i.MemSize()
 	}
-	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(MeasureGroupStratifierComponent{}))
+	s += (cap(r.Component) - len(r.Component)) * int(reflect.TypeOf(MeasureGroupStratifierComponent{}).Size())
 	return s
 }
 func (r MeasureGroupStratifierComponent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.LinkId != nil {
 		s += r.LinkId.MemSize()
 	}
@@ -667,18 +667,18 @@ func (r MeasureGroupStratifierComponent) MemSize() int {
 	return s
 }
 func (r MeasureSupplementalData) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.LinkId != nil {
 		s += r.LinkId.MemSize()
 	}
@@ -688,11 +688,11 @@ func (r MeasureSupplementalData) MemSize() int {
 	for _, i := range r.Usage {
 		s += i.MemSize()
 	}
-	s += (cap(r.Usage) - len(r.Usage)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Usage) - len(r.Usage)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
-	s += r.Criteria.MemSize() - int(unsafe.Sizeof(r.Criteria))
+	s += r.Criteria.MemSize() - int(reflect.TypeOf(r.Criteria).Size())
 	return s
 }
 func (r Measure) String() string {

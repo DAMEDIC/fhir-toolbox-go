@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A scientific study of nature that sometimes includes processes involved in health and disease. For example, clinical trials are research studies that involve people. These studies may be related to new ways to screen, prevent, diagnose, and treat disease. They may also study certain outcomes and certain groups of people by looking at data collected in the past or future.
@@ -251,7 +251,7 @@ func (r ResearchStudy) ResourceId() (string, bool) {
 }
 func (r ResearchStudy) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -270,22 +270,22 @@ func (r ResearchStudy) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -298,23 +298,23 @@ func (r ResearchStudy) MemSize() int {
 	for _, i := range r.Label {
 		s += i.MemSize()
 	}
-	s += (cap(r.Label) - len(r.Label)) * int(unsafe.Sizeof(ResearchStudyLabel{}))
+	s += (cap(r.Label) - len(r.Label)) * int(reflect.TypeOf(ResearchStudyLabel{}).Size())
 	for _, i := range r.Protocol {
 		s += i.MemSize()
 	}
-	s += (cap(r.Protocol) - len(r.Protocol)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Protocol) - len(r.Protocol)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.RelatedArtifact {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
 	if r.Date != nil {
 		s += r.Date.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.PrimaryPurposeType != nil {
 		s += r.PrimaryPurposeType.MemSize()
 	}
@@ -324,23 +324,23 @@ func (r ResearchStudy) MemSize() int {
 	for _, i := range r.StudyDesign {
 		s += i.MemSize()
 	}
-	s += (cap(r.StudyDesign) - len(r.StudyDesign)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.StudyDesign) - len(r.StudyDesign)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Focus {
 		s += i.MemSize()
 	}
-	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Focus) - len(r.Focus)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Condition {
 		s += i.MemSize()
 	}
-	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Condition) - len(r.Condition)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Keyword {
 		s += i.MemSize()
 	}
-	s += (cap(r.Keyword) - len(r.Keyword)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Keyword) - len(r.Keyword)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Region {
 		s += i.MemSize()
 	}
-	s += (cap(r.Region) - len(r.Region)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Region) - len(r.Region)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.DescriptionSummary != nil {
 		s += r.DescriptionSummary.MemSize()
 	}
@@ -353,23 +353,23 @@ func (r ResearchStudy) MemSize() int {
 	for _, i := range r.Site {
 		s += i.MemSize()
 	}
-	s += (cap(r.Site) - len(r.Site)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Site) - len(r.Site)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.AssociatedParty {
 		s += i.MemSize()
 	}
-	s += (cap(r.AssociatedParty) - len(r.AssociatedParty)) * int(unsafe.Sizeof(ResearchStudyAssociatedParty{}))
+	s += (cap(r.AssociatedParty) - len(r.AssociatedParty)) * int(reflect.TypeOf(ResearchStudyAssociatedParty{}).Size())
 	for _, i := range r.ProgressStatus {
 		s += i.MemSize()
 	}
-	s += (cap(r.ProgressStatus) - len(r.ProgressStatus)) * int(unsafe.Sizeof(ResearchStudyProgressStatus{}))
+	s += (cap(r.ProgressStatus) - len(r.ProgressStatus)) * int(reflect.TypeOf(ResearchStudyProgressStatus{}).Size())
 	if r.WhyStopped != nil {
 		s += r.WhyStopped.MemSize()
 	}
@@ -379,34 +379,34 @@ func (r ResearchStudy) MemSize() int {
 	for _, i := range r.ComparisonGroup {
 		s += i.MemSize()
 	}
-	s += (cap(r.ComparisonGroup) - len(r.ComparisonGroup)) * int(unsafe.Sizeof(ResearchStudyComparisonGroup{}))
+	s += (cap(r.ComparisonGroup) - len(r.ComparisonGroup)) * int(reflect.TypeOf(ResearchStudyComparisonGroup{}).Size())
 	for _, i := range r.Objective {
 		s += i.MemSize()
 	}
-	s += (cap(r.Objective) - len(r.Objective)) * int(unsafe.Sizeof(ResearchStudyObjective{}))
+	s += (cap(r.Objective) - len(r.Objective)) * int(reflect.TypeOf(ResearchStudyObjective{}).Size())
 	for _, i := range r.OutcomeMeasure {
 		s += i.MemSize()
 	}
-	s += (cap(r.OutcomeMeasure) - len(r.OutcomeMeasure)) * int(unsafe.Sizeof(ResearchStudyOutcomeMeasure{}))
+	s += (cap(r.OutcomeMeasure) - len(r.OutcomeMeasure)) * int(reflect.TypeOf(ResearchStudyOutcomeMeasure{}).Size())
 	for _, i := range r.Result {
 		s += i.MemSize()
 	}
-	s += (cap(r.Result) - len(r.Result)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Result) - len(r.Result)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r ResearchStudyLabel) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -416,49 +416,49 @@ func (r ResearchStudyLabel) MemSize() int {
 	return s
 }
 func (r ResearchStudyAssociatedParty) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
-	s += r.Role.MemSize() - int(unsafe.Sizeof(r.Role))
+	s += r.Role.MemSize() - int(reflect.TypeOf(r.Role).Size())
 	for _, i := range r.Period {
 		s += i.MemSize()
 	}
-	s += (cap(r.Period) - len(r.Period)) * int(unsafe.Sizeof(Period{}))
+	s += (cap(r.Period) - len(r.Period)) * int(reflect.TypeOf(Period{}).Size())
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Party != nil {
 		s += r.Party.MemSize()
 	}
 	return s
 }
 func (r ResearchStudyProgressStatus) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.State.MemSize() - int(unsafe.Sizeof(r.State))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.State.MemSize() - int(reflect.TypeOf(r.State).Size())
 	if r.Actual != nil {
 		s += r.Actual.MemSize()
 	}
@@ -468,18 +468,18 @@ func (r ResearchStudyProgressStatus) MemSize() int {
 	return s
 }
 func (r ResearchStudyRecruitment) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.TargetNumber != nil {
 		s += r.TargetNumber.MemSize()
 	}
@@ -495,22 +495,22 @@ func (r ResearchStudyRecruitment) MemSize() int {
 	return s
 }
 func (r ResearchStudyComparisonGroup) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.LinkId != nil {
 		s += r.LinkId.MemSize()
 	}
-	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Name.MemSize() - int(reflect.TypeOf(r.Name).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -520,25 +520,25 @@ func (r ResearchStudyComparisonGroup) MemSize() int {
 	for _, i := range r.IntendedExposure {
 		s += i.MemSize()
 	}
-	s += (cap(r.IntendedExposure) - len(r.IntendedExposure)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.IntendedExposure) - len(r.IntendedExposure)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.ObservedGroup != nil {
 		s += r.ObservedGroup.MemSize()
 	}
 	return s
 }
 func (r ResearchStudyObjective) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
@@ -551,25 +551,25 @@ func (r ResearchStudyObjective) MemSize() int {
 	return s
 }
 func (r ResearchStudyOutcomeMeasure) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}

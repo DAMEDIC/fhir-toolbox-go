@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // An assessment of the likely outcome(s) for a patient or other subject as well as the likelihood of each outcome.
@@ -128,7 +128,7 @@ func (r RiskAssessment) ResourceId() (string, bool) {
 }
 func (r RiskAssessment) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -147,33 +147,33 @@ func (r RiskAssessment) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.BasedOn != nil {
 		s += r.BasedOn.MemSize()
 	}
 	if r.Parent != nil {
 		s += r.Parent.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Method != nil {
 		s += r.Method.MemSize()
 	}
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -189,41 +189,41 @@ func (r RiskAssessment) MemSize() int {
 	for _, i := range r.ReasonCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReasonReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Basis {
 		s += i.MemSize()
 	}
-	s += (cap(r.Basis) - len(r.Basis)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Basis) - len(r.Basis)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Prediction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Prediction) - len(r.Prediction)) * int(unsafe.Sizeof(RiskAssessmentPrediction{}))
+	s += (cap(r.Prediction) - len(r.Prediction)) * int(reflect.TypeOf(RiskAssessmentPrediction{}).Size())
 	if r.Mitigation != nil {
 		s += r.Mitigation.MemSize()
 	}
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	return s
 }
 func (r RiskAssessmentPrediction) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Outcome != nil {
 		s += r.Outcome.MemSize()
 	}

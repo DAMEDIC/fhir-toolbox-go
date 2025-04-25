@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A record of significant events/milestones key data throughout the history of an Encounter
@@ -91,7 +91,7 @@ func (r EncounterHistory) ResourceId() (string, bool) {
 }
 func (r EncounterHistory) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -110,32 +110,32 @@ func (r EncounterHistory) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Class.MemSize() - int(unsafe.Sizeof(r.Class))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Class.MemSize() - int(reflect.TypeOf(r.Class).Size())
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ServiceType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
@@ -157,23 +157,23 @@ func (r EncounterHistory) MemSize() int {
 	for _, i := range r.Location {
 		s += i.MemSize()
 	}
-	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(EncounterHistoryLocation{}))
+	s += (cap(r.Location) - len(r.Location)) * int(reflect.TypeOf(EncounterHistoryLocation{}).Size())
 	return s
 }
 func (r EncounterHistoryLocation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Location.MemSize() - int(unsafe.Sizeof(r.Location))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Location.MemSize() - int(reflect.TypeOf(r.Location).Size())
 	if r.Form != nil {
 		s += r.Form.MemSize()
 	}

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Record details about an anatomical structure.  This resource may be used when a coded concept does not provide the necessary detail needed for the use case.
@@ -65,7 +65,7 @@ func (r BodyStructure) ResourceId() (string, bool) {
 }
 func (r BodyStructure) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -84,19 +84,19 @@ func (r BodyStructure) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Active != nil {
 		s += r.Active.MemSize()
 	}
@@ -109,15 +109,15 @@ func (r BodyStructure) MemSize() int {
 	for _, i := range r.LocationQualifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.LocationQualifier) - len(r.LocationQualifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.LocationQualifier) - len(r.LocationQualifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.Image {
 		s += i.MemSize()
 	}
-	s += (cap(r.Image) - len(r.Image)) * int(unsafe.Sizeof(Attachment{}))
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += (cap(r.Image) - len(r.Image)) * int(reflect.TypeOf(Attachment{}).Size())
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
 	return s
 }
 func (r BodyStructure) String() string {

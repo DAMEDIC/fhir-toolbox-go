@@ -8,8 +8,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for DataRequirement Type: Describes a required data item for evaluation in terms of the type of data, and optional code or date-based filters of the data.
@@ -96,52 +96,52 @@ type DataRequirementSort struct {
 }
 
 func (r DataRequirement) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.Profile {
 		s += i.MemSize()
 	}
-	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Profile) - len(r.Profile)) * int(reflect.TypeOf(Canonical{}).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
 	for _, i := range r.MustSupport {
 		s += i.MemSize()
 	}
-	s += (cap(r.MustSupport) - len(r.MustSupport)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.MustSupport) - len(r.MustSupport)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.CodeFilter {
 		s += i.MemSize()
 	}
-	s += (cap(r.CodeFilter) - len(r.CodeFilter)) * int(unsafe.Sizeof(DataRequirementCodeFilter{}))
+	s += (cap(r.CodeFilter) - len(r.CodeFilter)) * int(reflect.TypeOf(DataRequirementCodeFilter{}).Size())
 	for _, i := range r.DateFilter {
 		s += i.MemSize()
 	}
-	s += (cap(r.DateFilter) - len(r.DateFilter)) * int(unsafe.Sizeof(DataRequirementDateFilter{}))
+	s += (cap(r.DateFilter) - len(r.DateFilter)) * int(reflect.TypeOf(DataRequirementDateFilter{}).Size())
 	if r.Limit != nil {
 		s += r.Limit.MemSize()
 	}
 	for _, i := range r.Sort {
 		s += i.MemSize()
 	}
-	s += (cap(r.Sort) - len(r.Sort)) * int(unsafe.Sizeof(DataRequirementSort{}))
+	s += (cap(r.Sort) - len(r.Sort)) * int(reflect.TypeOf(DataRequirementSort{}).Size())
 	return s
 }
 func (r DataRequirementCodeFilter) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Path != nil {
 		s += r.Path.MemSize()
 	}
@@ -154,18 +154,18 @@ func (r DataRequirementCodeFilter) MemSize() int {
 	for _, i := range r.Code {
 		s += i.MemSize()
 	}
-	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Code) - len(r.Code)) * int(reflect.TypeOf(Coding{}).Size())
 	return s
 }
 func (r DataRequirementDateFilter) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Path != nil {
 		s += r.Path.MemSize()
 	}
@@ -178,16 +178,16 @@ func (r DataRequirementDateFilter) MemSize() int {
 	return s
 }
 func (r DataRequirementSort) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
-	s += r.Direction.MemSize() - int(unsafe.Sizeof(r.Direction))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Path.MemSize() - int(reflect.TypeOf(r.Path).Size())
+	s += r.Direction.MemSize() - int(reflect.TypeOf(r.Direction).Size())
 	return s
 }
 func (r DataRequirement) String() string {

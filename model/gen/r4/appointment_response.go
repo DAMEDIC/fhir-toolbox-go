@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A reply to an appointment request for a patient and/or practitioner(s), such as a confirmation or rejection.
@@ -65,7 +65,7 @@ func (r AppointmentResponse) ResourceId() (string, bool) {
 }
 func (r AppointmentResponse) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -84,20 +84,20 @@ func (r AppointmentResponse) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Appointment.MemSize() - int(unsafe.Sizeof(r.Appointment))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Appointment.MemSize() - int(reflect.TypeOf(r.Appointment).Size())
 	if r.Start != nil {
 		s += r.Start.MemSize()
 	}
@@ -107,11 +107,11 @@ func (r AppointmentResponse) MemSize() int {
 	for _, i := range r.ParticipantType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ParticipantType) - len(r.ParticipantType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ParticipantType) - len(r.ParticipantType)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Actor != nil {
 		s += r.Actor.MemSize()
 	}
-	s += r.ParticipantStatus.MemSize() - int(unsafe.Sizeof(r.ParticipantStatus))
+	s += r.ParticipantStatus.MemSize() - int(reflect.TypeOf(r.ParticipantStatus).Size())
 	if r.Comment != nil {
 		s += r.Comment.MemSize()
 	}

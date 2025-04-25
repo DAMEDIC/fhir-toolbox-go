@@ -7,8 +7,8 @@ import (
 	"errors"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for Address Type: An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This data type may be used to convey addresses for use in delivering mail as well as for visiting locations which might not be valid for mail delivery.  There are a variety of postal address formats defined around the world.
@@ -42,14 +42,14 @@ type Address struct {
 }
 
 func (r Address) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Use != nil {
 		s += r.Use.MemSize()
 	}
@@ -62,7 +62,7 @@ func (r Address) MemSize() int {
 	for _, i := range r.Line {
 		s += i.MemSize()
 	}
-	s += (cap(r.Line) - len(r.Line)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Line) - len(r.Line)) * int(reflect.TypeOf(String{}).Size())
 	if r.City != nil {
 		s += r.City.MemSize()
 	}

@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // ExtendedContactDetail Type: Specifies contact information for a specific purpose over a period of time, might be handled/monitored by a specific named person or organization.
@@ -35,25 +35,25 @@ type ExtendedContactDetail struct {
 }
 
 func (r ExtendedContactDetail) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
 	for _, i := range r.Name {
 		s += i.MemSize()
 	}
-	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(HumanName{}))
+	s += (cap(r.Name) - len(r.Name)) * int(reflect.TypeOf(HumanName{}).Size())
 	for _, i := range r.Telecom {
 		s += i.MemSize()
 	}
-	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(reflect.TypeOf(ContactPoint{}).Size())
 	if r.Address != nil {
 		s += r.Address.MemSize()
 	}

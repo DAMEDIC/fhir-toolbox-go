@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A resource that represents the data of a single raw artifact as digital content accessible in its native format.  A Binary resource can contain any content, whether text, image, pdf, zip archive, etc.
@@ -45,7 +45,7 @@ func (r Binary) ResourceId() (string, bool) {
 	return *r.Id.Value, true
 }
 func (r Binary) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -58,7 +58,7 @@ func (r Binary) MemSize() int {
 	if r.Language != nil {
 		s += r.Language.MemSize()
 	}
-	s += r.ContentType.MemSize() - int(unsafe.Sizeof(r.ContentType))
+	s += r.ContentType.MemSize() - int(reflect.TypeOf(r.ContentType).Size())
 	if r.SecurityContext != nil {
 		s += r.SecurityContext.MemSize()
 	}

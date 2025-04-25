@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describes the event of a patient consuming or otherwise being administered a medication.  This may be as simple as swallowing a tablet or it may be a long running infusion.  Related resources tie this event to the authorizing prescription, and the specific encounter between patient and health care practitioner.
@@ -148,7 +148,7 @@ func (r MedicationAdministration) ResourceId() (string, bool) {
 }
 func (r MedicationAdministration) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -167,113 +167,113 @@ func (r MedicationAdministration) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.Instantiates {
 		s += i.MemSize()
 	}
-	s += (cap(r.Instantiates) - len(r.Instantiates)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.Instantiates) - len(r.Instantiates)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Reference{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.StatusReason {
 		s += i.MemSize()
 	}
-	s += (cap(r.StatusReason) - len(r.StatusReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.StatusReason) - len(r.StatusReason)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Category != nil {
 		s += r.Category.MemSize()
 	}
 	if r.Medication != nil {
 		s += r.Medication.MemSize()
 	}
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Context != nil {
 		s += r.Context.MemSize()
 	}
 	for _, i := range r.SupportingInformation {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupportingInformation) - len(r.SupportingInformation)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SupportingInformation) - len(r.SupportingInformation)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Effective != nil {
 		s += r.Effective.MemSize()
 	}
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(MedicationAdministrationPerformer{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(MedicationAdministrationPerformer{}).Size())
 	for _, i := range r.ReasonCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReasonReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Request != nil {
 		s += r.Request.MemSize()
 	}
 	for _, i := range r.Device {
 		s += i.MemSize()
 	}
-	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Device) - len(r.Device)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	if r.Dosage != nil {
 		s += r.Dosage.MemSize()
 	}
 	for _, i := range r.EventHistory {
 		s += i.MemSize()
 	}
-	s += (cap(r.EventHistory) - len(r.EventHistory)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.EventHistory) - len(r.EventHistory)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r MedicationAdministrationPerformer) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Function != nil {
 		s += r.Function.MemSize()
 	}
-	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	s += r.Actor.MemSize() - int(reflect.TypeOf(r.Actor).Size())
 	return s
 }
 func (r MedicationAdministrationDosage) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Text != nil {
 		s += r.Text.MemSize()
 	}

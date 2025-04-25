@@ -8,8 +8,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A collection of error, warning, or information messages that result from a system action.
@@ -76,7 +76,7 @@ func (r OperationOutcome) ResourceId() (string, bool) {
 }
 func (r OperationOutcome) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -95,36 +95,36 @@ func (r OperationOutcome) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Issue {
 		s += i.MemSize()
 	}
-	s += (cap(r.Issue) - len(r.Issue)) * int(unsafe.Sizeof(OperationOutcomeIssue{}))
+	s += (cap(r.Issue) - len(r.Issue)) * int(reflect.TypeOf(OperationOutcomeIssue{}).Size())
 	return s
 }
 func (r OperationOutcomeIssue) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Severity.MemSize() - int(unsafe.Sizeof(r.Severity))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Severity.MemSize() - int(reflect.TypeOf(r.Severity).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Details != nil {
 		s += r.Details.MemSize()
 	}
@@ -134,11 +134,11 @@ func (r OperationOutcomeIssue) MemSize() int {
 	for _, i := range r.Location {
 		s += i.MemSize()
 	}
-	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Location) - len(r.Location)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.Expression {
 		s += i.MemSize()
 	}
-	s += (cap(r.Expression) - len(r.Expression)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Expression) - len(r.Expression)) * int(reflect.TypeOf(String{}).Size())
 	return s
 }
 func (r OperationOutcome) String() string {

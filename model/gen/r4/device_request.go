@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Represents a request for a patient to employ a medical device. The device may be an implantable device, or an external assistive device, such as a walker.
@@ -137,7 +137,7 @@ func (r DeviceRequest) ResourceId() (string, bool) {
 }
 func (r DeviceRequest) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -156,42 +156,42 @@ func (r DeviceRequest) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.InstantiatesCanonical {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.InstantiatesUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.PriorRequest {
 		s += i.MemSize()
 	}
-	s += (cap(r.PriorRequest) - len(r.PriorRequest)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.PriorRequest) - len(r.PriorRequest)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.GroupIdentifier != nil {
 		s += r.GroupIdentifier.MemSize()
 	}
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
-	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	s += r.Intent.MemSize() - int(reflect.TypeOf(r.Intent).Size())
 	if r.Priority != nil {
 		s += r.Priority.MemSize()
 	}
@@ -201,8 +201,8 @@ func (r DeviceRequest) MemSize() int {
 	for _, i := range r.Parameter {
 		s += i.MemSize()
 	}
-	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(DeviceRequestParameter{}))
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(reflect.TypeOf(DeviceRequestParameter{}).Size())
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -224,42 +224,42 @@ func (r DeviceRequest) MemSize() int {
 	for _, i := range r.ReasonCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReasonReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Insurance {
 		s += i.MemSize()
 	}
-	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.SupportingInfo {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.RelevantHistory {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r DeviceRequestParameter) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}

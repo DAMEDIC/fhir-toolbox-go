@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // RelatedArtifact Type: Related artifacts such as additional documentation, justification, or bibliographic references.
@@ -43,19 +43,19 @@ type RelatedArtifact struct {
 }
 
 func (r RelatedArtifact) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Label != nil {
 		s += r.Label.MemSize()
 	}

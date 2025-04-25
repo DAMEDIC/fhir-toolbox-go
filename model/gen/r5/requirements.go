@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The Requirements resource is used to describe an actor - a human or an application that plays a role in data exchange, and that may have obligations associated with the role the actor plays.
@@ -130,7 +130,7 @@ func (r Requirements) ResourceId() (string, bool) {
 }
 func (r Requirements) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -149,22 +149,22 @@ func (r Requirements) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -177,7 +177,7 @@ func (r Requirements) MemSize() int {
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -190,18 +190,18 @@ func (r Requirements) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -214,46 +214,46 @@ func (r Requirements) MemSize() int {
 	for _, i := range r.DerivedFrom {
 		s += i.MemSize()
 	}
-	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.Reference {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reference) - len(r.Reference)) * int(unsafe.Sizeof(Url{}))
+	s += (cap(r.Reference) - len(r.Reference)) * int(reflect.TypeOf(Url{}).Size())
 	for _, i := range r.Actor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Actor) - len(r.Actor)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Actor) - len(r.Actor)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.Statement {
 		s += i.MemSize()
 	}
-	s += (cap(r.Statement) - len(r.Statement)) * int(unsafe.Sizeof(RequirementsStatement{}))
+	s += (cap(r.Statement) - len(r.Statement)) * int(reflect.TypeOf(RequirementsStatement{}).Size())
 	return s
 }
 func (r RequirementsStatement) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Key.MemSize() - int(unsafe.Sizeof(r.Key))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Key.MemSize() - int(reflect.TypeOf(r.Key).Size())
 	if r.Label != nil {
 		s += r.Label.MemSize()
 	}
 	for _, i := range r.Conformance {
 		s += i.MemSize()
 	}
-	s += (cap(r.Conformance) - len(r.Conformance)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Conformance) - len(r.Conformance)) * int(reflect.TypeOf(Code{}).Size())
 	if r.Conditionality != nil {
 		s += r.Conditionality.MemSize()
 	}
-	s += r.Requirement.MemSize() - int(unsafe.Sizeof(r.Requirement))
+	s += r.Requirement.MemSize() - int(reflect.TypeOf(r.Requirement).Size())
 	if r.DerivedFrom != nil {
 		s += r.DerivedFrom.MemSize()
 	}
@@ -263,15 +263,15 @@ func (r RequirementsStatement) MemSize() int {
 	for _, i := range r.SatisfiedBy {
 		s += i.MemSize()
 	}
-	s += (cap(r.SatisfiedBy) - len(r.SatisfiedBy)) * int(unsafe.Sizeof(Url{}))
+	s += (cap(r.SatisfiedBy) - len(r.SatisfiedBy)) * int(reflect.TypeOf(Url{}).Size())
 	for _, i := range r.Reference {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reference) - len(r.Reference)) * int(unsafe.Sizeof(Url{}))
+	s += (cap(r.Reference) - len(r.Reference)) * int(reflect.TypeOf(Url{}).Size())
 	for _, i := range r.Source {
 		s += i.MemSize()
 	}
-	s += (cap(r.Source) - len(r.Source)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Source) - len(r.Source)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r Requirements) String() string {

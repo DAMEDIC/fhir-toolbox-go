@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for Timing Type: Specifies an event that may occur multiple times. Timing schedules are used to record when things are planned, expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various kinds, and may be used for reporting the schedule to which past regular activities were carried out.
@@ -79,22 +79,22 @@ func (r Duration) isTimingRepeatBounds() {}
 func (r Range) isTimingRepeatBounds()    {}
 func (r Period) isTimingRepeatBounds()   {}
 func (r Timing) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Event {
 		s += i.MemSize()
 	}
-	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(DateTime{}))
+	s += (cap(r.Event) - len(r.Event)) * int(reflect.TypeOf(DateTime{}).Size())
 	if r.Repeat != nil {
 		s += r.Repeat.MemSize()
 	}
@@ -104,14 +104,14 @@ func (r Timing) MemSize() int {
 	return s
 }
 func (r TimingRepeat) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Bounds != nil {
 		s += r.Bounds.MemSize()
 	}
@@ -148,15 +148,15 @@ func (r TimingRepeat) MemSize() int {
 	for _, i := range r.DayOfWeek {
 		s += i.MemSize()
 	}
-	s += (cap(r.DayOfWeek) - len(r.DayOfWeek)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.DayOfWeek) - len(r.DayOfWeek)) * int(reflect.TypeOf(Code{}).Size())
 	for _, i := range r.TimeOfDay {
 		s += i.MemSize()
 	}
-	s += (cap(r.TimeOfDay) - len(r.TimeOfDay)) * int(unsafe.Sizeof(Time{}))
+	s += (cap(r.TimeOfDay) - len(r.TimeOfDay)) * int(reflect.TypeOf(Time{}).Size())
 	for _, i := range r.When {
 		s += i.MemSize()
 	}
-	s += (cap(r.When) - len(r.When)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.When) - len(r.When)) * int(reflect.TypeOf(Code{}).Size())
 	if r.Offset != nil {
 		s += r.Offset.MemSize()
 	}

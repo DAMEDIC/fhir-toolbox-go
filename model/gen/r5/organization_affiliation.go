@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Defines an affiliation/assotiation/relationship between 2 distinct organizations, that is not a part-of relationship/sub-division relationship.
@@ -75,7 +75,7 @@ func (r OrganizationAffiliation) ResourceId() (string, bool) {
 }
 func (r OrganizationAffiliation) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -94,19 +94,19 @@ func (r OrganizationAffiliation) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Active != nil {
 		s += r.Active.MemSize()
 	}
@@ -122,31 +122,31 @@ func (r OrganizationAffiliation) MemSize() int {
 	for _, i := range r.Network {
 		s += i.MemSize()
 	}
-	s += (cap(r.Network) - len(r.Network)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Network) - len(r.Network)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Code {
 		s += i.MemSize()
 	}
-	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Code) - len(r.Code)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Specialty {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Location {
 		s += i.MemSize()
 	}
-	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Location) - len(r.Location)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.HealthcareService {
 		s += i.MemSize()
 	}
-	s += (cap(r.HealthcareService) - len(r.HealthcareService)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.HealthcareService) - len(r.HealthcareService)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ExtendedContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ExtendedContactDetail{}).Size())
 	for _, i := range r.Endpoint {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r OrganizationAffiliation) String() string {

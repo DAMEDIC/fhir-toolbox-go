@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The technical details of an endpoint that can be used for electronic services, such as for web services providing XDS.b or a REST endpoint for another FHIR server. This may include any security context information.
@@ -71,7 +71,7 @@ func (r Endpoint) ResourceId() (string, bool) {
 }
 func (r Endpoint) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -90,21 +90,21 @@ func (r Endpoint) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.ConnectionType.MemSize() - int(unsafe.Sizeof(r.ConnectionType))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.ConnectionType.MemSize() - int(reflect.TypeOf(r.ConnectionType).Size())
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
@@ -114,23 +114,23 @@ func (r Endpoint) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactPoint{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactPoint{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}
 	for _, i := range r.PayloadType {
 		s += i.MemSize()
 	}
-	s += (cap(r.PayloadType) - len(r.PayloadType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.PayloadType) - len(r.PayloadType)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.PayloadMimeType {
 		s += i.MemSize()
 	}
-	s += (cap(r.PayloadMimeType) - len(r.PayloadMimeType)) * int(unsafe.Sizeof(Code{}))
-	s += r.Address.MemSize() - int(unsafe.Sizeof(r.Address))
+	s += (cap(r.PayloadMimeType) - len(r.PayloadMimeType)) * int(reflect.TypeOf(Code{}).Size())
+	s += r.Address.MemSize() - int(reflect.TypeOf(r.Address).Size())
 	for _, i := range r.Header {
 		s += i.MemSize()
 	}
-	s += (cap(r.Header) - len(r.Header)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Header) - len(r.Header)) * int(reflect.TypeOf(String{}).Size())
 	return s
 }
 func (r Endpoint) String() string {

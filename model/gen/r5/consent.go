@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A record of a healthcare consumer’s  choices  or choices made on their behalf by a third party, which permits or denies identified recipient(s) or recipient role(s) to perform one or more actions within a given policy context, for specific purposes and periods of time.
@@ -191,7 +191,7 @@ func (r Consent) ResourceId() (string, bool) {
 }
 func (r Consent) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -210,24 +210,24 @@ func (r Consent) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
@@ -240,64 +240,64 @@ func (r Consent) MemSize() int {
 	for _, i := range r.Grantor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Grantor) - len(r.Grantor)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Grantor) - len(r.Grantor)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Grantee {
 		s += i.MemSize()
 	}
-	s += (cap(r.Grantee) - len(r.Grantee)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Grantee) - len(r.Grantee)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Manager {
 		s += i.MemSize()
 	}
-	s += (cap(r.Manager) - len(r.Manager)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Manager) - len(r.Manager)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Controller {
 		s += i.MemSize()
 	}
-	s += (cap(r.Controller) - len(r.Controller)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Controller) - len(r.Controller)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.SourceAttachment {
 		s += i.MemSize()
 	}
-	s += (cap(r.SourceAttachment) - len(r.SourceAttachment)) * int(unsafe.Sizeof(Attachment{}))
+	s += (cap(r.SourceAttachment) - len(r.SourceAttachment)) * int(reflect.TypeOf(Attachment{}).Size())
 	for _, i := range r.SourceReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.SourceReference) - len(r.SourceReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SourceReference) - len(r.SourceReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.RegulatoryBasis {
 		s += i.MemSize()
 	}
-	s += (cap(r.RegulatoryBasis) - len(r.RegulatoryBasis)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.RegulatoryBasis) - len(r.RegulatoryBasis)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.PolicyBasis != nil {
 		s += r.PolicyBasis.MemSize()
 	}
 	for _, i := range r.PolicyText {
 		s += i.MemSize()
 	}
-	s += (cap(r.PolicyText) - len(r.PolicyText)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.PolicyText) - len(r.PolicyText)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Verification {
 		s += i.MemSize()
 	}
-	s += (cap(r.Verification) - len(r.Verification)) * int(unsafe.Sizeof(ConsentVerification{}))
+	s += (cap(r.Verification) - len(r.Verification)) * int(reflect.TypeOf(ConsentVerification{}).Size())
 	if r.Decision != nil {
 		s += r.Decision.MemSize()
 	}
 	for _, i := range r.Provision {
 		s += i.MemSize()
 	}
-	s += (cap(r.Provision) - len(r.Provision)) * int(unsafe.Sizeof(ConsentProvision{}))
+	s += (cap(r.Provision) - len(r.Provision)) * int(reflect.TypeOf(ConsentProvision{}).Size())
 	return s
 }
 func (r ConsentPolicyBasis) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Reference != nil {
 		s += r.Reference.MemSize()
 	}
@@ -307,19 +307,19 @@ func (r ConsentPolicyBasis) MemSize() int {
 	return s
 }
 func (r ConsentVerification) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Verified.MemSize() - int(unsafe.Sizeof(r.Verified))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Verified.MemSize() - int(reflect.TypeOf(r.Verified).Size())
 	if r.VerificationType != nil {
 		s += r.VerificationType.MemSize()
 	}
@@ -332,82 +332,82 @@ func (r ConsentVerification) MemSize() int {
 	for _, i := range r.VerificationDate {
 		s += i.MemSize()
 	}
-	s += (cap(r.VerificationDate) - len(r.VerificationDate)) * int(unsafe.Sizeof(DateTime{}))
+	s += (cap(r.VerificationDate) - len(r.VerificationDate)) * int(reflect.TypeOf(DateTime{}).Size())
 	return s
 }
 func (r ConsentProvision) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}
 	for _, i := range r.Actor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Actor) - len(r.Actor)) * int(unsafe.Sizeof(ConsentProvisionActor{}))
+	s += (cap(r.Actor) - len(r.Actor)) * int(reflect.TypeOf(ConsentProvisionActor{}).Size())
 	for _, i := range r.Action {
 		s += i.MemSize()
 	}
-	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Action) - len(r.Action)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.SecurityLabel {
 		s += i.MemSize()
 	}
-	s += (cap(r.SecurityLabel) - len(r.SecurityLabel)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.SecurityLabel) - len(r.SecurityLabel)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.Purpose {
 		s += i.MemSize()
 	}
-	s += (cap(r.Purpose) - len(r.Purpose)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Purpose) - len(r.Purpose)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.DocumentType {
 		s += i.MemSize()
 	}
-	s += (cap(r.DocumentType) - len(r.DocumentType)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.DocumentType) - len(r.DocumentType)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.ResourceType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ResourceType) - len(r.ResourceType)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.ResourceType) - len(r.ResourceType)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.Code {
 		s += i.MemSize()
 	}
-	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Code) - len(r.Code)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.DataPeriod != nil {
 		s += r.DataPeriod.MemSize()
 	}
 	for _, i := range r.Data {
 		s += i.MemSize()
 	}
-	s += (cap(r.Data) - len(r.Data)) * int(unsafe.Sizeof(ConsentProvisionData{}))
+	s += (cap(r.Data) - len(r.Data)) * int(reflect.TypeOf(ConsentProvisionData{}).Size())
 	if r.Expression != nil {
 		s += r.Expression.MemSize()
 	}
 	for _, i := range r.Provision {
 		s += i.MemSize()
 	}
-	s += (cap(r.Provision) - len(r.Provision)) * int(unsafe.Sizeof(ConsentProvision{}))
+	s += (cap(r.Provision) - len(r.Provision)) * int(reflect.TypeOf(ConsentProvision{}).Size())
 	return s
 }
 func (r ConsentProvisionActor) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Role != nil {
 		s += r.Role.MemSize()
 	}
@@ -417,20 +417,20 @@ func (r ConsentProvisionActor) MemSize() int {
 	return s
 }
 func (r ConsentProvisionData) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Meaning.MemSize() - int(unsafe.Sizeof(r.Meaning))
-	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Meaning.MemSize() - int(reflect.TypeOf(r.Meaning).Size())
+	s += r.Reference.MemSize() - int(reflect.TypeOf(r.Reference).Size())
 	return s
 }
 func (r Consent) String() string {

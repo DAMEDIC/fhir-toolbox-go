@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describes the intention of how one or more practitioners intend to deliver care for a particular patient, group or community for a period of time, possibly limited to care for a specific condition or set of conditions.
@@ -178,7 +178,7 @@ func (r CarePlan) ResourceId() (string, bool) {
 }
 func (r CarePlan) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -197,52 +197,52 @@ func (r CarePlan) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.InstantiatesCanonical {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.InstantiatesUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Replaces {
 		s += i.MemSize()
 	}
-	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Reference{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Intent.MemSize() - int(reflect.TypeOf(r.Intent).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -258,58 +258,58 @@ func (r CarePlan) MemSize() int {
 	for _, i := range r.Contributor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contributor) - len(r.Contributor)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Contributor) - len(r.Contributor)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.CareTeam {
 		s += i.MemSize()
 	}
-	s += (cap(r.CareTeam) - len(r.CareTeam)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.CareTeam) - len(r.CareTeam)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Addresses {
 		s += i.MemSize()
 	}
-	s += (cap(r.Addresses) - len(r.Addresses)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Addresses) - len(r.Addresses)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.SupportingInfo {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Goal {
 		s += i.MemSize()
 	}
-	s += (cap(r.Goal) - len(r.Goal)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Goal) - len(r.Goal)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Activity {
 		s += i.MemSize()
 	}
-	s += (cap(r.Activity) - len(r.Activity)) * int(unsafe.Sizeof(CarePlanActivity{}))
+	s += (cap(r.Activity) - len(r.Activity)) * int(reflect.TypeOf(CarePlanActivity{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	return s
 }
 func (r CarePlanActivity) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.OutcomeCodeableConcept {
 		s += i.MemSize()
 	}
-	s += (cap(r.OutcomeCodeableConcept) - len(r.OutcomeCodeableConcept)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.OutcomeCodeableConcept) - len(r.OutcomeCodeableConcept)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.OutcomeReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.OutcomeReference) - len(r.OutcomeReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.OutcomeReference) - len(r.OutcomeReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Progress {
 		s += i.MemSize()
 	}
-	s += (cap(r.Progress) - len(r.Progress)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Progress) - len(r.Progress)) * int(reflect.TypeOf(Annotation{}).Size())
 	if r.Reference != nil {
 		s += r.Reference.MemSize()
 	}
@@ -319,45 +319,45 @@ func (r CarePlanActivity) MemSize() int {
 	return s
 }
 func (r CarePlanActivityDetail) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Kind != nil {
 		s += r.Kind.MemSize()
 	}
 	for _, i := range r.InstantiatesCanonical {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.InstantiatesUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(reflect.TypeOf(Uri{}).Size())
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}
 	for _, i := range r.ReasonCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReasonReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Goal {
 		s += i.MemSize()
 	}
-	s += (cap(r.Goal) - len(r.Goal)) * int(unsafe.Sizeof(Reference{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Goal) - len(r.Goal)) * int(reflect.TypeOf(Reference{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.StatusReason != nil {
 		s += r.StatusReason.MemSize()
 	}
@@ -373,7 +373,7 @@ func (r CarePlanActivityDetail) MemSize() int {
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Product != nil {
 		s += r.Product.MemSize()
 	}

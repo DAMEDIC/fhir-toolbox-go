@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A record of a request for service such as diagnostic investigations, treatments, or operations to be performed.
@@ -204,7 +204,7 @@ func (r ServiceRequest) ResourceId() (string, bool) {
 }
 func (r ServiceRequest) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -223,44 +223,44 @@ func (r ServiceRequest) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.InstantiatesCanonical {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.InstantiatesUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Replaces {
 		s += i.MemSize()
 	}
-	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Requisition != nil {
 		s += r.Requisition.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Intent.MemSize() - int(reflect.TypeOf(r.Intent).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Priority != nil {
 		s += r.Priority.MemSize()
 	}
@@ -273,15 +273,15 @@ func (r ServiceRequest) MemSize() int {
 	for _, i := range r.OrderDetail {
 		s += i.MemSize()
 	}
-	s += (cap(r.OrderDetail) - len(r.OrderDetail)) * int(unsafe.Sizeof(ServiceRequestOrderDetail{}))
+	s += (cap(r.OrderDetail) - len(r.OrderDetail)) * int(reflect.TypeOf(ServiceRequestOrderDetail{}).Size())
 	if r.Quantity != nil {
 		s += r.Quantity.MemSize()
 	}
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	for _, i := range r.Focus {
 		s += i.MemSize()
 	}
-	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Focus) - len(r.Focus)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -303,102 +303,102 @@ func (r ServiceRequest) MemSize() int {
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Location {
 		s += i.MemSize()
 	}
-	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Location) - len(r.Location)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Reason {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Reason) - len(r.Reason)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Insurance {
 		s += i.MemSize()
 	}
-	s += (cap(r.Insurance) - len(r.Insurance)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Insurance) - len(r.Insurance)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.SupportingInfo {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.SupportingInfo) - len(r.SupportingInfo)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Specimen {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.BodySite {
 		s += i.MemSize()
 	}
-	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.BodyStructure != nil {
 		s += r.BodyStructure.MemSize()
 	}
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.PatientInstruction {
 		s += i.MemSize()
 	}
-	s += (cap(r.PatientInstruction) - len(r.PatientInstruction)) * int(unsafe.Sizeof(ServiceRequestPatientInstruction{}))
+	s += (cap(r.PatientInstruction) - len(r.PatientInstruction)) * int(reflect.TypeOf(ServiceRequestPatientInstruction{}).Size())
 	for _, i := range r.RelevantHistory {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.RelevantHistory) - len(r.RelevantHistory)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r ServiceRequestOrderDetail) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.ParameterFocus != nil {
 		s += r.ParameterFocus.MemSize()
 	}
 	for _, i := range r.Parameter {
 		s += i.MemSize()
 	}
-	s += (cap(r.Parameter) - len(r.Parameter)) * int(unsafe.Sizeof(ServiceRequestOrderDetailParameter{}))
+	s += (cap(r.Parameter) - len(r.Parameter)) * int(reflect.TypeOf(ServiceRequestOrderDetailParameter{}).Size())
 	return s
 }
 func (r ServiceRequestOrderDetailParameter) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
 	return s
 }
 func (r ServiceRequestPatientInstruction) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Instruction != nil {
 		s += r.Instruction.MemSize()
 	}

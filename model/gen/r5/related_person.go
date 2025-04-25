@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Information about a person that is involved in a patient's health or the care for a patient, but who is not the target of healthcare, nor has a formal responsibility in the care process.
@@ -91,7 +91,7 @@ func (r RelatedPerson) ResourceId() (string, bool) {
 }
 func (r RelatedPerson) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -110,35 +110,35 @@ func (r RelatedPerson) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Active != nil {
 		s += r.Active.MemSize()
 	}
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
 	for _, i := range r.Relationship {
 		s += i.MemSize()
 	}
-	s += (cap(r.Relationship) - len(r.Relationship)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Relationship) - len(r.Relationship)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Name {
 		s += i.MemSize()
 	}
-	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(HumanName{}))
+	s += (cap(r.Name) - len(r.Name)) * int(reflect.TypeOf(HumanName{}).Size())
 	for _, i := range r.Telecom {
 		s += i.MemSize()
 	}
-	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(reflect.TypeOf(ContactPoint{}).Size())
 	if r.Gender != nil {
 		s += r.Gender.MemSize()
 	}
@@ -148,34 +148,34 @@ func (r RelatedPerson) MemSize() int {
 	for _, i := range r.Address {
 		s += i.MemSize()
 	}
-	s += (cap(r.Address) - len(r.Address)) * int(unsafe.Sizeof(Address{}))
+	s += (cap(r.Address) - len(r.Address)) * int(reflect.TypeOf(Address{}).Size())
 	for _, i := range r.Photo {
 		s += i.MemSize()
 	}
-	s += (cap(r.Photo) - len(r.Photo)) * int(unsafe.Sizeof(Attachment{}))
+	s += (cap(r.Photo) - len(r.Photo)) * int(reflect.TypeOf(Attachment{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}
 	for _, i := range r.Communication {
 		s += i.MemSize()
 	}
-	s += (cap(r.Communication) - len(r.Communication)) * int(unsafe.Sizeof(RelatedPersonCommunication{}))
+	s += (cap(r.Communication) - len(r.Communication)) * int(reflect.TypeOf(RelatedPersonCommunication{}).Size())
 	return s
 }
 func (r RelatedPersonCommunication) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Language.MemSize() - int(unsafe.Sizeof(r.Language))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Language.MemSize() - int(reflect.TypeOf(r.Language).Size())
 	if r.Preferred != nil {
 		s += r.Preferred.MemSize()
 	}

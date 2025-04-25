@@ -6,8 +6,8 @@ import (
 	"encoding/xml"
 	"errors"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for xhtml Type
@@ -19,9 +19,9 @@ type Xhtml struct {
 }
 
 func (r Xhtml) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	s += len(r.Value)
 	return s

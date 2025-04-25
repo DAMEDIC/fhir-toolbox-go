@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A type of a manufactured item that is used in the provision of healthcare without being substantially changed through that activity. The device may be a medical or non-medical device.
@@ -204,7 +204,7 @@ func (r Device) ResourceId() (string, bool) {
 }
 func (r Device) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -223,33 +223,33 @@ func (r Device) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Definition != nil {
 		s += r.Definition.MemSize()
 	}
 	for _, i := range r.UdiCarrier {
 		s += i.MemSize()
 	}
-	s += (cap(r.UdiCarrier) - len(r.UdiCarrier)) * int(unsafe.Sizeof(DeviceUdiCarrier{}))
+	s += (cap(r.UdiCarrier) - len(r.UdiCarrier)) * int(reflect.TypeOf(DeviceUdiCarrier{}).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
 	for _, i := range r.StatusReason {
 		s += i.MemSize()
 	}
-	s += (cap(r.StatusReason) - len(r.StatusReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.StatusReason) - len(r.StatusReason)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.DistinctIdentifier != nil {
 		s += r.DistinctIdentifier.MemSize()
 	}
@@ -271,7 +271,7 @@ func (r Device) MemSize() int {
 	for _, i := range r.DeviceName {
 		s += i.MemSize()
 	}
-	s += (cap(r.DeviceName) - len(r.DeviceName)) * int(unsafe.Sizeof(DeviceDeviceName{}))
+	s += (cap(r.DeviceName) - len(r.DeviceName)) * int(reflect.TypeOf(DeviceDeviceName{}).Size())
 	if r.ModelNumber != nil {
 		s += r.ModelNumber.MemSize()
 	}
@@ -284,15 +284,15 @@ func (r Device) MemSize() int {
 	for _, i := range r.Specialization {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specialization) - len(r.Specialization)) * int(unsafe.Sizeof(DeviceSpecialization{}))
+	s += (cap(r.Specialization) - len(r.Specialization)) * int(reflect.TypeOf(DeviceSpecialization{}).Size())
 	for _, i := range r.Version {
 		s += i.MemSize()
 	}
-	s += (cap(r.Version) - len(r.Version)) * int(unsafe.Sizeof(DeviceVersion{}))
+	s += (cap(r.Version) - len(r.Version)) * int(reflect.TypeOf(DeviceVersion{}).Size())
 	for _, i := range r.Property {
 		s += i.MemSize()
 	}
-	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(DeviceProperty{}))
+	s += (cap(r.Property) - len(r.Property)) * int(reflect.TypeOf(DeviceProperty{}).Size())
 	if r.Patient != nil {
 		s += r.Patient.MemSize()
 	}
@@ -302,7 +302,7 @@ func (r Device) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactPoint{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactPoint{}).Size())
 	if r.Location != nil {
 		s += r.Location.MemSize()
 	}
@@ -312,29 +312,29 @@ func (r Device) MemSize() int {
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.Safety {
 		s += i.MemSize()
 	}
-	s += (cap(r.Safety) - len(r.Safety)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Safety) - len(r.Safety)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Parent != nil {
 		s += r.Parent.MemSize()
 	}
 	return s
 }
 func (r DeviceUdiCarrier) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.DeviceIdentifier != nil {
 		s += r.DeviceIdentifier.MemSize()
 	}
@@ -356,85 +356,85 @@ func (r DeviceUdiCarrier) MemSize() int {
 	return s
 }
 func (r DeviceDeviceName) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Name.MemSize() - int(reflect.TypeOf(r.Name).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	return s
 }
 func (r DeviceSpecialization) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.SystemType.MemSize() - int(unsafe.Sizeof(r.SystemType))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.SystemType.MemSize() - int(reflect.TypeOf(r.SystemType).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
 	return s
 }
 func (r DeviceVersion) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	if r.Component != nil {
 		s += r.Component.MemSize()
 	}
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	return s
 }
 func (r DeviceProperty) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.ValueQuantity {
 		s += i.MemSize()
 	}
-	s += (cap(r.ValueQuantity) - len(r.ValueQuantity)) * int(unsafe.Sizeof(Quantity{}))
+	s += (cap(r.ValueQuantity) - len(r.ValueQuantity)) * int(reflect.TypeOf(Quantity{}).Size())
 	for _, i := range r.ValueCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ValueCode) - len(r.ValueCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ValueCode) - len(r.ValueCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r Device) String() string {

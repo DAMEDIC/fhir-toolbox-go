@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // This resource provides the status of the payment for goods and services rendered, and the request and response resource references.
@@ -73,7 +73,7 @@ func (r PaymentNotice) ResourceId() (string, bool) {
 }
 func (r PaymentNotice) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -92,27 +92,27 @@ func (r PaymentNotice) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Request != nil {
 		s += r.Request.MemSize()
 	}
 	if r.Response != nil {
 		s += r.Response.MemSize()
 	}
-	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
+	s += r.Created.MemSize() - int(reflect.TypeOf(r.Created).Size())
 	if r.Reporter != nil {
 		s += r.Reporter.MemSize()
 	}
@@ -125,8 +125,8 @@ func (r PaymentNotice) MemSize() int {
 	if r.Payee != nil {
 		s += r.Payee.MemSize()
 	}
-	s += r.Recipient.MemSize() - int(unsafe.Sizeof(r.Recipient))
-	s += r.Amount.MemSize() - int(unsafe.Sizeof(r.Amount))
+	s += r.Recipient.MemSize() - int(reflect.TypeOf(r.Recipient).Size())
+	s += r.Amount.MemSize() - int(reflect.TypeOf(r.Amount).Size())
 	if r.PaymentStatus != nil {
 		s += r.PaymentStatus.MemSize()
 	}

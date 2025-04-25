@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // This Resource provides one or more comments, classifiers or ratings about a Resource and supports attribution and rights management metadata for the added content.
@@ -119,7 +119,7 @@ func (r ArtifactAssessment) ResourceId() (string, bool) {
 }
 func (r ArtifactAssessment) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -138,19 +138,19 @@ func (r ArtifactAssessment) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
@@ -175,7 +175,7 @@ func (r ArtifactAssessment) MemSize() int {
 	for _, i := range r.Content {
 		s += i.MemSize()
 	}
-	s += (cap(r.Content) - len(r.Content)) * int(unsafe.Sizeof(ArtifactAssessmentContent{}))
+	s += (cap(r.Content) - len(r.Content)) * int(reflect.TypeOf(ArtifactAssessmentContent{}).Size())
 	if r.WorkflowStatus != nil {
 		s += r.WorkflowStatus.MemSize()
 	}
@@ -185,18 +185,18 @@ func (r ArtifactAssessment) MemSize() int {
 	return s
 }
 func (r ArtifactAssessmentContent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.InformationType != nil {
 		s += r.InformationType.MemSize()
 	}
@@ -209,7 +209,7 @@ func (r ArtifactAssessmentContent) MemSize() int {
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Quantity != nil {
 		s += r.Quantity.MemSize()
 	}
@@ -219,18 +219,18 @@ func (r ArtifactAssessmentContent) MemSize() int {
 	for _, i := range r.Path {
 		s += i.MemSize()
 	}
-	s += (cap(r.Path) - len(r.Path)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.Path) - len(r.Path)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.RelatedArtifact {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
 	if r.FreeToShare != nil {
 		s += r.FreeToShare.MemSize()
 	}
 	for _, i := range r.Component {
 		s += i.MemSize()
 	}
-	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ArtifactAssessmentContent{}))
+	s += (cap(r.Component) - len(r.Component)) * int(reflect.TypeOf(ArtifactAssessmentContent{}).Size())
 	return s
 }
 func (r ArtifactAssessment) String() string {

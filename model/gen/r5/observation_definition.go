@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Set of definitional characteristics for a kind of observation or measurement produced or consumed by an orderable health care service.
@@ -188,7 +188,7 @@ func (r ObservationDefinition) ResourceId() (string, bool) {
 }
 func (r ObservationDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -207,15 +207,15 @@ func (r ObservationDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
@@ -234,7 +234,7 @@ func (r ObservationDefinition) MemSize() int {
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -247,18 +247,18 @@ func (r ObservationDefinition) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -280,27 +280,27 @@ func (r ObservationDefinition) MemSize() int {
 	for _, i := range r.DerivedFromCanonical {
 		s += i.MemSize()
 	}
-	s += (cap(r.DerivedFromCanonical) - len(r.DerivedFromCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.DerivedFromCanonical) - len(r.DerivedFromCanonical)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.DerivedFromUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.DerivedFromUri) - len(r.DerivedFromUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.DerivedFromUri) - len(r.DerivedFromUri)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.Subject {
 		s += i.MemSize()
 	}
-	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Subject) - len(r.Subject)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.PerformerType != nil {
 		s += r.PerformerType.MemSize()
 	}
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.PermittedDataType {
 		s += i.MemSize()
 	}
-	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(reflect.TypeOf(Code{}).Size())
 	if r.MultipleResultsAllowed != nil {
 		s += r.MultipleResultsAllowed.MemSize()
 	}
@@ -313,52 +313,52 @@ func (r ObservationDefinition) MemSize() int {
 	for _, i := range r.Specimen {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Device {
 		s += i.MemSize()
 	}
-	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Device) - len(r.Device)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.PreferredReportName != nil {
 		s += r.PreferredReportName.MemSize()
 	}
 	for _, i := range r.PermittedUnit {
 		s += i.MemSize()
 	}
-	s += (cap(r.PermittedUnit) - len(r.PermittedUnit)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.PermittedUnit) - len(r.PermittedUnit)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.QualifiedValue {
 		s += i.MemSize()
 	}
-	s += (cap(r.QualifiedValue) - len(r.QualifiedValue)) * int(unsafe.Sizeof(ObservationDefinitionQualifiedValue{}))
+	s += (cap(r.QualifiedValue) - len(r.QualifiedValue)) * int(reflect.TypeOf(ObservationDefinitionQualifiedValue{}).Size())
 	for _, i := range r.HasMember {
 		s += i.MemSize()
 	}
-	s += (cap(r.HasMember) - len(r.HasMember)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.HasMember) - len(r.HasMember)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Component {
 		s += i.MemSize()
 	}
-	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ObservationDefinitionComponent{}))
+	s += (cap(r.Component) - len(r.Component)) * int(reflect.TypeOf(ObservationDefinitionComponent{}).Size())
 	return s
 }
 func (r ObservationDefinitionQualifiedValue) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Context != nil {
 		s += r.Context.MemSize()
 	}
 	for _, i := range r.AppliesTo {
 		s += i.MemSize()
 	}
-	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Gender != nil {
 		s += r.Gender.MemSize()
 	}
@@ -392,31 +392,31 @@ func (r ObservationDefinitionQualifiedValue) MemSize() int {
 	return s
 }
 func (r ObservationDefinitionComponent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.PermittedDataType {
 		s += i.MemSize()
 	}
-	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(reflect.TypeOf(Code{}).Size())
 	for _, i := range r.PermittedUnit {
 		s += i.MemSize()
 	}
-	s += (cap(r.PermittedUnit) - len(r.PermittedUnit)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.PermittedUnit) - len(r.PermittedUnit)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.QualifiedValue {
 		s += i.MemSize()
 	}
-	s += (cap(r.QualifiedValue) - len(r.QualifiedValue)) * int(unsafe.Sizeof(ObservationDefinitionQualifiedValue{}))
+	s += (cap(r.QualifiedValue) - len(r.QualifiedValue)) * int(reflect.TypeOf(ObservationDefinitionQualifiedValue{}).Size())
 	return s
 }
 func (r ObservationDefinition) String() string {

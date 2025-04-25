@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Availability Type: Availability data for an {item}.
@@ -53,37 +53,37 @@ type AvailabilityNotAvailableTime struct {
 }
 
 func (r Availability) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.AvailableTime {
 		s += i.MemSize()
 	}
-	s += (cap(r.AvailableTime) - len(r.AvailableTime)) * int(unsafe.Sizeof(AvailabilityAvailableTime{}))
+	s += (cap(r.AvailableTime) - len(r.AvailableTime)) * int(reflect.TypeOf(AvailabilityAvailableTime{}).Size())
 	for _, i := range r.NotAvailableTime {
 		s += i.MemSize()
 	}
-	s += (cap(r.NotAvailableTime) - len(r.NotAvailableTime)) * int(unsafe.Sizeof(AvailabilityNotAvailableTime{}))
+	s += (cap(r.NotAvailableTime) - len(r.NotAvailableTime)) * int(reflect.TypeOf(AvailabilityNotAvailableTime{}).Size())
 	return s
 }
 func (r AvailabilityAvailableTime) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.DaysOfWeek {
 		s += i.MemSize()
 	}
-	s += (cap(r.DaysOfWeek) - len(r.DaysOfWeek)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.DaysOfWeek) - len(r.DaysOfWeek)) * int(reflect.TypeOf(Code{}).Size())
 	if r.AllDay != nil {
 		s += r.AllDay.MemSize()
 	}
@@ -96,14 +96,14 @@ func (r AvailabilityAvailableTime) MemSize() int {
 	return s
 }
 func (r AvailabilityNotAvailableTime) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}

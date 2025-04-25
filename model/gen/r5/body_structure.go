@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Record details about an anatomical structure.  This resource may be used when a coded concept does not provide the necessary detail needed for the use case.
@@ -123,7 +123,7 @@ func (r BodyStructure) ResourceId() (string, bool) {
 }
 func (r BodyStructure) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -142,19 +142,19 @@ func (r BodyStructure) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Active != nil {
 		s += r.Active.MemSize()
 	}
@@ -164,104 +164,104 @@ func (r BodyStructure) MemSize() int {
 	for _, i := range r.IncludedStructure {
 		s += i.MemSize()
 	}
-	s += (cap(r.IncludedStructure) - len(r.IncludedStructure)) * int(unsafe.Sizeof(BodyStructureIncludedStructure{}))
+	s += (cap(r.IncludedStructure) - len(r.IncludedStructure)) * int(reflect.TypeOf(BodyStructureIncludedStructure{}).Size())
 	for _, i := range r.ExcludedStructure {
 		s += i.MemSize()
 	}
-	s += (cap(r.ExcludedStructure) - len(r.ExcludedStructure)) * int(unsafe.Sizeof(BodyStructureIncludedStructure{}))
+	s += (cap(r.ExcludedStructure) - len(r.ExcludedStructure)) * int(reflect.TypeOf(BodyStructureIncludedStructure{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.Image {
 		s += i.MemSize()
 	}
-	s += (cap(r.Image) - len(r.Image)) * int(unsafe.Sizeof(Attachment{}))
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += (cap(r.Image) - len(r.Image)) * int(reflect.TypeOf(Attachment{}).Size())
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
 	return s
 }
 func (r BodyStructureIncludedStructure) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Structure.MemSize() - int(unsafe.Sizeof(r.Structure))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Structure.MemSize() - int(reflect.TypeOf(r.Structure).Size())
 	if r.Laterality != nil {
 		s += r.Laterality.MemSize()
 	}
 	for _, i := range r.BodyLandmarkOrientation {
 		s += i.MemSize()
 	}
-	s += (cap(r.BodyLandmarkOrientation) - len(r.BodyLandmarkOrientation)) * int(unsafe.Sizeof(BodyStructureIncludedStructureBodyLandmarkOrientation{}))
+	s += (cap(r.BodyLandmarkOrientation) - len(r.BodyLandmarkOrientation)) * int(reflect.TypeOf(BodyStructureIncludedStructureBodyLandmarkOrientation{}).Size())
 	for _, i := range r.SpatialReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.SpatialReference) - len(r.SpatialReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SpatialReference) - len(r.SpatialReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Qualifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Qualifier) - len(r.Qualifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Qualifier) - len(r.Qualifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.LandmarkDescription {
 		s += i.MemSize()
 	}
-	s += (cap(r.LandmarkDescription) - len(r.LandmarkDescription)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.LandmarkDescription) - len(r.LandmarkDescription)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ClockFacePosition {
 		s += i.MemSize()
 	}
-	s += (cap(r.ClockFacePosition) - len(r.ClockFacePosition)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ClockFacePosition) - len(r.ClockFacePosition)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.DistanceFromLandmark {
 		s += i.MemSize()
 	}
-	s += (cap(r.DistanceFromLandmark) - len(r.DistanceFromLandmark)) * int(unsafe.Sizeof(BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark{}))
+	s += (cap(r.DistanceFromLandmark) - len(r.DistanceFromLandmark)) * int(reflect.TypeOf(BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark{}).Size())
 	for _, i := range r.SurfaceOrientation {
 		s += i.MemSize()
 	}
-	s += (cap(r.SurfaceOrientation) - len(r.SurfaceOrientation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.SurfaceOrientation) - len(r.SurfaceOrientation)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Device {
 		s += i.MemSize()
 	}
-	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Device) - len(r.Device)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Value {
 		s += i.MemSize()
 	}
-	s += (cap(r.Value) - len(r.Value)) * int(unsafe.Sizeof(Quantity{}))
+	s += (cap(r.Value) - len(r.Value)) * int(reflect.TypeOf(Quantity{}).Size())
 	return s
 }
 func (r BodyStructure) String() string {

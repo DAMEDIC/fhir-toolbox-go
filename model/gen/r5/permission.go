@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Permission resource holds access rules for a given data and context.
@@ -153,7 +153,7 @@ func (r Permission) ResourceId() (string, bool) {
 }
 func (r Permission) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -172,161 +172,161 @@ func (r Permission) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Asserter != nil {
 		s += r.Asserter.MemSize()
 	}
 	for _, i := range r.Date {
 		s += i.MemSize()
 	}
-	s += (cap(r.Date) - len(r.Date)) * int(unsafe.Sizeof(DateTime{}))
+	s += (cap(r.Date) - len(r.Date)) * int(reflect.TypeOf(DateTime{}).Size())
 	if r.Validity != nil {
 		s += r.Validity.MemSize()
 	}
 	if r.Justification != nil {
 		s += r.Justification.MemSize()
 	}
-	s += r.Combining.MemSize() - int(unsafe.Sizeof(r.Combining))
+	s += r.Combining.MemSize() - int(reflect.TypeOf(r.Combining).Size())
 	for _, i := range r.Rule {
 		s += i.MemSize()
 	}
-	s += (cap(r.Rule) - len(r.Rule)) * int(unsafe.Sizeof(PermissionRule{}))
+	s += (cap(r.Rule) - len(r.Rule)) * int(reflect.TypeOf(PermissionRule{}).Size())
 	return s
 }
 func (r PermissionJustification) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Basis {
 		s += i.MemSize()
 	}
-	s += (cap(r.Basis) - len(r.Basis)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Basis) - len(r.Basis)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Evidence {
 		s += i.MemSize()
 	}
-	s += (cap(r.Evidence) - len(r.Evidence)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Evidence) - len(r.Evidence)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r PermissionRule) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	for _, i := range r.Data {
 		s += i.MemSize()
 	}
-	s += (cap(r.Data) - len(r.Data)) * int(unsafe.Sizeof(PermissionRuleData{}))
+	s += (cap(r.Data) - len(r.Data)) * int(reflect.TypeOf(PermissionRuleData{}).Size())
 	for _, i := range r.Activity {
 		s += i.MemSize()
 	}
-	s += (cap(r.Activity) - len(r.Activity)) * int(unsafe.Sizeof(PermissionRuleActivity{}))
+	s += (cap(r.Activity) - len(r.Activity)) * int(reflect.TypeOf(PermissionRuleActivity{}).Size())
 	for _, i := range r.Limit {
 		s += i.MemSize()
 	}
-	s += (cap(r.Limit) - len(r.Limit)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Limit) - len(r.Limit)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r PermissionRuleData) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Resource {
 		s += i.MemSize()
 	}
-	s += (cap(r.Resource) - len(r.Resource)) * int(unsafe.Sizeof(PermissionRuleDataResource{}))
+	s += (cap(r.Resource) - len(r.Resource)) * int(reflect.TypeOf(PermissionRuleDataResource{}).Size())
 	for _, i := range r.Security {
 		s += i.MemSize()
 	}
-	s += (cap(r.Security) - len(r.Security)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Security) - len(r.Security)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.Period {
 		s += i.MemSize()
 	}
-	s += (cap(r.Period) - len(r.Period)) * int(unsafe.Sizeof(Period{}))
+	s += (cap(r.Period) - len(r.Period)) * int(reflect.TypeOf(Period{}).Size())
 	if r.Expression != nil {
 		s += r.Expression.MemSize()
 	}
 	return s
 }
 func (r PermissionRuleDataResource) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Meaning.MemSize() - int(unsafe.Sizeof(r.Meaning))
-	s += r.Reference.MemSize() - int(unsafe.Sizeof(r.Reference))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Meaning.MemSize() - int(reflect.TypeOf(r.Meaning).Size())
+	s += r.Reference.MemSize() - int(reflect.TypeOf(r.Reference).Size())
 	return s
 }
 func (r PermissionRuleActivity) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Actor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Actor) - len(r.Actor)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Actor) - len(r.Actor)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Action {
 		s += i.MemSize()
 	}
-	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Action) - len(r.Action)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Purpose {
 		s += i.MemSize()
 	}
-	s += (cap(r.Purpose) - len(r.Purpose)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Purpose) - len(r.Purpose)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r Permission) String() string {
