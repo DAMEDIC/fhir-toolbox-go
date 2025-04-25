@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A structured set of questions and their answers. The questions are ordered and grouped into coherent subsets, corresponding to the structure of the grouping of the questionnaire being responded to.
@@ -127,7 +127,7 @@ func (r QuestionnaireResponse) ResourceId() (string, bool) {
 }
 func (r QuestionnaireResponse) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -146,30 +146,30 @@ func (r QuestionnaireResponse) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Questionnaire != nil {
 		s += r.Questionnaire.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
@@ -188,23 +188,23 @@ func (r QuestionnaireResponse) MemSize() int {
 	for _, i := range r.Item {
 		s += i.MemSize()
 	}
-	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(QuestionnaireResponseItem{}))
+	s += (cap(r.Item) - len(r.Item)) * int(reflect.TypeOf(QuestionnaireResponseItem{}).Size())
 	return s
 }
 func (r QuestionnaireResponseItem) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.LinkId.MemSize() - int(unsafe.Sizeof(r.LinkId))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.LinkId.MemSize() - int(reflect.TypeOf(r.LinkId).Size())
 	if r.Definition != nil {
 		s += r.Definition.MemSize()
 	}
@@ -214,33 +214,33 @@ func (r QuestionnaireResponseItem) MemSize() int {
 	for _, i := range r.Answer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Answer) - len(r.Answer)) * int(unsafe.Sizeof(QuestionnaireResponseItemAnswer{}))
+	s += (cap(r.Answer) - len(r.Answer)) * int(reflect.TypeOf(QuestionnaireResponseItemAnswer{}).Size())
 	for _, i := range r.Item {
 		s += i.MemSize()
 	}
-	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(QuestionnaireResponseItem{}))
+	s += (cap(r.Item) - len(r.Item)) * int(reflect.TypeOf(QuestionnaireResponseItem{}).Size())
 	return s
 }
 func (r QuestionnaireResponseItemAnswer) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
 	for _, i := range r.Item {
 		s += i.MemSize()
 	}
-	s += (cap(r.Item) - len(r.Item)) * int(unsafe.Sizeof(QuestionnaireResponseItem{}))
+	s += (cap(r.Item) - len(r.Item)) * int(reflect.TypeOf(QuestionnaireResponseItem{}).Size())
 	return s
 }
 func (r QuestionnaireResponse) String() string {

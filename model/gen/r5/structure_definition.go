@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A definition of a FHIR structure. This resource is used to describe the underlying resources, data types defined in FHIR, and also for describing extensions and constraints on resources and data types.
@@ -178,7 +178,7 @@ func (r StructureDefinition) ResourceId() (string, bool) {
 }
 func (r StructureDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -197,31 +197,31 @@ func (r StructureDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Url.MemSize() - int(reflect.TypeOf(r.Url).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
 	if r.VersionAlgorithm != nil {
 		s += r.VersionAlgorithm.MemSize()
 	}
-	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Name.MemSize() - int(reflect.TypeOf(r.Name).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -234,18 +234,18 @@ func (r StructureDefinition) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -258,25 +258,25 @@ func (r StructureDefinition) MemSize() int {
 	for _, i := range r.Keyword {
 		s += i.MemSize()
 	}
-	s += (cap(r.Keyword) - len(r.Keyword)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Keyword) - len(r.Keyword)) * int(reflect.TypeOf(Coding{}).Size())
 	if r.FhirVersion != nil {
 		s += r.FhirVersion.MemSize()
 	}
 	for _, i := range r.Mapping {
 		s += i.MemSize()
 	}
-	s += (cap(r.Mapping) - len(r.Mapping)) * int(unsafe.Sizeof(StructureDefinitionMapping{}))
-	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
-	s += r.Abstract.MemSize() - int(unsafe.Sizeof(r.Abstract))
+	s += (cap(r.Mapping) - len(r.Mapping)) * int(reflect.TypeOf(StructureDefinitionMapping{}).Size())
+	s += r.Kind.MemSize() - int(reflect.TypeOf(r.Kind).Size())
+	s += r.Abstract.MemSize() - int(reflect.TypeOf(r.Abstract).Size())
 	for _, i := range r.Context {
 		s += i.MemSize()
 	}
-	s += (cap(r.Context) - len(r.Context)) * int(unsafe.Sizeof(StructureDefinitionContext{}))
+	s += (cap(r.Context) - len(r.Context)) * int(reflect.TypeOf(StructureDefinitionContext{}).Size())
 	for _, i := range r.ContextInvariant {
 		s += i.MemSize()
 	}
-	s += (cap(r.ContextInvariant) - len(r.ContextInvariant)) * int(unsafe.Sizeof(String{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ContextInvariant) - len(r.ContextInvariant)) * int(reflect.TypeOf(String{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.BaseDefinition != nil {
 		s += r.BaseDefinition.MemSize()
 	}
@@ -292,19 +292,19 @@ func (r StructureDefinition) MemSize() int {
 	return s
 }
 func (r StructureDefinitionMapping) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Identity.MemSize() - int(unsafe.Sizeof(r.Identity))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Identity.MemSize() - int(reflect.TypeOf(r.Identity).Size())
 	if r.Uri != nil {
 		s += r.Uri.MemSize()
 	}
@@ -317,58 +317,58 @@ func (r StructureDefinitionMapping) MemSize() int {
 	return s
 }
 func (r StructureDefinitionContext) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
-	s += r.Expression.MemSize() - int(unsafe.Sizeof(r.Expression))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
+	s += r.Expression.MemSize() - int(reflect.TypeOf(r.Expression).Size())
 	return s
 }
 func (r StructureDefinitionSnapshot) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Element {
 		s += i.MemSize()
 	}
-	s += (cap(r.Element) - len(r.Element)) * int(unsafe.Sizeof(ElementDefinition{}))
+	s += (cap(r.Element) - len(r.Element)) * int(reflect.TypeOf(ElementDefinition{}).Size())
 	return s
 }
 func (r StructureDefinitionDifferential) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Element {
 		s += i.MemSize()
 	}
-	s += (cap(r.Element) - len(r.Element)) * int(unsafe.Sizeof(ElementDefinition{}))
+	s += (cap(r.Element) - len(r.Element)) * int(reflect.TypeOf(ElementDefinition{}).Size())
 	return s
 }
 func (r StructureDefinition) String() string {

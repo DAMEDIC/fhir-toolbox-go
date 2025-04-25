@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Meta Type: The metadata about a resource. This is content in the resource that is maintained by the infrastructure. Changes to the content might not always be associated with version changes to the resource.
@@ -33,14 +33,14 @@ type Meta struct {
 }
 
 func (r Meta) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.VersionId != nil {
 		s += r.VersionId.MemSize()
 	}
@@ -53,15 +53,15 @@ func (r Meta) MemSize() int {
 	for _, i := range r.Profile {
 		s += i.MemSize()
 	}
-	s += (cap(r.Profile) - len(r.Profile)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Profile) - len(r.Profile)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.Security {
 		s += i.MemSize()
 	}
-	s += (cap(r.Security) - len(r.Security)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Security) - len(r.Security)) * int(reflect.TypeOf(Coding{}).Size())
 	for _, i := range r.Tag {
 		s += i.MemSize()
 	}
-	s += (cap(r.Tag) - len(r.Tag)) * int(unsafe.Sizeof(Coding{}))
+	s += (cap(r.Tag) - len(r.Tag)) * int(reflect.TypeOf(Coding{}).Size())
 	return s
 }
 func (r Meta) String() string {

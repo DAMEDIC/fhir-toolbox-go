@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The Citation Resource enables reference to any knowledge artifact for purposes of identification and attribution. The Citation Resource supports existing reference structures and developing publication practices such as versioning, expressing complex contributorship roles, and referencing computable resources.
@@ -508,7 +508,7 @@ func (r Citation) ResourceId() (string, bool) {
 }
 func (r Citation) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -527,22 +527,22 @@ func (r Citation) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -555,7 +555,7 @@ func (r Citation) MemSize() int {
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -568,18 +568,18 @@ func (r Citation) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -601,130 +601,130 @@ func (r Citation) MemSize() int {
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Editor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Editor) - len(r.Editor)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Reviewer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Endorser {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Summary {
 		s += i.MemSize()
 	}
-	s += (cap(r.Summary) - len(r.Summary)) * int(unsafe.Sizeof(CitationSummary{}))
+	s += (cap(r.Summary) - len(r.Summary)) * int(reflect.TypeOf(CitationSummary{}).Size())
 	for _, i := range r.Classification {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classification) - len(r.Classification)) * int(unsafe.Sizeof(CitationClassification{}))
+	s += (cap(r.Classification) - len(r.Classification)) * int(reflect.TypeOf(CitationClassification{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.CurrentState {
 		s += i.MemSize()
 	}
-	s += (cap(r.CurrentState) - len(r.CurrentState)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.CurrentState) - len(r.CurrentState)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.StatusDate {
 		s += i.MemSize()
 	}
-	s += (cap(r.StatusDate) - len(r.StatusDate)) * int(unsafe.Sizeof(CitationStatusDate{}))
+	s += (cap(r.StatusDate) - len(r.StatusDate)) * int(reflect.TypeOf(CitationStatusDate{}).Size())
 	for _, i := range r.RelatedArtifact {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
 	if r.CitedArtifact != nil {
 		s += r.CitedArtifact.MemSize()
 	}
 	return s
 }
 func (r CitationSummary) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Style != nil {
 		s += r.Style.MemSize()
 	}
-	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	s += r.Text.MemSize() - int(reflect.TypeOf(r.Text).Size())
 	return s
 }
 func (r CitationClassification) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r CitationStatusDate) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Activity.MemSize() - int(unsafe.Sizeof(r.Activity))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Activity.MemSize() - int(reflect.TypeOf(r.Activity).Size())
 	if r.Actual != nil {
 		s += r.Actual.MemSize()
 	}
-	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	s += r.Period.MemSize() - int(reflect.TypeOf(r.Period).Size())
 	return s
 }
 func (r CitationCitedArtifact) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.RelatedIdentifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedIdentifier) - len(r.RelatedIdentifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.RelatedIdentifier) - len(r.RelatedIdentifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.DateAccessed != nil {
 		s += r.DateAccessed.MemSize()
 	}
@@ -734,147 +734,147 @@ func (r CitationCitedArtifact) MemSize() int {
 	for _, i := range r.CurrentState {
 		s += i.MemSize()
 	}
-	s += (cap(r.CurrentState) - len(r.CurrentState)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.CurrentState) - len(r.CurrentState)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.StatusDate {
 		s += i.MemSize()
 	}
-	s += (cap(r.StatusDate) - len(r.StatusDate)) * int(unsafe.Sizeof(CitationCitedArtifactStatusDate{}))
+	s += (cap(r.StatusDate) - len(r.StatusDate)) * int(reflect.TypeOf(CitationCitedArtifactStatusDate{}).Size())
 	for _, i := range r.Title {
 		s += i.MemSize()
 	}
-	s += (cap(r.Title) - len(r.Title)) * int(unsafe.Sizeof(CitationCitedArtifactTitle{}))
+	s += (cap(r.Title) - len(r.Title)) * int(reflect.TypeOf(CitationCitedArtifactTitle{}).Size())
 	for _, i := range r.Abstract {
 		s += i.MemSize()
 	}
-	s += (cap(r.Abstract) - len(r.Abstract)) * int(unsafe.Sizeof(CitationCitedArtifactAbstract{}))
+	s += (cap(r.Abstract) - len(r.Abstract)) * int(reflect.TypeOf(CitationCitedArtifactAbstract{}).Size())
 	if r.Part != nil {
 		s += r.Part.MemSize()
 	}
 	for _, i := range r.RelatesTo {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(unsafe.Sizeof(CitationCitedArtifactRelatesTo{}))
+	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(reflect.TypeOf(CitationCitedArtifactRelatesTo{}).Size())
 	for _, i := range r.PublicationForm {
 		s += i.MemSize()
 	}
-	s += (cap(r.PublicationForm) - len(r.PublicationForm)) * int(unsafe.Sizeof(CitationCitedArtifactPublicationForm{}))
+	s += (cap(r.PublicationForm) - len(r.PublicationForm)) * int(reflect.TypeOf(CitationCitedArtifactPublicationForm{}).Size())
 	for _, i := range r.WebLocation {
 		s += i.MemSize()
 	}
-	s += (cap(r.WebLocation) - len(r.WebLocation)) * int(unsafe.Sizeof(CitationCitedArtifactWebLocation{}))
+	s += (cap(r.WebLocation) - len(r.WebLocation)) * int(reflect.TypeOf(CitationCitedArtifactWebLocation{}).Size())
 	for _, i := range r.Classification {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classification) - len(r.Classification)) * int(unsafe.Sizeof(CitationCitedArtifactClassification{}))
+	s += (cap(r.Classification) - len(r.Classification)) * int(reflect.TypeOf(CitationCitedArtifactClassification{}).Size())
 	if r.Contributorship != nil {
 		s += r.Contributorship.MemSize()
 	}
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	return s
 }
 func (r CitationCitedArtifactVersion) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	if r.BaseCitation != nil {
 		s += r.BaseCitation.MemSize()
 	}
 	return s
 }
 func (r CitationCitedArtifactStatusDate) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Activity.MemSize() - int(unsafe.Sizeof(r.Activity))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Activity.MemSize() - int(reflect.TypeOf(r.Activity).Size())
 	if r.Actual != nil {
 		s += r.Actual.MemSize()
 	}
-	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	s += r.Period.MemSize() - int(reflect.TypeOf(r.Period).Size())
 	return s
 }
 func (r CitationCitedArtifactTitle) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Language != nil {
 		s += r.Language.MemSize()
 	}
-	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	s += r.Text.MemSize() - int(reflect.TypeOf(r.Text).Size())
 	return s
 }
 func (r CitationCitedArtifactAbstract) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	if r.Language != nil {
 		s += r.Language.MemSize()
 	}
-	s += r.Text.MemSize() - int(unsafe.Sizeof(r.Text))
+	s += r.Text.MemSize() - int(reflect.TypeOf(r.Text).Size())
 	if r.Copyright != nil {
 		s += r.Copyright.MemSize()
 	}
 	return s
 }
 func (r CitationCitedArtifactPart) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -887,23 +887,23 @@ func (r CitationCitedArtifactPart) MemSize() int {
 	return s
 }
 func (r CitationCitedArtifactRelatesTo) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Label != nil {
 		s += r.Label.MemSize()
 	}
@@ -925,18 +925,18 @@ func (r CitationCitedArtifactRelatesTo) MemSize() int {
 	return s
 }
 func (r CitationCitedArtifactPublicationForm) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.PublishedIn != nil {
 		s += r.PublishedIn.MemSize()
 	}
@@ -964,7 +964,7 @@ func (r CitationCitedArtifactPublicationForm) MemSize() int {
 	for _, i := range r.Language {
 		s += i.MemSize()
 	}
-	s += (cap(r.Language) - len(r.Language)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Language) - len(r.Language)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.AccessionNumber != nil {
 		s += r.AccessionNumber.MemSize()
 	}
@@ -986,25 +986,25 @@ func (r CitationCitedArtifactPublicationForm) MemSize() int {
 	return s
 }
 func (r CitationCitedArtifactPublicationFormPublishedIn) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
@@ -1017,111 +1017,111 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) MemSize() int {
 	return s
 }
 func (r CitationCitedArtifactWebLocation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	return s
 }
 func (r CitationCitedArtifactClassification) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	for _, i := range r.Classifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Classifier) - len(r.Classifier)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Classifier) - len(r.Classifier)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ArtifactAssessment {
 		s += i.MemSize()
 	}
-	s += (cap(r.ArtifactAssessment) - len(r.ArtifactAssessment)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ArtifactAssessment) - len(r.ArtifactAssessment)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r CitationCitedArtifactContributorship) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Complete != nil {
 		s += r.Complete.MemSize()
 	}
 	for _, i := range r.Entry {
 		s += i.MemSize()
 	}
-	s += (cap(r.Entry) - len(r.Entry)) * int(unsafe.Sizeof(CitationCitedArtifactContributorshipEntry{}))
+	s += (cap(r.Entry) - len(r.Entry)) * int(reflect.TypeOf(CitationCitedArtifactContributorshipEntry{}).Size())
 	for _, i := range r.Summary {
 		s += i.MemSize()
 	}
-	s += (cap(r.Summary) - len(r.Summary)) * int(unsafe.Sizeof(CitationCitedArtifactContributorshipSummary{}))
+	s += (cap(r.Summary) - len(r.Summary)) * int(reflect.TypeOf(CitationCitedArtifactContributorshipSummary{}).Size())
 	return s
 }
 func (r CitationCitedArtifactContributorshipEntry) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Contributor.MemSize() - int(unsafe.Sizeof(r.Contributor))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Contributor.MemSize() - int(reflect.TypeOf(r.Contributor).Size())
 	if r.ForenameInitials != nil {
 		s += r.ForenameInitials.MemSize()
 	}
 	for _, i := range r.Affiliation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Affiliation) - len(r.Affiliation)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Affiliation) - len(r.Affiliation)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.ContributionType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ContributionType) - len(r.ContributionType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ContributionType) - len(r.ContributionType)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Role != nil {
 		s += r.Role.MemSize()
 	}
 	for _, i := range r.ContributionInstance {
 		s += i.MemSize()
 	}
-	s += (cap(r.ContributionInstance) - len(r.ContributionInstance)) * int(unsafe.Sizeof(CitationCitedArtifactContributorshipEntryContributionInstance{}))
+	s += (cap(r.ContributionInstance) - len(r.ContributionInstance)) * int(reflect.TypeOf(CitationCitedArtifactContributorshipEntryContributionInstance{}).Size())
 	if r.CorrespondingContact != nil {
 		s += r.CorrespondingContact.MemSize()
 	}
@@ -1131,37 +1131,37 @@ func (r CitationCitedArtifactContributorshipEntry) MemSize() int {
 	return s
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Time != nil {
 		s += r.Time.MemSize()
 	}
 	return s
 }
 func (r CitationCitedArtifactContributorshipSummary) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -1171,7 +1171,7 @@ func (r CitationCitedArtifactContributorshipSummary) MemSize() int {
 	if r.Source != nil {
 		s += r.Source.MemSize()
 	}
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	return s
 }
 func (r Citation) String() string {

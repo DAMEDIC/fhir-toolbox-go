@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A medicinal product in a container or package.
@@ -119,7 +119,7 @@ func (r MedicinalProductPackaged) ResourceId() (string, bool) {
 }
 func (r MedicinalProductPackaged) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -138,23 +138,23 @@ func (r MedicinalProductPackaged) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.Subject {
 		s += i.MemSize()
 	}
-	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Subject) - len(r.Subject)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -164,97 +164,97 @@ func (r MedicinalProductPackaged) MemSize() int {
 	for _, i := range r.MarketingStatus {
 		s += i.MemSize()
 	}
-	s += (cap(r.MarketingStatus) - len(r.MarketingStatus)) * int(unsafe.Sizeof(MarketingStatus{}))
+	s += (cap(r.MarketingStatus) - len(r.MarketingStatus)) * int(reflect.TypeOf(MarketingStatus{}).Size())
 	if r.MarketingAuthorization != nil {
 		s += r.MarketingAuthorization.MemSize()
 	}
 	for _, i := range r.Manufacturer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.BatchIdentifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.BatchIdentifier) - len(r.BatchIdentifier)) * int(unsafe.Sizeof(MedicinalProductPackagedBatchIdentifier{}))
+	s += (cap(r.BatchIdentifier) - len(r.BatchIdentifier)) * int(reflect.TypeOf(MedicinalProductPackagedBatchIdentifier{}).Size())
 	for _, i := range r.PackageItem {
 		s += i.MemSize()
 	}
-	s += (cap(r.PackageItem) - len(r.PackageItem)) * int(unsafe.Sizeof(MedicinalProductPackagedPackageItem{}))
+	s += (cap(r.PackageItem) - len(r.PackageItem)) * int(reflect.TypeOf(MedicinalProductPackagedPackageItem{}).Size())
 	return s
 }
 func (r MedicinalProductPackagedBatchIdentifier) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.OuterPackaging.MemSize() - int(unsafe.Sizeof(r.OuterPackaging))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.OuterPackaging.MemSize() - int(reflect.TypeOf(r.OuterPackaging).Size())
 	if r.ImmediatePackaging != nil {
 		s += r.ImmediatePackaging.MemSize()
 	}
 	return s
 }
 func (r MedicinalProductPackagedPackageItem) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
-	s += r.Quantity.MemSize() - int(unsafe.Sizeof(r.Quantity))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
+	s += r.Quantity.MemSize() - int(reflect.TypeOf(r.Quantity).Size())
 	for _, i := range r.Material {
 		s += i.MemSize()
 	}
-	s += (cap(r.Material) - len(r.Material)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Material) - len(r.Material)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.AlternateMaterial {
 		s += i.MemSize()
 	}
-	s += (cap(r.AlternateMaterial) - len(r.AlternateMaterial)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.AlternateMaterial) - len(r.AlternateMaterial)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Device {
 		s += i.MemSize()
 	}
-	s += (cap(r.Device) - len(r.Device)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Device) - len(r.Device)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.ManufacturedItem {
 		s += i.MemSize()
 	}
-	s += (cap(r.ManufacturedItem) - len(r.ManufacturedItem)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ManufacturedItem) - len(r.ManufacturedItem)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.PackageItem {
 		s += i.MemSize()
 	}
-	s += (cap(r.PackageItem) - len(r.PackageItem)) * int(unsafe.Sizeof(MedicinalProductPackagedPackageItem{}))
+	s += (cap(r.PackageItem) - len(r.PackageItem)) * int(reflect.TypeOf(MedicinalProductPackagedPackageItem{}).Size())
 	if r.PhysicalCharacteristics != nil {
 		s += r.PhysicalCharacteristics.MemSize()
 	}
 	for _, i := range r.OtherCharacteristics {
 		s += i.MemSize()
 	}
-	s += (cap(r.OtherCharacteristics) - len(r.OtherCharacteristics)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.OtherCharacteristics) - len(r.OtherCharacteristics)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ShelfLifeStorage {
 		s += i.MemSize()
 	}
-	s += (cap(r.ShelfLifeStorage) - len(r.ShelfLifeStorage)) * int(unsafe.Sizeof(ProductShelfLife{}))
+	s += (cap(r.ShelfLifeStorage) - len(r.ShelfLifeStorage)) * int(reflect.TypeOf(ProductShelfLife{}).Size())
 	for _, i := range r.Manufacturer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r MedicinalProductPackaged) String() string {

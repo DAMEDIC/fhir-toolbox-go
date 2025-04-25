@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A slot of time on a schedule that may be available for booking appointments.
@@ -71,7 +71,7 @@ func (r Slot) ResourceId() (string, bool) {
 }
 func (r Slot) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -90,38 +90,38 @@ func (r Slot) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.ServiceCategory {
 		s += i.MemSize()
 	}
-	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ServiceType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Specialty {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.AppointmentType != nil {
 		s += r.AppointmentType.MemSize()
 	}
-	s += r.Schedule.MemSize() - int(unsafe.Sizeof(r.Schedule))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Start.MemSize() - int(unsafe.Sizeof(r.Start))
-	s += r.End.MemSize() - int(unsafe.Sizeof(r.End))
+	s += r.Schedule.MemSize() - int(reflect.TypeOf(r.Schedule).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Start.MemSize() - int(reflect.TypeOf(r.Start).Size())
+	s += r.End.MemSize() - int(reflect.TypeOf(r.End).Size())
 	if r.Overbooked != nil {
 		s += r.Overbooked.MemSize()
 	}

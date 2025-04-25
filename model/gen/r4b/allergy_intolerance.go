@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to a substance.
@@ -119,7 +119,7 @@ func (r AllergyIntolerance) ResourceId() (string, bool) {
 }
 func (r AllergyIntolerance) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -138,19 +138,19 @@ func (r AllergyIntolerance) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.ClinicalStatus != nil {
 		s += r.ClinicalStatus.MemSize()
 	}
@@ -163,14 +163,14 @@ func (r AllergyIntolerance) MemSize() int {
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(Code{}).Size())
 	if r.Criticality != nil {
 		s += r.Criticality.MemSize()
 	}
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -192,33 +192,33 @@ func (r AllergyIntolerance) MemSize() int {
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.Reaction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reaction) - len(r.Reaction)) * int(unsafe.Sizeof(AllergyIntoleranceReaction{}))
+	s += (cap(r.Reaction) - len(r.Reaction)) * int(reflect.TypeOf(AllergyIntoleranceReaction{}).Size())
 	return s
 }
 func (r AllergyIntoleranceReaction) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Substance != nil {
 		s += r.Substance.MemSize()
 	}
 	for _, i := range r.Manifestation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Manifestation) - len(r.Manifestation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Manifestation) - len(r.Manifestation)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -234,7 +234,7 @@ func (r AllergyIntoleranceReaction) MemSize() int {
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	return s
 }
 func (r AllergyIntolerance) String() string {

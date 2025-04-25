@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A request to convey information; e.g. the CDS system proposes that an alert be sent to a responsible provider, the CDS system proposes that the public health agency be notified about a reportable condition.
@@ -121,7 +121,7 @@ func (r CommunicationRequest) ResourceId() (string, bool) {
 }
 func (r CommunicationRequest) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -140,38 +140,38 @@ func (r CommunicationRequest) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Replaces {
 		s += i.MemSize()
 	}
-	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.GroupIdentifier != nil {
 		s += r.GroupIdentifier.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.StatusReason != nil {
 		s += r.StatusReason.MemSize()
 	}
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Priority != nil {
 		s += r.Priority.MemSize()
 	}
@@ -181,21 +181,21 @@ func (r CommunicationRequest) MemSize() int {
 	for _, i := range r.Medium {
 		s += i.MemSize()
 	}
-	s += (cap(r.Medium) - len(r.Medium)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Medium) - len(r.Medium)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
 	for _, i := range r.About {
 		s += i.MemSize()
 	}
-	s += (cap(r.About) - len(r.About)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.About) - len(r.About)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
 	for _, i := range r.Payload {
 		s += i.MemSize()
 	}
-	s += (cap(r.Payload) - len(r.Payload)) * int(unsafe.Sizeof(CommunicationRequestPayload{}))
+	s += (cap(r.Payload) - len(r.Payload)) * int(reflect.TypeOf(CommunicationRequestPayload{}).Size())
 	if r.Occurrence != nil {
 		s += r.Occurrence.MemSize()
 	}
@@ -208,37 +208,37 @@ func (r CommunicationRequest) MemSize() int {
 	for _, i := range r.Recipient {
 		s += i.MemSize()
 	}
-	s += (cap(r.Recipient) - len(r.Recipient)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Recipient) - len(r.Recipient)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Sender != nil {
 		s += r.Sender.MemSize()
 	}
 	for _, i := range r.ReasonCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReasonReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	return s
 }
 func (r CommunicationRequestPayload) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Content != nil {
 		s += r.Content.MemSize()
 	}

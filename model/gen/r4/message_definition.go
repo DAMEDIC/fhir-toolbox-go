@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Defines the characteristics of a message that can be shared between systems, including the type of event that initiates the message, the content to be transmitted and what response(s), if any, are permitted.
@@ -142,7 +142,7 @@ func (r MessageDefinition) ResourceId() (string, bool) {
 }
 func (r MessageDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -161,22 +161,22 @@ func (r MessageDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -189,30 +189,30 @@ func (r MessageDefinition) MemSize() int {
 	for _, i := range r.Replaces {
 		s += i.MemSize()
 	}
-	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Canonical{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(reflect.TypeOf(Canonical{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
-	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	s += r.Date.MemSize() - int(reflect.TypeOf(r.Date).Size())
 	if r.Publisher != nil {
 		s += r.Publisher.MemSize()
 	}
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -225,7 +225,7 @@ func (r MessageDefinition) MemSize() int {
 	for _, i := range r.Parent {
 		s += i.MemSize()
 	}
-	s += (cap(r.Parent) - len(r.Parent)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Parent) - len(r.Parent)) * int(reflect.TypeOf(Canonical{}).Size())
 	if r.Event != nil {
 		s += r.Event.MemSize()
 	}
@@ -235,57 +235,57 @@ func (r MessageDefinition) MemSize() int {
 	for _, i := range r.Focus {
 		s += i.MemSize()
 	}
-	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(MessageDefinitionFocus{}))
+	s += (cap(r.Focus) - len(r.Focus)) * int(reflect.TypeOf(MessageDefinitionFocus{}).Size())
 	if r.ResponseRequired != nil {
 		s += r.ResponseRequired.MemSize()
 	}
 	for _, i := range r.AllowedResponse {
 		s += i.MemSize()
 	}
-	s += (cap(r.AllowedResponse) - len(r.AllowedResponse)) * int(unsafe.Sizeof(MessageDefinitionAllowedResponse{}))
+	s += (cap(r.AllowedResponse) - len(r.AllowedResponse)) * int(reflect.TypeOf(MessageDefinitionAllowedResponse{}).Size())
 	for _, i := range r.Graph {
 		s += i.MemSize()
 	}
-	s += (cap(r.Graph) - len(r.Graph)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Graph) - len(r.Graph)) * int(reflect.TypeOf(Canonical{}).Size())
 	return s
 }
 func (r MessageDefinitionFocus) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Profile != nil {
 		s += r.Profile.MemSize()
 	}
-	s += r.Min.MemSize() - int(unsafe.Sizeof(r.Min))
+	s += r.Min.MemSize() - int(reflect.TypeOf(r.Min).Size())
 	if r.Max != nil {
 		s += r.Max.MemSize()
 	}
 	return s
 }
 func (r MessageDefinitionAllowedResponse) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Message.MemSize() - int(unsafe.Sizeof(r.Message))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Message.MemSize() - int(reflect.TypeOf(r.Message).Size())
 	if r.Situation != nil {
 		s += r.Situation.MemSize()
 	}

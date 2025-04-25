@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A container for slots of time that may be available for booking appointments.
@@ -65,7 +65,7 @@ func (r Schedule) ResourceId() (string, bool) {
 }
 func (r Schedule) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -84,38 +84,38 @@ func (r Schedule) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Active != nil {
 		s += r.Active.MemSize()
 	}
 	for _, i := range r.ServiceCategory {
 		s += i.MemSize()
 	}
-	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ServiceCategory) - len(r.ServiceCategory)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ServiceType {
 		s += i.MemSize()
 	}
-	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ServiceType) - len(r.ServiceType)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Specialty {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specialty) - len(r.Specialty)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Specialty) - len(r.Specialty)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Actor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Actor) - len(r.Actor)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Actor) - len(r.Actor)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.PlanningHorizon != nil {
 		s += r.PlanningHorizon.MemSize()
 	}

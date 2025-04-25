@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A plan for executing testing on an artifact or specifications
@@ -240,7 +240,7 @@ func (r TestPlan) ResourceId() (string, bool) {
 }
 func (r TestPlan) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -259,22 +259,22 @@ func (r TestPlan) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -287,7 +287,7 @@ func (r TestPlan) MemSize() int {
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -300,18 +300,18 @@ func (r TestPlan) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -324,40 +324,40 @@ func (r TestPlan) MemSize() int {
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Scope {
 		s += i.MemSize()
 	}
-	s += (cap(r.Scope) - len(r.Scope)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Scope) - len(r.Scope)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.TestTools != nil {
 		s += r.TestTools.MemSize()
 	}
 	for _, i := range r.Dependency {
 		s += i.MemSize()
 	}
-	s += (cap(r.Dependency) - len(r.Dependency)) * int(unsafe.Sizeof(TestPlanDependency{}))
+	s += (cap(r.Dependency) - len(r.Dependency)) * int(reflect.TypeOf(TestPlanDependency{}).Size())
 	if r.ExitCriteria != nil {
 		s += r.ExitCriteria.MemSize()
 	}
 	for _, i := range r.TestCase {
 		s += i.MemSize()
 	}
-	s += (cap(r.TestCase) - len(r.TestCase)) * int(unsafe.Sizeof(TestPlanTestCase{}))
+	s += (cap(r.TestCase) - len(r.TestCase)) * int(reflect.TypeOf(TestPlanTestCase{}).Size())
 	return s
 }
 func (r TestPlanDependency) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -367,56 +367,56 @@ func (r TestPlanDependency) MemSize() int {
 	return s
 }
 func (r TestPlanTestCase) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Sequence != nil {
 		s += r.Sequence.MemSize()
 	}
 	for _, i := range r.Scope {
 		s += i.MemSize()
 	}
-	s += (cap(r.Scope) - len(r.Scope)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Scope) - len(r.Scope)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Dependency {
 		s += i.MemSize()
 	}
-	s += (cap(r.Dependency) - len(r.Dependency)) * int(unsafe.Sizeof(TestPlanTestCaseDependency{}))
+	s += (cap(r.Dependency) - len(r.Dependency)) * int(reflect.TypeOf(TestPlanTestCaseDependency{}).Size())
 	for _, i := range r.TestRun {
 		s += i.MemSize()
 	}
-	s += (cap(r.TestRun) - len(r.TestRun)) * int(unsafe.Sizeof(TestPlanTestCaseTestRun{}))
+	s += (cap(r.TestRun) - len(r.TestRun)) * int(reflect.TypeOf(TestPlanTestCaseTestRun{}).Size())
 	for _, i := range r.TestData {
 		s += i.MemSize()
 	}
-	s += (cap(r.TestData) - len(r.TestData)) * int(unsafe.Sizeof(TestPlanTestCaseTestData{}))
+	s += (cap(r.TestData) - len(r.TestData)) * int(reflect.TypeOf(TestPlanTestCaseTestData{}).Size())
 	for _, i := range r.Assertion {
 		s += i.MemSize()
 	}
-	s += (cap(r.Assertion) - len(r.Assertion)) * int(unsafe.Sizeof(TestPlanTestCaseAssertion{}))
+	s += (cap(r.Assertion) - len(r.Assertion)) * int(reflect.TypeOf(TestPlanTestCaseAssertion{}).Size())
 	return s
 }
 func (r TestPlanTestCaseDependency) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -426,18 +426,18 @@ func (r TestPlanTestCaseDependency) MemSize() int {
 	return s
 }
 func (r TestPlanTestCaseTestRun) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Narrative != nil {
 		s += r.Narrative.MemSize()
 	}
@@ -447,18 +447,18 @@ func (r TestPlanTestCaseTestRun) MemSize() int {
 	return s
 }
 func (r TestPlanTestCaseTestRunScript) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Language != nil {
 		s += r.Language.MemSize()
 	}
@@ -468,19 +468,19 @@ func (r TestPlanTestCaseTestRunScript) MemSize() int {
 	return s
 }
 func (r TestPlanTestCaseTestData) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Content != nil {
 		s += r.Content.MemSize()
 	}
@@ -490,30 +490,30 @@ func (r TestPlanTestCaseTestData) MemSize() int {
 	return s
 }
 func (r TestPlanTestCaseAssertion) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Object {
 		s += i.MemSize()
 	}
-	s += (cap(r.Object) - len(r.Object)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Object) - len(r.Object)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Result {
 		s += i.MemSize()
 	}
-	s += (cap(r.Result) - len(r.Result)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Result) - len(r.Result)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	return s
 }
 func (r TestPlan) String() string {

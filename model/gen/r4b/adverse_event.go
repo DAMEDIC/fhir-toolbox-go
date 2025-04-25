@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Actual or  potential/avoided event causing unintended physical injury resulting from or contributed to by medical care, a research study or other healthcare setting factors that requires additional monitoring, treatment, or hospitalization, or that results in death.
@@ -125,7 +125,7 @@ func (r AdverseEvent) ResourceId() (string, bool) {
 }
 func (r AdverseEvent) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -144,27 +144,27 @@ func (r AdverseEvent) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}
-	s += r.Actuality.MemSize() - int(unsafe.Sizeof(r.Actuality))
+	s += r.Actuality.MemSize() - int(reflect.TypeOf(r.Actuality).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Event != nil {
 		s += r.Event.MemSize()
 	}
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -180,7 +180,7 @@ func (r AdverseEvent) MemSize() int {
 	for _, i := range r.ResultingCondition {
 		s += i.MemSize()
 	}
-	s += (cap(r.ResultingCondition) - len(r.ResultingCondition)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ResultingCondition) - len(r.ResultingCondition)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Location != nil {
 		s += r.Location.MemSize()
 	}
@@ -199,58 +199,58 @@ func (r AdverseEvent) MemSize() int {
 	for _, i := range r.Contributor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contributor) - len(r.Contributor)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Contributor) - len(r.Contributor)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.SuspectEntity {
 		s += i.MemSize()
 	}
-	s += (cap(r.SuspectEntity) - len(r.SuspectEntity)) * int(unsafe.Sizeof(AdverseEventSuspectEntity{}))
+	s += (cap(r.SuspectEntity) - len(r.SuspectEntity)) * int(reflect.TypeOf(AdverseEventSuspectEntity{}).Size())
 	for _, i := range r.SubjectMedicalHistory {
 		s += i.MemSize()
 	}
-	s += (cap(r.SubjectMedicalHistory) - len(r.SubjectMedicalHistory)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SubjectMedicalHistory) - len(r.SubjectMedicalHistory)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.ReferenceDocument {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReferenceDocument) - len(r.ReferenceDocument)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReferenceDocument) - len(r.ReferenceDocument)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Study {
 		s += i.MemSize()
 	}
-	s += (cap(r.Study) - len(r.Study)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Study) - len(r.Study)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r AdverseEventSuspectEntity) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Instance.MemSize() - int(unsafe.Sizeof(r.Instance))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Instance.MemSize() - int(reflect.TypeOf(r.Instance).Size())
 	for _, i := range r.Causality {
 		s += i.MemSize()
 	}
-	s += (cap(r.Causality) - len(r.Causality)) * int(unsafe.Sizeof(AdverseEventSuspectEntityCausality{}))
+	s += (cap(r.Causality) - len(r.Causality)) * int(reflect.TypeOf(AdverseEventSuspectEntityCausality{}).Size())
 	return s
 }
 func (r AdverseEventSuspectEntityCausality) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Assessment != nil {
 		s += r.Assessment.MemSize()
 	}

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A record of an event relevant for purposes such as operations, privacy, security, maintenance, and performance analysis.
@@ -209,7 +209,7 @@ func (r AuditEvent) ResourceId() (string, bool) {
 }
 func (r AuditEvent) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -228,20 +228,20 @@ func (r AuditEvent) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Action != nil {
 		s += r.Action.MemSize()
 	}
@@ -251,18 +251,18 @@ func (r AuditEvent) MemSize() int {
 	if r.Occurred != nil {
 		s += r.Occurred.MemSize()
 	}
-	s += r.Recorded.MemSize() - int(unsafe.Sizeof(r.Recorded))
+	s += r.Recorded.MemSize() - int(reflect.TypeOf(r.Recorded).Size())
 	if r.Outcome != nil {
 		s += r.Outcome.MemSize()
 	}
 	for _, i := range r.Authorization {
 		s += i.MemSize()
 	}
-	s += (cap(r.Authorization) - len(r.Authorization)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Authorization) - len(r.Authorization)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Patient != nil {
 		s += r.Patient.MemSize()
 	}
@@ -272,55 +272,55 @@ func (r AuditEvent) MemSize() int {
 	for _, i := range r.Agent {
 		s += i.MemSize()
 	}
-	s += (cap(r.Agent) - len(r.Agent)) * int(unsafe.Sizeof(AuditEventAgent{}))
-	s += r.Source.MemSize() - int(unsafe.Sizeof(r.Source))
+	s += (cap(r.Agent) - len(r.Agent)) * int(reflect.TypeOf(AuditEventAgent{}).Size())
+	s += r.Source.MemSize() - int(reflect.TypeOf(r.Source).Size())
 	for _, i := range r.Entity {
 		s += i.MemSize()
 	}
-	s += (cap(r.Entity) - len(r.Entity)) * int(unsafe.Sizeof(AuditEventEntity{}))
+	s += (cap(r.Entity) - len(r.Entity)) * int(reflect.TypeOf(AuditEventEntity{}).Size())
 	return s
 }
 func (r AuditEventOutcome) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.Detail {
 		s += i.MemSize()
 	}
-	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Detail) - len(r.Detail)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r AuditEventAgent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
 	for _, i := range r.Role {
 		s += i.MemSize()
 	}
-	s += (cap(r.Role) - len(r.Role)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Who.MemSize() - int(unsafe.Sizeof(r.Who))
+	s += (cap(r.Role) - len(r.Role)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Who.MemSize() - int(reflect.TypeOf(r.Who).Size())
 	if r.Requestor != nil {
 		s += r.Requestor.MemSize()
 	}
@@ -330,52 +330,52 @@ func (r AuditEventAgent) MemSize() int {
 	for _, i := range r.Policy {
 		s += i.MemSize()
 	}
-	s += (cap(r.Policy) - len(r.Policy)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.Policy) - len(r.Policy)) * int(reflect.TypeOf(Uri{}).Size())
 	if r.Network != nil {
 		s += r.Network.MemSize()
 	}
 	for _, i := range r.Authorization {
 		s += i.MemSize()
 	}
-	s += (cap(r.Authorization) - len(r.Authorization)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Authorization) - len(r.Authorization)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r AuditEventSource) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Site != nil {
 		s += r.Site.MemSize()
 	}
-	s += r.Observer.MemSize() - int(unsafe.Sizeof(r.Observer))
+	s += r.Observer.MemSize() - int(reflect.TypeOf(r.Observer).Size())
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r AuditEventEntity) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.What != nil {
 		s += r.What.MemSize()
 	}
@@ -385,34 +385,34 @@ func (r AuditEventEntity) MemSize() int {
 	for _, i := range r.SecurityLabel {
 		s += i.MemSize()
 	}
-	s += (cap(r.SecurityLabel) - len(r.SecurityLabel)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.SecurityLabel) - len(r.SecurityLabel)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Query != nil {
 		s += r.Query.MemSize()
 	}
 	for _, i := range r.Detail {
 		s += i.MemSize()
 	}
-	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(AuditEventEntityDetail{}))
+	s += (cap(r.Detail) - len(r.Detail)) * int(reflect.TypeOf(AuditEventEntityDetail{}).Size())
 	for _, i := range r.Agent {
 		s += i.MemSize()
 	}
-	s += (cap(r.Agent) - len(r.Agent)) * int(unsafe.Sizeof(AuditEventAgent{}))
+	s += (cap(r.Agent) - len(r.Agent)) * int(reflect.TypeOf(AuditEventAgent{}).Size())
 	return s
 }
 func (r AuditEventEntityDetail) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports.
@@ -110,7 +110,7 @@ func (r DiagnosticReport) ResourceId() (string, bool) {
 }
 func (r DiagnosticReport) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -129,29 +129,29 @@ func (r DiagnosticReport) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
@@ -167,57 +167,57 @@ func (r DiagnosticReport) MemSize() int {
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.ResultsInterpreter {
 		s += i.MemSize()
 	}
-	s += (cap(r.ResultsInterpreter) - len(r.ResultsInterpreter)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ResultsInterpreter) - len(r.ResultsInterpreter)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Specimen {
 		s += i.MemSize()
 	}
-	s += (cap(r.Specimen) - len(r.Specimen)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Specimen) - len(r.Specimen)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Result {
 		s += i.MemSize()
 	}
-	s += (cap(r.Result) - len(r.Result)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Result) - len(r.Result)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.ImagingStudy {
 		s += i.MemSize()
 	}
-	s += (cap(r.ImagingStudy) - len(r.ImagingStudy)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ImagingStudy) - len(r.ImagingStudy)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Media {
 		s += i.MemSize()
 	}
-	s += (cap(r.Media) - len(r.Media)) * int(unsafe.Sizeof(DiagnosticReportMedia{}))
+	s += (cap(r.Media) - len(r.Media)) * int(reflect.TypeOf(DiagnosticReportMedia{}).Size())
 	if r.Conclusion != nil {
 		s += r.Conclusion.MemSize()
 	}
 	for _, i := range r.ConclusionCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ConclusionCode) - len(r.ConclusionCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ConclusionCode) - len(r.ConclusionCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.PresentedForm {
 		s += i.MemSize()
 	}
-	s += (cap(r.PresentedForm) - len(r.PresentedForm)) * int(unsafe.Sizeof(Attachment{}))
+	s += (cap(r.PresentedForm) - len(r.PresentedForm)) * int(reflect.TypeOf(Attachment{}).Size())
 	return s
 }
 func (r DiagnosticReportMedia) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Comment != nil {
 		s += r.Comment.MemSize()
 	}
-	s += r.Link.MemSize() - int(unsafe.Sizeof(r.Link))
+	s += r.Link.MemSize() - int(reflect.TypeOf(r.Link).Size())
 	return s
 }
 func (r DiagnosticReport) String() string {

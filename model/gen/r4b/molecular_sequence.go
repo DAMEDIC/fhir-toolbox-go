@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Raw data describing a biological sequence.
@@ -281,7 +281,7 @@ func (r MolecularSequence) ResourceId() (string, bool) {
 }
 func (r MolecularSequence) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -300,23 +300,23 @@ func (r MolecularSequence) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
-	s += r.CoordinateSystem.MemSize() - int(unsafe.Sizeof(r.CoordinateSystem))
+	s += r.CoordinateSystem.MemSize() - int(reflect.TypeOf(r.CoordinateSystem).Size())
 	if r.Patient != nil {
 		s += r.Patient.MemSize()
 	}
@@ -338,44 +338,44 @@ func (r MolecularSequence) MemSize() int {
 	for _, i := range r.Variant {
 		s += i.MemSize()
 	}
-	s += (cap(r.Variant) - len(r.Variant)) * int(unsafe.Sizeof(MolecularSequenceVariant{}))
+	s += (cap(r.Variant) - len(r.Variant)) * int(reflect.TypeOf(MolecularSequenceVariant{}).Size())
 	if r.ObservedSeq != nil {
 		s += r.ObservedSeq.MemSize()
 	}
 	for _, i := range r.Quality {
 		s += i.MemSize()
 	}
-	s += (cap(r.Quality) - len(r.Quality)) * int(unsafe.Sizeof(MolecularSequenceQuality{}))
+	s += (cap(r.Quality) - len(r.Quality)) * int(reflect.TypeOf(MolecularSequenceQuality{}).Size())
 	if r.ReadCoverage != nil {
 		s += r.ReadCoverage.MemSize()
 	}
 	for _, i := range r.Repository {
 		s += i.MemSize()
 	}
-	s += (cap(r.Repository) - len(r.Repository)) * int(unsafe.Sizeof(MolecularSequenceRepository{}))
+	s += (cap(r.Repository) - len(r.Repository)) * int(reflect.TypeOf(MolecularSequenceRepository{}).Size())
 	for _, i := range r.Pointer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Pointer) - len(r.Pointer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Pointer) - len(r.Pointer)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.StructureVariant {
 		s += i.MemSize()
 	}
-	s += (cap(r.StructureVariant) - len(r.StructureVariant)) * int(unsafe.Sizeof(MolecularSequenceStructureVariant{}))
+	s += (cap(r.StructureVariant) - len(r.StructureVariant)) * int(reflect.TypeOf(MolecularSequenceStructureVariant{}).Size())
 	return s
 }
 func (r MolecularSequenceReferenceSeq) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Chromosome != nil {
 		s += r.Chromosome.MemSize()
 	}
@@ -406,18 +406,18 @@ func (r MolecularSequenceReferenceSeq) MemSize() int {
 	return s
 }
 func (r MolecularSequenceVariant) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Start != nil {
 		s += r.Start.MemSize()
 	}
@@ -439,19 +439,19 @@ func (r MolecularSequenceVariant) MemSize() int {
 	return s
 }
 func (r MolecularSequenceQuality) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.StandardSequence != nil {
 		s += r.StandardSequence.MemSize()
 	}
@@ -497,62 +497,62 @@ func (r MolecularSequenceQuality) MemSize() int {
 	return s
 }
 func (r MolecularSequenceQualityRoc) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Score {
 		s += i.MemSize()
 	}
-	s += (cap(r.Score) - len(r.Score)) * int(unsafe.Sizeof(Integer{}))
+	s += (cap(r.Score) - len(r.Score)) * int(reflect.TypeOf(Integer{}).Size())
 	for _, i := range r.NumTp {
 		s += i.MemSize()
 	}
-	s += (cap(r.NumTp) - len(r.NumTp)) * int(unsafe.Sizeof(Integer{}))
+	s += (cap(r.NumTp) - len(r.NumTp)) * int(reflect.TypeOf(Integer{}).Size())
 	for _, i := range r.NumFp {
 		s += i.MemSize()
 	}
-	s += (cap(r.NumFp) - len(r.NumFp)) * int(unsafe.Sizeof(Integer{}))
+	s += (cap(r.NumFp) - len(r.NumFp)) * int(reflect.TypeOf(Integer{}).Size())
 	for _, i := range r.NumFn {
 		s += i.MemSize()
 	}
-	s += (cap(r.NumFn) - len(r.NumFn)) * int(unsafe.Sizeof(Integer{}))
+	s += (cap(r.NumFn) - len(r.NumFn)) * int(reflect.TypeOf(Integer{}).Size())
 	for _, i := range r.Precision {
 		s += i.MemSize()
 	}
-	s += (cap(r.Precision) - len(r.Precision)) * int(unsafe.Sizeof(Decimal{}))
+	s += (cap(r.Precision) - len(r.Precision)) * int(reflect.TypeOf(Decimal{}).Size())
 	for _, i := range r.Sensitivity {
 		s += i.MemSize()
 	}
-	s += (cap(r.Sensitivity) - len(r.Sensitivity)) * int(unsafe.Sizeof(Decimal{}))
+	s += (cap(r.Sensitivity) - len(r.Sensitivity)) * int(reflect.TypeOf(Decimal{}).Size())
 	for _, i := range r.FMeasure {
 		s += i.MemSize()
 	}
-	s += (cap(r.FMeasure) - len(r.FMeasure)) * int(unsafe.Sizeof(Decimal{}))
+	s += (cap(r.FMeasure) - len(r.FMeasure)) * int(reflect.TypeOf(Decimal{}).Size())
 	return s
 }
 func (r MolecularSequenceRepository) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
@@ -571,18 +571,18 @@ func (r MolecularSequenceRepository) MemSize() int {
 	return s
 }
 func (r MolecularSequenceStructureVariant) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.VariantType != nil {
 		s += r.VariantType.MemSize()
 	}
@@ -601,18 +601,18 @@ func (r MolecularSequenceStructureVariant) MemSize() int {
 	return s
 }
 func (r MolecularSequenceStructureVariantOuter) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Start != nil {
 		s += r.Start.MemSize()
 	}
@@ -622,18 +622,18 @@ func (r MolecularSequenceStructureVariantOuter) MemSize() int {
 	return s
 }
 func (r MolecularSequenceStructureVariantInner) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Start != nil {
 		s += r.Start.MemSize()
 	}

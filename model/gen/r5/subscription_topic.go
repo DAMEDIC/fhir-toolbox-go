@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describes a stream of resource state changes identified by trigger criteria and annotated with labels useful to filter projections from this topic.
@@ -210,7 +210,7 @@ func (r SubscriptionTopic) ResourceId() (string, bool) {
 }
 func (r SubscriptionTopic) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -229,20 +229,20 @@ func (r SubscriptionTopic) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Url.MemSize() - int(reflect.TypeOf(r.Url).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -258,8 +258,8 @@ func (r SubscriptionTopic) MemSize() int {
 	for _, i := range r.DerivedFrom {
 		s += i.MemSize()
 	}
-	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Canonical{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(reflect.TypeOf(Canonical{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -272,18 +272,18 @@ func (r SubscriptionTopic) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -305,42 +305,42 @@ func (r SubscriptionTopic) MemSize() int {
 	for _, i := range r.ResourceTrigger {
 		s += i.MemSize()
 	}
-	s += (cap(r.ResourceTrigger) - len(r.ResourceTrigger)) * int(unsafe.Sizeof(SubscriptionTopicResourceTrigger{}))
+	s += (cap(r.ResourceTrigger) - len(r.ResourceTrigger)) * int(reflect.TypeOf(SubscriptionTopicResourceTrigger{}).Size())
 	for _, i := range r.EventTrigger {
 		s += i.MemSize()
 	}
-	s += (cap(r.EventTrigger) - len(r.EventTrigger)) * int(unsafe.Sizeof(SubscriptionTopicEventTrigger{}))
+	s += (cap(r.EventTrigger) - len(r.EventTrigger)) * int(reflect.TypeOf(SubscriptionTopicEventTrigger{}).Size())
 	for _, i := range r.CanFilterBy {
 		s += i.MemSize()
 	}
-	s += (cap(r.CanFilterBy) - len(r.CanFilterBy)) * int(unsafe.Sizeof(SubscriptionTopicCanFilterBy{}))
+	s += (cap(r.CanFilterBy) - len(r.CanFilterBy)) * int(reflect.TypeOf(SubscriptionTopicCanFilterBy{}).Size())
 	for _, i := range r.NotificationShape {
 		s += i.MemSize()
 	}
-	s += (cap(r.NotificationShape) - len(r.NotificationShape)) * int(unsafe.Sizeof(SubscriptionTopicNotificationShape{}))
+	s += (cap(r.NotificationShape) - len(r.NotificationShape)) * int(reflect.TypeOf(SubscriptionTopicNotificationShape{}).Size())
 	return s
 }
 func (r SubscriptionTopicResourceTrigger) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
-	s += r.Resource.MemSize() - int(unsafe.Sizeof(r.Resource))
+	s += r.Resource.MemSize() - int(reflect.TypeOf(r.Resource).Size())
 	for _, i := range r.SupportedInteraction {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupportedInteraction) - len(r.SupportedInteraction)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.SupportedInteraction) - len(r.SupportedInteraction)) * int(reflect.TypeOf(Code{}).Size())
 	if r.QueryCriteria != nil {
 		s += r.QueryCriteria.MemSize()
 	}
@@ -350,18 +350,18 @@ func (r SubscriptionTopicResourceTrigger) MemSize() int {
 	return s
 }
 func (r SubscriptionTopicResourceTriggerQueryCriteria) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Previous != nil {
 		s += r.Previous.MemSize()
 	}
@@ -380,80 +380,80 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) MemSize() int {
 	return s
 }
 func (r SubscriptionTopicEventTrigger) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
-	s += r.Event.MemSize() - int(unsafe.Sizeof(r.Event))
-	s += r.Resource.MemSize() - int(unsafe.Sizeof(r.Resource))
+	s += r.Event.MemSize() - int(reflect.TypeOf(r.Event).Size())
+	s += r.Resource.MemSize() - int(reflect.TypeOf(r.Resource).Size())
 	return s
 }
 func (r SubscriptionTopicCanFilterBy) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	if r.Resource != nil {
 		s += r.Resource.MemSize()
 	}
-	s += r.FilterParameter.MemSize() - int(unsafe.Sizeof(r.FilterParameter))
+	s += r.FilterParameter.MemSize() - int(reflect.TypeOf(r.FilterParameter).Size())
 	if r.FilterDefinition != nil {
 		s += r.FilterDefinition.MemSize()
 	}
 	for _, i := range r.Comparator {
 		s += i.MemSize()
 	}
-	s += (cap(r.Comparator) - len(r.Comparator)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Comparator) - len(r.Comparator)) * int(reflect.TypeOf(Code{}).Size())
 	for _, i := range r.Modifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(reflect.TypeOf(Code{}).Size())
 	return s
 }
 func (r SubscriptionTopicNotificationShape) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Resource.MemSize() - int(unsafe.Sizeof(r.Resource))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Resource.MemSize() - int(reflect.TypeOf(r.Resource).Size())
 	for _, i := range r.Include {
 		s += i.MemSize()
 	}
-	s += (cap(r.Include) - len(r.Include)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Include) - len(r.Include)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.RevInclude {
 		s += i.MemSize()
 	}
-	s += (cap(r.RevInclude) - len(r.RevInclude)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.RevInclude) - len(r.RevInclude)) * int(reflect.TypeOf(String{}).Size())
 	return s
 }
 func (r SubscriptionTopic) String() string {

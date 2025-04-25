@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Regulatory approval, clearance or licencing related to a regulated product, treatment, facility or activity that is cited in a guidance, regulation, rule or legislative act. An example is Market Authorization relating to a Medicinal Product.
@@ -107,7 +107,7 @@ func (r RegulatedAuthorization) ResourceId() (string, bool) {
 }
 func (r RegulatedAuthorization) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -126,23 +126,23 @@ func (r RegulatedAuthorization) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.Subject {
 		s += i.MemSize()
 	}
-	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Subject) - len(r.Subject)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -152,7 +152,7 @@ func (r RegulatedAuthorization) MemSize() int {
 	for _, i := range r.Region {
 		s += i.MemSize()
 	}
-	s += (cap(r.Region) - len(r.Region)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Region) - len(r.Region)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
@@ -165,14 +165,14 @@ func (r RegulatedAuthorization) MemSize() int {
 	for _, i := range r.Indication {
 		s += i.MemSize()
 	}
-	s += (cap(r.Indication) - len(r.Indication)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Indication) - len(r.Indication)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	if r.IntendedUse != nil {
 		s += r.IntendedUse.MemSize()
 	}
 	for _, i := range r.Basis {
 		s += i.MemSize()
 	}
-	s += (cap(r.Basis) - len(r.Basis)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Basis) - len(r.Basis)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Holder != nil {
 		s += r.Holder.MemSize()
 	}
@@ -182,25 +182,25 @@ func (r RegulatedAuthorization) MemSize() int {
 	for _, i := range r.AttachedDocument {
 		s += i.MemSize()
 	}
-	s += (cap(r.AttachedDocument) - len(r.AttachedDocument)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.AttachedDocument) - len(r.AttachedDocument)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Case != nil {
 		s += r.Case.MemSize()
 	}
 	return s
 }
 func (r RegulatedAuthorizationCase) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}
@@ -216,7 +216,7 @@ func (r RegulatedAuthorizationCase) MemSize() int {
 	for _, i := range r.Application {
 		s += i.MemSize()
 	}
-	s += (cap(r.Application) - len(r.Application)) * int(unsafe.Sizeof(RegulatedAuthorizationCase{}))
+	s += (cap(r.Application) - len(r.Application)) * int(reflect.TypeOf(RegulatedAuthorizationCase{}).Size())
 	return s
 }
 func (r RegulatedAuthorization) String() string {

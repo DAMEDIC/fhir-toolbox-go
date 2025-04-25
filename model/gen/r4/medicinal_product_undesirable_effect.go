@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describe the undesirable effects of the medicinal product.
@@ -59,7 +59,7 @@ func (r MedicinalProductUndesirableEffect) ResourceId() (string, bool) {
 }
 func (r MedicinalProductUndesirableEffect) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -78,19 +78,19 @@ func (r MedicinalProductUndesirableEffect) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Subject {
 		s += i.MemSize()
 	}
-	s += (cap(r.Subject) - len(r.Subject)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Subject) - len(r.Subject)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.SymptomConditionEffect != nil {
 		s += r.SymptomConditionEffect.MemSize()
 	}
@@ -103,7 +103,7 @@ func (r MedicinalProductUndesirableEffect) MemSize() int {
 	for _, i := range r.Population {
 		s += i.MemSize()
 	}
-	s += (cap(r.Population) - len(r.Population)) * int(unsafe.Sizeof(Population{}))
+	s += (cap(r.Population) - len(r.Population)) * int(reflect.TypeOf(Population{}).Size())
 	return s
 }
 func (r MedicinalProductUndesirableEffect) String() string {

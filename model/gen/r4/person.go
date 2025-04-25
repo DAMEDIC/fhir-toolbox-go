@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Demographics and administrative information about a person independent of a specific health-related context.
@@ -87,7 +87,7 @@ func (r Person) ResourceId() (string, bool) {
 }
 func (r Person) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -106,27 +106,27 @@ func (r Person) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.Name {
 		s += i.MemSize()
 	}
-	s += (cap(r.Name) - len(r.Name)) * int(unsafe.Sizeof(HumanName{}))
+	s += (cap(r.Name) - len(r.Name)) * int(reflect.TypeOf(HumanName{}).Size())
 	for _, i := range r.Telecom {
 		s += i.MemSize()
 	}
-	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(reflect.TypeOf(ContactPoint{}).Size())
 	if r.Gender != nil {
 		s += r.Gender.MemSize()
 	}
@@ -136,7 +136,7 @@ func (r Person) MemSize() int {
 	for _, i := range r.Address {
 		s += i.MemSize()
 	}
-	s += (cap(r.Address) - len(r.Address)) * int(unsafe.Sizeof(Address{}))
+	s += (cap(r.Address) - len(r.Address)) * int(reflect.TypeOf(Address{}).Size())
 	if r.Photo != nil {
 		s += r.Photo.MemSize()
 	}
@@ -149,23 +149,23 @@ func (r Person) MemSize() int {
 	for _, i := range r.Link {
 		s += i.MemSize()
 	}
-	s += (cap(r.Link) - len(r.Link)) * int(unsafe.Sizeof(PersonLink{}))
+	s += (cap(r.Link) - len(r.Link)) * int(reflect.TypeOf(PersonLink{}).Size())
 	return s
 }
 func (r PersonLink) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Target.MemSize() - int(unsafe.Sizeof(r.Target))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Target.MemSize() - int(reflect.TypeOf(r.Target).Size())
 	if r.Assurance != nil {
 		s += r.Assurance.MemSize()
 	}

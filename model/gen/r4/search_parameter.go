@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A search parameter that defines a named search item that can be used to search/filter on a resource.
@@ -117,7 +117,7 @@ func (r SearchParameter) ResourceId() (string, bool) {
 }
 func (r SearchParameter) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -136,24 +136,24 @@ func (r SearchParameter) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Url.MemSize() - int(unsafe.Sizeof(r.Url))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Url.MemSize() - int(reflect.TypeOf(r.Url).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
-	s += r.Name.MemSize() - int(unsafe.Sizeof(r.Name))
+	s += r.Name.MemSize() - int(reflect.TypeOf(r.Name).Size())
 	if r.DerivedFrom != nil {
 		s += r.DerivedFrom.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -166,25 +166,25 @@ func (r SearchParameter) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
-	s += r.Description.MemSize() - int(unsafe.Sizeof(r.Description))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
+	s += r.Description.MemSize() - int(reflect.TypeOf(r.Description).Size())
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.Base {
 		s += i.MemSize()
 	}
-	s += (cap(r.Base) - len(r.Base)) * int(unsafe.Sizeof(Code{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.Base) - len(r.Base)) * int(reflect.TypeOf(Code{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Expression != nil {
 		s += r.Expression.MemSize()
 	}
@@ -197,7 +197,7 @@ func (r SearchParameter) MemSize() int {
 	for _, i := range r.Target {
 		s += i.MemSize()
 	}
-	s += (cap(r.Target) - len(r.Target)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Target) - len(r.Target)) * int(reflect.TypeOf(Code{}).Size())
 	if r.MultipleOr != nil {
 		s += r.MultipleOr.MemSize()
 	}
@@ -207,36 +207,36 @@ func (r SearchParameter) MemSize() int {
 	for _, i := range r.Comparator {
 		s += i.MemSize()
 	}
-	s += (cap(r.Comparator) - len(r.Comparator)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Comparator) - len(r.Comparator)) * int(reflect.TypeOf(Code{}).Size())
 	for _, i := range r.Modifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Modifier) - len(r.Modifier)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.Modifier) - len(r.Modifier)) * int(reflect.TypeOf(Code{}).Size())
 	for _, i := range r.Chain {
 		s += i.MemSize()
 	}
-	s += (cap(r.Chain) - len(r.Chain)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Chain) - len(r.Chain)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.Component {
 		s += i.MemSize()
 	}
-	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(SearchParameterComponent{}))
+	s += (cap(r.Component) - len(r.Component)) * int(reflect.TypeOf(SearchParameterComponent{}).Size())
 	return s
 }
 func (r SearchParameterComponent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Definition.MemSize() - int(unsafe.Sizeof(r.Definition))
-	s += r.Expression.MemSize() - int(unsafe.Sizeof(r.Expression))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Definition.MemSize() - int(reflect.TypeOf(r.Definition).Size())
+	s += r.Expression.MemSize() - int(reflect.TypeOf(r.Expression).Size())
 	return s
 }
 func (r SearchParameter) String() string {

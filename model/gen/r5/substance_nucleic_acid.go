@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Nucleic acids are defined by three distinct elements: the base, sugar and linkage. Individual substance/moiety IDs will be created for each of these elements. The nucleotide sequence will be always entered in the 5’-3’ direction.
@@ -125,7 +125,7 @@ func (r SubstanceNucleicAcid) ResourceId() (string, bool) {
 }
 func (r SubstanceNucleicAcid) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -144,15 +144,15 @@ func (r SubstanceNucleicAcid) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.SequenceType != nil {
 		s += r.SequenceType.MemSize()
 	}
@@ -168,22 +168,22 @@ func (r SubstanceNucleicAcid) MemSize() int {
 	for _, i := range r.Subunit {
 		s += i.MemSize()
 	}
-	s += (cap(r.Subunit) - len(r.Subunit)) * int(unsafe.Sizeof(SubstanceNucleicAcidSubunit{}))
+	s += (cap(r.Subunit) - len(r.Subunit)) * int(reflect.TypeOf(SubstanceNucleicAcidSubunit{}).Size())
 	return s
 }
 func (r SubstanceNucleicAcidSubunit) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Subunit != nil {
 		s += r.Subunit.MemSize()
 	}
@@ -205,26 +205,26 @@ func (r SubstanceNucleicAcidSubunit) MemSize() int {
 	for _, i := range r.Linkage {
 		s += i.MemSize()
 	}
-	s += (cap(r.Linkage) - len(r.Linkage)) * int(unsafe.Sizeof(SubstanceNucleicAcidSubunitLinkage{}))
+	s += (cap(r.Linkage) - len(r.Linkage)) * int(reflect.TypeOf(SubstanceNucleicAcidSubunitLinkage{}).Size())
 	for _, i := range r.Sugar {
 		s += i.MemSize()
 	}
-	s += (cap(r.Sugar) - len(r.Sugar)) * int(unsafe.Sizeof(SubstanceNucleicAcidSubunitSugar{}))
+	s += (cap(r.Sugar) - len(r.Sugar)) * int(reflect.TypeOf(SubstanceNucleicAcidSubunitSugar{}).Size())
 	return s
 }
 func (r SubstanceNucleicAcidSubunitLinkage) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Connectivity != nil {
 		s += r.Connectivity.MemSize()
 	}
@@ -240,18 +240,18 @@ func (r SubstanceNucleicAcidSubunitLinkage) MemSize() int {
 	return s
 }
 func (r SubstanceNucleicAcidSubunitSugar) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}

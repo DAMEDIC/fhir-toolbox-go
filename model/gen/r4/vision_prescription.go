@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // An authorization for the provision of glasses and/or contact lenses to a patient.
@@ -121,7 +121,7 @@ func (r VisionPrescription) ResourceId() (string, bool) {
 }
 func (r VisionPrescription) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -140,48 +140,48 @@ func (r VisionPrescription) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Created.MemSize() - int(unsafe.Sizeof(r.Created))
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Created.MemSize() - int(reflect.TypeOf(r.Created).Size())
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
-	s += r.DateWritten.MemSize() - int(unsafe.Sizeof(r.DateWritten))
-	s += r.Prescriber.MemSize() - int(unsafe.Sizeof(r.Prescriber))
+	s += r.DateWritten.MemSize() - int(reflect.TypeOf(r.DateWritten).Size())
+	s += r.Prescriber.MemSize() - int(reflect.TypeOf(r.Prescriber).Size())
 	for _, i := range r.LensSpecification {
 		s += i.MemSize()
 	}
-	s += (cap(r.LensSpecification) - len(r.LensSpecification)) * int(unsafe.Sizeof(VisionPrescriptionLensSpecification{}))
+	s += (cap(r.LensSpecification) - len(r.LensSpecification)) * int(reflect.TypeOf(VisionPrescriptionLensSpecification{}).Size())
 	return s
 }
 func (r VisionPrescriptionLensSpecification) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Product.MemSize() - int(unsafe.Sizeof(r.Product))
-	s += r.Eye.MemSize() - int(unsafe.Sizeof(r.Eye))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Product.MemSize() - int(reflect.TypeOf(r.Product).Size())
+	s += r.Eye.MemSize() - int(reflect.TypeOf(r.Eye).Size())
 	if r.Sphere != nil {
 		s += r.Sphere.MemSize()
 	}
@@ -194,7 +194,7 @@ func (r VisionPrescriptionLensSpecification) MemSize() int {
 	for _, i := range r.Prism {
 		s += i.MemSize()
 	}
-	s += (cap(r.Prism) - len(r.Prism)) * int(unsafe.Sizeof(VisionPrescriptionLensSpecificationPrism{}))
+	s += (cap(r.Prism) - len(r.Prism)) * int(reflect.TypeOf(VisionPrescriptionLensSpecificationPrism{}).Size())
 	if r.Add != nil {
 		s += r.Add.MemSize()
 	}
@@ -219,24 +219,24 @@ func (r VisionPrescriptionLensSpecification) MemSize() int {
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	return s
 }
 func (r VisionPrescriptionLensSpecificationPrism) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Amount.MemSize() - int(unsafe.Sizeof(r.Amount))
-	s += r.Base.MemSize() - int(unsafe.Sizeof(r.Base))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Amount.MemSize() - int(reflect.TypeOf(r.Amount).Size())
+	s += r.Base.MemSize() - int(reflect.TypeOf(r.Base).Size())
 	return s
 }
 func (r VisionPrescription) String() string {

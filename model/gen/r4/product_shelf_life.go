@@ -8,8 +8,8 @@ import (
 	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for ProductShelfLife Type: The shelf-life and storage information for a medicinal product item or container can be described using this class.
@@ -33,27 +33,27 @@ type ProductShelfLife struct {
 }
 
 func (r ProductShelfLife) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
-	s += r.Period.MemSize() - int(unsafe.Sizeof(r.Period))
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
+	s += r.Period.MemSize() - int(reflect.TypeOf(r.Period).Size())
 	for _, i := range r.SpecialPrecautionsForStorage {
 		s += i.MemSize()
 	}
-	s += (cap(r.SpecialPrecautionsForStorage) - len(r.SpecialPrecautionsForStorage)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.SpecialPrecautionsForStorage) - len(r.SpecialPrecautionsForStorage)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r ProductShelfLife) String() string {

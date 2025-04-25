@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Set of definitional characteristics for a kind of observation or measurement produced or consumed by an orderable health care service.
@@ -125,7 +125,7 @@ func (r ObservationDefinition) ResourceId() (string, bool) {
 }
 func (r ObservationDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -144,28 +144,28 @@ func (r ObservationDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.PermittedDataType {
 		s += i.MemSize()
 	}
-	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.PermittedDataType) - len(r.PermittedDataType)) * int(reflect.TypeOf(Code{}).Size())
 	if r.MultipleResultsAllowed != nil {
 		s += r.MultipleResultsAllowed.MemSize()
 	}
@@ -181,7 +181,7 @@ func (r ObservationDefinition) MemSize() int {
 	for _, i := range r.QualifiedInterval {
 		s += i.MemSize()
 	}
-	s += (cap(r.QualifiedInterval) - len(r.QualifiedInterval)) * int(unsafe.Sizeof(ObservationDefinitionQualifiedInterval{}))
+	s += (cap(r.QualifiedInterval) - len(r.QualifiedInterval)) * int(reflect.TypeOf(ObservationDefinitionQualifiedInterval{}).Size())
 	if r.ValidCodedValueSet != nil {
 		s += r.ValidCodedValueSet.MemSize()
 	}
@@ -197,18 +197,18 @@ func (r ObservationDefinition) MemSize() int {
 	return s
 }
 func (r ObservationDefinitionQuantitativeDetails) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.CustomaryUnit != nil {
 		s += r.CustomaryUnit.MemSize()
 	}
@@ -224,18 +224,18 @@ func (r ObservationDefinitionQuantitativeDetails) MemSize() int {
 	return s
 }
 func (r ObservationDefinitionQualifiedInterval) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Category != nil {
 		s += r.Category.MemSize()
 	}
@@ -248,7 +248,7 @@ func (r ObservationDefinitionQualifiedInterval) MemSize() int {
 	for _, i := range r.AppliesTo {
 		s += i.MemSize()
 	}
-	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Gender != nil {
 		s += r.Gender.MemSize()
 	}

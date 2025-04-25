@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A walkthrough of a workflow showing the interaction between systems and the instances shared, possibly including the evolution of instances over time.
@@ -283,7 +283,7 @@ func (r ExampleScenario) ResourceId() (string, bool) {
 }
 func (r ExampleScenario) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -302,22 +302,22 @@ func (r ExampleScenario) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -330,7 +330,7 @@ func (r ExampleScenario) MemSize() int {
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -343,18 +343,18 @@ func (r ExampleScenario) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -367,60 +367,60 @@ func (r ExampleScenario) MemSize() int {
 	for _, i := range r.Actor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Actor) - len(r.Actor)) * int(unsafe.Sizeof(ExampleScenarioActor{}))
+	s += (cap(r.Actor) - len(r.Actor)) * int(reflect.TypeOf(ExampleScenarioActor{}).Size())
 	for _, i := range r.Instance {
 		s += i.MemSize()
 	}
-	s += (cap(r.Instance) - len(r.Instance)) * int(unsafe.Sizeof(ExampleScenarioInstance{}))
+	s += (cap(r.Instance) - len(r.Instance)) * int(reflect.TypeOf(ExampleScenarioInstance{}).Size())
 	for _, i := range r.Process {
 		s += i.MemSize()
 	}
-	s += (cap(r.Process) - len(r.Process)) * int(unsafe.Sizeof(ExampleScenarioProcess{}))
+	s += (cap(r.Process) - len(r.Process)) * int(reflect.TypeOf(ExampleScenarioProcess{}).Size())
 	return s
 }
 func (r ExampleScenarioActor) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Key.MemSize() - int(unsafe.Sizeof(r.Key))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
-	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Key.MemSize() - int(reflect.TypeOf(r.Key).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
+	s += r.Title.MemSize() - int(reflect.TypeOf(r.Title).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	return s
 }
 func (r ExampleScenarioInstance) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Key.MemSize() - int(unsafe.Sizeof(r.Key))
-	s += r.StructureType.MemSize() - int(unsafe.Sizeof(r.StructureType))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Key.MemSize() - int(reflect.TypeOf(r.Key).Size())
+	s += r.StructureType.MemSize() - int(reflect.TypeOf(r.StructureType).Size())
 	if r.StructureVersion != nil {
 		s += r.StructureVersion.MemSize()
 	}
 	if r.StructureProfile != nil {
 		s += r.StructureProfile.MemSize()
 	}
-	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += r.Title.MemSize() - int(reflect.TypeOf(r.Title).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -430,28 +430,28 @@ func (r ExampleScenarioInstance) MemSize() int {
 	for _, i := range r.Version {
 		s += i.MemSize()
 	}
-	s += (cap(r.Version) - len(r.Version)) * int(unsafe.Sizeof(ExampleScenarioInstanceVersion{}))
+	s += (cap(r.Version) - len(r.Version)) * int(reflect.TypeOf(ExampleScenarioInstanceVersion{}).Size())
 	for _, i := range r.ContainedInstance {
 		s += i.MemSize()
 	}
-	s += (cap(r.ContainedInstance) - len(r.ContainedInstance)) * int(unsafe.Sizeof(ExampleScenarioInstanceContainedInstance{}))
+	s += (cap(r.ContainedInstance) - len(r.ContainedInstance)) * int(reflect.TypeOf(ExampleScenarioInstanceContainedInstance{}).Size())
 	return s
 }
 func (r ExampleScenarioInstanceVersion) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Key.MemSize() - int(unsafe.Sizeof(r.Key))
-	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Key.MemSize() - int(reflect.TypeOf(r.Key).Size())
+	s += r.Title.MemSize() - int(reflect.TypeOf(r.Title).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -461,38 +461,38 @@ func (r ExampleScenarioInstanceVersion) MemSize() int {
 	return s
 }
 func (r ExampleScenarioInstanceContainedInstance) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.InstanceReference.MemSize() - int(unsafe.Sizeof(r.InstanceReference))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.InstanceReference.MemSize() - int(reflect.TypeOf(r.InstanceReference).Size())
 	if r.VersionReference != nil {
 		s += r.VersionReference.MemSize()
 	}
 	return s
 }
 func (r ExampleScenarioProcess) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Title.MemSize() - int(reflect.TypeOf(r.Title).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -505,22 +505,22 @@ func (r ExampleScenarioProcess) MemSize() int {
 	for _, i := range r.Step {
 		s += i.MemSize()
 	}
-	s += (cap(r.Step) - len(r.Step)) * int(unsafe.Sizeof(ExampleScenarioProcessStep{}))
+	s += (cap(r.Step) - len(r.Step)) * int(reflect.TypeOf(ExampleScenarioProcessStep{}).Size())
 	return s
 }
 func (r ExampleScenarioProcessStep) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Number != nil {
 		s += r.Number.MemSize()
 	}
@@ -536,29 +536,29 @@ func (r ExampleScenarioProcessStep) MemSize() int {
 	for _, i := range r.Alternative {
 		s += i.MemSize()
 	}
-	s += (cap(r.Alternative) - len(r.Alternative)) * int(unsafe.Sizeof(ExampleScenarioProcessStepAlternative{}))
+	s += (cap(r.Alternative) - len(r.Alternative)) * int(reflect.TypeOf(ExampleScenarioProcessStepAlternative{}).Size())
 	if r.Pause != nil {
 		s += r.Pause.MemSize()
 	}
 	return s
 }
 func (r ExampleScenarioProcessStepOperation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
-	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += r.Title.MemSize() - int(reflect.TypeOf(r.Title).Size())
 	if r.Initiator != nil {
 		s += r.Initiator.MemSize()
 	}
@@ -583,26 +583,26 @@ func (r ExampleScenarioProcessStepOperation) MemSize() int {
 	return s
 }
 func (r ExampleScenarioProcessStepAlternative) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Title.MemSize() - int(reflect.TypeOf(r.Title).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.Step {
 		s += i.MemSize()
 	}
-	s += (cap(r.Step) - len(r.Step)) * int(unsafe.Sizeof(ExampleScenarioProcessStep{}))
+	s += (cap(r.Step) - len(r.Step)) * int(reflect.TypeOf(ExampleScenarioProcessStep{}).Size())
 	return s
 }
 func (r ExampleScenario) String() string {

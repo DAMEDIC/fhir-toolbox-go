@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // An action that is or was performed on or for a patient. This can be a physical intervention like an operation, or less invasive like long term services, counseling, or hypnotherapy.
@@ -149,7 +149,7 @@ func (r Procedure) ResourceId() (string, bool) {
 }
 func (r Procedure) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -168,36 +168,36 @@ func (r Procedure) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.InstantiatesCanonical {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.InstantiatesUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Reference{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.StatusReason != nil {
 		s += r.StatusReason.MemSize()
 	}
@@ -207,7 +207,7 @@ func (r Procedure) MemSize() int {
 	if r.Code != nil {
 		s += r.Code.MemSize()
 	}
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -223,98 +223,98 @@ func (r Procedure) MemSize() int {
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(ProcedurePerformer{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(ProcedurePerformer{}).Size())
 	if r.Location != nil {
 		s += r.Location.MemSize()
 	}
 	for _, i := range r.ReasonCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReasonReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.BodySite {
 		s += i.MemSize()
 	}
-	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Outcome != nil {
 		s += r.Outcome.MemSize()
 	}
 	for _, i := range r.Report {
 		s += i.MemSize()
 	}
-	s += (cap(r.Report) - len(r.Report)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Report) - len(r.Report)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Complication {
 		s += i.MemSize()
 	}
-	s += (cap(r.Complication) - len(r.Complication)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Complication) - len(r.Complication)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ComplicationDetail {
 		s += i.MemSize()
 	}
-	s += (cap(r.ComplicationDetail) - len(r.ComplicationDetail)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ComplicationDetail) - len(r.ComplicationDetail)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.FollowUp {
 		s += i.MemSize()
 	}
-	s += (cap(r.FollowUp) - len(r.FollowUp)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.FollowUp) - len(r.FollowUp)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.FocalDevice {
 		s += i.MemSize()
 	}
-	s += (cap(r.FocalDevice) - len(r.FocalDevice)) * int(unsafe.Sizeof(ProcedureFocalDevice{}))
+	s += (cap(r.FocalDevice) - len(r.FocalDevice)) * int(reflect.TypeOf(ProcedureFocalDevice{}).Size())
 	for _, i := range r.UsedReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.UsedReference) - len(r.UsedReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.UsedReference) - len(r.UsedReference)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.UsedCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.UsedCode) - len(r.UsedCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.UsedCode) - len(r.UsedCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	return s
 }
 func (r ProcedurePerformer) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Function != nil {
 		s += r.Function.MemSize()
 	}
-	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	s += r.Actor.MemSize() - int(reflect.TypeOf(r.Actor).Size())
 	if r.OnBehalfOf != nil {
 		s += r.OnBehalfOf.MemSize()
 	}
 	return s
 }
 func (r ProcedureFocalDevice) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Action != nil {
 		s += r.Action.MemSize()
 	}
-	s += r.Manipulated.MemSize() - int(unsafe.Sizeof(r.Manipulated))
+	s += r.Manipulated.MemSize() - int(reflect.TypeOf(r.Manipulated).Size())
 	return s
 }
 func (r Procedure) String() string {

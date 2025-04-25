@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Measurements and simple assertions made about a patient, device or other subject.
@@ -225,7 +225,7 @@ func (r Observation) ResourceId() (string, bool) {
 }
 func (r Observation) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -244,47 +244,47 @@ func (r Observation) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Instantiates != nil {
 		s += r.Instantiates.MemSize()
 	}
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.TriggeredBy {
 		s += i.MemSize()
 	}
-	s += (cap(r.TriggeredBy) - len(r.TriggeredBy)) * int(unsafe.Sizeof(ObservationTriggeredBy{}))
+	s += (cap(r.TriggeredBy) - len(r.TriggeredBy)) * int(reflect.TypeOf(ObservationTriggeredBy{}).Size())
 	for _, i := range r.PartOf {
 		s += i.MemSize()
 	}
-	s += (cap(r.PartOf) - len(r.PartOf)) * int(unsafe.Sizeof(Reference{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.PartOf) - len(r.PartOf)) * int(reflect.TypeOf(Reference{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
 	for _, i := range r.Focus {
 		s += i.MemSize()
 	}
-	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Focus) - len(r.Focus)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -297,7 +297,7 @@ func (r Observation) MemSize() int {
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
@@ -307,11 +307,11 @@ func (r Observation) MemSize() int {
 	for _, i := range r.Interpretation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Interpretation) - len(r.Interpretation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Interpretation) - len(r.Interpretation)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	if r.BodySite != nil {
 		s += r.BodySite.MemSize()
 	}
@@ -330,54 +330,54 @@ func (r Observation) MemSize() int {
 	for _, i := range r.ReferenceRange {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReferenceRange) - len(r.ReferenceRange)) * int(unsafe.Sizeof(ObservationReferenceRange{}))
+	s += (cap(r.ReferenceRange) - len(r.ReferenceRange)) * int(reflect.TypeOf(ObservationReferenceRange{}).Size())
 	for _, i := range r.HasMember {
 		s += i.MemSize()
 	}
-	s += (cap(r.HasMember) - len(r.HasMember)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.HasMember) - len(r.HasMember)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.DerivedFrom {
 		s += i.MemSize()
 	}
-	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Component {
 		s += i.MemSize()
 	}
-	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ObservationComponent{}))
+	s += (cap(r.Component) - len(r.Component)) * int(reflect.TypeOf(ObservationComponent{}).Size())
 	return s
 }
 func (r ObservationTriggeredBy) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Observation.MemSize() - int(unsafe.Sizeof(r.Observation))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Observation.MemSize() - int(reflect.TypeOf(r.Observation).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Reason != nil {
 		s += r.Reason.MemSize()
 	}
 	return s
 }
 func (r ObservationReferenceRange) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Low != nil {
 		s += r.Low.MemSize()
 	}
@@ -393,7 +393,7 @@ func (r ObservationReferenceRange) MemSize() int {
 	for _, i := range r.AppliesTo {
 		s += i.MemSize()
 	}
-	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.AppliesTo) - len(r.AppliesTo)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Age != nil {
 		s += r.Age.MemSize()
 	}
@@ -403,19 +403,19 @@ func (r ObservationReferenceRange) MemSize() int {
 	return s
 }
 func (r ObservationComponent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
@@ -425,11 +425,11 @@ func (r ObservationComponent) MemSize() int {
 	for _, i := range r.Interpretation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Interpretation) - len(r.Interpretation)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Interpretation) - len(r.Interpretation)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReferenceRange {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReferenceRange) - len(r.ReferenceRange)) * int(unsafe.Sizeof(ObservationReferenceRange{}))
+	s += (cap(r.ReferenceRange) - len(r.ReferenceRange)) * int(reflect.TypeOf(ObservationReferenceRange{}).Size())
 	return s
 }
 func (r Observation) String() string {

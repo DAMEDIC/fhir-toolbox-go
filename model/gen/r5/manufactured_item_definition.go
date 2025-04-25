@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // The definition and characteristics of a medicinal manufactured item, such as a tablet or capsule, as contained in a packaged medicinal product.
@@ -141,7 +141,7 @@ func (r ManufacturedItemDefinition) ResourceId() (string, bool) {
 }
 func (r ManufacturedItemDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -160,133 +160,133 @@ func (r ManufacturedItemDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Name != nil {
 		s += r.Name.MemSize()
 	}
-	s += r.ManufacturedDoseForm.MemSize() - int(unsafe.Sizeof(r.ManufacturedDoseForm))
+	s += r.ManufacturedDoseForm.MemSize() - int(reflect.TypeOf(r.ManufacturedDoseForm).Size())
 	if r.UnitOfPresentation != nil {
 		s += r.UnitOfPresentation.MemSize()
 	}
 	for _, i := range r.Manufacturer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Manufacturer) - len(r.Manufacturer)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.MarketingStatus {
 		s += i.MemSize()
 	}
-	s += (cap(r.MarketingStatus) - len(r.MarketingStatus)) * int(unsafe.Sizeof(MarketingStatus{}))
+	s += (cap(r.MarketingStatus) - len(r.MarketingStatus)) * int(reflect.TypeOf(MarketingStatus{}).Size())
 	for _, i := range r.Ingredient {
 		s += i.MemSize()
 	}
-	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Ingredient) - len(r.Ingredient)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Property {
 		s += i.MemSize()
 	}
-	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(ManufacturedItemDefinitionProperty{}))
+	s += (cap(r.Property) - len(r.Property)) * int(reflect.TypeOf(ManufacturedItemDefinitionProperty{}).Size())
 	for _, i := range r.Component {
 		s += i.MemSize()
 	}
-	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ManufacturedItemDefinitionComponent{}))
+	s += (cap(r.Component) - len(r.Component)) * int(reflect.TypeOf(ManufacturedItemDefinitionComponent{}).Size())
 	return s
 }
 func (r ManufacturedItemDefinitionProperty) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Value != nil {
 		s += r.Value.MemSize()
 	}
 	return s
 }
 func (r ManufacturedItemDefinitionComponent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.Function {
 		s += i.MemSize()
 	}
-	s += (cap(r.Function) - len(r.Function)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Function) - len(r.Function)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Amount {
 		s += i.MemSize()
 	}
-	s += (cap(r.Amount) - len(r.Amount)) * int(unsafe.Sizeof(Quantity{}))
+	s += (cap(r.Amount) - len(r.Amount)) * int(reflect.TypeOf(Quantity{}).Size())
 	for _, i := range r.Constituent {
 		s += i.MemSize()
 	}
-	s += (cap(r.Constituent) - len(r.Constituent)) * int(unsafe.Sizeof(ManufacturedItemDefinitionComponentConstituent{}))
+	s += (cap(r.Constituent) - len(r.Constituent)) * int(reflect.TypeOf(ManufacturedItemDefinitionComponentConstituent{}).Size())
 	for _, i := range r.Property {
 		s += i.MemSize()
 	}
-	s += (cap(r.Property) - len(r.Property)) * int(unsafe.Sizeof(ManufacturedItemDefinitionProperty{}))
+	s += (cap(r.Property) - len(r.Property)) * int(reflect.TypeOf(ManufacturedItemDefinitionProperty{}).Size())
 	for _, i := range r.Component {
 		s += i.MemSize()
 	}
-	s += (cap(r.Component) - len(r.Component)) * int(unsafe.Sizeof(ManufacturedItemDefinitionComponent{}))
+	s += (cap(r.Component) - len(r.Component)) * int(reflect.TypeOf(ManufacturedItemDefinitionComponent{}).Size())
 	return s
 }
 func (r ManufacturedItemDefinitionComponentConstituent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Amount {
 		s += i.MemSize()
 	}
-	s += (cap(r.Amount) - len(r.Amount)) * int(unsafe.Sizeof(Quantity{}))
+	s += (cap(r.Amount) - len(r.Amount)) * int(reflect.TypeOf(Quantity{}).Size())
 	for _, i := range r.Location {
 		s += i.MemSize()
 	}
-	s += (cap(r.Location) - len(r.Location)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Location) - len(r.Location)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Function {
 		s += i.MemSize()
 	}
-	s += (cap(r.Function) - len(r.Function)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Function) - len(r.Function)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.HasIngredient {
 		s += i.MemSize()
 	}
-	s += (cap(r.HasIngredient) - len(r.HasIngredient)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.HasIngredient) - len(r.HasIngredient)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	return s
 }
 func (r ManufacturedItemDefinition) String() string {

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A set of related requests that can be used to capture intended activities that have inter-dependencies such as "give this medication after that one".
@@ -296,7 +296,7 @@ func (r RequestOrchestration) ResourceId() (string, bool) {
 }
 func (r RequestOrchestration) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -315,40 +315,40 @@ func (r RequestOrchestration) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	for _, i := range r.InstantiatesCanonical {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.InstantiatesCanonical) - len(r.InstantiatesCanonical)) * int(reflect.TypeOf(Canonical{}).Size())
 	for _, i := range r.InstantiatesUri {
 		s += i.MemSize()
 	}
-	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(unsafe.Sizeof(Uri{}))
+	s += (cap(r.InstantiatesUri) - len(r.InstantiatesUri)) * int(reflect.TypeOf(Uri{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Replaces {
 		s += i.MemSize()
 	}
-	s += (cap(r.Replaces) - len(r.Replaces)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Replaces) - len(r.Replaces)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.GroupIdentifier != nil {
 		s += r.GroupIdentifier.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Intent.MemSize() - int(unsafe.Sizeof(r.Intent))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Intent.MemSize() - int(reflect.TypeOf(r.Intent).Size())
 	if r.Priority != nil {
 		s += r.Priority.MemSize()
 	}
@@ -370,34 +370,34 @@ func (r RequestOrchestration) MemSize() int {
 	for _, i := range r.Reason {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reason) - len(r.Reason)) * int(unsafe.Sizeof(CodeableReference{}))
+	s += (cap(r.Reason) - len(r.Reason)) * int(reflect.TypeOf(CodeableReference{}).Size())
 	for _, i := range r.Goal {
 		s += i.MemSize()
 	}
-	s += (cap(r.Goal) - len(r.Goal)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Goal) - len(r.Goal)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.Action {
 		s += i.MemSize()
 	}
-	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(RequestOrchestrationAction{}))
+	s += (cap(r.Action) - len(r.Action)) * int(reflect.TypeOf(RequestOrchestrationAction{}).Size())
 	return s
 }
 func (r RequestOrchestrationAction) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.LinkId != nil {
 		s += r.LinkId.MemSize()
 	}
@@ -419,31 +419,31 @@ func (r RequestOrchestrationAction) MemSize() int {
 	for _, i := range r.Code {
 		s += i.MemSize()
 	}
-	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Code) - len(r.Code)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Documentation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Documentation) - len(r.Documentation)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	s += (cap(r.Documentation) - len(r.Documentation)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
 	for _, i := range r.Goal {
 		s += i.MemSize()
 	}
-	s += (cap(r.Goal) - len(r.Goal)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Goal) - len(r.Goal)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Condition {
 		s += i.MemSize()
 	}
-	s += (cap(r.Condition) - len(r.Condition)) * int(unsafe.Sizeof(RequestOrchestrationActionCondition{}))
+	s += (cap(r.Condition) - len(r.Condition)) * int(reflect.TypeOf(RequestOrchestrationActionCondition{}).Size())
 	for _, i := range r.Input {
 		s += i.MemSize()
 	}
-	s += (cap(r.Input) - len(r.Input)) * int(unsafe.Sizeof(RequestOrchestrationActionInput{}))
+	s += (cap(r.Input) - len(r.Input)) * int(reflect.TypeOf(RequestOrchestrationActionInput{}).Size())
 	for _, i := range r.Output {
 		s += i.MemSize()
 	}
-	s += (cap(r.Output) - len(r.Output)) * int(unsafe.Sizeof(RequestOrchestrationActionOutput{}))
+	s += (cap(r.Output) - len(r.Output)) * int(reflect.TypeOf(RequestOrchestrationActionOutput{}).Size())
 	for _, i := range r.RelatedAction {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedAction) - len(r.RelatedAction)) * int(unsafe.Sizeof(RequestOrchestrationActionRelatedAction{}))
+	s += (cap(r.RelatedAction) - len(r.RelatedAction)) * int(reflect.TypeOf(RequestOrchestrationActionRelatedAction{}).Size())
 	if r.Timing != nil {
 		s += r.Timing.MemSize()
 	}
@@ -453,7 +453,7 @@ func (r RequestOrchestrationAction) MemSize() int {
 	for _, i := range r.Participant {
 		s += i.MemSize()
 	}
-	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(RequestOrchestrationActionParticipant{}))
+	s += (cap(r.Participant) - len(r.Participant)) * int(reflect.TypeOf(RequestOrchestrationActionParticipant{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -484,45 +484,45 @@ func (r RequestOrchestrationAction) MemSize() int {
 	for _, i := range r.DynamicValue {
 		s += i.MemSize()
 	}
-	s += (cap(r.DynamicValue) - len(r.DynamicValue)) * int(unsafe.Sizeof(RequestOrchestrationActionDynamicValue{}))
+	s += (cap(r.DynamicValue) - len(r.DynamicValue)) * int(reflect.TypeOf(RequestOrchestrationActionDynamicValue{}).Size())
 	for _, i := range r.Action {
 		s += i.MemSize()
 	}
-	s += (cap(r.Action) - len(r.Action)) * int(unsafe.Sizeof(RequestOrchestrationAction{}))
+	s += (cap(r.Action) - len(r.Action)) * int(reflect.TypeOf(RequestOrchestrationAction{}).Size())
 	return s
 }
 func (r RequestOrchestrationActionCondition) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Kind.MemSize() - int(unsafe.Sizeof(r.Kind))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Kind.MemSize() - int(reflect.TypeOf(r.Kind).Size())
 	if r.Expression != nil {
 		s += r.Expression.MemSize()
 	}
 	return s
 }
 func (r RequestOrchestrationActionInput) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
@@ -535,18 +535,18 @@ func (r RequestOrchestrationActionInput) MemSize() int {
 	return s
 }
 func (r RequestOrchestrationActionOutput) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
@@ -559,20 +559,20 @@ func (r RequestOrchestrationActionOutput) MemSize() int {
 	return s
 }
 func (r RequestOrchestrationActionRelatedAction) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.TargetId.MemSize() - int(unsafe.Sizeof(r.TargetId))
-	s += r.Relationship.MemSize() - int(unsafe.Sizeof(r.Relationship))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.TargetId.MemSize() - int(reflect.TypeOf(r.TargetId).Size())
+	s += r.Relationship.MemSize() - int(reflect.TypeOf(r.Relationship).Size())
 	if r.EndRelationship != nil {
 		s += r.EndRelationship.MemSize()
 	}
@@ -582,18 +582,18 @@ func (r RequestOrchestrationActionRelatedAction) MemSize() int {
 	return s
 }
 func (r RequestOrchestrationActionParticipant) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}
@@ -615,18 +615,18 @@ func (r RequestOrchestrationActionParticipant) MemSize() int {
 	return s
 }
 func (r RequestOrchestrationActionDynamicValue) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Path != nil {
 		s += r.Path.MemSize()
 	}

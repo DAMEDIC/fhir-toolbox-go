@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A ResearchSubject is a participant or object which is the recipient of investigative activities in a research study.
@@ -91,7 +91,7 @@ func (r ResearchSubject) ResourceId() (string, bool) {
 }
 func (r ResearchSubject) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -110,29 +110,29 @@ func (r ResearchSubject) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	for _, i := range r.Progress {
 		s += i.MemSize()
 	}
-	s += (cap(r.Progress) - len(r.Progress)) * int(unsafe.Sizeof(ResearchSubjectProgress{}))
+	s += (cap(r.Progress) - len(r.Progress)) * int(reflect.TypeOf(ResearchSubjectProgress{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}
-	s += r.Study.MemSize() - int(unsafe.Sizeof(r.Study))
-	s += r.Subject.MemSize() - int(unsafe.Sizeof(r.Subject))
+	s += r.Study.MemSize() - int(reflect.TypeOf(r.Study).Size())
+	s += r.Subject.MemSize() - int(reflect.TypeOf(r.Subject).Size())
 	if r.AssignedComparisonGroup != nil {
 		s += r.AssignedComparisonGroup.MemSize()
 	}
@@ -142,22 +142,22 @@ func (r ResearchSubject) MemSize() int {
 	for _, i := range r.Consent {
 		s += i.MemSize()
 	}
-	s += (cap(r.Consent) - len(r.Consent)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Consent) - len(r.Consent)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r ResearchSubjectProgress) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Type != nil {
 		s += r.Type.MemSize()
 	}

@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A patient's point-in-time set of recommendations (i.e. forecasting) according to a published schedule with optional supporting justification.
@@ -111,7 +111,7 @@ func (r ImmunizationRecommendation) ResourceId() (string, bool) {
 }
 func (r ImmunizationRecommendation) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -130,64 +130,64 @@ func (r ImmunizationRecommendation) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
-	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
+	s += r.Date.MemSize() - int(reflect.TypeOf(r.Date).Size())
 	if r.Authority != nil {
 		s += r.Authority.MemSize()
 	}
 	for _, i := range r.Recommendation {
 		s += i.MemSize()
 	}
-	s += (cap(r.Recommendation) - len(r.Recommendation)) * int(unsafe.Sizeof(ImmunizationRecommendationRecommendation{}))
+	s += (cap(r.Recommendation) - len(r.Recommendation)) * int(reflect.TypeOf(ImmunizationRecommendationRecommendation{}).Size())
 	return s
 }
 func (r ImmunizationRecommendationRecommendation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.VaccineCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.VaccineCode) - len(r.VaccineCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.VaccineCode) - len(r.VaccineCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.TargetDisease {
 		s += i.MemSize()
 	}
-	s += (cap(r.TargetDisease) - len(r.TargetDisease)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.TargetDisease) - len(r.TargetDisease)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ContraindicatedVaccineCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ContraindicatedVaccineCode) - len(r.ContraindicatedVaccineCode)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.ForecastStatus.MemSize() - int(unsafe.Sizeof(r.ForecastStatus))
+	s += (cap(r.ContraindicatedVaccineCode) - len(r.ContraindicatedVaccineCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.ForecastStatus.MemSize() - int(reflect.TypeOf(r.ForecastStatus).Size())
 	for _, i := range r.ForecastReason {
 		s += i.MemSize()
 	}
-	s += (cap(r.ForecastReason) - len(r.ForecastReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ForecastReason) - len(r.ForecastReason)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.DateCriterion {
 		s += i.MemSize()
 	}
-	s += (cap(r.DateCriterion) - len(r.DateCriterion)) * int(unsafe.Sizeof(ImmunizationRecommendationRecommendationDateCriterion{}))
+	s += (cap(r.DateCriterion) - len(r.DateCriterion)) * int(reflect.TypeOf(ImmunizationRecommendationRecommendationDateCriterion{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -203,28 +203,28 @@ func (r ImmunizationRecommendationRecommendation) MemSize() int {
 	for _, i := range r.SupportingImmunization {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupportingImmunization) - len(r.SupportingImmunization)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SupportingImmunization) - len(r.SupportingImmunization)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.SupportingPatientInformation {
 		s += i.MemSize()
 	}
-	s += (cap(r.SupportingPatientInformation) - len(r.SupportingPatientInformation)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SupportingPatientInformation) - len(r.SupportingPatientInformation)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
-	s += r.Value.MemSize() - int(unsafe.Sizeof(r.Value))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
+	s += r.Value.MemSize() - int(reflect.TypeOf(r.Value).Size())
 	return s
 }
 func (r ImmunizationRecommendation) String() string {

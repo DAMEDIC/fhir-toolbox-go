@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and narrative content necessary for a document. However, a Composition alone does not constitute a document. Rather, the Composition must be the first entry in a Bundle where Bundle.type=document, and any other resources referenced from Composition must be included as subsequent entries in the Bundle (for example Patient, Practitioner, Encounter, etc.).
@@ -172,7 +172,7 @@ func (r Composition) ResourceId() (string, bool) {
 }
 func (r Composition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -191,74 +191,74 @@ func (r Composition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Identifier != nil {
 		s += r.Identifier.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
-	s += r.Date.MemSize() - int(unsafe.Sizeof(r.Date))
+	s += r.Date.MemSize() - int(reflect.TypeOf(r.Date).Size())
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(Reference{}))
-	s += r.Title.MemSize() - int(unsafe.Sizeof(r.Title))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(Reference{}).Size())
+	s += r.Title.MemSize() - int(reflect.TypeOf(r.Title).Size())
 	if r.Confidentiality != nil {
 		s += r.Confidentiality.MemSize()
 	}
 	for _, i := range r.Attester {
 		s += i.MemSize()
 	}
-	s += (cap(r.Attester) - len(r.Attester)) * int(unsafe.Sizeof(CompositionAttester{}))
+	s += (cap(r.Attester) - len(r.Attester)) * int(reflect.TypeOf(CompositionAttester{}).Size())
 	if r.Custodian != nil {
 		s += r.Custodian.MemSize()
 	}
 	for _, i := range r.RelatesTo {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(unsafe.Sizeof(CompositionRelatesTo{}))
+	s += (cap(r.RelatesTo) - len(r.RelatesTo)) * int(reflect.TypeOf(CompositionRelatesTo{}).Size())
 	for _, i := range r.Event {
 		s += i.MemSize()
 	}
-	s += (cap(r.Event) - len(r.Event)) * int(unsafe.Sizeof(CompositionEvent{}))
+	s += (cap(r.Event) - len(r.Event)) * int(reflect.TypeOf(CompositionEvent{}).Size())
 	for _, i := range r.Section {
 		s += i.MemSize()
 	}
-	s += (cap(r.Section) - len(r.Section)) * int(unsafe.Sizeof(CompositionSection{}))
+	s += (cap(r.Section) - len(r.Section)) * int(reflect.TypeOf(CompositionSection{}).Size())
 	return s
 }
 func (r CompositionAttester) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Mode.MemSize() - int(unsafe.Sizeof(r.Mode))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Mode.MemSize() - int(reflect.TypeOf(r.Mode).Size())
 	if r.Time != nil {
 		s += r.Time.MemSize()
 	}
@@ -268,63 +268,63 @@ func (r CompositionAttester) MemSize() int {
 	return s
 }
 func (r CompositionRelatesTo) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.Target != nil {
 		s += r.Target.MemSize()
 	}
 	return s
 }
 func (r CompositionEvent) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Code {
 		s += i.MemSize()
 	}
-	s += (cap(r.Code) - len(r.Code)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Code) - len(r.Code)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Period != nil {
 		s += r.Period.MemSize()
 	}
 	for _, i := range r.Detail {
 		s += i.MemSize()
 	}
-	s += (cap(r.Detail) - len(r.Detail)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Detail) - len(r.Detail)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r CompositionSection) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Title != nil {
 		s += r.Title.MemSize()
 	}
@@ -334,7 +334,7 @@ func (r CompositionSection) MemSize() int {
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Focus != nil {
 		s += r.Focus.MemSize()
 	}
@@ -350,14 +350,14 @@ func (r CompositionSection) MemSize() int {
 	for _, i := range r.Entry {
 		s += i.MemSize()
 	}
-	s += (cap(r.Entry) - len(r.Entry)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Entry) - len(r.Entry)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.EmptyReason != nil {
 		s += r.EmptyReason.MemSize()
 	}
 	for _, i := range r.Section {
 		s += i.MemSize()
 	}
-	s += (cap(r.Section) - len(r.Section)) * int(unsafe.Sizeof(CompositionSection{}))
+	s += (cap(r.Section) - len(r.Section)) * int(reflect.TypeOf(CompositionSection{}).Size())
 	return s
 }
 func (r Composition) String() string {

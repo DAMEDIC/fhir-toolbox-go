@@ -7,8 +7,8 @@ import (
 	"errors"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Base StructureDefinition for ProdCharacteristic Type: The marketing status describes the date when a medicinal product is actually put on the market or the date as of which it is no longer available.
@@ -46,18 +46,18 @@ type ProdCharacteristic struct {
 }
 
 func (r ProdCharacteristic) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Height != nil {
 		s += r.Height.MemSize()
 	}
@@ -82,15 +82,15 @@ func (r ProdCharacteristic) MemSize() int {
 	for _, i := range r.Color {
 		s += i.MemSize()
 	}
-	s += (cap(r.Color) - len(r.Color)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Color) - len(r.Color)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.Imprint {
 		s += i.MemSize()
 	}
-	s += (cap(r.Imprint) - len(r.Imprint)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Imprint) - len(r.Imprint)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.Image {
 		s += i.MemSize()
 	}
-	s += (cap(r.Image) - len(r.Image)) * int(unsafe.Sizeof(Attachment{}))
+	s += (cap(r.Image) - len(r.Image)) * int(reflect.TypeOf(Attachment{}).Size())
 	if r.Scoring != nil {
 		s += r.Scoring.MemSize()
 	}

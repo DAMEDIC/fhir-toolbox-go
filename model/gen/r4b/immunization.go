@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Describes the event of a patient being administered a vaccine or a record of an immunization as reported by a patient, a clinician or another party.
@@ -202,7 +202,7 @@ func (r Immunization) ResourceId() (string, bool) {
 }
 func (r Immunization) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -221,25 +221,25 @@ func (r Immunization) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.StatusReason != nil {
 		s += r.StatusReason.MemSize()
 	}
-	s += r.VaccineCode.MemSize() - int(unsafe.Sizeof(r.VaccineCode))
-	s += r.Patient.MemSize() - int(unsafe.Sizeof(r.Patient))
+	s += r.VaccineCode.MemSize() - int(reflect.TypeOf(r.VaccineCode).Size())
+	s += r.Patient.MemSize() - int(reflect.TypeOf(r.Patient).Size())
 	if r.Encounter != nil {
 		s += r.Encounter.MemSize()
 	}
@@ -279,79 +279,79 @@ func (r Immunization) MemSize() int {
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(ImmunizationPerformer{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(ImmunizationPerformer{}).Size())
 	for _, i := range r.Note {
 		s += i.MemSize()
 	}
-	s += (cap(r.Note) - len(r.Note)) * int(unsafe.Sizeof(Annotation{}))
+	s += (cap(r.Note) - len(r.Note)) * int(reflect.TypeOf(Annotation{}).Size())
 	for _, i := range r.ReasonCode {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ReasonCode) - len(r.ReasonCode)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.ReasonReference {
 		s += i.MemSize()
 	}
-	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ReasonReference) - len(r.ReasonReference)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.IsSubpotent != nil {
 		s += r.IsSubpotent.MemSize()
 	}
 	for _, i := range r.SubpotentReason {
 		s += i.MemSize()
 	}
-	s += (cap(r.SubpotentReason) - len(r.SubpotentReason)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.SubpotentReason) - len(r.SubpotentReason)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Education {
 		s += i.MemSize()
 	}
-	s += (cap(r.Education) - len(r.Education)) * int(unsafe.Sizeof(ImmunizationEducation{}))
+	s += (cap(r.Education) - len(r.Education)) * int(reflect.TypeOf(ImmunizationEducation{}).Size())
 	for _, i := range r.ProgramEligibility {
 		s += i.MemSize()
 	}
-	s += (cap(r.ProgramEligibility) - len(r.ProgramEligibility)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.ProgramEligibility) - len(r.ProgramEligibility)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.FundingSource != nil {
 		s += r.FundingSource.MemSize()
 	}
 	for _, i := range r.Reaction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reaction) - len(r.Reaction)) * int(unsafe.Sizeof(ImmunizationReaction{}))
+	s += (cap(r.Reaction) - len(r.Reaction)) * int(reflect.TypeOf(ImmunizationReaction{}).Size())
 	for _, i := range r.ProtocolApplied {
 		s += i.MemSize()
 	}
-	s += (cap(r.ProtocolApplied) - len(r.ProtocolApplied)) * int(unsafe.Sizeof(ImmunizationProtocolApplied{}))
+	s += (cap(r.ProtocolApplied) - len(r.ProtocolApplied)) * int(reflect.TypeOf(ImmunizationProtocolApplied{}).Size())
 	return s
 }
 func (r ImmunizationPerformer) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Function != nil {
 		s += r.Function.MemSize()
 	}
-	s += r.Actor.MemSize() - int(unsafe.Sizeof(r.Actor))
+	s += r.Actor.MemSize() - int(reflect.TypeOf(r.Actor).Size())
 	return s
 }
 func (r ImmunizationEducation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.DocumentType != nil {
 		s += r.DocumentType.MemSize()
 	}
@@ -367,18 +367,18 @@ func (r ImmunizationEducation) MemSize() int {
 	return s
 }
 func (r ImmunizationReaction) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Date != nil {
 		s += r.Date.MemSize()
 	}
@@ -391,18 +391,18 @@ func (r ImmunizationReaction) MemSize() int {
 	return s
 }
 func (r ImmunizationProtocolApplied) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Series != nil {
 		s += r.Series.MemSize()
 	}
@@ -412,7 +412,7 @@ func (r ImmunizationProtocolApplied) MemSize() int {
 	for _, i := range r.TargetDisease {
 		s += i.MemSize()
 	}
-	s += (cap(r.TargetDisease) - len(r.TargetDisease)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.TargetDisease) - len(r.TargetDisease)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.DoseNumber != nil {
 		s += r.DoseNumber.MemSize()
 	}

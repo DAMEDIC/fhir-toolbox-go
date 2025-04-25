@@ -36,7 +36,9 @@ func implementMemSize(f *File, s ir.Struct) {
 				if t.IsNestedResource {
 					g.Id("s").Op("+=").Parens(
 						Cap(Id("r").Dot(f.Name)).Op("-").Len(Id("r").Dot(f.Name)),
-					).Op("*").Add(size(Id("emptyIface")))
+					).Op("*").Add(
+						Int().Call(Qual("reflect", "TypeOf").Call(Id("&emptyIface")).Dot("Elem").Call().Dot("Size").Call()),
+					)
 				} else {
 					g.Id("s").Op("+=").Parens(
 						Cap(Id("r").Dot(f.Name)).Op("-").Len(Id("r").Dot(f.Name)),
@@ -77,5 +79,5 @@ func implementMemSize(f *File, s ir.Struct) {
 }
 
 func size(s *Statement) *Statement {
-	return Int().Call(Qual("unsafe", "Sizeof").Call(s))
+	return Int().Call(Qual("reflect", "TypeOf").Call(s).Dot("Size").Call())
 }

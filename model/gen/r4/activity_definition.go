@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // This resource allows for the definition of some activity to be performed, independent of a particular patient, practitioner, or other performance context.
@@ -200,7 +200,7 @@ func (r ActivityDefinition) ResourceId() (string, bool) {
 }
 func (r ActivityDefinition) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -219,22 +219,22 @@ func (r ActivityDefinition) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Url != nil {
 		s += r.Url.MemSize()
 	}
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Version != nil {
 		s += r.Version.MemSize()
 	}
@@ -247,7 +247,7 @@ func (r ActivityDefinition) MemSize() int {
 	if r.Subtitle != nil {
 		s += r.Subtitle.MemSize()
 	}
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Experimental != nil {
 		s += r.Experimental.MemSize()
 	}
@@ -263,18 +263,18 @@ func (r ActivityDefinition) MemSize() int {
 	for _, i := range r.Contact {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contact) - len(r.Contact)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Contact) - len(r.Contact)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
 	for _, i := range r.UseContext {
 		s += i.MemSize()
 	}
-	s += (cap(r.UseContext) - len(r.UseContext)) * int(unsafe.Sizeof(UsageContext{}))
+	s += (cap(r.UseContext) - len(r.UseContext)) * int(reflect.TypeOf(UsageContext{}).Size())
 	for _, i := range r.Jurisdiction {
 		s += i.MemSize()
 	}
-	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Jurisdiction) - len(r.Jurisdiction)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	if r.Purpose != nil {
 		s += r.Purpose.MemSize()
 	}
@@ -296,31 +296,31 @@ func (r ActivityDefinition) MemSize() int {
 	for _, i := range r.Topic {
 		s += i.MemSize()
 	}
-	s += (cap(r.Topic) - len(r.Topic)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Topic) - len(r.Topic)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Author {
 		s += i.MemSize()
 	}
-	s += (cap(r.Author) - len(r.Author)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Author) - len(r.Author)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Editor {
 		s += i.MemSize()
 	}
-	s += (cap(r.Editor) - len(r.Editor)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Editor) - len(r.Editor)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Reviewer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Reviewer) - len(r.Reviewer)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.Endorser {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endorser) - len(r.Endorser)) * int(unsafe.Sizeof(ContactDetail{}))
+	s += (cap(r.Endorser) - len(r.Endorser)) * int(reflect.TypeOf(ContactDetail{}).Size())
 	for _, i := range r.RelatedArtifact {
 		s += i.MemSize()
 	}
-	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(unsafe.Sizeof(RelatedArtifact{}))
+	s += (cap(r.RelatedArtifact) - len(r.RelatedArtifact)) * int(reflect.TypeOf(RelatedArtifact{}).Size())
 	for _, i := range r.Library {
 		s += i.MemSize()
 	}
-	s += (cap(r.Library) - len(r.Library)) * int(unsafe.Sizeof(Canonical{}))
+	s += (cap(r.Library) - len(r.Library)) * int(reflect.TypeOf(Canonical{}).Size())
 	if r.Kind != nil {
 		s += r.Kind.MemSize()
 	}
@@ -348,7 +348,7 @@ func (r ActivityDefinition) MemSize() int {
 	for _, i := range r.Participant {
 		s += i.MemSize()
 	}
-	s += (cap(r.Participant) - len(r.Participant)) * int(unsafe.Sizeof(ActivityDefinitionParticipant{}))
+	s += (cap(r.Participant) - len(r.Participant)) * int(reflect.TypeOf(ActivityDefinitionParticipant{}).Size())
 	if r.Product != nil {
 		s += r.Product.MemSize()
 	}
@@ -358,66 +358,66 @@ func (r ActivityDefinition) MemSize() int {
 	for _, i := range r.Dosage {
 		s += i.MemSize()
 	}
-	s += (cap(r.Dosage) - len(r.Dosage)) * int(unsafe.Sizeof(Dosage{}))
+	s += (cap(r.Dosage) - len(r.Dosage)) * int(reflect.TypeOf(Dosage{}).Size())
 	for _, i := range r.BodySite {
 		s += i.MemSize()
 	}
-	s += (cap(r.BodySite) - len(r.BodySite)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.BodySite) - len(r.BodySite)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.SpecimenRequirement {
 		s += i.MemSize()
 	}
-	s += (cap(r.SpecimenRequirement) - len(r.SpecimenRequirement)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.SpecimenRequirement) - len(r.SpecimenRequirement)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.ObservationRequirement {
 		s += i.MemSize()
 	}
-	s += (cap(r.ObservationRequirement) - len(r.ObservationRequirement)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ObservationRequirement) - len(r.ObservationRequirement)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.ObservationResultRequirement {
 		s += i.MemSize()
 	}
-	s += (cap(r.ObservationResultRequirement) - len(r.ObservationResultRequirement)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.ObservationResultRequirement) - len(r.ObservationResultRequirement)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.Transform != nil {
 		s += r.Transform.MemSize()
 	}
 	for _, i := range r.DynamicValue {
 		s += i.MemSize()
 	}
-	s += (cap(r.DynamicValue) - len(r.DynamicValue)) * int(unsafe.Sizeof(ActivityDefinitionDynamicValue{}))
+	s += (cap(r.DynamicValue) - len(r.DynamicValue)) * int(reflect.TypeOf(ActivityDefinitionDynamicValue{}).Size())
 	return s
 }
 func (r ActivityDefinitionParticipant) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Type.MemSize() - int(unsafe.Sizeof(r.Type))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Type.MemSize() - int(reflect.TypeOf(r.Type).Size())
 	if r.Role != nil {
 		s += r.Role.MemSize()
 	}
 	return s
 }
 func (r ActivityDefinitionDynamicValue) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Path.MemSize() - int(unsafe.Sizeof(r.Path))
-	s += r.Expression.MemSize() - int(unsafe.Sizeof(r.Expression))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Path.MemSize() - int(reflect.TypeOf(r.Path).Size())
+	s += r.Expression.MemSize() - int(reflect.TypeOf(r.Expression).Size())
 	return s
 }
 func (r ActivityDefinition) String() string {

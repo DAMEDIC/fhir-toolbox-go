@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // A selection of DICOM SOP instances and/or frames within a single Study and Series. This might include additional specifics such as an image region, an Observation UID or a Segmentation Number, allowing linkage to an Observation Resource or transferring this information along with the ImagingStudy Resource.
@@ -167,7 +167,7 @@ func (r ImagingSelection) ResourceId() (string, bool) {
 }
 func (r ImagingSelection) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -186,20 +186,20 @@ func (r ImagingSelection) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
-	s += r.Status.MemSize() - int(unsafe.Sizeof(r.Status))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
+	s += r.Status.MemSize() - int(reflect.TypeOf(r.Status).Size())
 	if r.Subject != nil {
 		s += r.Subject.MemSize()
 	}
@@ -209,27 +209,27 @@ func (r ImagingSelection) MemSize() int {
 	for _, i := range r.Performer {
 		s += i.MemSize()
 	}
-	s += (cap(r.Performer) - len(r.Performer)) * int(unsafe.Sizeof(ImagingSelectionPerformer{}))
+	s += (cap(r.Performer) - len(r.Performer)) * int(reflect.TypeOf(ImagingSelectionPerformer{}).Size())
 	for _, i := range r.BasedOn {
 		s += i.MemSize()
 	}
-	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.BasedOn) - len(r.BasedOn)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Category {
 		s += i.MemSize()
 	}
-	s += (cap(r.Category) - len(r.Category)) * int(unsafe.Sizeof(CodeableConcept{}))
-	s += r.Code.MemSize() - int(unsafe.Sizeof(r.Code))
+	s += (cap(r.Category) - len(r.Category)) * int(reflect.TypeOf(CodeableConcept{}).Size())
+	s += r.Code.MemSize() - int(reflect.TypeOf(r.Code).Size())
 	if r.StudyUid != nil {
 		s += r.StudyUid.MemSize()
 	}
 	for _, i := range r.DerivedFrom {
 		s += i.MemSize()
 	}
-	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.DerivedFrom) - len(r.DerivedFrom)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Endpoint {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(reflect.TypeOf(Reference{}).Size())
 	if r.SeriesUid != nil {
 		s += r.SeriesUid.MemSize()
 	}
@@ -245,26 +245,26 @@ func (r ImagingSelection) MemSize() int {
 	for _, i := range r.Focus {
 		s += i.MemSize()
 	}
-	s += (cap(r.Focus) - len(r.Focus)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Focus) - len(r.Focus)) * int(reflect.TypeOf(Reference{}).Size())
 	for _, i := range r.Instance {
 		s += i.MemSize()
 	}
-	s += (cap(r.Instance) - len(r.Instance)) * int(unsafe.Sizeof(ImagingSelectionInstance{}))
+	s += (cap(r.Instance) - len(r.Instance)) * int(reflect.TypeOf(ImagingSelectionInstance{}).Size())
 	return s
 }
 func (r ImagingSelectionPerformer) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.Function != nil {
 		s += r.Function.MemSize()
 	}
@@ -274,19 +274,19 @@ func (r ImagingSelectionPerformer) MemSize() int {
 	return s
 }
 func (r ImagingSelectionInstance) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Uid.MemSize() - int(unsafe.Sizeof(r.Uid))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Uid.MemSize() - int(reflect.TypeOf(r.Uid).Size())
 	if r.Number != nil {
 		s += r.Number.MemSize()
 	}
@@ -296,55 +296,55 @@ func (r ImagingSelectionInstance) MemSize() int {
 	for _, i := range r.Subset {
 		s += i.MemSize()
 	}
-	s += (cap(r.Subset) - len(r.Subset)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Subset) - len(r.Subset)) * int(reflect.TypeOf(String{}).Size())
 	for _, i := range r.ImageRegion2D {
 		s += i.MemSize()
 	}
-	s += (cap(r.ImageRegion2D) - len(r.ImageRegion2D)) * int(unsafe.Sizeof(ImagingSelectionInstanceImageRegion2D{}))
+	s += (cap(r.ImageRegion2D) - len(r.ImageRegion2D)) * int(reflect.TypeOf(ImagingSelectionInstanceImageRegion2D{}).Size())
 	for _, i := range r.ImageRegion3D {
 		s += i.MemSize()
 	}
-	s += (cap(r.ImageRegion3D) - len(r.ImageRegion3D)) * int(unsafe.Sizeof(ImagingSelectionInstanceImageRegion3D{}))
+	s += (cap(r.ImageRegion3D) - len(r.ImageRegion3D)) * int(reflect.TypeOf(ImagingSelectionInstanceImageRegion3D{}).Size())
 	return s
 }
 func (r ImagingSelectionInstanceImageRegion2D) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.RegionType.MemSize() - int(unsafe.Sizeof(r.RegionType))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.RegionType.MemSize() - int(reflect.TypeOf(r.RegionType).Size())
 	for _, i := range r.Coordinate {
 		s += i.MemSize()
 	}
-	s += (cap(r.Coordinate) - len(r.Coordinate)) * int(unsafe.Sizeof(Decimal{}))
+	s += (cap(r.Coordinate) - len(r.Coordinate)) * int(reflect.TypeOf(Decimal{}).Size())
 	return s
 }
 func (r ImagingSelectionInstanceImageRegion3D) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.RegionType.MemSize() - int(unsafe.Sizeof(r.RegionType))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.RegionType.MemSize() - int(reflect.TypeOf(r.RegionType).Size())
 	for _, i := range r.Coordinate {
 		s += i.MemSize()
 	}
-	s += (cap(r.Coordinate) - len(r.Coordinate)) * int(unsafe.Sizeof(Decimal{}))
+	s += (cap(r.Coordinate) - len(r.Coordinate)) * int(reflect.TypeOf(Decimal{}).Size())
 	return s
 }
 func (r ImagingSelection) String() string {

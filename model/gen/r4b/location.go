@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // Details and position information for a physical place where services are provided and resources and participants may be stored, found, contained, or accommodated.
@@ -121,7 +121,7 @@ func (r Location) ResourceId() (string, bool) {
 }
 func (r Location) MemSize() int {
 	var emptyIface any
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
 		s += r.Id.MemSize()
 	}
@@ -140,19 +140,19 @@ func (r Location) MemSize() int {
 	for _, i := range r.Contained {
 		s += i.MemSize()
 	}
-	s += (cap(r.Contained) - len(r.Contained)) * int(unsafe.Sizeof(emptyIface))
+	s += (cap(r.Contained) - len(r.Contained)) * int(reflect.TypeOf(&emptyIface).Elem().Size())
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.Identifier {
 		s += i.MemSize()
 	}
-	s += (cap(r.Identifier) - len(r.Identifier)) * int(unsafe.Sizeof(Identifier{}))
+	s += (cap(r.Identifier) - len(r.Identifier)) * int(reflect.TypeOf(Identifier{}).Size())
 	if r.Status != nil {
 		s += r.Status.MemSize()
 	}
@@ -165,7 +165,7 @@ func (r Location) MemSize() int {
 	for _, i := range r.Alias {
 		s += i.MemSize()
 	}
-	s += (cap(r.Alias) - len(r.Alias)) * int(unsafe.Sizeof(String{}))
+	s += (cap(r.Alias) - len(r.Alias)) * int(reflect.TypeOf(String{}).Size())
 	if r.Description != nil {
 		s += r.Description.MemSize()
 	}
@@ -175,11 +175,11 @@ func (r Location) MemSize() int {
 	for _, i := range r.Type {
 		s += i.MemSize()
 	}
-	s += (cap(r.Type) - len(r.Type)) * int(unsafe.Sizeof(CodeableConcept{}))
+	s += (cap(r.Type) - len(r.Type)) * int(reflect.TypeOf(CodeableConcept{}).Size())
 	for _, i := range r.Telecom {
 		s += i.MemSize()
 	}
-	s += (cap(r.Telecom) - len(r.Telecom)) * int(unsafe.Sizeof(ContactPoint{}))
+	s += (cap(r.Telecom) - len(r.Telecom)) * int(reflect.TypeOf(ContactPoint{}).Size())
 	if r.Address != nil {
 		s += r.Address.MemSize()
 	}
@@ -198,53 +198,53 @@ func (r Location) MemSize() int {
 	for _, i := range r.HoursOfOperation {
 		s += i.MemSize()
 	}
-	s += (cap(r.HoursOfOperation) - len(r.HoursOfOperation)) * int(unsafe.Sizeof(LocationHoursOfOperation{}))
+	s += (cap(r.HoursOfOperation) - len(r.HoursOfOperation)) * int(reflect.TypeOf(LocationHoursOfOperation{}).Size())
 	if r.AvailabilityExceptions != nil {
 		s += r.AvailabilityExceptions.MemSize()
 	}
 	for _, i := range r.Endpoint {
 		s += i.MemSize()
 	}
-	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(unsafe.Sizeof(Reference{}))
+	s += (cap(r.Endpoint) - len(r.Endpoint)) * int(reflect.TypeOf(Reference{}).Size())
 	return s
 }
 func (r LocationPosition) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
-	s += r.Longitude.MemSize() - int(unsafe.Sizeof(r.Longitude))
-	s += r.Latitude.MemSize() - int(unsafe.Sizeof(r.Latitude))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
+	s += r.Longitude.MemSize() - int(reflect.TypeOf(r.Longitude).Size())
+	s += r.Latitude.MemSize() - int(reflect.TypeOf(r.Latitude).Size())
 	if r.Altitude != nil {
 		s += r.Altitude.MemSize()
 	}
 	return s
 }
 func (r LocationHoursOfOperation) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.ModifierExtension {
 		s += i.MemSize()
 	}
-	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.ModifierExtension) - len(r.ModifierExtension)) * int(reflect.TypeOf(Extension{}).Size())
 	for _, i := range r.DaysOfWeek {
 		s += i.MemSize()
 	}
-	s += (cap(r.DaysOfWeek) - len(r.DaysOfWeek)) * int(unsafe.Sizeof(Code{}))
+	s += (cap(r.DaysOfWeek) - len(r.DaysOfWeek)) * int(reflect.TypeOf(Code{}).Size())
 	if r.AllDay != nil {
 		s += r.AllDay.MemSize()
 	}

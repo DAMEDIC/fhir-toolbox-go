@@ -9,8 +9,8 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
+	"reflect"
 	"slices"
-	"unsafe"
 )
 
 // VirtualServiceDetail Type: Virtual Service Contact Details.
@@ -40,14 +40,14 @@ func (r String) isVirtualServiceDetailAddress()                {}
 func (r ContactPoint) isVirtualServiceDetailAddress()          {}
 func (r ExtendedContactDetail) isVirtualServiceDetailAddress() {}
 func (r VirtualServiceDetail) MemSize() int {
-	s := int(unsafe.Sizeof(r))
+	s := int(reflect.TypeOf(r).Size())
 	if r.Id != nil {
-		s += len(*r.Id) + int(unsafe.Sizeof(*r.Id))
+		s += len(*r.Id) + int(reflect.TypeOf(*r.Id).Size())
 	}
 	for _, i := range r.Extension {
 		s += i.MemSize()
 	}
-	s += (cap(r.Extension) - len(r.Extension)) * int(unsafe.Sizeof(Extension{}))
+	s += (cap(r.Extension) - len(r.Extension)) * int(reflect.TypeOf(Extension{}).Size())
 	if r.ChannelType != nil {
 		s += r.ChannelType.MemSize()
 	}
@@ -57,7 +57,7 @@ func (r VirtualServiceDetail) MemSize() int {
 	for _, i := range r.AdditionalInfo {
 		s += i.MemSize()
 	}
-	s += (cap(r.AdditionalInfo) - len(r.AdditionalInfo)) * int(unsafe.Sizeof(Url{}))
+	s += (cap(r.AdditionalInfo) - len(r.AdditionalInfo)) * int(reflect.TypeOf(Url{}).Size())
 	if r.MaxParticipants != nil {
 		s += r.MaxParticipants.MemSize()
 	}
