@@ -57,5 +57,6 @@ type GenericAPI interface {
 	GenericCreate
 	GenericRead
 	GenericUpdate
+	GenericDelete
 	GenericSearch
 }

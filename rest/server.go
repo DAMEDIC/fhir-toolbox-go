@@ -6,6 +6,7 @@
 //   - read
 //   - create
 //   - update
+//   - delete
 //   - search (parameters are passed down to the supplied backend implementation)
 //
 // # Base URL and routes
@@ -21,6 +22,7 @@
 //   - create: "POST /{type}"
 //   - read: "GET /{type}/{id}"
 //   - update: "PUT /{type}/{id}"
+//   - delete: "DELETE /{type}/{id}"
 //   - search: "GET /{type}"
 //
 // If you do not want your FHIR handlers installed at the root, use something like
@@ -87,6 +89,7 @@ func registerRoutes[R model.Release](
 	mux.Handle("POST /{type}", createHandler[R](backend, config))
 	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
 	mux.Handle("PUT /{type}/{id}", updateHandler[R](backend, config))
+	mux.Handle("DELETE /{type}/{id}", deleteHandler[R](backend, config))
 	mux.Handle("GET /{type}", searchHandler[R](backend, config, config.Timezone))
 
 	return nil
@@ -301,6 +304,43 @@ func dispatchUpdate[R model.Release](
 	}
 
 	return result, nil
+}
+
+func deleteHandler[R model.Release](
+	anyBackend any,
+	config Config,
+) http.Handler {
+	backend, implemented := anyBackend.(capabilities.GenericDelete)
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
+		resourceType := r.PathValue("type")
+		resourceID := r.PathValue("id")
+
+		if !implemented {
+			slog.Error("interaction not implemented by backend", "interaction", "delete")
+			returnErr[R](w, responseFormat, notImplementedError("delete"))
+			return
+		}
+
+		err := dispatchDelete(r.Context(), backend, resourceType, resourceID)
+		if err != nil {
+			slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID)
+			returnErr[R](w, responseFormat, err)
+			return
+		}
+
+		w.WriteHeader(http.StatusNoContent)
+	})
+}
+
+func dispatchDelete(
+	ctx context.Context,
+	backend capabilities.GenericDelete,
+	resourceType string,
+	resourceID string,
+) error {
+	return backend.Delete(ctx, resourceType, resourceID)
 }
 
 func searchHandler[R model.Release](

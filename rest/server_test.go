@@ -855,6 +855,148 @@ func TestHandleUpdate(t *testing.T) {
 	}
 }
 
+func TestHandleDelete(t *testing.T) {
+	var tests = []struct {
+		name           string
+		format         string
+		resourceType   string
+		resourceID     string
+		backend        any
+		expectedStatus int
+		expectedBody   string
+	}{
+		{
+			name:           "successful delete",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{},
+			expectedStatus: http.StatusNoContent,
+			expectedBody:   "",
+		},
+		{
+			name:           "successful delete with XML format",
+			format:         "application/fhir+xml",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{},
+			expectedStatus: http.StatusNoContent,
+			expectedBody:   "",
+		},
+		{
+			name:           "not implemented",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        struct{}{},
+			expectedStatus: http.StatusNotImplemented,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "not-supported",
+						"diagnostics": "delete not implemented for Patient"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "resource not found",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "nonexistent",
+			backend:        mockBackend{deleteErrorMode: "not-found"},
+			expectedStatus: http.StatusNotFound,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "error",
+						"code": "not-found",
+						"diagnostics": "Patient with ID nonexistent not found"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "invalid resource type",
+			format:         "application/fhir+json",
+			resourceType:   "UnknownType",
+			resourceID:     "1",
+			backend:        mockBackend{deleteErrorMode: "invalid-type"},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "error",
+						"code": "invalid",
+						"diagnostics": "invalid resource type: UnknownType"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "server error",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{deleteErrorMode: "server-error"},
+			expectedStatus: http.StatusInternalServerError,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "error",
+						"code": "exception",
+						"diagnostics": "internal server error"
+					}
+				]
+			}`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			config := rest.DefaultConfig
+			config.Base, _ = url.Parse("http://example.com")
+
+			server, err := rest.NewServer[model.R4](tt.backend, config)
+			if err != nil {
+				t.Fatalf("Failed to create server: %v", err)
+			}
+
+			requestURL := fmt.Sprintf("http://example.com/%s/%s", tt.resourceType, tt.resourceID)
+			req := httptest.NewRequest("DELETE", requestURL, nil)
+			req.Header.Set("Accept", tt.format)
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if rr.Code != tt.expectedStatus {
+				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
+			}
+
+			if tt.expectedBody != "" {
+				if strings.Contains(tt.format, "json") {
+					contentType := rr.Header().Get("Content-Type")
+					if contentType != "application/fhir+json" {
+						t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
+					}
+					assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
+				} else if strings.Contains(tt.format, "xml") {
+					contentType := rr.Header().Get("Content-Type")
+					if contentType != "application/fhir+xml" {
+						t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
+					}
+					assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
+				}
+			}
+		})
+	}
+}
+
 func TestHandleSearch(t *testing.T) {
 	var tests = []struct {
 		name           string
@@ -1395,6 +1537,8 @@ type mockBackend struct {
 	mockPatients            []r4.Patient
 	mockObservations        []r4.Observation
 	mockObservationIncludes []model.Resource
+	// Error behavior control
+	deleteErrorMode string // Can be "not-found", "invalid-type", "server-error", or empty for success
 }
 
 func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, error) {
@@ -1489,4 +1633,42 @@ func (m mockBackend) SearchObservation(ctx context.Context, options search.Optio
 	}
 
 	return result, nil
+}
+
+// Implement GenericDelete interface
+func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error {
+	switch m.deleteErrorMode {
+	case "not-found":
+		return basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("not-found")},
+					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
+				},
+			},
+		}
+	case "invalid-type":
+		return basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("invalid")},
+					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("invalid resource type: %s", resourceType))},
+				},
+			},
+		}
+	case "server-error":
+		return basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &basic.String{Value: utils.Ptr("internal server error")},
+				},
+			},
+		}
+	default:
+		return nil
+	}
 }
