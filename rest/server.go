@@ -80,12 +80,7 @@ func registerRoutes[R model.Release](
 	backend capabilities.GenericCapabilities,
 	config Config,
 ) error {
-	date, _, err := search.ParseDate(config.Date, config.Timezone)
-	if err != nil {
-		return fmt.Errorf("error parsing date '%s': %w", config.Date, err)
-	}
-
-	mux.Handle("GET /metadata", metadataHandler[R](backend, config, date))
+	mux.Handle("GET /metadata", metadataHandler[R](backend, config, config.Date))
 	mux.Handle("POST /{type}", createHandler[R](backend, config))
 	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
 	mux.Handle("PUT /{type}/{id}", updateHandler[R](backend, config))
@@ -125,9 +120,7 @@ func createHandler[R model.Release](
 		responseFormat := detectFormat(r, "Accept", requestFormat)
 		resourceType := r.PathValue("type")
 
-		if !implemented {
-			slog.Error("interaction not implemented by backend", "interaction", "create")
-			returnErr[R](w, responseFormat, notImplementedError("create"))
+		if !checkInteractionImplemented[R](implemented, "create", w, responseFormat) {
 			return
 		}
 
@@ -149,19 +142,10 @@ func createHandler[R model.Release](
 func dispatchCreate[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericCreate,
-	requestFormat format,
+	requestFormat Format,
 	resourceType string,
 ) (model.Resource, error) {
-	var resource model.Resource
-	var err error
-
-	switch requestFormat {
-	case formatJSON:
-		resource, err = decodeResourceJSON[R](r)
-	case formatXML:
-		resource, err = decodeResourceXML[R](r)
-	}
-
+	resource, err := decodeResource[R](r, requestFormat)
 	if err != nil {
 		return nil, err
 	}
@@ -189,9 +173,7 @@ func readHandler[R model.Release](
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
-		if !implemented {
-			slog.Error("interaction not implemented by backend", "interaction", "read")
-			returnErr[R](w, responseFormat, notImplementedError("read"))
+		if !checkInteractionImplemented[R](implemented, "read", w, responseFormat) {
 			return
 		}
 
@@ -231,9 +213,7 @@ func updateHandler[R model.Release](
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
-		if !implemented {
-			slog.Error("interaction not implemented by backend", "interaction", "update")
-			returnErr[R](w, responseFormat, notImplementedError("update"))
+		if !checkInteractionImplemented[R](implemented, "update", w, responseFormat) {
 			return
 		}
 
@@ -260,20 +240,11 @@ func updateHandler[R model.Release](
 func dispatchUpdate[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericUpdate,
-	requestFormat format,
+	requestFormat Format,
 	resourceType string,
 	resourceID string,
 ) (capabilities.UpdateResult[model.Resource], error) {
-	var resource model.Resource
-	var err error
-
-	switch requestFormat {
-	case formatJSON:
-		resource, err = decodeResourceJSON[R](r)
-	case formatXML:
-		resource, err = decodeResourceXML[R](r)
-	}
-
+	resource, err := decodeResource[R](r, requestFormat)
 	if err != nil {
 		return capabilities.UpdateResult[model.Resource]{}, err
 	}
@@ -285,17 +256,11 @@ func dispatchUpdate[R model.Release](
 	// Verify that the resource ID in the URL matches the resource ID in the body
 	id, ok := resource.ResourceId()
 	if !ok || id != resourceID {
-		return capabilities.UpdateResult[model.Resource]{}, basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity: basic.Code{Value: utils.Ptr("fatal")},
-					Code:     basic.Code{Value: utils.Ptr("processing")},
-					Diagnostics: &basic.String{Value: utils.Ptr(
-						fmt.Sprintf("resource ID in URL (%s) does not match resource ID in body (%s)", resourceID, id),
-					)},
-				},
-			},
-		}
+		return capabilities.UpdateResult[model.Resource]{}, createOperationOutcome(
+			"fatal",
+			"processing",
+			fmt.Sprintf("resource ID in URL (%s) does not match resource ID in body (%s)", resourceID, id),
+		)
 	}
 
 	result, err := backend.Update(r.Context(), resource)
@@ -317,9 +282,7 @@ func deleteHandler[R model.Release](
 		resourceType := r.PathValue("type")
 		resourceID := r.PathValue("id")
 
-		if !implemented {
-			slog.Error("interaction not implemented by backend", "interaction", "delete")
-			returnErr[R](w, responseFormat, notImplementedError("delete"))
+		if !checkInteractionImplemented[R](implemented, "delete", w, responseFormat) {
 			return
 		}
 
@@ -354,9 +317,7 @@ func searchHandler[R model.Release](
 		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 		resourceType := r.PathValue("type")
 
-		if !implemented {
-			slog.Error("interaction not implemented by backend", "interaction", "search-type")
-			returnErr[R](w, responseFormat, notImplementedError("search-type"))
+		if !checkInteractionImplemented[R](implemented, "search-type", w, responseFormat) {
 			return
 		}
 
@@ -423,17 +384,17 @@ func parseSearchOptions(
 	return options, nil
 }
 
-func returnErr[R model.Release](w http.ResponseWriter, format format, err error) {
+func returnErr[R model.Release](w http.ResponseWriter, format Format, err error) {
 	status, oo := outcome.ErrorToOperationOutcome[R](err)
 	returnResult(w, format, status, oo)
 }
 
-func returnResult[T any](w http.ResponseWriter, format format, status int, r T) {
+func returnResult[T any](w http.ResponseWriter, format Format, status int, r T) {
 	var err error
 	switch format {
-	case formatJSON:
+	case FormatJSON:
 		err = encodeJSON(w, status, r)
-	case formatXML:
+	case FormatXML:
 		err = encodeXML(w, status, r)
 	}
 	if err != nil {
@@ -442,42 +403,48 @@ func returnResult[T any](w http.ResponseWriter, format format, status int, r T) 
 	}
 }
 
-func notImplementedError(interaction string) error {
+func createOperationOutcome(severity, code, diagnostics string) basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("not-supported")},
-				Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("%s interaction not implemented", interaction))},
+				Severity:    basic.Code{Value: utils.Ptr(severity)},
+				Code:        basic.Code{Value: utils.Ptr(code)},
+				Diagnostics: &basic.String{Value: utils.Ptr(diagnostics)},
 			},
 		},
 	}
 }
 
-func unexpectedResourceError(
-	expectedType string,
-	gotType string,
-) basic.OperationOutcome {
-	return basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{
-				Severity: basic.Code{Value: utils.Ptr("fatal")},
-				Code:     basic.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &basic.String{Value: utils.Ptr(
-					fmt.Sprintf("unexpected resource: expected %s, got %s", expectedType, gotType),
-				)},
-			},
-		},
+func checkInteractionImplemented[R model.Release](
+	implemented bool,
+	interaction string,
+	w http.ResponseWriter,
+	format Format,
+) bool {
+	if !implemented {
+		slog.Error("interaction not implemented by backend", "interaction", interaction)
+		returnErr[R](w, format, notImplementedError(interaction))
+		return false
 	}
+	return true
 }
+
+func notImplementedError(interaction string) error {
+	return createOperationOutcome(
+		"fatal",
+		"not-supported",
+		fmt.Sprintf("%s interaction not implemented", interaction),
+	)
+}
+
+func unexpectedResourceError(expectedType string, gotType string) basic.OperationOutcome {
+	return createOperationOutcome(
+		"fatal",
+		"processing",
+		fmt.Sprintf("unexpected resource: expected %s, got %s", expectedType, gotType),
+	)
+}
+
 func searchError(msg string) basic.OperationOutcome {
-	return basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{
-				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &basic.String{Value: &msg},
-			},
-		},
-	}
+	return createOperationOutcome("fatal", "processing", msg)
 }

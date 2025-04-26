@@ -16,7 +16,100 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 )
+
+// testCase represents a common structure for HTTP handler tests
+type testCase struct {
+	name             string
+	method           string
+	format           string
+	resourceType     string
+	resourceID       string
+	queryString      string
+	requestBody      string
+	backend          any
+	expectedStatus   int
+	expectedLocation string
+	expectedBody     string
+}
+
+// runTest executes a common test pattern for HTTP handlers
+func runTest(t *testing.T, tc testCase) {
+	config := rest.DefaultConfig
+	config.Base, _ = url.Parse("http://example.com")
+
+	server, err := rest.NewServer[model.R4](tc.backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	var requestURL string
+	if tc.queryString != "" {
+		// For search requests
+		requestURL = fmt.Sprintf("http://example.com/%s?%s", tc.resourceType, tc.queryString)
+	} else if tc.resourceID != "" {
+		// For resource-specific requests
+		requestURL = fmt.Sprintf("http://example.com/%s/%s", tc.resourceType, tc.resourceID)
+	} else {
+		// For resource type-level requests
+		requestURL = fmt.Sprintf("http://example.com/%s", tc.resourceType)
+	}
+
+	var req *http.Request
+	if tc.requestBody != "" {
+		req = httptest.NewRequest(tc.method, requestURL, strings.NewReader(tc.requestBody))
+		req.Header.Set("Content-Type", tc.format)
+	} else {
+		req = httptest.NewRequest(tc.method, requestURL, nil)
+		if tc.format != "" {
+			req.Header.Set("Accept", tc.format)
+		}
+	}
+
+	// For search requests, add the test to the context
+	if tc.queryString != "" {
+		req = req.WithContext(context.WithValue(req.Context(), "t", t))
+	}
+
+	rr := httptest.NewRecorder()
+	server.ServeHTTP(rr, req)
+
+	if rr.Code != tc.expectedStatus {
+		t.Errorf("Expected status code %d, got %d", tc.expectedStatus, rr.Code)
+	}
+
+	// Check Location header for successful creation or update
+	if tc.expectedLocation != "" {
+		location := rr.Header().Get("Location")
+		if location != tc.expectedLocation {
+			t.Errorf("Expected Location header %s, got %s", tc.expectedLocation, location)
+		}
+	}
+
+	// Skip content type and body checks if expected body is empty
+	if tc.expectedBody == "" {
+		return
+	}
+
+	assertResponse(t, tc.format, tc.expectedBody, rr)
+}
+
+func assertResponse(t *testing.T, format, expectedBody string, rr *httptest.ResponseRecorder) {
+	if strings.Contains(format, "json") {
+		contentType := rr.Header().Get("Content-Type")
+		if contentType != "application/fhir+json" {
+			t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
+		}
+		assert.JSONEqual(t, expectedBody, rr.Body.String())
+	} else if strings.Contains(format, "xml") {
+		contentType := rr.Header().Get("Content-Type")
+		if contentType != "application/fhir+xml" {
+			t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
+		}
+		assert.XMLEqual(t, expectedBody, rr.Body.String())
+	}
+}
 
 func TestCapabilityStatement(t *testing.T) {
 	var tests = []struct {
@@ -244,7 +337,12 @@ func TestCapabilityStatement(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
 			config.Base, _ = url.Parse("http://example.com")
-			config.Date = tt.date
+
+			parsedDate, err := time.Parse(time.RFC3339, tt.date)
+			if err != nil {
+				t.Fatalf("Failed to parse date: %v", err)
+			}
+			config.Date = parsedDate
 
 			server, err := rest.NewServer[model.R4](mockBackend{}, config)
 			if err != nil {
@@ -261,34 +359,13 @@ func TestCapabilityStatement(t *testing.T) {
 				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
 			}
 
-			if strings.Contains(tt.format, "json") {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+json" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-				}
-				assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
-			} else {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+xml" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
-				}
-				assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
-			}
+			assertResponse(t, tt.format, tt.expectedBody, rr)
 		})
 	}
 }
 
 func TestHandleCreate(t *testing.T) {
-	var tests = []struct {
-		name             string
-		format           string
-		resourceType     string
-		requestBody      string
-		backend          any
-		expectedStatus   int
-		expectedLocation string
-		expectedBody     string
-	}{
+	var tests = []testCase{
 		{
 			name:             "server assigned id",
 			format:           "application/fhir+json",
@@ -409,60 +486,14 @@ func TestHandleCreate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			server, err := rest.NewServer[model.R4](tt.backend, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
-			}
-
-			requestURL := fmt.Sprintf("http://example.com/%s", tt.resourceType)
-			req := httptest.NewRequest("POST", requestURL, strings.NewReader(tt.requestBody))
-			req.Header.Set("Content-Type", tt.format)
-
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
-
-			if rr.Code != tt.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
-			}
-
-			// Check Location header for successful creation
-			if tt.expectedStatus == http.StatusCreated {
-				location := rr.Header().Get("Location")
-				if location != tt.expectedLocation {
-					t.Errorf("Expected Location header %s, got %s", tt.expectedLocation, location)
-				}
-			}
-
-			if strings.Contains(tt.format, "json") {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+json" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-				}
-				assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
-			} else {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+xml" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
-				}
-				assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
-			}
+			tt.method = "POST"
+			runTest(t, tt)
 		})
 	}
 }
 
 func TestHandleRead(t *testing.T) {
-	var tests = []struct {
-		name           string
-		format         string
-		resourceType   string
-		resourceID     string
-		backend        any
-		expectedStatus int
-		expectedBody   string
-	}{
+	var tests = []testCase{
 		{
 			name:           "valid JSON resource",
 			format:         "application/fhir+json",
@@ -617,54 +648,14 @@ func TestHandleRead(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			server, err := rest.NewServer[model.R4](tt.backend, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
-			}
-
-			requestURL := fmt.Sprintf("http://example.com/%s/%s", tt.resourceType, tt.resourceID)
-			req := httptest.NewRequest("GET", requestURL, nil)
-			req.Header.Set("Accept", tt.format)
-
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
-
-			if rr.Code != tt.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
-			}
-
-			if strings.Contains(tt.format, "json") {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+json" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-				}
-				assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
-			} else {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+xml" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
-				}
-				assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
-			}
+			tt.method = "GET"
+			runTest(t, tt)
 		})
 	}
 }
 
 func TestHandleUpdate(t *testing.T) {
-	var tests = []struct {
-		name             string
-		format           string
-		resourceType     string
-		resourceID       string
-		requestBody      string
-		backend          any
-		expectedStatus   int
-		expectedLocation string
-		expectedBody     string
-	}{
+	var tests = []testCase{
 		{
 			name:             "successful update",
 			format:           "application/fhir+json",
@@ -811,60 +802,14 @@ func TestHandleUpdate(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			server, err := rest.NewServer[model.R4](tt.backend, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
-			}
-
-			requestURL := fmt.Sprintf("http://example.com/%s/%s", tt.resourceType, tt.resourceID)
-			req := httptest.NewRequest("PUT", requestURL, strings.NewReader(tt.requestBody))
-			req.Header.Set("Content-Type", tt.format)
-
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
-
-			if rr.Code != tt.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
-			}
-
-			// Check Location header for successful update or creation
-			if tt.expectedStatus == http.StatusOK || tt.expectedStatus == http.StatusCreated {
-				location := rr.Header().Get("Location")
-				if location != tt.expectedLocation {
-					t.Errorf("Expected Location header %s, got %s", tt.expectedLocation, location)
-				}
-			}
-
-			if strings.Contains(tt.format, "json") {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+json" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-				}
-				assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
-			} else {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+xml" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
-				}
-				assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
-			}
+			tt.method = "PUT"
+			runTest(t, tt)
 		})
 	}
 }
 
 func TestHandleDelete(t *testing.T) {
-	var tests = []struct {
-		name           string
-		format         string
-		resourceType   string
-		resourceID     string
-		backend        any
-		expectedStatus int
-		expectedBody   string
-	}{
+	var tests = []testCase{
 		{
 			name:           "successful delete",
 			format:         "application/fhir+json",
@@ -959,55 +904,17 @@ func TestHandleDelete(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			server, err := rest.NewServer[model.R4](tt.backend, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
-			}
-
-			requestURL := fmt.Sprintf("http://example.com/%s/%s", tt.resourceType, tt.resourceID)
-			req := httptest.NewRequest("DELETE", requestURL, nil)
-			req.Header.Set("Accept", tt.format)
-
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
-
-			if rr.Code != tt.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
-			}
-
-			if tt.expectedBody != "" {
-				if strings.Contains(tt.format, "json") {
-					contentType := rr.Header().Get("Content-Type")
-					if contentType != "application/fhir+json" {
-						t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-					}
-					assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
-				} else if strings.Contains(tt.format, "xml") {
-					contentType := rr.Header().Get("Content-Type")
-					if contentType != "application/fhir+xml" {
-						t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
-					}
-					assert.XMLEqual(t, tt.expectedBody, rr.Body.String())
-				}
-			}
+			tt.method = "DELETE"
+			runTest(t, tt)
 		})
 	}
 }
 
 func TestHandleSearch(t *testing.T) {
-	var tests = []struct {
-		name           string
-		resourceType   string
-		queryString    string
-		backend        any
-		expectedStatus int
-		expectedBody   string
-	}{
+	var tests = []testCase{
 		{
 			name:         "valid bundle single entry",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1",
 			backend: mockBackend{
@@ -1041,6 +948,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle two entries with or parameter",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1,2",
 			backend: mockBackend{
@@ -1085,6 +993,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle two entries with and parameter",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1&_id=2",
 			backend: mockBackend{
@@ -1129,6 +1038,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle with unknown parameter",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1&unknown=x",
 			backend: mockBackend{
@@ -1162,6 +1072,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle with include parameter",
+			format:       "application/fhir+json",
 			resourceType: "Observation",
 			queryString:  "_include=Observation:patient&_id=1",
 			backend: mockBackend{
@@ -1210,6 +1121,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:           "invalid ResourceType",
+			format:         "application/fhir+json",
 			resourceType:   "UnknownType",
 			queryString:    "_id=1",
 			backend:        mockBackend{},
@@ -1227,6 +1139,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with prefix",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=ge1&date=ge2024-06-03",
 			backend: mockBackend{
@@ -1260,6 +1173,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with all supported prefixes",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "eq1=eq1&ne2=ne2&gt3=gt3&lt4=lt4&ge5=ge5&le6=le6&sa7=sa7&eb8=eb8",
 			backend: mockBackend{
@@ -1293,6 +1207,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search date up to minute",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53Z",
 			backend: mockBackend{
@@ -1326,6 +1241,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search date up to second",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53:23Z",
 			backend: mockBackend{
@@ -1359,6 +1275,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search date full precision and timezone",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53:24.444%2b02:00",
 			backend: mockBackend{
@@ -1392,6 +1309,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with count and cursor",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_count=1&_cursor=2",
 			backend: mockBackend{
@@ -1425,6 +1343,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with next link",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_count=1",
 			backend: mockBackend{
@@ -1463,6 +1382,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with modifier",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_count=1&pre:above=x",
 			backend: mockBackend{
@@ -1503,31 +1423,8 @@ func TestHandleSearch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			server, err := rest.NewServer[model.R4](tt.backend, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
-			}
-
-			requestURL := fmt.Sprintf("http://example.com/%s?%s", tt.resourceType, tt.queryString)
-			req := httptest.NewRequest("GET", requestURL, nil)
-			req = req.WithContext(context.WithValue(req.Context(), "t", t))
-
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
-
-			if rr.Code != tt.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
-			}
-
-			contentType := rr.Header().Get("Content-Type")
-			if contentType != "application/fhir+json" {
-				t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-			}
-
-			assert.JSONEqual(t, tt.expectedBody, rr.Body.String())
+			tt.method = "GET"
+			runTest(t, tt)
 		})
 	}
 }

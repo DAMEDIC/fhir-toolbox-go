@@ -14,11 +14,11 @@ import (
 	"slices"
 )
 
-type format string
+type Format string
 
 const (
-	formatJSON format = "application/fhir+json"
-	formatXML  format = "application/fhir+xml"
+	FormatJSON Format = "application/fhir+json"
+	FormatXML  Format = "application/fhir+xml"
 )
 
 var (
@@ -26,7 +26,7 @@ var (
 	alternateFormatsXML  = []string{"application/xml", "text/xml", "xml"}
 )
 
-func detectFormat(r *http.Request, headerName string, defaultFormat format) format {
+func detectFormat(r *http.Request, headerName string, defaultFormat Format) Format {
 	// url parameter overrides the Accept header
 	formatQuery := r.URL.Query()["_format"]
 	if len(formatQuery) > 0 {
@@ -45,12 +45,12 @@ func detectFormat(r *http.Request, headerName string, defaultFormat format) form
 	return defaultFormat
 }
 
-func matchFormat(requested string) format {
+func matchFormat(requested string) Format {
 	switch {
-	case requested == string(formatJSON) || slices.Contains(alternateFormatsJSON, requested):
-		return formatJSON
-	case requested == string(formatXML) || slices.Contains(alternateFormatsXML, requested):
-		return formatXML
+	case requested == string(FormatJSON) || slices.Contains(alternateFormatsJSON, requested):
+		return FormatJSON
+	case requested == string(FormatXML) || slices.Contains(alternateFormatsXML, requested):
+		return FormatXML
 	}
 	return ""
 }
@@ -65,6 +65,23 @@ func decodingError(encoding string) basic.OperationOutcome {
 			},
 		},
 	}
+}
+
+func decodeResource[R model.Release](
+	r *http.Request,
+	requestFormat Format,
+) (model.Resource, error) {
+	var resource model.Resource
+	var err error
+
+	switch requestFormat {
+	case FormatJSON:
+		resource, err = decodeResourceJSON[R](r)
+	case FormatXML:
+		resource, err = decodeResourceXML[R](r)
+	}
+
+	return resource, err
 }
 
 func encodeJSON[T any](w http.ResponseWriter, status int, v T) error {
