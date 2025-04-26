@@ -40,9 +40,14 @@ import (
 
 // Capabilities is a description of all capabilities that an implementation provides.
 type Capabilities struct {
+	// CreateInteractions is a list of supported resources.
 	CreateInteractions []string
-	ReadInteractions   []string
+	// ReadInteractions is a list of supported resources.
+	ReadInteractions []string
+	// UpdateInteractions is a list of supported resources.
 	UpdateInteractions []string
+	// DeleteInteractions is a list of supported resources.
 	DeleteInteractions []string
+	// SearchCapabilities is a map of supported resources to supported search operations.
 	SearchCapabilities map[string]search.Capabilities
 }

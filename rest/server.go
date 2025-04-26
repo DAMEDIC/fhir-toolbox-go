@@ -4,6 +4,8 @@
 //
 // Following interactions are currently supported:
 //   - read
+//   - create
+//   - update
 //   - search (parameters are passed down to the supplied backend implementation)
 //
 // # Base URL and routes
@@ -16,8 +18,10 @@
 //
 // Currently, installed patterns are:
 //   - capabilities: "GET /metadata"
+//   - create: "POST /{type}"
 //   - read: "GET /{type}/{id}"
-//   - search: "GET /{type}/"
+//   - update: "PUT /{type}/{id}"
+//   - search: "GET /{type}"
 //
 // If you do not want your FHIR handlers installed at the root, use something like
 //
@@ -82,6 +86,7 @@ func registerRoutes[R model.Release](
 	mux.Handle("GET /metadata", metadataHandler[R](backend, config, date))
 	mux.Handle("POST /{type}", createHandler[R](backend, config))
 	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
+	mux.Handle("PUT /{type}/{id}", updateHandler[R](backend, config))
 	mux.Handle("GET /{type}", searchHandler[R](backend, config, config.Timezone))
 
 	return nil
@@ -136,10 +141,6 @@ func createHandler[R model.Release](
 
 		returnResult(w, responseFormat, http.StatusCreated, resource)
 	})
-}
-
-type wrongRequestBodyError struct {
-	ResourceType string
 }
 
 func dispatchCreate[R model.Release](
@@ -213,6 +214,93 @@ func dispatchRead(
 		return nil, err
 	}
 	return resource, nil
+}
+
+func updateHandler[R model.Release](
+	anyBackend any,
+	config Config,
+) http.Handler {
+	backend, implemented := anyBackend.(capabilities.GenericUpdate)
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestFormat := detectFormat(r, "Content-Type", config.DefaultFormat)
+		responseFormat := detectFormat(r, "Accept", requestFormat)
+		resourceType := r.PathValue("type")
+		resourceID := r.PathValue("id")
+
+		if !implemented {
+			slog.Error("interaction not implemented by backend", "interaction", "update")
+			returnErr[R](w, responseFormat, notImplementedError("update"))
+			return
+		}
+
+		result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
+		if err != nil {
+			slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "outcome", result)
+			returnErr[R](w, responseFormat, err)
+			return
+		}
+
+		// set Location header with the resource's logical ID
+		// the dispatchUpdate function checks that the path id matches the id included in the resource
+		w.Header().Set("Location", config.Base.JoinPath(resourceType, resourceID).String())
+
+		status := http.StatusOK
+		if result.Created {
+			status = http.StatusCreated
+		}
+
+		returnResult(w, responseFormat, status, result.Resource)
+	})
+}
+
+func dispatchUpdate[R model.Release](
+	r *http.Request,
+	backend capabilities.GenericUpdate,
+	requestFormat format,
+	resourceType string,
+	resourceID string,
+) (capabilities.UpdateResult[model.Resource], error) {
+	var resource model.Resource
+	var err error
+
+	switch requestFormat {
+	case formatJSON:
+		resource, err = decodeResourceJSON[R](r)
+	case formatXML:
+		resource, err = decodeResourceXML[R](r)
+	}
+
+	if err != nil {
+		return capabilities.UpdateResult[model.Resource]{}, err
+	}
+
+	if resourceType != resource.ResourceType() {
+		return capabilities.UpdateResult[model.Resource]{}, unexpectedResourceError(resourceType, resource.ResourceType())
+	}
+
+	// Verify that the resource ID in the URL matches the resource ID in the body
+	id, ok := resource.ResourceId()
+	if !ok || id != resourceID {
+		return capabilities.UpdateResult[model.Resource]{}, basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity: basic.Code{Value: utils.Ptr("fatal")},
+					Code:     basic.Code{Value: utils.Ptr("processing")},
+					Diagnostics: &basic.String{Value: utils.Ptr(
+						fmt.Sprintf("resource ID in URL (%s) does not match resource ID in body (%s)", resourceID, id),
+					)},
+				},
+			},
+		}
+	}
+
+	result, err := backend.Update(r.Context(), resource)
+	if err != nil {
+		return capabilities.UpdateResult[model.Resource]{}, err
+	}
+
+	return result, nil
 }
 
 func searchHandler[R model.Release](
