@@ -34,7 +34,7 @@ A **FHIRPath** implementation is work-in-progress (~90% done) on branch [fhirpat
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
         - alternatively: generic API for building adapters
         - automatic generation fo `CapabilityStatements`
-    - Interactions: `create`, `read`, `search` (see [Roadmap](#roadmap) for the remaining interactions)
+    - Interactions: `create`, `read`, `update`, `delete`, `search` (see [Roadmap](#roadmap) for the remaining interactions)
     - Cursor-based pagination
 - FHIRPath evaluation
   - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
@@ -170,7 +170,6 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 ## Roadmap
 
 - interactions
-  - `update` and `delete`
   - $operations
   - support for resource versioning (`vread`, `history`)
   - at some point `patch` and `batch/transaction`, but no priority at the moment
@@ -185,7 +184,6 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 | `model`              | Generated FHIR® model types                                                   |
 | `capabilities/..`    | Interfaces modeling capabilities a server can provide or a client can consume |
 | `capabilites/search` | Types and helper functions for implementing search capabilities               |
-| `capabilites/wrap`   | Conversion between the concrete and generic capabilities API                  |
 | `fhirpath`           | FHIRPath execution engine                                                     |                                                     
 | `rest`               | FHIR® REST server implementation                                              |
 | `testdata`           | Utils for loading test data and writing tests                                 |
