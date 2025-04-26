@@ -10,7 +10,6 @@ You only need to implement some interfaces and get a REST implementation out-of-
 
 This includes model types and interfaces modeling capabilities that you can use to build custom FHIR® servers.
 
-A **FHIRPath** implementation is work-in-progress (~90% done) on branch [fhirpath](../../tree/fhirpath).
 
 > While used in production at DAMEDIC, this project is still in its early days
 > and the feature set is quite limit.
