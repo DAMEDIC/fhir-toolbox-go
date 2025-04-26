@@ -35,19 +35,23 @@
 package capabilities
 
 import (
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/create"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/deletion"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/read"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 )
 
 // Capabilities is a description of all capabilities that an implementation provides.
 type Capabilities struct {
-	// CreateInteractions is a list of supported resources.
-	CreateInteractions []string
-	// ReadInteractions is a list of supported resources.
-	ReadInteractions []string
-	// UpdateInteractions is a list of supported resources.
-	UpdateInteractions []string
-	// DeleteInteractions is a list of supported resources.
-	DeleteInteractions []string
-	// SearchCapabilities is a map of supported resources to supported search operations.
-	SearchCapabilities map[string]search.Capabilities
+	// Create is a list of supported resources.
+	Create map[string]create.Capabilities
+	// Read is a list of supported resources.
+	Read map[string]read.Capabilities
+	// Update capabilities, indexed by the resource type.
+	Update map[string]update.Capabilities
+	// Delete is a list of supported resources.
+	Delete map[string]deletion.Capabilities
+	// Search capabilities, indexed by the resource type.
+	Search map[string]search.Capabilities
 }

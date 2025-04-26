@@ -9,426 +9,707 @@ import (
 	r4b "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 )
 
+// AccountCreate needs to be implemented to support the create interaction.
 type AccountCreate interface {
 	CreateAccount(ctx context.Context, resource r4b.Account) (r4b.Account, error)
 }
+
+// ActivityDefinitionCreate needs to be implemented to support the create interaction.
 type ActivityDefinitionCreate interface {
 	CreateActivityDefinition(ctx context.Context, resource r4b.ActivityDefinition) (r4b.ActivityDefinition, error)
 }
+
+// AdministrableProductDefinitionCreate needs to be implemented to support the create interaction.
 type AdministrableProductDefinitionCreate interface {
 	CreateAdministrableProductDefinition(ctx context.Context, resource r4b.AdministrableProductDefinition) (r4b.AdministrableProductDefinition, error)
 }
+
+// AdverseEventCreate needs to be implemented to support the create interaction.
 type AdverseEventCreate interface {
 	CreateAdverseEvent(ctx context.Context, resource r4b.AdverseEvent) (r4b.AdverseEvent, error)
 }
+
+// AllergyIntoleranceCreate needs to be implemented to support the create interaction.
 type AllergyIntoleranceCreate interface {
 	CreateAllergyIntolerance(ctx context.Context, resource r4b.AllergyIntolerance) (r4b.AllergyIntolerance, error)
 }
+
+// AppointmentCreate needs to be implemented to support the create interaction.
 type AppointmentCreate interface {
 	CreateAppointment(ctx context.Context, resource r4b.Appointment) (r4b.Appointment, error)
 }
+
+// AppointmentResponseCreate needs to be implemented to support the create interaction.
 type AppointmentResponseCreate interface {
 	CreateAppointmentResponse(ctx context.Context, resource r4b.AppointmentResponse) (r4b.AppointmentResponse, error)
 }
+
+// AuditEventCreate needs to be implemented to support the create interaction.
 type AuditEventCreate interface {
 	CreateAuditEvent(ctx context.Context, resource r4b.AuditEvent) (r4b.AuditEvent, error)
 }
+
+// BasicCreate needs to be implemented to support the create interaction.
 type BasicCreate interface {
 	CreateBasic(ctx context.Context, resource r4b.Basic) (r4b.Basic, error)
 }
+
+// BinaryCreate needs to be implemented to support the create interaction.
 type BinaryCreate interface {
 	CreateBinary(ctx context.Context, resource r4b.Binary) (r4b.Binary, error)
 }
+
+// BiologicallyDerivedProductCreate needs to be implemented to support the create interaction.
 type BiologicallyDerivedProductCreate interface {
 	CreateBiologicallyDerivedProduct(ctx context.Context, resource r4b.BiologicallyDerivedProduct) (r4b.BiologicallyDerivedProduct, error)
 }
+
+// BodyStructureCreate needs to be implemented to support the create interaction.
 type BodyStructureCreate interface {
 	CreateBodyStructure(ctx context.Context, resource r4b.BodyStructure) (r4b.BodyStructure, error)
 }
+
+// BundleCreate needs to be implemented to support the create interaction.
 type BundleCreate interface {
 	CreateBundle(ctx context.Context, resource r4b.Bundle) (r4b.Bundle, error)
 }
+
+// CapabilityStatementCreate needs to be implemented to support the create interaction.
 type CapabilityStatementCreate interface {
 	CreateCapabilityStatement(ctx context.Context, resource r4b.CapabilityStatement) (r4b.CapabilityStatement, error)
 }
+
+// CarePlanCreate needs to be implemented to support the create interaction.
 type CarePlanCreate interface {
 	CreateCarePlan(ctx context.Context, resource r4b.CarePlan) (r4b.CarePlan, error)
 }
+
+// CareTeamCreate needs to be implemented to support the create interaction.
 type CareTeamCreate interface {
 	CreateCareTeam(ctx context.Context, resource r4b.CareTeam) (r4b.CareTeam, error)
 }
+
+// CatalogEntryCreate needs to be implemented to support the create interaction.
 type CatalogEntryCreate interface {
 	CreateCatalogEntry(ctx context.Context, resource r4b.CatalogEntry) (r4b.CatalogEntry, error)
 }
+
+// ChargeItemCreate needs to be implemented to support the create interaction.
 type ChargeItemCreate interface {
 	CreateChargeItem(ctx context.Context, resource r4b.ChargeItem) (r4b.ChargeItem, error)
 }
+
+// ChargeItemDefinitionCreate needs to be implemented to support the create interaction.
 type ChargeItemDefinitionCreate interface {
 	CreateChargeItemDefinition(ctx context.Context, resource r4b.ChargeItemDefinition) (r4b.ChargeItemDefinition, error)
 }
+
+// CitationCreate needs to be implemented to support the create interaction.
 type CitationCreate interface {
 	CreateCitation(ctx context.Context, resource r4b.Citation) (r4b.Citation, error)
 }
+
+// ClaimCreate needs to be implemented to support the create interaction.
 type ClaimCreate interface {
 	CreateClaim(ctx context.Context, resource r4b.Claim) (r4b.Claim, error)
 }
+
+// ClaimResponseCreate needs to be implemented to support the create interaction.
 type ClaimResponseCreate interface {
 	CreateClaimResponse(ctx context.Context, resource r4b.ClaimResponse) (r4b.ClaimResponse, error)
 }
+
+// ClinicalImpressionCreate needs to be implemented to support the create interaction.
 type ClinicalImpressionCreate interface {
 	CreateClinicalImpression(ctx context.Context, resource r4b.ClinicalImpression) (r4b.ClinicalImpression, error)
 }
+
+// ClinicalUseDefinitionCreate needs to be implemented to support the create interaction.
 type ClinicalUseDefinitionCreate interface {
 	CreateClinicalUseDefinition(ctx context.Context, resource r4b.ClinicalUseDefinition) (r4b.ClinicalUseDefinition, error)
 }
+
+// CodeSystemCreate needs to be implemented to support the create interaction.
 type CodeSystemCreate interface {
 	CreateCodeSystem(ctx context.Context, resource r4b.CodeSystem) (r4b.CodeSystem, error)
 }
+
+// CommunicationCreate needs to be implemented to support the create interaction.
 type CommunicationCreate interface {
 	CreateCommunication(ctx context.Context, resource r4b.Communication) (r4b.Communication, error)
 }
+
+// CommunicationRequestCreate needs to be implemented to support the create interaction.
 type CommunicationRequestCreate interface {
 	CreateCommunicationRequest(ctx context.Context, resource r4b.CommunicationRequest) (r4b.CommunicationRequest, error)
 }
+
+// CompartmentDefinitionCreate needs to be implemented to support the create interaction.
 type CompartmentDefinitionCreate interface {
 	CreateCompartmentDefinition(ctx context.Context, resource r4b.CompartmentDefinition) (r4b.CompartmentDefinition, error)
 }
+
+// CompositionCreate needs to be implemented to support the create interaction.
 type CompositionCreate interface {
 	CreateComposition(ctx context.Context, resource r4b.Composition) (r4b.Composition, error)
 }
+
+// ConceptMapCreate needs to be implemented to support the create interaction.
 type ConceptMapCreate interface {
 	CreateConceptMap(ctx context.Context, resource r4b.ConceptMap) (r4b.ConceptMap, error)
 }
+
+// ConditionCreate needs to be implemented to support the create interaction.
 type ConditionCreate interface {
 	CreateCondition(ctx context.Context, resource r4b.Condition) (r4b.Condition, error)
 }
+
+// ConsentCreate needs to be implemented to support the create interaction.
 type ConsentCreate interface {
 	CreateConsent(ctx context.Context, resource r4b.Consent) (r4b.Consent, error)
 }
+
+// ContractCreate needs to be implemented to support the create interaction.
 type ContractCreate interface {
 	CreateContract(ctx context.Context, resource r4b.Contract) (r4b.Contract, error)
 }
+
+// CoverageCreate needs to be implemented to support the create interaction.
 type CoverageCreate interface {
 	CreateCoverage(ctx context.Context, resource r4b.Coverage) (r4b.Coverage, error)
 }
+
+// CoverageEligibilityRequestCreate needs to be implemented to support the create interaction.
 type CoverageEligibilityRequestCreate interface {
 	CreateCoverageEligibilityRequest(ctx context.Context, resource r4b.CoverageEligibilityRequest) (r4b.CoverageEligibilityRequest, error)
 }
+
+// CoverageEligibilityResponseCreate needs to be implemented to support the create interaction.
 type CoverageEligibilityResponseCreate interface {
 	CreateCoverageEligibilityResponse(ctx context.Context, resource r4b.CoverageEligibilityResponse) (r4b.CoverageEligibilityResponse, error)
 }
+
+// DetectedIssueCreate needs to be implemented to support the create interaction.
 type DetectedIssueCreate interface {
 	CreateDetectedIssue(ctx context.Context, resource r4b.DetectedIssue) (r4b.DetectedIssue, error)
 }
+
+// DeviceCreate needs to be implemented to support the create interaction.
 type DeviceCreate interface {
 	CreateDevice(ctx context.Context, resource r4b.Device) (r4b.Device, error)
 }
+
+// DeviceDefinitionCreate needs to be implemented to support the create interaction.
 type DeviceDefinitionCreate interface {
 	CreateDeviceDefinition(ctx context.Context, resource r4b.DeviceDefinition) (r4b.DeviceDefinition, error)
 }
+
+// DeviceMetricCreate needs to be implemented to support the create interaction.
 type DeviceMetricCreate interface {
 	CreateDeviceMetric(ctx context.Context, resource r4b.DeviceMetric) (r4b.DeviceMetric, error)
 }
+
+// DeviceRequestCreate needs to be implemented to support the create interaction.
 type DeviceRequestCreate interface {
 	CreateDeviceRequest(ctx context.Context, resource r4b.DeviceRequest) (r4b.DeviceRequest, error)
 }
+
+// DeviceUseStatementCreate needs to be implemented to support the create interaction.
 type DeviceUseStatementCreate interface {
 	CreateDeviceUseStatement(ctx context.Context, resource r4b.DeviceUseStatement) (r4b.DeviceUseStatement, error)
 }
+
+// DiagnosticReportCreate needs to be implemented to support the create interaction.
 type DiagnosticReportCreate interface {
 	CreateDiagnosticReport(ctx context.Context, resource r4b.DiagnosticReport) (r4b.DiagnosticReport, error)
 }
+
+// DocumentManifestCreate needs to be implemented to support the create interaction.
 type DocumentManifestCreate interface {
 	CreateDocumentManifest(ctx context.Context, resource r4b.DocumentManifest) (r4b.DocumentManifest, error)
 }
+
+// DocumentReferenceCreate needs to be implemented to support the create interaction.
 type DocumentReferenceCreate interface {
 	CreateDocumentReference(ctx context.Context, resource r4b.DocumentReference) (r4b.DocumentReference, error)
 }
+
+// EncounterCreate needs to be implemented to support the create interaction.
 type EncounterCreate interface {
 	CreateEncounter(ctx context.Context, resource r4b.Encounter) (r4b.Encounter, error)
 }
+
+// EndpointCreate needs to be implemented to support the create interaction.
 type EndpointCreate interface {
 	CreateEndpoint(ctx context.Context, resource r4b.Endpoint) (r4b.Endpoint, error)
 }
+
+// EnrollmentRequestCreate needs to be implemented to support the create interaction.
 type EnrollmentRequestCreate interface {
 	CreateEnrollmentRequest(ctx context.Context, resource r4b.EnrollmentRequest) (r4b.EnrollmentRequest, error)
 }
+
+// EnrollmentResponseCreate needs to be implemented to support the create interaction.
 type EnrollmentResponseCreate interface {
 	CreateEnrollmentResponse(ctx context.Context, resource r4b.EnrollmentResponse) (r4b.EnrollmentResponse, error)
 }
+
+// EpisodeOfCareCreate needs to be implemented to support the create interaction.
 type EpisodeOfCareCreate interface {
 	CreateEpisodeOfCare(ctx context.Context, resource r4b.EpisodeOfCare) (r4b.EpisodeOfCare, error)
 }
+
+// EventDefinitionCreate needs to be implemented to support the create interaction.
 type EventDefinitionCreate interface {
 	CreateEventDefinition(ctx context.Context, resource r4b.EventDefinition) (r4b.EventDefinition, error)
 }
+
+// EvidenceCreate needs to be implemented to support the create interaction.
 type EvidenceCreate interface {
 	CreateEvidence(ctx context.Context, resource r4b.Evidence) (r4b.Evidence, error)
 }
+
+// EvidenceReportCreate needs to be implemented to support the create interaction.
 type EvidenceReportCreate interface {
 	CreateEvidenceReport(ctx context.Context, resource r4b.EvidenceReport) (r4b.EvidenceReport, error)
 }
+
+// EvidenceVariableCreate needs to be implemented to support the create interaction.
 type EvidenceVariableCreate interface {
 	CreateEvidenceVariable(ctx context.Context, resource r4b.EvidenceVariable) (r4b.EvidenceVariable, error)
 }
+
+// ExampleScenarioCreate needs to be implemented to support the create interaction.
 type ExampleScenarioCreate interface {
 	CreateExampleScenario(ctx context.Context, resource r4b.ExampleScenario) (r4b.ExampleScenario, error)
 }
+
+// ExplanationOfBenefitCreate needs to be implemented to support the create interaction.
 type ExplanationOfBenefitCreate interface {
 	CreateExplanationOfBenefit(ctx context.Context, resource r4b.ExplanationOfBenefit) (r4b.ExplanationOfBenefit, error)
 }
+
+// FamilyMemberHistoryCreate needs to be implemented to support the create interaction.
 type FamilyMemberHistoryCreate interface {
 	CreateFamilyMemberHistory(ctx context.Context, resource r4b.FamilyMemberHistory) (r4b.FamilyMemberHistory, error)
 }
+
+// FlagCreate needs to be implemented to support the create interaction.
 type FlagCreate interface {
 	CreateFlag(ctx context.Context, resource r4b.Flag) (r4b.Flag, error)
 }
+
+// GoalCreate needs to be implemented to support the create interaction.
 type GoalCreate interface {
 	CreateGoal(ctx context.Context, resource r4b.Goal) (r4b.Goal, error)
 }
+
+// GraphDefinitionCreate needs to be implemented to support the create interaction.
 type GraphDefinitionCreate interface {
 	CreateGraphDefinition(ctx context.Context, resource r4b.GraphDefinition) (r4b.GraphDefinition, error)
 }
+
+// GroupCreate needs to be implemented to support the create interaction.
 type GroupCreate interface {
 	CreateGroup(ctx context.Context, resource r4b.Group) (r4b.Group, error)
 }
+
+// GuidanceResponseCreate needs to be implemented to support the create interaction.
 type GuidanceResponseCreate interface {
 	CreateGuidanceResponse(ctx context.Context, resource r4b.GuidanceResponse) (r4b.GuidanceResponse, error)
 }
+
+// HealthcareServiceCreate needs to be implemented to support the create interaction.
 type HealthcareServiceCreate interface {
 	CreateHealthcareService(ctx context.Context, resource r4b.HealthcareService) (r4b.HealthcareService, error)
 }
+
+// ImagingStudyCreate needs to be implemented to support the create interaction.
 type ImagingStudyCreate interface {
 	CreateImagingStudy(ctx context.Context, resource r4b.ImagingStudy) (r4b.ImagingStudy, error)
 }
+
+// ImmunizationCreate needs to be implemented to support the create interaction.
 type ImmunizationCreate interface {
 	CreateImmunization(ctx context.Context, resource r4b.Immunization) (r4b.Immunization, error)
 }
+
+// ImmunizationEvaluationCreate needs to be implemented to support the create interaction.
 type ImmunizationEvaluationCreate interface {
 	CreateImmunizationEvaluation(ctx context.Context, resource r4b.ImmunizationEvaluation) (r4b.ImmunizationEvaluation, error)
 }
+
+// ImmunizationRecommendationCreate needs to be implemented to support the create interaction.
 type ImmunizationRecommendationCreate interface {
 	CreateImmunizationRecommendation(ctx context.Context, resource r4b.ImmunizationRecommendation) (r4b.ImmunizationRecommendation, error)
 }
+
+// ImplementationGuideCreate needs to be implemented to support the create interaction.
 type ImplementationGuideCreate interface {
 	CreateImplementationGuide(ctx context.Context, resource r4b.ImplementationGuide) (r4b.ImplementationGuide, error)
 }
+
+// IngredientCreate needs to be implemented to support the create interaction.
 type IngredientCreate interface {
 	CreateIngredient(ctx context.Context, resource r4b.Ingredient) (r4b.Ingredient, error)
 }
+
+// InsurancePlanCreate needs to be implemented to support the create interaction.
 type InsurancePlanCreate interface {
 	CreateInsurancePlan(ctx context.Context, resource r4b.InsurancePlan) (r4b.InsurancePlan, error)
 }
+
+// InvoiceCreate needs to be implemented to support the create interaction.
 type InvoiceCreate interface {
 	CreateInvoice(ctx context.Context, resource r4b.Invoice) (r4b.Invoice, error)
 }
+
+// LibraryCreate needs to be implemented to support the create interaction.
 type LibraryCreate interface {
 	CreateLibrary(ctx context.Context, resource r4b.Library) (r4b.Library, error)
 }
+
+// LinkageCreate needs to be implemented to support the create interaction.
 type LinkageCreate interface {
 	CreateLinkage(ctx context.Context, resource r4b.Linkage) (r4b.Linkage, error)
 }
+
+// ListCreate needs to be implemented to support the create interaction.
 type ListCreate interface {
 	CreateList(ctx context.Context, resource r4b.List) (r4b.List, error)
 }
+
+// LocationCreate needs to be implemented to support the create interaction.
 type LocationCreate interface {
 	CreateLocation(ctx context.Context, resource r4b.Location) (r4b.Location, error)
 }
+
+// ManufacturedItemDefinitionCreate needs to be implemented to support the create interaction.
 type ManufacturedItemDefinitionCreate interface {
 	CreateManufacturedItemDefinition(ctx context.Context, resource r4b.ManufacturedItemDefinition) (r4b.ManufacturedItemDefinition, error)
 }
+
+// MeasureCreate needs to be implemented to support the create interaction.
 type MeasureCreate interface {
 	CreateMeasure(ctx context.Context, resource r4b.Measure) (r4b.Measure, error)
 }
+
+// MeasureReportCreate needs to be implemented to support the create interaction.
 type MeasureReportCreate interface {
 	CreateMeasureReport(ctx context.Context, resource r4b.MeasureReport) (r4b.MeasureReport, error)
 }
+
+// MediaCreate needs to be implemented to support the create interaction.
 type MediaCreate interface {
 	CreateMedia(ctx context.Context, resource r4b.Media) (r4b.Media, error)
 }
+
+// MedicationCreate needs to be implemented to support the create interaction.
 type MedicationCreate interface {
 	CreateMedication(ctx context.Context, resource r4b.Medication) (r4b.Medication, error)
 }
+
+// MedicationAdministrationCreate needs to be implemented to support the create interaction.
 type MedicationAdministrationCreate interface {
 	CreateMedicationAdministration(ctx context.Context, resource r4b.MedicationAdministration) (r4b.MedicationAdministration, error)
 }
+
+// MedicationDispenseCreate needs to be implemented to support the create interaction.
 type MedicationDispenseCreate interface {
 	CreateMedicationDispense(ctx context.Context, resource r4b.MedicationDispense) (r4b.MedicationDispense, error)
 }
+
+// MedicationKnowledgeCreate needs to be implemented to support the create interaction.
 type MedicationKnowledgeCreate interface {
 	CreateMedicationKnowledge(ctx context.Context, resource r4b.MedicationKnowledge) (r4b.MedicationKnowledge, error)
 }
+
+// MedicationRequestCreate needs to be implemented to support the create interaction.
 type MedicationRequestCreate interface {
 	CreateMedicationRequest(ctx context.Context, resource r4b.MedicationRequest) (r4b.MedicationRequest, error)
 }
+
+// MedicationStatementCreate needs to be implemented to support the create interaction.
 type MedicationStatementCreate interface {
 	CreateMedicationStatement(ctx context.Context, resource r4b.MedicationStatement) (r4b.MedicationStatement, error)
 }
+
+// MedicinalProductDefinitionCreate needs to be implemented to support the create interaction.
 type MedicinalProductDefinitionCreate interface {
 	CreateMedicinalProductDefinition(ctx context.Context, resource r4b.MedicinalProductDefinition) (r4b.MedicinalProductDefinition, error)
 }
+
+// MessageDefinitionCreate needs to be implemented to support the create interaction.
 type MessageDefinitionCreate interface {
 	CreateMessageDefinition(ctx context.Context, resource r4b.MessageDefinition) (r4b.MessageDefinition, error)
 }
+
+// MessageHeaderCreate needs to be implemented to support the create interaction.
 type MessageHeaderCreate interface {
 	CreateMessageHeader(ctx context.Context, resource r4b.MessageHeader) (r4b.MessageHeader, error)
 }
+
+// MolecularSequenceCreate needs to be implemented to support the create interaction.
 type MolecularSequenceCreate interface {
 	CreateMolecularSequence(ctx context.Context, resource r4b.MolecularSequence) (r4b.MolecularSequence, error)
 }
+
+// NamingSystemCreate needs to be implemented to support the create interaction.
 type NamingSystemCreate interface {
 	CreateNamingSystem(ctx context.Context, resource r4b.NamingSystem) (r4b.NamingSystem, error)
 }
+
+// NutritionOrderCreate needs to be implemented to support the create interaction.
 type NutritionOrderCreate interface {
 	CreateNutritionOrder(ctx context.Context, resource r4b.NutritionOrder) (r4b.NutritionOrder, error)
 }
+
+// NutritionProductCreate needs to be implemented to support the create interaction.
 type NutritionProductCreate interface {
 	CreateNutritionProduct(ctx context.Context, resource r4b.NutritionProduct) (r4b.NutritionProduct, error)
 }
+
+// ObservationCreate needs to be implemented to support the create interaction.
 type ObservationCreate interface {
 	CreateObservation(ctx context.Context, resource r4b.Observation) (r4b.Observation, error)
 }
+
+// ObservationDefinitionCreate needs to be implemented to support the create interaction.
 type ObservationDefinitionCreate interface {
 	CreateObservationDefinition(ctx context.Context, resource r4b.ObservationDefinition) (r4b.ObservationDefinition, error)
 }
+
+// OperationDefinitionCreate needs to be implemented to support the create interaction.
 type OperationDefinitionCreate interface {
 	CreateOperationDefinition(ctx context.Context, resource r4b.OperationDefinition) (r4b.OperationDefinition, error)
 }
+
+// OperationOutcomeCreate needs to be implemented to support the create interaction.
 type OperationOutcomeCreate interface {
 	CreateOperationOutcome(ctx context.Context, resource r4b.OperationOutcome) (r4b.OperationOutcome, error)
 }
+
+// OrganizationCreate needs to be implemented to support the create interaction.
 type OrganizationCreate interface {
 	CreateOrganization(ctx context.Context, resource r4b.Organization) (r4b.Organization, error)
 }
+
+// OrganizationAffiliationCreate needs to be implemented to support the create interaction.
 type OrganizationAffiliationCreate interface {
 	CreateOrganizationAffiliation(ctx context.Context, resource r4b.OrganizationAffiliation) (r4b.OrganizationAffiliation, error)
 }
+
+// PackagedProductDefinitionCreate needs to be implemented to support the create interaction.
 type PackagedProductDefinitionCreate interface {
 	CreatePackagedProductDefinition(ctx context.Context, resource r4b.PackagedProductDefinition) (r4b.PackagedProductDefinition, error)
 }
+
+// ParametersCreate needs to be implemented to support the create interaction.
 type ParametersCreate interface {
 	CreateParameters(ctx context.Context, resource r4b.Parameters) (r4b.Parameters, error)
 }
+
+// PatientCreate needs to be implemented to support the create interaction.
 type PatientCreate interface {
 	CreatePatient(ctx context.Context, resource r4b.Patient) (r4b.Patient, error)
 }
+
+// PaymentNoticeCreate needs to be implemented to support the create interaction.
 type PaymentNoticeCreate interface {
 	CreatePaymentNotice(ctx context.Context, resource r4b.PaymentNotice) (r4b.PaymentNotice, error)
 }
+
+// PaymentReconciliationCreate needs to be implemented to support the create interaction.
 type PaymentReconciliationCreate interface {
 	CreatePaymentReconciliation(ctx context.Context, resource r4b.PaymentReconciliation) (r4b.PaymentReconciliation, error)
 }
+
+// PersonCreate needs to be implemented to support the create interaction.
 type PersonCreate interface {
 	CreatePerson(ctx context.Context, resource r4b.Person) (r4b.Person, error)
 }
+
+// PlanDefinitionCreate needs to be implemented to support the create interaction.
 type PlanDefinitionCreate interface {
 	CreatePlanDefinition(ctx context.Context, resource r4b.PlanDefinition) (r4b.PlanDefinition, error)
 }
+
+// PractitionerCreate needs to be implemented to support the create interaction.
 type PractitionerCreate interface {
 	CreatePractitioner(ctx context.Context, resource r4b.Practitioner) (r4b.Practitioner, error)
 }
+
+// PractitionerRoleCreate needs to be implemented to support the create interaction.
 type PractitionerRoleCreate interface {
 	CreatePractitionerRole(ctx context.Context, resource r4b.PractitionerRole) (r4b.PractitionerRole, error)
 }
+
+// ProcedureCreate needs to be implemented to support the create interaction.
 type ProcedureCreate interface {
 	CreateProcedure(ctx context.Context, resource r4b.Procedure) (r4b.Procedure, error)
 }
+
+// ProvenanceCreate needs to be implemented to support the create interaction.
 type ProvenanceCreate interface {
 	CreateProvenance(ctx context.Context, resource r4b.Provenance) (r4b.Provenance, error)
 }
+
+// QuestionnaireCreate needs to be implemented to support the create interaction.
 type QuestionnaireCreate interface {
 	CreateQuestionnaire(ctx context.Context, resource r4b.Questionnaire) (r4b.Questionnaire, error)
 }
+
+// QuestionnaireResponseCreate needs to be implemented to support the create interaction.
 type QuestionnaireResponseCreate interface {
 	CreateQuestionnaireResponse(ctx context.Context, resource r4b.QuestionnaireResponse) (r4b.QuestionnaireResponse, error)
 }
+
+// RegulatedAuthorizationCreate needs to be implemented to support the create interaction.
 type RegulatedAuthorizationCreate interface {
 	CreateRegulatedAuthorization(ctx context.Context, resource r4b.RegulatedAuthorization) (r4b.RegulatedAuthorization, error)
 }
+
+// RelatedPersonCreate needs to be implemented to support the create interaction.
 type RelatedPersonCreate interface {
 	CreateRelatedPerson(ctx context.Context, resource r4b.RelatedPerson) (r4b.RelatedPerson, error)
 }
+
+// RequestGroupCreate needs to be implemented to support the create interaction.
 type RequestGroupCreate interface {
 	CreateRequestGroup(ctx context.Context, resource r4b.RequestGroup) (r4b.RequestGroup, error)
 }
+
+// ResearchDefinitionCreate needs to be implemented to support the create interaction.
 type ResearchDefinitionCreate interface {
 	CreateResearchDefinition(ctx context.Context, resource r4b.ResearchDefinition) (r4b.ResearchDefinition, error)
 }
+
+// ResearchElementDefinitionCreate needs to be implemented to support the create interaction.
 type ResearchElementDefinitionCreate interface {
 	CreateResearchElementDefinition(ctx context.Context, resource r4b.ResearchElementDefinition) (r4b.ResearchElementDefinition, error)
 }
+
+// ResearchStudyCreate needs to be implemented to support the create interaction.
 type ResearchStudyCreate interface {
 	CreateResearchStudy(ctx context.Context, resource r4b.ResearchStudy) (r4b.ResearchStudy, error)
 }
+
+// ResearchSubjectCreate needs to be implemented to support the create interaction.
 type ResearchSubjectCreate interface {
 	CreateResearchSubject(ctx context.Context, resource r4b.ResearchSubject) (r4b.ResearchSubject, error)
 }
+
+// RiskAssessmentCreate needs to be implemented to support the create interaction.
 type RiskAssessmentCreate interface {
 	CreateRiskAssessment(ctx context.Context, resource r4b.RiskAssessment) (r4b.RiskAssessment, error)
 }
+
+// ScheduleCreate needs to be implemented to support the create interaction.
 type ScheduleCreate interface {
 	CreateSchedule(ctx context.Context, resource r4b.Schedule) (r4b.Schedule, error)
 }
+
+// SearchParameterCreate needs to be implemented to support the create interaction.
 type SearchParameterCreate interface {
 	CreateSearchParameter(ctx context.Context, resource r4b.SearchParameter) (r4b.SearchParameter, error)
 }
+
+// ServiceRequestCreate needs to be implemented to support the create interaction.
 type ServiceRequestCreate interface {
 	CreateServiceRequest(ctx context.Context, resource r4b.ServiceRequest) (r4b.ServiceRequest, error)
 }
+
+// SlotCreate needs to be implemented to support the create interaction.
 type SlotCreate interface {
 	CreateSlot(ctx context.Context, resource r4b.Slot) (r4b.Slot, error)
 }
+
+// SpecimenCreate needs to be implemented to support the create interaction.
 type SpecimenCreate interface {
 	CreateSpecimen(ctx context.Context, resource r4b.Specimen) (r4b.Specimen, error)
 }
+
+// SpecimenDefinitionCreate needs to be implemented to support the create interaction.
 type SpecimenDefinitionCreate interface {
 	CreateSpecimenDefinition(ctx context.Context, resource r4b.SpecimenDefinition) (r4b.SpecimenDefinition, error)
 }
+
+// StructureDefinitionCreate needs to be implemented to support the create interaction.
 type StructureDefinitionCreate interface {
 	CreateStructureDefinition(ctx context.Context, resource r4b.StructureDefinition) (r4b.StructureDefinition, error)
 }
+
+// StructureMapCreate needs to be implemented to support the create interaction.
 type StructureMapCreate interface {
 	CreateStructureMap(ctx context.Context, resource r4b.StructureMap) (r4b.StructureMap, error)
 }
+
+// SubscriptionCreate needs to be implemented to support the create interaction.
 type SubscriptionCreate interface {
 	CreateSubscription(ctx context.Context, resource r4b.Subscription) (r4b.Subscription, error)
 }
+
+// SubscriptionStatusCreate needs to be implemented to support the create interaction.
 type SubscriptionStatusCreate interface {
 	CreateSubscriptionStatus(ctx context.Context, resource r4b.SubscriptionStatus) (r4b.SubscriptionStatus, error)
 }
+
+// SubscriptionTopicCreate needs to be implemented to support the create interaction.
 type SubscriptionTopicCreate interface {
 	CreateSubscriptionTopic(ctx context.Context, resource r4b.SubscriptionTopic) (r4b.SubscriptionTopic, error)
 }
+
+// SubstanceCreate needs to be implemented to support the create interaction.
 type SubstanceCreate interface {
 	CreateSubstance(ctx context.Context, resource r4b.Substance) (r4b.Substance, error)
 }
+
+// SubstanceDefinitionCreate needs to be implemented to support the create interaction.
 type SubstanceDefinitionCreate interface {
 	CreateSubstanceDefinition(ctx context.Context, resource r4b.SubstanceDefinition) (r4b.SubstanceDefinition, error)
 }
+
+// SupplyDeliveryCreate needs to be implemented to support the create interaction.
 type SupplyDeliveryCreate interface {
 	CreateSupplyDelivery(ctx context.Context, resource r4b.SupplyDelivery) (r4b.SupplyDelivery, error)
 }
+
+// SupplyRequestCreate needs to be implemented to support the create interaction.
 type SupplyRequestCreate interface {
 	CreateSupplyRequest(ctx context.Context, resource r4b.SupplyRequest) (r4b.SupplyRequest, error)
 }
+
+// TaskCreate needs to be implemented to support the create interaction.
 type TaskCreate interface {
 	CreateTask(ctx context.Context, resource r4b.Task) (r4b.Task, error)
 }
+
+// TerminologyCapabilitiesCreate needs to be implemented to support the create interaction.
 type TerminologyCapabilitiesCreate interface {
 	CreateTerminologyCapabilities(ctx context.Context, resource r4b.TerminologyCapabilities) (r4b.TerminologyCapabilities, error)
 }
+
+// TestReportCreate needs to be implemented to support the create interaction.
 type TestReportCreate interface {
 	CreateTestReport(ctx context.Context, resource r4b.TestReport) (r4b.TestReport, error)
 }
+
+// TestScriptCreate needs to be implemented to support the create interaction.
 type TestScriptCreate interface {
 	CreateTestScript(ctx context.Context, resource r4b.TestScript) (r4b.TestScript, error)
 }
+
+// ValueSetCreate needs to be implemented to support the create interaction.
 type ValueSetCreate interface {
 	CreateValueSet(ctx context.Context, resource r4b.ValueSet) (r4b.ValueSet, error)
 }
+
+// VerificationResultCreate needs to be implemented to support the create interaction.
 type VerificationResultCreate interface {
 	CreateVerificationResult(ctx context.Context, resource r4b.VerificationResult) (r4b.VerificationResult, error)
 }
+
+// VisionPrescriptionCreate needs to be implemented to support the create interaction.
 type VisionPrescriptionCreate interface {
 	CreateVisionPrescription(ctx context.Context, resource r4b.VisionPrescription) (r4b.VisionPrescription, error)
 }

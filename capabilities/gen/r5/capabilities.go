@@ -8,3170 +8,4602 @@ import (
 	"context"
 	"errors"
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	create "github.com/DAMEDIC/fhir-toolbox-go/capabilities/create"
+	deletion "github.com/DAMEDIC/fhir-toolbox-go/capabilities/deletion"
+	read "github.com/DAMEDIC/fhir-toolbox-go/capabilities/read"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	update "github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 )
 
 func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, error) {
-	allCapabilities := capabilities.Capabilities{SearchCapabilities: make(map[string]search.Capabilities)}
+	allCapabilities := capabilities.Capabilities{
+		Create: make(map[string]create.Capabilities),
+		Delete: make(map[string]deletion.Capabilities),
+		Read:   make(map[string]read.Capabilities),
+		Search: make(map[string]search.Capabilities),
+		Update: make(map[string]update.Capabilities),
+	}
 	var errs []error
 	if _, ok := api.(AccountCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Account")
+		allCapabilities.Create["Account"] = create.Capabilities{}
 	}
 	if _, ok := api.(AccountRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Account")
-	}
-	if _, ok := api.(AccountUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Account")
+		allCapabilities.Read["Account"] = read.Capabilities{}
 	}
 	if _, ok := api.(AccountDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Account")
+		allCapabilities.Delete["Account"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(AccountUpdate); ok {
+		allCapabilities.Update["Account"] = update.Capabilities{}
+		c, ok := c.(AccountUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAccount(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Account"] = c
+			}
+		}
 	}
 	if c, ok := api.(AccountSearch); ok {
 		c, err := c.SearchCapabilitiesAccount(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Account"] = c
+			allCapabilities.Search["Account"] = c
 		}
 	}
 	if _, ok := api.(ActivityDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ActivityDefinition")
+		allCapabilities.Create["ActivityDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ActivityDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ActivityDefinition")
-	}
-	if _, ok := api.(ActivityDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ActivityDefinition")
+		allCapabilities.Read["ActivityDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ActivityDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ActivityDefinition")
+		allCapabilities.Delete["ActivityDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ActivityDefinitionUpdate); ok {
+		allCapabilities.Update["ActivityDefinition"] = update.Capabilities{}
+		c, ok := c.(ActivityDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesActivityDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ActivityDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ActivityDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesActivityDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ActivityDefinition"] = c
+			allCapabilities.Search["ActivityDefinition"] = c
 		}
 	}
 	if _, ok := api.(ActorDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ActorDefinition")
+		allCapabilities.Create["ActorDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ActorDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ActorDefinition")
-	}
-	if _, ok := api.(ActorDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ActorDefinition")
+		allCapabilities.Read["ActorDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ActorDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ActorDefinition")
+		allCapabilities.Delete["ActorDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ActorDefinitionUpdate); ok {
+		allCapabilities.Update["ActorDefinition"] = update.Capabilities{}
+		c, ok := c.(ActorDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesActorDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ActorDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ActorDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesActorDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ActorDefinition"] = c
+			allCapabilities.Search["ActorDefinition"] = c
 		}
 	}
 	if _, ok := api.(AdministrableProductDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AdministrableProductDefinition")
+		allCapabilities.Create["AdministrableProductDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(AdministrableProductDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AdministrableProductDefinition")
-	}
-	if _, ok := api.(AdministrableProductDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AdministrableProductDefinition")
+		allCapabilities.Read["AdministrableProductDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(AdministrableProductDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AdministrableProductDefinition")
+		allCapabilities.Delete["AdministrableProductDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(AdministrableProductDefinitionUpdate); ok {
+		allCapabilities.Update["AdministrableProductDefinition"] = update.Capabilities{}
+		c, ok := c.(AdministrableProductDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAdministrableProductDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["AdministrableProductDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(AdministrableProductDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesAdministrableProductDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["AdministrableProductDefinition"] = c
+			allCapabilities.Search["AdministrableProductDefinition"] = c
 		}
 	}
 	if _, ok := api.(AdverseEventCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AdverseEvent")
+		allCapabilities.Create["AdverseEvent"] = create.Capabilities{}
 	}
 	if _, ok := api.(AdverseEventRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AdverseEvent")
-	}
-	if _, ok := api.(AdverseEventUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AdverseEvent")
+		allCapabilities.Read["AdverseEvent"] = read.Capabilities{}
 	}
 	if _, ok := api.(AdverseEventDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AdverseEvent")
+		allCapabilities.Delete["AdverseEvent"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(AdverseEventUpdate); ok {
+		allCapabilities.Update["AdverseEvent"] = update.Capabilities{}
+		c, ok := c.(AdverseEventUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAdverseEvent(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["AdverseEvent"] = c
+			}
+		}
 	}
 	if c, ok := api.(AdverseEventSearch); ok {
 		c, err := c.SearchCapabilitiesAdverseEvent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["AdverseEvent"] = c
+			allCapabilities.Search["AdverseEvent"] = c
 		}
 	}
 	if _, ok := api.(AllergyIntoleranceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AllergyIntolerance")
+		allCapabilities.Create["AllergyIntolerance"] = create.Capabilities{}
 	}
 	if _, ok := api.(AllergyIntoleranceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AllergyIntolerance")
-	}
-	if _, ok := api.(AllergyIntoleranceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AllergyIntolerance")
+		allCapabilities.Read["AllergyIntolerance"] = read.Capabilities{}
 	}
 	if _, ok := api.(AllergyIntoleranceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AllergyIntolerance")
+		allCapabilities.Delete["AllergyIntolerance"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(AllergyIntoleranceUpdate); ok {
+		allCapabilities.Update["AllergyIntolerance"] = update.Capabilities{}
+		c, ok := c.(AllergyIntoleranceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAllergyIntolerance(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["AllergyIntolerance"] = c
+			}
+		}
 	}
 	if c, ok := api.(AllergyIntoleranceSearch); ok {
 		c, err := c.SearchCapabilitiesAllergyIntolerance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["AllergyIntolerance"] = c
+			allCapabilities.Search["AllergyIntolerance"] = c
 		}
 	}
 	if _, ok := api.(AppointmentCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Appointment")
+		allCapabilities.Create["Appointment"] = create.Capabilities{}
 	}
 	if _, ok := api.(AppointmentRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Appointment")
-	}
-	if _, ok := api.(AppointmentUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Appointment")
+		allCapabilities.Read["Appointment"] = read.Capabilities{}
 	}
 	if _, ok := api.(AppointmentDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Appointment")
+		allCapabilities.Delete["Appointment"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(AppointmentUpdate); ok {
+		allCapabilities.Update["Appointment"] = update.Capabilities{}
+		c, ok := c.(AppointmentUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAppointment(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Appointment"] = c
+			}
+		}
 	}
 	if c, ok := api.(AppointmentSearch); ok {
 		c, err := c.SearchCapabilitiesAppointment(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Appointment"] = c
+			allCapabilities.Search["Appointment"] = c
 		}
 	}
 	if _, ok := api.(AppointmentResponseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AppointmentResponse")
+		allCapabilities.Create["AppointmentResponse"] = create.Capabilities{}
 	}
 	if _, ok := api.(AppointmentResponseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AppointmentResponse")
-	}
-	if _, ok := api.(AppointmentResponseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AppointmentResponse")
+		allCapabilities.Read["AppointmentResponse"] = read.Capabilities{}
 	}
 	if _, ok := api.(AppointmentResponseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AppointmentResponse")
+		allCapabilities.Delete["AppointmentResponse"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(AppointmentResponseUpdate); ok {
+		allCapabilities.Update["AppointmentResponse"] = update.Capabilities{}
+		c, ok := c.(AppointmentResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAppointmentResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["AppointmentResponse"] = c
+			}
+		}
 	}
 	if c, ok := api.(AppointmentResponseSearch); ok {
 		c, err := c.SearchCapabilitiesAppointmentResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["AppointmentResponse"] = c
+			allCapabilities.Search["AppointmentResponse"] = c
 		}
 	}
 	if _, ok := api.(ArtifactAssessmentCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ArtifactAssessment")
+		allCapabilities.Create["ArtifactAssessment"] = create.Capabilities{}
 	}
 	if _, ok := api.(ArtifactAssessmentRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ArtifactAssessment")
-	}
-	if _, ok := api.(ArtifactAssessmentUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ArtifactAssessment")
+		allCapabilities.Read["ArtifactAssessment"] = read.Capabilities{}
 	}
 	if _, ok := api.(ArtifactAssessmentDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ArtifactAssessment")
+		allCapabilities.Delete["ArtifactAssessment"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ArtifactAssessmentUpdate); ok {
+		allCapabilities.Update["ArtifactAssessment"] = update.Capabilities{}
+		c, ok := c.(ArtifactAssessmentUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesArtifactAssessment(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ArtifactAssessment"] = c
+			}
+		}
 	}
 	if c, ok := api.(ArtifactAssessmentSearch); ok {
 		c, err := c.SearchCapabilitiesArtifactAssessment(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ArtifactAssessment"] = c
+			allCapabilities.Search["ArtifactAssessment"] = c
 		}
 	}
 	if _, ok := api.(AuditEventCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "AuditEvent")
+		allCapabilities.Create["AuditEvent"] = create.Capabilities{}
 	}
 	if _, ok := api.(AuditEventRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "AuditEvent")
-	}
-	if _, ok := api.(AuditEventUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AuditEvent")
+		allCapabilities.Read["AuditEvent"] = read.Capabilities{}
 	}
 	if _, ok := api.(AuditEventDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AuditEvent")
+		allCapabilities.Delete["AuditEvent"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(AuditEventUpdate); ok {
+		allCapabilities.Update["AuditEvent"] = update.Capabilities{}
+		c, ok := c.(AuditEventUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAuditEvent(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["AuditEvent"] = c
+			}
+		}
 	}
 	if c, ok := api.(AuditEventSearch); ok {
 		c, err := c.SearchCapabilitiesAuditEvent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["AuditEvent"] = c
+			allCapabilities.Search["AuditEvent"] = c
 		}
 	}
 	if _, ok := api.(BasicCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Basic")
+		allCapabilities.Create["Basic"] = create.Capabilities{}
 	}
 	if _, ok := api.(BasicRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Basic")
-	}
-	if _, ok := api.(BasicUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Basic")
+		allCapabilities.Read["Basic"] = read.Capabilities{}
 	}
 	if _, ok := api.(BasicDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Basic")
+		allCapabilities.Delete["Basic"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(BasicUpdate); ok {
+		allCapabilities.Update["Basic"] = update.Capabilities{}
+		c, ok := c.(BasicUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBasic(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Basic"] = c
+			}
+		}
 	}
 	if c, ok := api.(BasicSearch); ok {
 		c, err := c.SearchCapabilitiesBasic(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Basic"] = c
+			allCapabilities.Search["Basic"] = c
 		}
 	}
 	if _, ok := api.(BinaryCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Binary")
+		allCapabilities.Create["Binary"] = create.Capabilities{}
 	}
 	if _, ok := api.(BinaryRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Binary")
-	}
-	if _, ok := api.(BinaryUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Binary")
+		allCapabilities.Read["Binary"] = read.Capabilities{}
 	}
 	if _, ok := api.(BinaryDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Binary")
+		allCapabilities.Delete["Binary"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(BinaryUpdate); ok {
+		allCapabilities.Update["Binary"] = update.Capabilities{}
+		c, ok := c.(BinaryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBinary(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Binary"] = c
+			}
+		}
 	}
 	if c, ok := api.(BinarySearch); ok {
 		c, err := c.SearchCapabilitiesBinary(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Binary"] = c
+			allCapabilities.Search["Binary"] = c
 		}
 	}
 	if _, ok := api.(BiologicallyDerivedProductCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "BiologicallyDerivedProduct")
+		allCapabilities.Create["BiologicallyDerivedProduct"] = create.Capabilities{}
 	}
 	if _, ok := api.(BiologicallyDerivedProductRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "BiologicallyDerivedProduct")
-	}
-	if _, ok := api.(BiologicallyDerivedProductUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "BiologicallyDerivedProduct")
+		allCapabilities.Read["BiologicallyDerivedProduct"] = read.Capabilities{}
 	}
 	if _, ok := api.(BiologicallyDerivedProductDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "BiologicallyDerivedProduct")
+		allCapabilities.Delete["BiologicallyDerivedProduct"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(BiologicallyDerivedProductUpdate); ok {
+		allCapabilities.Update["BiologicallyDerivedProduct"] = update.Capabilities{}
+		c, ok := c.(BiologicallyDerivedProductUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBiologicallyDerivedProduct(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["BiologicallyDerivedProduct"] = c
+			}
+		}
 	}
 	if c, ok := api.(BiologicallyDerivedProductSearch); ok {
 		c, err := c.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["BiologicallyDerivedProduct"] = c
+			allCapabilities.Search["BiologicallyDerivedProduct"] = c
 		}
 	}
 	if _, ok := api.(BiologicallyDerivedProductDispenseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "BiologicallyDerivedProductDispense")
+		allCapabilities.Create["BiologicallyDerivedProductDispense"] = create.Capabilities{}
 	}
 	if _, ok := api.(BiologicallyDerivedProductDispenseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "BiologicallyDerivedProductDispense")
-	}
-	if _, ok := api.(BiologicallyDerivedProductDispenseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "BiologicallyDerivedProductDispense")
+		allCapabilities.Read["BiologicallyDerivedProductDispense"] = read.Capabilities{}
 	}
 	if _, ok := api.(BiologicallyDerivedProductDispenseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "BiologicallyDerivedProductDispense")
+		allCapabilities.Delete["BiologicallyDerivedProductDispense"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(BiologicallyDerivedProductDispenseUpdate); ok {
+		allCapabilities.Update["BiologicallyDerivedProductDispense"] = update.Capabilities{}
+		c, ok := c.(BiologicallyDerivedProductDispenseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBiologicallyDerivedProductDispense(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["BiologicallyDerivedProductDispense"] = c
+			}
+		}
 	}
 	if c, ok := api.(BiologicallyDerivedProductDispenseSearch); ok {
 		c, err := c.SearchCapabilitiesBiologicallyDerivedProductDispense(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["BiologicallyDerivedProductDispense"] = c
+			allCapabilities.Search["BiologicallyDerivedProductDispense"] = c
 		}
 	}
 	if _, ok := api.(BodyStructureCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "BodyStructure")
+		allCapabilities.Create["BodyStructure"] = create.Capabilities{}
 	}
 	if _, ok := api.(BodyStructureRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "BodyStructure")
-	}
-	if _, ok := api.(BodyStructureUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "BodyStructure")
+		allCapabilities.Read["BodyStructure"] = read.Capabilities{}
 	}
 	if _, ok := api.(BodyStructureDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "BodyStructure")
+		allCapabilities.Delete["BodyStructure"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(BodyStructureUpdate); ok {
+		allCapabilities.Update["BodyStructure"] = update.Capabilities{}
+		c, ok := c.(BodyStructureUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBodyStructure(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["BodyStructure"] = c
+			}
+		}
 	}
 	if c, ok := api.(BodyStructureSearch); ok {
 		c, err := c.SearchCapabilitiesBodyStructure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["BodyStructure"] = c
+			allCapabilities.Search["BodyStructure"] = c
 		}
 	}
 	if _, ok := api.(BundleCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Bundle")
+		allCapabilities.Create["Bundle"] = create.Capabilities{}
 	}
 	if _, ok := api.(BundleRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Bundle")
-	}
-	if _, ok := api.(BundleUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Bundle")
+		allCapabilities.Read["Bundle"] = read.Capabilities{}
 	}
 	if _, ok := api.(BundleDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Bundle")
+		allCapabilities.Delete["Bundle"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(BundleUpdate); ok {
+		allCapabilities.Update["Bundle"] = update.Capabilities{}
+		c, ok := c.(BundleUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBundle(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Bundle"] = c
+			}
+		}
 	}
 	if c, ok := api.(BundleSearch); ok {
 		c, err := c.SearchCapabilitiesBundle(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Bundle"] = c
+			allCapabilities.Search["Bundle"] = c
 		}
 	}
 	if _, ok := api.(CapabilityStatementCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CapabilityStatement")
+		allCapabilities.Create["CapabilityStatement"] = create.Capabilities{}
 	}
 	if _, ok := api.(CapabilityStatementRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CapabilityStatement")
-	}
-	if _, ok := api.(CapabilityStatementUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CapabilityStatement")
+		allCapabilities.Read["CapabilityStatement"] = read.Capabilities{}
 	}
 	if _, ok := api.(CapabilityStatementDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CapabilityStatement")
+		allCapabilities.Delete["CapabilityStatement"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CapabilityStatementUpdate); ok {
+		allCapabilities.Update["CapabilityStatement"] = update.Capabilities{}
+		c, ok := c.(CapabilityStatementUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCapabilityStatement(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CapabilityStatement"] = c
+			}
+		}
 	}
 	if c, ok := api.(CapabilityStatementSearch); ok {
 		c, err := c.SearchCapabilitiesCapabilityStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CapabilityStatement"] = c
+			allCapabilities.Search["CapabilityStatement"] = c
 		}
 	}
 	if _, ok := api.(CarePlanCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CarePlan")
+		allCapabilities.Create["CarePlan"] = create.Capabilities{}
 	}
 	if _, ok := api.(CarePlanRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CarePlan")
-	}
-	if _, ok := api.(CarePlanUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CarePlan")
+		allCapabilities.Read["CarePlan"] = read.Capabilities{}
 	}
 	if _, ok := api.(CarePlanDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CarePlan")
+		allCapabilities.Delete["CarePlan"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CarePlanUpdate); ok {
+		allCapabilities.Update["CarePlan"] = update.Capabilities{}
+		c, ok := c.(CarePlanUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCarePlan(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CarePlan"] = c
+			}
+		}
 	}
 	if c, ok := api.(CarePlanSearch); ok {
 		c, err := c.SearchCapabilitiesCarePlan(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CarePlan"] = c
+			allCapabilities.Search["CarePlan"] = c
 		}
 	}
 	if _, ok := api.(CareTeamCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CareTeam")
+		allCapabilities.Create["CareTeam"] = create.Capabilities{}
 	}
 	if _, ok := api.(CareTeamRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CareTeam")
-	}
-	if _, ok := api.(CareTeamUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CareTeam")
+		allCapabilities.Read["CareTeam"] = read.Capabilities{}
 	}
 	if _, ok := api.(CareTeamDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CareTeam")
+		allCapabilities.Delete["CareTeam"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CareTeamUpdate); ok {
+		allCapabilities.Update["CareTeam"] = update.Capabilities{}
+		c, ok := c.(CareTeamUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCareTeam(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CareTeam"] = c
+			}
+		}
 	}
 	if c, ok := api.(CareTeamSearch); ok {
 		c, err := c.SearchCapabilitiesCareTeam(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CareTeam"] = c
+			allCapabilities.Search["CareTeam"] = c
 		}
 	}
 	if _, ok := api.(ChargeItemCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ChargeItem")
+		allCapabilities.Create["ChargeItem"] = create.Capabilities{}
 	}
 	if _, ok := api.(ChargeItemRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ChargeItem")
-	}
-	if _, ok := api.(ChargeItemUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ChargeItem")
+		allCapabilities.Read["ChargeItem"] = read.Capabilities{}
 	}
 	if _, ok := api.(ChargeItemDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ChargeItem")
+		allCapabilities.Delete["ChargeItem"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ChargeItemUpdate); ok {
+		allCapabilities.Update["ChargeItem"] = update.Capabilities{}
+		c, ok := c.(ChargeItemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesChargeItem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ChargeItem"] = c
+			}
+		}
 	}
 	if c, ok := api.(ChargeItemSearch); ok {
 		c, err := c.SearchCapabilitiesChargeItem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ChargeItem"] = c
+			allCapabilities.Search["ChargeItem"] = c
 		}
 	}
 	if _, ok := api.(ChargeItemDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ChargeItemDefinition")
+		allCapabilities.Create["ChargeItemDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ChargeItemDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ChargeItemDefinition")
-	}
-	if _, ok := api.(ChargeItemDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ChargeItemDefinition")
+		allCapabilities.Read["ChargeItemDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ChargeItemDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ChargeItemDefinition")
+		allCapabilities.Delete["ChargeItemDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ChargeItemDefinitionUpdate); ok {
+		allCapabilities.Update["ChargeItemDefinition"] = update.Capabilities{}
+		c, ok := c.(ChargeItemDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesChargeItemDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ChargeItemDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ChargeItemDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesChargeItemDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ChargeItemDefinition"] = c
+			allCapabilities.Search["ChargeItemDefinition"] = c
 		}
 	}
 	if _, ok := api.(CitationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Citation")
+		allCapabilities.Create["Citation"] = create.Capabilities{}
 	}
 	if _, ok := api.(CitationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Citation")
-	}
-	if _, ok := api.(CitationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Citation")
+		allCapabilities.Read["Citation"] = read.Capabilities{}
 	}
 	if _, ok := api.(CitationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Citation")
+		allCapabilities.Delete["Citation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CitationUpdate); ok {
+		allCapabilities.Update["Citation"] = update.Capabilities{}
+		c, ok := c.(CitationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCitation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Citation"] = c
+			}
+		}
 	}
 	if c, ok := api.(CitationSearch); ok {
 		c, err := c.SearchCapabilitiesCitation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Citation"] = c
+			allCapabilities.Search["Citation"] = c
 		}
 	}
 	if _, ok := api.(ClaimCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Claim")
+		allCapabilities.Create["Claim"] = create.Capabilities{}
 	}
 	if _, ok := api.(ClaimRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Claim")
-	}
-	if _, ok := api.(ClaimUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Claim")
+		allCapabilities.Read["Claim"] = read.Capabilities{}
 	}
 	if _, ok := api.(ClaimDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Claim")
+		allCapabilities.Delete["Claim"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ClaimUpdate); ok {
+		allCapabilities.Update["Claim"] = update.Capabilities{}
+		c, ok := c.(ClaimUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClaim(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Claim"] = c
+			}
+		}
 	}
 	if c, ok := api.(ClaimSearch); ok {
 		c, err := c.SearchCapabilitiesClaim(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Claim"] = c
+			allCapabilities.Search["Claim"] = c
 		}
 	}
 	if _, ok := api.(ClaimResponseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ClaimResponse")
+		allCapabilities.Create["ClaimResponse"] = create.Capabilities{}
 	}
 	if _, ok := api.(ClaimResponseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ClaimResponse")
-	}
-	if _, ok := api.(ClaimResponseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ClaimResponse")
+		allCapabilities.Read["ClaimResponse"] = read.Capabilities{}
 	}
 	if _, ok := api.(ClaimResponseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ClaimResponse")
+		allCapabilities.Delete["ClaimResponse"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ClaimResponseUpdate); ok {
+		allCapabilities.Update["ClaimResponse"] = update.Capabilities{}
+		c, ok := c.(ClaimResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClaimResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ClaimResponse"] = c
+			}
+		}
 	}
 	if c, ok := api.(ClaimResponseSearch); ok {
 		c, err := c.SearchCapabilitiesClaimResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ClaimResponse"] = c
+			allCapabilities.Search["ClaimResponse"] = c
 		}
 	}
 	if _, ok := api.(ClinicalImpressionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ClinicalImpression")
+		allCapabilities.Create["ClinicalImpression"] = create.Capabilities{}
 	}
 	if _, ok := api.(ClinicalImpressionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ClinicalImpression")
-	}
-	if _, ok := api.(ClinicalImpressionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ClinicalImpression")
+		allCapabilities.Read["ClinicalImpression"] = read.Capabilities{}
 	}
 	if _, ok := api.(ClinicalImpressionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ClinicalImpression")
+		allCapabilities.Delete["ClinicalImpression"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ClinicalImpressionUpdate); ok {
+		allCapabilities.Update["ClinicalImpression"] = update.Capabilities{}
+		c, ok := c.(ClinicalImpressionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClinicalImpression(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ClinicalImpression"] = c
+			}
+		}
 	}
 	if c, ok := api.(ClinicalImpressionSearch); ok {
 		c, err := c.SearchCapabilitiesClinicalImpression(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ClinicalImpression"] = c
+			allCapabilities.Search["ClinicalImpression"] = c
 		}
 	}
 	if _, ok := api.(ClinicalUseDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ClinicalUseDefinition")
+		allCapabilities.Create["ClinicalUseDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ClinicalUseDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ClinicalUseDefinition")
-	}
-	if _, ok := api.(ClinicalUseDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ClinicalUseDefinition")
+		allCapabilities.Read["ClinicalUseDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ClinicalUseDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ClinicalUseDefinition")
+		allCapabilities.Delete["ClinicalUseDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ClinicalUseDefinitionUpdate); ok {
+		allCapabilities.Update["ClinicalUseDefinition"] = update.Capabilities{}
+		c, ok := c.(ClinicalUseDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClinicalUseDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ClinicalUseDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ClinicalUseDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesClinicalUseDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ClinicalUseDefinition"] = c
+			allCapabilities.Search["ClinicalUseDefinition"] = c
 		}
 	}
 	if _, ok := api.(CodeSystemCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CodeSystem")
+		allCapabilities.Create["CodeSystem"] = create.Capabilities{}
 	}
 	if _, ok := api.(CodeSystemRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CodeSystem")
-	}
-	if _, ok := api.(CodeSystemUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CodeSystem")
+		allCapabilities.Read["CodeSystem"] = read.Capabilities{}
 	}
 	if _, ok := api.(CodeSystemDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CodeSystem")
+		allCapabilities.Delete["CodeSystem"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CodeSystemUpdate); ok {
+		allCapabilities.Update["CodeSystem"] = update.Capabilities{}
+		c, ok := c.(CodeSystemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCodeSystem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CodeSystem"] = c
+			}
+		}
 	}
 	if c, ok := api.(CodeSystemSearch); ok {
 		c, err := c.SearchCapabilitiesCodeSystem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CodeSystem"] = c
+			allCapabilities.Search["CodeSystem"] = c
 		}
 	}
 	if _, ok := api.(CommunicationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Communication")
+		allCapabilities.Create["Communication"] = create.Capabilities{}
 	}
 	if _, ok := api.(CommunicationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Communication")
-	}
-	if _, ok := api.(CommunicationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Communication")
+		allCapabilities.Read["Communication"] = read.Capabilities{}
 	}
 	if _, ok := api.(CommunicationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Communication")
+		allCapabilities.Delete["Communication"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CommunicationUpdate); ok {
+		allCapabilities.Update["Communication"] = update.Capabilities{}
+		c, ok := c.(CommunicationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCommunication(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Communication"] = c
+			}
+		}
 	}
 	if c, ok := api.(CommunicationSearch); ok {
 		c, err := c.SearchCapabilitiesCommunication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Communication"] = c
+			allCapabilities.Search["Communication"] = c
 		}
 	}
 	if _, ok := api.(CommunicationRequestCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CommunicationRequest")
+		allCapabilities.Create["CommunicationRequest"] = create.Capabilities{}
 	}
 	if _, ok := api.(CommunicationRequestRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CommunicationRequest")
-	}
-	if _, ok := api.(CommunicationRequestUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CommunicationRequest")
+		allCapabilities.Read["CommunicationRequest"] = read.Capabilities{}
 	}
 	if _, ok := api.(CommunicationRequestDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CommunicationRequest")
+		allCapabilities.Delete["CommunicationRequest"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CommunicationRequestUpdate); ok {
+		allCapabilities.Update["CommunicationRequest"] = update.Capabilities{}
+		c, ok := c.(CommunicationRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCommunicationRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CommunicationRequest"] = c
+			}
+		}
 	}
 	if c, ok := api.(CommunicationRequestSearch); ok {
 		c, err := c.SearchCapabilitiesCommunicationRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CommunicationRequest"] = c
+			allCapabilities.Search["CommunicationRequest"] = c
 		}
 	}
 	if _, ok := api.(CompartmentDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CompartmentDefinition")
+		allCapabilities.Create["CompartmentDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(CompartmentDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CompartmentDefinition")
-	}
-	if _, ok := api.(CompartmentDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CompartmentDefinition")
+		allCapabilities.Read["CompartmentDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(CompartmentDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CompartmentDefinition")
+		allCapabilities.Delete["CompartmentDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CompartmentDefinitionUpdate); ok {
+		allCapabilities.Update["CompartmentDefinition"] = update.Capabilities{}
+		c, ok := c.(CompartmentDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCompartmentDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CompartmentDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(CompartmentDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesCompartmentDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CompartmentDefinition"] = c
+			allCapabilities.Search["CompartmentDefinition"] = c
 		}
 	}
 	if _, ok := api.(CompositionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Composition")
+		allCapabilities.Create["Composition"] = create.Capabilities{}
 	}
 	if _, ok := api.(CompositionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Composition")
-	}
-	if _, ok := api.(CompositionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Composition")
+		allCapabilities.Read["Composition"] = read.Capabilities{}
 	}
 	if _, ok := api.(CompositionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Composition")
+		allCapabilities.Delete["Composition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CompositionUpdate); ok {
+		allCapabilities.Update["Composition"] = update.Capabilities{}
+		c, ok := c.(CompositionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesComposition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Composition"] = c
+			}
+		}
 	}
 	if c, ok := api.(CompositionSearch); ok {
 		c, err := c.SearchCapabilitiesComposition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Composition"] = c
+			allCapabilities.Search["Composition"] = c
 		}
 	}
 	if _, ok := api.(ConceptMapCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ConceptMap")
+		allCapabilities.Create["ConceptMap"] = create.Capabilities{}
 	}
 	if _, ok := api.(ConceptMapRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ConceptMap")
-	}
-	if _, ok := api.(ConceptMapUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ConceptMap")
+		allCapabilities.Read["ConceptMap"] = read.Capabilities{}
 	}
 	if _, ok := api.(ConceptMapDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ConceptMap")
+		allCapabilities.Delete["ConceptMap"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ConceptMapUpdate); ok {
+		allCapabilities.Update["ConceptMap"] = update.Capabilities{}
+		c, ok := c.(ConceptMapUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesConceptMap(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ConceptMap"] = c
+			}
+		}
 	}
 	if c, ok := api.(ConceptMapSearch); ok {
 		c, err := c.SearchCapabilitiesConceptMap(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ConceptMap"] = c
+			allCapabilities.Search["ConceptMap"] = c
 		}
 	}
 	if _, ok := api.(ConditionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Condition")
+		allCapabilities.Create["Condition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ConditionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Condition")
-	}
-	if _, ok := api.(ConditionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Condition")
+		allCapabilities.Read["Condition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ConditionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Condition")
+		allCapabilities.Delete["Condition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ConditionUpdate); ok {
+		allCapabilities.Update["Condition"] = update.Capabilities{}
+		c, ok := c.(ConditionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCondition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Condition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ConditionSearch); ok {
 		c, err := c.SearchCapabilitiesCondition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Condition"] = c
+			allCapabilities.Search["Condition"] = c
 		}
 	}
 	if _, ok := api.(ConditionDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ConditionDefinition")
+		allCapabilities.Create["ConditionDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ConditionDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ConditionDefinition")
-	}
-	if _, ok := api.(ConditionDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ConditionDefinition")
+		allCapabilities.Read["ConditionDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ConditionDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ConditionDefinition")
+		allCapabilities.Delete["ConditionDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ConditionDefinitionUpdate); ok {
+		allCapabilities.Update["ConditionDefinition"] = update.Capabilities{}
+		c, ok := c.(ConditionDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesConditionDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ConditionDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ConditionDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesConditionDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ConditionDefinition"] = c
+			allCapabilities.Search["ConditionDefinition"] = c
 		}
 	}
 	if _, ok := api.(ConsentCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Consent")
+		allCapabilities.Create["Consent"] = create.Capabilities{}
 	}
 	if _, ok := api.(ConsentRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Consent")
-	}
-	if _, ok := api.(ConsentUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Consent")
+		allCapabilities.Read["Consent"] = read.Capabilities{}
 	}
 	if _, ok := api.(ConsentDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Consent")
+		allCapabilities.Delete["Consent"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ConsentUpdate); ok {
+		allCapabilities.Update["Consent"] = update.Capabilities{}
+		c, ok := c.(ConsentUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesConsent(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Consent"] = c
+			}
+		}
 	}
 	if c, ok := api.(ConsentSearch); ok {
 		c, err := c.SearchCapabilitiesConsent(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Consent"] = c
+			allCapabilities.Search["Consent"] = c
 		}
 	}
 	if _, ok := api.(ContractCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Contract")
+		allCapabilities.Create["Contract"] = create.Capabilities{}
 	}
 	if _, ok := api.(ContractRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Contract")
-	}
-	if _, ok := api.(ContractUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Contract")
+		allCapabilities.Read["Contract"] = read.Capabilities{}
 	}
 	if _, ok := api.(ContractDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Contract")
+		allCapabilities.Delete["Contract"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ContractUpdate); ok {
+		allCapabilities.Update["Contract"] = update.Capabilities{}
+		c, ok := c.(ContractUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesContract(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Contract"] = c
+			}
+		}
 	}
 	if c, ok := api.(ContractSearch); ok {
 		c, err := c.SearchCapabilitiesContract(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Contract"] = c
+			allCapabilities.Search["Contract"] = c
 		}
 	}
 	if _, ok := api.(CoverageCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Coverage")
+		allCapabilities.Create["Coverage"] = create.Capabilities{}
 	}
 	if _, ok := api.(CoverageRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Coverage")
-	}
-	if _, ok := api.(CoverageUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Coverage")
+		allCapabilities.Read["Coverage"] = read.Capabilities{}
 	}
 	if _, ok := api.(CoverageDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Coverage")
+		allCapabilities.Delete["Coverage"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CoverageUpdate); ok {
+		allCapabilities.Update["Coverage"] = update.Capabilities{}
+		c, ok := c.(CoverageUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCoverage(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Coverage"] = c
+			}
+		}
 	}
 	if c, ok := api.(CoverageSearch); ok {
 		c, err := c.SearchCapabilitiesCoverage(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Coverage"] = c
+			allCapabilities.Search["Coverage"] = c
 		}
 	}
 	if _, ok := api.(CoverageEligibilityRequestCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CoverageEligibilityRequest")
+		allCapabilities.Create["CoverageEligibilityRequest"] = create.Capabilities{}
 	}
 	if _, ok := api.(CoverageEligibilityRequestRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CoverageEligibilityRequest")
-	}
-	if _, ok := api.(CoverageEligibilityRequestUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CoverageEligibilityRequest")
+		allCapabilities.Read["CoverageEligibilityRequest"] = read.Capabilities{}
 	}
 	if _, ok := api.(CoverageEligibilityRequestDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CoverageEligibilityRequest")
+		allCapabilities.Delete["CoverageEligibilityRequest"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CoverageEligibilityRequestUpdate); ok {
+		allCapabilities.Update["CoverageEligibilityRequest"] = update.Capabilities{}
+		c, ok := c.(CoverageEligibilityRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCoverageEligibilityRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CoverageEligibilityRequest"] = c
+			}
+		}
 	}
 	if c, ok := api.(CoverageEligibilityRequestSearch); ok {
 		c, err := c.SearchCapabilitiesCoverageEligibilityRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CoverageEligibilityRequest"] = c
+			allCapabilities.Search["CoverageEligibilityRequest"] = c
 		}
 	}
 	if _, ok := api.(CoverageEligibilityResponseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "CoverageEligibilityResponse")
+		allCapabilities.Create["CoverageEligibilityResponse"] = create.Capabilities{}
 	}
 	if _, ok := api.(CoverageEligibilityResponseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "CoverageEligibilityResponse")
-	}
-	if _, ok := api.(CoverageEligibilityResponseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CoverageEligibilityResponse")
+		allCapabilities.Read["CoverageEligibilityResponse"] = read.Capabilities{}
 	}
 	if _, ok := api.(CoverageEligibilityResponseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CoverageEligibilityResponse")
+		allCapabilities.Delete["CoverageEligibilityResponse"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(CoverageEligibilityResponseUpdate); ok {
+		allCapabilities.Update["CoverageEligibilityResponse"] = update.Capabilities{}
+		c, ok := c.(CoverageEligibilityResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCoverageEligibilityResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["CoverageEligibilityResponse"] = c
+			}
+		}
 	}
 	if c, ok := api.(CoverageEligibilityResponseSearch); ok {
 		c, err := c.SearchCapabilitiesCoverageEligibilityResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["CoverageEligibilityResponse"] = c
+			allCapabilities.Search["CoverageEligibilityResponse"] = c
 		}
 	}
 	if _, ok := api.(DetectedIssueCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DetectedIssue")
+		allCapabilities.Create["DetectedIssue"] = create.Capabilities{}
 	}
 	if _, ok := api.(DetectedIssueRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DetectedIssue")
-	}
-	if _, ok := api.(DetectedIssueUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DetectedIssue")
+		allCapabilities.Read["DetectedIssue"] = read.Capabilities{}
 	}
 	if _, ok := api.(DetectedIssueDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DetectedIssue")
+		allCapabilities.Delete["DetectedIssue"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DetectedIssueUpdate); ok {
+		allCapabilities.Update["DetectedIssue"] = update.Capabilities{}
+		c, ok := c.(DetectedIssueUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDetectedIssue(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DetectedIssue"] = c
+			}
+		}
 	}
 	if c, ok := api.(DetectedIssueSearch); ok {
 		c, err := c.SearchCapabilitiesDetectedIssue(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DetectedIssue"] = c
+			allCapabilities.Search["DetectedIssue"] = c
 		}
 	}
 	if _, ok := api.(DeviceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Device")
+		allCapabilities.Create["Device"] = create.Capabilities{}
 	}
 	if _, ok := api.(DeviceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Device")
-	}
-	if _, ok := api.(DeviceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Device")
+		allCapabilities.Read["Device"] = read.Capabilities{}
 	}
 	if _, ok := api.(DeviceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Device")
+		allCapabilities.Delete["Device"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DeviceUpdate); ok {
+		allCapabilities.Update["Device"] = update.Capabilities{}
+		c, ok := c.(DeviceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDevice(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Device"] = c
+			}
+		}
 	}
 	if c, ok := api.(DeviceSearch); ok {
 		c, err := c.SearchCapabilitiesDevice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Device"] = c
+			allCapabilities.Search["Device"] = c
 		}
 	}
 	if _, ok := api.(DeviceAssociationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceAssociation")
+		allCapabilities.Create["DeviceAssociation"] = create.Capabilities{}
 	}
 	if _, ok := api.(DeviceAssociationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceAssociation")
-	}
-	if _, ok := api.(DeviceAssociationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceAssociation")
+		allCapabilities.Read["DeviceAssociation"] = read.Capabilities{}
 	}
 	if _, ok := api.(DeviceAssociationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceAssociation")
+		allCapabilities.Delete["DeviceAssociation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DeviceAssociationUpdate); ok {
+		allCapabilities.Update["DeviceAssociation"] = update.Capabilities{}
+		c, ok := c.(DeviceAssociationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceAssociation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DeviceAssociation"] = c
+			}
+		}
 	}
 	if c, ok := api.(DeviceAssociationSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceAssociation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DeviceAssociation"] = c
+			allCapabilities.Search["DeviceAssociation"] = c
 		}
 	}
 	if _, ok := api.(DeviceDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceDefinition")
+		allCapabilities.Create["DeviceDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(DeviceDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceDefinition")
-	}
-	if _, ok := api.(DeviceDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceDefinition")
+		allCapabilities.Read["DeviceDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(DeviceDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceDefinition")
+		allCapabilities.Delete["DeviceDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DeviceDefinitionUpdate); ok {
+		allCapabilities.Update["DeviceDefinition"] = update.Capabilities{}
+		c, ok := c.(DeviceDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DeviceDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(DeviceDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DeviceDefinition"] = c
+			allCapabilities.Search["DeviceDefinition"] = c
 		}
 	}
 	if _, ok := api.(DeviceDispenseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceDispense")
+		allCapabilities.Create["DeviceDispense"] = create.Capabilities{}
 	}
 	if _, ok := api.(DeviceDispenseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceDispense")
-	}
-	if _, ok := api.(DeviceDispenseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceDispense")
+		allCapabilities.Read["DeviceDispense"] = read.Capabilities{}
 	}
 	if _, ok := api.(DeviceDispenseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceDispense")
+		allCapabilities.Delete["DeviceDispense"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DeviceDispenseUpdate); ok {
+		allCapabilities.Update["DeviceDispense"] = update.Capabilities{}
+		c, ok := c.(DeviceDispenseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceDispense(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DeviceDispense"] = c
+			}
+		}
 	}
 	if c, ok := api.(DeviceDispenseSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceDispense(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DeviceDispense"] = c
+			allCapabilities.Search["DeviceDispense"] = c
 		}
 	}
 	if _, ok := api.(DeviceMetricCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceMetric")
+		allCapabilities.Create["DeviceMetric"] = create.Capabilities{}
 	}
 	if _, ok := api.(DeviceMetricRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceMetric")
-	}
-	if _, ok := api.(DeviceMetricUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceMetric")
+		allCapabilities.Read["DeviceMetric"] = read.Capabilities{}
 	}
 	if _, ok := api.(DeviceMetricDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceMetric")
+		allCapabilities.Delete["DeviceMetric"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DeviceMetricUpdate); ok {
+		allCapabilities.Update["DeviceMetric"] = update.Capabilities{}
+		c, ok := c.(DeviceMetricUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceMetric(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DeviceMetric"] = c
+			}
+		}
 	}
 	if c, ok := api.(DeviceMetricSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceMetric(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DeviceMetric"] = c
+			allCapabilities.Search["DeviceMetric"] = c
 		}
 	}
 	if _, ok := api.(DeviceRequestCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceRequest")
+		allCapabilities.Create["DeviceRequest"] = create.Capabilities{}
 	}
 	if _, ok := api.(DeviceRequestRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceRequest")
-	}
-	if _, ok := api.(DeviceRequestUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceRequest")
+		allCapabilities.Read["DeviceRequest"] = read.Capabilities{}
 	}
 	if _, ok := api.(DeviceRequestDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceRequest")
+		allCapabilities.Delete["DeviceRequest"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DeviceRequestUpdate); ok {
+		allCapabilities.Update["DeviceRequest"] = update.Capabilities{}
+		c, ok := c.(DeviceRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DeviceRequest"] = c
+			}
+		}
 	}
 	if c, ok := api.(DeviceRequestSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DeviceRequest"] = c
+			allCapabilities.Search["DeviceRequest"] = c
 		}
 	}
 	if _, ok := api.(DeviceUsageCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DeviceUsage")
+		allCapabilities.Create["DeviceUsage"] = create.Capabilities{}
 	}
 	if _, ok := api.(DeviceUsageRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DeviceUsage")
-	}
-	if _, ok := api.(DeviceUsageUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceUsage")
+		allCapabilities.Read["DeviceUsage"] = read.Capabilities{}
 	}
 	if _, ok := api.(DeviceUsageDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceUsage")
+		allCapabilities.Delete["DeviceUsage"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DeviceUsageUpdate); ok {
+		allCapabilities.Update["DeviceUsage"] = update.Capabilities{}
+		c, ok := c.(DeviceUsageUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceUsage(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DeviceUsage"] = c
+			}
+		}
 	}
 	if c, ok := api.(DeviceUsageSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceUsage(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DeviceUsage"] = c
+			allCapabilities.Search["DeviceUsage"] = c
 		}
 	}
 	if _, ok := api.(DiagnosticReportCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DiagnosticReport")
+		allCapabilities.Create["DiagnosticReport"] = create.Capabilities{}
 	}
 	if _, ok := api.(DiagnosticReportRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DiagnosticReport")
-	}
-	if _, ok := api.(DiagnosticReportUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DiagnosticReport")
+		allCapabilities.Read["DiagnosticReport"] = read.Capabilities{}
 	}
 	if _, ok := api.(DiagnosticReportDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DiagnosticReport")
+		allCapabilities.Delete["DiagnosticReport"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DiagnosticReportUpdate); ok {
+		allCapabilities.Update["DiagnosticReport"] = update.Capabilities{}
+		c, ok := c.(DiagnosticReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDiagnosticReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DiagnosticReport"] = c
+			}
+		}
 	}
 	if c, ok := api.(DiagnosticReportSearch); ok {
 		c, err := c.SearchCapabilitiesDiagnosticReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DiagnosticReport"] = c
+			allCapabilities.Search["DiagnosticReport"] = c
 		}
 	}
 	if _, ok := api.(DocumentReferenceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "DocumentReference")
+		allCapabilities.Create["DocumentReference"] = create.Capabilities{}
 	}
 	if _, ok := api.(DocumentReferenceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "DocumentReference")
-	}
-	if _, ok := api.(DocumentReferenceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DocumentReference")
+		allCapabilities.Read["DocumentReference"] = read.Capabilities{}
 	}
 	if _, ok := api.(DocumentReferenceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DocumentReference")
+		allCapabilities.Delete["DocumentReference"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(DocumentReferenceUpdate); ok {
+		allCapabilities.Update["DocumentReference"] = update.Capabilities{}
+		c, ok := c.(DocumentReferenceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDocumentReference(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["DocumentReference"] = c
+			}
+		}
 	}
 	if c, ok := api.(DocumentReferenceSearch); ok {
 		c, err := c.SearchCapabilitiesDocumentReference(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["DocumentReference"] = c
+			allCapabilities.Search["DocumentReference"] = c
 		}
 	}
 	if _, ok := api.(EncounterCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Encounter")
+		allCapabilities.Create["Encounter"] = create.Capabilities{}
 	}
 	if _, ok := api.(EncounterRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Encounter")
-	}
-	if _, ok := api.(EncounterUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Encounter")
+		allCapabilities.Read["Encounter"] = read.Capabilities{}
 	}
 	if _, ok := api.(EncounterDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Encounter")
+		allCapabilities.Delete["Encounter"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EncounterUpdate); ok {
+		allCapabilities.Update["Encounter"] = update.Capabilities{}
+		c, ok := c.(EncounterUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEncounter(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Encounter"] = c
+			}
+		}
 	}
 	if c, ok := api.(EncounterSearch); ok {
 		c, err := c.SearchCapabilitiesEncounter(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Encounter"] = c
+			allCapabilities.Search["Encounter"] = c
 		}
 	}
 	if _, ok := api.(EncounterHistoryCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EncounterHistory")
+		allCapabilities.Create["EncounterHistory"] = create.Capabilities{}
 	}
 	if _, ok := api.(EncounterHistoryRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EncounterHistory")
-	}
-	if _, ok := api.(EncounterHistoryUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EncounterHistory")
+		allCapabilities.Read["EncounterHistory"] = read.Capabilities{}
 	}
 	if _, ok := api.(EncounterHistoryDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EncounterHistory")
+		allCapabilities.Delete["EncounterHistory"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EncounterHistoryUpdate); ok {
+		allCapabilities.Update["EncounterHistory"] = update.Capabilities{}
+		c, ok := c.(EncounterHistoryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEncounterHistory(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["EncounterHistory"] = c
+			}
+		}
 	}
 	if c, ok := api.(EncounterHistorySearch); ok {
 		c, err := c.SearchCapabilitiesEncounterHistory(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["EncounterHistory"] = c
+			allCapabilities.Search["EncounterHistory"] = c
 		}
 	}
 	if _, ok := api.(EndpointCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Endpoint")
+		allCapabilities.Create["Endpoint"] = create.Capabilities{}
 	}
 	if _, ok := api.(EndpointRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Endpoint")
-	}
-	if _, ok := api.(EndpointUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Endpoint")
+		allCapabilities.Read["Endpoint"] = read.Capabilities{}
 	}
 	if _, ok := api.(EndpointDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Endpoint")
+		allCapabilities.Delete["Endpoint"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EndpointUpdate); ok {
+		allCapabilities.Update["Endpoint"] = update.Capabilities{}
+		c, ok := c.(EndpointUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEndpoint(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Endpoint"] = c
+			}
+		}
 	}
 	if c, ok := api.(EndpointSearch); ok {
 		c, err := c.SearchCapabilitiesEndpoint(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Endpoint"] = c
+			allCapabilities.Search["Endpoint"] = c
 		}
 	}
 	if _, ok := api.(EnrollmentRequestCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EnrollmentRequest")
+		allCapabilities.Create["EnrollmentRequest"] = create.Capabilities{}
 	}
 	if _, ok := api.(EnrollmentRequestRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EnrollmentRequest")
-	}
-	if _, ok := api.(EnrollmentRequestUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EnrollmentRequest")
+		allCapabilities.Read["EnrollmentRequest"] = read.Capabilities{}
 	}
 	if _, ok := api.(EnrollmentRequestDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EnrollmentRequest")
+		allCapabilities.Delete["EnrollmentRequest"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EnrollmentRequestUpdate); ok {
+		allCapabilities.Update["EnrollmentRequest"] = update.Capabilities{}
+		c, ok := c.(EnrollmentRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEnrollmentRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["EnrollmentRequest"] = c
+			}
+		}
 	}
 	if c, ok := api.(EnrollmentRequestSearch); ok {
 		c, err := c.SearchCapabilitiesEnrollmentRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["EnrollmentRequest"] = c
+			allCapabilities.Search["EnrollmentRequest"] = c
 		}
 	}
 	if _, ok := api.(EnrollmentResponseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EnrollmentResponse")
+		allCapabilities.Create["EnrollmentResponse"] = create.Capabilities{}
 	}
 	if _, ok := api.(EnrollmentResponseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EnrollmentResponse")
-	}
-	if _, ok := api.(EnrollmentResponseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EnrollmentResponse")
+		allCapabilities.Read["EnrollmentResponse"] = read.Capabilities{}
 	}
 	if _, ok := api.(EnrollmentResponseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EnrollmentResponse")
+		allCapabilities.Delete["EnrollmentResponse"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EnrollmentResponseUpdate); ok {
+		allCapabilities.Update["EnrollmentResponse"] = update.Capabilities{}
+		c, ok := c.(EnrollmentResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEnrollmentResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["EnrollmentResponse"] = c
+			}
+		}
 	}
 	if c, ok := api.(EnrollmentResponseSearch); ok {
 		c, err := c.SearchCapabilitiesEnrollmentResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["EnrollmentResponse"] = c
+			allCapabilities.Search["EnrollmentResponse"] = c
 		}
 	}
 	if _, ok := api.(EpisodeOfCareCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EpisodeOfCare")
+		allCapabilities.Create["EpisodeOfCare"] = create.Capabilities{}
 	}
 	if _, ok := api.(EpisodeOfCareRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EpisodeOfCare")
-	}
-	if _, ok := api.(EpisodeOfCareUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EpisodeOfCare")
+		allCapabilities.Read["EpisodeOfCare"] = read.Capabilities{}
 	}
 	if _, ok := api.(EpisodeOfCareDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EpisodeOfCare")
+		allCapabilities.Delete["EpisodeOfCare"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EpisodeOfCareUpdate); ok {
+		allCapabilities.Update["EpisodeOfCare"] = update.Capabilities{}
+		c, ok := c.(EpisodeOfCareUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEpisodeOfCare(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["EpisodeOfCare"] = c
+			}
+		}
 	}
 	if c, ok := api.(EpisodeOfCareSearch); ok {
 		c, err := c.SearchCapabilitiesEpisodeOfCare(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["EpisodeOfCare"] = c
+			allCapabilities.Search["EpisodeOfCare"] = c
 		}
 	}
 	if _, ok := api.(EventDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EventDefinition")
+		allCapabilities.Create["EventDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(EventDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EventDefinition")
-	}
-	if _, ok := api.(EventDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EventDefinition")
+		allCapabilities.Read["EventDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(EventDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EventDefinition")
+		allCapabilities.Delete["EventDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EventDefinitionUpdate); ok {
+		allCapabilities.Update["EventDefinition"] = update.Capabilities{}
+		c, ok := c.(EventDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEventDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["EventDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(EventDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesEventDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["EventDefinition"] = c
+			allCapabilities.Search["EventDefinition"] = c
 		}
 	}
 	if _, ok := api.(EvidenceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Evidence")
+		allCapabilities.Create["Evidence"] = create.Capabilities{}
 	}
 	if _, ok := api.(EvidenceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Evidence")
-	}
-	if _, ok := api.(EvidenceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Evidence")
+		allCapabilities.Read["Evidence"] = read.Capabilities{}
 	}
 	if _, ok := api.(EvidenceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Evidence")
+		allCapabilities.Delete["Evidence"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EvidenceUpdate); ok {
+		allCapabilities.Update["Evidence"] = update.Capabilities{}
+		c, ok := c.(EvidenceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEvidence(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Evidence"] = c
+			}
+		}
 	}
 	if c, ok := api.(EvidenceSearch); ok {
 		c, err := c.SearchCapabilitiesEvidence(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Evidence"] = c
+			allCapabilities.Search["Evidence"] = c
 		}
 	}
 	if _, ok := api.(EvidenceReportCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EvidenceReport")
+		allCapabilities.Create["EvidenceReport"] = create.Capabilities{}
 	}
 	if _, ok := api.(EvidenceReportRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EvidenceReport")
-	}
-	if _, ok := api.(EvidenceReportUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EvidenceReport")
+		allCapabilities.Read["EvidenceReport"] = read.Capabilities{}
 	}
 	if _, ok := api.(EvidenceReportDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EvidenceReport")
+		allCapabilities.Delete["EvidenceReport"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EvidenceReportUpdate); ok {
+		allCapabilities.Update["EvidenceReport"] = update.Capabilities{}
+		c, ok := c.(EvidenceReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEvidenceReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["EvidenceReport"] = c
+			}
+		}
 	}
 	if c, ok := api.(EvidenceReportSearch); ok {
 		c, err := c.SearchCapabilitiesEvidenceReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["EvidenceReport"] = c
+			allCapabilities.Search["EvidenceReport"] = c
 		}
 	}
 	if _, ok := api.(EvidenceVariableCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "EvidenceVariable")
+		allCapabilities.Create["EvidenceVariable"] = create.Capabilities{}
 	}
 	if _, ok := api.(EvidenceVariableRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "EvidenceVariable")
-	}
-	if _, ok := api.(EvidenceVariableUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EvidenceVariable")
+		allCapabilities.Read["EvidenceVariable"] = read.Capabilities{}
 	}
 	if _, ok := api.(EvidenceVariableDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EvidenceVariable")
+		allCapabilities.Delete["EvidenceVariable"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(EvidenceVariableUpdate); ok {
+		allCapabilities.Update["EvidenceVariable"] = update.Capabilities{}
+		c, ok := c.(EvidenceVariableUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEvidenceVariable(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["EvidenceVariable"] = c
+			}
+		}
 	}
 	if c, ok := api.(EvidenceVariableSearch); ok {
 		c, err := c.SearchCapabilitiesEvidenceVariable(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["EvidenceVariable"] = c
+			allCapabilities.Search["EvidenceVariable"] = c
 		}
 	}
 	if _, ok := api.(ExampleScenarioCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ExampleScenario")
+		allCapabilities.Create["ExampleScenario"] = create.Capabilities{}
 	}
 	if _, ok := api.(ExampleScenarioRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ExampleScenario")
-	}
-	if _, ok := api.(ExampleScenarioUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ExampleScenario")
+		allCapabilities.Read["ExampleScenario"] = read.Capabilities{}
 	}
 	if _, ok := api.(ExampleScenarioDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ExampleScenario")
+		allCapabilities.Delete["ExampleScenario"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ExampleScenarioUpdate); ok {
+		allCapabilities.Update["ExampleScenario"] = update.Capabilities{}
+		c, ok := c.(ExampleScenarioUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesExampleScenario(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ExampleScenario"] = c
+			}
+		}
 	}
 	if c, ok := api.(ExampleScenarioSearch); ok {
 		c, err := c.SearchCapabilitiesExampleScenario(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ExampleScenario"] = c
+			allCapabilities.Search["ExampleScenario"] = c
 		}
 	}
 	if _, ok := api.(ExplanationOfBenefitCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ExplanationOfBenefit")
+		allCapabilities.Create["ExplanationOfBenefit"] = create.Capabilities{}
 	}
 	if _, ok := api.(ExplanationOfBenefitRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ExplanationOfBenefit")
-	}
-	if _, ok := api.(ExplanationOfBenefitUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ExplanationOfBenefit")
+		allCapabilities.Read["ExplanationOfBenefit"] = read.Capabilities{}
 	}
 	if _, ok := api.(ExplanationOfBenefitDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ExplanationOfBenefit")
+		allCapabilities.Delete["ExplanationOfBenefit"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ExplanationOfBenefitUpdate); ok {
+		allCapabilities.Update["ExplanationOfBenefit"] = update.Capabilities{}
+		c, ok := c.(ExplanationOfBenefitUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesExplanationOfBenefit(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ExplanationOfBenefit"] = c
+			}
+		}
 	}
 	if c, ok := api.(ExplanationOfBenefitSearch); ok {
 		c, err := c.SearchCapabilitiesExplanationOfBenefit(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ExplanationOfBenefit"] = c
+			allCapabilities.Search["ExplanationOfBenefit"] = c
 		}
 	}
 	if _, ok := api.(FamilyMemberHistoryCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "FamilyMemberHistory")
+		allCapabilities.Create["FamilyMemberHistory"] = create.Capabilities{}
 	}
 	if _, ok := api.(FamilyMemberHistoryRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "FamilyMemberHistory")
-	}
-	if _, ok := api.(FamilyMemberHistoryUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "FamilyMemberHistory")
+		allCapabilities.Read["FamilyMemberHistory"] = read.Capabilities{}
 	}
 	if _, ok := api.(FamilyMemberHistoryDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "FamilyMemberHistory")
+		allCapabilities.Delete["FamilyMemberHistory"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(FamilyMemberHistoryUpdate); ok {
+		allCapabilities.Update["FamilyMemberHistory"] = update.Capabilities{}
+		c, ok := c.(FamilyMemberHistoryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesFamilyMemberHistory(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["FamilyMemberHistory"] = c
+			}
+		}
 	}
 	if c, ok := api.(FamilyMemberHistorySearch); ok {
 		c, err := c.SearchCapabilitiesFamilyMemberHistory(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["FamilyMemberHistory"] = c
+			allCapabilities.Search["FamilyMemberHistory"] = c
 		}
 	}
 	if _, ok := api.(FlagCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Flag")
+		allCapabilities.Create["Flag"] = create.Capabilities{}
 	}
 	if _, ok := api.(FlagRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Flag")
-	}
-	if _, ok := api.(FlagUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Flag")
+		allCapabilities.Read["Flag"] = read.Capabilities{}
 	}
 	if _, ok := api.(FlagDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Flag")
+		allCapabilities.Delete["Flag"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(FlagUpdate); ok {
+		allCapabilities.Update["Flag"] = update.Capabilities{}
+		c, ok := c.(FlagUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesFlag(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Flag"] = c
+			}
+		}
 	}
 	if c, ok := api.(FlagSearch); ok {
 		c, err := c.SearchCapabilitiesFlag(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Flag"] = c
+			allCapabilities.Search["Flag"] = c
 		}
 	}
 	if _, ok := api.(FormularyItemCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "FormularyItem")
+		allCapabilities.Create["FormularyItem"] = create.Capabilities{}
 	}
 	if _, ok := api.(FormularyItemRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "FormularyItem")
-	}
-	if _, ok := api.(FormularyItemUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "FormularyItem")
+		allCapabilities.Read["FormularyItem"] = read.Capabilities{}
 	}
 	if _, ok := api.(FormularyItemDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "FormularyItem")
+		allCapabilities.Delete["FormularyItem"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(FormularyItemUpdate); ok {
+		allCapabilities.Update["FormularyItem"] = update.Capabilities{}
+		c, ok := c.(FormularyItemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesFormularyItem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["FormularyItem"] = c
+			}
+		}
 	}
 	if c, ok := api.(FormularyItemSearch); ok {
 		c, err := c.SearchCapabilitiesFormularyItem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["FormularyItem"] = c
+			allCapabilities.Search["FormularyItem"] = c
 		}
 	}
 	if _, ok := api.(GenomicStudyCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "GenomicStudy")
+		allCapabilities.Create["GenomicStudy"] = create.Capabilities{}
 	}
 	if _, ok := api.(GenomicStudyRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "GenomicStudy")
-	}
-	if _, ok := api.(GenomicStudyUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "GenomicStudy")
+		allCapabilities.Read["GenomicStudy"] = read.Capabilities{}
 	}
 	if _, ok := api.(GenomicStudyDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "GenomicStudy")
+		allCapabilities.Delete["GenomicStudy"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(GenomicStudyUpdate); ok {
+		allCapabilities.Update["GenomicStudy"] = update.Capabilities{}
+		c, ok := c.(GenomicStudyUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGenomicStudy(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["GenomicStudy"] = c
+			}
+		}
 	}
 	if c, ok := api.(GenomicStudySearch); ok {
 		c, err := c.SearchCapabilitiesGenomicStudy(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["GenomicStudy"] = c
+			allCapabilities.Search["GenomicStudy"] = c
 		}
 	}
 	if _, ok := api.(GoalCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Goal")
+		allCapabilities.Create["Goal"] = create.Capabilities{}
 	}
 	if _, ok := api.(GoalRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Goal")
-	}
-	if _, ok := api.(GoalUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Goal")
+		allCapabilities.Read["Goal"] = read.Capabilities{}
 	}
 	if _, ok := api.(GoalDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Goal")
+		allCapabilities.Delete["Goal"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(GoalUpdate); ok {
+		allCapabilities.Update["Goal"] = update.Capabilities{}
+		c, ok := c.(GoalUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGoal(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Goal"] = c
+			}
+		}
 	}
 	if c, ok := api.(GoalSearch); ok {
 		c, err := c.SearchCapabilitiesGoal(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Goal"] = c
+			allCapabilities.Search["Goal"] = c
 		}
 	}
 	if _, ok := api.(GraphDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "GraphDefinition")
+		allCapabilities.Create["GraphDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(GraphDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "GraphDefinition")
-	}
-	if _, ok := api.(GraphDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "GraphDefinition")
+		allCapabilities.Read["GraphDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(GraphDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "GraphDefinition")
+		allCapabilities.Delete["GraphDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(GraphDefinitionUpdate); ok {
+		allCapabilities.Update["GraphDefinition"] = update.Capabilities{}
+		c, ok := c.(GraphDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGraphDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["GraphDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(GraphDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesGraphDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["GraphDefinition"] = c
+			allCapabilities.Search["GraphDefinition"] = c
 		}
 	}
 	if _, ok := api.(GroupCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Group")
+		allCapabilities.Create["Group"] = create.Capabilities{}
 	}
 	if _, ok := api.(GroupRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Group")
-	}
-	if _, ok := api.(GroupUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Group")
+		allCapabilities.Read["Group"] = read.Capabilities{}
 	}
 	if _, ok := api.(GroupDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Group")
+		allCapabilities.Delete["Group"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(GroupUpdate); ok {
+		allCapabilities.Update["Group"] = update.Capabilities{}
+		c, ok := c.(GroupUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGroup(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Group"] = c
+			}
+		}
 	}
 	if c, ok := api.(GroupSearch); ok {
 		c, err := c.SearchCapabilitiesGroup(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Group"] = c
+			allCapabilities.Search["Group"] = c
 		}
 	}
 	if _, ok := api.(GuidanceResponseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "GuidanceResponse")
+		allCapabilities.Create["GuidanceResponse"] = create.Capabilities{}
 	}
 	if _, ok := api.(GuidanceResponseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "GuidanceResponse")
-	}
-	if _, ok := api.(GuidanceResponseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "GuidanceResponse")
+		allCapabilities.Read["GuidanceResponse"] = read.Capabilities{}
 	}
 	if _, ok := api.(GuidanceResponseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "GuidanceResponse")
+		allCapabilities.Delete["GuidanceResponse"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(GuidanceResponseUpdate); ok {
+		allCapabilities.Update["GuidanceResponse"] = update.Capabilities{}
+		c, ok := c.(GuidanceResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGuidanceResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["GuidanceResponse"] = c
+			}
+		}
 	}
 	if c, ok := api.(GuidanceResponseSearch); ok {
 		c, err := c.SearchCapabilitiesGuidanceResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["GuidanceResponse"] = c
+			allCapabilities.Search["GuidanceResponse"] = c
 		}
 	}
 	if _, ok := api.(HealthcareServiceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "HealthcareService")
+		allCapabilities.Create["HealthcareService"] = create.Capabilities{}
 	}
 	if _, ok := api.(HealthcareServiceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "HealthcareService")
-	}
-	if _, ok := api.(HealthcareServiceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "HealthcareService")
+		allCapabilities.Read["HealthcareService"] = read.Capabilities{}
 	}
 	if _, ok := api.(HealthcareServiceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "HealthcareService")
+		allCapabilities.Delete["HealthcareService"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(HealthcareServiceUpdate); ok {
+		allCapabilities.Update["HealthcareService"] = update.Capabilities{}
+		c, ok := c.(HealthcareServiceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesHealthcareService(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["HealthcareService"] = c
+			}
+		}
 	}
 	if c, ok := api.(HealthcareServiceSearch); ok {
 		c, err := c.SearchCapabilitiesHealthcareService(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["HealthcareService"] = c
+			allCapabilities.Search["HealthcareService"] = c
 		}
 	}
 	if _, ok := api.(ImagingSelectionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImagingSelection")
+		allCapabilities.Create["ImagingSelection"] = create.Capabilities{}
 	}
 	if _, ok := api.(ImagingSelectionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImagingSelection")
-	}
-	if _, ok := api.(ImagingSelectionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImagingSelection")
+		allCapabilities.Read["ImagingSelection"] = read.Capabilities{}
 	}
 	if _, ok := api.(ImagingSelectionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImagingSelection")
+		allCapabilities.Delete["ImagingSelection"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ImagingSelectionUpdate); ok {
+		allCapabilities.Update["ImagingSelection"] = update.Capabilities{}
+		c, ok := c.(ImagingSelectionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImagingSelection(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ImagingSelection"] = c
+			}
+		}
 	}
 	if c, ok := api.(ImagingSelectionSearch); ok {
 		c, err := c.SearchCapabilitiesImagingSelection(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ImagingSelection"] = c
+			allCapabilities.Search["ImagingSelection"] = c
 		}
 	}
 	if _, ok := api.(ImagingStudyCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImagingStudy")
+		allCapabilities.Create["ImagingStudy"] = create.Capabilities{}
 	}
 	if _, ok := api.(ImagingStudyRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImagingStudy")
-	}
-	if _, ok := api.(ImagingStudyUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImagingStudy")
+		allCapabilities.Read["ImagingStudy"] = read.Capabilities{}
 	}
 	if _, ok := api.(ImagingStudyDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImagingStudy")
+		allCapabilities.Delete["ImagingStudy"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ImagingStudyUpdate); ok {
+		allCapabilities.Update["ImagingStudy"] = update.Capabilities{}
+		c, ok := c.(ImagingStudyUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImagingStudy(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ImagingStudy"] = c
+			}
+		}
 	}
 	if c, ok := api.(ImagingStudySearch); ok {
 		c, err := c.SearchCapabilitiesImagingStudy(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ImagingStudy"] = c
+			allCapabilities.Search["ImagingStudy"] = c
 		}
 	}
 	if _, ok := api.(ImmunizationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Immunization")
+		allCapabilities.Create["Immunization"] = create.Capabilities{}
 	}
 	if _, ok := api.(ImmunizationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Immunization")
-	}
-	if _, ok := api.(ImmunizationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Immunization")
+		allCapabilities.Read["Immunization"] = read.Capabilities{}
 	}
 	if _, ok := api.(ImmunizationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Immunization")
+		allCapabilities.Delete["Immunization"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ImmunizationUpdate); ok {
+		allCapabilities.Update["Immunization"] = update.Capabilities{}
+		c, ok := c.(ImmunizationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImmunization(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Immunization"] = c
+			}
+		}
 	}
 	if c, ok := api.(ImmunizationSearch); ok {
 		c, err := c.SearchCapabilitiesImmunization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Immunization"] = c
+			allCapabilities.Search["Immunization"] = c
 		}
 	}
 	if _, ok := api.(ImmunizationEvaluationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImmunizationEvaluation")
+		allCapabilities.Create["ImmunizationEvaluation"] = create.Capabilities{}
 	}
 	if _, ok := api.(ImmunizationEvaluationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImmunizationEvaluation")
-	}
-	if _, ok := api.(ImmunizationEvaluationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImmunizationEvaluation")
+		allCapabilities.Read["ImmunizationEvaluation"] = read.Capabilities{}
 	}
 	if _, ok := api.(ImmunizationEvaluationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImmunizationEvaluation")
+		allCapabilities.Delete["ImmunizationEvaluation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ImmunizationEvaluationUpdate); ok {
+		allCapabilities.Update["ImmunizationEvaluation"] = update.Capabilities{}
+		c, ok := c.(ImmunizationEvaluationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImmunizationEvaluation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ImmunizationEvaluation"] = c
+			}
+		}
 	}
 	if c, ok := api.(ImmunizationEvaluationSearch); ok {
 		c, err := c.SearchCapabilitiesImmunizationEvaluation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ImmunizationEvaluation"] = c
+			allCapabilities.Search["ImmunizationEvaluation"] = c
 		}
 	}
 	if _, ok := api.(ImmunizationRecommendationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImmunizationRecommendation")
+		allCapabilities.Create["ImmunizationRecommendation"] = create.Capabilities{}
 	}
 	if _, ok := api.(ImmunizationRecommendationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImmunizationRecommendation")
-	}
-	if _, ok := api.(ImmunizationRecommendationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImmunizationRecommendation")
+		allCapabilities.Read["ImmunizationRecommendation"] = read.Capabilities{}
 	}
 	if _, ok := api.(ImmunizationRecommendationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImmunizationRecommendation")
+		allCapabilities.Delete["ImmunizationRecommendation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ImmunizationRecommendationUpdate); ok {
+		allCapabilities.Update["ImmunizationRecommendation"] = update.Capabilities{}
+		c, ok := c.(ImmunizationRecommendationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImmunizationRecommendation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ImmunizationRecommendation"] = c
+			}
+		}
 	}
 	if c, ok := api.(ImmunizationRecommendationSearch); ok {
 		c, err := c.SearchCapabilitiesImmunizationRecommendation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ImmunizationRecommendation"] = c
+			allCapabilities.Search["ImmunizationRecommendation"] = c
 		}
 	}
 	if _, ok := api.(ImplementationGuideCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ImplementationGuide")
+		allCapabilities.Create["ImplementationGuide"] = create.Capabilities{}
 	}
 	if _, ok := api.(ImplementationGuideRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ImplementationGuide")
-	}
-	if _, ok := api.(ImplementationGuideUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImplementationGuide")
+		allCapabilities.Read["ImplementationGuide"] = read.Capabilities{}
 	}
 	if _, ok := api.(ImplementationGuideDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImplementationGuide")
+		allCapabilities.Delete["ImplementationGuide"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ImplementationGuideUpdate); ok {
+		allCapabilities.Update["ImplementationGuide"] = update.Capabilities{}
+		c, ok := c.(ImplementationGuideUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImplementationGuide(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ImplementationGuide"] = c
+			}
+		}
 	}
 	if c, ok := api.(ImplementationGuideSearch); ok {
 		c, err := c.SearchCapabilitiesImplementationGuide(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ImplementationGuide"] = c
+			allCapabilities.Search["ImplementationGuide"] = c
 		}
 	}
 	if _, ok := api.(IngredientCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Ingredient")
+		allCapabilities.Create["Ingredient"] = create.Capabilities{}
 	}
 	if _, ok := api.(IngredientRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Ingredient")
-	}
-	if _, ok := api.(IngredientUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Ingredient")
+		allCapabilities.Read["Ingredient"] = read.Capabilities{}
 	}
 	if _, ok := api.(IngredientDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Ingredient")
+		allCapabilities.Delete["Ingredient"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(IngredientUpdate); ok {
+		allCapabilities.Update["Ingredient"] = update.Capabilities{}
+		c, ok := c.(IngredientUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesIngredient(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Ingredient"] = c
+			}
+		}
 	}
 	if c, ok := api.(IngredientSearch); ok {
 		c, err := c.SearchCapabilitiesIngredient(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Ingredient"] = c
+			allCapabilities.Search["Ingredient"] = c
 		}
 	}
 	if _, ok := api.(InsurancePlanCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "InsurancePlan")
+		allCapabilities.Create["InsurancePlan"] = create.Capabilities{}
 	}
 	if _, ok := api.(InsurancePlanRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "InsurancePlan")
-	}
-	if _, ok := api.(InsurancePlanUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "InsurancePlan")
+		allCapabilities.Read["InsurancePlan"] = read.Capabilities{}
 	}
 	if _, ok := api.(InsurancePlanDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "InsurancePlan")
+		allCapabilities.Delete["InsurancePlan"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(InsurancePlanUpdate); ok {
+		allCapabilities.Update["InsurancePlan"] = update.Capabilities{}
+		c, ok := c.(InsurancePlanUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesInsurancePlan(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["InsurancePlan"] = c
+			}
+		}
 	}
 	if c, ok := api.(InsurancePlanSearch); ok {
 		c, err := c.SearchCapabilitiesInsurancePlan(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["InsurancePlan"] = c
+			allCapabilities.Search["InsurancePlan"] = c
 		}
 	}
 	if _, ok := api.(InventoryItemCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "InventoryItem")
+		allCapabilities.Create["InventoryItem"] = create.Capabilities{}
 	}
 	if _, ok := api.(InventoryItemRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "InventoryItem")
-	}
-	if _, ok := api.(InventoryItemUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "InventoryItem")
+		allCapabilities.Read["InventoryItem"] = read.Capabilities{}
 	}
 	if _, ok := api.(InventoryItemDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "InventoryItem")
+		allCapabilities.Delete["InventoryItem"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(InventoryItemUpdate); ok {
+		allCapabilities.Update["InventoryItem"] = update.Capabilities{}
+		c, ok := c.(InventoryItemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesInventoryItem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["InventoryItem"] = c
+			}
+		}
 	}
 	if c, ok := api.(InventoryItemSearch); ok {
 		c, err := c.SearchCapabilitiesInventoryItem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["InventoryItem"] = c
+			allCapabilities.Search["InventoryItem"] = c
 		}
 	}
 	if _, ok := api.(InventoryReportCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "InventoryReport")
+		allCapabilities.Create["InventoryReport"] = create.Capabilities{}
 	}
 	if _, ok := api.(InventoryReportRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "InventoryReport")
-	}
-	if _, ok := api.(InventoryReportUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "InventoryReport")
+		allCapabilities.Read["InventoryReport"] = read.Capabilities{}
 	}
 	if _, ok := api.(InventoryReportDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "InventoryReport")
+		allCapabilities.Delete["InventoryReport"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(InventoryReportUpdate); ok {
+		allCapabilities.Update["InventoryReport"] = update.Capabilities{}
+		c, ok := c.(InventoryReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesInventoryReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["InventoryReport"] = c
+			}
+		}
 	}
 	if c, ok := api.(InventoryReportSearch); ok {
 		c, err := c.SearchCapabilitiesInventoryReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["InventoryReport"] = c
+			allCapabilities.Search["InventoryReport"] = c
 		}
 	}
 	if _, ok := api.(InvoiceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Invoice")
+		allCapabilities.Create["Invoice"] = create.Capabilities{}
 	}
 	if _, ok := api.(InvoiceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Invoice")
-	}
-	if _, ok := api.(InvoiceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Invoice")
+		allCapabilities.Read["Invoice"] = read.Capabilities{}
 	}
 	if _, ok := api.(InvoiceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Invoice")
+		allCapabilities.Delete["Invoice"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(InvoiceUpdate); ok {
+		allCapabilities.Update["Invoice"] = update.Capabilities{}
+		c, ok := c.(InvoiceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesInvoice(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Invoice"] = c
+			}
+		}
 	}
 	if c, ok := api.(InvoiceSearch); ok {
 		c, err := c.SearchCapabilitiesInvoice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Invoice"] = c
+			allCapabilities.Search["Invoice"] = c
 		}
 	}
 	if _, ok := api.(LibraryCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Library")
+		allCapabilities.Create["Library"] = create.Capabilities{}
 	}
 	if _, ok := api.(LibraryRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Library")
-	}
-	if _, ok := api.(LibraryUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Library")
+		allCapabilities.Read["Library"] = read.Capabilities{}
 	}
 	if _, ok := api.(LibraryDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Library")
+		allCapabilities.Delete["Library"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(LibraryUpdate); ok {
+		allCapabilities.Update["Library"] = update.Capabilities{}
+		c, ok := c.(LibraryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesLibrary(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Library"] = c
+			}
+		}
 	}
 	if c, ok := api.(LibrarySearch); ok {
 		c, err := c.SearchCapabilitiesLibrary(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Library"] = c
+			allCapabilities.Search["Library"] = c
 		}
 	}
 	if _, ok := api.(LinkageCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Linkage")
+		allCapabilities.Create["Linkage"] = create.Capabilities{}
 	}
 	if _, ok := api.(LinkageRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Linkage")
-	}
-	if _, ok := api.(LinkageUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Linkage")
+		allCapabilities.Read["Linkage"] = read.Capabilities{}
 	}
 	if _, ok := api.(LinkageDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Linkage")
+		allCapabilities.Delete["Linkage"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(LinkageUpdate); ok {
+		allCapabilities.Update["Linkage"] = update.Capabilities{}
+		c, ok := c.(LinkageUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesLinkage(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Linkage"] = c
+			}
+		}
 	}
 	if c, ok := api.(LinkageSearch); ok {
 		c, err := c.SearchCapabilitiesLinkage(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Linkage"] = c
+			allCapabilities.Search["Linkage"] = c
 		}
 	}
 	if _, ok := api.(ListCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "List")
+		allCapabilities.Create["List"] = create.Capabilities{}
 	}
 	if _, ok := api.(ListRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "List")
-	}
-	if _, ok := api.(ListUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "List")
+		allCapabilities.Read["List"] = read.Capabilities{}
 	}
 	if _, ok := api.(ListDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "List")
+		allCapabilities.Delete["List"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ListUpdate); ok {
+		allCapabilities.Update["List"] = update.Capabilities{}
+		c, ok := c.(ListUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesList(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["List"] = c
+			}
+		}
 	}
 	if c, ok := api.(ListSearch); ok {
 		c, err := c.SearchCapabilitiesList(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["List"] = c
+			allCapabilities.Search["List"] = c
 		}
 	}
 	if _, ok := api.(LocationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Location")
+		allCapabilities.Create["Location"] = create.Capabilities{}
 	}
 	if _, ok := api.(LocationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Location")
-	}
-	if _, ok := api.(LocationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Location")
+		allCapabilities.Read["Location"] = read.Capabilities{}
 	}
 	if _, ok := api.(LocationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Location")
+		allCapabilities.Delete["Location"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(LocationUpdate); ok {
+		allCapabilities.Update["Location"] = update.Capabilities{}
+		c, ok := c.(LocationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesLocation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Location"] = c
+			}
+		}
 	}
 	if c, ok := api.(LocationSearch); ok {
 		c, err := c.SearchCapabilitiesLocation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Location"] = c
+			allCapabilities.Search["Location"] = c
 		}
 	}
 	if _, ok := api.(ManufacturedItemDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ManufacturedItemDefinition")
+		allCapabilities.Create["ManufacturedItemDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ManufacturedItemDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ManufacturedItemDefinition")
-	}
-	if _, ok := api.(ManufacturedItemDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ManufacturedItemDefinition")
+		allCapabilities.Read["ManufacturedItemDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ManufacturedItemDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ManufacturedItemDefinition")
+		allCapabilities.Delete["ManufacturedItemDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ManufacturedItemDefinitionUpdate); ok {
+		allCapabilities.Update["ManufacturedItemDefinition"] = update.Capabilities{}
+		c, ok := c.(ManufacturedItemDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesManufacturedItemDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ManufacturedItemDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ManufacturedItemDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesManufacturedItemDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ManufacturedItemDefinition"] = c
+			allCapabilities.Search["ManufacturedItemDefinition"] = c
 		}
 	}
 	if _, ok := api.(MeasureCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Measure")
+		allCapabilities.Create["Measure"] = create.Capabilities{}
 	}
 	if _, ok := api.(MeasureRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Measure")
-	}
-	if _, ok := api.(MeasureUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Measure")
+		allCapabilities.Read["Measure"] = read.Capabilities{}
 	}
 	if _, ok := api.(MeasureDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Measure")
+		allCapabilities.Delete["Measure"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MeasureUpdate); ok {
+		allCapabilities.Update["Measure"] = update.Capabilities{}
+		c, ok := c.(MeasureUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMeasure(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Measure"] = c
+			}
+		}
 	}
 	if c, ok := api.(MeasureSearch); ok {
 		c, err := c.SearchCapabilitiesMeasure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Measure"] = c
+			allCapabilities.Search["Measure"] = c
 		}
 	}
 	if _, ok := api.(MeasureReportCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MeasureReport")
+		allCapabilities.Create["MeasureReport"] = create.Capabilities{}
 	}
 	if _, ok := api.(MeasureReportRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MeasureReport")
-	}
-	if _, ok := api.(MeasureReportUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MeasureReport")
+		allCapabilities.Read["MeasureReport"] = read.Capabilities{}
 	}
 	if _, ok := api.(MeasureReportDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MeasureReport")
+		allCapabilities.Delete["MeasureReport"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MeasureReportUpdate); ok {
+		allCapabilities.Update["MeasureReport"] = update.Capabilities{}
+		c, ok := c.(MeasureReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMeasureReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MeasureReport"] = c
+			}
+		}
 	}
 	if c, ok := api.(MeasureReportSearch); ok {
 		c, err := c.SearchCapabilitiesMeasureReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MeasureReport"] = c
+			allCapabilities.Search["MeasureReport"] = c
 		}
 	}
 	if _, ok := api.(MedicationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Medication")
+		allCapabilities.Create["Medication"] = create.Capabilities{}
 	}
 	if _, ok := api.(MedicationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Medication")
-	}
-	if _, ok := api.(MedicationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Medication")
+		allCapabilities.Read["Medication"] = read.Capabilities{}
 	}
 	if _, ok := api.(MedicationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Medication")
+		allCapabilities.Delete["Medication"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MedicationUpdate); ok {
+		allCapabilities.Update["Medication"] = update.Capabilities{}
+		c, ok := c.(MedicationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedication(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Medication"] = c
+			}
+		}
 	}
 	if c, ok := api.(MedicationSearch); ok {
 		c, err := c.SearchCapabilitiesMedication(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Medication"] = c
+			allCapabilities.Search["Medication"] = c
 		}
 	}
 	if _, ok := api.(MedicationAdministrationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationAdministration")
+		allCapabilities.Create["MedicationAdministration"] = create.Capabilities{}
 	}
 	if _, ok := api.(MedicationAdministrationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationAdministration")
-	}
-	if _, ok := api.(MedicationAdministrationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationAdministration")
+		allCapabilities.Read["MedicationAdministration"] = read.Capabilities{}
 	}
 	if _, ok := api.(MedicationAdministrationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationAdministration")
+		allCapabilities.Delete["MedicationAdministration"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MedicationAdministrationUpdate); ok {
+		allCapabilities.Update["MedicationAdministration"] = update.Capabilities{}
+		c, ok := c.(MedicationAdministrationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationAdministration(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MedicationAdministration"] = c
+			}
+		}
 	}
 	if c, ok := api.(MedicationAdministrationSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationAdministration(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MedicationAdministration"] = c
+			allCapabilities.Search["MedicationAdministration"] = c
 		}
 	}
 	if _, ok := api.(MedicationDispenseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationDispense")
+		allCapabilities.Create["MedicationDispense"] = create.Capabilities{}
 	}
 	if _, ok := api.(MedicationDispenseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationDispense")
-	}
-	if _, ok := api.(MedicationDispenseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationDispense")
+		allCapabilities.Read["MedicationDispense"] = read.Capabilities{}
 	}
 	if _, ok := api.(MedicationDispenseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationDispense")
+		allCapabilities.Delete["MedicationDispense"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MedicationDispenseUpdate); ok {
+		allCapabilities.Update["MedicationDispense"] = update.Capabilities{}
+		c, ok := c.(MedicationDispenseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationDispense(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MedicationDispense"] = c
+			}
+		}
 	}
 	if c, ok := api.(MedicationDispenseSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationDispense(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MedicationDispense"] = c
+			allCapabilities.Search["MedicationDispense"] = c
 		}
 	}
 	if _, ok := api.(MedicationKnowledgeCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationKnowledge")
+		allCapabilities.Create["MedicationKnowledge"] = create.Capabilities{}
 	}
 	if _, ok := api.(MedicationKnowledgeRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationKnowledge")
-	}
-	if _, ok := api.(MedicationKnowledgeUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationKnowledge")
+		allCapabilities.Read["MedicationKnowledge"] = read.Capabilities{}
 	}
 	if _, ok := api.(MedicationKnowledgeDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationKnowledge")
+		allCapabilities.Delete["MedicationKnowledge"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MedicationKnowledgeUpdate); ok {
+		allCapabilities.Update["MedicationKnowledge"] = update.Capabilities{}
+		c, ok := c.(MedicationKnowledgeUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationKnowledge(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MedicationKnowledge"] = c
+			}
+		}
 	}
 	if c, ok := api.(MedicationKnowledgeSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationKnowledge(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MedicationKnowledge"] = c
+			allCapabilities.Search["MedicationKnowledge"] = c
 		}
 	}
 	if _, ok := api.(MedicationRequestCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationRequest")
+		allCapabilities.Create["MedicationRequest"] = create.Capabilities{}
 	}
 	if _, ok := api.(MedicationRequestRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationRequest")
-	}
-	if _, ok := api.(MedicationRequestUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationRequest")
+		allCapabilities.Read["MedicationRequest"] = read.Capabilities{}
 	}
 	if _, ok := api.(MedicationRequestDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationRequest")
+		allCapabilities.Delete["MedicationRequest"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MedicationRequestUpdate); ok {
+		allCapabilities.Update["MedicationRequest"] = update.Capabilities{}
+		c, ok := c.(MedicationRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MedicationRequest"] = c
+			}
+		}
 	}
 	if c, ok := api.(MedicationRequestSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MedicationRequest"] = c
+			allCapabilities.Search["MedicationRequest"] = c
 		}
 	}
 	if _, ok := api.(MedicationStatementCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicationStatement")
+		allCapabilities.Create["MedicationStatement"] = create.Capabilities{}
 	}
 	if _, ok := api.(MedicationStatementRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicationStatement")
-	}
-	if _, ok := api.(MedicationStatementUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationStatement")
+		allCapabilities.Read["MedicationStatement"] = read.Capabilities{}
 	}
 	if _, ok := api.(MedicationStatementDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationStatement")
+		allCapabilities.Delete["MedicationStatement"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MedicationStatementUpdate); ok {
+		allCapabilities.Update["MedicationStatement"] = update.Capabilities{}
+		c, ok := c.(MedicationStatementUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationStatement(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MedicationStatement"] = c
+			}
+		}
 	}
 	if c, ok := api.(MedicationStatementSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationStatement(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MedicationStatement"] = c
+			allCapabilities.Search["MedicationStatement"] = c
 		}
 	}
 	if _, ok := api.(MedicinalProductDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MedicinalProductDefinition")
+		allCapabilities.Create["MedicinalProductDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(MedicinalProductDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MedicinalProductDefinition")
-	}
-	if _, ok := api.(MedicinalProductDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductDefinition")
+		allCapabilities.Read["MedicinalProductDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(MedicinalProductDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductDefinition")
+		allCapabilities.Delete["MedicinalProductDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MedicinalProductDefinitionUpdate); ok {
+		allCapabilities.Update["MedicinalProductDefinition"] = update.Capabilities{}
+		c, ok := c.(MedicinalProductDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicinalProductDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MedicinalProductDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(MedicinalProductDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MedicinalProductDefinition"] = c
+			allCapabilities.Search["MedicinalProductDefinition"] = c
 		}
 	}
 	if _, ok := api.(MessageDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MessageDefinition")
+		allCapabilities.Create["MessageDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(MessageDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MessageDefinition")
-	}
-	if _, ok := api.(MessageDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MessageDefinition")
+		allCapabilities.Read["MessageDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(MessageDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MessageDefinition")
+		allCapabilities.Delete["MessageDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MessageDefinitionUpdate); ok {
+		allCapabilities.Update["MessageDefinition"] = update.Capabilities{}
+		c, ok := c.(MessageDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMessageDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MessageDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(MessageDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesMessageDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MessageDefinition"] = c
+			allCapabilities.Search["MessageDefinition"] = c
 		}
 	}
 	if _, ok := api.(MessageHeaderCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MessageHeader")
+		allCapabilities.Create["MessageHeader"] = create.Capabilities{}
 	}
 	if _, ok := api.(MessageHeaderRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MessageHeader")
-	}
-	if _, ok := api.(MessageHeaderUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MessageHeader")
+		allCapabilities.Read["MessageHeader"] = read.Capabilities{}
 	}
 	if _, ok := api.(MessageHeaderDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MessageHeader")
+		allCapabilities.Delete["MessageHeader"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MessageHeaderUpdate); ok {
+		allCapabilities.Update["MessageHeader"] = update.Capabilities{}
+		c, ok := c.(MessageHeaderUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMessageHeader(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MessageHeader"] = c
+			}
+		}
 	}
 	if c, ok := api.(MessageHeaderSearch); ok {
 		c, err := c.SearchCapabilitiesMessageHeader(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MessageHeader"] = c
+			allCapabilities.Search["MessageHeader"] = c
 		}
 	}
 	if _, ok := api.(MolecularSequenceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "MolecularSequence")
+		allCapabilities.Create["MolecularSequence"] = create.Capabilities{}
 	}
 	if _, ok := api.(MolecularSequenceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "MolecularSequence")
-	}
-	if _, ok := api.(MolecularSequenceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MolecularSequence")
+		allCapabilities.Read["MolecularSequence"] = read.Capabilities{}
 	}
 	if _, ok := api.(MolecularSequenceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MolecularSequence")
+		allCapabilities.Delete["MolecularSequence"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(MolecularSequenceUpdate); ok {
+		allCapabilities.Update["MolecularSequence"] = update.Capabilities{}
+		c, ok := c.(MolecularSequenceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMolecularSequence(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["MolecularSequence"] = c
+			}
+		}
 	}
 	if c, ok := api.(MolecularSequenceSearch); ok {
 		c, err := c.SearchCapabilitiesMolecularSequence(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["MolecularSequence"] = c
+			allCapabilities.Search["MolecularSequence"] = c
 		}
 	}
 	if _, ok := api.(NamingSystemCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "NamingSystem")
+		allCapabilities.Create["NamingSystem"] = create.Capabilities{}
 	}
 	if _, ok := api.(NamingSystemRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "NamingSystem")
-	}
-	if _, ok := api.(NamingSystemUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NamingSystem")
+		allCapabilities.Read["NamingSystem"] = read.Capabilities{}
 	}
 	if _, ok := api.(NamingSystemDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "NamingSystem")
+		allCapabilities.Delete["NamingSystem"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(NamingSystemUpdate); ok {
+		allCapabilities.Update["NamingSystem"] = update.Capabilities{}
+		c, ok := c.(NamingSystemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesNamingSystem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["NamingSystem"] = c
+			}
+		}
 	}
 	if c, ok := api.(NamingSystemSearch); ok {
 		c, err := c.SearchCapabilitiesNamingSystem(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["NamingSystem"] = c
+			allCapabilities.Search["NamingSystem"] = c
 		}
 	}
 	if _, ok := api.(NutritionIntakeCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "NutritionIntake")
+		allCapabilities.Create["NutritionIntake"] = create.Capabilities{}
 	}
 	if _, ok := api.(NutritionIntakeRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "NutritionIntake")
-	}
-	if _, ok := api.(NutritionIntakeUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NutritionIntake")
+		allCapabilities.Read["NutritionIntake"] = read.Capabilities{}
 	}
 	if _, ok := api.(NutritionIntakeDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "NutritionIntake")
+		allCapabilities.Delete["NutritionIntake"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(NutritionIntakeUpdate); ok {
+		allCapabilities.Update["NutritionIntake"] = update.Capabilities{}
+		c, ok := c.(NutritionIntakeUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesNutritionIntake(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["NutritionIntake"] = c
+			}
+		}
 	}
 	if c, ok := api.(NutritionIntakeSearch); ok {
 		c, err := c.SearchCapabilitiesNutritionIntake(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["NutritionIntake"] = c
+			allCapabilities.Search["NutritionIntake"] = c
 		}
 	}
 	if _, ok := api.(NutritionOrderCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "NutritionOrder")
+		allCapabilities.Create["NutritionOrder"] = create.Capabilities{}
 	}
 	if _, ok := api.(NutritionOrderRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "NutritionOrder")
-	}
-	if _, ok := api.(NutritionOrderUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NutritionOrder")
+		allCapabilities.Read["NutritionOrder"] = read.Capabilities{}
 	}
 	if _, ok := api.(NutritionOrderDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "NutritionOrder")
+		allCapabilities.Delete["NutritionOrder"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(NutritionOrderUpdate); ok {
+		allCapabilities.Update["NutritionOrder"] = update.Capabilities{}
+		c, ok := c.(NutritionOrderUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesNutritionOrder(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["NutritionOrder"] = c
+			}
+		}
 	}
 	if c, ok := api.(NutritionOrderSearch); ok {
 		c, err := c.SearchCapabilitiesNutritionOrder(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["NutritionOrder"] = c
+			allCapabilities.Search["NutritionOrder"] = c
 		}
 	}
 	if _, ok := api.(NutritionProductCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "NutritionProduct")
+		allCapabilities.Create["NutritionProduct"] = create.Capabilities{}
 	}
 	if _, ok := api.(NutritionProductRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "NutritionProduct")
-	}
-	if _, ok := api.(NutritionProductUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NutritionProduct")
+		allCapabilities.Read["NutritionProduct"] = read.Capabilities{}
 	}
 	if _, ok := api.(NutritionProductDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "NutritionProduct")
+		allCapabilities.Delete["NutritionProduct"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(NutritionProductUpdate); ok {
+		allCapabilities.Update["NutritionProduct"] = update.Capabilities{}
+		c, ok := c.(NutritionProductUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesNutritionProduct(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["NutritionProduct"] = c
+			}
+		}
 	}
 	if c, ok := api.(NutritionProductSearch); ok {
 		c, err := c.SearchCapabilitiesNutritionProduct(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["NutritionProduct"] = c
+			allCapabilities.Search["NutritionProduct"] = c
 		}
 	}
 	if _, ok := api.(ObservationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Observation")
+		allCapabilities.Create["Observation"] = create.Capabilities{}
 	}
 	if _, ok := api.(ObservationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Observation")
-	}
-	if _, ok := api.(ObservationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Observation")
+		allCapabilities.Read["Observation"] = read.Capabilities{}
 	}
 	if _, ok := api.(ObservationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Observation")
+		allCapabilities.Delete["Observation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ObservationUpdate); ok {
+		allCapabilities.Update["Observation"] = update.Capabilities{}
+		c, ok := c.(ObservationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesObservation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Observation"] = c
+			}
+		}
 	}
 	if c, ok := api.(ObservationSearch); ok {
 		c, err := c.SearchCapabilitiesObservation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Observation"] = c
+			allCapabilities.Search["Observation"] = c
 		}
 	}
 	if _, ok := api.(ObservationDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ObservationDefinition")
+		allCapabilities.Create["ObservationDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(ObservationDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ObservationDefinition")
-	}
-	if _, ok := api.(ObservationDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ObservationDefinition")
+		allCapabilities.Read["ObservationDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(ObservationDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ObservationDefinition")
+		allCapabilities.Delete["ObservationDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ObservationDefinitionUpdate); ok {
+		allCapabilities.Update["ObservationDefinition"] = update.Capabilities{}
+		c, ok := c.(ObservationDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesObservationDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ObservationDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(ObservationDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesObservationDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ObservationDefinition"] = c
+			allCapabilities.Search["ObservationDefinition"] = c
 		}
 	}
 	if _, ok := api.(OperationDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "OperationDefinition")
+		allCapabilities.Create["OperationDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(OperationDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "OperationDefinition")
-	}
-	if _, ok := api.(OperationDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OperationDefinition")
+		allCapabilities.Read["OperationDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(OperationDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "OperationDefinition")
+		allCapabilities.Delete["OperationDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(OperationDefinitionUpdate); ok {
+		allCapabilities.Update["OperationDefinition"] = update.Capabilities{}
+		c, ok := c.(OperationDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOperationDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["OperationDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(OperationDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesOperationDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["OperationDefinition"] = c
+			allCapabilities.Search["OperationDefinition"] = c
 		}
 	}
 	if _, ok := api.(OperationOutcomeCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "OperationOutcome")
+		allCapabilities.Create["OperationOutcome"] = create.Capabilities{}
 	}
 	if _, ok := api.(OperationOutcomeRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "OperationOutcome")
-	}
-	if _, ok := api.(OperationOutcomeUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OperationOutcome")
+		allCapabilities.Read["OperationOutcome"] = read.Capabilities{}
 	}
 	if _, ok := api.(OperationOutcomeDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "OperationOutcome")
+		allCapabilities.Delete["OperationOutcome"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(OperationOutcomeUpdate); ok {
+		allCapabilities.Update["OperationOutcome"] = update.Capabilities{}
+		c, ok := c.(OperationOutcomeUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOperationOutcome(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["OperationOutcome"] = c
+			}
+		}
 	}
 	if c, ok := api.(OperationOutcomeSearch); ok {
 		c, err := c.SearchCapabilitiesOperationOutcome(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["OperationOutcome"] = c
+			allCapabilities.Search["OperationOutcome"] = c
 		}
 	}
 	if _, ok := api.(OrganizationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Organization")
+		allCapabilities.Create["Organization"] = create.Capabilities{}
 	}
 	if _, ok := api.(OrganizationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Organization")
-	}
-	if _, ok := api.(OrganizationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Organization")
+		allCapabilities.Read["Organization"] = read.Capabilities{}
 	}
 	if _, ok := api.(OrganizationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Organization")
+		allCapabilities.Delete["Organization"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(OrganizationUpdate); ok {
+		allCapabilities.Update["Organization"] = update.Capabilities{}
+		c, ok := c.(OrganizationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOrganization(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Organization"] = c
+			}
+		}
 	}
 	if c, ok := api.(OrganizationSearch); ok {
 		c, err := c.SearchCapabilitiesOrganization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Organization"] = c
+			allCapabilities.Search["Organization"] = c
 		}
 	}
 	if _, ok := api.(OrganizationAffiliationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "OrganizationAffiliation")
+		allCapabilities.Create["OrganizationAffiliation"] = create.Capabilities{}
 	}
 	if _, ok := api.(OrganizationAffiliationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "OrganizationAffiliation")
-	}
-	if _, ok := api.(OrganizationAffiliationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OrganizationAffiliation")
+		allCapabilities.Read["OrganizationAffiliation"] = read.Capabilities{}
 	}
 	if _, ok := api.(OrganizationAffiliationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "OrganizationAffiliation")
+		allCapabilities.Delete["OrganizationAffiliation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(OrganizationAffiliationUpdate); ok {
+		allCapabilities.Update["OrganizationAffiliation"] = update.Capabilities{}
+		c, ok := c.(OrganizationAffiliationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOrganizationAffiliation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["OrganizationAffiliation"] = c
+			}
+		}
 	}
 	if c, ok := api.(OrganizationAffiliationSearch); ok {
 		c, err := c.SearchCapabilitiesOrganizationAffiliation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["OrganizationAffiliation"] = c
+			allCapabilities.Search["OrganizationAffiliation"] = c
 		}
 	}
 	if _, ok := api.(PackagedProductDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PackagedProductDefinition")
+		allCapabilities.Create["PackagedProductDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(PackagedProductDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PackagedProductDefinition")
-	}
-	if _, ok := api.(PackagedProductDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PackagedProductDefinition")
+		allCapabilities.Read["PackagedProductDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(PackagedProductDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PackagedProductDefinition")
+		allCapabilities.Delete["PackagedProductDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PackagedProductDefinitionUpdate); ok {
+		allCapabilities.Update["PackagedProductDefinition"] = update.Capabilities{}
+		c, ok := c.(PackagedProductDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPackagedProductDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["PackagedProductDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(PackagedProductDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesPackagedProductDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["PackagedProductDefinition"] = c
+			allCapabilities.Search["PackagedProductDefinition"] = c
 		}
 	}
 	if _, ok := api.(ParametersCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Parameters")
+		allCapabilities.Create["Parameters"] = create.Capabilities{}
 	}
 	if _, ok := api.(ParametersRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Parameters")
-	}
-	if _, ok := api.(ParametersUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Parameters")
+		allCapabilities.Read["Parameters"] = read.Capabilities{}
 	}
 	if _, ok := api.(ParametersDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Parameters")
+		allCapabilities.Delete["Parameters"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ParametersUpdate); ok {
+		allCapabilities.Update["Parameters"] = update.Capabilities{}
+		c, ok := c.(ParametersUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesParameters(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Parameters"] = c
+			}
+		}
 	}
 	if c, ok := api.(ParametersSearch); ok {
 		c, err := c.SearchCapabilitiesParameters(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Parameters"] = c
+			allCapabilities.Search["Parameters"] = c
 		}
 	}
 	if _, ok := api.(PatientCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Patient")
+		allCapabilities.Create["Patient"] = create.Capabilities{}
 	}
 	if _, ok := api.(PatientRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Patient")
-	}
-	if _, ok := api.(PatientUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Patient")
+		allCapabilities.Read["Patient"] = read.Capabilities{}
 	}
 	if _, ok := api.(PatientDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Patient")
+		allCapabilities.Delete["Patient"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PatientUpdate); ok {
+		allCapabilities.Update["Patient"] = update.Capabilities{}
+		c, ok := c.(PatientUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPatient(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Patient"] = c
+			}
+		}
 	}
 	if c, ok := api.(PatientSearch); ok {
 		c, err := c.SearchCapabilitiesPatient(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Patient"] = c
+			allCapabilities.Search["Patient"] = c
 		}
 	}
 	if _, ok := api.(PaymentNoticeCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PaymentNotice")
+		allCapabilities.Create["PaymentNotice"] = create.Capabilities{}
 	}
 	if _, ok := api.(PaymentNoticeRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PaymentNotice")
-	}
-	if _, ok := api.(PaymentNoticeUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PaymentNotice")
+		allCapabilities.Read["PaymentNotice"] = read.Capabilities{}
 	}
 	if _, ok := api.(PaymentNoticeDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PaymentNotice")
+		allCapabilities.Delete["PaymentNotice"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PaymentNoticeUpdate); ok {
+		allCapabilities.Update["PaymentNotice"] = update.Capabilities{}
+		c, ok := c.(PaymentNoticeUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPaymentNotice(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["PaymentNotice"] = c
+			}
+		}
 	}
 	if c, ok := api.(PaymentNoticeSearch); ok {
 		c, err := c.SearchCapabilitiesPaymentNotice(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["PaymentNotice"] = c
+			allCapabilities.Search["PaymentNotice"] = c
 		}
 	}
 	if _, ok := api.(PaymentReconciliationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PaymentReconciliation")
+		allCapabilities.Create["PaymentReconciliation"] = create.Capabilities{}
 	}
 	if _, ok := api.(PaymentReconciliationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PaymentReconciliation")
-	}
-	if _, ok := api.(PaymentReconciliationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PaymentReconciliation")
+		allCapabilities.Read["PaymentReconciliation"] = read.Capabilities{}
 	}
 	if _, ok := api.(PaymentReconciliationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PaymentReconciliation")
+		allCapabilities.Delete["PaymentReconciliation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PaymentReconciliationUpdate); ok {
+		allCapabilities.Update["PaymentReconciliation"] = update.Capabilities{}
+		c, ok := c.(PaymentReconciliationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPaymentReconciliation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["PaymentReconciliation"] = c
+			}
+		}
 	}
 	if c, ok := api.(PaymentReconciliationSearch); ok {
 		c, err := c.SearchCapabilitiesPaymentReconciliation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["PaymentReconciliation"] = c
+			allCapabilities.Search["PaymentReconciliation"] = c
 		}
 	}
 	if _, ok := api.(PermissionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Permission")
+		allCapabilities.Create["Permission"] = create.Capabilities{}
 	}
 	if _, ok := api.(PermissionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Permission")
-	}
-	if _, ok := api.(PermissionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Permission")
+		allCapabilities.Read["Permission"] = read.Capabilities{}
 	}
 	if _, ok := api.(PermissionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Permission")
+		allCapabilities.Delete["Permission"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PermissionUpdate); ok {
+		allCapabilities.Update["Permission"] = update.Capabilities{}
+		c, ok := c.(PermissionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPermission(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Permission"] = c
+			}
+		}
 	}
 	if c, ok := api.(PermissionSearch); ok {
 		c, err := c.SearchCapabilitiesPermission(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Permission"] = c
+			allCapabilities.Search["Permission"] = c
 		}
 	}
 	if _, ok := api.(PersonCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Person")
+		allCapabilities.Create["Person"] = create.Capabilities{}
 	}
 	if _, ok := api.(PersonRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Person")
-	}
-	if _, ok := api.(PersonUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Person")
+		allCapabilities.Read["Person"] = read.Capabilities{}
 	}
 	if _, ok := api.(PersonDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Person")
+		allCapabilities.Delete["Person"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PersonUpdate); ok {
+		allCapabilities.Update["Person"] = update.Capabilities{}
+		c, ok := c.(PersonUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPerson(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Person"] = c
+			}
+		}
 	}
 	if c, ok := api.(PersonSearch); ok {
 		c, err := c.SearchCapabilitiesPerson(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Person"] = c
+			allCapabilities.Search["Person"] = c
 		}
 	}
 	if _, ok := api.(PlanDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PlanDefinition")
+		allCapabilities.Create["PlanDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(PlanDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PlanDefinition")
-	}
-	if _, ok := api.(PlanDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PlanDefinition")
+		allCapabilities.Read["PlanDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(PlanDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PlanDefinition")
+		allCapabilities.Delete["PlanDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PlanDefinitionUpdate); ok {
+		allCapabilities.Update["PlanDefinition"] = update.Capabilities{}
+		c, ok := c.(PlanDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPlanDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["PlanDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(PlanDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesPlanDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["PlanDefinition"] = c
+			allCapabilities.Search["PlanDefinition"] = c
 		}
 	}
 	if _, ok := api.(PractitionerCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Practitioner")
+		allCapabilities.Create["Practitioner"] = create.Capabilities{}
 	}
 	if _, ok := api.(PractitionerRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Practitioner")
-	}
-	if _, ok := api.(PractitionerUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Practitioner")
+		allCapabilities.Read["Practitioner"] = read.Capabilities{}
 	}
 	if _, ok := api.(PractitionerDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Practitioner")
+		allCapabilities.Delete["Practitioner"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PractitionerUpdate); ok {
+		allCapabilities.Update["Practitioner"] = update.Capabilities{}
+		c, ok := c.(PractitionerUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPractitioner(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Practitioner"] = c
+			}
+		}
 	}
 	if c, ok := api.(PractitionerSearch); ok {
 		c, err := c.SearchCapabilitiesPractitioner(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Practitioner"] = c
+			allCapabilities.Search["Practitioner"] = c
 		}
 	}
 	if _, ok := api.(PractitionerRoleCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "PractitionerRole")
+		allCapabilities.Create["PractitionerRole"] = create.Capabilities{}
 	}
 	if _, ok := api.(PractitionerRoleRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "PractitionerRole")
-	}
-	if _, ok := api.(PractitionerRoleUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PractitionerRole")
+		allCapabilities.Read["PractitionerRole"] = read.Capabilities{}
 	}
 	if _, ok := api.(PractitionerRoleDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PractitionerRole")
+		allCapabilities.Delete["PractitionerRole"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(PractitionerRoleUpdate); ok {
+		allCapabilities.Update["PractitionerRole"] = update.Capabilities{}
+		c, ok := c.(PractitionerRoleUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPractitionerRole(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["PractitionerRole"] = c
+			}
+		}
 	}
 	if c, ok := api.(PractitionerRoleSearch); ok {
 		c, err := c.SearchCapabilitiesPractitionerRole(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["PractitionerRole"] = c
+			allCapabilities.Search["PractitionerRole"] = c
 		}
 	}
 	if _, ok := api.(ProcedureCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Procedure")
+		allCapabilities.Create["Procedure"] = create.Capabilities{}
 	}
 	if _, ok := api.(ProcedureRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Procedure")
-	}
-	if _, ok := api.(ProcedureUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Procedure")
+		allCapabilities.Read["Procedure"] = read.Capabilities{}
 	}
 	if _, ok := api.(ProcedureDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Procedure")
+		allCapabilities.Delete["Procedure"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ProcedureUpdate); ok {
+		allCapabilities.Update["Procedure"] = update.Capabilities{}
+		c, ok := c.(ProcedureUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesProcedure(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Procedure"] = c
+			}
+		}
 	}
 	if c, ok := api.(ProcedureSearch); ok {
 		c, err := c.SearchCapabilitiesProcedure(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Procedure"] = c
+			allCapabilities.Search["Procedure"] = c
 		}
 	}
 	if _, ok := api.(ProvenanceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Provenance")
+		allCapabilities.Create["Provenance"] = create.Capabilities{}
 	}
 	if _, ok := api.(ProvenanceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Provenance")
-	}
-	if _, ok := api.(ProvenanceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Provenance")
+		allCapabilities.Read["Provenance"] = read.Capabilities{}
 	}
 	if _, ok := api.(ProvenanceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Provenance")
+		allCapabilities.Delete["Provenance"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ProvenanceUpdate); ok {
+		allCapabilities.Update["Provenance"] = update.Capabilities{}
+		c, ok := c.(ProvenanceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesProvenance(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Provenance"] = c
+			}
+		}
 	}
 	if c, ok := api.(ProvenanceSearch); ok {
 		c, err := c.SearchCapabilitiesProvenance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Provenance"] = c
+			allCapabilities.Search["Provenance"] = c
 		}
 	}
 	if _, ok := api.(QuestionnaireCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Questionnaire")
+		allCapabilities.Create["Questionnaire"] = create.Capabilities{}
 	}
 	if _, ok := api.(QuestionnaireRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Questionnaire")
-	}
-	if _, ok := api.(QuestionnaireUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Questionnaire")
+		allCapabilities.Read["Questionnaire"] = read.Capabilities{}
 	}
 	if _, ok := api.(QuestionnaireDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Questionnaire")
+		allCapabilities.Delete["Questionnaire"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(QuestionnaireUpdate); ok {
+		allCapabilities.Update["Questionnaire"] = update.Capabilities{}
+		c, ok := c.(QuestionnaireUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesQuestionnaire(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Questionnaire"] = c
+			}
+		}
 	}
 	if c, ok := api.(QuestionnaireSearch); ok {
 		c, err := c.SearchCapabilitiesQuestionnaire(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Questionnaire"] = c
+			allCapabilities.Search["Questionnaire"] = c
 		}
 	}
 	if _, ok := api.(QuestionnaireResponseCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "QuestionnaireResponse")
+		allCapabilities.Create["QuestionnaireResponse"] = create.Capabilities{}
 	}
 	if _, ok := api.(QuestionnaireResponseRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "QuestionnaireResponse")
-	}
-	if _, ok := api.(QuestionnaireResponseUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "QuestionnaireResponse")
+		allCapabilities.Read["QuestionnaireResponse"] = read.Capabilities{}
 	}
 	if _, ok := api.(QuestionnaireResponseDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "QuestionnaireResponse")
+		allCapabilities.Delete["QuestionnaireResponse"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(QuestionnaireResponseUpdate); ok {
+		allCapabilities.Update["QuestionnaireResponse"] = update.Capabilities{}
+		c, ok := c.(QuestionnaireResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesQuestionnaireResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["QuestionnaireResponse"] = c
+			}
+		}
 	}
 	if c, ok := api.(QuestionnaireResponseSearch); ok {
 		c, err := c.SearchCapabilitiesQuestionnaireResponse(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["QuestionnaireResponse"] = c
+			allCapabilities.Search["QuestionnaireResponse"] = c
 		}
 	}
 	if _, ok := api.(RegulatedAuthorizationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RegulatedAuthorization")
+		allCapabilities.Create["RegulatedAuthorization"] = create.Capabilities{}
 	}
 	if _, ok := api.(RegulatedAuthorizationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RegulatedAuthorization")
-	}
-	if _, ok := api.(RegulatedAuthorizationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RegulatedAuthorization")
+		allCapabilities.Read["RegulatedAuthorization"] = read.Capabilities{}
 	}
 	if _, ok := api.(RegulatedAuthorizationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RegulatedAuthorization")
+		allCapabilities.Delete["RegulatedAuthorization"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(RegulatedAuthorizationUpdate); ok {
+		allCapabilities.Update["RegulatedAuthorization"] = update.Capabilities{}
+		c, ok := c.(RegulatedAuthorizationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRegulatedAuthorization(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["RegulatedAuthorization"] = c
+			}
+		}
 	}
 	if c, ok := api.(RegulatedAuthorizationSearch); ok {
 		c, err := c.SearchCapabilitiesRegulatedAuthorization(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["RegulatedAuthorization"] = c
+			allCapabilities.Search["RegulatedAuthorization"] = c
 		}
 	}
 	if _, ok := api.(RelatedPersonCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RelatedPerson")
+		allCapabilities.Create["RelatedPerson"] = create.Capabilities{}
 	}
 	if _, ok := api.(RelatedPersonRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RelatedPerson")
-	}
-	if _, ok := api.(RelatedPersonUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RelatedPerson")
+		allCapabilities.Read["RelatedPerson"] = read.Capabilities{}
 	}
 	if _, ok := api.(RelatedPersonDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RelatedPerson")
+		allCapabilities.Delete["RelatedPerson"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(RelatedPersonUpdate); ok {
+		allCapabilities.Update["RelatedPerson"] = update.Capabilities{}
+		c, ok := c.(RelatedPersonUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRelatedPerson(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["RelatedPerson"] = c
+			}
+		}
 	}
 	if c, ok := api.(RelatedPersonSearch); ok {
 		c, err := c.SearchCapabilitiesRelatedPerson(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["RelatedPerson"] = c
+			allCapabilities.Search["RelatedPerson"] = c
 		}
 	}
 	if _, ok := api.(RequestOrchestrationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RequestOrchestration")
+		allCapabilities.Create["RequestOrchestration"] = create.Capabilities{}
 	}
 	if _, ok := api.(RequestOrchestrationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RequestOrchestration")
-	}
-	if _, ok := api.(RequestOrchestrationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RequestOrchestration")
+		allCapabilities.Read["RequestOrchestration"] = read.Capabilities{}
 	}
 	if _, ok := api.(RequestOrchestrationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RequestOrchestration")
+		allCapabilities.Delete["RequestOrchestration"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(RequestOrchestrationUpdate); ok {
+		allCapabilities.Update["RequestOrchestration"] = update.Capabilities{}
+		c, ok := c.(RequestOrchestrationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRequestOrchestration(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["RequestOrchestration"] = c
+			}
+		}
 	}
 	if c, ok := api.(RequestOrchestrationSearch); ok {
 		c, err := c.SearchCapabilitiesRequestOrchestration(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["RequestOrchestration"] = c
+			allCapabilities.Search["RequestOrchestration"] = c
 		}
 	}
 	if _, ok := api.(RequirementsCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Requirements")
+		allCapabilities.Create["Requirements"] = create.Capabilities{}
 	}
 	if _, ok := api.(RequirementsRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Requirements")
-	}
-	if _, ok := api.(RequirementsUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Requirements")
+		allCapabilities.Read["Requirements"] = read.Capabilities{}
 	}
 	if _, ok := api.(RequirementsDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Requirements")
+		allCapabilities.Delete["Requirements"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(RequirementsUpdate); ok {
+		allCapabilities.Update["Requirements"] = update.Capabilities{}
+		c, ok := c.(RequirementsUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRequirements(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Requirements"] = c
+			}
+		}
 	}
 	if c, ok := api.(RequirementsSearch); ok {
 		c, err := c.SearchCapabilitiesRequirements(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Requirements"] = c
+			allCapabilities.Search["Requirements"] = c
 		}
 	}
 	if _, ok := api.(ResearchStudyCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ResearchStudy")
+		allCapabilities.Create["ResearchStudy"] = create.Capabilities{}
 	}
 	if _, ok := api.(ResearchStudyRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ResearchStudy")
-	}
-	if _, ok := api.(ResearchStudyUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchStudy")
+		allCapabilities.Read["ResearchStudy"] = read.Capabilities{}
 	}
 	if _, ok := api.(ResearchStudyDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ResearchStudy")
+		allCapabilities.Delete["ResearchStudy"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ResearchStudyUpdate); ok {
+		allCapabilities.Update["ResearchStudy"] = update.Capabilities{}
+		c, ok := c.(ResearchStudyUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesResearchStudy(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ResearchStudy"] = c
+			}
+		}
 	}
 	if c, ok := api.(ResearchStudySearch); ok {
 		c, err := c.SearchCapabilitiesResearchStudy(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ResearchStudy"] = c
+			allCapabilities.Search["ResearchStudy"] = c
 		}
 	}
 	if _, ok := api.(ResearchSubjectCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ResearchSubject")
+		allCapabilities.Create["ResearchSubject"] = create.Capabilities{}
 	}
 	if _, ok := api.(ResearchSubjectRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ResearchSubject")
-	}
-	if _, ok := api.(ResearchSubjectUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchSubject")
+		allCapabilities.Read["ResearchSubject"] = read.Capabilities{}
 	}
 	if _, ok := api.(ResearchSubjectDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ResearchSubject")
+		allCapabilities.Delete["ResearchSubject"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ResearchSubjectUpdate); ok {
+		allCapabilities.Update["ResearchSubject"] = update.Capabilities{}
+		c, ok := c.(ResearchSubjectUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesResearchSubject(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ResearchSubject"] = c
+			}
+		}
 	}
 	if c, ok := api.(ResearchSubjectSearch); ok {
 		c, err := c.SearchCapabilitiesResearchSubject(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ResearchSubject"] = c
+			allCapabilities.Search["ResearchSubject"] = c
 		}
 	}
 	if _, ok := api.(RiskAssessmentCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "RiskAssessment")
+		allCapabilities.Create["RiskAssessment"] = create.Capabilities{}
 	}
 	if _, ok := api.(RiskAssessmentRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "RiskAssessment")
-	}
-	if _, ok := api.(RiskAssessmentUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RiskAssessment")
+		allCapabilities.Read["RiskAssessment"] = read.Capabilities{}
 	}
 	if _, ok := api.(RiskAssessmentDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RiskAssessment")
+		allCapabilities.Delete["RiskAssessment"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(RiskAssessmentUpdate); ok {
+		allCapabilities.Update["RiskAssessment"] = update.Capabilities{}
+		c, ok := c.(RiskAssessmentUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRiskAssessment(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["RiskAssessment"] = c
+			}
+		}
 	}
 	if c, ok := api.(RiskAssessmentSearch); ok {
 		c, err := c.SearchCapabilitiesRiskAssessment(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["RiskAssessment"] = c
+			allCapabilities.Search["RiskAssessment"] = c
 		}
 	}
 	if _, ok := api.(ScheduleCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Schedule")
+		allCapabilities.Create["Schedule"] = create.Capabilities{}
 	}
 	if _, ok := api.(ScheduleRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Schedule")
-	}
-	if _, ok := api.(ScheduleUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Schedule")
+		allCapabilities.Read["Schedule"] = read.Capabilities{}
 	}
 	if _, ok := api.(ScheduleDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Schedule")
+		allCapabilities.Delete["Schedule"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ScheduleUpdate); ok {
+		allCapabilities.Update["Schedule"] = update.Capabilities{}
+		c, ok := c.(ScheduleUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSchedule(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Schedule"] = c
+			}
+		}
 	}
 	if c, ok := api.(ScheduleSearch); ok {
 		c, err := c.SearchCapabilitiesSchedule(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Schedule"] = c
+			allCapabilities.Search["Schedule"] = c
 		}
 	}
 	if _, ok := api.(SearchParameterCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SearchParameter")
+		allCapabilities.Create["SearchParameter"] = create.Capabilities{}
 	}
 	if _, ok := api.(SearchParameterRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SearchParameter")
-	}
-	if _, ok := api.(SearchParameterUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SearchParameter")
+		allCapabilities.Read["SearchParameter"] = read.Capabilities{}
 	}
 	if _, ok := api.(SearchParameterDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SearchParameter")
+		allCapabilities.Delete["SearchParameter"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SearchParameterUpdate); ok {
+		allCapabilities.Update["SearchParameter"] = update.Capabilities{}
+		c, ok := c.(SearchParameterUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSearchParameter(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SearchParameter"] = c
+			}
+		}
 	}
 	if c, ok := api.(SearchParameterSearch); ok {
 		c, err := c.SearchCapabilitiesSearchParameter(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SearchParameter"] = c
+			allCapabilities.Search["SearchParameter"] = c
 		}
 	}
 	if _, ok := api.(ServiceRequestCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ServiceRequest")
+		allCapabilities.Create["ServiceRequest"] = create.Capabilities{}
 	}
 	if _, ok := api.(ServiceRequestRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ServiceRequest")
-	}
-	if _, ok := api.(ServiceRequestUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ServiceRequest")
+		allCapabilities.Read["ServiceRequest"] = read.Capabilities{}
 	}
 	if _, ok := api.(ServiceRequestDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ServiceRequest")
+		allCapabilities.Delete["ServiceRequest"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ServiceRequestUpdate); ok {
+		allCapabilities.Update["ServiceRequest"] = update.Capabilities{}
+		c, ok := c.(ServiceRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesServiceRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ServiceRequest"] = c
+			}
+		}
 	}
 	if c, ok := api.(ServiceRequestSearch); ok {
 		c, err := c.SearchCapabilitiesServiceRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ServiceRequest"] = c
+			allCapabilities.Search["ServiceRequest"] = c
 		}
 	}
 	if _, ok := api.(SlotCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Slot")
+		allCapabilities.Create["Slot"] = create.Capabilities{}
 	}
 	if _, ok := api.(SlotRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Slot")
-	}
-	if _, ok := api.(SlotUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Slot")
+		allCapabilities.Read["Slot"] = read.Capabilities{}
 	}
 	if _, ok := api.(SlotDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Slot")
+		allCapabilities.Delete["Slot"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SlotUpdate); ok {
+		allCapabilities.Update["Slot"] = update.Capabilities{}
+		c, ok := c.(SlotUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSlot(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Slot"] = c
+			}
+		}
 	}
 	if c, ok := api.(SlotSearch); ok {
 		c, err := c.SearchCapabilitiesSlot(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Slot"] = c
+			allCapabilities.Search["Slot"] = c
 		}
 	}
 	if _, ok := api.(SpecimenCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Specimen")
+		allCapabilities.Create["Specimen"] = create.Capabilities{}
 	}
 	if _, ok := api.(SpecimenRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Specimen")
-	}
-	if _, ok := api.(SpecimenUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Specimen")
+		allCapabilities.Read["Specimen"] = read.Capabilities{}
 	}
 	if _, ok := api.(SpecimenDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Specimen")
+		allCapabilities.Delete["Specimen"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SpecimenUpdate); ok {
+		allCapabilities.Update["Specimen"] = update.Capabilities{}
+		c, ok := c.(SpecimenUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSpecimen(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Specimen"] = c
+			}
+		}
 	}
 	if c, ok := api.(SpecimenSearch); ok {
 		c, err := c.SearchCapabilitiesSpecimen(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Specimen"] = c
+			allCapabilities.Search["Specimen"] = c
 		}
 	}
 	if _, ok := api.(SpecimenDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SpecimenDefinition")
+		allCapabilities.Create["SpecimenDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(SpecimenDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SpecimenDefinition")
-	}
-	if _, ok := api.(SpecimenDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SpecimenDefinition")
+		allCapabilities.Read["SpecimenDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(SpecimenDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SpecimenDefinition")
+		allCapabilities.Delete["SpecimenDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SpecimenDefinitionUpdate); ok {
+		allCapabilities.Update["SpecimenDefinition"] = update.Capabilities{}
+		c, ok := c.(SpecimenDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSpecimenDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SpecimenDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(SpecimenDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesSpecimenDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SpecimenDefinition"] = c
+			allCapabilities.Search["SpecimenDefinition"] = c
 		}
 	}
 	if _, ok := api.(StructureDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "StructureDefinition")
+		allCapabilities.Create["StructureDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(StructureDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "StructureDefinition")
-	}
-	if _, ok := api.(StructureDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "StructureDefinition")
+		allCapabilities.Read["StructureDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(StructureDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "StructureDefinition")
+		allCapabilities.Delete["StructureDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(StructureDefinitionUpdate); ok {
+		allCapabilities.Update["StructureDefinition"] = update.Capabilities{}
+		c, ok := c.(StructureDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesStructureDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["StructureDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(StructureDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesStructureDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["StructureDefinition"] = c
+			allCapabilities.Search["StructureDefinition"] = c
 		}
 	}
 	if _, ok := api.(StructureMapCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "StructureMap")
+		allCapabilities.Create["StructureMap"] = create.Capabilities{}
 	}
 	if _, ok := api.(StructureMapRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "StructureMap")
-	}
-	if _, ok := api.(StructureMapUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "StructureMap")
+		allCapabilities.Read["StructureMap"] = read.Capabilities{}
 	}
 	if _, ok := api.(StructureMapDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "StructureMap")
+		allCapabilities.Delete["StructureMap"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(StructureMapUpdate); ok {
+		allCapabilities.Update["StructureMap"] = update.Capabilities{}
+		c, ok := c.(StructureMapUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesStructureMap(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["StructureMap"] = c
+			}
+		}
 	}
 	if c, ok := api.(StructureMapSearch); ok {
 		c, err := c.SearchCapabilitiesStructureMap(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["StructureMap"] = c
+			allCapabilities.Search["StructureMap"] = c
 		}
 	}
 	if _, ok := api.(SubscriptionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Subscription")
+		allCapabilities.Create["Subscription"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubscriptionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Subscription")
-	}
-	if _, ok := api.(SubscriptionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Subscription")
+		allCapabilities.Read["Subscription"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubscriptionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Subscription")
+		allCapabilities.Delete["Subscription"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubscriptionUpdate); ok {
+		allCapabilities.Update["Subscription"] = update.Capabilities{}
+		c, ok := c.(SubscriptionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubscription(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Subscription"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubscriptionSearch); ok {
 		c, err := c.SearchCapabilitiesSubscription(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Subscription"] = c
+			allCapabilities.Search["Subscription"] = c
 		}
 	}
 	if _, ok := api.(SubscriptionStatusCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubscriptionStatus")
+		allCapabilities.Create["SubscriptionStatus"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubscriptionStatusRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubscriptionStatus")
-	}
-	if _, ok := api.(SubscriptionStatusUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubscriptionStatus")
+		allCapabilities.Read["SubscriptionStatus"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubscriptionStatusDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubscriptionStatus")
+		allCapabilities.Delete["SubscriptionStatus"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubscriptionStatusUpdate); ok {
+		allCapabilities.Update["SubscriptionStatus"] = update.Capabilities{}
+		c, ok := c.(SubscriptionStatusUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubscriptionStatus(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubscriptionStatus"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubscriptionStatusSearch); ok {
 		c, err := c.SearchCapabilitiesSubscriptionStatus(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubscriptionStatus"] = c
+			allCapabilities.Search["SubscriptionStatus"] = c
 		}
 	}
 	if _, ok := api.(SubscriptionTopicCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubscriptionTopic")
+		allCapabilities.Create["SubscriptionTopic"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubscriptionTopicRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubscriptionTopic")
-	}
-	if _, ok := api.(SubscriptionTopicUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubscriptionTopic")
+		allCapabilities.Read["SubscriptionTopic"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubscriptionTopicDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubscriptionTopic")
+		allCapabilities.Delete["SubscriptionTopic"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubscriptionTopicUpdate); ok {
+		allCapabilities.Update["SubscriptionTopic"] = update.Capabilities{}
+		c, ok := c.(SubscriptionTopicUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubscriptionTopic(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubscriptionTopic"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubscriptionTopicSearch); ok {
 		c, err := c.SearchCapabilitiesSubscriptionTopic(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubscriptionTopic"] = c
+			allCapabilities.Search["SubscriptionTopic"] = c
 		}
 	}
 	if _, ok := api.(SubstanceCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Substance")
+		allCapabilities.Create["Substance"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubstanceRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Substance")
-	}
-	if _, ok := api.(SubstanceUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Substance")
+		allCapabilities.Read["Substance"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubstanceDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Substance")
+		allCapabilities.Delete["Substance"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubstanceUpdate); ok {
+		allCapabilities.Update["Substance"] = update.Capabilities{}
+		c, ok := c.(SubstanceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstance(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Substance"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubstanceSearch); ok {
 		c, err := c.SearchCapabilitiesSubstance(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Substance"] = c
+			allCapabilities.Search["Substance"] = c
 		}
 	}
 	if _, ok := api.(SubstanceDefinitionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceDefinition")
+		allCapabilities.Create["SubstanceDefinition"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubstanceDefinitionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceDefinition")
-	}
-	if _, ok := api.(SubstanceDefinitionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceDefinition")
+		allCapabilities.Read["SubstanceDefinition"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubstanceDefinitionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceDefinition")
+		allCapabilities.Delete["SubstanceDefinition"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubstanceDefinitionUpdate); ok {
+		allCapabilities.Update["SubstanceDefinition"] = update.Capabilities{}
+		c, ok := c.(SubstanceDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstanceDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubstanceDefinition"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubstanceDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceDefinition(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubstanceDefinition"] = c
+			allCapabilities.Search["SubstanceDefinition"] = c
 		}
 	}
 	if _, ok := api.(SubstanceNucleicAcidCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceNucleicAcid")
+		allCapabilities.Create["SubstanceNucleicAcid"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubstanceNucleicAcidRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceNucleicAcid")
-	}
-	if _, ok := api.(SubstanceNucleicAcidUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceNucleicAcid")
+		allCapabilities.Read["SubstanceNucleicAcid"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubstanceNucleicAcidDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceNucleicAcid")
+		allCapabilities.Delete["SubstanceNucleicAcid"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubstanceNucleicAcidUpdate); ok {
+		allCapabilities.Update["SubstanceNucleicAcid"] = update.Capabilities{}
+		c, ok := c.(SubstanceNucleicAcidUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstanceNucleicAcid(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubstanceNucleicAcid"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubstanceNucleicAcidSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceNucleicAcid(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubstanceNucleicAcid"] = c
+			allCapabilities.Search["SubstanceNucleicAcid"] = c
 		}
 	}
 	if _, ok := api.(SubstancePolymerCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstancePolymer")
+		allCapabilities.Create["SubstancePolymer"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubstancePolymerRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstancePolymer")
-	}
-	if _, ok := api.(SubstancePolymerUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstancePolymer")
+		allCapabilities.Read["SubstancePolymer"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubstancePolymerDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstancePolymer")
+		allCapabilities.Delete["SubstancePolymer"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubstancePolymerUpdate); ok {
+		allCapabilities.Update["SubstancePolymer"] = update.Capabilities{}
+		c, ok := c.(SubstancePolymerUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstancePolymer(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubstancePolymer"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubstancePolymerSearch); ok {
 		c, err := c.SearchCapabilitiesSubstancePolymer(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubstancePolymer"] = c
+			allCapabilities.Search["SubstancePolymer"] = c
 		}
 	}
 	if _, ok := api.(SubstanceProteinCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceProtein")
+		allCapabilities.Create["SubstanceProtein"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubstanceProteinRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceProtein")
-	}
-	if _, ok := api.(SubstanceProteinUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceProtein")
+		allCapabilities.Read["SubstanceProtein"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubstanceProteinDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceProtein")
+		allCapabilities.Delete["SubstanceProtein"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubstanceProteinUpdate); ok {
+		allCapabilities.Update["SubstanceProtein"] = update.Capabilities{}
+		c, ok := c.(SubstanceProteinUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstanceProtein(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubstanceProtein"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubstanceProteinSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceProtein(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubstanceProtein"] = c
+			allCapabilities.Search["SubstanceProtein"] = c
 		}
 	}
 	if _, ok := api.(SubstanceReferenceInformationCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceReferenceInformation")
+		allCapabilities.Create["SubstanceReferenceInformation"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubstanceReferenceInformationRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceReferenceInformation")
-	}
-	if _, ok := api.(SubstanceReferenceInformationUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceReferenceInformation")
+		allCapabilities.Read["SubstanceReferenceInformation"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubstanceReferenceInformationDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceReferenceInformation")
+		allCapabilities.Delete["SubstanceReferenceInformation"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubstanceReferenceInformationUpdate); ok {
+		allCapabilities.Update["SubstanceReferenceInformation"] = update.Capabilities{}
+		c, ok := c.(SubstanceReferenceInformationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstanceReferenceInformation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubstanceReferenceInformation"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubstanceReferenceInformationSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceReferenceInformation(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubstanceReferenceInformation"] = c
+			allCapabilities.Search["SubstanceReferenceInformation"] = c
 		}
 	}
 	if _, ok := api.(SubstanceSourceMaterialCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SubstanceSourceMaterial")
+		allCapabilities.Create["SubstanceSourceMaterial"] = create.Capabilities{}
 	}
 	if _, ok := api.(SubstanceSourceMaterialRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SubstanceSourceMaterial")
-	}
-	if _, ok := api.(SubstanceSourceMaterialUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceSourceMaterial")
+		allCapabilities.Read["SubstanceSourceMaterial"] = read.Capabilities{}
 	}
 	if _, ok := api.(SubstanceSourceMaterialDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceSourceMaterial")
+		allCapabilities.Delete["SubstanceSourceMaterial"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SubstanceSourceMaterialUpdate); ok {
+		allCapabilities.Update["SubstanceSourceMaterial"] = update.Capabilities{}
+		c, ok := c.(SubstanceSourceMaterialUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstanceSourceMaterial(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SubstanceSourceMaterial"] = c
+			}
+		}
 	}
 	if c, ok := api.(SubstanceSourceMaterialSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceSourceMaterial(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SubstanceSourceMaterial"] = c
+			allCapabilities.Search["SubstanceSourceMaterial"] = c
 		}
 	}
 	if _, ok := api.(SupplyDeliveryCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SupplyDelivery")
+		allCapabilities.Create["SupplyDelivery"] = create.Capabilities{}
 	}
 	if _, ok := api.(SupplyDeliveryRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SupplyDelivery")
-	}
-	if _, ok := api.(SupplyDeliveryUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SupplyDelivery")
+		allCapabilities.Read["SupplyDelivery"] = read.Capabilities{}
 	}
 	if _, ok := api.(SupplyDeliveryDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SupplyDelivery")
+		allCapabilities.Delete["SupplyDelivery"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SupplyDeliveryUpdate); ok {
+		allCapabilities.Update["SupplyDelivery"] = update.Capabilities{}
+		c, ok := c.(SupplyDeliveryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSupplyDelivery(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SupplyDelivery"] = c
+			}
+		}
 	}
 	if c, ok := api.(SupplyDeliverySearch); ok {
 		c, err := c.SearchCapabilitiesSupplyDelivery(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SupplyDelivery"] = c
+			allCapabilities.Search["SupplyDelivery"] = c
 		}
 	}
 	if _, ok := api.(SupplyRequestCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "SupplyRequest")
+		allCapabilities.Create["SupplyRequest"] = create.Capabilities{}
 	}
 	if _, ok := api.(SupplyRequestRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "SupplyRequest")
-	}
-	if _, ok := api.(SupplyRequestUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SupplyRequest")
+		allCapabilities.Read["SupplyRequest"] = read.Capabilities{}
 	}
 	if _, ok := api.(SupplyRequestDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SupplyRequest")
+		allCapabilities.Delete["SupplyRequest"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(SupplyRequestUpdate); ok {
+		allCapabilities.Update["SupplyRequest"] = update.Capabilities{}
+		c, ok := c.(SupplyRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSupplyRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["SupplyRequest"] = c
+			}
+		}
 	}
 	if c, ok := api.(SupplyRequestSearch); ok {
 		c, err := c.SearchCapabilitiesSupplyRequest(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["SupplyRequest"] = c
+			allCapabilities.Search["SupplyRequest"] = c
 		}
 	}
 	if _, ok := api.(TaskCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Task")
+		allCapabilities.Create["Task"] = create.Capabilities{}
 	}
 	if _, ok := api.(TaskRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Task")
-	}
-	if _, ok := api.(TaskUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Task")
+		allCapabilities.Read["Task"] = read.Capabilities{}
 	}
 	if _, ok := api.(TaskDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Task")
+		allCapabilities.Delete["Task"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(TaskUpdate); ok {
+		allCapabilities.Update["Task"] = update.Capabilities{}
+		c, ok := c.(TaskUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTask(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Task"] = c
+			}
+		}
 	}
 	if c, ok := api.(TaskSearch); ok {
 		c, err := c.SearchCapabilitiesTask(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Task"] = c
+			allCapabilities.Search["Task"] = c
 		}
 	}
 	if _, ok := api.(TerminologyCapabilitiesCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "TerminologyCapabilities")
+		allCapabilities.Create["TerminologyCapabilities"] = create.Capabilities{}
 	}
 	if _, ok := api.(TerminologyCapabilitiesRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "TerminologyCapabilities")
-	}
-	if _, ok := api.(TerminologyCapabilitiesUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TerminologyCapabilities")
+		allCapabilities.Read["TerminologyCapabilities"] = read.Capabilities{}
 	}
 	if _, ok := api.(TerminologyCapabilitiesDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "TerminologyCapabilities")
+		allCapabilities.Delete["TerminologyCapabilities"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(TerminologyCapabilitiesUpdate); ok {
+		allCapabilities.Update["TerminologyCapabilities"] = update.Capabilities{}
+		c, ok := c.(TerminologyCapabilitiesUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTerminologyCapabilities(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["TerminologyCapabilities"] = c
+			}
+		}
 	}
 	if c, ok := api.(TerminologyCapabilitiesSearch); ok {
 		c, err := c.SearchCapabilitiesTerminologyCapabilities(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["TerminologyCapabilities"] = c
+			allCapabilities.Search["TerminologyCapabilities"] = c
 		}
 	}
 	if _, ok := api.(TestPlanCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "TestPlan")
+		allCapabilities.Create["TestPlan"] = create.Capabilities{}
 	}
 	if _, ok := api.(TestPlanRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "TestPlan")
-	}
-	if _, ok := api.(TestPlanUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TestPlan")
+		allCapabilities.Read["TestPlan"] = read.Capabilities{}
 	}
 	if _, ok := api.(TestPlanDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "TestPlan")
+		allCapabilities.Delete["TestPlan"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(TestPlanUpdate); ok {
+		allCapabilities.Update["TestPlan"] = update.Capabilities{}
+		c, ok := c.(TestPlanUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTestPlan(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["TestPlan"] = c
+			}
+		}
 	}
 	if c, ok := api.(TestPlanSearch); ok {
 		c, err := c.SearchCapabilitiesTestPlan(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["TestPlan"] = c
+			allCapabilities.Search["TestPlan"] = c
 		}
 	}
 	if _, ok := api.(TestReportCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "TestReport")
+		allCapabilities.Create["TestReport"] = create.Capabilities{}
 	}
 	if _, ok := api.(TestReportRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "TestReport")
-	}
-	if _, ok := api.(TestReportUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TestReport")
+		allCapabilities.Read["TestReport"] = read.Capabilities{}
 	}
 	if _, ok := api.(TestReportDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "TestReport")
+		allCapabilities.Delete["TestReport"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(TestReportUpdate); ok {
+		allCapabilities.Update["TestReport"] = update.Capabilities{}
+		c, ok := c.(TestReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTestReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["TestReport"] = c
+			}
+		}
 	}
 	if c, ok := api.(TestReportSearch); ok {
 		c, err := c.SearchCapabilitiesTestReport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["TestReport"] = c
+			allCapabilities.Search["TestReport"] = c
 		}
 	}
 	if _, ok := api.(TestScriptCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "TestScript")
+		allCapabilities.Create["TestScript"] = create.Capabilities{}
 	}
 	if _, ok := api.(TestScriptRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "TestScript")
-	}
-	if _, ok := api.(TestScriptUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TestScript")
+		allCapabilities.Read["TestScript"] = read.Capabilities{}
 	}
 	if _, ok := api.(TestScriptDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "TestScript")
+		allCapabilities.Delete["TestScript"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(TestScriptUpdate); ok {
+		allCapabilities.Update["TestScript"] = update.Capabilities{}
+		c, ok := c.(TestScriptUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTestScript(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["TestScript"] = c
+			}
+		}
 	}
 	if c, ok := api.(TestScriptSearch); ok {
 		c, err := c.SearchCapabilitiesTestScript(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["TestScript"] = c
+			allCapabilities.Search["TestScript"] = c
 		}
 	}
 	if _, ok := api.(TransportCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "Transport")
+		allCapabilities.Create["Transport"] = create.Capabilities{}
 	}
 	if _, ok := api.(TransportRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "Transport")
-	}
-	if _, ok := api.(TransportUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Transport")
+		allCapabilities.Read["Transport"] = read.Capabilities{}
 	}
 	if _, ok := api.(TransportDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Transport")
+		allCapabilities.Delete["Transport"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(TransportUpdate); ok {
+		allCapabilities.Update["Transport"] = update.Capabilities{}
+		c, ok := c.(TransportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTransport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["Transport"] = c
+			}
+		}
 	}
 	if c, ok := api.(TransportSearch); ok {
 		c, err := c.SearchCapabilitiesTransport(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["Transport"] = c
+			allCapabilities.Search["Transport"] = c
 		}
 	}
 	if _, ok := api.(ValueSetCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "ValueSet")
+		allCapabilities.Create["ValueSet"] = create.Capabilities{}
 	}
 	if _, ok := api.(ValueSetRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "ValueSet")
-	}
-	if _, ok := api.(ValueSetUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ValueSet")
+		allCapabilities.Read["ValueSet"] = read.Capabilities{}
 	}
 	if _, ok := api.(ValueSetDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ValueSet")
+		allCapabilities.Delete["ValueSet"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(ValueSetUpdate); ok {
+		allCapabilities.Update["ValueSet"] = update.Capabilities{}
+		c, ok := c.(ValueSetUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesValueSet(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["ValueSet"] = c
+			}
+		}
 	}
 	if c, ok := api.(ValueSetSearch); ok {
 		c, err := c.SearchCapabilitiesValueSet(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["ValueSet"] = c
+			allCapabilities.Search["ValueSet"] = c
 		}
 	}
 	if _, ok := api.(VerificationResultCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "VerificationResult")
+		allCapabilities.Create["VerificationResult"] = create.Capabilities{}
 	}
 	if _, ok := api.(VerificationResultRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "VerificationResult")
-	}
-	if _, ok := api.(VerificationResultUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "VerificationResult")
+		allCapabilities.Read["VerificationResult"] = read.Capabilities{}
 	}
 	if _, ok := api.(VerificationResultDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "VerificationResult")
+		allCapabilities.Delete["VerificationResult"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(VerificationResultUpdate); ok {
+		allCapabilities.Update["VerificationResult"] = update.Capabilities{}
+		c, ok := c.(VerificationResultUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesVerificationResult(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["VerificationResult"] = c
+			}
+		}
 	}
 	if c, ok := api.(VerificationResultSearch); ok {
 		c, err := c.SearchCapabilitiesVerificationResult(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["VerificationResult"] = c
+			allCapabilities.Search["VerificationResult"] = c
 		}
 	}
 	if _, ok := api.(VisionPrescriptionCreate); ok {
-		allCapabilities.CreateInteractions = append(allCapabilities.CreateInteractions, "VisionPrescription")
+		allCapabilities.Create["VisionPrescription"] = create.Capabilities{}
 	}
 	if _, ok := api.(VisionPrescriptionRead); ok {
-		allCapabilities.ReadInteractions = append(allCapabilities.ReadInteractions, "VisionPrescription")
-	}
-	if _, ok := api.(VisionPrescriptionUpdate); ok {
-		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "VisionPrescription")
+		allCapabilities.Read["VisionPrescription"] = read.Capabilities{}
 	}
 	if _, ok := api.(VisionPrescriptionDelete); ok {
-		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "VisionPrescription")
+		allCapabilities.Delete["VisionPrescription"] = deletion.Capabilities{}
+	}
+	if c, ok := api.(VisionPrescriptionUpdate); ok {
+		allCapabilities.Update["VisionPrescription"] = update.Capabilities{}
+		c, ok := c.(VisionPrescriptionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesVisionPrescription(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				allCapabilities.Update["VisionPrescription"] = c
+			}
+		}
 	}
 	if c, ok := api.(VisionPrescriptionSearch); ok {
 		c, err := c.SearchCapabilitiesVisionPrescription(ctx)
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.SearchCapabilities["VisionPrescription"] = c
+			allCapabilities.Search["VisionPrescription"] = c
 		}
 	}
 	return allCapabilities, errors.Join(errs...)

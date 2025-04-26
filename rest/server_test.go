@@ -3,8 +3,8 @@ package rest_test
 import (
 	"context"
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
@@ -222,7 +222,8 @@ func TestCapabilityStatement(t *testing.T) {
 						  "type": "token"
 						}
 					  ],
-					  "type": "Patient"
+					  "type": "Patient",
+					  "updateCreate": false
 					}
 				  ]
 				}
@@ -283,6 +284,7 @@ func TestCapabilityStatement(t *testing.T) {
 					  <interaction>
 						<code value='search-type'/>
 					  </interaction>
+                      <updateCreate value="false"></updateCreate>
 					  <searchParam>
 						<name value='_id'/>
 						<type value='token'/>
@@ -1458,17 +1460,17 @@ func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, er
 	return m.mockPatients[0], nil
 }
 
-func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (capabilities.UpdateResult[r4.Patient], error) {
+func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (update.Result[r4.Patient], error) {
 	// If the patient ID is "new-resource", mark it as created
 	if id, ok := patient.ResourceId(); ok && id == "new-resource" {
-		return capabilities.UpdateResult[r4.Patient]{
+		return update.Result[r4.Patient]{
 			Resource: patient,
 			Created:  true,
 		}, nil
 	}
 
 	// Otherwise, it's an update
-	return capabilities.UpdateResult[r4.Patient]{
+	return update.Result[r4.Patient]{
 		Resource: patient,
 		Created:  false,
 	}, nil

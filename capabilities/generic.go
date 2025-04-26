@@ -3,6 +3,7 @@ package capabilities
 import (
 	"context"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 )
 
@@ -27,16 +28,7 @@ type GenericRead interface {
 //
 // The persisted resource is returned.
 type GenericUpdate interface {
-	Update(ctx context.Context, resource model.Resource) (UpdateResult[model.Resource], error)
-}
-
-// UpdateResult is the result of an update operation.
-//
-// It contains the updated resource and a boolean indicating whether the resource was created or updated.
-type UpdateResult[R model.Resource] struct {
-	Resource R
-	// Created indicates whether the resource was newly created (true) or an existing resource was updated (false).
-	Created bool
+	Update(ctx context.Context, resource model.Resource) (update.Result[model.Resource], error)
 }
 
 // The GenericDelete interface provides a generic deletion capability by passing the `resourceType` as string.

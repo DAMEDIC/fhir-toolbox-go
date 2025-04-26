@@ -43,6 +43,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
@@ -243,20 +244,20 @@ func dispatchUpdate[R model.Release](
 	requestFormat Format,
 	resourceType string,
 	resourceID string,
-) (capabilities.UpdateResult[model.Resource], error) {
+) (update.Result[model.Resource], error) {
 	resource, err := decodeResource[R](r, requestFormat)
 	if err != nil {
-		return capabilities.UpdateResult[model.Resource]{}, err
+		return update.Result[model.Resource]{}, err
 	}
 
 	if resourceType != resource.ResourceType() {
-		return capabilities.UpdateResult[model.Resource]{}, unexpectedResourceError(resourceType, resource.ResourceType())
+		return update.Result[model.Resource]{}, unexpectedResourceError(resourceType, resource.ResourceType())
 	}
 
 	// Verify that the resource ID in the URL matches the resource ID in the body
 	id, ok := resource.ResourceId()
 	if !ok || id != resourceID {
-		return capabilities.UpdateResult[model.Resource]{}, createOperationOutcome(
+		return update.Result[model.Resource]{}, createOperationOutcome(
 			"fatal",
 			"processing",
 			fmt.Sprintf("resource ID in URL (%s) does not match resource ID in body (%s)", resourceID, id),
@@ -265,7 +266,7 @@ func dispatchUpdate[R model.Release](
 
 	result, err := backend.Update(r.Context(), resource)
 	if err != nil {
-		return capabilities.UpdateResult[model.Resource]{}, err
+		return update.Result[model.Resource]{}, err
 	}
 
 	return result, nil
@@ -352,7 +353,7 @@ func dispatchSearch(
 		return nil, err
 	}
 
-	searchCapabilities := allCapabilities.SearchCapabilities[resourceType]
+	searchCapabilities := allCapabilities.Search[resourceType]
 
 	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {

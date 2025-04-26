@@ -26,6 +26,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 	interactionName := strcase.ToCamel(interaction)
 
 	for _, r := range resources {
+		f.Commentf("// %s%s needs to be implemented to support the %s interaction.", r.Name, interactionName, interaction)
 		f.Type().Id(r.Name + interactionName).InterfaceFunc(func(g *Group) {
 			switch interaction {
 			case "create":
@@ -55,7 +56,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 						Id("resource").Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name),
 					).
 					Params(
-						Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)),
+						Qual(moduleName+"/capabilities/update", "Result").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)),
 						Error(),
 					)
 			case "delete":
@@ -83,6 +84,16 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					)
 			}
 		})
+
+		if interaction == "update" {
+			f.Commentf("// %sUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.", r.Name)
+			f.Type().Id(r.Name + "UpdateCapabilities").Interface(
+				Id("UpdateCapabilities"+r.Name).Params(Id("ctx").Qual("context", "Context")).Params(
+					Qual(moduleName+"/capabilities/update", "Capabilities"),
+					Error(),
+				),
+			)
+		}
 	}
 }
 
@@ -97,13 +108,21 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 			Error(),
 		).BlockFunc(func(g *Group) {
 		g.Id("allCapabilities").Op(":=").Qual(moduleName+"/capabilities", "Capabilities").Values(Dict{
-			Id("SearchCapabilities"): Make(Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities")),
+			Id("Create"): Make(Map(String()).Qual(moduleName+"/capabilities/create", "Capabilities")),
+			Id("Read"):   Make(Map(String()).Qual(moduleName+"/capabilities/read", "Capabilities")),
+			Id("Update"): Make(Map(String()).Qual(moduleName+"/capabilities/update", "Capabilities")),
+			Id("Delete"): Make(Map(String()).Qual(moduleName+"/capabilities/deletion", "Capabilities")),
+			Id("Search"): Make(Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities")),
 		})
 		g.Var().Id("errs").Index().Error()
 
 		for _, r := range resources {
-			for _, interaction := range []string{"create", "read", "update", "delete"} {
+			for _, interaction := range []string{"create", "read", "delete"} {
 				interactionName := strcase.ToCamel(interaction)
+				capPkg := interaction
+				if interaction == "delete" {
+					capPkg = "deletion"
+				}
 
 				g.If(
 					List(Id("_"), Id("ok")).Op(":=").Id("api").Dot("").Call(
@@ -111,10 +130,30 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 					),
 					Id("ok"),
 				).Block(
-					Id("allCapabilities." + interactionName + "Interactions").Op("=").Append(List(Id("allCapabilities."+interactionName+"Interactions"), Lit(r.Name))),
+					Id("allCapabilities."+interactionName).Index(Lit(r.Name)).Op("=").Qual(moduleName+"/capabilities/"+capPkg, "Capabilities").Values(),
 				)
 			}
 
+			// Update
+			g.If(
+				List(Id("c"), Id("ok")).Op(":=").Id("api").Dot("").Call(
+					Id(r.Name+"Update"),
+				),
+				Id("ok"),
+			).Block(
+				Id("allCapabilities.Update").Index(Lit(r.Name)).Op("=").Qual(moduleName+"/capabilities/update", "Capabilities").Values(),
+				List(Id("c"), Id("ok")).Op(":=").Id("c").Dot("").Call(Id(r.Name+"UpdateCapabilities")),
+				If(Id("ok")).Block(
+					List(Id("c"), Err()).Op(":=").Id("c").Dot("UpdateCapabilities"+r.Name).Call(Id("ctx")),
+					If(Err().Op("!=").Nil()).Block(
+						Id("errs").Op("=").Append(Id("errs"), Err()),
+					).Else().Block(
+						Id("allCapabilities.Update").Index(Lit(r.Name)).Op("=").Id("c"),
+					),
+				),
+			)
+
+			// Search
 			g.If(
 				List(Id("c"), Id("ok")).Op(":=").Id("api").Dot("").Call(
 					Id(r.Name+"Search"),
@@ -125,7 +164,7 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 				If(Err().Op("!=").Nil()).Block(
 					Id("errs").Op("=").Append(Id("errs"), Err()),
 				).Else().Block(
-					Id("allCapabilities.SearchCapabilities").Index(Lit(r.Name)).Op("=").Id("c"),
+					Id("allCapabilities.Search").Index(Lit(r.Name)).Op("=").Id("c"),
 				),
 			)
 		}

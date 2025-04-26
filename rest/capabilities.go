@@ -43,7 +43,8 @@ func rest(
 ) basic.CapabilityStatementRest {
 	resourcesMap := map[string]basic.CapabilityStatementRestResource{}
 
-	addInteraction := func(name, interactionCode string) basic.CapabilityStatementRestResource {
+	// Helper function to get or create a resource and add an interaction
+	addInteraction := func(name string, interactionCode string) basic.CapabilityStatementRestResource {
 		r, ok := resourcesMap[name]
 		if !ok {
 			r = basic.CapabilityStatementRestResource{Type: basic.Code{Value: &name}}
@@ -52,35 +53,29 @@ func rest(
 			r.Interaction,
 			basic.CapabilityStatementRestResourceInteraction{Code: basic.Code{Value: utils.Ptr(interactionCode)}},
 		)
-		resourcesMap[name] = r
 		return r
 	}
 
-	for _, name := range capabilities.CreateInteractions {
-		addInteraction(name, "create")
+	for name := range capabilities.Create {
+		resourcesMap[name] = addInteraction(name, "create")
 	}
 
-	for _, name := range capabilities.ReadInteractions {
-		addInteraction(name, "read")
+	for name := range capabilities.Read {
+		resourcesMap[name] = addInteraction(name, "read")
 	}
 
-	for _, name := range capabilities.UpdateInteractions {
-		addInteraction(name, "update")
+	for name, capability := range capabilities.Update {
+		r := addInteraction(name, "update")
+		r.UpdateCreate = &basic.Boolean{Value: utils.Ptr(capability.UpdateCreate)}
+		resourcesMap[name] = r
 	}
 
-	for _, name := range capabilities.DeleteInteractions {
-		addInteraction(name, "delete")
+	for name := range capabilities.Delete {
+		resourcesMap[name] = addInteraction(name, "delete")
 	}
 
-	for name, capability := range capabilities.SearchCapabilities {
-		r, ok := resourcesMap[name]
-		if !ok {
-			r = basic.CapabilityStatementRestResource{Type: basic.Code{Value: &name}}
-		}
-		r.Interaction = append(
-			resourcesMap[name].Interaction,
-			basic.CapabilityStatementRestResourceInteraction{Code: basic.Code{Value: utils.Ptr("search-type")}},
-		)
+	for name, capability := range capabilities.Search {
+		r := addInteraction(name, "search-type")
 
 		for _, include := range capability.Includes {
 			r.SearchInclude = append(

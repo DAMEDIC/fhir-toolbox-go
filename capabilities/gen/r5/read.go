@@ -9,477 +9,792 @@ import (
 	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 )
 
+// AccountRead needs to be implemented to support the read interaction.
 type AccountRead interface {
 	ReadAccount(ctx context.Context, id string) (r5.Account, error)
 }
+
+// ActivityDefinitionRead needs to be implemented to support the read interaction.
 type ActivityDefinitionRead interface {
 	ReadActivityDefinition(ctx context.Context, id string) (r5.ActivityDefinition, error)
 }
+
+// ActorDefinitionRead needs to be implemented to support the read interaction.
 type ActorDefinitionRead interface {
 	ReadActorDefinition(ctx context.Context, id string) (r5.ActorDefinition, error)
 }
+
+// AdministrableProductDefinitionRead needs to be implemented to support the read interaction.
 type AdministrableProductDefinitionRead interface {
 	ReadAdministrableProductDefinition(ctx context.Context, id string) (r5.AdministrableProductDefinition, error)
 }
+
+// AdverseEventRead needs to be implemented to support the read interaction.
 type AdverseEventRead interface {
 	ReadAdverseEvent(ctx context.Context, id string) (r5.AdverseEvent, error)
 }
+
+// AllergyIntoleranceRead needs to be implemented to support the read interaction.
 type AllergyIntoleranceRead interface {
 	ReadAllergyIntolerance(ctx context.Context, id string) (r5.AllergyIntolerance, error)
 }
+
+// AppointmentRead needs to be implemented to support the read interaction.
 type AppointmentRead interface {
 	ReadAppointment(ctx context.Context, id string) (r5.Appointment, error)
 }
+
+// AppointmentResponseRead needs to be implemented to support the read interaction.
 type AppointmentResponseRead interface {
 	ReadAppointmentResponse(ctx context.Context, id string) (r5.AppointmentResponse, error)
 }
+
+// ArtifactAssessmentRead needs to be implemented to support the read interaction.
 type ArtifactAssessmentRead interface {
 	ReadArtifactAssessment(ctx context.Context, id string) (r5.ArtifactAssessment, error)
 }
+
+// AuditEventRead needs to be implemented to support the read interaction.
 type AuditEventRead interface {
 	ReadAuditEvent(ctx context.Context, id string) (r5.AuditEvent, error)
 }
+
+// BasicRead needs to be implemented to support the read interaction.
 type BasicRead interface {
 	ReadBasic(ctx context.Context, id string) (r5.Basic, error)
 }
+
+// BinaryRead needs to be implemented to support the read interaction.
 type BinaryRead interface {
 	ReadBinary(ctx context.Context, id string) (r5.Binary, error)
 }
+
+// BiologicallyDerivedProductRead needs to be implemented to support the read interaction.
 type BiologicallyDerivedProductRead interface {
 	ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r5.BiologicallyDerivedProduct, error)
 }
+
+// BiologicallyDerivedProductDispenseRead needs to be implemented to support the read interaction.
 type BiologicallyDerivedProductDispenseRead interface {
 	ReadBiologicallyDerivedProductDispense(ctx context.Context, id string) (r5.BiologicallyDerivedProductDispense, error)
 }
+
+// BodyStructureRead needs to be implemented to support the read interaction.
 type BodyStructureRead interface {
 	ReadBodyStructure(ctx context.Context, id string) (r5.BodyStructure, error)
 }
+
+// BundleRead needs to be implemented to support the read interaction.
 type BundleRead interface {
 	ReadBundle(ctx context.Context, id string) (r5.Bundle, error)
 }
+
+// CapabilityStatementRead needs to be implemented to support the read interaction.
 type CapabilityStatementRead interface {
 	ReadCapabilityStatement(ctx context.Context, id string) (r5.CapabilityStatement, error)
 }
+
+// CarePlanRead needs to be implemented to support the read interaction.
 type CarePlanRead interface {
 	ReadCarePlan(ctx context.Context, id string) (r5.CarePlan, error)
 }
+
+// CareTeamRead needs to be implemented to support the read interaction.
 type CareTeamRead interface {
 	ReadCareTeam(ctx context.Context, id string) (r5.CareTeam, error)
 }
+
+// ChargeItemRead needs to be implemented to support the read interaction.
 type ChargeItemRead interface {
 	ReadChargeItem(ctx context.Context, id string) (r5.ChargeItem, error)
 }
+
+// ChargeItemDefinitionRead needs to be implemented to support the read interaction.
 type ChargeItemDefinitionRead interface {
 	ReadChargeItemDefinition(ctx context.Context, id string) (r5.ChargeItemDefinition, error)
 }
+
+// CitationRead needs to be implemented to support the read interaction.
 type CitationRead interface {
 	ReadCitation(ctx context.Context, id string) (r5.Citation, error)
 }
+
+// ClaimRead needs to be implemented to support the read interaction.
 type ClaimRead interface {
 	ReadClaim(ctx context.Context, id string) (r5.Claim, error)
 }
+
+// ClaimResponseRead needs to be implemented to support the read interaction.
 type ClaimResponseRead interface {
 	ReadClaimResponse(ctx context.Context, id string) (r5.ClaimResponse, error)
 }
+
+// ClinicalImpressionRead needs to be implemented to support the read interaction.
 type ClinicalImpressionRead interface {
 	ReadClinicalImpression(ctx context.Context, id string) (r5.ClinicalImpression, error)
 }
+
+// ClinicalUseDefinitionRead needs to be implemented to support the read interaction.
 type ClinicalUseDefinitionRead interface {
 	ReadClinicalUseDefinition(ctx context.Context, id string) (r5.ClinicalUseDefinition, error)
 }
+
+// CodeSystemRead needs to be implemented to support the read interaction.
 type CodeSystemRead interface {
 	ReadCodeSystem(ctx context.Context, id string) (r5.CodeSystem, error)
 }
+
+// CommunicationRead needs to be implemented to support the read interaction.
 type CommunicationRead interface {
 	ReadCommunication(ctx context.Context, id string) (r5.Communication, error)
 }
+
+// CommunicationRequestRead needs to be implemented to support the read interaction.
 type CommunicationRequestRead interface {
 	ReadCommunicationRequest(ctx context.Context, id string) (r5.CommunicationRequest, error)
 }
+
+// CompartmentDefinitionRead needs to be implemented to support the read interaction.
 type CompartmentDefinitionRead interface {
 	ReadCompartmentDefinition(ctx context.Context, id string) (r5.CompartmentDefinition, error)
 }
+
+// CompositionRead needs to be implemented to support the read interaction.
 type CompositionRead interface {
 	ReadComposition(ctx context.Context, id string) (r5.Composition, error)
 }
+
+// ConceptMapRead needs to be implemented to support the read interaction.
 type ConceptMapRead interface {
 	ReadConceptMap(ctx context.Context, id string) (r5.ConceptMap, error)
 }
+
+// ConditionRead needs to be implemented to support the read interaction.
 type ConditionRead interface {
 	ReadCondition(ctx context.Context, id string) (r5.Condition, error)
 }
+
+// ConditionDefinitionRead needs to be implemented to support the read interaction.
 type ConditionDefinitionRead interface {
 	ReadConditionDefinition(ctx context.Context, id string) (r5.ConditionDefinition, error)
 }
+
+// ConsentRead needs to be implemented to support the read interaction.
 type ConsentRead interface {
 	ReadConsent(ctx context.Context, id string) (r5.Consent, error)
 }
+
+// ContractRead needs to be implemented to support the read interaction.
 type ContractRead interface {
 	ReadContract(ctx context.Context, id string) (r5.Contract, error)
 }
+
+// CoverageRead needs to be implemented to support the read interaction.
 type CoverageRead interface {
 	ReadCoverage(ctx context.Context, id string) (r5.Coverage, error)
 }
+
+// CoverageEligibilityRequestRead needs to be implemented to support the read interaction.
 type CoverageEligibilityRequestRead interface {
 	ReadCoverageEligibilityRequest(ctx context.Context, id string) (r5.CoverageEligibilityRequest, error)
 }
+
+// CoverageEligibilityResponseRead needs to be implemented to support the read interaction.
 type CoverageEligibilityResponseRead interface {
 	ReadCoverageEligibilityResponse(ctx context.Context, id string) (r5.CoverageEligibilityResponse, error)
 }
+
+// DetectedIssueRead needs to be implemented to support the read interaction.
 type DetectedIssueRead interface {
 	ReadDetectedIssue(ctx context.Context, id string) (r5.DetectedIssue, error)
 }
+
+// DeviceRead needs to be implemented to support the read interaction.
 type DeviceRead interface {
 	ReadDevice(ctx context.Context, id string) (r5.Device, error)
 }
+
+// DeviceAssociationRead needs to be implemented to support the read interaction.
 type DeviceAssociationRead interface {
 	ReadDeviceAssociation(ctx context.Context, id string) (r5.DeviceAssociation, error)
 }
+
+// DeviceDefinitionRead needs to be implemented to support the read interaction.
 type DeviceDefinitionRead interface {
 	ReadDeviceDefinition(ctx context.Context, id string) (r5.DeviceDefinition, error)
 }
+
+// DeviceDispenseRead needs to be implemented to support the read interaction.
 type DeviceDispenseRead interface {
 	ReadDeviceDispense(ctx context.Context, id string) (r5.DeviceDispense, error)
 }
+
+// DeviceMetricRead needs to be implemented to support the read interaction.
 type DeviceMetricRead interface {
 	ReadDeviceMetric(ctx context.Context, id string) (r5.DeviceMetric, error)
 }
+
+// DeviceRequestRead needs to be implemented to support the read interaction.
 type DeviceRequestRead interface {
 	ReadDeviceRequest(ctx context.Context, id string) (r5.DeviceRequest, error)
 }
+
+// DeviceUsageRead needs to be implemented to support the read interaction.
 type DeviceUsageRead interface {
 	ReadDeviceUsage(ctx context.Context, id string) (r5.DeviceUsage, error)
 }
+
+// DiagnosticReportRead needs to be implemented to support the read interaction.
 type DiagnosticReportRead interface {
 	ReadDiagnosticReport(ctx context.Context, id string) (r5.DiagnosticReport, error)
 }
+
+// DocumentReferenceRead needs to be implemented to support the read interaction.
 type DocumentReferenceRead interface {
 	ReadDocumentReference(ctx context.Context, id string) (r5.DocumentReference, error)
 }
+
+// EncounterRead needs to be implemented to support the read interaction.
 type EncounterRead interface {
 	ReadEncounter(ctx context.Context, id string) (r5.Encounter, error)
 }
+
+// EncounterHistoryRead needs to be implemented to support the read interaction.
 type EncounterHistoryRead interface {
 	ReadEncounterHistory(ctx context.Context, id string) (r5.EncounterHistory, error)
 }
+
+// EndpointRead needs to be implemented to support the read interaction.
 type EndpointRead interface {
 	ReadEndpoint(ctx context.Context, id string) (r5.Endpoint, error)
 }
+
+// EnrollmentRequestRead needs to be implemented to support the read interaction.
 type EnrollmentRequestRead interface {
 	ReadEnrollmentRequest(ctx context.Context, id string) (r5.EnrollmentRequest, error)
 }
+
+// EnrollmentResponseRead needs to be implemented to support the read interaction.
 type EnrollmentResponseRead interface {
 	ReadEnrollmentResponse(ctx context.Context, id string) (r5.EnrollmentResponse, error)
 }
+
+// EpisodeOfCareRead needs to be implemented to support the read interaction.
 type EpisodeOfCareRead interface {
 	ReadEpisodeOfCare(ctx context.Context, id string) (r5.EpisodeOfCare, error)
 }
+
+// EventDefinitionRead needs to be implemented to support the read interaction.
 type EventDefinitionRead interface {
 	ReadEventDefinition(ctx context.Context, id string) (r5.EventDefinition, error)
 }
+
+// EvidenceRead needs to be implemented to support the read interaction.
 type EvidenceRead interface {
 	ReadEvidence(ctx context.Context, id string) (r5.Evidence, error)
 }
+
+// EvidenceReportRead needs to be implemented to support the read interaction.
 type EvidenceReportRead interface {
 	ReadEvidenceReport(ctx context.Context, id string) (r5.EvidenceReport, error)
 }
+
+// EvidenceVariableRead needs to be implemented to support the read interaction.
 type EvidenceVariableRead interface {
 	ReadEvidenceVariable(ctx context.Context, id string) (r5.EvidenceVariable, error)
 }
+
+// ExampleScenarioRead needs to be implemented to support the read interaction.
 type ExampleScenarioRead interface {
 	ReadExampleScenario(ctx context.Context, id string) (r5.ExampleScenario, error)
 }
+
+// ExplanationOfBenefitRead needs to be implemented to support the read interaction.
 type ExplanationOfBenefitRead interface {
 	ReadExplanationOfBenefit(ctx context.Context, id string) (r5.ExplanationOfBenefit, error)
 }
+
+// FamilyMemberHistoryRead needs to be implemented to support the read interaction.
 type FamilyMemberHistoryRead interface {
 	ReadFamilyMemberHistory(ctx context.Context, id string) (r5.FamilyMemberHistory, error)
 }
+
+// FlagRead needs to be implemented to support the read interaction.
 type FlagRead interface {
 	ReadFlag(ctx context.Context, id string) (r5.Flag, error)
 }
+
+// FormularyItemRead needs to be implemented to support the read interaction.
 type FormularyItemRead interface {
 	ReadFormularyItem(ctx context.Context, id string) (r5.FormularyItem, error)
 }
+
+// GenomicStudyRead needs to be implemented to support the read interaction.
 type GenomicStudyRead interface {
 	ReadGenomicStudy(ctx context.Context, id string) (r5.GenomicStudy, error)
 }
+
+// GoalRead needs to be implemented to support the read interaction.
 type GoalRead interface {
 	ReadGoal(ctx context.Context, id string) (r5.Goal, error)
 }
+
+// GraphDefinitionRead needs to be implemented to support the read interaction.
 type GraphDefinitionRead interface {
 	ReadGraphDefinition(ctx context.Context, id string) (r5.GraphDefinition, error)
 }
+
+// GroupRead needs to be implemented to support the read interaction.
 type GroupRead interface {
 	ReadGroup(ctx context.Context, id string) (r5.Group, error)
 }
+
+// GuidanceResponseRead needs to be implemented to support the read interaction.
 type GuidanceResponseRead interface {
 	ReadGuidanceResponse(ctx context.Context, id string) (r5.GuidanceResponse, error)
 }
+
+// HealthcareServiceRead needs to be implemented to support the read interaction.
 type HealthcareServiceRead interface {
 	ReadHealthcareService(ctx context.Context, id string) (r5.HealthcareService, error)
 }
+
+// ImagingSelectionRead needs to be implemented to support the read interaction.
 type ImagingSelectionRead interface {
 	ReadImagingSelection(ctx context.Context, id string) (r5.ImagingSelection, error)
 }
+
+// ImagingStudyRead needs to be implemented to support the read interaction.
 type ImagingStudyRead interface {
 	ReadImagingStudy(ctx context.Context, id string) (r5.ImagingStudy, error)
 }
+
+// ImmunizationRead needs to be implemented to support the read interaction.
 type ImmunizationRead interface {
 	ReadImmunization(ctx context.Context, id string) (r5.Immunization, error)
 }
+
+// ImmunizationEvaluationRead needs to be implemented to support the read interaction.
 type ImmunizationEvaluationRead interface {
 	ReadImmunizationEvaluation(ctx context.Context, id string) (r5.ImmunizationEvaluation, error)
 }
+
+// ImmunizationRecommendationRead needs to be implemented to support the read interaction.
 type ImmunizationRecommendationRead interface {
 	ReadImmunizationRecommendation(ctx context.Context, id string) (r5.ImmunizationRecommendation, error)
 }
+
+// ImplementationGuideRead needs to be implemented to support the read interaction.
 type ImplementationGuideRead interface {
 	ReadImplementationGuide(ctx context.Context, id string) (r5.ImplementationGuide, error)
 }
+
+// IngredientRead needs to be implemented to support the read interaction.
 type IngredientRead interface {
 	ReadIngredient(ctx context.Context, id string) (r5.Ingredient, error)
 }
+
+// InsurancePlanRead needs to be implemented to support the read interaction.
 type InsurancePlanRead interface {
 	ReadInsurancePlan(ctx context.Context, id string) (r5.InsurancePlan, error)
 }
+
+// InventoryItemRead needs to be implemented to support the read interaction.
 type InventoryItemRead interface {
 	ReadInventoryItem(ctx context.Context, id string) (r5.InventoryItem, error)
 }
+
+// InventoryReportRead needs to be implemented to support the read interaction.
 type InventoryReportRead interface {
 	ReadInventoryReport(ctx context.Context, id string) (r5.InventoryReport, error)
 }
+
+// InvoiceRead needs to be implemented to support the read interaction.
 type InvoiceRead interface {
 	ReadInvoice(ctx context.Context, id string) (r5.Invoice, error)
 }
+
+// LibraryRead needs to be implemented to support the read interaction.
 type LibraryRead interface {
 	ReadLibrary(ctx context.Context, id string) (r5.Library, error)
 }
+
+// LinkageRead needs to be implemented to support the read interaction.
 type LinkageRead interface {
 	ReadLinkage(ctx context.Context, id string) (r5.Linkage, error)
 }
+
+// ListRead needs to be implemented to support the read interaction.
 type ListRead interface {
 	ReadList(ctx context.Context, id string) (r5.List, error)
 }
+
+// LocationRead needs to be implemented to support the read interaction.
 type LocationRead interface {
 	ReadLocation(ctx context.Context, id string) (r5.Location, error)
 }
+
+// ManufacturedItemDefinitionRead needs to be implemented to support the read interaction.
 type ManufacturedItemDefinitionRead interface {
 	ReadManufacturedItemDefinition(ctx context.Context, id string) (r5.ManufacturedItemDefinition, error)
 }
+
+// MeasureRead needs to be implemented to support the read interaction.
 type MeasureRead interface {
 	ReadMeasure(ctx context.Context, id string) (r5.Measure, error)
 }
+
+// MeasureReportRead needs to be implemented to support the read interaction.
 type MeasureReportRead interface {
 	ReadMeasureReport(ctx context.Context, id string) (r5.MeasureReport, error)
 }
+
+// MedicationRead needs to be implemented to support the read interaction.
 type MedicationRead interface {
 	ReadMedication(ctx context.Context, id string) (r5.Medication, error)
 }
+
+// MedicationAdministrationRead needs to be implemented to support the read interaction.
 type MedicationAdministrationRead interface {
 	ReadMedicationAdministration(ctx context.Context, id string) (r5.MedicationAdministration, error)
 }
+
+// MedicationDispenseRead needs to be implemented to support the read interaction.
 type MedicationDispenseRead interface {
 	ReadMedicationDispense(ctx context.Context, id string) (r5.MedicationDispense, error)
 }
+
+// MedicationKnowledgeRead needs to be implemented to support the read interaction.
 type MedicationKnowledgeRead interface {
 	ReadMedicationKnowledge(ctx context.Context, id string) (r5.MedicationKnowledge, error)
 }
+
+// MedicationRequestRead needs to be implemented to support the read interaction.
 type MedicationRequestRead interface {
 	ReadMedicationRequest(ctx context.Context, id string) (r5.MedicationRequest, error)
 }
+
+// MedicationStatementRead needs to be implemented to support the read interaction.
 type MedicationStatementRead interface {
 	ReadMedicationStatement(ctx context.Context, id string) (r5.MedicationStatement, error)
 }
+
+// MedicinalProductDefinitionRead needs to be implemented to support the read interaction.
 type MedicinalProductDefinitionRead interface {
 	ReadMedicinalProductDefinition(ctx context.Context, id string) (r5.MedicinalProductDefinition, error)
 }
+
+// MessageDefinitionRead needs to be implemented to support the read interaction.
 type MessageDefinitionRead interface {
 	ReadMessageDefinition(ctx context.Context, id string) (r5.MessageDefinition, error)
 }
+
+// MessageHeaderRead needs to be implemented to support the read interaction.
 type MessageHeaderRead interface {
 	ReadMessageHeader(ctx context.Context, id string) (r5.MessageHeader, error)
 }
+
+// MolecularSequenceRead needs to be implemented to support the read interaction.
 type MolecularSequenceRead interface {
 	ReadMolecularSequence(ctx context.Context, id string) (r5.MolecularSequence, error)
 }
+
+// NamingSystemRead needs to be implemented to support the read interaction.
 type NamingSystemRead interface {
 	ReadNamingSystem(ctx context.Context, id string) (r5.NamingSystem, error)
 }
+
+// NutritionIntakeRead needs to be implemented to support the read interaction.
 type NutritionIntakeRead interface {
 	ReadNutritionIntake(ctx context.Context, id string) (r5.NutritionIntake, error)
 }
+
+// NutritionOrderRead needs to be implemented to support the read interaction.
 type NutritionOrderRead interface {
 	ReadNutritionOrder(ctx context.Context, id string) (r5.NutritionOrder, error)
 }
+
+// NutritionProductRead needs to be implemented to support the read interaction.
 type NutritionProductRead interface {
 	ReadNutritionProduct(ctx context.Context, id string) (r5.NutritionProduct, error)
 }
+
+// ObservationRead needs to be implemented to support the read interaction.
 type ObservationRead interface {
 	ReadObservation(ctx context.Context, id string) (r5.Observation, error)
 }
+
+// ObservationDefinitionRead needs to be implemented to support the read interaction.
 type ObservationDefinitionRead interface {
 	ReadObservationDefinition(ctx context.Context, id string) (r5.ObservationDefinition, error)
 }
+
+// OperationDefinitionRead needs to be implemented to support the read interaction.
 type OperationDefinitionRead interface {
 	ReadOperationDefinition(ctx context.Context, id string) (r5.OperationDefinition, error)
 }
+
+// OperationOutcomeRead needs to be implemented to support the read interaction.
 type OperationOutcomeRead interface {
 	ReadOperationOutcome(ctx context.Context, id string) (r5.OperationOutcome, error)
 }
+
+// OrganizationRead needs to be implemented to support the read interaction.
 type OrganizationRead interface {
 	ReadOrganization(ctx context.Context, id string) (r5.Organization, error)
 }
+
+// OrganizationAffiliationRead needs to be implemented to support the read interaction.
 type OrganizationAffiliationRead interface {
 	ReadOrganizationAffiliation(ctx context.Context, id string) (r5.OrganizationAffiliation, error)
 }
+
+// PackagedProductDefinitionRead needs to be implemented to support the read interaction.
 type PackagedProductDefinitionRead interface {
 	ReadPackagedProductDefinition(ctx context.Context, id string) (r5.PackagedProductDefinition, error)
 }
+
+// ParametersRead needs to be implemented to support the read interaction.
 type ParametersRead interface {
 	ReadParameters(ctx context.Context, id string) (r5.Parameters, error)
 }
+
+// PatientRead needs to be implemented to support the read interaction.
 type PatientRead interface {
 	ReadPatient(ctx context.Context, id string) (r5.Patient, error)
 }
+
+// PaymentNoticeRead needs to be implemented to support the read interaction.
 type PaymentNoticeRead interface {
 	ReadPaymentNotice(ctx context.Context, id string) (r5.PaymentNotice, error)
 }
+
+// PaymentReconciliationRead needs to be implemented to support the read interaction.
 type PaymentReconciliationRead interface {
 	ReadPaymentReconciliation(ctx context.Context, id string) (r5.PaymentReconciliation, error)
 }
+
+// PermissionRead needs to be implemented to support the read interaction.
 type PermissionRead interface {
 	ReadPermission(ctx context.Context, id string) (r5.Permission, error)
 }
+
+// PersonRead needs to be implemented to support the read interaction.
 type PersonRead interface {
 	ReadPerson(ctx context.Context, id string) (r5.Person, error)
 }
+
+// PlanDefinitionRead needs to be implemented to support the read interaction.
 type PlanDefinitionRead interface {
 	ReadPlanDefinition(ctx context.Context, id string) (r5.PlanDefinition, error)
 }
+
+// PractitionerRead needs to be implemented to support the read interaction.
 type PractitionerRead interface {
 	ReadPractitioner(ctx context.Context, id string) (r5.Practitioner, error)
 }
+
+// PractitionerRoleRead needs to be implemented to support the read interaction.
 type PractitionerRoleRead interface {
 	ReadPractitionerRole(ctx context.Context, id string) (r5.PractitionerRole, error)
 }
+
+// ProcedureRead needs to be implemented to support the read interaction.
 type ProcedureRead interface {
 	ReadProcedure(ctx context.Context, id string) (r5.Procedure, error)
 }
+
+// ProvenanceRead needs to be implemented to support the read interaction.
 type ProvenanceRead interface {
 	ReadProvenance(ctx context.Context, id string) (r5.Provenance, error)
 }
+
+// QuestionnaireRead needs to be implemented to support the read interaction.
 type QuestionnaireRead interface {
 	ReadQuestionnaire(ctx context.Context, id string) (r5.Questionnaire, error)
 }
+
+// QuestionnaireResponseRead needs to be implemented to support the read interaction.
 type QuestionnaireResponseRead interface {
 	ReadQuestionnaireResponse(ctx context.Context, id string) (r5.QuestionnaireResponse, error)
 }
+
+// RegulatedAuthorizationRead needs to be implemented to support the read interaction.
 type RegulatedAuthorizationRead interface {
 	ReadRegulatedAuthorization(ctx context.Context, id string) (r5.RegulatedAuthorization, error)
 }
+
+// RelatedPersonRead needs to be implemented to support the read interaction.
 type RelatedPersonRead interface {
 	ReadRelatedPerson(ctx context.Context, id string) (r5.RelatedPerson, error)
 }
+
+// RequestOrchestrationRead needs to be implemented to support the read interaction.
 type RequestOrchestrationRead interface {
 	ReadRequestOrchestration(ctx context.Context, id string) (r5.RequestOrchestration, error)
 }
+
+// RequirementsRead needs to be implemented to support the read interaction.
 type RequirementsRead interface {
 	ReadRequirements(ctx context.Context, id string) (r5.Requirements, error)
 }
+
+// ResearchStudyRead needs to be implemented to support the read interaction.
 type ResearchStudyRead interface {
 	ReadResearchStudy(ctx context.Context, id string) (r5.ResearchStudy, error)
 }
+
+// ResearchSubjectRead needs to be implemented to support the read interaction.
 type ResearchSubjectRead interface {
 	ReadResearchSubject(ctx context.Context, id string) (r5.ResearchSubject, error)
 }
+
+// RiskAssessmentRead needs to be implemented to support the read interaction.
 type RiskAssessmentRead interface {
 	ReadRiskAssessment(ctx context.Context, id string) (r5.RiskAssessment, error)
 }
+
+// ScheduleRead needs to be implemented to support the read interaction.
 type ScheduleRead interface {
 	ReadSchedule(ctx context.Context, id string) (r5.Schedule, error)
 }
+
+// SearchParameterRead needs to be implemented to support the read interaction.
 type SearchParameterRead interface {
 	ReadSearchParameter(ctx context.Context, id string) (r5.SearchParameter, error)
 }
+
+// ServiceRequestRead needs to be implemented to support the read interaction.
 type ServiceRequestRead interface {
 	ReadServiceRequest(ctx context.Context, id string) (r5.ServiceRequest, error)
 }
+
+// SlotRead needs to be implemented to support the read interaction.
 type SlotRead interface {
 	ReadSlot(ctx context.Context, id string) (r5.Slot, error)
 }
+
+// SpecimenRead needs to be implemented to support the read interaction.
 type SpecimenRead interface {
 	ReadSpecimen(ctx context.Context, id string) (r5.Specimen, error)
 }
+
+// SpecimenDefinitionRead needs to be implemented to support the read interaction.
 type SpecimenDefinitionRead interface {
 	ReadSpecimenDefinition(ctx context.Context, id string) (r5.SpecimenDefinition, error)
 }
+
+// StructureDefinitionRead needs to be implemented to support the read interaction.
 type StructureDefinitionRead interface {
 	ReadStructureDefinition(ctx context.Context, id string) (r5.StructureDefinition, error)
 }
+
+// StructureMapRead needs to be implemented to support the read interaction.
 type StructureMapRead interface {
 	ReadStructureMap(ctx context.Context, id string) (r5.StructureMap, error)
 }
+
+// SubscriptionRead needs to be implemented to support the read interaction.
 type SubscriptionRead interface {
 	ReadSubscription(ctx context.Context, id string) (r5.Subscription, error)
 }
+
+// SubscriptionStatusRead needs to be implemented to support the read interaction.
 type SubscriptionStatusRead interface {
 	ReadSubscriptionStatus(ctx context.Context, id string) (r5.SubscriptionStatus, error)
 }
+
+// SubscriptionTopicRead needs to be implemented to support the read interaction.
 type SubscriptionTopicRead interface {
 	ReadSubscriptionTopic(ctx context.Context, id string) (r5.SubscriptionTopic, error)
 }
+
+// SubstanceRead needs to be implemented to support the read interaction.
 type SubstanceRead interface {
 	ReadSubstance(ctx context.Context, id string) (r5.Substance, error)
 }
+
+// SubstanceDefinitionRead needs to be implemented to support the read interaction.
 type SubstanceDefinitionRead interface {
 	ReadSubstanceDefinition(ctx context.Context, id string) (r5.SubstanceDefinition, error)
 }
+
+// SubstanceNucleicAcidRead needs to be implemented to support the read interaction.
 type SubstanceNucleicAcidRead interface {
 	ReadSubstanceNucleicAcid(ctx context.Context, id string) (r5.SubstanceNucleicAcid, error)
 }
+
+// SubstancePolymerRead needs to be implemented to support the read interaction.
 type SubstancePolymerRead interface {
 	ReadSubstancePolymer(ctx context.Context, id string) (r5.SubstancePolymer, error)
 }
+
+// SubstanceProteinRead needs to be implemented to support the read interaction.
 type SubstanceProteinRead interface {
 	ReadSubstanceProtein(ctx context.Context, id string) (r5.SubstanceProtein, error)
 }
+
+// SubstanceReferenceInformationRead needs to be implemented to support the read interaction.
 type SubstanceReferenceInformationRead interface {
 	ReadSubstanceReferenceInformation(ctx context.Context, id string) (r5.SubstanceReferenceInformation, error)
 }
+
+// SubstanceSourceMaterialRead needs to be implemented to support the read interaction.
 type SubstanceSourceMaterialRead interface {
 	ReadSubstanceSourceMaterial(ctx context.Context, id string) (r5.SubstanceSourceMaterial, error)
 }
+
+// SupplyDeliveryRead needs to be implemented to support the read interaction.
 type SupplyDeliveryRead interface {
 	ReadSupplyDelivery(ctx context.Context, id string) (r5.SupplyDelivery, error)
 }
+
+// SupplyRequestRead needs to be implemented to support the read interaction.
 type SupplyRequestRead interface {
 	ReadSupplyRequest(ctx context.Context, id string) (r5.SupplyRequest, error)
 }
+
+// TaskRead needs to be implemented to support the read interaction.
 type TaskRead interface {
 	ReadTask(ctx context.Context, id string) (r5.Task, error)
 }
+
+// TerminologyCapabilitiesRead needs to be implemented to support the read interaction.
 type TerminologyCapabilitiesRead interface {
 	ReadTerminologyCapabilities(ctx context.Context, id string) (r5.TerminologyCapabilities, error)
 }
+
+// TestPlanRead needs to be implemented to support the read interaction.
 type TestPlanRead interface {
 	ReadTestPlan(ctx context.Context, id string) (r5.TestPlan, error)
 }
+
+// TestReportRead needs to be implemented to support the read interaction.
 type TestReportRead interface {
 	ReadTestReport(ctx context.Context, id string) (r5.TestReport, error)
 }
+
+// TestScriptRead needs to be implemented to support the read interaction.
 type TestScriptRead interface {
 	ReadTestScript(ctx context.Context, id string) (r5.TestScript, error)
 }
+
+// TransportRead needs to be implemented to support the read interaction.
 type TransportRead interface {
 	ReadTransport(ctx context.Context, id string) (r5.Transport, error)
 }
+
+// ValueSetRead needs to be implemented to support the read interaction.
 type ValueSetRead interface {
 	ReadValueSet(ctx context.Context, id string) (r5.ValueSet, error)
 }
+
+// VerificationResultRead needs to be implemented to support the read interaction.
 type VerificationResultRead interface {
 	ReadVerificationResult(ctx context.Context, id string) (r5.VerificationResult, error)
 }
+
+// VisionPrescriptionRead needs to be implemented to support the read interaction.
 type VisionPrescriptionRead interface {
 	ReadVisionPrescription(ctx context.Context, id string) (r5.VisionPrescription, error)
 }

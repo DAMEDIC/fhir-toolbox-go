@@ -6,445 +6,1466 @@ package capabilitiesR4
 
 import (
 	"context"
-	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	update "github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	r4 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 )
 
+// AccountUpdate needs to be implemented to support the update interaction.
 type AccountUpdate interface {
-	UpdateAccount(ctx context.Context, resource r4.Account) (capabilities.UpdateResult[r4.Account], error)
+	UpdateAccount(ctx context.Context, resource r4.Account) (update.Result[r4.Account], error)
 }
+
+// AccountUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type AccountUpdateCapabilities interface {
+	UpdateCapabilitiesAccount(ctx context.Context) (update.Capabilities, error)
+}
+
+// ActivityDefinitionUpdate needs to be implemented to support the update interaction.
 type ActivityDefinitionUpdate interface {
-	UpdateActivityDefinition(ctx context.Context, resource r4.ActivityDefinition) (capabilities.UpdateResult[r4.ActivityDefinition], error)
+	UpdateActivityDefinition(ctx context.Context, resource r4.ActivityDefinition) (update.Result[r4.ActivityDefinition], error)
 }
+
+// ActivityDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ActivityDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesActivityDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// AdverseEventUpdate needs to be implemented to support the update interaction.
 type AdverseEventUpdate interface {
-	UpdateAdverseEvent(ctx context.Context, resource r4.AdverseEvent) (capabilities.UpdateResult[r4.AdverseEvent], error)
+	UpdateAdverseEvent(ctx context.Context, resource r4.AdverseEvent) (update.Result[r4.AdverseEvent], error)
 }
+
+// AdverseEventUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type AdverseEventUpdateCapabilities interface {
+	UpdateCapabilitiesAdverseEvent(ctx context.Context) (update.Capabilities, error)
+}
+
+// AllergyIntoleranceUpdate needs to be implemented to support the update interaction.
 type AllergyIntoleranceUpdate interface {
-	UpdateAllergyIntolerance(ctx context.Context, resource r4.AllergyIntolerance) (capabilities.UpdateResult[r4.AllergyIntolerance], error)
+	UpdateAllergyIntolerance(ctx context.Context, resource r4.AllergyIntolerance) (update.Result[r4.AllergyIntolerance], error)
 }
+
+// AllergyIntoleranceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type AllergyIntoleranceUpdateCapabilities interface {
+	UpdateCapabilitiesAllergyIntolerance(ctx context.Context) (update.Capabilities, error)
+}
+
+// AppointmentUpdate needs to be implemented to support the update interaction.
 type AppointmentUpdate interface {
-	UpdateAppointment(ctx context.Context, resource r4.Appointment) (capabilities.UpdateResult[r4.Appointment], error)
+	UpdateAppointment(ctx context.Context, resource r4.Appointment) (update.Result[r4.Appointment], error)
 }
+
+// AppointmentUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type AppointmentUpdateCapabilities interface {
+	UpdateCapabilitiesAppointment(ctx context.Context) (update.Capabilities, error)
+}
+
+// AppointmentResponseUpdate needs to be implemented to support the update interaction.
 type AppointmentResponseUpdate interface {
-	UpdateAppointmentResponse(ctx context.Context, resource r4.AppointmentResponse) (capabilities.UpdateResult[r4.AppointmentResponse], error)
+	UpdateAppointmentResponse(ctx context.Context, resource r4.AppointmentResponse) (update.Result[r4.AppointmentResponse], error)
 }
+
+// AppointmentResponseUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type AppointmentResponseUpdateCapabilities interface {
+	UpdateCapabilitiesAppointmentResponse(ctx context.Context) (update.Capabilities, error)
+}
+
+// AuditEventUpdate needs to be implemented to support the update interaction.
 type AuditEventUpdate interface {
-	UpdateAuditEvent(ctx context.Context, resource r4.AuditEvent) (capabilities.UpdateResult[r4.AuditEvent], error)
+	UpdateAuditEvent(ctx context.Context, resource r4.AuditEvent) (update.Result[r4.AuditEvent], error)
 }
+
+// AuditEventUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type AuditEventUpdateCapabilities interface {
+	UpdateCapabilitiesAuditEvent(ctx context.Context) (update.Capabilities, error)
+}
+
+// BasicUpdate needs to be implemented to support the update interaction.
 type BasicUpdate interface {
-	UpdateBasic(ctx context.Context, resource r4.Basic) (capabilities.UpdateResult[r4.Basic], error)
+	UpdateBasic(ctx context.Context, resource r4.Basic) (update.Result[r4.Basic], error)
 }
+
+// BasicUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type BasicUpdateCapabilities interface {
+	UpdateCapabilitiesBasic(ctx context.Context) (update.Capabilities, error)
+}
+
+// BinaryUpdate needs to be implemented to support the update interaction.
 type BinaryUpdate interface {
-	UpdateBinary(ctx context.Context, resource r4.Binary) (capabilities.UpdateResult[r4.Binary], error)
+	UpdateBinary(ctx context.Context, resource r4.Binary) (update.Result[r4.Binary], error)
 }
+
+// BinaryUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type BinaryUpdateCapabilities interface {
+	UpdateCapabilitiesBinary(ctx context.Context) (update.Capabilities, error)
+}
+
+// BiologicallyDerivedProductUpdate needs to be implemented to support the update interaction.
 type BiologicallyDerivedProductUpdate interface {
-	UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4.BiologicallyDerivedProduct) (capabilities.UpdateResult[r4.BiologicallyDerivedProduct], error)
+	UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4.BiologicallyDerivedProduct) (update.Result[r4.BiologicallyDerivedProduct], error)
 }
+
+// BiologicallyDerivedProductUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type BiologicallyDerivedProductUpdateCapabilities interface {
+	UpdateCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (update.Capabilities, error)
+}
+
+// BodyStructureUpdate needs to be implemented to support the update interaction.
 type BodyStructureUpdate interface {
-	UpdateBodyStructure(ctx context.Context, resource r4.BodyStructure) (capabilities.UpdateResult[r4.BodyStructure], error)
+	UpdateBodyStructure(ctx context.Context, resource r4.BodyStructure) (update.Result[r4.BodyStructure], error)
 }
+
+// BodyStructureUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type BodyStructureUpdateCapabilities interface {
+	UpdateCapabilitiesBodyStructure(ctx context.Context) (update.Capabilities, error)
+}
+
+// BundleUpdate needs to be implemented to support the update interaction.
 type BundleUpdate interface {
-	UpdateBundle(ctx context.Context, resource r4.Bundle) (capabilities.UpdateResult[r4.Bundle], error)
+	UpdateBundle(ctx context.Context, resource r4.Bundle) (update.Result[r4.Bundle], error)
 }
+
+// BundleUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type BundleUpdateCapabilities interface {
+	UpdateCapabilitiesBundle(ctx context.Context) (update.Capabilities, error)
+}
+
+// CapabilityStatementUpdate needs to be implemented to support the update interaction.
 type CapabilityStatementUpdate interface {
-	UpdateCapabilityStatement(ctx context.Context, resource r4.CapabilityStatement) (capabilities.UpdateResult[r4.CapabilityStatement], error)
+	UpdateCapabilityStatement(ctx context.Context, resource r4.CapabilityStatement) (update.Result[r4.CapabilityStatement], error)
 }
+
+// CapabilityStatementUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CapabilityStatementUpdateCapabilities interface {
+	UpdateCapabilitiesCapabilityStatement(ctx context.Context) (update.Capabilities, error)
+}
+
+// CarePlanUpdate needs to be implemented to support the update interaction.
 type CarePlanUpdate interface {
-	UpdateCarePlan(ctx context.Context, resource r4.CarePlan) (capabilities.UpdateResult[r4.CarePlan], error)
+	UpdateCarePlan(ctx context.Context, resource r4.CarePlan) (update.Result[r4.CarePlan], error)
 }
+
+// CarePlanUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CarePlanUpdateCapabilities interface {
+	UpdateCapabilitiesCarePlan(ctx context.Context) (update.Capabilities, error)
+}
+
+// CareTeamUpdate needs to be implemented to support the update interaction.
 type CareTeamUpdate interface {
-	UpdateCareTeam(ctx context.Context, resource r4.CareTeam) (capabilities.UpdateResult[r4.CareTeam], error)
+	UpdateCareTeam(ctx context.Context, resource r4.CareTeam) (update.Result[r4.CareTeam], error)
 }
+
+// CareTeamUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CareTeamUpdateCapabilities interface {
+	UpdateCapabilitiesCareTeam(ctx context.Context) (update.Capabilities, error)
+}
+
+// CatalogEntryUpdate needs to be implemented to support the update interaction.
 type CatalogEntryUpdate interface {
-	UpdateCatalogEntry(ctx context.Context, resource r4.CatalogEntry) (capabilities.UpdateResult[r4.CatalogEntry], error)
+	UpdateCatalogEntry(ctx context.Context, resource r4.CatalogEntry) (update.Result[r4.CatalogEntry], error)
 }
+
+// CatalogEntryUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CatalogEntryUpdateCapabilities interface {
+	UpdateCapabilitiesCatalogEntry(ctx context.Context) (update.Capabilities, error)
+}
+
+// ChargeItemUpdate needs to be implemented to support the update interaction.
 type ChargeItemUpdate interface {
-	UpdateChargeItem(ctx context.Context, resource r4.ChargeItem) (capabilities.UpdateResult[r4.ChargeItem], error)
+	UpdateChargeItem(ctx context.Context, resource r4.ChargeItem) (update.Result[r4.ChargeItem], error)
 }
+
+// ChargeItemUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ChargeItemUpdateCapabilities interface {
+	UpdateCapabilitiesChargeItem(ctx context.Context) (update.Capabilities, error)
+}
+
+// ChargeItemDefinitionUpdate needs to be implemented to support the update interaction.
 type ChargeItemDefinitionUpdate interface {
-	UpdateChargeItemDefinition(ctx context.Context, resource r4.ChargeItemDefinition) (capabilities.UpdateResult[r4.ChargeItemDefinition], error)
+	UpdateChargeItemDefinition(ctx context.Context, resource r4.ChargeItemDefinition) (update.Result[r4.ChargeItemDefinition], error)
 }
+
+// ChargeItemDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ChargeItemDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesChargeItemDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// ClaimUpdate needs to be implemented to support the update interaction.
 type ClaimUpdate interface {
-	UpdateClaim(ctx context.Context, resource r4.Claim) (capabilities.UpdateResult[r4.Claim], error)
+	UpdateClaim(ctx context.Context, resource r4.Claim) (update.Result[r4.Claim], error)
 }
+
+// ClaimUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ClaimUpdateCapabilities interface {
+	UpdateCapabilitiesClaim(ctx context.Context) (update.Capabilities, error)
+}
+
+// ClaimResponseUpdate needs to be implemented to support the update interaction.
 type ClaimResponseUpdate interface {
-	UpdateClaimResponse(ctx context.Context, resource r4.ClaimResponse) (capabilities.UpdateResult[r4.ClaimResponse], error)
+	UpdateClaimResponse(ctx context.Context, resource r4.ClaimResponse) (update.Result[r4.ClaimResponse], error)
 }
+
+// ClaimResponseUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ClaimResponseUpdateCapabilities interface {
+	UpdateCapabilitiesClaimResponse(ctx context.Context) (update.Capabilities, error)
+}
+
+// ClinicalImpressionUpdate needs to be implemented to support the update interaction.
 type ClinicalImpressionUpdate interface {
-	UpdateClinicalImpression(ctx context.Context, resource r4.ClinicalImpression) (capabilities.UpdateResult[r4.ClinicalImpression], error)
+	UpdateClinicalImpression(ctx context.Context, resource r4.ClinicalImpression) (update.Result[r4.ClinicalImpression], error)
 }
+
+// ClinicalImpressionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ClinicalImpressionUpdateCapabilities interface {
+	UpdateCapabilitiesClinicalImpression(ctx context.Context) (update.Capabilities, error)
+}
+
+// CodeSystemUpdate needs to be implemented to support the update interaction.
 type CodeSystemUpdate interface {
-	UpdateCodeSystem(ctx context.Context, resource r4.CodeSystem) (capabilities.UpdateResult[r4.CodeSystem], error)
+	UpdateCodeSystem(ctx context.Context, resource r4.CodeSystem) (update.Result[r4.CodeSystem], error)
 }
+
+// CodeSystemUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CodeSystemUpdateCapabilities interface {
+	UpdateCapabilitiesCodeSystem(ctx context.Context) (update.Capabilities, error)
+}
+
+// CommunicationUpdate needs to be implemented to support the update interaction.
 type CommunicationUpdate interface {
-	UpdateCommunication(ctx context.Context, resource r4.Communication) (capabilities.UpdateResult[r4.Communication], error)
+	UpdateCommunication(ctx context.Context, resource r4.Communication) (update.Result[r4.Communication], error)
 }
+
+// CommunicationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CommunicationUpdateCapabilities interface {
+	UpdateCapabilitiesCommunication(ctx context.Context) (update.Capabilities, error)
+}
+
+// CommunicationRequestUpdate needs to be implemented to support the update interaction.
 type CommunicationRequestUpdate interface {
-	UpdateCommunicationRequest(ctx context.Context, resource r4.CommunicationRequest) (capabilities.UpdateResult[r4.CommunicationRequest], error)
+	UpdateCommunicationRequest(ctx context.Context, resource r4.CommunicationRequest) (update.Result[r4.CommunicationRequest], error)
 }
+
+// CommunicationRequestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CommunicationRequestUpdateCapabilities interface {
+	UpdateCapabilitiesCommunicationRequest(ctx context.Context) (update.Capabilities, error)
+}
+
+// CompartmentDefinitionUpdate needs to be implemented to support the update interaction.
 type CompartmentDefinitionUpdate interface {
-	UpdateCompartmentDefinition(ctx context.Context, resource r4.CompartmentDefinition) (capabilities.UpdateResult[r4.CompartmentDefinition], error)
+	UpdateCompartmentDefinition(ctx context.Context, resource r4.CompartmentDefinition) (update.Result[r4.CompartmentDefinition], error)
 }
+
+// CompartmentDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CompartmentDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesCompartmentDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// CompositionUpdate needs to be implemented to support the update interaction.
 type CompositionUpdate interface {
-	UpdateComposition(ctx context.Context, resource r4.Composition) (capabilities.UpdateResult[r4.Composition], error)
+	UpdateComposition(ctx context.Context, resource r4.Composition) (update.Result[r4.Composition], error)
 }
+
+// CompositionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CompositionUpdateCapabilities interface {
+	UpdateCapabilitiesComposition(ctx context.Context) (update.Capabilities, error)
+}
+
+// ConceptMapUpdate needs to be implemented to support the update interaction.
 type ConceptMapUpdate interface {
-	UpdateConceptMap(ctx context.Context, resource r4.ConceptMap) (capabilities.UpdateResult[r4.ConceptMap], error)
+	UpdateConceptMap(ctx context.Context, resource r4.ConceptMap) (update.Result[r4.ConceptMap], error)
 }
+
+// ConceptMapUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ConceptMapUpdateCapabilities interface {
+	UpdateCapabilitiesConceptMap(ctx context.Context) (update.Capabilities, error)
+}
+
+// ConditionUpdate needs to be implemented to support the update interaction.
 type ConditionUpdate interface {
-	UpdateCondition(ctx context.Context, resource r4.Condition) (capabilities.UpdateResult[r4.Condition], error)
+	UpdateCondition(ctx context.Context, resource r4.Condition) (update.Result[r4.Condition], error)
 }
+
+// ConditionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ConditionUpdateCapabilities interface {
+	UpdateCapabilitiesCondition(ctx context.Context) (update.Capabilities, error)
+}
+
+// ConsentUpdate needs to be implemented to support the update interaction.
 type ConsentUpdate interface {
-	UpdateConsent(ctx context.Context, resource r4.Consent) (capabilities.UpdateResult[r4.Consent], error)
+	UpdateConsent(ctx context.Context, resource r4.Consent) (update.Result[r4.Consent], error)
 }
+
+// ConsentUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ConsentUpdateCapabilities interface {
+	UpdateCapabilitiesConsent(ctx context.Context) (update.Capabilities, error)
+}
+
+// ContractUpdate needs to be implemented to support the update interaction.
 type ContractUpdate interface {
-	UpdateContract(ctx context.Context, resource r4.Contract) (capabilities.UpdateResult[r4.Contract], error)
+	UpdateContract(ctx context.Context, resource r4.Contract) (update.Result[r4.Contract], error)
 }
+
+// ContractUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ContractUpdateCapabilities interface {
+	UpdateCapabilitiesContract(ctx context.Context) (update.Capabilities, error)
+}
+
+// CoverageUpdate needs to be implemented to support the update interaction.
 type CoverageUpdate interface {
-	UpdateCoverage(ctx context.Context, resource r4.Coverage) (capabilities.UpdateResult[r4.Coverage], error)
+	UpdateCoverage(ctx context.Context, resource r4.Coverage) (update.Result[r4.Coverage], error)
 }
+
+// CoverageUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CoverageUpdateCapabilities interface {
+	UpdateCapabilitiesCoverage(ctx context.Context) (update.Capabilities, error)
+}
+
+// CoverageEligibilityRequestUpdate needs to be implemented to support the update interaction.
 type CoverageEligibilityRequestUpdate interface {
-	UpdateCoverageEligibilityRequest(ctx context.Context, resource r4.CoverageEligibilityRequest) (capabilities.UpdateResult[r4.CoverageEligibilityRequest], error)
+	UpdateCoverageEligibilityRequest(ctx context.Context, resource r4.CoverageEligibilityRequest) (update.Result[r4.CoverageEligibilityRequest], error)
 }
+
+// CoverageEligibilityRequestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CoverageEligibilityRequestUpdateCapabilities interface {
+	UpdateCapabilitiesCoverageEligibilityRequest(ctx context.Context) (update.Capabilities, error)
+}
+
+// CoverageEligibilityResponseUpdate needs to be implemented to support the update interaction.
 type CoverageEligibilityResponseUpdate interface {
-	UpdateCoverageEligibilityResponse(ctx context.Context, resource r4.CoverageEligibilityResponse) (capabilities.UpdateResult[r4.CoverageEligibilityResponse], error)
+	UpdateCoverageEligibilityResponse(ctx context.Context, resource r4.CoverageEligibilityResponse) (update.Result[r4.CoverageEligibilityResponse], error)
 }
+
+// CoverageEligibilityResponseUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type CoverageEligibilityResponseUpdateCapabilities interface {
+	UpdateCapabilitiesCoverageEligibilityResponse(ctx context.Context) (update.Capabilities, error)
+}
+
+// DetectedIssueUpdate needs to be implemented to support the update interaction.
 type DetectedIssueUpdate interface {
-	UpdateDetectedIssue(ctx context.Context, resource r4.DetectedIssue) (capabilities.UpdateResult[r4.DetectedIssue], error)
+	UpdateDetectedIssue(ctx context.Context, resource r4.DetectedIssue) (update.Result[r4.DetectedIssue], error)
 }
+
+// DetectedIssueUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DetectedIssueUpdateCapabilities interface {
+	UpdateCapabilitiesDetectedIssue(ctx context.Context) (update.Capabilities, error)
+}
+
+// DeviceUpdate needs to be implemented to support the update interaction.
 type DeviceUpdate interface {
-	UpdateDevice(ctx context.Context, resource r4.Device) (capabilities.UpdateResult[r4.Device], error)
+	UpdateDevice(ctx context.Context, resource r4.Device) (update.Result[r4.Device], error)
 }
+
+// DeviceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DeviceUpdateCapabilities interface {
+	UpdateCapabilitiesDevice(ctx context.Context) (update.Capabilities, error)
+}
+
+// DeviceDefinitionUpdate needs to be implemented to support the update interaction.
 type DeviceDefinitionUpdate interface {
-	UpdateDeviceDefinition(ctx context.Context, resource r4.DeviceDefinition) (capabilities.UpdateResult[r4.DeviceDefinition], error)
+	UpdateDeviceDefinition(ctx context.Context, resource r4.DeviceDefinition) (update.Result[r4.DeviceDefinition], error)
 }
+
+// DeviceDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DeviceDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesDeviceDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// DeviceMetricUpdate needs to be implemented to support the update interaction.
 type DeviceMetricUpdate interface {
-	UpdateDeviceMetric(ctx context.Context, resource r4.DeviceMetric) (capabilities.UpdateResult[r4.DeviceMetric], error)
+	UpdateDeviceMetric(ctx context.Context, resource r4.DeviceMetric) (update.Result[r4.DeviceMetric], error)
 }
+
+// DeviceMetricUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DeviceMetricUpdateCapabilities interface {
+	UpdateCapabilitiesDeviceMetric(ctx context.Context) (update.Capabilities, error)
+}
+
+// DeviceRequestUpdate needs to be implemented to support the update interaction.
 type DeviceRequestUpdate interface {
-	UpdateDeviceRequest(ctx context.Context, resource r4.DeviceRequest) (capabilities.UpdateResult[r4.DeviceRequest], error)
+	UpdateDeviceRequest(ctx context.Context, resource r4.DeviceRequest) (update.Result[r4.DeviceRequest], error)
 }
+
+// DeviceRequestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DeviceRequestUpdateCapabilities interface {
+	UpdateCapabilitiesDeviceRequest(ctx context.Context) (update.Capabilities, error)
+}
+
+// DeviceUseStatementUpdate needs to be implemented to support the update interaction.
 type DeviceUseStatementUpdate interface {
-	UpdateDeviceUseStatement(ctx context.Context, resource r4.DeviceUseStatement) (capabilities.UpdateResult[r4.DeviceUseStatement], error)
+	UpdateDeviceUseStatement(ctx context.Context, resource r4.DeviceUseStatement) (update.Result[r4.DeviceUseStatement], error)
 }
+
+// DeviceUseStatementUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DeviceUseStatementUpdateCapabilities interface {
+	UpdateCapabilitiesDeviceUseStatement(ctx context.Context) (update.Capabilities, error)
+}
+
+// DiagnosticReportUpdate needs to be implemented to support the update interaction.
 type DiagnosticReportUpdate interface {
-	UpdateDiagnosticReport(ctx context.Context, resource r4.DiagnosticReport) (capabilities.UpdateResult[r4.DiagnosticReport], error)
+	UpdateDiagnosticReport(ctx context.Context, resource r4.DiagnosticReport) (update.Result[r4.DiagnosticReport], error)
 }
+
+// DiagnosticReportUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DiagnosticReportUpdateCapabilities interface {
+	UpdateCapabilitiesDiagnosticReport(ctx context.Context) (update.Capabilities, error)
+}
+
+// DocumentManifestUpdate needs to be implemented to support the update interaction.
 type DocumentManifestUpdate interface {
-	UpdateDocumentManifest(ctx context.Context, resource r4.DocumentManifest) (capabilities.UpdateResult[r4.DocumentManifest], error)
+	UpdateDocumentManifest(ctx context.Context, resource r4.DocumentManifest) (update.Result[r4.DocumentManifest], error)
 }
+
+// DocumentManifestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DocumentManifestUpdateCapabilities interface {
+	UpdateCapabilitiesDocumentManifest(ctx context.Context) (update.Capabilities, error)
+}
+
+// DocumentReferenceUpdate needs to be implemented to support the update interaction.
 type DocumentReferenceUpdate interface {
-	UpdateDocumentReference(ctx context.Context, resource r4.DocumentReference) (capabilities.UpdateResult[r4.DocumentReference], error)
+	UpdateDocumentReference(ctx context.Context, resource r4.DocumentReference) (update.Result[r4.DocumentReference], error)
 }
+
+// DocumentReferenceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type DocumentReferenceUpdateCapabilities interface {
+	UpdateCapabilitiesDocumentReference(ctx context.Context) (update.Capabilities, error)
+}
+
+// EffectEvidenceSynthesisUpdate needs to be implemented to support the update interaction.
 type EffectEvidenceSynthesisUpdate interface {
-	UpdateEffectEvidenceSynthesis(ctx context.Context, resource r4.EffectEvidenceSynthesis) (capabilities.UpdateResult[r4.EffectEvidenceSynthesis], error)
+	UpdateEffectEvidenceSynthesis(ctx context.Context, resource r4.EffectEvidenceSynthesis) (update.Result[r4.EffectEvidenceSynthesis], error)
 }
+
+// EffectEvidenceSynthesisUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EffectEvidenceSynthesisUpdateCapabilities interface {
+	UpdateCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (update.Capabilities, error)
+}
+
+// EncounterUpdate needs to be implemented to support the update interaction.
 type EncounterUpdate interface {
-	UpdateEncounter(ctx context.Context, resource r4.Encounter) (capabilities.UpdateResult[r4.Encounter], error)
+	UpdateEncounter(ctx context.Context, resource r4.Encounter) (update.Result[r4.Encounter], error)
 }
+
+// EncounterUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EncounterUpdateCapabilities interface {
+	UpdateCapabilitiesEncounter(ctx context.Context) (update.Capabilities, error)
+}
+
+// EndpointUpdate needs to be implemented to support the update interaction.
 type EndpointUpdate interface {
-	UpdateEndpoint(ctx context.Context, resource r4.Endpoint) (capabilities.UpdateResult[r4.Endpoint], error)
+	UpdateEndpoint(ctx context.Context, resource r4.Endpoint) (update.Result[r4.Endpoint], error)
 }
+
+// EndpointUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EndpointUpdateCapabilities interface {
+	UpdateCapabilitiesEndpoint(ctx context.Context) (update.Capabilities, error)
+}
+
+// EnrollmentRequestUpdate needs to be implemented to support the update interaction.
 type EnrollmentRequestUpdate interface {
-	UpdateEnrollmentRequest(ctx context.Context, resource r4.EnrollmentRequest) (capabilities.UpdateResult[r4.EnrollmentRequest], error)
+	UpdateEnrollmentRequest(ctx context.Context, resource r4.EnrollmentRequest) (update.Result[r4.EnrollmentRequest], error)
 }
+
+// EnrollmentRequestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EnrollmentRequestUpdateCapabilities interface {
+	UpdateCapabilitiesEnrollmentRequest(ctx context.Context) (update.Capabilities, error)
+}
+
+// EnrollmentResponseUpdate needs to be implemented to support the update interaction.
 type EnrollmentResponseUpdate interface {
-	UpdateEnrollmentResponse(ctx context.Context, resource r4.EnrollmentResponse) (capabilities.UpdateResult[r4.EnrollmentResponse], error)
+	UpdateEnrollmentResponse(ctx context.Context, resource r4.EnrollmentResponse) (update.Result[r4.EnrollmentResponse], error)
 }
+
+// EnrollmentResponseUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EnrollmentResponseUpdateCapabilities interface {
+	UpdateCapabilitiesEnrollmentResponse(ctx context.Context) (update.Capabilities, error)
+}
+
+// EpisodeOfCareUpdate needs to be implemented to support the update interaction.
 type EpisodeOfCareUpdate interface {
-	UpdateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOfCare) (capabilities.UpdateResult[r4.EpisodeOfCare], error)
+	UpdateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOfCare) (update.Result[r4.EpisodeOfCare], error)
 }
+
+// EpisodeOfCareUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EpisodeOfCareUpdateCapabilities interface {
+	UpdateCapabilitiesEpisodeOfCare(ctx context.Context) (update.Capabilities, error)
+}
+
+// EventDefinitionUpdate needs to be implemented to support the update interaction.
 type EventDefinitionUpdate interface {
-	UpdateEventDefinition(ctx context.Context, resource r4.EventDefinition) (capabilities.UpdateResult[r4.EventDefinition], error)
+	UpdateEventDefinition(ctx context.Context, resource r4.EventDefinition) (update.Result[r4.EventDefinition], error)
 }
+
+// EventDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EventDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesEventDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// EvidenceUpdate needs to be implemented to support the update interaction.
 type EvidenceUpdate interface {
-	UpdateEvidence(ctx context.Context, resource r4.Evidence) (capabilities.UpdateResult[r4.Evidence], error)
+	UpdateEvidence(ctx context.Context, resource r4.Evidence) (update.Result[r4.Evidence], error)
 }
+
+// EvidenceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EvidenceUpdateCapabilities interface {
+	UpdateCapabilitiesEvidence(ctx context.Context) (update.Capabilities, error)
+}
+
+// EvidenceVariableUpdate needs to be implemented to support the update interaction.
 type EvidenceVariableUpdate interface {
-	UpdateEvidenceVariable(ctx context.Context, resource r4.EvidenceVariable) (capabilities.UpdateResult[r4.EvidenceVariable], error)
+	UpdateEvidenceVariable(ctx context.Context, resource r4.EvidenceVariable) (update.Result[r4.EvidenceVariable], error)
 }
+
+// EvidenceVariableUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type EvidenceVariableUpdateCapabilities interface {
+	UpdateCapabilitiesEvidenceVariable(ctx context.Context) (update.Capabilities, error)
+}
+
+// ExampleScenarioUpdate needs to be implemented to support the update interaction.
 type ExampleScenarioUpdate interface {
-	UpdateExampleScenario(ctx context.Context, resource r4.ExampleScenario) (capabilities.UpdateResult[r4.ExampleScenario], error)
+	UpdateExampleScenario(ctx context.Context, resource r4.ExampleScenario) (update.Result[r4.ExampleScenario], error)
 }
+
+// ExampleScenarioUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ExampleScenarioUpdateCapabilities interface {
+	UpdateCapabilitiesExampleScenario(ctx context.Context) (update.Capabilities, error)
+}
+
+// ExplanationOfBenefitUpdate needs to be implemented to support the update interaction.
 type ExplanationOfBenefitUpdate interface {
-	UpdateExplanationOfBenefit(ctx context.Context, resource r4.ExplanationOfBenefit) (capabilities.UpdateResult[r4.ExplanationOfBenefit], error)
+	UpdateExplanationOfBenefit(ctx context.Context, resource r4.ExplanationOfBenefit) (update.Result[r4.ExplanationOfBenefit], error)
 }
+
+// ExplanationOfBenefitUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ExplanationOfBenefitUpdateCapabilities interface {
+	UpdateCapabilitiesExplanationOfBenefit(ctx context.Context) (update.Capabilities, error)
+}
+
+// FamilyMemberHistoryUpdate needs to be implemented to support the update interaction.
 type FamilyMemberHistoryUpdate interface {
-	UpdateFamilyMemberHistory(ctx context.Context, resource r4.FamilyMemberHistory) (capabilities.UpdateResult[r4.FamilyMemberHistory], error)
+	UpdateFamilyMemberHistory(ctx context.Context, resource r4.FamilyMemberHistory) (update.Result[r4.FamilyMemberHistory], error)
 }
+
+// FamilyMemberHistoryUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type FamilyMemberHistoryUpdateCapabilities interface {
+	UpdateCapabilitiesFamilyMemberHistory(ctx context.Context) (update.Capabilities, error)
+}
+
+// FlagUpdate needs to be implemented to support the update interaction.
 type FlagUpdate interface {
-	UpdateFlag(ctx context.Context, resource r4.Flag) (capabilities.UpdateResult[r4.Flag], error)
+	UpdateFlag(ctx context.Context, resource r4.Flag) (update.Result[r4.Flag], error)
 }
+
+// FlagUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type FlagUpdateCapabilities interface {
+	UpdateCapabilitiesFlag(ctx context.Context) (update.Capabilities, error)
+}
+
+// GoalUpdate needs to be implemented to support the update interaction.
 type GoalUpdate interface {
-	UpdateGoal(ctx context.Context, resource r4.Goal) (capabilities.UpdateResult[r4.Goal], error)
+	UpdateGoal(ctx context.Context, resource r4.Goal) (update.Result[r4.Goal], error)
 }
+
+// GoalUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type GoalUpdateCapabilities interface {
+	UpdateCapabilitiesGoal(ctx context.Context) (update.Capabilities, error)
+}
+
+// GraphDefinitionUpdate needs to be implemented to support the update interaction.
 type GraphDefinitionUpdate interface {
-	UpdateGraphDefinition(ctx context.Context, resource r4.GraphDefinition) (capabilities.UpdateResult[r4.GraphDefinition], error)
+	UpdateGraphDefinition(ctx context.Context, resource r4.GraphDefinition) (update.Result[r4.GraphDefinition], error)
 }
+
+// GraphDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type GraphDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesGraphDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// GroupUpdate needs to be implemented to support the update interaction.
 type GroupUpdate interface {
-	UpdateGroup(ctx context.Context, resource r4.Group) (capabilities.UpdateResult[r4.Group], error)
+	UpdateGroup(ctx context.Context, resource r4.Group) (update.Result[r4.Group], error)
 }
+
+// GroupUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type GroupUpdateCapabilities interface {
+	UpdateCapabilitiesGroup(ctx context.Context) (update.Capabilities, error)
+}
+
+// GuidanceResponseUpdate needs to be implemented to support the update interaction.
 type GuidanceResponseUpdate interface {
-	UpdateGuidanceResponse(ctx context.Context, resource r4.GuidanceResponse) (capabilities.UpdateResult[r4.GuidanceResponse], error)
+	UpdateGuidanceResponse(ctx context.Context, resource r4.GuidanceResponse) (update.Result[r4.GuidanceResponse], error)
 }
+
+// GuidanceResponseUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type GuidanceResponseUpdateCapabilities interface {
+	UpdateCapabilitiesGuidanceResponse(ctx context.Context) (update.Capabilities, error)
+}
+
+// HealthcareServiceUpdate needs to be implemented to support the update interaction.
 type HealthcareServiceUpdate interface {
-	UpdateHealthcareService(ctx context.Context, resource r4.HealthcareService) (capabilities.UpdateResult[r4.HealthcareService], error)
+	UpdateHealthcareService(ctx context.Context, resource r4.HealthcareService) (update.Result[r4.HealthcareService], error)
 }
+
+// HealthcareServiceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type HealthcareServiceUpdateCapabilities interface {
+	UpdateCapabilitiesHealthcareService(ctx context.Context) (update.Capabilities, error)
+}
+
+// ImagingStudyUpdate needs to be implemented to support the update interaction.
 type ImagingStudyUpdate interface {
-	UpdateImagingStudy(ctx context.Context, resource r4.ImagingStudy) (capabilities.UpdateResult[r4.ImagingStudy], error)
+	UpdateImagingStudy(ctx context.Context, resource r4.ImagingStudy) (update.Result[r4.ImagingStudy], error)
 }
+
+// ImagingStudyUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ImagingStudyUpdateCapabilities interface {
+	UpdateCapabilitiesImagingStudy(ctx context.Context) (update.Capabilities, error)
+}
+
+// ImmunizationUpdate needs to be implemented to support the update interaction.
 type ImmunizationUpdate interface {
-	UpdateImmunization(ctx context.Context, resource r4.Immunization) (capabilities.UpdateResult[r4.Immunization], error)
+	UpdateImmunization(ctx context.Context, resource r4.Immunization) (update.Result[r4.Immunization], error)
 }
+
+// ImmunizationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ImmunizationUpdateCapabilities interface {
+	UpdateCapabilitiesImmunization(ctx context.Context) (update.Capabilities, error)
+}
+
+// ImmunizationEvaluationUpdate needs to be implemented to support the update interaction.
 type ImmunizationEvaluationUpdate interface {
-	UpdateImmunizationEvaluation(ctx context.Context, resource r4.ImmunizationEvaluation) (capabilities.UpdateResult[r4.ImmunizationEvaluation], error)
+	UpdateImmunizationEvaluation(ctx context.Context, resource r4.ImmunizationEvaluation) (update.Result[r4.ImmunizationEvaluation], error)
 }
+
+// ImmunizationEvaluationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ImmunizationEvaluationUpdateCapabilities interface {
+	UpdateCapabilitiesImmunizationEvaluation(ctx context.Context) (update.Capabilities, error)
+}
+
+// ImmunizationRecommendationUpdate needs to be implemented to support the update interaction.
 type ImmunizationRecommendationUpdate interface {
-	UpdateImmunizationRecommendation(ctx context.Context, resource r4.ImmunizationRecommendation) (capabilities.UpdateResult[r4.ImmunizationRecommendation], error)
+	UpdateImmunizationRecommendation(ctx context.Context, resource r4.ImmunizationRecommendation) (update.Result[r4.ImmunizationRecommendation], error)
 }
+
+// ImmunizationRecommendationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ImmunizationRecommendationUpdateCapabilities interface {
+	UpdateCapabilitiesImmunizationRecommendation(ctx context.Context) (update.Capabilities, error)
+}
+
+// ImplementationGuideUpdate needs to be implemented to support the update interaction.
 type ImplementationGuideUpdate interface {
-	UpdateImplementationGuide(ctx context.Context, resource r4.ImplementationGuide) (capabilities.UpdateResult[r4.ImplementationGuide], error)
+	UpdateImplementationGuide(ctx context.Context, resource r4.ImplementationGuide) (update.Result[r4.ImplementationGuide], error)
 }
+
+// ImplementationGuideUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ImplementationGuideUpdateCapabilities interface {
+	UpdateCapabilitiesImplementationGuide(ctx context.Context) (update.Capabilities, error)
+}
+
+// InsurancePlanUpdate needs to be implemented to support the update interaction.
 type InsurancePlanUpdate interface {
-	UpdateInsurancePlan(ctx context.Context, resource r4.InsurancePlan) (capabilities.UpdateResult[r4.InsurancePlan], error)
+	UpdateInsurancePlan(ctx context.Context, resource r4.InsurancePlan) (update.Result[r4.InsurancePlan], error)
 }
+
+// InsurancePlanUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type InsurancePlanUpdateCapabilities interface {
+	UpdateCapabilitiesInsurancePlan(ctx context.Context) (update.Capabilities, error)
+}
+
+// InvoiceUpdate needs to be implemented to support the update interaction.
 type InvoiceUpdate interface {
-	UpdateInvoice(ctx context.Context, resource r4.Invoice) (capabilities.UpdateResult[r4.Invoice], error)
+	UpdateInvoice(ctx context.Context, resource r4.Invoice) (update.Result[r4.Invoice], error)
 }
+
+// InvoiceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type InvoiceUpdateCapabilities interface {
+	UpdateCapabilitiesInvoice(ctx context.Context) (update.Capabilities, error)
+}
+
+// LibraryUpdate needs to be implemented to support the update interaction.
 type LibraryUpdate interface {
-	UpdateLibrary(ctx context.Context, resource r4.Library) (capabilities.UpdateResult[r4.Library], error)
+	UpdateLibrary(ctx context.Context, resource r4.Library) (update.Result[r4.Library], error)
 }
+
+// LibraryUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type LibraryUpdateCapabilities interface {
+	UpdateCapabilitiesLibrary(ctx context.Context) (update.Capabilities, error)
+}
+
+// LinkageUpdate needs to be implemented to support the update interaction.
 type LinkageUpdate interface {
-	UpdateLinkage(ctx context.Context, resource r4.Linkage) (capabilities.UpdateResult[r4.Linkage], error)
+	UpdateLinkage(ctx context.Context, resource r4.Linkage) (update.Result[r4.Linkage], error)
 }
+
+// LinkageUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type LinkageUpdateCapabilities interface {
+	UpdateCapabilitiesLinkage(ctx context.Context) (update.Capabilities, error)
+}
+
+// ListUpdate needs to be implemented to support the update interaction.
 type ListUpdate interface {
-	UpdateList(ctx context.Context, resource r4.List) (capabilities.UpdateResult[r4.List], error)
+	UpdateList(ctx context.Context, resource r4.List) (update.Result[r4.List], error)
 }
+
+// ListUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ListUpdateCapabilities interface {
+	UpdateCapabilitiesList(ctx context.Context) (update.Capabilities, error)
+}
+
+// LocationUpdate needs to be implemented to support the update interaction.
 type LocationUpdate interface {
-	UpdateLocation(ctx context.Context, resource r4.Location) (capabilities.UpdateResult[r4.Location], error)
+	UpdateLocation(ctx context.Context, resource r4.Location) (update.Result[r4.Location], error)
 }
+
+// LocationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type LocationUpdateCapabilities interface {
+	UpdateCapabilitiesLocation(ctx context.Context) (update.Capabilities, error)
+}
+
+// MeasureUpdate needs to be implemented to support the update interaction.
 type MeasureUpdate interface {
-	UpdateMeasure(ctx context.Context, resource r4.Measure) (capabilities.UpdateResult[r4.Measure], error)
+	UpdateMeasure(ctx context.Context, resource r4.Measure) (update.Result[r4.Measure], error)
 }
+
+// MeasureUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MeasureUpdateCapabilities interface {
+	UpdateCapabilitiesMeasure(ctx context.Context) (update.Capabilities, error)
+}
+
+// MeasureReportUpdate needs to be implemented to support the update interaction.
 type MeasureReportUpdate interface {
-	UpdateMeasureReport(ctx context.Context, resource r4.MeasureReport) (capabilities.UpdateResult[r4.MeasureReport], error)
+	UpdateMeasureReport(ctx context.Context, resource r4.MeasureReport) (update.Result[r4.MeasureReport], error)
 }
+
+// MeasureReportUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MeasureReportUpdateCapabilities interface {
+	UpdateCapabilitiesMeasureReport(ctx context.Context) (update.Capabilities, error)
+}
+
+// MediaUpdate needs to be implemented to support the update interaction.
 type MediaUpdate interface {
-	UpdateMedia(ctx context.Context, resource r4.Media) (capabilities.UpdateResult[r4.Media], error)
+	UpdateMedia(ctx context.Context, resource r4.Media) (update.Result[r4.Media], error)
 }
+
+// MediaUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MediaUpdateCapabilities interface {
+	UpdateCapabilitiesMedia(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicationUpdate needs to be implemented to support the update interaction.
 type MedicationUpdate interface {
-	UpdateMedication(ctx context.Context, resource r4.Medication) (capabilities.UpdateResult[r4.Medication], error)
+	UpdateMedication(ctx context.Context, resource r4.Medication) (update.Result[r4.Medication], error)
 }
+
+// MedicationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicationUpdateCapabilities interface {
+	UpdateCapabilitiesMedication(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicationAdministrationUpdate needs to be implemented to support the update interaction.
 type MedicationAdministrationUpdate interface {
-	UpdateMedicationAdministration(ctx context.Context, resource r4.MedicationAdministration) (capabilities.UpdateResult[r4.MedicationAdministration], error)
+	UpdateMedicationAdministration(ctx context.Context, resource r4.MedicationAdministration) (update.Result[r4.MedicationAdministration], error)
 }
+
+// MedicationAdministrationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicationAdministrationUpdateCapabilities interface {
+	UpdateCapabilitiesMedicationAdministration(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicationDispenseUpdate needs to be implemented to support the update interaction.
 type MedicationDispenseUpdate interface {
-	UpdateMedicationDispense(ctx context.Context, resource r4.MedicationDispense) (capabilities.UpdateResult[r4.MedicationDispense], error)
+	UpdateMedicationDispense(ctx context.Context, resource r4.MedicationDispense) (update.Result[r4.MedicationDispense], error)
 }
+
+// MedicationDispenseUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicationDispenseUpdateCapabilities interface {
+	UpdateCapabilitiesMedicationDispense(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicationKnowledgeUpdate needs to be implemented to support the update interaction.
 type MedicationKnowledgeUpdate interface {
-	UpdateMedicationKnowledge(ctx context.Context, resource r4.MedicationKnowledge) (capabilities.UpdateResult[r4.MedicationKnowledge], error)
+	UpdateMedicationKnowledge(ctx context.Context, resource r4.MedicationKnowledge) (update.Result[r4.MedicationKnowledge], error)
 }
+
+// MedicationKnowledgeUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicationKnowledgeUpdateCapabilities interface {
+	UpdateCapabilitiesMedicationKnowledge(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicationRequestUpdate needs to be implemented to support the update interaction.
 type MedicationRequestUpdate interface {
-	UpdateMedicationRequest(ctx context.Context, resource r4.MedicationRequest) (capabilities.UpdateResult[r4.MedicationRequest], error)
+	UpdateMedicationRequest(ctx context.Context, resource r4.MedicationRequest) (update.Result[r4.MedicationRequest], error)
 }
+
+// MedicationRequestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicationRequestUpdateCapabilities interface {
+	UpdateCapabilitiesMedicationRequest(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicationStatementUpdate needs to be implemented to support the update interaction.
 type MedicationStatementUpdate interface {
-	UpdateMedicationStatement(ctx context.Context, resource r4.MedicationStatement) (capabilities.UpdateResult[r4.MedicationStatement], error)
+	UpdateMedicationStatement(ctx context.Context, resource r4.MedicationStatement) (update.Result[r4.MedicationStatement], error)
 }
+
+// MedicationStatementUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicationStatementUpdateCapabilities interface {
+	UpdateCapabilitiesMedicationStatement(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductUpdate needs to be implemented to support the update interaction.
 type MedicinalProductUpdate interface {
-	UpdateMedicinalProduct(ctx context.Context, resource r4.MedicinalProduct) (capabilities.UpdateResult[r4.MedicinalProduct], error)
+	UpdateMedicinalProduct(ctx context.Context, resource r4.MedicinalProduct) (update.Result[r4.MedicinalProduct], error)
 }
+
+// MedicinalProductUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProduct(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductAuthorizationUpdate needs to be implemented to support the update interaction.
 type MedicinalProductAuthorizationUpdate interface {
-	UpdateMedicinalProductAuthorization(ctx context.Context, resource r4.MedicinalProductAuthorization) (capabilities.UpdateResult[r4.MedicinalProductAuthorization], error)
+	UpdateMedicinalProductAuthorization(ctx context.Context, resource r4.MedicinalProductAuthorization) (update.Result[r4.MedicinalProductAuthorization], error)
 }
+
+// MedicinalProductAuthorizationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductAuthorizationUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductAuthorization(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductContraindicationUpdate needs to be implemented to support the update interaction.
 type MedicinalProductContraindicationUpdate interface {
-	UpdateMedicinalProductContraindication(ctx context.Context, resource r4.MedicinalProductContraindication) (capabilities.UpdateResult[r4.MedicinalProductContraindication], error)
+	UpdateMedicinalProductContraindication(ctx context.Context, resource r4.MedicinalProductContraindication) (update.Result[r4.MedicinalProductContraindication], error)
 }
+
+// MedicinalProductContraindicationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductContraindicationUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductContraindication(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductIndicationUpdate needs to be implemented to support the update interaction.
 type MedicinalProductIndicationUpdate interface {
-	UpdateMedicinalProductIndication(ctx context.Context, resource r4.MedicinalProductIndication) (capabilities.UpdateResult[r4.MedicinalProductIndication], error)
+	UpdateMedicinalProductIndication(ctx context.Context, resource r4.MedicinalProductIndication) (update.Result[r4.MedicinalProductIndication], error)
 }
+
+// MedicinalProductIndicationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductIndicationUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductIndication(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductIngredientUpdate needs to be implemented to support the update interaction.
 type MedicinalProductIngredientUpdate interface {
-	UpdateMedicinalProductIngredient(ctx context.Context, resource r4.MedicinalProductIngredient) (capabilities.UpdateResult[r4.MedicinalProductIngredient], error)
+	UpdateMedicinalProductIngredient(ctx context.Context, resource r4.MedicinalProductIngredient) (update.Result[r4.MedicinalProductIngredient], error)
 }
+
+// MedicinalProductIngredientUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductIngredientUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductIngredient(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductInteractionUpdate needs to be implemented to support the update interaction.
 type MedicinalProductInteractionUpdate interface {
-	UpdateMedicinalProductInteraction(ctx context.Context, resource r4.MedicinalProductInteraction) (capabilities.UpdateResult[r4.MedicinalProductInteraction], error)
+	UpdateMedicinalProductInteraction(ctx context.Context, resource r4.MedicinalProductInteraction) (update.Result[r4.MedicinalProductInteraction], error)
 }
+
+// MedicinalProductInteractionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductInteractionUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductInteraction(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductManufacturedUpdate needs to be implemented to support the update interaction.
 type MedicinalProductManufacturedUpdate interface {
-	UpdateMedicinalProductManufactured(ctx context.Context, resource r4.MedicinalProductManufactured) (capabilities.UpdateResult[r4.MedicinalProductManufactured], error)
+	UpdateMedicinalProductManufactured(ctx context.Context, resource r4.MedicinalProductManufactured) (update.Result[r4.MedicinalProductManufactured], error)
 }
+
+// MedicinalProductManufacturedUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductManufacturedUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductManufactured(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductPackagedUpdate needs to be implemented to support the update interaction.
 type MedicinalProductPackagedUpdate interface {
-	UpdateMedicinalProductPackaged(ctx context.Context, resource r4.MedicinalProductPackaged) (capabilities.UpdateResult[r4.MedicinalProductPackaged], error)
+	UpdateMedicinalProductPackaged(ctx context.Context, resource r4.MedicinalProductPackaged) (update.Result[r4.MedicinalProductPackaged], error)
 }
+
+// MedicinalProductPackagedUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductPackagedUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductPackaged(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductPharmaceuticalUpdate needs to be implemented to support the update interaction.
 type MedicinalProductPharmaceuticalUpdate interface {
-	UpdateMedicinalProductPharmaceutical(ctx context.Context, resource r4.MedicinalProductPharmaceutical) (capabilities.UpdateResult[r4.MedicinalProductPharmaceutical], error)
+	UpdateMedicinalProductPharmaceutical(ctx context.Context, resource r4.MedicinalProductPharmaceutical) (update.Result[r4.MedicinalProductPharmaceutical], error)
 }
+
+// MedicinalProductPharmaceuticalUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductPharmaceuticalUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (update.Capabilities, error)
+}
+
+// MedicinalProductUndesirableEffectUpdate needs to be implemented to support the update interaction.
 type MedicinalProductUndesirableEffectUpdate interface {
-	UpdateMedicinalProductUndesirableEffect(ctx context.Context, resource r4.MedicinalProductUndesirableEffect) (capabilities.UpdateResult[r4.MedicinalProductUndesirableEffect], error)
+	UpdateMedicinalProductUndesirableEffect(ctx context.Context, resource r4.MedicinalProductUndesirableEffect) (update.Result[r4.MedicinalProductUndesirableEffect], error)
 }
+
+// MedicinalProductUndesirableEffectUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MedicinalProductUndesirableEffectUpdateCapabilities interface {
+	UpdateCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (update.Capabilities, error)
+}
+
+// MessageDefinitionUpdate needs to be implemented to support the update interaction.
 type MessageDefinitionUpdate interface {
-	UpdateMessageDefinition(ctx context.Context, resource r4.MessageDefinition) (capabilities.UpdateResult[r4.MessageDefinition], error)
+	UpdateMessageDefinition(ctx context.Context, resource r4.MessageDefinition) (update.Result[r4.MessageDefinition], error)
 }
+
+// MessageDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MessageDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesMessageDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// MessageHeaderUpdate needs to be implemented to support the update interaction.
 type MessageHeaderUpdate interface {
-	UpdateMessageHeader(ctx context.Context, resource r4.MessageHeader) (capabilities.UpdateResult[r4.MessageHeader], error)
+	UpdateMessageHeader(ctx context.Context, resource r4.MessageHeader) (update.Result[r4.MessageHeader], error)
 }
+
+// MessageHeaderUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MessageHeaderUpdateCapabilities interface {
+	UpdateCapabilitiesMessageHeader(ctx context.Context) (update.Capabilities, error)
+}
+
+// MolecularSequenceUpdate needs to be implemented to support the update interaction.
 type MolecularSequenceUpdate interface {
-	UpdateMolecularSequence(ctx context.Context, resource r4.MolecularSequence) (capabilities.UpdateResult[r4.MolecularSequence], error)
+	UpdateMolecularSequence(ctx context.Context, resource r4.MolecularSequence) (update.Result[r4.MolecularSequence], error)
 }
+
+// MolecularSequenceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type MolecularSequenceUpdateCapabilities interface {
+	UpdateCapabilitiesMolecularSequence(ctx context.Context) (update.Capabilities, error)
+}
+
+// NamingSystemUpdate needs to be implemented to support the update interaction.
 type NamingSystemUpdate interface {
-	UpdateNamingSystem(ctx context.Context, resource r4.NamingSystem) (capabilities.UpdateResult[r4.NamingSystem], error)
+	UpdateNamingSystem(ctx context.Context, resource r4.NamingSystem) (update.Result[r4.NamingSystem], error)
 }
+
+// NamingSystemUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type NamingSystemUpdateCapabilities interface {
+	UpdateCapabilitiesNamingSystem(ctx context.Context) (update.Capabilities, error)
+}
+
+// NutritionOrderUpdate needs to be implemented to support the update interaction.
 type NutritionOrderUpdate interface {
-	UpdateNutritionOrder(ctx context.Context, resource r4.NutritionOrder) (capabilities.UpdateResult[r4.NutritionOrder], error)
+	UpdateNutritionOrder(ctx context.Context, resource r4.NutritionOrder) (update.Result[r4.NutritionOrder], error)
 }
+
+// NutritionOrderUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type NutritionOrderUpdateCapabilities interface {
+	UpdateCapabilitiesNutritionOrder(ctx context.Context) (update.Capabilities, error)
+}
+
+// ObservationUpdate needs to be implemented to support the update interaction.
 type ObservationUpdate interface {
-	UpdateObservation(ctx context.Context, resource r4.Observation) (capabilities.UpdateResult[r4.Observation], error)
+	UpdateObservation(ctx context.Context, resource r4.Observation) (update.Result[r4.Observation], error)
 }
+
+// ObservationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ObservationUpdateCapabilities interface {
+	UpdateCapabilitiesObservation(ctx context.Context) (update.Capabilities, error)
+}
+
+// ObservationDefinitionUpdate needs to be implemented to support the update interaction.
 type ObservationDefinitionUpdate interface {
-	UpdateObservationDefinition(ctx context.Context, resource r4.ObservationDefinition) (capabilities.UpdateResult[r4.ObservationDefinition], error)
+	UpdateObservationDefinition(ctx context.Context, resource r4.ObservationDefinition) (update.Result[r4.ObservationDefinition], error)
 }
+
+// ObservationDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ObservationDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesObservationDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// OperationDefinitionUpdate needs to be implemented to support the update interaction.
 type OperationDefinitionUpdate interface {
-	UpdateOperationDefinition(ctx context.Context, resource r4.OperationDefinition) (capabilities.UpdateResult[r4.OperationDefinition], error)
+	UpdateOperationDefinition(ctx context.Context, resource r4.OperationDefinition) (update.Result[r4.OperationDefinition], error)
 }
+
+// OperationDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type OperationDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesOperationDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// OperationOutcomeUpdate needs to be implemented to support the update interaction.
 type OperationOutcomeUpdate interface {
-	UpdateOperationOutcome(ctx context.Context, resource r4.OperationOutcome) (capabilities.UpdateResult[r4.OperationOutcome], error)
+	UpdateOperationOutcome(ctx context.Context, resource r4.OperationOutcome) (update.Result[r4.OperationOutcome], error)
 }
+
+// OperationOutcomeUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type OperationOutcomeUpdateCapabilities interface {
+	UpdateCapabilitiesOperationOutcome(ctx context.Context) (update.Capabilities, error)
+}
+
+// OrganizationUpdate needs to be implemented to support the update interaction.
 type OrganizationUpdate interface {
-	UpdateOrganization(ctx context.Context, resource r4.Organization) (capabilities.UpdateResult[r4.Organization], error)
+	UpdateOrganization(ctx context.Context, resource r4.Organization) (update.Result[r4.Organization], error)
 }
+
+// OrganizationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type OrganizationUpdateCapabilities interface {
+	UpdateCapabilitiesOrganization(ctx context.Context) (update.Capabilities, error)
+}
+
+// OrganizationAffiliationUpdate needs to be implemented to support the update interaction.
 type OrganizationAffiliationUpdate interface {
-	UpdateOrganizationAffiliation(ctx context.Context, resource r4.OrganizationAffiliation) (capabilities.UpdateResult[r4.OrganizationAffiliation], error)
+	UpdateOrganizationAffiliation(ctx context.Context, resource r4.OrganizationAffiliation) (update.Result[r4.OrganizationAffiliation], error)
 }
+
+// OrganizationAffiliationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type OrganizationAffiliationUpdateCapabilities interface {
+	UpdateCapabilitiesOrganizationAffiliation(ctx context.Context) (update.Capabilities, error)
+}
+
+// ParametersUpdate needs to be implemented to support the update interaction.
 type ParametersUpdate interface {
-	UpdateParameters(ctx context.Context, resource r4.Parameters) (capabilities.UpdateResult[r4.Parameters], error)
+	UpdateParameters(ctx context.Context, resource r4.Parameters) (update.Result[r4.Parameters], error)
 }
+
+// ParametersUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ParametersUpdateCapabilities interface {
+	UpdateCapabilitiesParameters(ctx context.Context) (update.Capabilities, error)
+}
+
+// PatientUpdate needs to be implemented to support the update interaction.
 type PatientUpdate interface {
-	UpdatePatient(ctx context.Context, resource r4.Patient) (capabilities.UpdateResult[r4.Patient], error)
+	UpdatePatient(ctx context.Context, resource r4.Patient) (update.Result[r4.Patient], error)
 }
+
+// PatientUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type PatientUpdateCapabilities interface {
+	UpdateCapabilitiesPatient(ctx context.Context) (update.Capabilities, error)
+}
+
+// PaymentNoticeUpdate needs to be implemented to support the update interaction.
 type PaymentNoticeUpdate interface {
-	UpdatePaymentNotice(ctx context.Context, resource r4.PaymentNotice) (capabilities.UpdateResult[r4.PaymentNotice], error)
+	UpdatePaymentNotice(ctx context.Context, resource r4.PaymentNotice) (update.Result[r4.PaymentNotice], error)
 }
+
+// PaymentNoticeUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type PaymentNoticeUpdateCapabilities interface {
+	UpdateCapabilitiesPaymentNotice(ctx context.Context) (update.Capabilities, error)
+}
+
+// PaymentReconciliationUpdate needs to be implemented to support the update interaction.
 type PaymentReconciliationUpdate interface {
-	UpdatePaymentReconciliation(ctx context.Context, resource r4.PaymentReconciliation) (capabilities.UpdateResult[r4.PaymentReconciliation], error)
+	UpdatePaymentReconciliation(ctx context.Context, resource r4.PaymentReconciliation) (update.Result[r4.PaymentReconciliation], error)
 }
+
+// PaymentReconciliationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type PaymentReconciliationUpdateCapabilities interface {
+	UpdateCapabilitiesPaymentReconciliation(ctx context.Context) (update.Capabilities, error)
+}
+
+// PersonUpdate needs to be implemented to support the update interaction.
 type PersonUpdate interface {
-	UpdatePerson(ctx context.Context, resource r4.Person) (capabilities.UpdateResult[r4.Person], error)
+	UpdatePerson(ctx context.Context, resource r4.Person) (update.Result[r4.Person], error)
 }
+
+// PersonUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type PersonUpdateCapabilities interface {
+	UpdateCapabilitiesPerson(ctx context.Context) (update.Capabilities, error)
+}
+
+// PlanDefinitionUpdate needs to be implemented to support the update interaction.
 type PlanDefinitionUpdate interface {
-	UpdatePlanDefinition(ctx context.Context, resource r4.PlanDefinition) (capabilities.UpdateResult[r4.PlanDefinition], error)
+	UpdatePlanDefinition(ctx context.Context, resource r4.PlanDefinition) (update.Result[r4.PlanDefinition], error)
 }
+
+// PlanDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type PlanDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesPlanDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// PractitionerUpdate needs to be implemented to support the update interaction.
 type PractitionerUpdate interface {
-	UpdatePractitioner(ctx context.Context, resource r4.Practitioner) (capabilities.UpdateResult[r4.Practitioner], error)
+	UpdatePractitioner(ctx context.Context, resource r4.Practitioner) (update.Result[r4.Practitioner], error)
 }
+
+// PractitionerUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type PractitionerUpdateCapabilities interface {
+	UpdateCapabilitiesPractitioner(ctx context.Context) (update.Capabilities, error)
+}
+
+// PractitionerRoleUpdate needs to be implemented to support the update interaction.
 type PractitionerRoleUpdate interface {
-	UpdatePractitionerRole(ctx context.Context, resource r4.PractitionerRole) (capabilities.UpdateResult[r4.PractitionerRole], error)
+	UpdatePractitionerRole(ctx context.Context, resource r4.PractitionerRole) (update.Result[r4.PractitionerRole], error)
 }
+
+// PractitionerRoleUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type PractitionerRoleUpdateCapabilities interface {
+	UpdateCapabilitiesPractitionerRole(ctx context.Context) (update.Capabilities, error)
+}
+
+// ProcedureUpdate needs to be implemented to support the update interaction.
 type ProcedureUpdate interface {
-	UpdateProcedure(ctx context.Context, resource r4.Procedure) (capabilities.UpdateResult[r4.Procedure], error)
+	UpdateProcedure(ctx context.Context, resource r4.Procedure) (update.Result[r4.Procedure], error)
 }
+
+// ProcedureUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ProcedureUpdateCapabilities interface {
+	UpdateCapabilitiesProcedure(ctx context.Context) (update.Capabilities, error)
+}
+
+// ProvenanceUpdate needs to be implemented to support the update interaction.
 type ProvenanceUpdate interface {
-	UpdateProvenance(ctx context.Context, resource r4.Provenance) (capabilities.UpdateResult[r4.Provenance], error)
+	UpdateProvenance(ctx context.Context, resource r4.Provenance) (update.Result[r4.Provenance], error)
 }
+
+// ProvenanceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ProvenanceUpdateCapabilities interface {
+	UpdateCapabilitiesProvenance(ctx context.Context) (update.Capabilities, error)
+}
+
+// QuestionnaireUpdate needs to be implemented to support the update interaction.
 type QuestionnaireUpdate interface {
-	UpdateQuestionnaire(ctx context.Context, resource r4.Questionnaire) (capabilities.UpdateResult[r4.Questionnaire], error)
+	UpdateQuestionnaire(ctx context.Context, resource r4.Questionnaire) (update.Result[r4.Questionnaire], error)
 }
+
+// QuestionnaireUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type QuestionnaireUpdateCapabilities interface {
+	UpdateCapabilitiesQuestionnaire(ctx context.Context) (update.Capabilities, error)
+}
+
+// QuestionnaireResponseUpdate needs to be implemented to support the update interaction.
 type QuestionnaireResponseUpdate interface {
-	UpdateQuestionnaireResponse(ctx context.Context, resource r4.QuestionnaireResponse) (capabilities.UpdateResult[r4.QuestionnaireResponse], error)
+	UpdateQuestionnaireResponse(ctx context.Context, resource r4.QuestionnaireResponse) (update.Result[r4.QuestionnaireResponse], error)
 }
+
+// QuestionnaireResponseUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type QuestionnaireResponseUpdateCapabilities interface {
+	UpdateCapabilitiesQuestionnaireResponse(ctx context.Context) (update.Capabilities, error)
+}
+
+// RelatedPersonUpdate needs to be implemented to support the update interaction.
 type RelatedPersonUpdate interface {
-	UpdateRelatedPerson(ctx context.Context, resource r4.RelatedPerson) (capabilities.UpdateResult[r4.RelatedPerson], error)
+	UpdateRelatedPerson(ctx context.Context, resource r4.RelatedPerson) (update.Result[r4.RelatedPerson], error)
 }
+
+// RelatedPersonUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type RelatedPersonUpdateCapabilities interface {
+	UpdateCapabilitiesRelatedPerson(ctx context.Context) (update.Capabilities, error)
+}
+
+// RequestGroupUpdate needs to be implemented to support the update interaction.
 type RequestGroupUpdate interface {
-	UpdateRequestGroup(ctx context.Context, resource r4.RequestGroup) (capabilities.UpdateResult[r4.RequestGroup], error)
+	UpdateRequestGroup(ctx context.Context, resource r4.RequestGroup) (update.Result[r4.RequestGroup], error)
 }
+
+// RequestGroupUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type RequestGroupUpdateCapabilities interface {
+	UpdateCapabilitiesRequestGroup(ctx context.Context) (update.Capabilities, error)
+}
+
+// ResearchDefinitionUpdate needs to be implemented to support the update interaction.
 type ResearchDefinitionUpdate interface {
-	UpdateResearchDefinition(ctx context.Context, resource r4.ResearchDefinition) (capabilities.UpdateResult[r4.ResearchDefinition], error)
+	UpdateResearchDefinition(ctx context.Context, resource r4.ResearchDefinition) (update.Result[r4.ResearchDefinition], error)
 }
+
+// ResearchDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ResearchDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesResearchDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// ResearchElementDefinitionUpdate needs to be implemented to support the update interaction.
 type ResearchElementDefinitionUpdate interface {
-	UpdateResearchElementDefinition(ctx context.Context, resource r4.ResearchElementDefinition) (capabilities.UpdateResult[r4.ResearchElementDefinition], error)
+	UpdateResearchElementDefinition(ctx context.Context, resource r4.ResearchElementDefinition) (update.Result[r4.ResearchElementDefinition], error)
 }
+
+// ResearchElementDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ResearchElementDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesResearchElementDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// ResearchStudyUpdate needs to be implemented to support the update interaction.
 type ResearchStudyUpdate interface {
-	UpdateResearchStudy(ctx context.Context, resource r4.ResearchStudy) (capabilities.UpdateResult[r4.ResearchStudy], error)
+	UpdateResearchStudy(ctx context.Context, resource r4.ResearchStudy) (update.Result[r4.ResearchStudy], error)
 }
+
+// ResearchStudyUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ResearchStudyUpdateCapabilities interface {
+	UpdateCapabilitiesResearchStudy(ctx context.Context) (update.Capabilities, error)
+}
+
+// ResearchSubjectUpdate needs to be implemented to support the update interaction.
 type ResearchSubjectUpdate interface {
-	UpdateResearchSubject(ctx context.Context, resource r4.ResearchSubject) (capabilities.UpdateResult[r4.ResearchSubject], error)
+	UpdateResearchSubject(ctx context.Context, resource r4.ResearchSubject) (update.Result[r4.ResearchSubject], error)
 }
+
+// ResearchSubjectUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ResearchSubjectUpdateCapabilities interface {
+	UpdateCapabilitiesResearchSubject(ctx context.Context) (update.Capabilities, error)
+}
+
+// RiskAssessmentUpdate needs to be implemented to support the update interaction.
 type RiskAssessmentUpdate interface {
-	UpdateRiskAssessment(ctx context.Context, resource r4.RiskAssessment) (capabilities.UpdateResult[r4.RiskAssessment], error)
+	UpdateRiskAssessment(ctx context.Context, resource r4.RiskAssessment) (update.Result[r4.RiskAssessment], error)
 }
+
+// RiskAssessmentUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type RiskAssessmentUpdateCapabilities interface {
+	UpdateCapabilitiesRiskAssessment(ctx context.Context) (update.Capabilities, error)
+}
+
+// RiskEvidenceSynthesisUpdate needs to be implemented to support the update interaction.
 type RiskEvidenceSynthesisUpdate interface {
-	UpdateRiskEvidenceSynthesis(ctx context.Context, resource r4.RiskEvidenceSynthesis) (capabilities.UpdateResult[r4.RiskEvidenceSynthesis], error)
+	UpdateRiskEvidenceSynthesis(ctx context.Context, resource r4.RiskEvidenceSynthesis) (update.Result[r4.RiskEvidenceSynthesis], error)
 }
+
+// RiskEvidenceSynthesisUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type RiskEvidenceSynthesisUpdateCapabilities interface {
+	UpdateCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (update.Capabilities, error)
+}
+
+// ScheduleUpdate needs to be implemented to support the update interaction.
 type ScheduleUpdate interface {
-	UpdateSchedule(ctx context.Context, resource r4.Schedule) (capabilities.UpdateResult[r4.Schedule], error)
+	UpdateSchedule(ctx context.Context, resource r4.Schedule) (update.Result[r4.Schedule], error)
 }
+
+// ScheduleUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ScheduleUpdateCapabilities interface {
+	UpdateCapabilitiesSchedule(ctx context.Context) (update.Capabilities, error)
+}
+
+// SearchParameterUpdate needs to be implemented to support the update interaction.
 type SearchParameterUpdate interface {
-	UpdateSearchParameter(ctx context.Context, resource r4.SearchParameter) (capabilities.UpdateResult[r4.SearchParameter], error)
+	UpdateSearchParameter(ctx context.Context, resource r4.SearchParameter) (update.Result[r4.SearchParameter], error)
 }
+
+// SearchParameterUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SearchParameterUpdateCapabilities interface {
+	UpdateCapabilitiesSearchParameter(ctx context.Context) (update.Capabilities, error)
+}
+
+// ServiceRequestUpdate needs to be implemented to support the update interaction.
 type ServiceRequestUpdate interface {
-	UpdateServiceRequest(ctx context.Context, resource r4.ServiceRequest) (capabilities.UpdateResult[r4.ServiceRequest], error)
+	UpdateServiceRequest(ctx context.Context, resource r4.ServiceRequest) (update.Result[r4.ServiceRequest], error)
 }
+
+// ServiceRequestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ServiceRequestUpdateCapabilities interface {
+	UpdateCapabilitiesServiceRequest(ctx context.Context) (update.Capabilities, error)
+}
+
+// SlotUpdate needs to be implemented to support the update interaction.
 type SlotUpdate interface {
-	UpdateSlot(ctx context.Context, resource r4.Slot) (capabilities.UpdateResult[r4.Slot], error)
+	UpdateSlot(ctx context.Context, resource r4.Slot) (update.Result[r4.Slot], error)
 }
+
+// SlotUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SlotUpdateCapabilities interface {
+	UpdateCapabilitiesSlot(ctx context.Context) (update.Capabilities, error)
+}
+
+// SpecimenUpdate needs to be implemented to support the update interaction.
 type SpecimenUpdate interface {
-	UpdateSpecimen(ctx context.Context, resource r4.Specimen) (capabilities.UpdateResult[r4.Specimen], error)
+	UpdateSpecimen(ctx context.Context, resource r4.Specimen) (update.Result[r4.Specimen], error)
 }
+
+// SpecimenUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SpecimenUpdateCapabilities interface {
+	UpdateCapabilitiesSpecimen(ctx context.Context) (update.Capabilities, error)
+}
+
+// SpecimenDefinitionUpdate needs to be implemented to support the update interaction.
 type SpecimenDefinitionUpdate interface {
-	UpdateSpecimenDefinition(ctx context.Context, resource r4.SpecimenDefinition) (capabilities.UpdateResult[r4.SpecimenDefinition], error)
+	UpdateSpecimenDefinition(ctx context.Context, resource r4.SpecimenDefinition) (update.Result[r4.SpecimenDefinition], error)
 }
+
+// SpecimenDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SpecimenDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesSpecimenDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// StructureDefinitionUpdate needs to be implemented to support the update interaction.
 type StructureDefinitionUpdate interface {
-	UpdateStructureDefinition(ctx context.Context, resource r4.StructureDefinition) (capabilities.UpdateResult[r4.StructureDefinition], error)
+	UpdateStructureDefinition(ctx context.Context, resource r4.StructureDefinition) (update.Result[r4.StructureDefinition], error)
 }
+
+// StructureDefinitionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type StructureDefinitionUpdateCapabilities interface {
+	UpdateCapabilitiesStructureDefinition(ctx context.Context) (update.Capabilities, error)
+}
+
+// StructureMapUpdate needs to be implemented to support the update interaction.
 type StructureMapUpdate interface {
-	UpdateStructureMap(ctx context.Context, resource r4.StructureMap) (capabilities.UpdateResult[r4.StructureMap], error)
+	UpdateStructureMap(ctx context.Context, resource r4.StructureMap) (update.Result[r4.StructureMap], error)
 }
+
+// StructureMapUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type StructureMapUpdateCapabilities interface {
+	UpdateCapabilitiesStructureMap(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubscriptionUpdate needs to be implemented to support the update interaction.
 type SubscriptionUpdate interface {
-	UpdateSubscription(ctx context.Context, resource r4.Subscription) (capabilities.UpdateResult[r4.Subscription], error)
+	UpdateSubscription(ctx context.Context, resource r4.Subscription) (update.Result[r4.Subscription], error)
 }
+
+// SubscriptionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubscriptionUpdateCapabilities interface {
+	UpdateCapabilitiesSubscription(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubstanceUpdate needs to be implemented to support the update interaction.
 type SubstanceUpdate interface {
-	UpdateSubstance(ctx context.Context, resource r4.Substance) (capabilities.UpdateResult[r4.Substance], error)
+	UpdateSubstance(ctx context.Context, resource r4.Substance) (update.Result[r4.Substance], error)
 }
+
+// SubstanceUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubstanceUpdateCapabilities interface {
+	UpdateCapabilitiesSubstance(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubstanceNucleicAcidUpdate needs to be implemented to support the update interaction.
 type SubstanceNucleicAcidUpdate interface {
-	UpdateSubstanceNucleicAcid(ctx context.Context, resource r4.SubstanceNucleicAcid) (capabilities.UpdateResult[r4.SubstanceNucleicAcid], error)
+	UpdateSubstanceNucleicAcid(ctx context.Context, resource r4.SubstanceNucleicAcid) (update.Result[r4.SubstanceNucleicAcid], error)
 }
+
+// SubstanceNucleicAcidUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubstanceNucleicAcidUpdateCapabilities interface {
+	UpdateCapabilitiesSubstanceNucleicAcid(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubstancePolymerUpdate needs to be implemented to support the update interaction.
 type SubstancePolymerUpdate interface {
-	UpdateSubstancePolymer(ctx context.Context, resource r4.SubstancePolymer) (capabilities.UpdateResult[r4.SubstancePolymer], error)
+	UpdateSubstancePolymer(ctx context.Context, resource r4.SubstancePolymer) (update.Result[r4.SubstancePolymer], error)
 }
+
+// SubstancePolymerUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubstancePolymerUpdateCapabilities interface {
+	UpdateCapabilitiesSubstancePolymer(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubstanceProteinUpdate needs to be implemented to support the update interaction.
 type SubstanceProteinUpdate interface {
-	UpdateSubstanceProtein(ctx context.Context, resource r4.SubstanceProtein) (capabilities.UpdateResult[r4.SubstanceProtein], error)
+	UpdateSubstanceProtein(ctx context.Context, resource r4.SubstanceProtein) (update.Result[r4.SubstanceProtein], error)
 }
+
+// SubstanceProteinUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubstanceProteinUpdateCapabilities interface {
+	UpdateCapabilitiesSubstanceProtein(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubstanceReferenceInformationUpdate needs to be implemented to support the update interaction.
 type SubstanceReferenceInformationUpdate interface {
-	UpdateSubstanceReferenceInformation(ctx context.Context, resource r4.SubstanceReferenceInformation) (capabilities.UpdateResult[r4.SubstanceReferenceInformation], error)
+	UpdateSubstanceReferenceInformation(ctx context.Context, resource r4.SubstanceReferenceInformation) (update.Result[r4.SubstanceReferenceInformation], error)
 }
+
+// SubstanceReferenceInformationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubstanceReferenceInformationUpdateCapabilities interface {
+	UpdateCapabilitiesSubstanceReferenceInformation(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubstanceSourceMaterialUpdate needs to be implemented to support the update interaction.
 type SubstanceSourceMaterialUpdate interface {
-	UpdateSubstanceSourceMaterial(ctx context.Context, resource r4.SubstanceSourceMaterial) (capabilities.UpdateResult[r4.SubstanceSourceMaterial], error)
+	UpdateSubstanceSourceMaterial(ctx context.Context, resource r4.SubstanceSourceMaterial) (update.Result[r4.SubstanceSourceMaterial], error)
 }
+
+// SubstanceSourceMaterialUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubstanceSourceMaterialUpdateCapabilities interface {
+	UpdateCapabilitiesSubstanceSourceMaterial(ctx context.Context) (update.Capabilities, error)
+}
+
+// SubstanceSpecificationUpdate needs to be implemented to support the update interaction.
 type SubstanceSpecificationUpdate interface {
-	UpdateSubstanceSpecification(ctx context.Context, resource r4.SubstanceSpecification) (capabilities.UpdateResult[r4.SubstanceSpecification], error)
+	UpdateSubstanceSpecification(ctx context.Context, resource r4.SubstanceSpecification) (update.Result[r4.SubstanceSpecification], error)
 }
+
+// SubstanceSpecificationUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SubstanceSpecificationUpdateCapabilities interface {
+	UpdateCapabilitiesSubstanceSpecification(ctx context.Context) (update.Capabilities, error)
+}
+
+// SupplyDeliveryUpdate needs to be implemented to support the update interaction.
 type SupplyDeliveryUpdate interface {
-	UpdateSupplyDelivery(ctx context.Context, resource r4.SupplyDelivery) (capabilities.UpdateResult[r4.SupplyDelivery], error)
+	UpdateSupplyDelivery(ctx context.Context, resource r4.SupplyDelivery) (update.Result[r4.SupplyDelivery], error)
 }
+
+// SupplyDeliveryUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SupplyDeliveryUpdateCapabilities interface {
+	UpdateCapabilitiesSupplyDelivery(ctx context.Context) (update.Capabilities, error)
+}
+
+// SupplyRequestUpdate needs to be implemented to support the update interaction.
 type SupplyRequestUpdate interface {
-	UpdateSupplyRequest(ctx context.Context, resource r4.SupplyRequest) (capabilities.UpdateResult[r4.SupplyRequest], error)
+	UpdateSupplyRequest(ctx context.Context, resource r4.SupplyRequest) (update.Result[r4.SupplyRequest], error)
 }
+
+// SupplyRequestUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type SupplyRequestUpdateCapabilities interface {
+	UpdateCapabilitiesSupplyRequest(ctx context.Context) (update.Capabilities, error)
+}
+
+// TaskUpdate needs to be implemented to support the update interaction.
 type TaskUpdate interface {
-	UpdateTask(ctx context.Context, resource r4.Task) (capabilities.UpdateResult[r4.Task], error)
+	UpdateTask(ctx context.Context, resource r4.Task) (update.Result[r4.Task], error)
 }
+
+// TaskUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type TaskUpdateCapabilities interface {
+	UpdateCapabilitiesTask(ctx context.Context) (update.Capabilities, error)
+}
+
+// TerminologyCapabilitiesUpdate needs to be implemented to support the update interaction.
 type TerminologyCapabilitiesUpdate interface {
-	UpdateTerminologyCapabilities(ctx context.Context, resource r4.TerminologyCapabilities) (capabilities.UpdateResult[r4.TerminologyCapabilities], error)
+	UpdateTerminologyCapabilities(ctx context.Context, resource r4.TerminologyCapabilities) (update.Result[r4.TerminologyCapabilities], error)
 }
+
+// TerminologyCapabilitiesUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type TerminologyCapabilitiesUpdateCapabilities interface {
+	UpdateCapabilitiesTerminologyCapabilities(ctx context.Context) (update.Capabilities, error)
+}
+
+// TestReportUpdate needs to be implemented to support the update interaction.
 type TestReportUpdate interface {
-	UpdateTestReport(ctx context.Context, resource r4.TestReport) (capabilities.UpdateResult[r4.TestReport], error)
+	UpdateTestReport(ctx context.Context, resource r4.TestReport) (update.Result[r4.TestReport], error)
 }
+
+// TestReportUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type TestReportUpdateCapabilities interface {
+	UpdateCapabilitiesTestReport(ctx context.Context) (update.Capabilities, error)
+}
+
+// TestScriptUpdate needs to be implemented to support the update interaction.
 type TestScriptUpdate interface {
-	UpdateTestScript(ctx context.Context, resource r4.TestScript) (capabilities.UpdateResult[r4.TestScript], error)
+	UpdateTestScript(ctx context.Context, resource r4.TestScript) (update.Result[r4.TestScript], error)
 }
+
+// TestScriptUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type TestScriptUpdateCapabilities interface {
+	UpdateCapabilitiesTestScript(ctx context.Context) (update.Capabilities, error)
+}
+
+// ValueSetUpdate needs to be implemented to support the update interaction.
 type ValueSetUpdate interface {
-	UpdateValueSet(ctx context.Context, resource r4.ValueSet) (capabilities.UpdateResult[r4.ValueSet], error)
+	UpdateValueSet(ctx context.Context, resource r4.ValueSet) (update.Result[r4.ValueSet], error)
 }
+
+// ValueSetUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type ValueSetUpdateCapabilities interface {
+	UpdateCapabilitiesValueSet(ctx context.Context) (update.Capabilities, error)
+}
+
+// VerificationResultUpdate needs to be implemented to support the update interaction.
 type VerificationResultUpdate interface {
-	UpdateVerificationResult(ctx context.Context, resource r4.VerificationResult) (capabilities.UpdateResult[r4.VerificationResult], error)
+	UpdateVerificationResult(ctx context.Context, resource r4.VerificationResult) (update.Result[r4.VerificationResult], error)
 }
+
+// VerificationResultUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type VerificationResultUpdateCapabilities interface {
+	UpdateCapabilitiesVerificationResult(ctx context.Context) (update.Capabilities, error)
+}
+
+// VisionPrescriptionUpdate needs to be implemented to support the update interaction.
 type VisionPrescriptionUpdate interface {
-	UpdateVisionPrescription(ctx context.Context, resource r4.VisionPrescription) (capabilities.UpdateResult[r4.VisionPrescription], error)
+	UpdateVisionPrescription(ctx context.Context, resource r4.VisionPrescription) (update.Result[r4.VisionPrescription], error)
+}
+
+// VisionPrescriptionUpdateCapabilities is optional and only needs to be implemented if the backend deviates from the default behavior.
+type VisionPrescriptionUpdateCapabilities interface {
+	UpdateCapabilitiesVisionPrescription(ctx context.Context) (update.Capabilities, error)
 }

@@ -8,6 +8,7 @@ import (
 	"context"
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	update "github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	r4b "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 	utils "github.com/DAMEDIC/fhir-toolbox-go/utils"
@@ -2875,7 +2876,7 @@ func (w Generic) Read(ctx context.Context, resourceType string, id string) (mode
 		}}}
 	}
 }
-func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilities.UpdateResult[model.Resource], error) {
+func (w Generic) Update(ctx context.Context, resource model.Resource) (update.Result[model.Resource], error) {
 	g, ok := w.Concrete.(capabilities.GenericUpdate)
 	if ok {
 		// shortcut for the case that the underlying implementation already implements the generic API
@@ -2885,7 +2886,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Account:
 		impl, ok := w.Concrete.(AccountUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Account")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -2893,9 +2894,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateAccount(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -2903,7 +2904,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ActivityDefinition:
 		impl, ok := w.Concrete.(ActivityDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ActivityDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -2911,9 +2912,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateActivityDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -2921,7 +2922,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.AdministrableProductDefinition:
 		impl, ok := w.Concrete.(AdministrableProductDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for AdministrableProductDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -2929,9 +2930,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateAdministrableProductDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -2939,7 +2940,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.AdverseEvent:
 		impl, ok := w.Concrete.(AdverseEventUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for AdverseEvent")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -2947,9 +2948,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateAdverseEvent(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -2957,7 +2958,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.AllergyIntolerance:
 		impl, ok := w.Concrete.(AllergyIntoleranceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for AllergyIntolerance")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -2965,9 +2966,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateAllergyIntolerance(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -2975,7 +2976,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Appointment:
 		impl, ok := w.Concrete.(AppointmentUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Appointment")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -2983,9 +2984,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateAppointment(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -2993,7 +2994,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.AppointmentResponse:
 		impl, ok := w.Concrete.(AppointmentResponseUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for AppointmentResponse")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3001,9 +3002,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateAppointmentResponse(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3011,7 +3012,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.AuditEvent:
 		impl, ok := w.Concrete.(AuditEventUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for AuditEvent")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3019,9 +3020,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateAuditEvent(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3029,7 +3030,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Basic:
 		impl, ok := w.Concrete.(BasicUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Basic")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3037,9 +3038,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateBasic(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3047,7 +3048,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Binary:
 		impl, ok := w.Concrete.(BinaryUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Binary")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3055,9 +3056,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateBinary(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3065,7 +3066,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.BiologicallyDerivedProduct:
 		impl, ok := w.Concrete.(BiologicallyDerivedProductUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for BiologicallyDerivedProduct")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3073,9 +3074,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateBiologicallyDerivedProduct(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3083,7 +3084,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.BodyStructure:
 		impl, ok := w.Concrete.(BodyStructureUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for BodyStructure")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3091,9 +3092,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateBodyStructure(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3101,7 +3102,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Bundle:
 		impl, ok := w.Concrete.(BundleUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Bundle")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3109,9 +3110,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateBundle(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3119,7 +3120,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CapabilityStatement:
 		impl, ok := w.Concrete.(CapabilityStatementUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CapabilityStatement")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3127,9 +3128,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCapabilityStatement(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3137,7 +3138,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CarePlan:
 		impl, ok := w.Concrete.(CarePlanUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CarePlan")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3145,9 +3146,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCarePlan(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3155,7 +3156,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CareTeam:
 		impl, ok := w.Concrete.(CareTeamUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CareTeam")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3163,9 +3164,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCareTeam(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3173,7 +3174,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CatalogEntry:
 		impl, ok := w.Concrete.(CatalogEntryUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CatalogEntry")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3181,9 +3182,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCatalogEntry(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3191,7 +3192,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ChargeItem:
 		impl, ok := w.Concrete.(ChargeItemUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ChargeItem")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3199,9 +3200,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateChargeItem(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3209,7 +3210,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ChargeItemDefinition:
 		impl, ok := w.Concrete.(ChargeItemDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ChargeItemDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3217,9 +3218,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateChargeItemDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3227,7 +3228,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Citation:
 		impl, ok := w.Concrete.(CitationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Citation")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3235,9 +3236,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCitation(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3245,7 +3246,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Claim:
 		impl, ok := w.Concrete.(ClaimUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Claim")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3253,9 +3254,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateClaim(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3263,7 +3264,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ClaimResponse:
 		impl, ok := w.Concrete.(ClaimResponseUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ClaimResponse")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3271,9 +3272,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateClaimResponse(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3281,7 +3282,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ClinicalImpression:
 		impl, ok := w.Concrete.(ClinicalImpressionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ClinicalImpression")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3289,9 +3290,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateClinicalImpression(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3299,7 +3300,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ClinicalUseDefinition:
 		impl, ok := w.Concrete.(ClinicalUseDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ClinicalUseDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3307,9 +3308,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateClinicalUseDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3317,7 +3318,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CodeSystem:
 		impl, ok := w.Concrete.(CodeSystemUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CodeSystem")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3325,9 +3326,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCodeSystem(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3335,7 +3336,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Communication:
 		impl, ok := w.Concrete.(CommunicationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Communication")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3343,9 +3344,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCommunication(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3353,7 +3354,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CommunicationRequest:
 		impl, ok := w.Concrete.(CommunicationRequestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CommunicationRequest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3361,9 +3362,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCommunicationRequest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3371,7 +3372,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CompartmentDefinition:
 		impl, ok := w.Concrete.(CompartmentDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CompartmentDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3379,9 +3380,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCompartmentDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3389,7 +3390,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Composition:
 		impl, ok := w.Concrete.(CompositionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Composition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3397,9 +3398,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateComposition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3407,7 +3408,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ConceptMap:
 		impl, ok := w.Concrete.(ConceptMapUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ConceptMap")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3415,9 +3416,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateConceptMap(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3425,7 +3426,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Condition:
 		impl, ok := w.Concrete.(ConditionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Condition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3433,9 +3434,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCondition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3443,7 +3444,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Consent:
 		impl, ok := w.Concrete.(ConsentUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Consent")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3451,9 +3452,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateConsent(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3461,7 +3462,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Contract:
 		impl, ok := w.Concrete.(ContractUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Contract")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3469,9 +3470,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateContract(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3479,7 +3480,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Coverage:
 		impl, ok := w.Concrete.(CoverageUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Coverage")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3487,9 +3488,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCoverage(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3497,7 +3498,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CoverageEligibilityRequest:
 		impl, ok := w.Concrete.(CoverageEligibilityRequestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CoverageEligibilityRequest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3505,9 +3506,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCoverageEligibilityRequest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3515,7 +3516,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.CoverageEligibilityResponse:
 		impl, ok := w.Concrete.(CoverageEligibilityResponseUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for CoverageEligibilityResponse")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3523,9 +3524,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateCoverageEligibilityResponse(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3533,7 +3534,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DetectedIssue:
 		impl, ok := w.Concrete.(DetectedIssueUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DetectedIssue")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3541,9 +3542,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDetectedIssue(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3551,7 +3552,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Device:
 		impl, ok := w.Concrete.(DeviceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Device")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3559,9 +3560,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDevice(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3569,7 +3570,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DeviceDefinition:
 		impl, ok := w.Concrete.(DeviceDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DeviceDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3577,9 +3578,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDeviceDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3587,7 +3588,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DeviceMetric:
 		impl, ok := w.Concrete.(DeviceMetricUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DeviceMetric")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3595,9 +3596,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDeviceMetric(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3605,7 +3606,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DeviceRequest:
 		impl, ok := w.Concrete.(DeviceRequestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DeviceRequest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3613,9 +3614,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDeviceRequest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3623,7 +3624,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DeviceUseStatement:
 		impl, ok := w.Concrete.(DeviceUseStatementUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DeviceUseStatement")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3631,9 +3632,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDeviceUseStatement(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3641,7 +3642,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DiagnosticReport:
 		impl, ok := w.Concrete.(DiagnosticReportUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DiagnosticReport")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3649,9 +3650,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDiagnosticReport(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3659,7 +3660,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DocumentManifest:
 		impl, ok := w.Concrete.(DocumentManifestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DocumentManifest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3667,9 +3668,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDocumentManifest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3677,7 +3678,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.DocumentReference:
 		impl, ok := w.Concrete.(DocumentReferenceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for DocumentReference")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3685,9 +3686,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateDocumentReference(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3695,7 +3696,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Encounter:
 		impl, ok := w.Concrete.(EncounterUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Encounter")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3703,9 +3704,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEncounter(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3713,7 +3714,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Endpoint:
 		impl, ok := w.Concrete.(EndpointUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Endpoint")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3721,9 +3722,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEndpoint(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3731,7 +3732,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.EnrollmentRequest:
 		impl, ok := w.Concrete.(EnrollmentRequestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for EnrollmentRequest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3739,9 +3740,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEnrollmentRequest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3749,7 +3750,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.EnrollmentResponse:
 		impl, ok := w.Concrete.(EnrollmentResponseUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for EnrollmentResponse")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3757,9 +3758,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEnrollmentResponse(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3767,7 +3768,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.EpisodeOfCare:
 		impl, ok := w.Concrete.(EpisodeOfCareUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for EpisodeOfCare")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3775,9 +3776,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEpisodeOfCare(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3785,7 +3786,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.EventDefinition:
 		impl, ok := w.Concrete.(EventDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for EventDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3793,9 +3794,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEventDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3803,7 +3804,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Evidence:
 		impl, ok := w.Concrete.(EvidenceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Evidence")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3811,9 +3812,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEvidence(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3821,7 +3822,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.EvidenceReport:
 		impl, ok := w.Concrete.(EvidenceReportUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for EvidenceReport")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3829,9 +3830,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEvidenceReport(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3839,7 +3840,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.EvidenceVariable:
 		impl, ok := w.Concrete.(EvidenceVariableUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for EvidenceVariable")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3847,9 +3848,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateEvidenceVariable(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3857,7 +3858,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ExampleScenario:
 		impl, ok := w.Concrete.(ExampleScenarioUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ExampleScenario")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3865,9 +3866,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateExampleScenario(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3875,7 +3876,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ExplanationOfBenefit:
 		impl, ok := w.Concrete.(ExplanationOfBenefitUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ExplanationOfBenefit")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3883,9 +3884,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateExplanationOfBenefit(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3893,7 +3894,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.FamilyMemberHistory:
 		impl, ok := w.Concrete.(FamilyMemberHistoryUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for FamilyMemberHistory")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3901,9 +3902,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateFamilyMemberHistory(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3911,7 +3912,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Flag:
 		impl, ok := w.Concrete.(FlagUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Flag")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3919,9 +3920,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateFlag(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3929,7 +3930,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Goal:
 		impl, ok := w.Concrete.(GoalUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Goal")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3937,9 +3938,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateGoal(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3947,7 +3948,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.GraphDefinition:
 		impl, ok := w.Concrete.(GraphDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for GraphDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3955,9 +3956,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateGraphDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3965,7 +3966,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Group:
 		impl, ok := w.Concrete.(GroupUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Group")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3973,9 +3974,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateGroup(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -3983,7 +3984,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.GuidanceResponse:
 		impl, ok := w.Concrete.(GuidanceResponseUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for GuidanceResponse")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -3991,9 +3992,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateGuidanceResponse(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4001,7 +4002,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.HealthcareService:
 		impl, ok := w.Concrete.(HealthcareServiceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for HealthcareService")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4009,9 +4010,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateHealthcareService(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4019,7 +4020,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ImagingStudy:
 		impl, ok := w.Concrete.(ImagingStudyUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ImagingStudy")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4027,9 +4028,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateImagingStudy(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4037,7 +4038,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Immunization:
 		impl, ok := w.Concrete.(ImmunizationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Immunization")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4045,9 +4046,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateImmunization(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4055,7 +4056,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ImmunizationEvaluation:
 		impl, ok := w.Concrete.(ImmunizationEvaluationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ImmunizationEvaluation")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4063,9 +4064,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateImmunizationEvaluation(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4073,7 +4074,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ImmunizationRecommendation:
 		impl, ok := w.Concrete.(ImmunizationRecommendationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ImmunizationRecommendation")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4081,9 +4082,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateImmunizationRecommendation(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4091,7 +4092,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ImplementationGuide:
 		impl, ok := w.Concrete.(ImplementationGuideUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ImplementationGuide")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4099,9 +4100,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateImplementationGuide(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4109,7 +4110,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Ingredient:
 		impl, ok := w.Concrete.(IngredientUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Ingredient")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4117,9 +4118,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateIngredient(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4127,7 +4128,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.InsurancePlan:
 		impl, ok := w.Concrete.(InsurancePlanUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for InsurancePlan")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4135,9 +4136,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateInsurancePlan(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4145,7 +4146,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Invoice:
 		impl, ok := w.Concrete.(InvoiceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Invoice")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4153,9 +4154,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateInvoice(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4163,7 +4164,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Library:
 		impl, ok := w.Concrete.(LibraryUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Library")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4171,9 +4172,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateLibrary(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4181,7 +4182,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Linkage:
 		impl, ok := w.Concrete.(LinkageUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Linkage")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4189,9 +4190,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateLinkage(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4199,7 +4200,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.List:
 		impl, ok := w.Concrete.(ListUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for List")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4207,9 +4208,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateList(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4217,7 +4218,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Location:
 		impl, ok := w.Concrete.(LocationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Location")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4225,9 +4226,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateLocation(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4235,7 +4236,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ManufacturedItemDefinition:
 		impl, ok := w.Concrete.(ManufacturedItemDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ManufacturedItemDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4243,9 +4244,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateManufacturedItemDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4253,7 +4254,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Measure:
 		impl, ok := w.Concrete.(MeasureUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Measure")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4261,9 +4262,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMeasure(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4271,7 +4272,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MeasureReport:
 		impl, ok := w.Concrete.(MeasureReportUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MeasureReport")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4279,9 +4280,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMeasureReport(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4289,7 +4290,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Media:
 		impl, ok := w.Concrete.(MediaUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Media")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4297,9 +4298,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedia(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4307,7 +4308,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Medication:
 		impl, ok := w.Concrete.(MedicationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Medication")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4315,9 +4316,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedication(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4325,7 +4326,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MedicationAdministration:
 		impl, ok := w.Concrete.(MedicationAdministrationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MedicationAdministration")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4333,9 +4334,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedicationAdministration(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4343,7 +4344,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MedicationDispense:
 		impl, ok := w.Concrete.(MedicationDispenseUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MedicationDispense")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4351,9 +4352,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedicationDispense(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4361,7 +4362,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MedicationKnowledge:
 		impl, ok := w.Concrete.(MedicationKnowledgeUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MedicationKnowledge")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4369,9 +4370,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedicationKnowledge(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4379,7 +4380,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MedicationRequest:
 		impl, ok := w.Concrete.(MedicationRequestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MedicationRequest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4387,9 +4388,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedicationRequest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4397,7 +4398,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MedicationStatement:
 		impl, ok := w.Concrete.(MedicationStatementUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MedicationStatement")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4405,9 +4406,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedicationStatement(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4415,7 +4416,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MedicinalProductDefinition:
 		impl, ok := w.Concrete.(MedicinalProductDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MedicinalProductDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4423,9 +4424,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMedicinalProductDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4433,7 +4434,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MessageDefinition:
 		impl, ok := w.Concrete.(MessageDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MessageDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4441,9 +4442,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMessageDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4451,7 +4452,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MessageHeader:
 		impl, ok := w.Concrete.(MessageHeaderUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MessageHeader")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4459,9 +4460,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMessageHeader(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4469,7 +4470,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.MolecularSequence:
 		impl, ok := w.Concrete.(MolecularSequenceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for MolecularSequence")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4477,9 +4478,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateMolecularSequence(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4487,7 +4488,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.NamingSystem:
 		impl, ok := w.Concrete.(NamingSystemUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for NamingSystem")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4495,9 +4496,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateNamingSystem(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4505,7 +4506,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.NutritionOrder:
 		impl, ok := w.Concrete.(NutritionOrderUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for NutritionOrder")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4513,9 +4514,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateNutritionOrder(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4523,7 +4524,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.NutritionProduct:
 		impl, ok := w.Concrete.(NutritionProductUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for NutritionProduct")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4531,9 +4532,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateNutritionProduct(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4541,7 +4542,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Observation:
 		impl, ok := w.Concrete.(ObservationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Observation")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4549,9 +4550,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateObservation(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4559,7 +4560,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ObservationDefinition:
 		impl, ok := w.Concrete.(ObservationDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ObservationDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4567,9 +4568,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateObservationDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4577,7 +4578,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.OperationDefinition:
 		impl, ok := w.Concrete.(OperationDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for OperationDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4585,9 +4586,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateOperationDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4595,7 +4596,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.OperationOutcome:
 		impl, ok := w.Concrete.(OperationOutcomeUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for OperationOutcome")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4603,9 +4604,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateOperationOutcome(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4613,7 +4614,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Organization:
 		impl, ok := w.Concrete.(OrganizationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Organization")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4621,9 +4622,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateOrganization(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4631,7 +4632,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.OrganizationAffiliation:
 		impl, ok := w.Concrete.(OrganizationAffiliationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for OrganizationAffiliation")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4639,9 +4640,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateOrganizationAffiliation(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4649,7 +4650,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.PackagedProductDefinition:
 		impl, ok := w.Concrete.(PackagedProductDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for PackagedProductDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4657,9 +4658,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePackagedProductDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4667,7 +4668,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Parameters:
 		impl, ok := w.Concrete.(ParametersUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Parameters")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4675,9 +4676,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateParameters(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4685,7 +4686,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Patient:
 		impl, ok := w.Concrete.(PatientUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Patient")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4693,9 +4694,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePatient(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4703,7 +4704,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.PaymentNotice:
 		impl, ok := w.Concrete.(PaymentNoticeUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for PaymentNotice")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4711,9 +4712,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePaymentNotice(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4721,7 +4722,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.PaymentReconciliation:
 		impl, ok := w.Concrete.(PaymentReconciliationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for PaymentReconciliation")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4729,9 +4730,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePaymentReconciliation(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4739,7 +4740,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Person:
 		impl, ok := w.Concrete.(PersonUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Person")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4747,9 +4748,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePerson(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4757,7 +4758,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.PlanDefinition:
 		impl, ok := w.Concrete.(PlanDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for PlanDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4765,9 +4766,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePlanDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4775,7 +4776,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Practitioner:
 		impl, ok := w.Concrete.(PractitionerUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Practitioner")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4783,9 +4784,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePractitioner(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4793,7 +4794,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.PractitionerRole:
 		impl, ok := w.Concrete.(PractitionerRoleUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for PractitionerRole")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4801,9 +4802,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdatePractitionerRole(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4811,7 +4812,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Procedure:
 		impl, ok := w.Concrete.(ProcedureUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Procedure")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4819,9 +4820,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateProcedure(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4829,7 +4830,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Provenance:
 		impl, ok := w.Concrete.(ProvenanceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Provenance")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4837,9 +4838,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateProvenance(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4847,7 +4848,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Questionnaire:
 		impl, ok := w.Concrete.(QuestionnaireUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Questionnaire")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4855,9 +4856,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateQuestionnaire(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4865,7 +4866,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.QuestionnaireResponse:
 		impl, ok := w.Concrete.(QuestionnaireResponseUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for QuestionnaireResponse")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4873,9 +4874,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateQuestionnaireResponse(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4883,7 +4884,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.RegulatedAuthorization:
 		impl, ok := w.Concrete.(RegulatedAuthorizationUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for RegulatedAuthorization")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4891,9 +4892,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateRegulatedAuthorization(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4901,7 +4902,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.RelatedPerson:
 		impl, ok := w.Concrete.(RelatedPersonUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for RelatedPerson")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4909,9 +4910,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateRelatedPerson(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4919,7 +4920,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.RequestGroup:
 		impl, ok := w.Concrete.(RequestGroupUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for RequestGroup")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4927,9 +4928,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateRequestGroup(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4937,7 +4938,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ResearchDefinition:
 		impl, ok := w.Concrete.(ResearchDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ResearchDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4945,9 +4946,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateResearchDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4955,7 +4956,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ResearchElementDefinition:
 		impl, ok := w.Concrete.(ResearchElementDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ResearchElementDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4963,9 +4964,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateResearchElementDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4973,7 +4974,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ResearchStudy:
 		impl, ok := w.Concrete.(ResearchStudyUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ResearchStudy")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4981,9 +4982,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateResearchStudy(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -4991,7 +4992,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ResearchSubject:
 		impl, ok := w.Concrete.(ResearchSubjectUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ResearchSubject")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -4999,9 +5000,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateResearchSubject(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5009,7 +5010,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.RiskAssessment:
 		impl, ok := w.Concrete.(RiskAssessmentUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for RiskAssessment")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5017,9 +5018,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateRiskAssessment(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5027,7 +5028,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Schedule:
 		impl, ok := w.Concrete.(ScheduleUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Schedule")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5035,9 +5036,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSchedule(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5045,7 +5046,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.SearchParameter:
 		impl, ok := w.Concrete.(SearchParameterUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for SearchParameter")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5053,9 +5054,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSearchParameter(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5063,7 +5064,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ServiceRequest:
 		impl, ok := w.Concrete.(ServiceRequestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ServiceRequest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5071,9 +5072,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateServiceRequest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5081,7 +5082,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Slot:
 		impl, ok := w.Concrete.(SlotUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Slot")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5089,9 +5090,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSlot(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5099,7 +5100,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Specimen:
 		impl, ok := w.Concrete.(SpecimenUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Specimen")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5107,9 +5108,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSpecimen(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5117,7 +5118,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.SpecimenDefinition:
 		impl, ok := w.Concrete.(SpecimenDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for SpecimenDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5125,9 +5126,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSpecimenDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5135,7 +5136,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.StructureDefinition:
 		impl, ok := w.Concrete.(StructureDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for StructureDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5143,9 +5144,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateStructureDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5153,7 +5154,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.StructureMap:
 		impl, ok := w.Concrete.(StructureMapUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for StructureMap")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5161,9 +5162,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateStructureMap(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5171,7 +5172,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Subscription:
 		impl, ok := w.Concrete.(SubscriptionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Subscription")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5179,9 +5180,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSubscription(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5189,7 +5190,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.SubscriptionStatus:
 		impl, ok := w.Concrete.(SubscriptionStatusUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for SubscriptionStatus")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5197,9 +5198,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSubscriptionStatus(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5207,7 +5208,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.SubscriptionTopic:
 		impl, ok := w.Concrete.(SubscriptionTopicUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for SubscriptionTopic")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5215,9 +5216,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSubscriptionTopic(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5225,7 +5226,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Substance:
 		impl, ok := w.Concrete.(SubstanceUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Substance")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5233,9 +5234,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSubstance(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5243,7 +5244,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.SubstanceDefinition:
 		impl, ok := w.Concrete.(SubstanceDefinitionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for SubstanceDefinition")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5251,9 +5252,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSubstanceDefinition(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5261,7 +5262,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.SupplyDelivery:
 		impl, ok := w.Concrete.(SupplyDeliveryUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for SupplyDelivery")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5269,9 +5270,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSupplyDelivery(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5279,7 +5280,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.SupplyRequest:
 		impl, ok := w.Concrete.(SupplyRequestUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for SupplyRequest")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5287,9 +5288,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateSupplyRequest(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5297,7 +5298,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.Task:
 		impl, ok := w.Concrete.(TaskUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for Task")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5305,9 +5306,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateTask(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5315,7 +5316,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.TerminologyCapabilities:
 		impl, ok := w.Concrete.(TerminologyCapabilitiesUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for TerminologyCapabilities")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5323,9 +5324,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateTerminologyCapabilities(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5333,7 +5334,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.TestReport:
 		impl, ok := w.Concrete.(TestReportUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for TestReport")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5341,9 +5342,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateTestReport(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5351,7 +5352,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.TestScript:
 		impl, ok := w.Concrete.(TestScriptUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for TestScript")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5359,9 +5360,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateTestScript(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5369,7 +5370,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.ValueSet:
 		impl, ok := w.Concrete.(ValueSetUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for ValueSet")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5377,9 +5378,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateValueSet(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5387,7 +5388,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.VerificationResult:
 		impl, ok := w.Concrete.(VerificationResultUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for VerificationResult")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5395,9 +5396,9 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateVerificationResult(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
@@ -5405,7 +5406,7 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 	case r4b.VisionPrescription:
 		impl, ok := w.Concrete.(VisionPrescriptionUpdate)
 		if !ok {
-			return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
 				Diagnostics: &r4b.String{Value: utils.Ptr("update not implemented for VisionPrescription")},
 				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
@@ -5413,15 +5414,15 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}
 		result, err := impl.UpdateVisionPrescription(ctx, r)
 		if err != nil {
-			return capabilities.UpdateResult[model.Resource]{}, err
+			return update.Result[model.Resource]{}, err
 		}
-		return capabilities.UpdateResult[model.Resource]{
+		return update.Result[model.Resource]{
 
 			Created:  result.Created,
 			Resource: result.Resource,
 		}, nil
 	default:
-		return capabilities.UpdateResult[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+		return update.Result[model.Resource]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
 			Code:        r4b.Code{Value: utils.Ptr("processing")},
 			Diagnostics: &r4b.String{Value: utils.Ptr("invalid resource type: " + resource.ResourceType())},
 			Severity:    r4b.Code{Value: utils.Ptr("fatal")},

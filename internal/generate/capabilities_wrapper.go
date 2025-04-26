@@ -2,6 +2,7 @@ package generate
 
 import (
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
+	"slices"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -63,7 +64,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		shortcutParams = append(shortcutParams, Id("resource"))
 		passParams = append(passParams, Id("r"))
 		switchType = Id("r").Op(":=").Id("resource").Assert(Type())
-		returnType = Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model", "Resource"))
+		returnType = Qual(moduleName+"/capabilities/update", "Result").Index(Qual(moduleName+"/model", "Resource"))
 	case "delete":
 		params = append(params, Id("resourceType").String(), Id("id").String())
 		shortcutParams = append(shortcutParams, Id("resourceType"), Id("id"))
@@ -232,7 +233,7 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 		case "update":
 			params = append(params, Id("resource").Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name))
 			passParams = append(passParams, Id("resource"))
-			returnType = Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name))
+			returnType = Qual(moduleName+"/capabilities/update", "Result").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name))
 		case "delete":
 			params = append(params, Id("id").String())
 			passParams = append(passParams, Lit(r.Name), Id("id"))
@@ -240,7 +241,6 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 			params = append(params, Id("options").Qual(moduleName+"/capabilities/search", "Options"))
 			passParams = append(passParams, Lit(r.Name), Id("options"))
 			returnType = Qual(moduleName+"/capabilities/search", "Result")
-			f.Add(generateConcreteSearchCapabilities(r))
 		}
 
 		var returns []Code
@@ -311,12 +311,18 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 					g.Return(Id("v"), Nil())
 				}
 			})
+
+		if slices.Contains([]string{"search", "update"}, interaction) {
+			f.Add(generateConcreteCapabilities(r, interaction))
+		}
 	}
 }
 
-func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
-	returnType := Qual(moduleName+"/capabilities/search", "Capabilities")
-	return Func().Params(Id("w").Id(concreteWrapperName)).Id("SearchCapabilities"+r.Name).
+func generateConcreteCapabilities(r ir.ResourceOrType, interaction string) Code {
+	interactionName := strcase.ToCamel(interaction)
+
+	returnType := Qual(moduleName+"/capabilities/"+interaction, "Capabilities")
+	return Func().Params(Id("w").Id(concreteWrapperName)).Id(interactionName+"Capabilities"+r.Name).
 		Params(Id("ctx").Qual("context", "Context")).
 		Params(returnType, Error()).
 		BlockFunc(func(g *Group) {
@@ -324,7 +330,7 @@ func generateConcreteSearchCapabilities(r ir.ResourceOrType) Code {
 			g.If(Id("err").Op("!=").Nil()).Block(
 				Return(returnType.Clone().Block(), Id("err")),
 			)
-			g.Return(Id("allCapabilities.SearchCapabilities").Index(Lit(r.Name)), Id("err"))
+			g.Return(Id("allCapabilities."+interactionName).Index(Lit(r.Name)), Id("err"))
 		})
 }
 
