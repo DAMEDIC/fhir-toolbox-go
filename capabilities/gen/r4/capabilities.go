@@ -23,6 +23,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(AccountUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Account")
 	}
+	if _, ok := api.(AccountDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Account")
+	}
 	if c, ok := api.(AccountSearch); ok {
 		c, err := c.SearchCapabilitiesAccount(ctx)
 		if err != nil {
@@ -39,6 +42,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ActivityDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ActivityDefinition")
+	}
+	if _, ok := api.(ActivityDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ActivityDefinition")
 	}
 	if c, ok := api.(ActivityDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesActivityDefinition(ctx)
@@ -57,6 +63,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(AdverseEventUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AdverseEvent")
 	}
+	if _, ok := api.(AdverseEventDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AdverseEvent")
+	}
 	if c, ok := api.(AdverseEventSearch); ok {
 		c, err := c.SearchCapabilitiesAdverseEvent(ctx)
 		if err != nil {
@@ -73,6 +82,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(AllergyIntoleranceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AllergyIntolerance")
+	}
+	if _, ok := api.(AllergyIntoleranceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AllergyIntolerance")
 	}
 	if c, ok := api.(AllergyIntoleranceSearch); ok {
 		c, err := c.SearchCapabilitiesAllergyIntolerance(ctx)
@@ -91,6 +103,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(AppointmentUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Appointment")
 	}
+	if _, ok := api.(AppointmentDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Appointment")
+	}
 	if c, ok := api.(AppointmentSearch); ok {
 		c, err := c.SearchCapabilitiesAppointment(ctx)
 		if err != nil {
@@ -107,6 +122,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(AppointmentResponseUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AppointmentResponse")
+	}
+	if _, ok := api.(AppointmentResponseDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AppointmentResponse")
 	}
 	if c, ok := api.(AppointmentResponseSearch); ok {
 		c, err := c.SearchCapabilitiesAppointmentResponse(ctx)
@@ -125,6 +143,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(AuditEventUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "AuditEvent")
 	}
+	if _, ok := api.(AuditEventDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "AuditEvent")
+	}
 	if c, ok := api.(AuditEventSearch); ok {
 		c, err := c.SearchCapabilitiesAuditEvent(ctx)
 		if err != nil {
@@ -141,6 +162,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(BasicUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Basic")
+	}
+	if _, ok := api.(BasicDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Basic")
 	}
 	if c, ok := api.(BasicSearch); ok {
 		c, err := c.SearchCapabilitiesBasic(ctx)
@@ -159,6 +183,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(BinaryUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Binary")
 	}
+	if _, ok := api.(BinaryDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Binary")
+	}
 	if c, ok := api.(BinarySearch); ok {
 		c, err := c.SearchCapabilitiesBinary(ctx)
 		if err != nil {
@@ -175,6 +202,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(BiologicallyDerivedProductUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "BiologicallyDerivedProduct")
+	}
+	if _, ok := api.(BiologicallyDerivedProductDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "BiologicallyDerivedProduct")
 	}
 	if c, ok := api.(BiologicallyDerivedProductSearch); ok {
 		c, err := c.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
@@ -193,6 +223,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(BodyStructureUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "BodyStructure")
 	}
+	if _, ok := api.(BodyStructureDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "BodyStructure")
+	}
 	if c, ok := api.(BodyStructureSearch); ok {
 		c, err := c.SearchCapabilitiesBodyStructure(ctx)
 		if err != nil {
@@ -209,6 +242,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(BundleUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Bundle")
+	}
+	if _, ok := api.(BundleDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Bundle")
 	}
 	if c, ok := api.(BundleSearch); ok {
 		c, err := c.SearchCapabilitiesBundle(ctx)
@@ -227,6 +263,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(CapabilityStatementUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CapabilityStatement")
 	}
+	if _, ok := api.(CapabilityStatementDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CapabilityStatement")
+	}
 	if c, ok := api.(CapabilityStatementSearch); ok {
 		c, err := c.SearchCapabilitiesCapabilityStatement(ctx)
 		if err != nil {
@@ -243,6 +282,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(CarePlanUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CarePlan")
+	}
+	if _, ok := api.(CarePlanDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CarePlan")
 	}
 	if c, ok := api.(CarePlanSearch); ok {
 		c, err := c.SearchCapabilitiesCarePlan(ctx)
@@ -261,6 +303,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(CareTeamUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CareTeam")
 	}
+	if _, ok := api.(CareTeamDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CareTeam")
+	}
 	if c, ok := api.(CareTeamSearch); ok {
 		c, err := c.SearchCapabilitiesCareTeam(ctx)
 		if err != nil {
@@ -277,6 +322,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(CatalogEntryUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CatalogEntry")
+	}
+	if _, ok := api.(CatalogEntryDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CatalogEntry")
 	}
 	if c, ok := api.(CatalogEntrySearch); ok {
 		c, err := c.SearchCapabilitiesCatalogEntry(ctx)
@@ -295,6 +343,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ChargeItemUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ChargeItem")
 	}
+	if _, ok := api.(ChargeItemDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ChargeItem")
+	}
 	if c, ok := api.(ChargeItemSearch); ok {
 		c, err := c.SearchCapabilitiesChargeItem(ctx)
 		if err != nil {
@@ -311,6 +362,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ChargeItemDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ChargeItemDefinition")
+	}
+	if _, ok := api.(ChargeItemDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ChargeItemDefinition")
 	}
 	if c, ok := api.(ChargeItemDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesChargeItemDefinition(ctx)
@@ -329,6 +383,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ClaimUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Claim")
 	}
+	if _, ok := api.(ClaimDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Claim")
+	}
 	if c, ok := api.(ClaimSearch); ok {
 		c, err := c.SearchCapabilitiesClaim(ctx)
 		if err != nil {
@@ -345,6 +402,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ClaimResponseUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ClaimResponse")
+	}
+	if _, ok := api.(ClaimResponseDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ClaimResponse")
 	}
 	if c, ok := api.(ClaimResponseSearch); ok {
 		c, err := c.SearchCapabilitiesClaimResponse(ctx)
@@ -363,6 +423,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ClinicalImpressionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ClinicalImpression")
 	}
+	if _, ok := api.(ClinicalImpressionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ClinicalImpression")
+	}
 	if c, ok := api.(ClinicalImpressionSearch); ok {
 		c, err := c.SearchCapabilitiesClinicalImpression(ctx)
 		if err != nil {
@@ -379,6 +442,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(CodeSystemUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CodeSystem")
+	}
+	if _, ok := api.(CodeSystemDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CodeSystem")
 	}
 	if c, ok := api.(CodeSystemSearch); ok {
 		c, err := c.SearchCapabilitiesCodeSystem(ctx)
@@ -397,6 +463,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(CommunicationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Communication")
 	}
+	if _, ok := api.(CommunicationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Communication")
+	}
 	if c, ok := api.(CommunicationSearch); ok {
 		c, err := c.SearchCapabilitiesCommunication(ctx)
 		if err != nil {
@@ -413,6 +482,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(CommunicationRequestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CommunicationRequest")
+	}
+	if _, ok := api.(CommunicationRequestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CommunicationRequest")
 	}
 	if c, ok := api.(CommunicationRequestSearch); ok {
 		c, err := c.SearchCapabilitiesCommunicationRequest(ctx)
@@ -431,6 +503,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(CompartmentDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CompartmentDefinition")
 	}
+	if _, ok := api.(CompartmentDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CompartmentDefinition")
+	}
 	if c, ok := api.(CompartmentDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesCompartmentDefinition(ctx)
 		if err != nil {
@@ -447,6 +522,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(CompositionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Composition")
+	}
+	if _, ok := api.(CompositionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Composition")
 	}
 	if c, ok := api.(CompositionSearch); ok {
 		c, err := c.SearchCapabilitiesComposition(ctx)
@@ -465,6 +543,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ConceptMapUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ConceptMap")
 	}
+	if _, ok := api.(ConceptMapDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ConceptMap")
+	}
 	if c, ok := api.(ConceptMapSearch); ok {
 		c, err := c.SearchCapabilitiesConceptMap(ctx)
 		if err != nil {
@@ -481,6 +562,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ConditionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Condition")
+	}
+	if _, ok := api.(ConditionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Condition")
 	}
 	if c, ok := api.(ConditionSearch); ok {
 		c, err := c.SearchCapabilitiesCondition(ctx)
@@ -499,6 +583,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ConsentUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Consent")
 	}
+	if _, ok := api.(ConsentDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Consent")
+	}
 	if c, ok := api.(ConsentSearch); ok {
 		c, err := c.SearchCapabilitiesConsent(ctx)
 		if err != nil {
@@ -515,6 +602,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ContractUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Contract")
+	}
+	if _, ok := api.(ContractDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Contract")
 	}
 	if c, ok := api.(ContractSearch); ok {
 		c, err := c.SearchCapabilitiesContract(ctx)
@@ -533,6 +623,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(CoverageUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Coverage")
 	}
+	if _, ok := api.(CoverageDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Coverage")
+	}
 	if c, ok := api.(CoverageSearch); ok {
 		c, err := c.SearchCapabilitiesCoverage(ctx)
 		if err != nil {
@@ -549,6 +642,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(CoverageEligibilityRequestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CoverageEligibilityRequest")
+	}
+	if _, ok := api.(CoverageEligibilityRequestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CoverageEligibilityRequest")
 	}
 	if c, ok := api.(CoverageEligibilityRequestSearch); ok {
 		c, err := c.SearchCapabilitiesCoverageEligibilityRequest(ctx)
@@ -567,6 +663,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(CoverageEligibilityResponseUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "CoverageEligibilityResponse")
 	}
+	if _, ok := api.(CoverageEligibilityResponseDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "CoverageEligibilityResponse")
+	}
 	if c, ok := api.(CoverageEligibilityResponseSearch); ok {
 		c, err := c.SearchCapabilitiesCoverageEligibilityResponse(ctx)
 		if err != nil {
@@ -583,6 +682,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(DetectedIssueUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DetectedIssue")
+	}
+	if _, ok := api.(DetectedIssueDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DetectedIssue")
 	}
 	if c, ok := api.(DetectedIssueSearch); ok {
 		c, err := c.SearchCapabilitiesDetectedIssue(ctx)
@@ -601,6 +703,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(DeviceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Device")
 	}
+	if _, ok := api.(DeviceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Device")
+	}
 	if c, ok := api.(DeviceSearch); ok {
 		c, err := c.SearchCapabilitiesDevice(ctx)
 		if err != nil {
@@ -617,6 +722,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(DeviceDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceDefinition")
+	}
+	if _, ok := api.(DeviceDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceDefinition")
 	}
 	if c, ok := api.(DeviceDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceDefinition(ctx)
@@ -635,6 +743,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(DeviceMetricUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceMetric")
 	}
+	if _, ok := api.(DeviceMetricDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceMetric")
+	}
 	if c, ok := api.(DeviceMetricSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceMetric(ctx)
 		if err != nil {
@@ -651,6 +762,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(DeviceRequestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceRequest")
+	}
+	if _, ok := api.(DeviceRequestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceRequest")
 	}
 	if c, ok := api.(DeviceRequestSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceRequest(ctx)
@@ -669,6 +783,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(DeviceUseStatementUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DeviceUseStatement")
 	}
+	if _, ok := api.(DeviceUseStatementDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DeviceUseStatement")
+	}
 	if c, ok := api.(DeviceUseStatementSearch); ok {
 		c, err := c.SearchCapabilitiesDeviceUseStatement(ctx)
 		if err != nil {
@@ -685,6 +802,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(DiagnosticReportUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DiagnosticReport")
+	}
+	if _, ok := api.(DiagnosticReportDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DiagnosticReport")
 	}
 	if c, ok := api.(DiagnosticReportSearch); ok {
 		c, err := c.SearchCapabilitiesDiagnosticReport(ctx)
@@ -703,6 +823,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(DocumentManifestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DocumentManifest")
 	}
+	if _, ok := api.(DocumentManifestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DocumentManifest")
+	}
 	if c, ok := api.(DocumentManifestSearch); ok {
 		c, err := c.SearchCapabilitiesDocumentManifest(ctx)
 		if err != nil {
@@ -719,6 +842,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(DocumentReferenceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "DocumentReference")
+	}
+	if _, ok := api.(DocumentReferenceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "DocumentReference")
 	}
 	if c, ok := api.(DocumentReferenceSearch); ok {
 		c, err := c.SearchCapabilitiesDocumentReference(ctx)
@@ -737,6 +863,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(EffectEvidenceSynthesisUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EffectEvidenceSynthesis")
 	}
+	if _, ok := api.(EffectEvidenceSynthesisDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EffectEvidenceSynthesis")
+	}
 	if c, ok := api.(EffectEvidenceSynthesisSearch); ok {
 		c, err := c.SearchCapabilitiesEffectEvidenceSynthesis(ctx)
 		if err != nil {
@@ -753,6 +882,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(EncounterUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Encounter")
+	}
+	if _, ok := api.(EncounterDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Encounter")
 	}
 	if c, ok := api.(EncounterSearch); ok {
 		c, err := c.SearchCapabilitiesEncounter(ctx)
@@ -771,6 +903,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(EndpointUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Endpoint")
 	}
+	if _, ok := api.(EndpointDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Endpoint")
+	}
 	if c, ok := api.(EndpointSearch); ok {
 		c, err := c.SearchCapabilitiesEndpoint(ctx)
 		if err != nil {
@@ -787,6 +922,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(EnrollmentRequestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EnrollmentRequest")
+	}
+	if _, ok := api.(EnrollmentRequestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EnrollmentRequest")
 	}
 	if c, ok := api.(EnrollmentRequestSearch); ok {
 		c, err := c.SearchCapabilitiesEnrollmentRequest(ctx)
@@ -805,6 +943,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(EnrollmentResponseUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EnrollmentResponse")
 	}
+	if _, ok := api.(EnrollmentResponseDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EnrollmentResponse")
+	}
 	if c, ok := api.(EnrollmentResponseSearch); ok {
 		c, err := c.SearchCapabilitiesEnrollmentResponse(ctx)
 		if err != nil {
@@ -821,6 +962,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(EpisodeOfCareUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EpisodeOfCare")
+	}
+	if _, ok := api.(EpisodeOfCareDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EpisodeOfCare")
 	}
 	if c, ok := api.(EpisodeOfCareSearch); ok {
 		c, err := c.SearchCapabilitiesEpisodeOfCare(ctx)
@@ -839,6 +983,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(EventDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EventDefinition")
 	}
+	if _, ok := api.(EventDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EventDefinition")
+	}
 	if c, ok := api.(EventDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesEventDefinition(ctx)
 		if err != nil {
@@ -855,6 +1002,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(EvidenceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Evidence")
+	}
+	if _, ok := api.(EvidenceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Evidence")
 	}
 	if c, ok := api.(EvidenceSearch); ok {
 		c, err := c.SearchCapabilitiesEvidence(ctx)
@@ -873,6 +1023,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(EvidenceVariableUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "EvidenceVariable")
 	}
+	if _, ok := api.(EvidenceVariableDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "EvidenceVariable")
+	}
 	if c, ok := api.(EvidenceVariableSearch); ok {
 		c, err := c.SearchCapabilitiesEvidenceVariable(ctx)
 		if err != nil {
@@ -889,6 +1042,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ExampleScenarioUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ExampleScenario")
+	}
+	if _, ok := api.(ExampleScenarioDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ExampleScenario")
 	}
 	if c, ok := api.(ExampleScenarioSearch); ok {
 		c, err := c.SearchCapabilitiesExampleScenario(ctx)
@@ -907,6 +1063,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ExplanationOfBenefitUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ExplanationOfBenefit")
 	}
+	if _, ok := api.(ExplanationOfBenefitDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ExplanationOfBenefit")
+	}
 	if c, ok := api.(ExplanationOfBenefitSearch); ok {
 		c, err := c.SearchCapabilitiesExplanationOfBenefit(ctx)
 		if err != nil {
@@ -923,6 +1082,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(FamilyMemberHistoryUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "FamilyMemberHistory")
+	}
+	if _, ok := api.(FamilyMemberHistoryDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "FamilyMemberHistory")
 	}
 	if c, ok := api.(FamilyMemberHistorySearch); ok {
 		c, err := c.SearchCapabilitiesFamilyMemberHistory(ctx)
@@ -941,6 +1103,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(FlagUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Flag")
 	}
+	if _, ok := api.(FlagDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Flag")
+	}
 	if c, ok := api.(FlagSearch); ok {
 		c, err := c.SearchCapabilitiesFlag(ctx)
 		if err != nil {
@@ -957,6 +1122,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(GoalUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Goal")
+	}
+	if _, ok := api.(GoalDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Goal")
 	}
 	if c, ok := api.(GoalSearch); ok {
 		c, err := c.SearchCapabilitiesGoal(ctx)
@@ -975,6 +1143,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(GraphDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "GraphDefinition")
 	}
+	if _, ok := api.(GraphDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "GraphDefinition")
+	}
 	if c, ok := api.(GraphDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesGraphDefinition(ctx)
 		if err != nil {
@@ -991,6 +1162,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(GroupUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Group")
+	}
+	if _, ok := api.(GroupDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Group")
 	}
 	if c, ok := api.(GroupSearch); ok {
 		c, err := c.SearchCapabilitiesGroup(ctx)
@@ -1009,6 +1183,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(GuidanceResponseUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "GuidanceResponse")
 	}
+	if _, ok := api.(GuidanceResponseDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "GuidanceResponse")
+	}
 	if c, ok := api.(GuidanceResponseSearch); ok {
 		c, err := c.SearchCapabilitiesGuidanceResponse(ctx)
 		if err != nil {
@@ -1025,6 +1202,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(HealthcareServiceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "HealthcareService")
+	}
+	if _, ok := api.(HealthcareServiceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "HealthcareService")
 	}
 	if c, ok := api.(HealthcareServiceSearch); ok {
 		c, err := c.SearchCapabilitiesHealthcareService(ctx)
@@ -1043,6 +1223,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ImagingStudyUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImagingStudy")
 	}
+	if _, ok := api.(ImagingStudyDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImagingStudy")
+	}
 	if c, ok := api.(ImagingStudySearch); ok {
 		c, err := c.SearchCapabilitiesImagingStudy(ctx)
 		if err != nil {
@@ -1059,6 +1242,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ImmunizationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Immunization")
+	}
+	if _, ok := api.(ImmunizationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Immunization")
 	}
 	if c, ok := api.(ImmunizationSearch); ok {
 		c, err := c.SearchCapabilitiesImmunization(ctx)
@@ -1077,6 +1263,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ImmunizationEvaluationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImmunizationEvaluation")
 	}
+	if _, ok := api.(ImmunizationEvaluationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImmunizationEvaluation")
+	}
 	if c, ok := api.(ImmunizationEvaluationSearch); ok {
 		c, err := c.SearchCapabilitiesImmunizationEvaluation(ctx)
 		if err != nil {
@@ -1093,6 +1282,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ImmunizationRecommendationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImmunizationRecommendation")
+	}
+	if _, ok := api.(ImmunizationRecommendationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImmunizationRecommendation")
 	}
 	if c, ok := api.(ImmunizationRecommendationSearch); ok {
 		c, err := c.SearchCapabilitiesImmunizationRecommendation(ctx)
@@ -1111,6 +1303,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ImplementationGuideUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ImplementationGuide")
 	}
+	if _, ok := api.(ImplementationGuideDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ImplementationGuide")
+	}
 	if c, ok := api.(ImplementationGuideSearch); ok {
 		c, err := c.SearchCapabilitiesImplementationGuide(ctx)
 		if err != nil {
@@ -1127,6 +1322,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(InsurancePlanUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "InsurancePlan")
+	}
+	if _, ok := api.(InsurancePlanDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "InsurancePlan")
 	}
 	if c, ok := api.(InsurancePlanSearch); ok {
 		c, err := c.SearchCapabilitiesInsurancePlan(ctx)
@@ -1145,6 +1343,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(InvoiceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Invoice")
 	}
+	if _, ok := api.(InvoiceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Invoice")
+	}
 	if c, ok := api.(InvoiceSearch); ok {
 		c, err := c.SearchCapabilitiesInvoice(ctx)
 		if err != nil {
@@ -1161,6 +1362,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(LibraryUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Library")
+	}
+	if _, ok := api.(LibraryDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Library")
 	}
 	if c, ok := api.(LibrarySearch); ok {
 		c, err := c.SearchCapabilitiesLibrary(ctx)
@@ -1179,6 +1383,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(LinkageUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Linkage")
 	}
+	if _, ok := api.(LinkageDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Linkage")
+	}
 	if c, ok := api.(LinkageSearch); ok {
 		c, err := c.SearchCapabilitiesLinkage(ctx)
 		if err != nil {
@@ -1195,6 +1402,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ListUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "List")
+	}
+	if _, ok := api.(ListDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "List")
 	}
 	if c, ok := api.(ListSearch); ok {
 		c, err := c.SearchCapabilitiesList(ctx)
@@ -1213,6 +1423,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(LocationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Location")
 	}
+	if _, ok := api.(LocationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Location")
+	}
 	if c, ok := api.(LocationSearch); ok {
 		c, err := c.SearchCapabilitiesLocation(ctx)
 		if err != nil {
@@ -1229,6 +1442,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MeasureUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Measure")
+	}
+	if _, ok := api.(MeasureDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Measure")
 	}
 	if c, ok := api.(MeasureSearch); ok {
 		c, err := c.SearchCapabilitiesMeasure(ctx)
@@ -1247,6 +1463,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MeasureReportUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MeasureReport")
 	}
+	if _, ok := api.(MeasureReportDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MeasureReport")
+	}
 	if c, ok := api.(MeasureReportSearch); ok {
 		c, err := c.SearchCapabilitiesMeasureReport(ctx)
 		if err != nil {
@@ -1263,6 +1482,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MediaUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Media")
+	}
+	if _, ok := api.(MediaDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Media")
 	}
 	if c, ok := api.(MediaSearch); ok {
 		c, err := c.SearchCapabilitiesMedia(ctx)
@@ -1281,6 +1503,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Medication")
 	}
+	if _, ok := api.(MedicationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Medication")
+	}
 	if c, ok := api.(MedicationSearch); ok {
 		c, err := c.SearchCapabilitiesMedication(ctx)
 		if err != nil {
@@ -1297,6 +1522,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicationAdministrationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationAdministration")
+	}
+	if _, ok := api.(MedicationAdministrationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationAdministration")
 	}
 	if c, ok := api.(MedicationAdministrationSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationAdministration(ctx)
@@ -1315,6 +1543,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicationDispenseUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationDispense")
 	}
+	if _, ok := api.(MedicationDispenseDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationDispense")
+	}
 	if c, ok := api.(MedicationDispenseSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationDispense(ctx)
 		if err != nil {
@@ -1331,6 +1562,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicationKnowledgeUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationKnowledge")
+	}
+	if _, ok := api.(MedicationKnowledgeDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationKnowledge")
 	}
 	if c, ok := api.(MedicationKnowledgeSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationKnowledge(ctx)
@@ -1349,6 +1583,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicationRequestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationRequest")
 	}
+	if _, ok := api.(MedicationRequestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationRequest")
+	}
 	if c, ok := api.(MedicationRequestSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationRequest(ctx)
 		if err != nil {
@@ -1365,6 +1602,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicationStatementUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicationStatement")
+	}
+	if _, ok := api.(MedicationStatementDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicationStatement")
 	}
 	if c, ok := api.(MedicationStatementSearch); ok {
 		c, err := c.SearchCapabilitiesMedicationStatement(ctx)
@@ -1383,6 +1623,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicinalProductUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProduct")
 	}
+	if _, ok := api.(MedicinalProductDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProduct")
+	}
 	if c, ok := api.(MedicinalProductSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProduct(ctx)
 		if err != nil {
@@ -1399,6 +1642,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicinalProductAuthorizationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductAuthorization")
+	}
+	if _, ok := api.(MedicinalProductAuthorizationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductAuthorization")
 	}
 	if c, ok := api.(MedicinalProductAuthorizationSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductAuthorization(ctx)
@@ -1417,6 +1663,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicinalProductContraindicationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductContraindication")
 	}
+	if _, ok := api.(MedicinalProductContraindicationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductContraindication")
+	}
 	if c, ok := api.(MedicinalProductContraindicationSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductContraindication(ctx)
 		if err != nil {
@@ -1433,6 +1682,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicinalProductIndicationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductIndication")
+	}
+	if _, ok := api.(MedicinalProductIndicationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductIndication")
 	}
 	if c, ok := api.(MedicinalProductIndicationSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductIndication(ctx)
@@ -1451,6 +1703,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicinalProductIngredientUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductIngredient")
 	}
+	if _, ok := api.(MedicinalProductIngredientDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductIngredient")
+	}
 	if c, ok := api.(MedicinalProductIngredientSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductIngredient(ctx)
 		if err != nil {
@@ -1467,6 +1722,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicinalProductInteractionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductInteraction")
+	}
+	if _, ok := api.(MedicinalProductInteractionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductInteraction")
 	}
 	if c, ok := api.(MedicinalProductInteractionSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductInteraction(ctx)
@@ -1485,6 +1743,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicinalProductManufacturedUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductManufactured")
 	}
+	if _, ok := api.(MedicinalProductManufacturedDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductManufactured")
+	}
 	if c, ok := api.(MedicinalProductManufacturedSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductManufactured(ctx)
 		if err != nil {
@@ -1501,6 +1762,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicinalProductPackagedUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductPackaged")
+	}
+	if _, ok := api.(MedicinalProductPackagedDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductPackaged")
 	}
 	if c, ok := api.(MedicinalProductPackagedSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductPackaged(ctx)
@@ -1519,6 +1783,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MedicinalProductPharmaceuticalUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductPharmaceutical")
 	}
+	if _, ok := api.(MedicinalProductPharmaceuticalDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductPharmaceutical")
+	}
 	if c, ok := api.(MedicinalProductPharmaceuticalSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductPharmaceutical(ctx)
 		if err != nil {
@@ -1535,6 +1802,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MedicinalProductUndesirableEffectUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MedicinalProductUndesirableEffect")
+	}
+	if _, ok := api.(MedicinalProductUndesirableEffectDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MedicinalProductUndesirableEffect")
 	}
 	if c, ok := api.(MedicinalProductUndesirableEffectSearch); ok {
 		c, err := c.SearchCapabilitiesMedicinalProductUndesirableEffect(ctx)
@@ -1553,6 +1823,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MessageDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MessageDefinition")
 	}
+	if _, ok := api.(MessageDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MessageDefinition")
+	}
 	if c, ok := api.(MessageDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesMessageDefinition(ctx)
 		if err != nil {
@@ -1569,6 +1842,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(MessageHeaderUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MessageHeader")
+	}
+	if _, ok := api.(MessageHeaderDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MessageHeader")
 	}
 	if c, ok := api.(MessageHeaderSearch); ok {
 		c, err := c.SearchCapabilitiesMessageHeader(ctx)
@@ -1587,6 +1863,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(MolecularSequenceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "MolecularSequence")
 	}
+	if _, ok := api.(MolecularSequenceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "MolecularSequence")
+	}
 	if c, ok := api.(MolecularSequenceSearch); ok {
 		c, err := c.SearchCapabilitiesMolecularSequence(ctx)
 		if err != nil {
@@ -1603,6 +1882,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(NamingSystemUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NamingSystem")
+	}
+	if _, ok := api.(NamingSystemDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "NamingSystem")
 	}
 	if c, ok := api.(NamingSystemSearch); ok {
 		c, err := c.SearchCapabilitiesNamingSystem(ctx)
@@ -1621,6 +1903,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(NutritionOrderUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "NutritionOrder")
 	}
+	if _, ok := api.(NutritionOrderDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "NutritionOrder")
+	}
 	if c, ok := api.(NutritionOrderSearch); ok {
 		c, err := c.SearchCapabilitiesNutritionOrder(ctx)
 		if err != nil {
@@ -1637,6 +1922,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ObservationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Observation")
+	}
+	if _, ok := api.(ObservationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Observation")
 	}
 	if c, ok := api.(ObservationSearch); ok {
 		c, err := c.SearchCapabilitiesObservation(ctx)
@@ -1655,6 +1943,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ObservationDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ObservationDefinition")
 	}
+	if _, ok := api.(ObservationDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ObservationDefinition")
+	}
 	if c, ok := api.(ObservationDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesObservationDefinition(ctx)
 		if err != nil {
@@ -1671,6 +1962,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(OperationDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OperationDefinition")
+	}
+	if _, ok := api.(OperationDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "OperationDefinition")
 	}
 	if c, ok := api.(OperationDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesOperationDefinition(ctx)
@@ -1689,6 +1983,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(OperationOutcomeUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OperationOutcome")
 	}
+	if _, ok := api.(OperationOutcomeDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "OperationOutcome")
+	}
 	if c, ok := api.(OperationOutcomeSearch); ok {
 		c, err := c.SearchCapabilitiesOperationOutcome(ctx)
 		if err != nil {
@@ -1705,6 +2002,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(OrganizationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Organization")
+	}
+	if _, ok := api.(OrganizationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Organization")
 	}
 	if c, ok := api.(OrganizationSearch); ok {
 		c, err := c.SearchCapabilitiesOrganization(ctx)
@@ -1723,6 +2023,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(OrganizationAffiliationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "OrganizationAffiliation")
 	}
+	if _, ok := api.(OrganizationAffiliationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "OrganizationAffiliation")
+	}
 	if c, ok := api.(OrganizationAffiliationSearch); ok {
 		c, err := c.SearchCapabilitiesOrganizationAffiliation(ctx)
 		if err != nil {
@@ -1739,6 +2042,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ParametersUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Parameters")
+	}
+	if _, ok := api.(ParametersDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Parameters")
 	}
 	if c, ok := api.(ParametersSearch); ok {
 		c, err := c.SearchCapabilitiesParameters(ctx)
@@ -1757,6 +2063,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(PatientUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Patient")
 	}
+	if _, ok := api.(PatientDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Patient")
+	}
 	if c, ok := api.(PatientSearch); ok {
 		c, err := c.SearchCapabilitiesPatient(ctx)
 		if err != nil {
@@ -1773,6 +2082,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(PaymentNoticeUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PaymentNotice")
+	}
+	if _, ok := api.(PaymentNoticeDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PaymentNotice")
 	}
 	if c, ok := api.(PaymentNoticeSearch); ok {
 		c, err := c.SearchCapabilitiesPaymentNotice(ctx)
@@ -1791,6 +2103,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(PaymentReconciliationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PaymentReconciliation")
 	}
+	if _, ok := api.(PaymentReconciliationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PaymentReconciliation")
+	}
 	if c, ok := api.(PaymentReconciliationSearch); ok {
 		c, err := c.SearchCapabilitiesPaymentReconciliation(ctx)
 		if err != nil {
@@ -1807,6 +2122,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(PersonUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Person")
+	}
+	if _, ok := api.(PersonDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Person")
 	}
 	if c, ok := api.(PersonSearch); ok {
 		c, err := c.SearchCapabilitiesPerson(ctx)
@@ -1825,6 +2143,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(PlanDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PlanDefinition")
 	}
+	if _, ok := api.(PlanDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PlanDefinition")
+	}
 	if c, ok := api.(PlanDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesPlanDefinition(ctx)
 		if err != nil {
@@ -1841,6 +2162,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(PractitionerUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Practitioner")
+	}
+	if _, ok := api.(PractitionerDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Practitioner")
 	}
 	if c, ok := api.(PractitionerSearch); ok {
 		c, err := c.SearchCapabilitiesPractitioner(ctx)
@@ -1859,6 +2183,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(PractitionerRoleUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "PractitionerRole")
 	}
+	if _, ok := api.(PractitionerRoleDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "PractitionerRole")
+	}
 	if c, ok := api.(PractitionerRoleSearch); ok {
 		c, err := c.SearchCapabilitiesPractitionerRole(ctx)
 		if err != nil {
@@ -1875,6 +2202,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ProcedureUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Procedure")
+	}
+	if _, ok := api.(ProcedureDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Procedure")
 	}
 	if c, ok := api.(ProcedureSearch); ok {
 		c, err := c.SearchCapabilitiesProcedure(ctx)
@@ -1893,6 +2223,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ProvenanceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Provenance")
 	}
+	if _, ok := api.(ProvenanceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Provenance")
+	}
 	if c, ok := api.(ProvenanceSearch); ok {
 		c, err := c.SearchCapabilitiesProvenance(ctx)
 		if err != nil {
@@ -1909,6 +2242,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(QuestionnaireUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Questionnaire")
+	}
+	if _, ok := api.(QuestionnaireDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Questionnaire")
 	}
 	if c, ok := api.(QuestionnaireSearch); ok {
 		c, err := c.SearchCapabilitiesQuestionnaire(ctx)
@@ -1927,6 +2263,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(QuestionnaireResponseUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "QuestionnaireResponse")
 	}
+	if _, ok := api.(QuestionnaireResponseDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "QuestionnaireResponse")
+	}
 	if c, ok := api.(QuestionnaireResponseSearch); ok {
 		c, err := c.SearchCapabilitiesQuestionnaireResponse(ctx)
 		if err != nil {
@@ -1943,6 +2282,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(RelatedPersonUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RelatedPerson")
+	}
+	if _, ok := api.(RelatedPersonDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RelatedPerson")
 	}
 	if c, ok := api.(RelatedPersonSearch); ok {
 		c, err := c.SearchCapabilitiesRelatedPerson(ctx)
@@ -1961,6 +2303,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(RequestGroupUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RequestGroup")
 	}
+	if _, ok := api.(RequestGroupDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RequestGroup")
+	}
 	if c, ok := api.(RequestGroupSearch); ok {
 		c, err := c.SearchCapabilitiesRequestGroup(ctx)
 		if err != nil {
@@ -1977,6 +2322,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ResearchDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchDefinition")
+	}
+	if _, ok := api.(ResearchDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ResearchDefinition")
 	}
 	if c, ok := api.(ResearchDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesResearchDefinition(ctx)
@@ -1995,6 +2343,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ResearchElementDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchElementDefinition")
 	}
+	if _, ok := api.(ResearchElementDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ResearchElementDefinition")
+	}
 	if c, ok := api.(ResearchElementDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesResearchElementDefinition(ctx)
 		if err != nil {
@@ -2011,6 +2362,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ResearchStudyUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchStudy")
+	}
+	if _, ok := api.(ResearchStudyDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ResearchStudy")
 	}
 	if c, ok := api.(ResearchStudySearch); ok {
 		c, err := c.SearchCapabilitiesResearchStudy(ctx)
@@ -2029,6 +2383,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(ResearchSubjectUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ResearchSubject")
 	}
+	if _, ok := api.(ResearchSubjectDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ResearchSubject")
+	}
 	if c, ok := api.(ResearchSubjectSearch); ok {
 		c, err := c.SearchCapabilitiesResearchSubject(ctx)
 		if err != nil {
@@ -2045,6 +2402,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(RiskAssessmentUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RiskAssessment")
+	}
+	if _, ok := api.(RiskAssessmentDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RiskAssessment")
 	}
 	if c, ok := api.(RiskAssessmentSearch); ok {
 		c, err := c.SearchCapabilitiesRiskAssessment(ctx)
@@ -2063,6 +2423,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(RiskEvidenceSynthesisUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "RiskEvidenceSynthesis")
 	}
+	if _, ok := api.(RiskEvidenceSynthesisDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "RiskEvidenceSynthesis")
+	}
 	if c, ok := api.(RiskEvidenceSynthesisSearch); ok {
 		c, err := c.SearchCapabilitiesRiskEvidenceSynthesis(ctx)
 		if err != nil {
@@ -2079,6 +2442,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ScheduleUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Schedule")
+	}
+	if _, ok := api.(ScheduleDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Schedule")
 	}
 	if c, ok := api.(ScheduleSearch); ok {
 		c, err := c.SearchCapabilitiesSchedule(ctx)
@@ -2097,6 +2463,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SearchParameterUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SearchParameter")
 	}
+	if _, ok := api.(SearchParameterDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SearchParameter")
+	}
 	if c, ok := api.(SearchParameterSearch); ok {
 		c, err := c.SearchCapabilitiesSearchParameter(ctx)
 		if err != nil {
@@ -2113,6 +2482,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ServiceRequestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ServiceRequest")
+	}
+	if _, ok := api.(ServiceRequestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ServiceRequest")
 	}
 	if c, ok := api.(ServiceRequestSearch); ok {
 		c, err := c.SearchCapabilitiesServiceRequest(ctx)
@@ -2131,6 +2503,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SlotUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Slot")
 	}
+	if _, ok := api.(SlotDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Slot")
+	}
 	if c, ok := api.(SlotSearch); ok {
 		c, err := c.SearchCapabilitiesSlot(ctx)
 		if err != nil {
@@ -2147,6 +2522,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(SpecimenUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Specimen")
+	}
+	if _, ok := api.(SpecimenDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Specimen")
 	}
 	if c, ok := api.(SpecimenSearch); ok {
 		c, err := c.SearchCapabilitiesSpecimen(ctx)
@@ -2165,6 +2543,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SpecimenDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SpecimenDefinition")
 	}
+	if _, ok := api.(SpecimenDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SpecimenDefinition")
+	}
 	if c, ok := api.(SpecimenDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesSpecimenDefinition(ctx)
 		if err != nil {
@@ -2181,6 +2562,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(StructureDefinitionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "StructureDefinition")
+	}
+	if _, ok := api.(StructureDefinitionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "StructureDefinition")
 	}
 	if c, ok := api.(StructureDefinitionSearch); ok {
 		c, err := c.SearchCapabilitiesStructureDefinition(ctx)
@@ -2199,6 +2583,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(StructureMapUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "StructureMap")
 	}
+	if _, ok := api.(StructureMapDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "StructureMap")
+	}
 	if c, ok := api.(StructureMapSearch); ok {
 		c, err := c.SearchCapabilitiesStructureMap(ctx)
 		if err != nil {
@@ -2215,6 +2602,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(SubscriptionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Subscription")
+	}
+	if _, ok := api.(SubscriptionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Subscription")
 	}
 	if c, ok := api.(SubscriptionSearch); ok {
 		c, err := c.SearchCapabilitiesSubscription(ctx)
@@ -2233,6 +2623,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SubstanceUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Substance")
 	}
+	if _, ok := api.(SubstanceDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Substance")
+	}
 	if c, ok := api.(SubstanceSearch); ok {
 		c, err := c.SearchCapabilitiesSubstance(ctx)
 		if err != nil {
@@ -2249,6 +2642,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(SubstanceNucleicAcidUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceNucleicAcid")
+	}
+	if _, ok := api.(SubstanceNucleicAcidDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceNucleicAcid")
 	}
 	if c, ok := api.(SubstanceNucleicAcidSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceNucleicAcid(ctx)
@@ -2267,6 +2663,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SubstancePolymerUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstancePolymer")
 	}
+	if _, ok := api.(SubstancePolymerDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstancePolymer")
+	}
 	if c, ok := api.(SubstancePolymerSearch); ok {
 		c, err := c.SearchCapabilitiesSubstancePolymer(ctx)
 		if err != nil {
@@ -2283,6 +2682,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(SubstanceProteinUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceProtein")
+	}
+	if _, ok := api.(SubstanceProteinDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceProtein")
 	}
 	if c, ok := api.(SubstanceProteinSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceProtein(ctx)
@@ -2301,6 +2703,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SubstanceReferenceInformationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceReferenceInformation")
 	}
+	if _, ok := api.(SubstanceReferenceInformationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceReferenceInformation")
+	}
 	if c, ok := api.(SubstanceReferenceInformationSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceReferenceInformation(ctx)
 		if err != nil {
@@ -2317,6 +2722,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(SubstanceSourceMaterialUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceSourceMaterial")
+	}
+	if _, ok := api.(SubstanceSourceMaterialDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceSourceMaterial")
 	}
 	if c, ok := api.(SubstanceSourceMaterialSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceSourceMaterial(ctx)
@@ -2335,6 +2743,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SubstanceSpecificationUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SubstanceSpecification")
 	}
+	if _, ok := api.(SubstanceSpecificationDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SubstanceSpecification")
+	}
 	if c, ok := api.(SubstanceSpecificationSearch); ok {
 		c, err := c.SearchCapabilitiesSubstanceSpecification(ctx)
 		if err != nil {
@@ -2351,6 +2762,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(SupplyDeliveryUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SupplyDelivery")
+	}
+	if _, ok := api.(SupplyDeliveryDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SupplyDelivery")
 	}
 	if c, ok := api.(SupplyDeliverySearch); ok {
 		c, err := c.SearchCapabilitiesSupplyDelivery(ctx)
@@ -2369,6 +2783,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(SupplyRequestUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "SupplyRequest")
 	}
+	if _, ok := api.(SupplyRequestDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "SupplyRequest")
+	}
 	if c, ok := api.(SupplyRequestSearch); ok {
 		c, err := c.SearchCapabilitiesSupplyRequest(ctx)
 		if err != nil {
@@ -2385,6 +2802,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(TaskUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "Task")
+	}
+	if _, ok := api.(TaskDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "Task")
 	}
 	if c, ok := api.(TaskSearch); ok {
 		c, err := c.SearchCapabilitiesTask(ctx)
@@ -2403,6 +2823,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(TerminologyCapabilitiesUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TerminologyCapabilities")
 	}
+	if _, ok := api.(TerminologyCapabilitiesDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "TerminologyCapabilities")
+	}
 	if c, ok := api.(TerminologyCapabilitiesSearch); ok {
 		c, err := c.SearchCapabilitiesTerminologyCapabilities(ctx)
 		if err != nil {
@@ -2419,6 +2842,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(TestReportUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TestReport")
+	}
+	if _, ok := api.(TestReportDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "TestReport")
 	}
 	if c, ok := api.(TestReportSearch); ok {
 		c, err := c.SearchCapabilitiesTestReport(ctx)
@@ -2437,6 +2863,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(TestScriptUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "TestScript")
 	}
+	if _, ok := api.(TestScriptDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "TestScript")
+	}
 	if c, ok := api.(TestScriptSearch); ok {
 		c, err := c.SearchCapabilitiesTestScript(ctx)
 		if err != nil {
@@ -2453,6 +2882,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(ValueSetUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "ValueSet")
+	}
+	if _, ok := api.(ValueSetDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "ValueSet")
 	}
 	if c, ok := api.(ValueSetSearch); ok {
 		c, err := c.SearchCapabilitiesValueSet(ctx)
@@ -2471,6 +2903,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	if _, ok := api.(VerificationResultUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "VerificationResult")
 	}
+	if _, ok := api.(VerificationResultDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "VerificationResult")
+	}
 	if c, ok := api.(VerificationResultSearch); ok {
 		c, err := c.SearchCapabilitiesVerificationResult(ctx)
 		if err != nil {
@@ -2487,6 +2922,9 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 	}
 	if _, ok := api.(VisionPrescriptionUpdate); ok {
 		allCapabilities.UpdateInteractions = append(allCapabilities.UpdateInteractions, "VisionPrescription")
+	}
+	if _, ok := api.(VisionPrescriptionDelete); ok {
+		allCapabilities.DeleteInteractions = append(allCapabilities.DeleteInteractions, "VisionPrescription")
 	}
 	if c, ok := api.(VisionPrescriptionSearch); ok {
 		c, err := c.SearchCapabilitiesVisionPrescription(ctx)

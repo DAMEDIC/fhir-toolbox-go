@@ -12572,6 +12572,1612 @@ func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4.Visi
 		Resource: r,
 	}, nil
 }
+func (w Concrete) DeleteAccount(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Account")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Account", id)
+}
+func (w Concrete) DeleteActivityDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ActivityDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ActivityDefinition", id)
+}
+func (w Concrete) DeleteAdverseEvent(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for AdverseEvent")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "AdverseEvent", id)
+}
+func (w Concrete) DeleteAllergyIntolerance(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for AllergyIntolerance")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "AllergyIntolerance", id)
+}
+func (w Concrete) DeleteAppointment(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Appointment")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Appointment", id)
+}
+func (w Concrete) DeleteAppointmentResponse(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for AppointmentResponse")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "AppointmentResponse", id)
+}
+func (w Concrete) DeleteAuditEvent(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for AuditEvent")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "AuditEvent", id)
+}
+func (w Concrete) DeleteBasic(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Basic")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Basic", id)
+}
+func (w Concrete) DeleteBinary(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Binary")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Binary", id)
+}
+func (w Concrete) DeleteBiologicallyDerivedProduct(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for BiologicallyDerivedProduct")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "BiologicallyDerivedProduct", id)
+}
+func (w Concrete) DeleteBodyStructure(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for BodyStructure")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "BodyStructure", id)
+}
+func (w Concrete) DeleteBundle(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Bundle")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Bundle", id)
+}
+func (w Concrete) DeleteCapabilityStatement(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CapabilityStatement")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CapabilityStatement", id)
+}
+func (w Concrete) DeleteCarePlan(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CarePlan")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CarePlan", id)
+}
+func (w Concrete) DeleteCareTeam(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CareTeam")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CareTeam", id)
+}
+func (w Concrete) DeleteCatalogEntry(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CatalogEntry")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CatalogEntry", id)
+}
+func (w Concrete) DeleteChargeItem(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ChargeItem")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ChargeItem", id)
+}
+func (w Concrete) DeleteChargeItemDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ChargeItemDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ChargeItemDefinition", id)
+}
+func (w Concrete) DeleteClaim(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Claim")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Claim", id)
+}
+func (w Concrete) DeleteClaimResponse(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ClaimResponse")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ClaimResponse", id)
+}
+func (w Concrete) DeleteClinicalImpression(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ClinicalImpression")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ClinicalImpression", id)
+}
+func (w Concrete) DeleteCodeSystem(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CodeSystem")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CodeSystem", id)
+}
+func (w Concrete) DeleteCommunication(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Communication")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Communication", id)
+}
+func (w Concrete) DeleteCommunicationRequest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CommunicationRequest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CommunicationRequest", id)
+}
+func (w Concrete) DeleteCompartmentDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CompartmentDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CompartmentDefinition", id)
+}
+func (w Concrete) DeleteComposition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Composition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Composition", id)
+}
+func (w Concrete) DeleteConceptMap(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ConceptMap")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ConceptMap", id)
+}
+func (w Concrete) DeleteCondition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Condition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Condition", id)
+}
+func (w Concrete) DeleteConsent(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Consent")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Consent", id)
+}
+func (w Concrete) DeleteContract(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Contract")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Contract", id)
+}
+func (w Concrete) DeleteCoverage(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Coverage")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Coverage", id)
+}
+func (w Concrete) DeleteCoverageEligibilityRequest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CoverageEligibilityRequest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CoverageEligibilityRequest", id)
+}
+func (w Concrete) DeleteCoverageEligibilityResponse(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for CoverageEligibilityResponse")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "CoverageEligibilityResponse", id)
+}
+func (w Concrete) DeleteDetectedIssue(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DetectedIssue")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DetectedIssue", id)
+}
+func (w Concrete) DeleteDevice(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Device")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Device", id)
+}
+func (w Concrete) DeleteDeviceDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DeviceDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DeviceDefinition", id)
+}
+func (w Concrete) DeleteDeviceMetric(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DeviceMetric")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DeviceMetric", id)
+}
+func (w Concrete) DeleteDeviceRequest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DeviceRequest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DeviceRequest", id)
+}
+func (w Concrete) DeleteDeviceUseStatement(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DeviceUseStatement")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DeviceUseStatement", id)
+}
+func (w Concrete) DeleteDiagnosticReport(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DiagnosticReport")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DiagnosticReport", id)
+}
+func (w Concrete) DeleteDocumentManifest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DocumentManifest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DocumentManifest", id)
+}
+func (w Concrete) DeleteDocumentReference(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for DocumentReference")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "DocumentReference", id)
+}
+func (w Concrete) DeleteEffectEvidenceSynthesis(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for EffectEvidenceSynthesis")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "EffectEvidenceSynthesis", id)
+}
+func (w Concrete) DeleteEncounter(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Encounter")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Encounter", id)
+}
+func (w Concrete) DeleteEndpoint(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Endpoint")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Endpoint", id)
+}
+func (w Concrete) DeleteEnrollmentRequest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for EnrollmentRequest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "EnrollmentRequest", id)
+}
+func (w Concrete) DeleteEnrollmentResponse(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for EnrollmentResponse")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "EnrollmentResponse", id)
+}
+func (w Concrete) DeleteEpisodeOfCare(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for EpisodeOfCare")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "EpisodeOfCare", id)
+}
+func (w Concrete) DeleteEventDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for EventDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "EventDefinition", id)
+}
+func (w Concrete) DeleteEvidence(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Evidence")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Evidence", id)
+}
+func (w Concrete) DeleteEvidenceVariable(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for EvidenceVariable")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "EvidenceVariable", id)
+}
+func (w Concrete) DeleteExampleScenario(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ExampleScenario")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ExampleScenario", id)
+}
+func (w Concrete) DeleteExplanationOfBenefit(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ExplanationOfBenefit")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ExplanationOfBenefit", id)
+}
+func (w Concrete) DeleteFamilyMemberHistory(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for FamilyMemberHistory")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "FamilyMemberHistory", id)
+}
+func (w Concrete) DeleteFlag(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Flag")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Flag", id)
+}
+func (w Concrete) DeleteGoal(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Goal")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Goal", id)
+}
+func (w Concrete) DeleteGraphDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for GraphDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "GraphDefinition", id)
+}
+func (w Concrete) DeleteGroup(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Group")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Group", id)
+}
+func (w Concrete) DeleteGuidanceResponse(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for GuidanceResponse")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "GuidanceResponse", id)
+}
+func (w Concrete) DeleteHealthcareService(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for HealthcareService")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "HealthcareService", id)
+}
+func (w Concrete) DeleteImagingStudy(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ImagingStudy")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ImagingStudy", id)
+}
+func (w Concrete) DeleteImmunization(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Immunization")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Immunization", id)
+}
+func (w Concrete) DeleteImmunizationEvaluation(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ImmunizationEvaluation")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ImmunizationEvaluation", id)
+}
+func (w Concrete) DeleteImmunizationRecommendation(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ImmunizationRecommendation")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ImmunizationRecommendation", id)
+}
+func (w Concrete) DeleteImplementationGuide(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ImplementationGuide")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ImplementationGuide", id)
+}
+func (w Concrete) DeleteInsurancePlan(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for InsurancePlan")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "InsurancePlan", id)
+}
+func (w Concrete) DeleteInvoice(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Invoice")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Invoice", id)
+}
+func (w Concrete) DeleteLibrary(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Library")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Library", id)
+}
+func (w Concrete) DeleteLinkage(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Linkage")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Linkage", id)
+}
+func (w Concrete) DeleteList(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for List")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "List", id)
+}
+func (w Concrete) DeleteLocation(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Location")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Location", id)
+}
+func (w Concrete) DeleteMeasure(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Measure")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Measure", id)
+}
+func (w Concrete) DeleteMeasureReport(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MeasureReport")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MeasureReport", id)
+}
+func (w Concrete) DeleteMedia(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Media")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Media", id)
+}
+func (w Concrete) DeleteMedication(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Medication")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Medication", id)
+}
+func (w Concrete) DeleteMedicationAdministration(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicationAdministration")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicationAdministration", id)
+}
+func (w Concrete) DeleteMedicationDispense(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicationDispense")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicationDispense", id)
+}
+func (w Concrete) DeleteMedicationKnowledge(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicationKnowledge")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicationKnowledge", id)
+}
+func (w Concrete) DeleteMedicationRequest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicationRequest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicationRequest", id)
+}
+func (w Concrete) DeleteMedicationStatement(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicationStatement")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicationStatement", id)
+}
+func (w Concrete) DeleteMedicinalProduct(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProduct")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProduct", id)
+}
+func (w Concrete) DeleteMedicinalProductAuthorization(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductAuthorization")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductAuthorization", id)
+}
+func (w Concrete) DeleteMedicinalProductContraindication(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductContraindication")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductContraindication", id)
+}
+func (w Concrete) DeleteMedicinalProductIndication(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductIndication")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductIndication", id)
+}
+func (w Concrete) DeleteMedicinalProductIngredient(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductIngredient")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductIngredient", id)
+}
+func (w Concrete) DeleteMedicinalProductInteraction(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductInteraction")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductInteraction", id)
+}
+func (w Concrete) DeleteMedicinalProductManufactured(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductManufactured")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductManufactured", id)
+}
+func (w Concrete) DeleteMedicinalProductPackaged(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductPackaged")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductPackaged", id)
+}
+func (w Concrete) DeleteMedicinalProductPharmaceutical(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductPharmaceutical")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductPharmaceutical", id)
+}
+func (w Concrete) DeleteMedicinalProductUndesirableEffect(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MedicinalProductUndesirableEffect")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MedicinalProductUndesirableEffect", id)
+}
+func (w Concrete) DeleteMessageDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MessageDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MessageDefinition", id)
+}
+func (w Concrete) DeleteMessageHeader(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MessageHeader")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MessageHeader", id)
+}
+func (w Concrete) DeleteMolecularSequence(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for MolecularSequence")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "MolecularSequence", id)
+}
+func (w Concrete) DeleteNamingSystem(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for NamingSystem")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "NamingSystem", id)
+}
+func (w Concrete) DeleteNutritionOrder(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for NutritionOrder")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "NutritionOrder", id)
+}
+func (w Concrete) DeleteObservation(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Observation")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Observation", id)
+}
+func (w Concrete) DeleteObservationDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ObservationDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ObservationDefinition", id)
+}
+func (w Concrete) DeleteOperationDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for OperationDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "OperationDefinition", id)
+}
+func (w Concrete) DeleteOperationOutcome(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for OperationOutcome")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "OperationOutcome", id)
+}
+func (w Concrete) DeleteOrganization(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Organization")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Organization", id)
+}
+func (w Concrete) DeleteOrganizationAffiliation(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for OrganizationAffiliation")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "OrganizationAffiliation", id)
+}
+func (w Concrete) DeleteParameters(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Parameters")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Parameters", id)
+}
+func (w Concrete) DeletePatient(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Patient")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Patient", id)
+}
+func (w Concrete) DeletePaymentNotice(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for PaymentNotice")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "PaymentNotice", id)
+}
+func (w Concrete) DeletePaymentReconciliation(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for PaymentReconciliation")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "PaymentReconciliation", id)
+}
+func (w Concrete) DeletePerson(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Person")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Person", id)
+}
+func (w Concrete) DeletePlanDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for PlanDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "PlanDefinition", id)
+}
+func (w Concrete) DeletePractitioner(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Practitioner")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Practitioner", id)
+}
+func (w Concrete) DeletePractitionerRole(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for PractitionerRole")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "PractitionerRole", id)
+}
+func (w Concrete) DeleteProcedure(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Procedure")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Procedure", id)
+}
+func (w Concrete) DeleteProvenance(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Provenance")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Provenance", id)
+}
+func (w Concrete) DeleteQuestionnaire(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Questionnaire")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Questionnaire", id)
+}
+func (w Concrete) DeleteQuestionnaireResponse(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for QuestionnaireResponse")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "QuestionnaireResponse", id)
+}
+func (w Concrete) DeleteRelatedPerson(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for RelatedPerson")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "RelatedPerson", id)
+}
+func (w Concrete) DeleteRequestGroup(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for RequestGroup")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "RequestGroup", id)
+}
+func (w Concrete) DeleteResearchDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ResearchDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ResearchDefinition", id)
+}
+func (w Concrete) DeleteResearchElementDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ResearchElementDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ResearchElementDefinition", id)
+}
+func (w Concrete) DeleteResearchStudy(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ResearchStudy")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ResearchStudy", id)
+}
+func (w Concrete) DeleteResearchSubject(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ResearchSubject")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ResearchSubject", id)
+}
+func (w Concrete) DeleteRiskAssessment(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for RiskAssessment")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "RiskAssessment", id)
+}
+func (w Concrete) DeleteRiskEvidenceSynthesis(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for RiskEvidenceSynthesis")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "RiskEvidenceSynthesis", id)
+}
+func (w Concrete) DeleteSchedule(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Schedule")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Schedule", id)
+}
+func (w Concrete) DeleteSearchParameter(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SearchParameter")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SearchParameter", id)
+}
+func (w Concrete) DeleteServiceRequest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ServiceRequest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ServiceRequest", id)
+}
+func (w Concrete) DeleteSlot(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Slot")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Slot", id)
+}
+func (w Concrete) DeleteSpecimen(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Specimen")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Specimen", id)
+}
+func (w Concrete) DeleteSpecimenDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SpecimenDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SpecimenDefinition", id)
+}
+func (w Concrete) DeleteStructureDefinition(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for StructureDefinition")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "StructureDefinition", id)
+}
+func (w Concrete) DeleteStructureMap(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for StructureMap")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "StructureMap", id)
+}
+func (w Concrete) DeleteSubscription(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Subscription")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Subscription", id)
+}
+func (w Concrete) DeleteSubstance(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Substance")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Substance", id)
+}
+func (w Concrete) DeleteSubstanceNucleicAcid(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SubstanceNucleicAcid")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SubstanceNucleicAcid", id)
+}
+func (w Concrete) DeleteSubstancePolymer(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SubstancePolymer")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SubstancePolymer", id)
+}
+func (w Concrete) DeleteSubstanceProtein(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SubstanceProtein")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SubstanceProtein", id)
+}
+func (w Concrete) DeleteSubstanceReferenceInformation(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SubstanceReferenceInformation")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SubstanceReferenceInformation", id)
+}
+func (w Concrete) DeleteSubstanceSourceMaterial(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SubstanceSourceMaterial")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SubstanceSourceMaterial", id)
+}
+func (w Concrete) DeleteSubstanceSpecification(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SubstanceSpecification")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SubstanceSpecification", id)
+}
+func (w Concrete) DeleteSupplyDelivery(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SupplyDelivery")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SupplyDelivery", id)
+}
+func (w Concrete) DeleteSupplyRequest(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for SupplyRequest")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "SupplyRequest", id)
+}
+func (w Concrete) DeleteTask(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for Task")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "Task", id)
+}
+func (w Concrete) DeleteTerminologyCapabilities(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for TerminologyCapabilities")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "TerminologyCapabilities", id)
+}
+func (w Concrete) DeleteTestReport(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for TestReport")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "TestReport", id)
+}
+func (w Concrete) DeleteTestScript(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for TestScript")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "TestScript", id)
+}
+func (w Concrete) DeleteValueSet(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for ValueSet")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "ValueSet", id)
+}
+func (w Concrete) DeleteVerificationResult(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for VerificationResult")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "VerificationResult", id)
+}
+func (w Concrete) DeleteVisionPrescription(ctx context.Context, id string) error {
+	g, ok := w.Generic.(capabilities.GenericDelete)
+	if !ok {
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{r4.OperationOutcomeIssue{
+			Code:        r4.Code{Value: utils.Ptr("not-supported")},
+			Diagnostics: &r4.String{Value: utils.Ptr("Delete not implemented for VisionPrescription")},
+			Severity:    r4.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+	return g.Delete(ctx, "VisionPrescription", id)
+}
 func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {

@@ -5428,6 +5428,1431 @@ func (w Generic) Update(ctx context.Context, resource model.Resource) (capabilit
 		}}}
 	}
 }
+func (w Generic) Delete(ctx context.Context, resourceType string, id string) error {
+	g, ok := w.Concrete.(capabilities.GenericDelete)
+	if ok {
+		// shortcut for the case that the underlying implementation already implements the generic API
+		return g.Delete(ctx, resourceType, id)
+	}
+	switch resourceType {
+	case "Account":
+		impl, ok := w.Concrete.(AccountDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Account")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteAccount(ctx, id)
+	case "ActivityDefinition":
+		impl, ok := w.Concrete.(ActivityDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ActivityDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteActivityDefinition(ctx, id)
+	case "AdministrableProductDefinition":
+		impl, ok := w.Concrete.(AdministrableProductDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for AdministrableProductDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteAdministrableProductDefinition(ctx, id)
+	case "AdverseEvent":
+		impl, ok := w.Concrete.(AdverseEventDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for AdverseEvent")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteAdverseEvent(ctx, id)
+	case "AllergyIntolerance":
+		impl, ok := w.Concrete.(AllergyIntoleranceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for AllergyIntolerance")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteAllergyIntolerance(ctx, id)
+	case "Appointment":
+		impl, ok := w.Concrete.(AppointmentDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Appointment")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteAppointment(ctx, id)
+	case "AppointmentResponse":
+		impl, ok := w.Concrete.(AppointmentResponseDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for AppointmentResponse")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteAppointmentResponse(ctx, id)
+	case "AuditEvent":
+		impl, ok := w.Concrete.(AuditEventDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for AuditEvent")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteAuditEvent(ctx, id)
+	case "Basic":
+		impl, ok := w.Concrete.(BasicDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Basic")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteBasic(ctx, id)
+	case "Binary":
+		impl, ok := w.Concrete.(BinaryDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Binary")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteBinary(ctx, id)
+	case "BiologicallyDerivedProduct":
+		impl, ok := w.Concrete.(BiologicallyDerivedProductDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for BiologicallyDerivedProduct")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteBiologicallyDerivedProduct(ctx, id)
+	case "BodyStructure":
+		impl, ok := w.Concrete.(BodyStructureDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for BodyStructure")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteBodyStructure(ctx, id)
+	case "Bundle":
+		impl, ok := w.Concrete.(BundleDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Bundle")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteBundle(ctx, id)
+	case "CapabilityStatement":
+		impl, ok := w.Concrete.(CapabilityStatementDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CapabilityStatement")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCapabilityStatement(ctx, id)
+	case "CarePlan":
+		impl, ok := w.Concrete.(CarePlanDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CarePlan")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCarePlan(ctx, id)
+	case "CareTeam":
+		impl, ok := w.Concrete.(CareTeamDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CareTeam")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCareTeam(ctx, id)
+	case "CatalogEntry":
+		impl, ok := w.Concrete.(CatalogEntryDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CatalogEntry")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCatalogEntry(ctx, id)
+	case "ChargeItem":
+		impl, ok := w.Concrete.(ChargeItemDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ChargeItem")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteChargeItem(ctx, id)
+	case "ChargeItemDefinition":
+		impl, ok := w.Concrete.(ChargeItemDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ChargeItemDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteChargeItemDefinition(ctx, id)
+	case "Citation":
+		impl, ok := w.Concrete.(CitationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Citation")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCitation(ctx, id)
+	case "Claim":
+		impl, ok := w.Concrete.(ClaimDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Claim")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteClaim(ctx, id)
+	case "ClaimResponse":
+		impl, ok := w.Concrete.(ClaimResponseDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ClaimResponse")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteClaimResponse(ctx, id)
+	case "ClinicalImpression":
+		impl, ok := w.Concrete.(ClinicalImpressionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ClinicalImpression")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteClinicalImpression(ctx, id)
+	case "ClinicalUseDefinition":
+		impl, ok := w.Concrete.(ClinicalUseDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ClinicalUseDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteClinicalUseDefinition(ctx, id)
+	case "CodeSystem":
+		impl, ok := w.Concrete.(CodeSystemDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CodeSystem")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCodeSystem(ctx, id)
+	case "Communication":
+		impl, ok := w.Concrete.(CommunicationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Communication")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCommunication(ctx, id)
+	case "CommunicationRequest":
+		impl, ok := w.Concrete.(CommunicationRequestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CommunicationRequest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCommunicationRequest(ctx, id)
+	case "CompartmentDefinition":
+		impl, ok := w.Concrete.(CompartmentDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CompartmentDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCompartmentDefinition(ctx, id)
+	case "Composition":
+		impl, ok := w.Concrete.(CompositionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Composition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteComposition(ctx, id)
+	case "ConceptMap":
+		impl, ok := w.Concrete.(ConceptMapDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ConceptMap")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteConceptMap(ctx, id)
+	case "Condition":
+		impl, ok := w.Concrete.(ConditionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Condition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCondition(ctx, id)
+	case "Consent":
+		impl, ok := w.Concrete.(ConsentDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Consent")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteConsent(ctx, id)
+	case "Contract":
+		impl, ok := w.Concrete.(ContractDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Contract")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteContract(ctx, id)
+	case "Coverage":
+		impl, ok := w.Concrete.(CoverageDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Coverage")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCoverage(ctx, id)
+	case "CoverageEligibilityRequest":
+		impl, ok := w.Concrete.(CoverageEligibilityRequestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CoverageEligibilityRequest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCoverageEligibilityRequest(ctx, id)
+	case "CoverageEligibilityResponse":
+		impl, ok := w.Concrete.(CoverageEligibilityResponseDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for CoverageEligibilityResponse")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteCoverageEligibilityResponse(ctx, id)
+	case "DetectedIssue":
+		impl, ok := w.Concrete.(DetectedIssueDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DetectedIssue")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDetectedIssue(ctx, id)
+	case "Device":
+		impl, ok := w.Concrete.(DeviceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Device")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDevice(ctx, id)
+	case "DeviceDefinition":
+		impl, ok := w.Concrete.(DeviceDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DeviceDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDeviceDefinition(ctx, id)
+	case "DeviceMetric":
+		impl, ok := w.Concrete.(DeviceMetricDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DeviceMetric")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDeviceMetric(ctx, id)
+	case "DeviceRequest":
+		impl, ok := w.Concrete.(DeviceRequestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DeviceRequest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDeviceRequest(ctx, id)
+	case "DeviceUseStatement":
+		impl, ok := w.Concrete.(DeviceUseStatementDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DeviceUseStatement")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDeviceUseStatement(ctx, id)
+	case "DiagnosticReport":
+		impl, ok := w.Concrete.(DiagnosticReportDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DiagnosticReport")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDiagnosticReport(ctx, id)
+	case "DocumentManifest":
+		impl, ok := w.Concrete.(DocumentManifestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DocumentManifest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDocumentManifest(ctx, id)
+	case "DocumentReference":
+		impl, ok := w.Concrete.(DocumentReferenceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for DocumentReference")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteDocumentReference(ctx, id)
+	case "Encounter":
+		impl, ok := w.Concrete.(EncounterDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Encounter")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEncounter(ctx, id)
+	case "Endpoint":
+		impl, ok := w.Concrete.(EndpointDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Endpoint")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEndpoint(ctx, id)
+	case "EnrollmentRequest":
+		impl, ok := w.Concrete.(EnrollmentRequestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for EnrollmentRequest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEnrollmentRequest(ctx, id)
+	case "EnrollmentResponse":
+		impl, ok := w.Concrete.(EnrollmentResponseDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for EnrollmentResponse")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEnrollmentResponse(ctx, id)
+	case "EpisodeOfCare":
+		impl, ok := w.Concrete.(EpisodeOfCareDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for EpisodeOfCare")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEpisodeOfCare(ctx, id)
+	case "EventDefinition":
+		impl, ok := w.Concrete.(EventDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for EventDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEventDefinition(ctx, id)
+	case "Evidence":
+		impl, ok := w.Concrete.(EvidenceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Evidence")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEvidence(ctx, id)
+	case "EvidenceReport":
+		impl, ok := w.Concrete.(EvidenceReportDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for EvidenceReport")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEvidenceReport(ctx, id)
+	case "EvidenceVariable":
+		impl, ok := w.Concrete.(EvidenceVariableDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for EvidenceVariable")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteEvidenceVariable(ctx, id)
+	case "ExampleScenario":
+		impl, ok := w.Concrete.(ExampleScenarioDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ExampleScenario")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteExampleScenario(ctx, id)
+	case "ExplanationOfBenefit":
+		impl, ok := w.Concrete.(ExplanationOfBenefitDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ExplanationOfBenefit")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteExplanationOfBenefit(ctx, id)
+	case "FamilyMemberHistory":
+		impl, ok := w.Concrete.(FamilyMemberHistoryDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for FamilyMemberHistory")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteFamilyMemberHistory(ctx, id)
+	case "Flag":
+		impl, ok := w.Concrete.(FlagDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Flag")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteFlag(ctx, id)
+	case "Goal":
+		impl, ok := w.Concrete.(GoalDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Goal")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteGoal(ctx, id)
+	case "GraphDefinition":
+		impl, ok := w.Concrete.(GraphDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for GraphDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteGraphDefinition(ctx, id)
+	case "Group":
+		impl, ok := w.Concrete.(GroupDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Group")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteGroup(ctx, id)
+	case "GuidanceResponse":
+		impl, ok := w.Concrete.(GuidanceResponseDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for GuidanceResponse")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteGuidanceResponse(ctx, id)
+	case "HealthcareService":
+		impl, ok := w.Concrete.(HealthcareServiceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for HealthcareService")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteHealthcareService(ctx, id)
+	case "ImagingStudy":
+		impl, ok := w.Concrete.(ImagingStudyDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ImagingStudy")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteImagingStudy(ctx, id)
+	case "Immunization":
+		impl, ok := w.Concrete.(ImmunizationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Immunization")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteImmunization(ctx, id)
+	case "ImmunizationEvaluation":
+		impl, ok := w.Concrete.(ImmunizationEvaluationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ImmunizationEvaluation")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteImmunizationEvaluation(ctx, id)
+	case "ImmunizationRecommendation":
+		impl, ok := w.Concrete.(ImmunizationRecommendationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ImmunizationRecommendation")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteImmunizationRecommendation(ctx, id)
+	case "ImplementationGuide":
+		impl, ok := w.Concrete.(ImplementationGuideDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ImplementationGuide")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteImplementationGuide(ctx, id)
+	case "Ingredient":
+		impl, ok := w.Concrete.(IngredientDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Ingredient")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteIngredient(ctx, id)
+	case "InsurancePlan":
+		impl, ok := w.Concrete.(InsurancePlanDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for InsurancePlan")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteInsurancePlan(ctx, id)
+	case "Invoice":
+		impl, ok := w.Concrete.(InvoiceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Invoice")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteInvoice(ctx, id)
+	case "Library":
+		impl, ok := w.Concrete.(LibraryDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Library")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteLibrary(ctx, id)
+	case "Linkage":
+		impl, ok := w.Concrete.(LinkageDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Linkage")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteLinkage(ctx, id)
+	case "List":
+		impl, ok := w.Concrete.(ListDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for List")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteList(ctx, id)
+	case "Location":
+		impl, ok := w.Concrete.(LocationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Location")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteLocation(ctx, id)
+	case "ManufacturedItemDefinition":
+		impl, ok := w.Concrete.(ManufacturedItemDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ManufacturedItemDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteManufacturedItemDefinition(ctx, id)
+	case "Measure":
+		impl, ok := w.Concrete.(MeasureDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Measure")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMeasure(ctx, id)
+	case "MeasureReport":
+		impl, ok := w.Concrete.(MeasureReportDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MeasureReport")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMeasureReport(ctx, id)
+	case "Media":
+		impl, ok := w.Concrete.(MediaDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Media")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedia(ctx, id)
+	case "Medication":
+		impl, ok := w.Concrete.(MedicationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Medication")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedication(ctx, id)
+	case "MedicationAdministration":
+		impl, ok := w.Concrete.(MedicationAdministrationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MedicationAdministration")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedicationAdministration(ctx, id)
+	case "MedicationDispense":
+		impl, ok := w.Concrete.(MedicationDispenseDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MedicationDispense")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedicationDispense(ctx, id)
+	case "MedicationKnowledge":
+		impl, ok := w.Concrete.(MedicationKnowledgeDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MedicationKnowledge")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedicationKnowledge(ctx, id)
+	case "MedicationRequest":
+		impl, ok := w.Concrete.(MedicationRequestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MedicationRequest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedicationRequest(ctx, id)
+	case "MedicationStatement":
+		impl, ok := w.Concrete.(MedicationStatementDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MedicationStatement")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedicationStatement(ctx, id)
+	case "MedicinalProductDefinition":
+		impl, ok := w.Concrete.(MedicinalProductDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MedicinalProductDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMedicinalProductDefinition(ctx, id)
+	case "MessageDefinition":
+		impl, ok := w.Concrete.(MessageDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MessageDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMessageDefinition(ctx, id)
+	case "MessageHeader":
+		impl, ok := w.Concrete.(MessageHeaderDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MessageHeader")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMessageHeader(ctx, id)
+	case "MolecularSequence":
+		impl, ok := w.Concrete.(MolecularSequenceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for MolecularSequence")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteMolecularSequence(ctx, id)
+	case "NamingSystem":
+		impl, ok := w.Concrete.(NamingSystemDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for NamingSystem")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteNamingSystem(ctx, id)
+	case "NutritionOrder":
+		impl, ok := w.Concrete.(NutritionOrderDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for NutritionOrder")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteNutritionOrder(ctx, id)
+	case "NutritionProduct":
+		impl, ok := w.Concrete.(NutritionProductDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for NutritionProduct")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteNutritionProduct(ctx, id)
+	case "Observation":
+		impl, ok := w.Concrete.(ObservationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Observation")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteObservation(ctx, id)
+	case "ObservationDefinition":
+		impl, ok := w.Concrete.(ObservationDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ObservationDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteObservationDefinition(ctx, id)
+	case "OperationDefinition":
+		impl, ok := w.Concrete.(OperationDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for OperationDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteOperationDefinition(ctx, id)
+	case "OperationOutcome":
+		impl, ok := w.Concrete.(OperationOutcomeDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for OperationOutcome")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteOperationOutcome(ctx, id)
+	case "Organization":
+		impl, ok := w.Concrete.(OrganizationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Organization")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteOrganization(ctx, id)
+	case "OrganizationAffiliation":
+		impl, ok := w.Concrete.(OrganizationAffiliationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for OrganizationAffiliation")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteOrganizationAffiliation(ctx, id)
+	case "PackagedProductDefinition":
+		impl, ok := w.Concrete.(PackagedProductDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for PackagedProductDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePackagedProductDefinition(ctx, id)
+	case "Parameters":
+		impl, ok := w.Concrete.(ParametersDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Parameters")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteParameters(ctx, id)
+	case "Patient":
+		impl, ok := w.Concrete.(PatientDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Patient")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePatient(ctx, id)
+	case "PaymentNotice":
+		impl, ok := w.Concrete.(PaymentNoticeDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for PaymentNotice")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePaymentNotice(ctx, id)
+	case "PaymentReconciliation":
+		impl, ok := w.Concrete.(PaymentReconciliationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for PaymentReconciliation")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePaymentReconciliation(ctx, id)
+	case "Person":
+		impl, ok := w.Concrete.(PersonDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Person")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePerson(ctx, id)
+	case "PlanDefinition":
+		impl, ok := w.Concrete.(PlanDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for PlanDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePlanDefinition(ctx, id)
+	case "Practitioner":
+		impl, ok := w.Concrete.(PractitionerDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Practitioner")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePractitioner(ctx, id)
+	case "PractitionerRole":
+		impl, ok := w.Concrete.(PractitionerRoleDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for PractitionerRole")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeletePractitionerRole(ctx, id)
+	case "Procedure":
+		impl, ok := w.Concrete.(ProcedureDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Procedure")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteProcedure(ctx, id)
+	case "Provenance":
+		impl, ok := w.Concrete.(ProvenanceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Provenance")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteProvenance(ctx, id)
+	case "Questionnaire":
+		impl, ok := w.Concrete.(QuestionnaireDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Questionnaire")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteQuestionnaire(ctx, id)
+	case "QuestionnaireResponse":
+		impl, ok := w.Concrete.(QuestionnaireResponseDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for QuestionnaireResponse")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteQuestionnaireResponse(ctx, id)
+	case "RegulatedAuthorization":
+		impl, ok := w.Concrete.(RegulatedAuthorizationDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for RegulatedAuthorization")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteRegulatedAuthorization(ctx, id)
+	case "RelatedPerson":
+		impl, ok := w.Concrete.(RelatedPersonDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for RelatedPerson")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteRelatedPerson(ctx, id)
+	case "RequestGroup":
+		impl, ok := w.Concrete.(RequestGroupDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for RequestGroup")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteRequestGroup(ctx, id)
+	case "ResearchDefinition":
+		impl, ok := w.Concrete.(ResearchDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ResearchDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteResearchDefinition(ctx, id)
+	case "ResearchElementDefinition":
+		impl, ok := w.Concrete.(ResearchElementDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ResearchElementDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteResearchElementDefinition(ctx, id)
+	case "ResearchStudy":
+		impl, ok := w.Concrete.(ResearchStudyDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ResearchStudy")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteResearchStudy(ctx, id)
+	case "ResearchSubject":
+		impl, ok := w.Concrete.(ResearchSubjectDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ResearchSubject")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteResearchSubject(ctx, id)
+	case "RiskAssessment":
+		impl, ok := w.Concrete.(RiskAssessmentDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for RiskAssessment")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteRiskAssessment(ctx, id)
+	case "Schedule":
+		impl, ok := w.Concrete.(ScheduleDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Schedule")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSchedule(ctx, id)
+	case "SearchParameter":
+		impl, ok := w.Concrete.(SearchParameterDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for SearchParameter")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSearchParameter(ctx, id)
+	case "ServiceRequest":
+		impl, ok := w.Concrete.(ServiceRequestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ServiceRequest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteServiceRequest(ctx, id)
+	case "Slot":
+		impl, ok := w.Concrete.(SlotDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Slot")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSlot(ctx, id)
+	case "Specimen":
+		impl, ok := w.Concrete.(SpecimenDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Specimen")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSpecimen(ctx, id)
+	case "SpecimenDefinition":
+		impl, ok := w.Concrete.(SpecimenDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for SpecimenDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSpecimenDefinition(ctx, id)
+	case "StructureDefinition":
+		impl, ok := w.Concrete.(StructureDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for StructureDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteStructureDefinition(ctx, id)
+	case "StructureMap":
+		impl, ok := w.Concrete.(StructureMapDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for StructureMap")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteStructureMap(ctx, id)
+	case "Subscription":
+		impl, ok := w.Concrete.(SubscriptionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Subscription")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSubscription(ctx, id)
+	case "SubscriptionStatus":
+		impl, ok := w.Concrete.(SubscriptionStatusDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for SubscriptionStatus")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSubscriptionStatus(ctx, id)
+	case "SubscriptionTopic":
+		impl, ok := w.Concrete.(SubscriptionTopicDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for SubscriptionTopic")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSubscriptionTopic(ctx, id)
+	case "Substance":
+		impl, ok := w.Concrete.(SubstanceDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Substance")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSubstance(ctx, id)
+	case "SubstanceDefinition":
+		impl, ok := w.Concrete.(SubstanceDefinitionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for SubstanceDefinition")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSubstanceDefinition(ctx, id)
+	case "SupplyDelivery":
+		impl, ok := w.Concrete.(SupplyDeliveryDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for SupplyDelivery")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSupplyDelivery(ctx, id)
+	case "SupplyRequest":
+		impl, ok := w.Concrete.(SupplyRequestDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for SupplyRequest")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteSupplyRequest(ctx, id)
+	case "Task":
+		impl, ok := w.Concrete.(TaskDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for Task")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteTask(ctx, id)
+	case "TerminologyCapabilities":
+		impl, ok := w.Concrete.(TerminologyCapabilitiesDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for TerminologyCapabilities")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteTerminologyCapabilities(ctx, id)
+	case "TestReport":
+		impl, ok := w.Concrete.(TestReportDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for TestReport")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteTestReport(ctx, id)
+	case "TestScript":
+		impl, ok := w.Concrete.(TestScriptDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for TestScript")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteTestScript(ctx, id)
+	case "ValueSet":
+		impl, ok := w.Concrete.(ValueSetDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for ValueSet")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteValueSet(ctx, id)
+	case "VerificationResult":
+		impl, ok := w.Concrete.(VerificationResultDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for VerificationResult")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteVerificationResult(ctx, id)
+	case "VisionPrescription":
+		impl, ok := w.Concrete.(VisionPrescriptionDelete)
+		if !ok {
+			return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+				Code:        r4b.Code{Value: utils.Ptr("not-supported")},
+				Diagnostics: &r4b.String{Value: utils.Ptr("delete not implemented for VisionPrescription")},
+				Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+			}}}
+		}
+		return impl.DeleteVisionPrescription(ctx, id)
+	default:
+		return r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{r4b.OperationOutcomeIssue{
+			Code:        r4b.Code{Value: utils.Ptr("processing")},
+			Diagnostics: &r4b.String{Value: utils.Ptr("invalid resource type: " + resourceType)},
+			Severity:    r4b.Code{Value: utils.Ptr("fatal")},
+		}}}
+	}
+}
 func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, error) {
 	switch resourceType {
 	case "Account":

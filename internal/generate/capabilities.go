@@ -16,6 +16,7 @@ func (g CapabilitiesGenerator) GenerateAdditional(f func(fileName string, pkgNam
 	generateCapability(f("create", "capabilities"+release), ir.FilterResources(rt), release, "create")
 	generateCapability(f("read", "capabilities"+release), ir.FilterResources(rt), release, "read")
 	generateCapability(f("update", "capabilities"+release), ir.FilterResources(rt), release, "update")
+	generateCapability(f("delete", "capabilities"+release), ir.FilterResources(rt), release, "delete")
 	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search")
 
 	generateAllCapabilitiesFn(f("capabilities", "capabilities"+release), release, ir.FilterResources(rt))
@@ -57,6 +58,15 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 						Qual(moduleName+"/capabilities", "UpdateResult").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)),
 						Error(),
 					)
+			case "delete":
+				g.Id(interactionName+r.Name).
+					Params(
+						Id("ctx").Qual("context", "Context"),
+						Id("id").String(),
+					).
+					Params(
+						Error(),
+					)
 			case "search":
 				g.Id("SearchCapabilities"+r.Name).Params(Id("ctx").Qual("context", "Context")).Params(
 					Qual(moduleName+"/capabilities/search", "Capabilities"),
@@ -92,7 +102,7 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 		g.Var().Id("errs").Index().Error()
 
 		for _, r := range resources {
-			for _, interaction := range []string{"create", "read", "update" /*, "delete"*/} {
+			for _, interaction := range []string{"create", "read", "update", "delete"} {
 				interactionName := strcase.ToCamel(interaction)
 
 				g.If(

@@ -39,6 +39,11 @@ type UpdateResult[R model.Resource] struct {
 	Created bool
 }
 
+// The GenericDelete interface provides a generic deletion capability by passing the `resourceType` as string.
+type GenericDelete interface {
+	Delete(ctx context.Context, resourceType, id string) error
+}
+
 // The GenericSearch interface provides a generic search capability by passing the `resourceType` as string.
 type GenericSearch interface {
 	// GenericCapabilities is required because it includes the search capabilities (parameters etc.).

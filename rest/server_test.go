@@ -77,6 +77,9 @@ func TestCapabilityStatement(t *testing.T) {
 						  "code": "update"
 						},
 						{
+						  "code": "delete"
+						},
+						{
 						  "code": "search-type"
 						}
 					  ],
@@ -180,6 +183,9 @@ func TestCapabilityStatement(t *testing.T) {
 					  </interaction>
 					  <interaction>
 						<code value='update'/>
+					  </interaction>
+					  <interaction>
+						<code value='delete'/>
 					  </interaction>
 					  <interaction>
 						<code value='search-type'/>
@@ -1396,6 +1402,21 @@ func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.
 	return patient, nil
 }
 
+func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
+	if len(m.mockPatients) == 0 {
+		return r4.Patient{}, basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("not-found")},
+					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("Patient with ID %s not found", id))},
+				},
+			},
+		}
+	}
+	return m.mockPatients[0], nil
+}
+
 func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (capabilities.UpdateResult[r4.Patient], error) {
 	// If the patient ID is "new-resource", mark it as created
 	if id, ok := patient.ResourceId(); ok && id == "new-resource" {
@@ -1414,21 +1435,6 @@ func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (cap
 
 func (m mockBackend) DeletePatient(ctx context.Context, id string) error {
 	return nil
-}
-
-func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
-	if len(m.mockPatients) == 0 {
-		return r4.Patient{}, basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: utils.Ptr("error")},
-					Code:        basic.Code{Value: utils.Ptr("not-found")},
-					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("Patient with ID %s not found", id))},
-				},
-			},
-		}
-	}
-	return m.mockPatients[0], nil
 }
 
 func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
