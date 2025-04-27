@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"log"
 	"log/slog"
 	"net/http"
@@ -34,7 +35,7 @@ func main() {
 	// Create a client to the backing server.
 	//
 	// The client is implemented below and serves only as an example.
-	// A full-featured client should be in scope of this package and might be added eventually.
+	// A full-featured client might be in scope of fhir-toolbox-go module and will be added eventually.
 	// The example client only supports the read and search operations and exposes them using the generic API.
 	var genericClient interface {
 		capabilities.GenericRead
@@ -43,18 +44,8 @@ func main() {
 		url: strings.TrimRight(backendUrl, "/"),
 	}
 
-	// You can provide the concrete API by wrapping the generic API
-	// (uncomment the following lines to try it out):
-	//concreteApi := wrap.Concreter5(&genericClient)
-	//somePatient, fhirErr := concreteApi.ReadPatient(context.Background(), "547")
-	//if fhirErr != nil {
-	//	log.Fatalf("error reading some Patient %v", fhirErr)
-	//}
-	//fmt.Printf("some Patient: %v\n", somePatient)
-
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	// Note: it is important to pass a references, as the methods below also implemented on a pointer as receiver.
 	cfg := rest.DefaultConfig
 	cfg.Base = &url.URL{Scheme: "http", Host: "localhost"}
 	server, err := rest.NewServer[model.R5](genericClient, cfg)
@@ -86,8 +77,17 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 
 	resp, err := http.Get(url)
 	if err != nil {
-		// TODO: return a proper error with operation outcome
-		panic(err)
+		// OperationOutcome implement the Go error interface.
+		// The server will return an appropriate HTTP status code and the OperationOutcome as the response body.
+		return nil, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("error executing backend request: %s", err))},
+				},
+			},
+		}
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(&resource)
@@ -105,8 +105,15 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 
 	resp, err := http.Get(url)
 	if err != nil {
-		// TODO: return a proper error with operation outcome
-		panic(err)
+		return search.Result{}, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("error executing backend request: %s", err))},
+				},
+			},
+		}
 	}
 
 	// TODO: proper error handling based on the response status code
@@ -114,8 +121,15 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 	var bundle r5.Bundle
 	err = json.NewDecoder(resp.Body).Decode(&bundle)
 	if err != nil {
-		// TODO: return a proper error with operation outcome
-		panic(err)
+		return search.Result{}, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("got invalid JSON from backend: %s", err))},
+				},
+			},
+		}
 	}
 
 	resources := make([]model.Resource, 0, len(bundle.Entry))
