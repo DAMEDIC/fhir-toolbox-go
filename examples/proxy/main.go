@@ -20,6 +20,13 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 )
 
+// For implementing generic APIs, it is good practice to define a common interface for the client.
+// This groups all the capabilities that are supported.
+type myClient interface {
+	capabilities.GenericRead
+	capabilities.GenericSearch
+}
+
 func main() {
 	var backendUrl = os.Args[1]
 
@@ -35,12 +42,9 @@ func main() {
 	// Create a client to the backing server.
 	//
 	// The client is implemented below and serves only as an example.
-	// A full-featured client might be in scope of fhir-toolbox-go module and will be added eventually.
+	// A full-featured client might be in the scope of the fhir-toolbox-go module and will be added eventually.
 	// The example client only supports the read and search operations and exposes them using the generic API.
-	var genericClient interface {
-		capabilities.GenericRead
-		capabilities.GenericSearch
-	} = &Client{
+	var genericClient myClient = &Client{
 		url: strings.TrimRight(backendUrl, "/"),
 	}
 

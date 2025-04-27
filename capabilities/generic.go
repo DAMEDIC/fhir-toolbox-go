@@ -42,13 +42,3 @@ type GenericSearch interface {
 	GenericCapabilities
 	Search(ctx context.Context, resourceType string, options search.Options) (search.Result[model.Resource], error)
 }
-
-// The GenericAPI interface combines all generic interfaces to provide a complete API.
-type GenericAPI interface {
-	GenericCapabilities
-	GenericCreate
-	GenericRead
-	GenericUpdate
-	GenericDelete
-	GenericSearch
-}

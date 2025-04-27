@@ -110,13 +110,13 @@ or standalone FHIR® servers.
 Wrapper structs facilitate interoperability between the generic and the concrete API.
 
 ```Go
-genericAPI := r4.Generic{Concrete: concreteAPI}
+genericAPI := capabilitiesR4.Generic{Concrete: concreteAPI}
 ```
 
 and vice versa:
 
 ```Go
-concreteAPI := r4.Concrete{Generic: genericAPI}
+concreteAPI := capabilitiesR4.Concrete{Generic: genericAPI}
 ```
 
 ## FHIRPath
