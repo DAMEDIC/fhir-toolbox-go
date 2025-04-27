@@ -3,20 +3,113 @@ package rest_test
 import (
 	"context"
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
-	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertjson"
-	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assertxml"
+	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 )
+
+// testCase represents a common structure for HTTP handler tests
+type testCase struct {
+	name             string
+	method           string
+	format           string
+	resourceType     string
+	resourceID       string
+	queryString      string
+	requestBody      string
+	backend          any
+	expectedStatus   int
+	expectedLocation string
+	expectedBody     string
+}
+
+// runTest executes a common test pattern for HTTP handlers
+func runTest(t *testing.T, tc testCase) {
+	config := rest.DefaultConfig
+	config.Base, _ = url.Parse("http://example.com")
+
+	server, err := rest.NewServer[model.R4](tc.backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	var requestURL string
+	if tc.queryString != "" {
+		// For search requests
+		requestURL = fmt.Sprintf("http://example.com/%s?%s", tc.resourceType, tc.queryString)
+	} else if tc.resourceID != "" {
+		// For resource-specific requests
+		requestURL = fmt.Sprintf("http://example.com/%s/%s", tc.resourceType, tc.resourceID)
+	} else {
+		// For resource type-level requests
+		requestURL = fmt.Sprintf("http://example.com/%s", tc.resourceType)
+	}
+
+	var req *http.Request
+	if tc.requestBody != "" {
+		req = httptest.NewRequest(tc.method, requestURL, strings.NewReader(tc.requestBody))
+		req.Header.Set("Content-Type", tc.format)
+	} else {
+		req = httptest.NewRequest(tc.method, requestURL, nil)
+		if tc.format != "" {
+			req.Header.Set("Accept", tc.format)
+		}
+	}
+
+	// For search requests, add the test to the context
+	if tc.queryString != "" {
+		req = req.WithContext(context.WithValue(req.Context(), "t", t))
+	}
+
+	rr := httptest.NewRecorder()
+	server.ServeHTTP(rr, req)
+
+	if rr.Code != tc.expectedStatus {
+		t.Errorf("Expected status code %d, got %d", tc.expectedStatus, rr.Code)
+	}
+
+	// Check Location header for successful creation or update
+	if tc.expectedLocation != "" {
+		location := rr.Header().Get("Location")
+		if location != tc.expectedLocation {
+			t.Errorf("Expected Location header %s, got %s", tc.expectedLocation, location)
+		}
+	}
+
+	// Skip content type and body checks if expected body is empty
+	if tc.expectedBody == "" {
+		return
+	}
+
+	assertResponse(t, tc.format, tc.expectedBody, rr)
+}
+
+func assertResponse(t *testing.T, format, expectedBody string, rr *httptest.ResponseRecorder) {
+	if strings.Contains(format, "json") {
+		contentType := rr.Header().Get("Content-Type")
+		if contentType != "application/fhir+json" {
+			t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
+		}
+		assert.JSONEqual(t, expectedBody, rr.Body.String())
+	} else if strings.Contains(format, "xml") {
+		contentType := rr.Header().Get("Content-Type")
+		if contentType != "application/fhir+xml" {
+			t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
+		}
+		assert.XMLEqual(t, expectedBody, rr.Body.String())
+	}
+}
 
 func TestCapabilityStatement(t *testing.T) {
 	var tests = []struct {
@@ -68,7 +161,16 @@ func TestCapabilityStatement(t *testing.T) {
 					{
 					  "interaction": [
 						{
+						  "code": "create"
+						},
+						{
 						  "code": "read"
+						},
+						{
+						  "code": "update"
+						},
+						{
+						  "code": "delete"
 						},
 						{
 						  "code": "search-type"
@@ -120,7 +222,8 @@ func TestCapabilityStatement(t *testing.T) {
 						  "type": "token"
 						}
 					  ],
-					  "type": "Patient"
+					  "type": "Patient",
+					  "updateCreate": false
 					}
 				  ]
 				}
@@ -167,11 +270,21 @@ func TestCapabilityStatement(t *testing.T) {
 					<resource>
 					  <type value='Patient'/>
 					  <interaction>
+						<code value='create'/>
+					  </interaction>
+					  <interaction>
 						<code value='read'/>
+					  </interaction>
+					  <interaction>
+						<code value='update'/>
+					  </interaction>
+					  <interaction>
+						<code value='delete'/>
 					  </interaction>
 					  <interaction>
 						<code value='search-type'/>
 					  </interaction>
+                      <updateCreate value="false"></updateCreate>
 					  <searchParam>
 						<name value='_id'/>
 						<type value='token'/>
@@ -226,7 +339,12 @@ func TestCapabilityStatement(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
 			config.Base, _ = url.Parse("http://example.com")
-			config.Date = tt.date
+
+			parsedDate, err := time.Parse(time.RFC3339, tt.date)
+			if err != nil {
+				t.Fatalf("Failed to parse date: %v", err)
+			}
+			config.Date = parsedDate
 
 			server, err := rest.NewServer[model.R4](mockBackend{}, config)
 			if err != nil {
@@ -243,33 +361,141 @@ func TestCapabilityStatement(t *testing.T) {
 				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
 			}
 
-			if strings.Contains(tt.format, "json") {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+json" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-				}
-				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
-			} else {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+xml" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
-				}
-				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
-			}
+			assertResponse(t, tt.format, tt.expectedBody, rr)
+		})
+	}
+}
+
+func TestHandleCreate(t *testing.T) {
+	var tests = []testCase{
+		{
+			name:             "server assigned id",
+			format:           "application/fhir+json",
+			resourceType:     "Patient",
+			requestBody:      `{ "resourceType": "Patient", "name": [{ "family": "Smith" }] }`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusCreated,
+			expectedLocation: "http://example.com/Patient/server-assigned-id",
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "server-assigned-id",
+				"name": [{ "family": "Smith" }] 
+			}`,
+		},
+		{
+			name:             "client provided id ignored",
+			format:           "application/fhir+json",
+			resourceType:     "Patient",
+			requestBody:      `{ "resourceType": "Patient", "id": "client-id", "name": [{ "family": "Jones" }] }`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusCreated,
+			expectedLocation: "http://example.com/Patient/server-assigned-id",
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "server-assigned-id",
+				"name": [{ "family": "Jones" }] 
+			}`,
+		},
+		{
+			name:             "xml format",
+			format:           "application/fhir+xml",
+			resourceType:     "Patient",
+			requestBody:      `<?xml version="1.0" encoding="UTF-8"?><Patient xmlns="http://hl7.org/fhir"><name><family value="Smith"/></name></Patient>`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusCreated,
+			expectedLocation: "http://example.com/Patient/server-assigned-id",
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<Patient xmlns="http://hl7.org/fhir">
+					<id value="server-assigned-id"/>
+					<name>
+						<family value="Smith"/>
+					</name>
+				</Patient>`,
+		},
+		{
+			name:           "not implemented resource type",
+			format:         "application/fhir+json",
+			resourceType:   "Observation",
+			requestBody:    `{ "resourceType": "Observation", "status": "final", "code": {} }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusNotImplemented,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "not-supported",
+						"diagnostics": "create not implemented for Observation"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "invalid resource",
+			format:         "application/fhir+json",
+			resourceType:   "UnknownType",
+			requestBody:    `{ "resourceType": "UnknownType" }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "error parsing json body"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "invalid json body",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			requestBody:    `{ "resourceType": "Patient", "name": [{ "family": "Smith" }] `,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "error parsing json body"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "mismatched resource type",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			requestBody:    `{ "resourceType": "Observation", "status": "final", "code": {} }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "unexpected resource: expected Patient, got Observation"
+					}
+				]
+			}`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.method = "POST"
+			runTest(t, tt)
 		})
 	}
 }
 
 func TestHandleRead(t *testing.T) {
-	var tests = []struct {
-		name           string
-		format         string
-		resourceType   string
-		resourceID     string
-		backend        any
-		expectedStatus int
-		expectedBody   string
-	}{
+	var tests = []testCase{
 		{
 			name:           "valid JSON resource",
 			format:         "application/fhir+json",
@@ -372,14 +598,14 @@ func TestHandleRead(t *testing.T) {
 			resourceType:   "UnknownType",
 			resourceID:     "1",
 			backend:        mockBackend{},
-			expectedStatus: http.StatusNotFound,
+			expectedStatus: http.StatusBadRequest,
 			expectedBody: `{
 				"resourceType": "OperationOutcome",
 				"issue": [
 					{
 						"severity": "fatal",
-						"code": "not-supported",
-						"diagnostics":"unknown resource type UnknownType"
+						"code": "processing",
+						"diagnostics":"invalid resource type: UnknownType"
 					}
 				]
 			}`,
@@ -397,7 +623,7 @@ func TestHandleRead(t *testing.T) {
 				  {
 					  "severity": "error",
 					  "code": "not-found",
-					  "diagnostics": "Patient resource with ID unknown not found"
+					  "diagnostics": "Patient with ID unknown not found"
 				  }
 			    ]
 			}`,
@@ -415,7 +641,7 @@ func TestHandleRead(t *testing.T) {
 					{
 						"severity": "error",
 					  	"code": "not-found",
-					  	"diagnostics": "Patient resource with ID unknown not found"
+					  	"diagnostics": "Patient with ID unknown not found"
 					}
 			  	]
 			}`,
@@ -424,53 +650,273 @@ func TestHandleRead(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
+			tt.method = "GET"
+			runTest(t, tt)
+		})
+	}
+}
 
-			server, err := rest.NewServer[model.R4](tt.backend, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
-			}
+func TestHandleUpdate(t *testing.T) {
+	var tests = []testCase{
+		{
+			name:             "successful update",
+			format:           "application/fhir+json",
+			resourceType:     "Patient",
+			resourceID:       "1",
+			requestBody:      `{ "resourceType": "Patient", "id": "1", "name": [{ "family": "Smith" }] }`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusOK,
+			expectedLocation: "http://example.com/Patient/1",
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "1",
+				"name": [{ "family": "Smith" }] 
+			}`,
+		},
+		{
+			name:             "resource creation via update",
+			format:           "application/fhir+json",
+			resourceType:     "Patient",
+			resourceID:       "new-resource",
+			requestBody:      `{ "resourceType": "Patient", "id": "new-resource", "name": [{ "family": "Jones" }] }`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusCreated,
+			expectedLocation: "http://example.com/Patient/new-resource",
+			expectedBody: `{
+				"resourceType": "Patient",
+				"id": "new-resource",
+				"name": [{ "family": "Jones" }] 
+			}`,
+		},
+		{
+			name:           "id mismatch",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			requestBody:    `{ "resourceType": "Patient", "id": "2", "name": [{ "family": "Smith" }] }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "resource ID in URL (1) does not match resource ID in body (2)"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "missing id in body",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			requestBody:    `{ "resourceType": "Patient", "name": [{ "family": "Smith" }] }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "resource ID in URL (1) does not match resource ID in body ()"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "not implemented resource type",
+			format:         "application/fhir+json",
+			resourceType:   "Observation",
+			resourceID:     "1",
+			requestBody:    `{ "resourceType": "Observation", "id": "1", "status": "final", "code": {} }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusNotImplemented,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "not-supported",
+						"diagnostics": "update not implemented for Observation"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "invalid resource",
+			format:         "application/fhir+json",
+			resourceType:   "UnknownType",
+			resourceID:     "1",
+			requestBody:    `{ "resourceType": "UnknownType", "id": "1" }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "error parsing json body"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "mismatched resource type",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			requestBody:    `{ "resourceType": "Observation", "id": "1", "status": "final", "code": {} }`,
+			backend:        mockBackend{},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "processing",
+						"diagnostics": "unexpected resource: expected Patient, got Observation"
+					}
+				]
+			}`,
+		},
+		{
+			name:             "xml format",
+			format:           "application/fhir+xml",
+			resourceType:     "Patient",
+			resourceID:       "1",
+			requestBody:      `<?xml version="1.0" encoding="UTF-8"?><Patient xmlns="http://hl7.org/fhir"><id value="1"/><name><family value="Smith"/></name></Patient>`,
+			backend:          mockBackend{},
+			expectedStatus:   http.StatusOK,
+			expectedLocation: "http://example.com/Patient/1",
+			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
+				<Patient xmlns="http://hl7.org/fhir">
+					<id value="1"/>
+					<name>
+						<family value="Smith"/>
+					</name>
+				</Patient>`,
+		},
+	}
 
-			requestURL := fmt.Sprintf("http://example.com/%s/%s", tt.resourceType, tt.resourceID)
-			req := httptest.NewRequest("GET", requestURL, nil)
-			req.Header.Set("Accept", tt.format)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.method = "PUT"
+			runTest(t, tt)
+		})
+	}
+}
 
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
+func TestHandleDelete(t *testing.T) {
+	var tests = []testCase{
+		{
+			name:           "successful delete",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{},
+			expectedStatus: http.StatusNoContent,
+			expectedBody:   "",
+		},
+		{
+			name:           "successful delete with XML format",
+			format:         "application/fhir+xml",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{},
+			expectedStatus: http.StatusNoContent,
+			expectedBody:   "",
+		},
+		{
+			name:           "not implemented",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        struct{}{},
+			expectedStatus: http.StatusNotImplemented,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "fatal",
+						"code": "not-supported",
+						"diagnostics": "delete not implemented for Patient"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "resource not found",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "nonexistent",
+			backend:        mockBackend{deleteErrorMode: "not-found"},
+			expectedStatus: http.StatusNotFound,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "error",
+						"code": "not-found",
+						"diagnostics": "Patient with ID nonexistent not found"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "invalid resource type",
+			format:         "application/fhir+json",
+			resourceType:   "UnknownType",
+			resourceID:     "1",
+			backend:        mockBackend{deleteErrorMode: "invalid-type"},
+			expectedStatus: http.StatusBadRequest,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "error",
+						"code": "invalid",
+						"diagnostics": "invalid resource type: UnknownType"
+					}
+				]
+			}`,
+		},
+		{
+			name:           "server error",
+			format:         "application/fhir+json",
+			resourceType:   "Patient",
+			resourceID:     "1",
+			backend:        mockBackend{deleteErrorMode: "server-error"},
+			expectedStatus: http.StatusInternalServerError,
+			expectedBody: `{
+				"resourceType": "OperationOutcome",
+				"issue": [
+					{
+						"severity": "error",
+						"code": "exception",
+						"diagnostics": "internal server error"
+					}
+				]
+			}`,
+		},
+	}
 
-			if rr.Code != tt.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
-			}
-
-			if strings.Contains(tt.format, "json") {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+json" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-				}
-				assertjson.Equal(t, tt.expectedBody, rr.Body.String())
-			} else {
-				contentType := rr.Header().Get("Content-Type")
-				if contentType != "application/fhir+xml" {
-					t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
-				}
-				assertxml.Equal(t, tt.expectedBody, rr.Body.String())
-			}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.method = "DELETE"
+			runTest(t, tt)
 		})
 	}
 }
 
 func TestHandleSearch(t *testing.T) {
-	var tests = []struct {
-		name           string
-		resourceType   string
-		queryString    string
-		backend        any
-		expectedStatus int
-		expectedBody   string
-	}{
+	var tests = []testCase{
 		{
 			name:         "valid bundle single entry",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1",
 			backend: mockBackend{
@@ -504,6 +950,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle two entries with or parameter",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1,2",
 			backend: mockBackend{
@@ -548,6 +995,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle two entries with and parameter",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1&_id=2",
 			backend: mockBackend{
@@ -592,6 +1040,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle with unknown parameter",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=1&unknown=x",
 			backend: mockBackend{
@@ -625,6 +1074,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "valid bundle with include parameter",
+			format:       "application/fhir+json",
 			resourceType: "Observation",
 			queryString:  "_include=Observation:patient&_id=1",
 			backend: mockBackend{
@@ -673,23 +1123,25 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:           "invalid ResourceType",
+			format:         "application/fhir+json",
 			resourceType:   "UnknownType",
 			queryString:    "_id=1",
 			backend:        mockBackend{},
-			expectedStatus: http.StatusNotFound,
+			expectedStatus: http.StatusBadRequest,
 			expectedBody: `{
 				"resourceType":"OperationOutcome",
 				"issue":[
 					{
 						"severity":"fatal",
-						"code":"not-supported",
-						"diagnostics":"unknown resource type UnknownType"
+						"code":"processing",
+						"diagnostics":"invalid resource type: UnknownType"
 					}
 				]
 			}`,
 		},
 		{
 			name:         "search with prefix",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_id=ge1&date=ge2024-06-03",
 			backend: mockBackend{
@@ -723,6 +1175,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with all supported prefixes",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "eq1=eq1&ne2=ne2&gt3=gt3&lt4=lt4&ge5=ge5&le6=le6&sa7=sa7&eb8=eb8",
 			backend: mockBackend{
@@ -756,6 +1209,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search date up to minute",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53Z",
 			backend: mockBackend{
@@ -789,6 +1243,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search date up to second",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53:23Z",
 			backend: mockBackend{
@@ -822,6 +1277,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search date full precision and timezone",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "date=ge2024-06-03T16:53:24.444%2b02:00",
 			backend: mockBackend{
@@ -855,6 +1311,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with count and cursor",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_count=1&_cursor=2",
 			backend: mockBackend{
@@ -888,6 +1345,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with next link",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_count=1",
 			backend: mockBackend{
@@ -926,6 +1384,7 @@ func TestHandleSearch(t *testing.T) {
 		},
 		{
 			name:         "search with modifier",
+			format:       "application/fhir+json",
 			resourceType: "Patient",
 			queryString:  "_count=1&pre:above=x",
 			backend: mockBackend{
@@ -966,31 +1425,8 @@ func TestHandleSearch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			server, err := rest.NewServer[model.R4](tt.backend, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
-			}
-
-			requestURL := fmt.Sprintf("http://example.com/%s?%s", tt.resourceType, tt.queryString)
-			req := httptest.NewRequest("GET", requestURL, nil)
-			req = req.WithContext(context.WithValue(req.Context(), "t", t))
-
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
-
-			if rr.Code != tt.expectedStatus {
-				t.Errorf("Expected status code %d, got %d", tt.expectedStatus, rr.Code)
-			}
-
-			contentType := rr.Header().Get("Content-Type")
-			if contentType != "application/fhir+json" {
-				t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
-			}
-
-			assertjson.Equal(t, tt.expectedBody, rr.Body.String())
+			tt.method = "GET"
+			runTest(t, tt)
 		})
 	}
 }
@@ -1000,16 +1436,51 @@ type mockBackend struct {
 	mockPatients            []r4.Patient
 	mockObservations        []r4.Observation
 	mockObservationIncludes []model.Resource
+	// Error behavior control
+	deleteErrorMode string // Can be "not-found", "invalid-type", "server-error", or empty for success
 }
 
-func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {
+func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, error) {
+	patient.Id = &r4.Id{Value: utils.Ptr("server-assigned-id")}
+	return patient, nil
+}
+
+func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
 	if len(m.mockPatients) == 0 {
-		return r4.Patient{}, capabilities.NotFoundError{ResourceType: "Patient", ID: id}
+		return r4.Patient{}, basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("not-found")},
+					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("Patient with ID %s not found", id))},
+				},
+			},
+		}
 	}
 	return m.mockPatients[0], nil
 }
 
-func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
+func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (update.Result[r4.Patient], error) {
+	// If the patient ID is "new-resource", mark it as created
+	if id, ok := patient.ResourceId(); ok && id == "new-resource" {
+		return update.Result[r4.Patient]{
+			Resource: patient,
+			Created:  true,
+		}, nil
+	}
+
+	// Otherwise, it's an update
+	return update.Result[r4.Patient]{
+		Resource: patient,
+		Created:  false,
+	}, nil
+}
+
+func (m mockBackend) DeletePatient(ctx context.Context, id string) error {
+	return nil
+}
+
+func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id":  {Type: search.TypeToken},
@@ -1024,11 +1495,11 @@ func (m mockBackend) SearchCapabilitiesPatient() search.Capabilities {
 			"eb8":  {Type: search.TypeToken},
 			"pre":  {Type: search.TypeToken, Modifiers: []search.Modifier{search.ModifierAbove}},
 		},
-	}
+	}, nil
 }
 
-func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	result := search.Result{}
+func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result[r4.Patient], error) {
+	result := search.Result[r4.Patient]{}
 
 	for _, p := range m.mockPatients {
 		result.Resources = append(result.Resources, p)
@@ -1041,17 +1512,17 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 	return result, nil
 }
 
-func (m mockBackend) SearchCapabilitiesObservation() search.Capabilities {
+func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
 	return search.Capabilities{
 		Parameters: map[string]search.ParameterDescription{
 			"_id": {Type: search.TypeToken},
 		},
 		Includes: []string{"Observation:patient"},
-	}
+	}, nil
 }
 
-func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
-	var result search.Result
+func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result[r4.Observation], error) {
+	var result search.Result[r4.Observation]
 
 	for _, p := range m.mockObservations {
 		result.Resources = append(result.Resources, p)
@@ -1061,4 +1532,42 @@ func (m mockBackend) SearchObservation(ctx context.Context, options search.Optio
 	}
 
 	return result, nil
+}
+
+// Implement GenericDelete interface
+func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error {
+	switch m.deleteErrorMode {
+	case "not-found":
+		return basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("not-found")},
+					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
+				},
+			},
+		}
+	case "invalid-type":
+		return basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("invalid")},
+					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("invalid resource type: %s", resourceType))},
+				},
+			},
+		}
+	case "server-error":
+		return basic.OperationOutcome{
+			Issue: []basic.OperationOutcomeIssue{
+				{
+					Severity:    basic.Code{Value: utils.Ptr("error")},
+					Code:        basic.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &basic.String{Value: utils.Ptr("internal server error")},
+				},
+			},
+		}
+	default:
+		return nil
+	}
 }

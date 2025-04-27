@@ -1,6 +1,8 @@
 package model
 
-import "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+import (
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
+)
 
 // Resource is any FHIR Resource.
 type Resource interface {

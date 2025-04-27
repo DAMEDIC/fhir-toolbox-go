@@ -17,7 +17,7 @@
 //		}
 //	}
 //
-//	func (b *myAPI) SearchObservation(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {
+//	func (b *myAPI) SearchObservation(ctx context.Context, options search.Options) (search.Result, error) {
 //		// return the search result
 //		return search.Result{ ... }, nil
 //	}
@@ -37,8 +37,8 @@ import (
 )
 
 // Result contains the result of a search operation.
-type Result struct {
-	Resources []model.Resource
+type Result[R model.Resource] struct {
+	Resources []R
 	Included  []model.Resource
 	Next      Cursor
 }

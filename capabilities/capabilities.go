@@ -9,15 +9,15 @@
 // The library provides two API styles.
 // The concrete API:
 //
-//	func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {}
+//	func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {}
 //
-//	func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {}
+//	func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, error) {}
 //
 // and the generic API:
 //
-//	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
+//	func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, error) {}
 //
-//	func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {}
+//	func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {}
 //
 // You can implement your custom backend or client either way.
 // The concrete API is ideal for building custom FHIR® facades where a limited set of resources is used.
@@ -35,11 +35,23 @@
 package capabilities
 
 import (
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/create"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/deletion"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/read"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 )
 
 // Capabilities is a description of all capabilities that an implementation provides.
 type Capabilities struct {
-	ReadInteractions   []string
-	SearchCapabilities map[string]search.Capabilities
+	// Create is a list of supported resources.
+	Create map[string]create.Capabilities
+	// Read is a list of supported resources.
+	Read map[string]read.Capabilities
+	// Update capabilities, indexed by the resource type.
+	Update map[string]update.Capabilities
+	// Delete is a list of supported resources.
+	Delete map[string]deletion.Capabilities
+	// Search capabilities, indexed by the resource type.
+	Search map[string]search.Capabilities
 }

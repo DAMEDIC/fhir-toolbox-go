@@ -10,7 +10,6 @@ You only need to implement some interfaces and get a REST implementation out-of-
 
 This includes model types and interfaces modeling capabilities that you can use to build custom FHIR® servers.
 
-A **FHIRPath** implementation is work-in-progress (~90% done) on branch [fhirpath](../../tree/fhirpath).
 
 > While used in production at DAMEDIC, this project is still in its early days
 > and the feature set is quite limit.
@@ -18,18 +17,23 @@ A **FHIRPath** implementation is work-in-progress (~90% done) on branch [fhirpat
 
 ## Features
 
-- FHIR® model types with JSON and XML (un)marshalling
+- FHIR® model types with JSON and XML (un)marshaling
     - R4, R4B & R5
 
       use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
       versions
 
     - generated from the FHIR® specification
+    ```Go
+    var r r4.ContainedResource // container class because json.Unmarshal can not unmarshal directly into interfaces
+    err := json.Unmarshal(data, &r)
+    ... = r.Resource // the actual resource of type model.Resource
+  ```
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
         - alternatively: generic API for building adapters
-        - automatic CapabilityStatement generation
-    - Interactions: `read`,  `search` (adding the remaining interactions is definitely on the agenda)
+        - automatic generation fo `CapabilityStatements`
+    - Interactions: `create`, `read`, `update`, `delete`, `search` (see [Roadmap](#roadmap) for the remaining interactions)
     - Cursor-based pagination
 - FHIRPath evaluation
   - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
@@ -81,17 +85,17 @@ The library provides two API *styles*.
 The **concrete** API:
 
 ```Go
-func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, capabilities.FHIRError) {}
+func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {}
 
-func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, capabilities.FHIRError) {}
+func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, error) {}
 ```
 
 and the **generic** API:
 
 ```Go
-func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, capabilities.FHIRError) {}
+func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, error) {}
 
-func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {}
+func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {}
 ```
 
 You can implement your custom backend or client either way.
@@ -103,16 +107,16 @@ or standalone FHIR® servers.
 
 #### Interoperability
 
-The `capabilities/wrap` package provides two wrapper functions to wrap a concrete into the generic API:
+Wrapper structs facilitate interoperability between the generic and the concrete API.
 
 ```Go
-genericAPI := wrap.Generic[model.R4](concreteAPI)
+genericAPI := r4.Generic{Concrete: concreteAPI}
 ```
 
 and vice versa:
 
 ```Go
-concreteAPI := wrap.ConcreteR4(genericAPI)
+concreteAPI := r4.Concrete{Generic: genericAPI}
 ```
 
 ## FHIRPath
@@ -164,11 +168,13 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 
 ## Roadmap
 
-- proper handling of `_include` and `_revinclude`
-- value sets
-- managed search parameters
-- resource validation
-- remaining interactions (`vread`, `create`, `update`, `patch`, `delete`, `history`)
+- interactions
+  - $operations
+  - support for resource versioning (`vread`, `history`)
+  - at some point `patch` and `batch/transaction`, but no priority at the moment
+- constants for code systems and/or value-sets
+- adapter for resolving `_include` and `_revinclude`
+- validation of resources (also against profiles)
 
 ## Packages
 
@@ -177,7 +183,6 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 | `model`              | Generated FHIR® model types                                                   |
 | `capabilities/..`    | Interfaces modeling capabilities a server can provide or a client can consume |
 | `capabilites/search` | Types and helper functions for implementing search capabilities               |
-| `capabilites/wrap`   | Conversion between the concrete and generic capabilities API                  |
 | `fhirpath`           | FHIRPath execution engine                                                     |                                                     
 | `rest`               | FHIR® REST server implementation                                              |
 | `testdata`           | Utils for loading test data and writing tests                                 |

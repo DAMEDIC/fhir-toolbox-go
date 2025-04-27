@@ -1,6 +1,8 @@
 module github.com/DAMEDIC/fhir-toolbox-go
 
-go 1.22
+go 1.23.0
+
+toolchain go1.23.8
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.1
@@ -10,7 +12,6 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/uuid v1.6.0
 	github.com/iancoleman/strcase v0.3.0
-	github.com/pmezard/go-difflib v1.0.0
 )
 
-require golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
+require golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0 // indirect

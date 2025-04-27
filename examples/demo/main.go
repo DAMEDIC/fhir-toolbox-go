@@ -3,7 +3,6 @@ package main
 
 import (
 	"context"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"github.com/cockroachdb/apd/v3"
@@ -20,7 +19,7 @@ import (
 type demoBackend struct{}
 
 // 2. Implement your desired capabilities (interactions)
-func (b *demoBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, capabilities.FHIRError) {
+func (b *demoBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	return r5.Observation{
 		Id:     &r5.Id{Value: &id},
 		Status: r5.Code{Value: utils.Ptr("final")},

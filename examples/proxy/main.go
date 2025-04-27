@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils"
 	"log"
 	"log/slog"
 	"net/http"
@@ -34,27 +35,20 @@ func main() {
 	// Create a client to the backing server.
 	//
 	// The client is implemented below and serves only as an example.
-	// A full-featured client should be in scope of this package and might be added eventually.
+	// A full-featured client might be in scope of fhir-toolbox-go module and will be added eventually.
 	// The example client only supports the read and search operations and exposes them using the generic API.
-	genericClient := Client{
+	var genericClient interface {
+		capabilities.GenericRead
+		capabilities.GenericSearch
+	} = &Client{
 		url: strings.TrimRight(backendUrl, "/"),
 	}
 
-	// You can provide the concrete API by wrapping the generic API
-	// (uncomment the following lines to try it out):
-	//concreteApi := wrap.Concreter5(&genericClient)
-	//somePatient, fhirErr := concreteApi.ReadPatient(context.Background(), "547")
-	//if fhirErr != nil {
-	//	log.Fatalf("error reading some Patient %v", fhirErr)
-	//}
-	//fmt.Printf("some Patient: %v\n", somePatient)
-
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	// Note: it is important to pass a references, as the methods below also implemented on a pointer as receiver.
 	cfg := rest.DefaultConfig
 	cfg.Base = &url.URL{Scheme: "http", Host: "localhost"}
-	server, err := rest.NewServer[model.R5](&genericClient, cfg)
+	server, err := rest.NewServer[model.R5](genericClient, cfg)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
 	}
@@ -68,12 +62,12 @@ type Client struct {
 	url string
 }
 
-func (c *Client) AllCapabilities() capabilities.Capabilities {
+func (c *Client) AllCapabilities(ctx context.Context) (capabilities.Capabilities, error) {
 	// TODO: this should call the remote service for its capabilities
-	return capabilities.Capabilities{}
+	return capabilities.Capabilities{}, nil
 }
 
-func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, capabilities.FHIRError) {
+func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, error) {
 	// ContainedResource is a concrete representation of any resource
 	// internally this e.g. uses in bundles
 	var resource r5.ContainedResource
@@ -83,8 +77,17 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 
 	resp, err := http.Get(url)
 	if err != nil {
-		// TODO: return a proper error with operation outcome
-		panic(err)
+		// OperationOutcome implement the Go error interface.
+		// The server will return an appropriate HTTP status code and the OperationOutcome as the response body.
+		return nil, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("error executing backend request: %s", err))},
+				},
+			},
+		}
 	}
 
 	err = json.NewDecoder(resp.Body).Decode(&resource)
@@ -96,30 +99,37 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 	return resource, nil
 }
 
-func (c *Client) SearchCapabilities(resourceType string) (search.Capabilities, capabilities.FHIRError) {
-	// TODO: These should be read from the remote servers CapabilityStatement.
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id": {Type: search.TypeString},
-		},
-	}, nil
-}
-
-func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, capabilities.FHIRError) {
+func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result[model.Resource], error) {
 	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, options.QueryString())
 	log.Printf("forwarding GET %s", url)
 
 	resp, err := http.Get(url)
 	if err != nil {
-		// TODO: return a proper error with operation outcome
-		panic(err)
+		return search.Result[model.Resource]{}, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("error executing backend request: %s", err))},
+				},
+			},
+		}
 	}
+
+	// TODO: proper error handling based on the response status code
 
 	var bundle r5.Bundle
 	err = json.NewDecoder(resp.Body).Decode(&bundle)
 	if err != nil {
-		// TODO: return a proper error with operation outcome
-		panic(err)
+		return search.Result[model.Resource]{}, r5.OperationOutcome{
+			Issue: []r5.OperationOutcomeIssue{
+				{
+					Severity:    r5.Code{Value: utils.Ptr("error")},
+					Code:        r5.Code{Value: utils.Ptr("exception")},
+					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("got invalid JSON from backend: %s", err))},
+				},
+			},
+		}
 	}
 
 	resources := make([]model.Resource, 0, len(bundle.Entry))
@@ -127,7 +137,7 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 		resources = append(resources, entry.Resource)
 	}
 
-	return search.Result{
+	return search.Result[model.Resource]{
 		Resources: resources,
 	}, nil
 }
