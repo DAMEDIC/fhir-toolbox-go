@@ -27,9 +27,9 @@ func missingIdError(resourceType string) basic.OperationOutcome {
 //
 // The REST server uses cursor-based pagination.
 // If the search results contain a `Next` cursor, a 'next' bundle link entry will be set.
-func searchBundle(
+func searchBundle[R model.Resource](
 	resourceType string,
-	result search.Result,
+	result search.Result[R],
 	usedOptions search.Options,
 	searchCapabilities search.Capabilities,
 	baseURL *url.URL,
@@ -74,7 +74,7 @@ func searchBundle(
 	return bundle, nil
 }
 
-func entries(result search.Result, baseURL *url.URL) ([]basic.BundleEntry, error) {
+func entries[R model.Resource](result search.Result[R], baseURL *url.URL) ([]basic.BundleEntry, error) {
 	entries := make([]basic.BundleEntry, 0, len(result.Resources)+len(result.Included))
 
 	for _, r := range result.Resources {

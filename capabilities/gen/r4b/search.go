@@ -7,850 +7,851 @@ package capabilitiesR4B
 import (
 	"context"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	r4b "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 )
 
 // AccountSearch needs to be implemented to support the search interaction.
 type AccountSearch interface {
 	SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, error)
-	SearchAccount(ctx context.Context, options search.Options) (search.Result, error)
+	SearchAccount(ctx context.Context, options search.Options) (search.Result[r4b.Account], error)
 }
 
 // ActivityDefinitionSearch needs to be implemented to support the search interaction.
 type ActivityDefinitionSearch interface {
 	SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result[r4b.ActivityDefinition], error)
 }
 
 // AdministrableProductDefinitionSearch needs to be implemented to support the search interaction.
 type AdministrableProductDefinitionSearch interface {
 	SearchCapabilitiesAdministrableProductDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchAdministrableProductDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchAdministrableProductDefinition(ctx context.Context, options search.Options) (search.Result[r4b.AdministrableProductDefinition], error)
 }
 
 // AdverseEventSearch needs to be implemented to support the search interaction.
 type AdverseEventSearch interface {
 	SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, error)
-	SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result, error)
+	SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result[r4b.AdverseEvent], error)
 }
 
 // AllergyIntoleranceSearch needs to be implemented to support the search interaction.
 type AllergyIntoleranceSearch interface {
 	SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, error)
-	SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result, error)
+	SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result[r4b.AllergyIntolerance], error)
 }
 
 // AppointmentSearch needs to be implemented to support the search interaction.
 type AppointmentSearch interface {
 	SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, error)
-	SearchAppointment(ctx context.Context, options search.Options) (search.Result, error)
+	SearchAppointment(ctx context.Context, options search.Options) (search.Result[r4b.Appointment], error)
 }
 
 // AppointmentResponseSearch needs to be implemented to support the search interaction.
 type AppointmentResponseSearch interface {
 	SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, error)
-	SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result, error)
+	SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result[r4b.AppointmentResponse], error)
 }
 
 // AuditEventSearch needs to be implemented to support the search interaction.
 type AuditEventSearch interface {
 	SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, error)
-	SearchAuditEvent(ctx context.Context, options search.Options) (search.Result, error)
+	SearchAuditEvent(ctx context.Context, options search.Options) (search.Result[r4b.AuditEvent], error)
 }
 
 // BasicSearch needs to be implemented to support the search interaction.
 type BasicSearch interface {
 	SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, error)
-	SearchBasic(ctx context.Context, options search.Options) (search.Result, error)
+	SearchBasic(ctx context.Context, options search.Options) (search.Result[r4b.Basic], error)
 }
 
 // BinarySearch needs to be implemented to support the search interaction.
 type BinarySearch interface {
 	SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, error)
-	SearchBinary(ctx context.Context, options search.Options) (search.Result, error)
+	SearchBinary(ctx context.Context, options search.Options) (search.Result[r4b.Binary], error)
 }
 
 // BiologicallyDerivedProductSearch needs to be implemented to support the search interaction.
 type BiologicallyDerivedProductSearch interface {
 	SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, error)
-	SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result, error)
+	SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result[r4b.BiologicallyDerivedProduct], error)
 }
 
 // BodyStructureSearch needs to be implemented to support the search interaction.
 type BodyStructureSearch interface {
 	SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, error)
-	SearchBodyStructure(ctx context.Context, options search.Options) (search.Result, error)
+	SearchBodyStructure(ctx context.Context, options search.Options) (search.Result[r4b.BodyStructure], error)
 }
 
 // BundleSearch needs to be implemented to support the search interaction.
 type BundleSearch interface {
 	SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, error)
-	SearchBundle(ctx context.Context, options search.Options) (search.Result, error)
+	SearchBundle(ctx context.Context, options search.Options) (search.Result[r4b.Bundle], error)
 }
 
 // CapabilityStatementSearch needs to be implemented to support the search interaction.
 type CapabilityStatementSearch interface {
 	SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, error)
-	SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result[r4b.CapabilityStatement], error)
 }
 
 // CarePlanSearch needs to be implemented to support the search interaction.
 type CarePlanSearch interface {
 	SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, error)
-	SearchCarePlan(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCarePlan(ctx context.Context, options search.Options) (search.Result[r4b.CarePlan], error)
 }
 
 // CareTeamSearch needs to be implemented to support the search interaction.
 type CareTeamSearch interface {
 	SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, error)
-	SearchCareTeam(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCareTeam(ctx context.Context, options search.Options) (search.Result[r4b.CareTeam], error)
 }
 
 // CatalogEntrySearch needs to be implemented to support the search interaction.
 type CatalogEntrySearch interface {
 	SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, error)
-	SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result[r4b.CatalogEntry], error)
 }
 
 // ChargeItemSearch needs to be implemented to support the search interaction.
 type ChargeItemSearch interface {
 	SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, error)
-	SearchChargeItem(ctx context.Context, options search.Options) (search.Result, error)
+	SearchChargeItem(ctx context.Context, options search.Options) (search.Result[r4b.ChargeItem], error)
 }
 
 // ChargeItemDefinitionSearch needs to be implemented to support the search interaction.
 type ChargeItemDefinitionSearch interface {
 	SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result[r4b.ChargeItemDefinition], error)
 }
 
 // CitationSearch needs to be implemented to support the search interaction.
 type CitationSearch interface {
 	SearchCapabilitiesCitation(ctx context.Context) (search.Capabilities, error)
-	SearchCitation(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCitation(ctx context.Context, options search.Options) (search.Result[r4b.Citation], error)
 }
 
 // ClaimSearch needs to be implemented to support the search interaction.
 type ClaimSearch interface {
 	SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, error)
-	SearchClaim(ctx context.Context, options search.Options) (search.Result, error)
+	SearchClaim(ctx context.Context, options search.Options) (search.Result[r4b.Claim], error)
 }
 
 // ClaimResponseSearch needs to be implemented to support the search interaction.
 type ClaimResponseSearch interface {
 	SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, error)
-	SearchClaimResponse(ctx context.Context, options search.Options) (search.Result, error)
+	SearchClaimResponse(ctx context.Context, options search.Options) (search.Result[r4b.ClaimResponse], error)
 }
 
 // ClinicalImpressionSearch needs to be implemented to support the search interaction.
 type ClinicalImpressionSearch interface {
 	SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, error)
-	SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result, error)
+	SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result[r4b.ClinicalImpression], error)
 }
 
 // ClinicalUseDefinitionSearch needs to be implemented to support the search interaction.
 type ClinicalUseDefinitionSearch interface {
 	SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchClinicalUseDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchClinicalUseDefinition(ctx context.Context, options search.Options) (search.Result[r4b.ClinicalUseDefinition], error)
 }
 
 // CodeSystemSearch needs to be implemented to support the search interaction.
 type CodeSystemSearch interface {
 	SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, error)
-	SearchCodeSystem(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCodeSystem(ctx context.Context, options search.Options) (search.Result[r4b.CodeSystem], error)
 }
 
 // CommunicationSearch needs to be implemented to support the search interaction.
 type CommunicationSearch interface {
 	SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, error)
-	SearchCommunication(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCommunication(ctx context.Context, options search.Options) (search.Result[r4b.Communication], error)
 }
 
 // CommunicationRequestSearch needs to be implemented to support the search interaction.
 type CommunicationRequestSearch interface {
 	SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, error)
-	SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result[r4b.CommunicationRequest], error)
 }
 
 // CompartmentDefinitionSearch needs to be implemented to support the search interaction.
 type CompartmentDefinitionSearch interface {
 	SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result[r4b.CompartmentDefinition], error)
 }
 
 // CompositionSearch needs to be implemented to support the search interaction.
 type CompositionSearch interface {
 	SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, error)
-	SearchComposition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchComposition(ctx context.Context, options search.Options) (search.Result[r4b.Composition], error)
 }
 
 // ConceptMapSearch needs to be implemented to support the search interaction.
 type ConceptMapSearch interface {
 	SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, error)
-	SearchConceptMap(ctx context.Context, options search.Options) (search.Result, error)
+	SearchConceptMap(ctx context.Context, options search.Options) (search.Result[r4b.ConceptMap], error)
 }
 
 // ConditionSearch needs to be implemented to support the search interaction.
 type ConditionSearch interface {
 	SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, error)
-	SearchCondition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCondition(ctx context.Context, options search.Options) (search.Result[r4b.Condition], error)
 }
 
 // ConsentSearch needs to be implemented to support the search interaction.
 type ConsentSearch interface {
 	SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, error)
-	SearchConsent(ctx context.Context, options search.Options) (search.Result, error)
+	SearchConsent(ctx context.Context, options search.Options) (search.Result[r4b.Consent], error)
 }
 
 // ContractSearch needs to be implemented to support the search interaction.
 type ContractSearch interface {
 	SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, error)
-	SearchContract(ctx context.Context, options search.Options) (search.Result, error)
+	SearchContract(ctx context.Context, options search.Options) (search.Result[r4b.Contract], error)
 }
 
 // CoverageSearch needs to be implemented to support the search interaction.
 type CoverageSearch interface {
 	SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, error)
-	SearchCoverage(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCoverage(ctx context.Context, options search.Options) (search.Result[r4b.Coverage], error)
 }
 
 // CoverageEligibilityRequestSearch needs to be implemented to support the search interaction.
 type CoverageEligibilityRequestSearch interface {
 	SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, error)
-	SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result[r4b.CoverageEligibilityRequest], error)
 }
 
 // CoverageEligibilityResponseSearch needs to be implemented to support the search interaction.
 type CoverageEligibilityResponseSearch interface {
 	SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, error)
-	SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result, error)
+	SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result[r4b.CoverageEligibilityResponse], error)
 }
 
 // DetectedIssueSearch needs to be implemented to support the search interaction.
 type DetectedIssueSearch interface {
 	SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, error)
-	SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result[r4b.DetectedIssue], error)
 }
 
 // DeviceSearch needs to be implemented to support the search interaction.
 type DeviceSearch interface {
 	SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, error)
-	SearchDevice(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDevice(ctx context.Context, options search.Options) (search.Result[r4b.Device], error)
 }
 
 // DeviceDefinitionSearch needs to be implemented to support the search interaction.
 type DeviceDefinitionSearch interface {
 	SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result[r4b.DeviceDefinition], error)
 }
 
 // DeviceMetricSearch needs to be implemented to support the search interaction.
 type DeviceMetricSearch interface {
 	SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, error)
-	SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result[r4b.DeviceMetric], error)
 }
 
 // DeviceRequestSearch needs to be implemented to support the search interaction.
 type DeviceRequestSearch interface {
 	SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, error)
-	SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result[r4b.DeviceRequest], error)
 }
 
 // DeviceUseStatementSearch needs to be implemented to support the search interaction.
 type DeviceUseStatementSearch interface {
 	SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, error)
-	SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result[r4b.DeviceUseStatement], error)
 }
 
 // DiagnosticReportSearch needs to be implemented to support the search interaction.
 type DiagnosticReportSearch interface {
 	SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, error)
-	SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result[r4b.DiagnosticReport], error)
 }
 
 // DocumentManifestSearch needs to be implemented to support the search interaction.
 type DocumentManifestSearch interface {
 	SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, error)
-	SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result[r4b.DocumentManifest], error)
 }
 
 // DocumentReferenceSearch needs to be implemented to support the search interaction.
 type DocumentReferenceSearch interface {
 	SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, error)
-	SearchDocumentReference(ctx context.Context, options search.Options) (search.Result, error)
+	SearchDocumentReference(ctx context.Context, options search.Options) (search.Result[r4b.DocumentReference], error)
 }
 
 // EncounterSearch needs to be implemented to support the search interaction.
 type EncounterSearch interface {
 	SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, error)
-	SearchEncounter(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEncounter(ctx context.Context, options search.Options) (search.Result[r4b.Encounter], error)
 }
 
 // EndpointSearch needs to be implemented to support the search interaction.
 type EndpointSearch interface {
 	SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, error)
-	SearchEndpoint(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEndpoint(ctx context.Context, options search.Options) (search.Result[r4b.Endpoint], error)
 }
 
 // EnrollmentRequestSearch needs to be implemented to support the search interaction.
 type EnrollmentRequestSearch interface {
 	SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, error)
-	SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result[r4b.EnrollmentRequest], error)
 }
 
 // EnrollmentResponseSearch needs to be implemented to support the search interaction.
 type EnrollmentResponseSearch interface {
 	SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, error)
-	SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result[r4b.EnrollmentResponse], error)
 }
 
 // EpisodeOfCareSearch needs to be implemented to support the search interaction.
 type EpisodeOfCareSearch interface {
 	SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, error)
-	SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result[r4b.EpisodeOfCare], error)
 }
 
 // EventDefinitionSearch needs to be implemented to support the search interaction.
 type EventDefinitionSearch interface {
 	SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchEventDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEventDefinition(ctx context.Context, options search.Options) (search.Result[r4b.EventDefinition], error)
 }
 
 // EvidenceSearch needs to be implemented to support the search interaction.
 type EvidenceSearch interface {
 	SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, error)
-	SearchEvidence(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEvidence(ctx context.Context, options search.Options) (search.Result[r4b.Evidence], error)
 }
 
 // EvidenceReportSearch needs to be implemented to support the search interaction.
 type EvidenceReportSearch interface {
 	SearchCapabilitiesEvidenceReport(ctx context.Context) (search.Capabilities, error)
-	SearchEvidenceReport(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEvidenceReport(ctx context.Context, options search.Options) (search.Result[r4b.EvidenceReport], error)
 }
 
 // EvidenceVariableSearch needs to be implemented to support the search interaction.
 type EvidenceVariableSearch interface {
 	SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, error)
-	SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result, error)
+	SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result[r4b.EvidenceVariable], error)
 }
 
 // ExampleScenarioSearch needs to be implemented to support the search interaction.
 type ExampleScenarioSearch interface {
 	SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, error)
-	SearchExampleScenario(ctx context.Context, options search.Options) (search.Result, error)
+	SearchExampleScenario(ctx context.Context, options search.Options) (search.Result[r4b.ExampleScenario], error)
 }
 
 // ExplanationOfBenefitSearch needs to be implemented to support the search interaction.
 type ExplanationOfBenefitSearch interface {
 	SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, error)
-	SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result, error)
+	SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result[r4b.ExplanationOfBenefit], error)
 }
 
 // FamilyMemberHistorySearch needs to be implemented to support the search interaction.
 type FamilyMemberHistorySearch interface {
 	SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, error)
-	SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result, error)
+	SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result[r4b.FamilyMemberHistory], error)
 }
 
 // FlagSearch needs to be implemented to support the search interaction.
 type FlagSearch interface {
 	SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, error)
-	SearchFlag(ctx context.Context, options search.Options) (search.Result, error)
+	SearchFlag(ctx context.Context, options search.Options) (search.Result[r4b.Flag], error)
 }
 
 // GoalSearch needs to be implemented to support the search interaction.
 type GoalSearch interface {
 	SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, error)
-	SearchGoal(ctx context.Context, options search.Options) (search.Result, error)
+	SearchGoal(ctx context.Context, options search.Options) (search.Result[r4b.Goal], error)
 }
 
 // GraphDefinitionSearch needs to be implemented to support the search interaction.
 type GraphDefinitionSearch interface {
 	SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result[r4b.GraphDefinition], error)
 }
 
 // GroupSearch needs to be implemented to support the search interaction.
 type GroupSearch interface {
 	SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, error)
-	SearchGroup(ctx context.Context, options search.Options) (search.Result, error)
+	SearchGroup(ctx context.Context, options search.Options) (search.Result[r4b.Group], error)
 }
 
 // GuidanceResponseSearch needs to be implemented to support the search interaction.
 type GuidanceResponseSearch interface {
 	SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, error)
-	SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result, error)
+	SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result[r4b.GuidanceResponse], error)
 }
 
 // HealthcareServiceSearch needs to be implemented to support the search interaction.
 type HealthcareServiceSearch interface {
 	SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, error)
-	SearchHealthcareService(ctx context.Context, options search.Options) (search.Result, error)
+	SearchHealthcareService(ctx context.Context, options search.Options) (search.Result[r4b.HealthcareService], error)
 }
 
 // ImagingStudySearch needs to be implemented to support the search interaction.
 type ImagingStudySearch interface {
 	SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, error)
-	SearchImagingStudy(ctx context.Context, options search.Options) (search.Result, error)
+	SearchImagingStudy(ctx context.Context, options search.Options) (search.Result[r4b.ImagingStudy], error)
 }
 
 // ImmunizationSearch needs to be implemented to support the search interaction.
 type ImmunizationSearch interface {
 	SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, error)
-	SearchImmunization(ctx context.Context, options search.Options) (search.Result, error)
+	SearchImmunization(ctx context.Context, options search.Options) (search.Result[r4b.Immunization], error)
 }
 
 // ImmunizationEvaluationSearch needs to be implemented to support the search interaction.
 type ImmunizationEvaluationSearch interface {
 	SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, error)
-	SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result, error)
+	SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result[r4b.ImmunizationEvaluation], error)
 }
 
 // ImmunizationRecommendationSearch needs to be implemented to support the search interaction.
 type ImmunizationRecommendationSearch interface {
 	SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, error)
-	SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result, error)
+	SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result[r4b.ImmunizationRecommendation], error)
 }
 
 // ImplementationGuideSearch needs to be implemented to support the search interaction.
 type ImplementationGuideSearch interface {
 	SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, error)
-	SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result, error)
+	SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result[r4b.ImplementationGuide], error)
 }
 
 // IngredientSearch needs to be implemented to support the search interaction.
 type IngredientSearch interface {
 	SearchCapabilitiesIngredient(ctx context.Context) (search.Capabilities, error)
-	SearchIngredient(ctx context.Context, options search.Options) (search.Result, error)
+	SearchIngredient(ctx context.Context, options search.Options) (search.Result[r4b.Ingredient], error)
 }
 
 // InsurancePlanSearch needs to be implemented to support the search interaction.
 type InsurancePlanSearch interface {
 	SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, error)
-	SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result, error)
+	SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result[r4b.InsurancePlan], error)
 }
 
 // InvoiceSearch needs to be implemented to support the search interaction.
 type InvoiceSearch interface {
 	SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, error)
-	SearchInvoice(ctx context.Context, options search.Options) (search.Result, error)
+	SearchInvoice(ctx context.Context, options search.Options) (search.Result[r4b.Invoice], error)
 }
 
 // LibrarySearch needs to be implemented to support the search interaction.
 type LibrarySearch interface {
 	SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, error)
-	SearchLibrary(ctx context.Context, options search.Options) (search.Result, error)
+	SearchLibrary(ctx context.Context, options search.Options) (search.Result[r4b.Library], error)
 }
 
 // LinkageSearch needs to be implemented to support the search interaction.
 type LinkageSearch interface {
 	SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, error)
-	SearchLinkage(ctx context.Context, options search.Options) (search.Result, error)
+	SearchLinkage(ctx context.Context, options search.Options) (search.Result[r4b.Linkage], error)
 }
 
 // ListSearch needs to be implemented to support the search interaction.
 type ListSearch interface {
 	SearchCapabilitiesList(ctx context.Context) (search.Capabilities, error)
-	SearchList(ctx context.Context, options search.Options) (search.Result, error)
+	SearchList(ctx context.Context, options search.Options) (search.Result[r4b.List], error)
 }
 
 // LocationSearch needs to be implemented to support the search interaction.
 type LocationSearch interface {
 	SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, error)
-	SearchLocation(ctx context.Context, options search.Options) (search.Result, error)
+	SearchLocation(ctx context.Context, options search.Options) (search.Result[r4b.Location], error)
 }
 
 // ManufacturedItemDefinitionSearch needs to be implemented to support the search interaction.
 type ManufacturedItemDefinitionSearch interface {
 	SearchCapabilitiesManufacturedItemDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchManufacturedItemDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchManufacturedItemDefinition(ctx context.Context, options search.Options) (search.Result[r4b.ManufacturedItemDefinition], error)
 }
 
 // MeasureSearch needs to be implemented to support the search interaction.
 type MeasureSearch interface {
 	SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, error)
-	SearchMeasure(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMeasure(ctx context.Context, options search.Options) (search.Result[r4b.Measure], error)
 }
 
 // MeasureReportSearch needs to be implemented to support the search interaction.
 type MeasureReportSearch interface {
 	SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, error)
-	SearchMeasureReport(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMeasureReport(ctx context.Context, options search.Options) (search.Result[r4b.MeasureReport], error)
 }
 
 // MediaSearch needs to be implemented to support the search interaction.
 type MediaSearch interface {
 	SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, error)
-	SearchMedia(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedia(ctx context.Context, options search.Options) (search.Result[r4b.Media], error)
 }
 
 // MedicationSearch needs to be implemented to support the search interaction.
 type MedicationSearch interface {
 	SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, error)
-	SearchMedication(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedication(ctx context.Context, options search.Options) (search.Result[r4b.Medication], error)
 }
 
 // MedicationAdministrationSearch needs to be implemented to support the search interaction.
 type MedicationAdministrationSearch interface {
 	SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, error)
-	SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result[r4b.MedicationAdministration], error)
 }
 
 // MedicationDispenseSearch needs to be implemented to support the search interaction.
 type MedicationDispenseSearch interface {
 	SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, error)
-	SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result[r4b.MedicationDispense], error)
 }
 
 // MedicationKnowledgeSearch needs to be implemented to support the search interaction.
 type MedicationKnowledgeSearch interface {
 	SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, error)
-	SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result[r4b.MedicationKnowledge], error)
 }
 
 // MedicationRequestSearch needs to be implemented to support the search interaction.
 type MedicationRequestSearch interface {
 	SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, error)
-	SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result[r4b.MedicationRequest], error)
 }
 
 // MedicationStatementSearch needs to be implemented to support the search interaction.
 type MedicationStatementSearch interface {
 	SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, error)
-	SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result[r4b.MedicationStatement], error)
 }
 
 // MedicinalProductDefinitionSearch needs to be implemented to support the search interaction.
 type MedicinalProductDefinitionSearch interface {
 	SearchCapabilitiesMedicinalProductDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchMedicinalProductDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMedicinalProductDefinition(ctx context.Context, options search.Options) (search.Result[r4b.MedicinalProductDefinition], error)
 }
 
 // MessageDefinitionSearch needs to be implemented to support the search interaction.
 type MessageDefinitionSearch interface {
 	SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result[r4b.MessageDefinition], error)
 }
 
 // MessageHeaderSearch needs to be implemented to support the search interaction.
 type MessageHeaderSearch interface {
 	SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, error)
-	SearchMessageHeader(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMessageHeader(ctx context.Context, options search.Options) (search.Result[r4b.MessageHeader], error)
 }
 
 // MolecularSequenceSearch needs to be implemented to support the search interaction.
 type MolecularSequenceSearch interface {
 	SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, error)
-	SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result, error)
+	SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result[r4b.MolecularSequence], error)
 }
 
 // NamingSystemSearch needs to be implemented to support the search interaction.
 type NamingSystemSearch interface {
 	SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, error)
-	SearchNamingSystem(ctx context.Context, options search.Options) (search.Result, error)
+	SearchNamingSystem(ctx context.Context, options search.Options) (search.Result[r4b.NamingSystem], error)
 }
 
 // NutritionOrderSearch needs to be implemented to support the search interaction.
 type NutritionOrderSearch interface {
 	SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, error)
-	SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result, error)
+	SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result[r4b.NutritionOrder], error)
 }
 
 // NutritionProductSearch needs to be implemented to support the search interaction.
 type NutritionProductSearch interface {
 	SearchCapabilitiesNutritionProduct(ctx context.Context) (search.Capabilities, error)
-	SearchNutritionProduct(ctx context.Context, options search.Options) (search.Result, error)
+	SearchNutritionProduct(ctx context.Context, options search.Options) (search.Result[r4b.NutritionProduct], error)
 }
 
 // ObservationSearch needs to be implemented to support the search interaction.
 type ObservationSearch interface {
 	SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error)
-	SearchObservation(ctx context.Context, options search.Options) (search.Result, error)
+	SearchObservation(ctx context.Context, options search.Options) (search.Result[r4b.Observation], error)
 }
 
 // ObservationDefinitionSearch needs to be implemented to support the search interaction.
 type ObservationDefinitionSearch interface {
 	SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result[r4b.ObservationDefinition], error)
 }
 
 // OperationDefinitionSearch needs to be implemented to support the search interaction.
 type OperationDefinitionSearch interface {
 	SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result[r4b.OperationDefinition], error)
 }
 
 // OperationOutcomeSearch needs to be implemented to support the search interaction.
 type OperationOutcomeSearch interface {
 	SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, error)
-	SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result, error)
+	SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result[r4b.OperationOutcome], error)
 }
 
 // OrganizationSearch needs to be implemented to support the search interaction.
 type OrganizationSearch interface {
 	SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, error)
-	SearchOrganization(ctx context.Context, options search.Options) (search.Result, error)
+	SearchOrganization(ctx context.Context, options search.Options) (search.Result[r4b.Organization], error)
 }
 
 // OrganizationAffiliationSearch needs to be implemented to support the search interaction.
 type OrganizationAffiliationSearch interface {
 	SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, error)
-	SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result, error)
+	SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result[r4b.OrganizationAffiliation], error)
 }
 
 // PackagedProductDefinitionSearch needs to be implemented to support the search interaction.
 type PackagedProductDefinitionSearch interface {
 	SearchCapabilitiesPackagedProductDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchPackagedProductDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPackagedProductDefinition(ctx context.Context, options search.Options) (search.Result[r4b.PackagedProductDefinition], error)
 }
 
 // ParametersSearch needs to be implemented to support the search interaction.
 type ParametersSearch interface {
 	SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, error)
-	SearchParameters(ctx context.Context, options search.Options) (search.Result, error)
+	SearchParameters(ctx context.Context, options search.Options) (search.Result[r4b.Parameters], error)
 }
 
 // PatientSearch needs to be implemented to support the search interaction.
 type PatientSearch interface {
 	SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error)
-	SearchPatient(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPatient(ctx context.Context, options search.Options) (search.Result[r4b.Patient], error)
 }
 
 // PaymentNoticeSearch needs to be implemented to support the search interaction.
 type PaymentNoticeSearch interface {
 	SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, error)
-	SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result[r4b.PaymentNotice], error)
 }
 
 // PaymentReconciliationSearch needs to be implemented to support the search interaction.
 type PaymentReconciliationSearch interface {
 	SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, error)
-	SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result[r4b.PaymentReconciliation], error)
 }
 
 // PersonSearch needs to be implemented to support the search interaction.
 type PersonSearch interface {
 	SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, error)
-	SearchPerson(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPerson(ctx context.Context, options search.Options) (search.Result[r4b.Person], error)
 }
 
 // PlanDefinitionSearch needs to be implemented to support the search interaction.
 type PlanDefinitionSearch interface {
 	SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result[r4b.PlanDefinition], error)
 }
 
 // PractitionerSearch needs to be implemented to support the search interaction.
 type PractitionerSearch interface {
 	SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, error)
-	SearchPractitioner(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPractitioner(ctx context.Context, options search.Options) (search.Result[r4b.Practitioner], error)
 }
 
 // PractitionerRoleSearch needs to be implemented to support the search interaction.
 type PractitionerRoleSearch interface {
 	SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, error)
-	SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result, error)
+	SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result[r4b.PractitionerRole], error)
 }
 
 // ProcedureSearch needs to be implemented to support the search interaction.
 type ProcedureSearch interface {
 	SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, error)
-	SearchProcedure(ctx context.Context, options search.Options) (search.Result, error)
+	SearchProcedure(ctx context.Context, options search.Options) (search.Result[r4b.Procedure], error)
 }
 
 // ProvenanceSearch needs to be implemented to support the search interaction.
 type ProvenanceSearch interface {
 	SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, error)
-	SearchProvenance(ctx context.Context, options search.Options) (search.Result, error)
+	SearchProvenance(ctx context.Context, options search.Options) (search.Result[r4b.Provenance], error)
 }
 
 // QuestionnaireSearch needs to be implemented to support the search interaction.
 type QuestionnaireSearch interface {
 	SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, error)
-	SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result, error)
+	SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result[r4b.Questionnaire], error)
 }
 
 // QuestionnaireResponseSearch needs to be implemented to support the search interaction.
 type QuestionnaireResponseSearch interface {
 	SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, error)
-	SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result, error)
+	SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result[r4b.QuestionnaireResponse], error)
 }
 
 // RegulatedAuthorizationSearch needs to be implemented to support the search interaction.
 type RegulatedAuthorizationSearch interface {
 	SearchCapabilitiesRegulatedAuthorization(ctx context.Context) (search.Capabilities, error)
-	SearchRegulatedAuthorization(ctx context.Context, options search.Options) (search.Result, error)
+	SearchRegulatedAuthorization(ctx context.Context, options search.Options) (search.Result[r4b.RegulatedAuthorization], error)
 }
 
 // RelatedPersonSearch needs to be implemented to support the search interaction.
 type RelatedPersonSearch interface {
 	SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, error)
-	SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result, error)
+	SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result[r4b.RelatedPerson], error)
 }
 
 // RequestGroupSearch needs to be implemented to support the search interaction.
 type RequestGroupSearch interface {
 	SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, error)
-	SearchRequestGroup(ctx context.Context, options search.Options) (search.Result, error)
+	SearchRequestGroup(ctx context.Context, options search.Options) (search.Result[r4b.RequestGroup], error)
 }
 
 // ResearchDefinitionSearch needs to be implemented to support the search interaction.
 type ResearchDefinitionSearch interface {
 	SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result[r4b.ResearchDefinition], error)
 }
 
 // ResearchElementDefinitionSearch needs to be implemented to support the search interaction.
 type ResearchElementDefinitionSearch interface {
 	SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result[r4b.ResearchElementDefinition], error)
 }
 
 // ResearchStudySearch needs to be implemented to support the search interaction.
 type ResearchStudySearch interface {
 	SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, error)
-	SearchResearchStudy(ctx context.Context, options search.Options) (search.Result, error)
+	SearchResearchStudy(ctx context.Context, options search.Options) (search.Result[r4b.ResearchStudy], error)
 }
 
 // ResearchSubjectSearch needs to be implemented to support the search interaction.
 type ResearchSubjectSearch interface {
 	SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, error)
-	SearchResearchSubject(ctx context.Context, options search.Options) (search.Result, error)
+	SearchResearchSubject(ctx context.Context, options search.Options) (search.Result[r4b.ResearchSubject], error)
 }
 
 // RiskAssessmentSearch needs to be implemented to support the search interaction.
 type RiskAssessmentSearch interface {
 	SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, error)
-	SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result, error)
+	SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result[r4b.RiskAssessment], error)
 }
 
 // ScheduleSearch needs to be implemented to support the search interaction.
 type ScheduleSearch interface {
 	SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, error)
-	SearchSchedule(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSchedule(ctx context.Context, options search.Options) (search.Result[r4b.Schedule], error)
 }
 
 // SearchParameterSearch needs to be implemented to support the search interaction.
 type SearchParameterSearch interface {
 	SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, error)
-	SearchSearchParameter(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r4b.SearchParameter], error)
 }
 
 // ServiceRequestSearch needs to be implemented to support the search interaction.
 type ServiceRequestSearch interface {
 	SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, error)
-	SearchServiceRequest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchServiceRequest(ctx context.Context, options search.Options) (search.Result[r4b.ServiceRequest], error)
 }
 
 // SlotSearch needs to be implemented to support the search interaction.
 type SlotSearch interface {
 	SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, error)
-	SearchSlot(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSlot(ctx context.Context, options search.Options) (search.Result[r4b.Slot], error)
 }
 
 // SpecimenSearch needs to be implemented to support the search interaction.
 type SpecimenSearch interface {
 	SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, error)
-	SearchSpecimen(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSpecimen(ctx context.Context, options search.Options) (search.Result[r4b.Specimen], error)
 }
 
 // SpecimenDefinitionSearch needs to be implemented to support the search interaction.
 type SpecimenDefinitionSearch interface {
 	SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result[r4b.SpecimenDefinition], error)
 }
 
 // StructureDefinitionSearch needs to be implemented to support the search interaction.
 type StructureDefinitionSearch interface {
 	SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result[r4b.StructureDefinition], error)
 }
 
 // StructureMapSearch needs to be implemented to support the search interaction.
 type StructureMapSearch interface {
 	SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, error)
-	SearchStructureMap(ctx context.Context, options search.Options) (search.Result, error)
+	SearchStructureMap(ctx context.Context, options search.Options) (search.Result[r4b.StructureMap], error)
 }
 
 // SubscriptionSearch needs to be implemented to support the search interaction.
 type SubscriptionSearch interface {
 	SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, error)
-	SearchSubscription(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSubscription(ctx context.Context, options search.Options) (search.Result[r4b.Subscription], error)
 }
 
 // SubscriptionStatusSearch needs to be implemented to support the search interaction.
 type SubscriptionStatusSearch interface {
 	SearchCapabilitiesSubscriptionStatus(ctx context.Context) (search.Capabilities, error)
-	SearchSubscriptionStatus(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSubscriptionStatus(ctx context.Context, options search.Options) (search.Result[r4b.SubscriptionStatus], error)
 }
 
 // SubscriptionTopicSearch needs to be implemented to support the search interaction.
 type SubscriptionTopicSearch interface {
 	SearchCapabilitiesSubscriptionTopic(ctx context.Context) (search.Capabilities, error)
-	SearchSubscriptionTopic(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSubscriptionTopic(ctx context.Context, options search.Options) (search.Result[r4b.SubscriptionTopic], error)
 }
 
 // SubstanceSearch needs to be implemented to support the search interaction.
 type SubstanceSearch interface {
 	SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, error)
-	SearchSubstance(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSubstance(ctx context.Context, options search.Options) (search.Result[r4b.Substance], error)
 }
 
 // SubstanceDefinitionSearch needs to be implemented to support the search interaction.
 type SubstanceDefinitionSearch interface {
 	SearchCapabilitiesSubstanceDefinition(ctx context.Context) (search.Capabilities, error)
-	SearchSubstanceDefinition(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSubstanceDefinition(ctx context.Context, options search.Options) (search.Result[r4b.SubstanceDefinition], error)
 }
 
 // SupplyDeliverySearch needs to be implemented to support the search interaction.
 type SupplyDeliverySearch interface {
 	SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, error)
-	SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result[r4b.SupplyDelivery], error)
 }
 
 // SupplyRequestSearch needs to be implemented to support the search interaction.
 type SupplyRequestSearch interface {
 	SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, error)
-	SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result, error)
+	SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result[r4b.SupplyRequest], error)
 }
 
 // TaskSearch needs to be implemented to support the search interaction.
 type TaskSearch interface {
 	SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, error)
-	SearchTask(ctx context.Context, options search.Options) (search.Result, error)
+	SearchTask(ctx context.Context, options search.Options) (search.Result[r4b.Task], error)
 }
 
 // TerminologyCapabilitiesSearch needs to be implemented to support the search interaction.
 type TerminologyCapabilitiesSearch interface {
 	SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, error)
-	SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result, error)
+	SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result[r4b.TerminologyCapabilities], error)
 }
 
 // TestReportSearch needs to be implemented to support the search interaction.
 type TestReportSearch interface {
 	SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, error)
-	SearchTestReport(ctx context.Context, options search.Options) (search.Result, error)
+	SearchTestReport(ctx context.Context, options search.Options) (search.Result[r4b.TestReport], error)
 }
 
 // TestScriptSearch needs to be implemented to support the search interaction.
 type TestScriptSearch interface {
 	SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, error)
-	SearchTestScript(ctx context.Context, options search.Options) (search.Result, error)
+	SearchTestScript(ctx context.Context, options search.Options) (search.Result[r4b.TestScript], error)
 }
 
 // ValueSetSearch needs to be implemented to support the search interaction.
 type ValueSetSearch interface {
 	SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, error)
-	SearchValueSet(ctx context.Context, options search.Options) (search.Result, error)
+	SearchValueSet(ctx context.Context, options search.Options) (search.Result[r4b.ValueSet], error)
 }
 
 // VerificationResultSearch needs to be implemented to support the search interaction.
 type VerificationResultSearch interface {
 	SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, error)
-	SearchVerificationResult(ctx context.Context, options search.Options) (search.Result, error)
+	SearchVerificationResult(ctx context.Context, options search.Options) (search.Result[r4b.VerificationResult], error)
 }
 
 // VisionPrescriptionSearch needs to be implemented to support the search interaction.
 type VisionPrescriptionSearch interface {
 	SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, error)
-	SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result, error)
+	SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result[r4b.VisionPrescription], error)
 }

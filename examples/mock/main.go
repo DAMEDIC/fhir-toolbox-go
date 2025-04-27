@@ -70,7 +70,7 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 		}
 	}
 
-	return *result.Resources[0].(*r5.Observation), nil
+	return result.Resources[0], nil
 }
 
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
@@ -82,9 +82,9 @@ func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search
 	}, nil
 }
 
-func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, error) {
-	return search.Result{
-		Resources: []model.Resource{
+func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result[r5.Observation], error) {
+	return search.Result[r5.Observation]{
+		Resources: []r5.Observation{
 			r5.Observation{
 				Id: &r5.Id{Value: utils.Ptr("123")},
 				Meta: &r5.Meta{
@@ -168,7 +168,7 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Compos
 		}
 	}
 
-	return *result.Resources[0].(*r5.Composition), nil
+	return result.Resources[0], nil
 }
 
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
@@ -180,9 +180,9 @@ func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search
 	}, nil
 }
 
-func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result, error) {
-	return search.Result{
-		Resources: []model.Resource{
+func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result[r5.Composition], error) {
+	return search.Result[r5.Composition]{
+		Resources: []r5.Composition{
 			r5.Composition{
 				Id: &r5.Id{Value: utils.Ptr("123")},
 				Meta: &r5.Meta{

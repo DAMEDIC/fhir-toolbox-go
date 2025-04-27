@@ -1498,8 +1498,8 @@ func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capa
 	}, nil
 }
 
-func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result, error) {
-	result := search.Result{}
+func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result[r4.Patient], error) {
+	result := search.Result[r4.Patient]{}
 
 	for _, p := range m.mockPatients {
 		result.Resources = append(result.Resources, p)
@@ -1521,8 +1521,8 @@ func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.
 	}, nil
 }
 
-func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result, error) {
-	var result search.Result
+func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result[r4.Observation], error) {
+	var result search.Result[r4.Observation]
 
 	for _, p := range m.mockObservations {
 		result.Resources = append(result.Resources, p)

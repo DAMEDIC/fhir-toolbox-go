@@ -99,13 +99,13 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 	return resource, nil
 }
 
-func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {
+func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result[model.Resource], error) {
 	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, options.QueryString())
 	log.Printf("forwarding GET %s", url)
 
 	resp, err := http.Get(url)
 	if err != nil {
-		return search.Result{}, r5.OperationOutcome{
+		return search.Result[model.Resource]{}, r5.OperationOutcome{
 			Issue: []r5.OperationOutcomeIssue{
 				{
 					Severity:    r5.Code{Value: utils.Ptr("error")},
@@ -121,7 +121,7 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 	var bundle r5.Bundle
 	err = json.NewDecoder(resp.Body).Decode(&bundle)
 	if err != nil {
-		return search.Result{}, r5.OperationOutcome{
+		return search.Result[model.Resource]{}, r5.OperationOutcome{
 			Issue: []r5.OperationOutcomeIssue{
 				{
 					Severity:    r5.Code{Value: utils.Ptr("error")},
@@ -137,7 +137,7 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 		resources = append(resources, entry.Resource)
 	}
 
-	return search.Result{
+	return search.Result[model.Resource]{
 		Resources: resources,
 	}, nil
 }

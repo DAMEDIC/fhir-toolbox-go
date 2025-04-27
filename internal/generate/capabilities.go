@@ -79,7 +79,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 						Id("options").Qual(moduleName+"/capabilities/search", "Options"),
 					).
 					Params(
-						Qual(moduleName+"/capabilities/search", "Result"),
+						Qual(moduleName+"/capabilities/search", "Result").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name)),
 						Error(),
 					)
 			}

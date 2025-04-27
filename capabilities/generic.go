@@ -40,7 +40,7 @@ type GenericDelete interface {
 type GenericSearch interface {
 	// GenericCapabilities is required because it includes the search capabilities (parameters etc.).
 	GenericCapabilities
-	Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error)
+	Search(ctx context.Context, resourceType string, options search.Options) (search.Result[model.Resource], error)
 }
 
 // The GenericAPI interface combines all generic interfaces to provide a complete API.
