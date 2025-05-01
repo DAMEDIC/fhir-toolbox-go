@@ -48,7 +48,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/wrap"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"log/slog"
 	"net/http"
 	"net/url"
@@ -408,9 +408,9 @@ func createOperationOutcome(severity, code, diagnostics string) basic.OperationO
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    basic.Code{Value: utils.Ptr(severity)},
-				Code:        basic.Code{Value: utils.Ptr(code)},
-				Diagnostics: &basic.String{Value: utils.Ptr(diagnostics)},
+				Severity:    basic.Code{Value: ptr.To(severity)},
+				Code:        basic.Code{Value: ptr.To(code)},
+				Diagnostics: &basic.String{Value: ptr.To(diagnostics)},
 			},
 		},
 	}

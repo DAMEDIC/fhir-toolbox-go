@@ -5,7 +5,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"net/url"
 	"slices"
 	"strings"
@@ -15,9 +15,9 @@ func missingIdError(resourceType string) basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("exception")},
-				Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("missing id for resource of type '%s'", resourceType))},
+				Severity:    basic.Code{Value: ptr.To("fatal")},
+				Code:        basic.Code{Value: ptr.To("exception")},
+				Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("missing id for resource of type '%s'", resourceType))},
 			},
 		},
 	}
@@ -40,10 +40,10 @@ func searchBundle[R model.Resource](
 	}
 
 	bundle := basic.Bundle{
-		Type: basic.Code{Value: utils.Ptr("searchset")},
+		Type: basic.Code{Value: ptr.To("searchset")},
 		Link: []basic.BundleLink{
 			{
-				Relation: basic.String{Value: utils.Ptr("self")},
+				Relation: basic.String{Value: ptr.To("self")},
 				Url: relationLink(
 					resourceType,
 					usedOptions,
@@ -60,7 +60,7 @@ func searchBundle[R model.Resource](
 		nextOptions.Cursor = result.Next
 
 		bundle.Link = append(bundle.Link, basic.BundleLink{
-			Relation: basic.String{Value: utils.Ptr("next")},
+			Relation: basic.String{Value: ptr.To("next")},
 			Url: relationLink(
 				resourceType,
 				nextOptions,
@@ -112,7 +112,7 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.
 
 	return basic.BundleEntry{
 		Resource: resource,
-		FullUrl:  &basic.Uri{Value: utils.Ptr(fullURL.String())},
+		FullUrl:  &basic.Uri{Value: ptr.To(fullURL.String())},
 		Search: &basic.BundleEntrySearch{
 			Mode: &basic.Code{Value: &searchMode},
 		},
@@ -152,5 +152,5 @@ func relationLink(
 
 	link.RawQuery = usedOptions.QueryString()
 
-	return basic.Uri{Value: utils.Ptr(link.String())}
+	return basic.Uri{Value: ptr.To(link.String())}
 }

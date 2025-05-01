@@ -364,13 +364,13 @@ func notImplementedError(release, interaction, resourceType string) Code {
 		Id("Issue"): Index().Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(
 			Values(Dict{
 				Id("Severity"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("fatal")),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal")),
 				}),
 				Id("Code"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("not-supported")),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported")),
 				}),
 				Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+r, "String").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit(interaction + " not implemented for " + resourceType)),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit(interaction + " not implemented for " + resourceType)),
 				}),
 			}),
 		),
@@ -383,13 +383,13 @@ func invalidResourceTypeError(release string, resourceType Code) Code {
 		Id("Issue"): Index().Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(
 			Values(Dict{
 				Id("Severity"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("fatal")),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal")),
 				}),
 				Id("Code"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("processing")),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("processing")),
 				}),
 				Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+r, "String").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("invalid resource type: ").Op("+").Add(resourceType)),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("invalid resource type: ").Op("+").Add(resourceType)),
 				}),
 			}),
 		),
@@ -402,13 +402,13 @@ func unexpectedResourceTypeError(release string, expectedType, gotType Code) Cod
 		Id("Issue"): Index().Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(
 			Values(Dict{
 				Id("Severity"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("fatal")),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal")),
 				}),
 				Id("Code"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("processing")),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("processing")),
 				}),
 				Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+r, "String").Values(Dict{
-					Id("Value"): Qual(moduleName+"/utils", "Ptr").Call(Lit("expected ").Op("+").Add(expectedType).Op("+").Lit(" but got ").Op("+").Add(gotType)),
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("expected ").Op("+").Add(expectedType).Op("+").Lit(" but got ").Op("+").Add(gotType)),
 				}),
 			}),
 		),

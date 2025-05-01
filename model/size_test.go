@@ -3,7 +3,7 @@ package model_test
 import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"reflect"
 	"testing"
 )
@@ -21,7 +21,7 @@ func TestMemSizeR4(t *testing.T) {
 		},
 		{
 			name:    "account with id",
-			element: r4.Account{Id: &r4.Id{Value: utils.Ptr("1")}},
+			element: r4.Account{Id: &r4.Id{Value: ptr.To("1")}},
 			want:    int(reflect.TypeOf(r4.Account{}).Size()+reflect.TypeOf(r4.Id{}).Size()+reflect.TypeOf("").Size()) + len("1"),
 		},
 		{

@@ -18,11 +18,6 @@ This includes model types and interfaces modeling capabilities that you can use 
 ## Features
 
 - FHIR® model types with JSON and XML (un)marshaling
-    - R4, R4B & R5
-
-      use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
-      versions
-
     - generated from the FHIR® specification
     ```Go
     var r r4.ContainedResource // container class because json.Unmarshal can not unmarshal directly into interfaces
@@ -35,6 +30,10 @@ This includes model types and interfaces modeling capabilities that you can use 
         - automatic generation fo `CapabilityStatements`
     - Interactions: `create`, `read`, `update`, `delete`, `search` (see [Roadmap](#roadmap) for the remaining interactions)
     - Cursor-based pagination
+    - R4, R4B & R5
+
+      use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
+      versions
 - FHIRPath evaluation
   - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
 

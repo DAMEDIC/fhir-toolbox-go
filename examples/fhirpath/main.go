@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	r4 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"github.com/cockroachdb/apd/v3"
 )
 
@@ -29,21 +29,21 @@ func main() {
 	// Create a sample FHIR Patient resource
 	patient := r4.Patient{
 		Name: []r4.HumanName{{
-			Given:  []r4.String{{Value: utils.Ptr("Donald")}},
-			Family: &r4.String{Value: utils.Ptr("Duck")},
+			Given:  []r4.String{{Value: ptr.To("Donald")}},
+			Family: &r4.String{Value: ptr.To("Duck")},
 		}},
-		Active:        &r4.Boolean{Value: utils.Ptr(true)},
-		MultipleBirth: r4.Integer{Value: utils.Ptr[int32](3)},
+		Active:        &r4.Boolean{Value: ptr.To(true)},
+		MultipleBirth: r4.Integer{Value: ptr.To[int32](3)},
 		Telecom: []r4.ContactPoint{
 			{
-				System: &r4.Code{Value: utils.Ptr("phone")},
-				Value:  &r4.String{Value: utils.Ptr("555-123-4567")},
-				Use:    &r4.Code{Value: utils.Ptr("home")},
+				System: &r4.Code{Value: ptr.To("phone")},
+				Value:  &r4.String{Value: ptr.To("555-123-4567")},
+				Use:    &r4.Code{Value: ptr.To("home")},
 			},
 			{
-				System: &r4.Code{Value: utils.Ptr("email")},
-				Value:  &r4.String{Value: utils.Ptr("donald.duck@example.com")},
-				Use:    &r4.Code{Value: utils.Ptr("work")},
+				System: &r4.Code{Value: ptr.To("email")},
+				Value:  &r4.String{Value: ptr.To("donald.duck@example.com")},
+				Use:    &r4.Code{Value: ptr.To("work")},
 			},
 		},
 	}

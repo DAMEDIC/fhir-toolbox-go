@@ -4,7 +4,7 @@ import (
 	"errors"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"net/http"
 	"slices"
 )
@@ -52,9 +52,9 @@ func ErrorToOperationOutcome[R model.Release](err error) (int, model.Resource) {
 	return http.StatusInternalServerError, basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("exception")},
-				Diagnostics: &basic.String{Value: utils.Ptr(err.Error())},
+				Severity:    basic.Code{Value: ptr.To("fatal")},
+				Code:        basic.Code{Value: ptr.To("exception")},
+				Diagnostics: &basic.String{Value: ptr.To(err.Error())},
 			},
 		},
 	}

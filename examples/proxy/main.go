@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"log"
 	"log/slog"
 	"net/http"
@@ -86,9 +86,9 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 		return nil, r5.OperationOutcome{
 			Issue: []r5.OperationOutcomeIssue{
 				{
-					Severity:    r5.Code{Value: utils.Ptr("error")},
-					Code:        r5.Code{Value: utils.Ptr("exception")},
-					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("error executing backend request: %s", err))},
+					Severity:    r5.Code{Value: ptr.To("error")},
+					Code:        r5.Code{Value: ptr.To("exception")},
+					Diagnostics: &r5.String{Value: ptr.To(fmt.Sprintf("error executing backend request: %s", err))},
 				},
 			},
 		}
@@ -112,9 +112,9 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 		return search.Result[model.Resource]{}, r5.OperationOutcome{
 			Issue: []r5.OperationOutcomeIssue{
 				{
-					Severity:    r5.Code{Value: utils.Ptr("error")},
-					Code:        r5.Code{Value: utils.Ptr("exception")},
-					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("error executing backend request: %s", err))},
+					Severity:    r5.Code{Value: ptr.To("error")},
+					Code:        r5.Code{Value: ptr.To("exception")},
+					Diagnostics: &r5.String{Value: ptr.To(fmt.Sprintf("error executing backend request: %s", err))},
 				},
 			},
 		}
@@ -128,9 +128,9 @@ func (c *Client) Search(ctx context.Context, resourceType string, options search
 		return search.Result[model.Resource]{}, r5.OperationOutcome{
 			Issue: []r5.OperationOutcomeIssue{
 				{
-					Severity:    r5.Code{Value: utils.Ptr("error")},
-					Code:        r5.Code{Value: utils.Ptr("exception")},
-					Diagnostics: &r5.String{Value: utils.Ptr(fmt.Sprintf("got invalid JSON from backend: %s", err))},
+					Severity:    r5.Code{Value: ptr.To("error")},
+					Code:        r5.Code{Value: ptr.To("exception")},
+					Diagnostics: &r5.String{Value: ptr.To(fmt.Sprintf("got invalid JSON from backend: %s", err))},
 				},
 			},
 		}

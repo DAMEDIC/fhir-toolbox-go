@@ -9,7 +9,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"net/http"
 	"slices"
 )
@@ -59,9 +59,9 @@ func decodingError(encoding string) basic.OperationOutcome {
 	return basic.OperationOutcome{
 		Issue: []basic.OperationOutcomeIssue{
 			{
-				Severity:    basic.Code{Value: utils.Ptr("fatal")},
-				Code:        basic.Code{Value: utils.Ptr("processing")},
-				Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("error parsing %s body", encoding))},
+				Severity:    basic.Code{Value: ptr.To("fatal")},
+				Code:        basic.Code{Value: ptr.To("processing")},
+				Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("error parsing %s body", encoding))},
 			},
 		},
 	}

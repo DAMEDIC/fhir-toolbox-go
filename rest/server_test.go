@@ -10,7 +10,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -501,7 +501,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "application/fhir+json",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `{
 				"resourceType": "Patient",
@@ -513,7 +513,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "application/json",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `{
 				"resourceType": "Patient",
@@ -525,7 +525,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "text/json",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `{
 				"resourceType": "Patient",
@@ -537,7 +537,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "json",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `{
 				"resourceType": "Patient",
@@ -549,7 +549,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "application/fhir+xml",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
 				<Patient xmlns="http://hl7.org/fhir">
@@ -561,7 +561,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "application/xml",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
 				<Patient xmlns="http://hl7.org/fhir">
@@ -573,7 +573,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "text/xml",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
 				<Patient xmlns="http://hl7.org/fhir">
@@ -585,7 +585,7 @@ func TestHandleRead(t *testing.T) {
 			format:         "xml",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: utils.Ptr("1")}}}},
+			backend:        mockBackend{mockPatients: []r4.Patient{{Id: &r4.Id{Value: ptr.To("1")}}}},
 			expectedStatus: http.StatusOK,
 			expectedBody: `<?xml version="1.0" encoding="UTF-8"?>
 				<Patient xmlns="http://hl7.org/fhir">
@@ -921,7 +921,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "_id=1",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -955,8 +955,8 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "_id=1,2",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
-					{Id: &r4.Id{Value: utils.Ptr("2")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
+					{Id: &r4.Id{Value: ptr.To("2")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1000,8 +1000,8 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "_id=1&_id=2",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
-					{Id: &r4.Id{Value: utils.Ptr("2")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
+					{Id: &r4.Id{Value: ptr.To("2")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1045,7 +1045,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "_id=1&unknown=x",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1079,10 +1079,10 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "_include=Observation:patient&_id=1",
 			backend: mockBackend{
 				mockObservations: []r4.Observation{
-					{Id: &r4.Id{Value: utils.Ptr("1")}, Status: r4.Code{Value: utils.Ptr("final")}},
+					{Id: &r4.Id{Value: ptr.To("1")}, Status: r4.Code{Value: ptr.To("final")}},
 				},
 				mockObservationIncludes: []model.Resource{
-					r4.Patient{Id: &r4.Id{Value: utils.Ptr("1")}},
+					r4.Patient{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1146,7 +1146,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "_id=ge1&date=ge2024-06-03",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1180,7 +1180,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "eq1=eq1&ne2=ne2&gt3=gt3&lt4=lt4&ge5=ge5&le6=le6&sa7=sa7&eb8=eb8",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1214,7 +1214,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "date=ge2024-06-03T16:53Z",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1248,7 +1248,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "date=ge2024-06-03T16:53:23Z",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1282,7 +1282,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "date=ge2024-06-03T16:53:24.444%2b02:00",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1316,7 +1316,7 @@ func TestHandleSearch(t *testing.T) {
 			queryString:  "_count=1&_cursor=2",
 			backend: mockBackend{
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1351,7 +1351,7 @@ func TestHandleSearch(t *testing.T) {
 			backend: mockBackend{
 				nextCursor: "2",
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1390,7 +1390,7 @@ func TestHandleSearch(t *testing.T) {
 			backend: mockBackend{
 				nextCursor: "2",
 				mockPatients: []r4.Patient{
-					{Id: &r4.Id{Value: utils.Ptr("1")}},
+					{Id: &r4.Id{Value: ptr.To("1")}},
 				},
 			},
 			expectedStatus: http.StatusOK,
@@ -1441,7 +1441,7 @@ type mockBackend struct {
 }
 
 func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, error) {
-	patient.Id = &r4.Id{Value: utils.Ptr("server-assigned-id")}
+	patient.Id = &r4.Id{Value: ptr.To("server-assigned-id")}
 	return patient, nil
 }
 
@@ -1450,9 +1450,9 @@ func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, er
 		return r4.Patient{}, basic.OperationOutcome{
 			Issue: []basic.OperationOutcomeIssue{
 				{
-					Severity:    basic.Code{Value: utils.Ptr("error")},
-					Code:        basic.Code{Value: utils.Ptr("not-found")},
-					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("Patient with ID %s not found", id))},
+					Severity:    basic.Code{Value: ptr.To("error")},
+					Code:        basic.Code{Value: ptr.To("not-found")},
+					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("Patient with ID %s not found", id))},
 				},
 			},
 		}
@@ -1541,9 +1541,9 @@ func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error 
 		return basic.OperationOutcome{
 			Issue: []basic.OperationOutcomeIssue{
 				{
-					Severity:    basic.Code{Value: utils.Ptr("error")},
-					Code:        basic.Code{Value: utils.Ptr("not-found")},
-					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
+					Severity:    basic.Code{Value: ptr.To("error")},
+					Code:        basic.Code{Value: ptr.To("not-found")},
+					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
 				},
 			},
 		}
@@ -1551,9 +1551,9 @@ func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error 
 		return basic.OperationOutcome{
 			Issue: []basic.OperationOutcomeIssue{
 				{
-					Severity:    basic.Code{Value: utils.Ptr("error")},
-					Code:        basic.Code{Value: utils.Ptr("invalid")},
-					Diagnostics: &basic.String{Value: utils.Ptr(fmt.Sprintf("invalid resource type: %s", resourceType))},
+					Severity:    basic.Code{Value: ptr.To("error")},
+					Code:        basic.Code{Value: ptr.To("invalid")},
+					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("invalid resource type: %s", resourceType))},
 				},
 			},
 		}
@@ -1561,9 +1561,9 @@ func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error 
 		return basic.OperationOutcome{
 			Issue: []basic.OperationOutcomeIssue{
 				{
-					Severity:    basic.Code{Value: utils.Ptr("error")},
-					Code:        basic.Code{Value: utils.Ptr("exception")},
-					Diagnostics: &basic.String{Value: utils.Ptr("internal server error")},
+					Severity:    basic.Code{Value: ptr.To("error")},
+					Code:        basic.Code{Value: ptr.To("exception")},
+					Diagnostics: &basic.String{Value: ptr.To("internal server error")},
 				},
 			},
 		}

@@ -5,7 +5,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"net/url"
 	"slices"
 	"time"
@@ -20,20 +20,20 @@ func capabilityStatement[R model.Release](
 	metadataURL := baseURL.JoinPath("metadata").String()
 
 	return basic.CapabilityStatement{
-		Status: basic.Code{Value: utils.Ptr("active")},
+		Status: basic.Code{Value: ptr.To("active")},
 		// the capability statement is created once at system start
 		// we simply use the system start as last changed date for now
-		Date: basic.DateTime{Value: utils.Ptr(date.Format(time.RFC3339))},
-		Kind: basic.Code{Value: utils.Ptr("instance")},
+		Date: basic.DateTime{Value: ptr.To(date.Format(time.RFC3339))},
+		Kind: basic.Code{Value: ptr.To("instance")},
 		Software: &basic.CapabilityStatementSoftware{
-			Name: basic.String{Value: utils.Ptr("fhir-toolbox-go")},
+			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
 		},
 		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: utils.Ptr("a simple FHIR service built with fhir-toolbox-go")},
+			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
 			Url:         &basic.Url{Value: &metadataURL},
 		},
-		FhirVersion: basic.Code{Value: utils.Ptr(model.ReleaseVersion[R]())},
-		Format:      []basic.Code{{Value: utils.Ptr("xml")}, {Value: utils.Ptr("json")}},
+		FhirVersion: basic.Code{Value: ptr.To(model.ReleaseVersion[R]())},
+		Format:      []basic.Code{{Value: ptr.To("xml")}, {Value: ptr.To("json")}},
 		Rest:        []basic.CapabilityStatementRest{rest(capabilities)},
 	}
 }
@@ -51,7 +51,7 @@ func rest(
 		}
 		r.Interaction = append(
 			r.Interaction,
-			basic.CapabilityStatementRestResourceInteraction{Code: basic.Code{Value: utils.Ptr(interactionCode)}},
+			basic.CapabilityStatementRestResourceInteraction{Code: basic.Code{Value: ptr.To(interactionCode)}},
 		)
 		return r
 	}
@@ -66,7 +66,7 @@ func rest(
 
 	for name, capability := range capabilities.Update {
 		r := addInteraction(name, "update")
-		r.UpdateCreate = &basic.Boolean{Value: utils.Ptr(capability.UpdateCreate)}
+		r.UpdateCreate = &basic.Boolean{Value: ptr.To(capability.UpdateCreate)}
 		resourcesMap[name] = r
 	}
 
@@ -89,7 +89,7 @@ func rest(
 				r.SearchParam,
 				basic.CapabilityStatementRestResourceSearchParam{
 					Name: basic.String{Value: &paramName},
-					Type: basic.Code{Value: utils.Ptr(string(paramProps.Type))},
+					Type: basic.Code{Value: ptr.To(string(paramProps.Type))},
 				},
 			)
 		}
@@ -113,7 +113,7 @@ func rest(
 	})
 
 	return basic.CapabilityStatementRest{
-		Mode:     basic.Code{Value: utils.Ptr("server")},
+		Mode:     basic.Code{Value: ptr.To("server")},
 		Resource: resourcesList,
 	}
 }
