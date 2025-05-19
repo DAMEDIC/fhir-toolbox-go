@@ -132,6 +132,9 @@ func getFunction(ctx context.Context, name string) (Function, bool) {
 	return fn, ok
 }
 
+// global variable for mocking time in tests
+var now = time.Now
+
 var defaultFunctions = Functions{
 	// Type functions
 	"type": func(
@@ -2639,6 +2642,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected at most one precision parameter")
 		}
 
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
 		decimalPlaces := int64(0)
 		if len(parameters) == 1 {
 			c, _, err := evaluate(ctx, nil, parameters[0])
@@ -2661,25 +2671,26 @@ var defaultFunctions = Functions{
 			decimalPlaces = int64(decimalPlacesValue)
 		}
 
-		d, ok, err := Singleton[Decimal](target)
-		if err == nil && ok {
-			var intPart apd.Decimal
-			_, err = apdContext(ctx).Floor(&intPart, d.Value)
-
-			// apd counts precision including places before the comma
-			apdCtx := apdContext(ctx).WithPrecision(uint32(intPart.NumDigits() + decimalPlaces))
-
-			// Round the decimal to the specified precision
-			var rounded apd.Decimal
-			_, err = apdCtx.Round(&rounded, d.Value)
-			if err != nil {
-				return nil, false, err
-			}
-
-			return Collection{Decimal{Value: &rounded}}, true, nil
+		var dec *apd.Decimal
+		// Convert Integer to Decimal if needed
+		if i, ok, _ := Singleton[Integer](target); ok {
+			dec = apd.New(int64(i), 0)
+		} else if d, ok, _ := Singleton[Decimal](target); ok {
+			dec = d.Value
+		} else {
+			return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
 		}
 
-		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+		// Set precision for rounding
+		apdCtx := apdContext(ctx).WithPrecision(uint32(dec.NumDigits() + decimalPlaces))
+		var rounded apd.Decimal
+		// Use Quantize to round to the specified number of decimal places
+		_, err = apdCtx.Quantize(&rounded, dec, int32(-decimalPlaces))
+		if err != nil {
+			return nil, false, err
+		}
+
+		return Collection{Decimal{Value: &rounded}}, true, nil
 	},
 	"exp": func(
 		ctx context.Context,
@@ -2741,7 +2752,6 @@ var defaultFunctions = Functions{
 		if len(parameters) != 1 {
 			return nil, false, fmt.Errorf("expected one base parameter")
 		}
-
 		baseCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
@@ -3516,8 +3526,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// Get the current date and time
-		now := time.Now()
+		now := now()
 		dt := DateTime{Value: now, Precision: DateTimePrecisionFull}
 
 		return Collection{dt}, inputOrdered, nil
@@ -3534,7 +3543,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Get the current time
-		now := time.Now()
+		now := now()
 		t := Time{Value: now, Precision: TimePrecisionFull}
 
 		return Collection{t}, inputOrdered, nil
@@ -3550,8 +3559,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// Get the current date
-		now := time.Now()
+		now := now()
 		d := Date{Value: now, Precision: DatePrecisionFull}
 
 		return Collection{d}, inputOrdered, nil
@@ -3601,37 +3609,6 @@ var defaultFunctions = Functions{
 
 		// No otherwise-result, return empty collection
 		return nil, true, nil
-	},
-	"extension": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 1 {
-			return nil, false, fmt.Errorf("expected 1 parameter, got %d", len(parameters))
-		}
-
-		extUrl, ok, err := Singleton[String](target)
-		if err != nil {
-			return nil, false, err
-		}
-		if !ok {
-			return nil, false, fmt.Errorf("expected extension parameter string")
-		}
-
-		var foundExtensions Collection
-		for _, v := range target {
-			for _, e := range v.Children("extension") {
-				url, ok, err := Singleton[String](e.Children("url"))
-				if err == nil && ok && url == extUrl {
-					foundExtensions = append(foundExtensions, e)
-					break
-				}
-			}
-		}
-		return foundExtensions, inputOrdered, nil
 	},
 	"yearOf": func(
 		ctx context.Context,
@@ -3976,6 +3953,7 @@ var defaultFunctions = Functions{
 
 		return Collection{Time{Value: dt.Value, Precision: precision}}, inputOrdered, nil
 	},
+	"extension": FHIRFunctions["extension"],
 }
 
 var FHIRFunctions = Functions{

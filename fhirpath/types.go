@@ -5,9 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
-	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
-	"github.com/cockroachdb/apd/v3"
 	"maps"
 	"regexp"
 	"slices"
@@ -15,6 +12,10 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
+	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
+	"github.com/cockroachdb/apd/v3"
 )
 
 type Element interface {
@@ -796,7 +797,7 @@ outer1:
 		for _, u := range union {
 			eq, ok := e.Equal(u)
 			if ok && eq {
-				break outer1
+				continue outer1
 			}
 		}
 		union = append(union, e)
@@ -808,7 +809,7 @@ outer2:
 		for _, u := range union {
 			eq, ok := e.Equal(u)
 			if ok && eq {
-				break outer2
+				continue outer2
 			}
 		}
 		union = append(union, e)
@@ -1674,6 +1675,7 @@ func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, o
 		return other.Equal(d, true)
 	} else {
 		return false, true
+
 	}
 }
 func (d Date) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
@@ -2118,6 +2120,7 @@ func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) (eq bo
 		return other.Equal(dt, true)
 	} else {
 		return false, true
+
 	}
 }
 func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
