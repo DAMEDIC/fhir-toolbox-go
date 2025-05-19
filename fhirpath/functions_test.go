@@ -314,20 +314,18 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			return Collection{String(",")}, true, nil
 		case "{}":
 			return Collection{}, true, nil
-		case "{2, 3, 4}", "{2,3,4}":
-			return Collection{Integer(2), Integer(3), Integer(4)}, true, nil
-		case "{2, 3}", "{2,3}":
+		case "{2, 3}":
 			return Collection{Integer(2), Integer(3)}, true, nil
-		case "{3, 4, 5}", "{3,4,5}":
-			return Collection{Integer(3), Integer(4), Integer(5)}, true, nil
-		case "2|3|4":
+		case "{2, 3, 4}":
 			return Collection{Integer(2), Integer(3), Integer(4)}, true, nil
-		case "2|3":
-			return Collection{Integer(2), Integer(3)}, true, nil
-		case "3|4|5":
+		case "{3, 4, 5}":
 			return Collection{Integer(3), Integer(4), Integer(5)}, true, nil
-		case "System.String":
-			return Collection{TypeSpecifier{Namespace: "System", Name: "String"}}, true, nil
+		case "2 | 3", "2|3":
+			return Collection{Integer(2), Integer(3)}, true, nil
+		case "2 | 3 | 4", "2|3|4":
+			return Collection{Integer(2), Integer(3), Integer(4)}, true, nil
+		case "3|4|5", "3 | 4 | 5":
+			return Collection{Integer(3), Integer(4), Integer(5)}, true, nil
 		default:
 			// Try to parse as integer literal
 			var intVal int
@@ -359,216 +357,9 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 		t.Errorf("Expected ordered=%v, got ordered=%v", expectedOrdered, ordered)
 	}
 
-	// Special handling for DateTime and Date
-	if len(result) == 1 && len(expected) == 1 {
-		resDT, resIsDT := result[0].(DateTime)
-		expDT, expIsDT := expected[0].(DateTime)
-		if resIsDT && expIsDT {
-			if resDT.Value.Equal(expDT.Value) && resDT.Precision == expDT.Precision {
-				return
-			}
-			t.Errorf("Expected %v, got %v", expDT, resDT)
-			return
-		}
-		resDate, resIsDate := result[0].(Date)
-		expDate, expIsDate := expected[0].(Date)
-		if resIsDate && expIsDate {
-			if resDate.Value.Equal(expDate.Value) && resDate.Precision == expDate.Precision {
-				return
-			}
-			t.Errorf("Expected %v, got %v", expDate, resDate)
-			return
-		}
-	}
+	eq := result.Equivalent(expected)
 
-	// Special handling for Decimal precision in math function tests
-	if len(result) == len(expected) {
-		allDecimal := true
-		for i := range result {
-			_, resIsDec := result[i].(Decimal)
-			_, expIsDec := expected[i].(Decimal)
-			if !(resIsDec && expIsDec) {
-				allDecimal = false
-				break
-			}
-		}
-		if allDecimal {
-			allClose := true
-			for i := range result {
-				resDec := result[i].(Decimal)
-				expDec := expected[i].(Decimal)
-				if resDec.Value == nil || expDec.Value == nil {
-					if resDec.Value != expDec.Value {
-						allClose = false
-						break
-					}
-					continue
-				}
-				delta := new(apd.Decimal)
-				_, _ = apd.BaseContext.Sub(delta, resDec.Value, expDec.Value)
-				if delta.Cmp(apd.New(0, 0)) < 0 {
-					delta.Neg(delta)
-				}
-				limit := apd.New(1, -8)
-				if delta.Cmp(limit) > 0 {
-					allClose = false
-					break
-				}
-			}
-			if allClose {
-				return
-			}
-		}
-	}
-
-	// Special handling for TypeInfo structs
-	if len(result) == len(expected) && len(result) > 0 {
-		allSimpleTypeInfo := true
-		for i := range result {
-			_, resIsSimple := result[i].(SimpleTypeInfo)
-			_, expIsSimple := expected[i].(SimpleTypeInfo)
-			if !(resIsSimple && expIsSimple) {
-				allSimpleTypeInfo = false
-				break
-			}
-		}
-		if allSimpleTypeInfo {
-			allEqual := true
-			for i := range result {
-				res := result[i].(SimpleTypeInfo)
-				exp := expected[i].(SimpleTypeInfo)
-				if res.Namespace != exp.Namespace || res.Name != exp.Name || res.BaseType != exp.BaseType {
-					allEqual = false
-					break
-				}
-			}
-			if allEqual {
-				return
-			}
-		}
-		allClassInfo := true
-		for i := range result {
-			_, resIsClass := result[i].(ClassInfo)
-			_, expIsClass := expected[i].(ClassInfo)
-			if !(resIsClass && expIsClass) {
-				allClassInfo = false
-				break
-			}
-		}
-		if allClassInfo {
-			allEqual := true
-			for i := range result {
-				res := result[i].(ClassInfo)
-				exp := expected[i].(ClassInfo)
-				if res.Namespace != exp.Namespace || res.Name != exp.Name || res.BaseType != exp.BaseType || len(res.Element) != len(exp.Element) {
-					allEqual = false
-					break
-				}
-				for j := range res.Element {
-					if res.Element[j] != exp.Element[j] {
-						allEqual = false
-						break
-					}
-				}
-			}
-			if allEqual {
-				return
-			}
-		}
-		allTypeSpecifier := true
-		for i := range result {
-			_, resIsTypeSpec := result[i].(TypeSpecifier)
-			_, expIsTypeSpec := expected[i].(TypeSpecifier)
-			if !(resIsTypeSpec && expIsTypeSpec) {
-				allTypeSpecifier = false
-				break
-			}
-		}
-		if allTypeSpecifier {
-			allEqual := true
-			for i := range result {
-				res := result[i].(TypeSpecifier)
-				exp := expected[i].(TypeSpecifier)
-				if res.Namespace != exp.Namespace || res.Name != exp.Name || res.List != exp.List {
-					allEqual = false
-					break
-				}
-			}
-			if allEqual {
-				return
-			}
-		}
-	}
-
-	if !cmp.Equal(result, expected, cmpopts.EquateComparable()) {
-		// Treat nil and empty Collection as equal
-		if (result == nil && len(expected) == 0) || (expected == nil && len(result) == 0) {
-			return
-		}
-
-		// Integer vs Decimal (for round, log, sqrt, etc.)
-		if len(result) == len(expected) {
-			allClose := true
-			for i := range result {
-				resDec, resIsDec := result[i].(Decimal)
-				expDec, expIsDec := expected[i].(Decimal)
-				resInt, resIsInt := result[i].(Integer)
-				expInt, expIsInt := expected[i].(Integer)
-				if resIsDec && expIsInt {
-					if resDec.Value.Cmp(apd.New(int64(expInt), 0)) != 0 {
-						allClose = false
-						break
-					}
-					continue
-				}
-				if resIsInt && expIsDec {
-					if apd.New(int64(resInt), 0).Cmp(expDec.Value) != 0 {
-						allClose = false
-						break
-					}
-					continue
-				}
-				if resIsInt && expIsInt {
-					if resInt != expInt {
-						allClose = false
-						break
-					}
-					continue
-				}
-				if !cmp.Equal(result[i], expected[i], cmpopts.EquateComparable()) {
-					allClose = false
-					break
-				}
-			}
-			if allClose {
-				return
-			}
-
-			// If not ordered, compare as sets
-			if !expectedOrdered {
-				if len(result) == len(expected) {
-					allFound := true
-					for _, exp := range expected {
-						found := false
-						for _, res := range result {
-							eq, ok := exp.Equal(res)
-							if ok && eq {
-								found = true
-								break
-							}
-						}
-						if !found {
-							allFound = false
-							break
-						}
-					}
-					if allFound {
-						return
-					}
-				}
-			}
-		}
-
+	if !eq {
 		t.Errorf("Expected %v, got %v", expected, result)
 	}
 }
@@ -821,7 +612,7 @@ func TestSubsettingFunctions(t *testing.T) {
 			name:            "intersect()",
 			fn:              defaultFunctions["intersect"],
 			target:          Collection{Integer(1), Integer(2), Integer(3)},
-			params:          []Expression{MustParse("2|3|4")},
+			params:          []Expression{MustParse("2 | 3 | 4")},
 			expected:        Collection{Integer(2), Integer(3)},
 			expectedOrdered: false,
 		},
@@ -829,7 +620,7 @@ func TestSubsettingFunctions(t *testing.T) {
 			name:            "exclude()",
 			fn:              defaultFunctions["exclude"],
 			target:          Collection{Integer(1), Integer(2), Integer(3), Integer(4)},
-			params:          []Expression{MustParse("2|3")},
+			params:          []Expression{MustParse("2 | 3")},
 			expected:        Collection{Integer(1), Integer(4)},
 			expectedOrdered: true,
 		},
@@ -1238,6 +1029,109 @@ func TestUtilityFunctions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			testFunction(t, tt.fn, tt.target, tt.params, tt.expected, tt.expectedOrdered, false)
+		})
+	}
+}
+
+func TestDefineVariable(t *testing.T) {
+	tests := []struct {
+		name        string
+		target      Collection
+		params      []Expression
+		expected    Collection
+		expectError bool
+		varName     string
+		varValue    Element
+	}{
+		{
+			name:        "define_variable_with_value",
+			target:      Collection{},
+			params:      []Expression{MustParse("'test'"), MustParse("'value'")},
+			expected:    Collection{},
+			expectError: false,
+			varName:     "test",
+			varValue:    String("value"),
+		},
+		{
+			name:        "define_variable_using_input_collection",
+			target:      Collection{String("inputValue")},
+			params:      []Expression{MustParse("'myVar'")},
+			expected:    Collection{String("inputValue")},
+			expectError: false,
+			varName:     "myVar",
+			varValue:    String("inputValue"),
+		},
+		{
+			name:        "invalid_number_of_parameters",
+			target:      Collection{},
+			params:      []Expression{MustParse("'myVar'"), MustParse("'test'"), MustParse("'extra'")},
+			expected:    nil,
+			expectError: true,
+		},
+		{
+			name:        "non_string_name_parameter",
+			target:      Collection{},
+			params:      []Expression{MustParse("123"), MustParse("'test'")},
+			expected:    nil,
+			expectError: true,
+		},
+		{
+			name:        "multiple_values_in_input_collection",
+			target:      Collection{String("test1"), String("test2")},
+			params:      []Expression{MustParse("'myVar'")},
+			expected:    nil,
+			expectError: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mockEvaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+				if expr.tree == nil {
+					return Collection{}, false, fmt.Errorf("unexpected expression <nil>")
+				}
+				switch expr.String() {
+				case "'test'":
+					return Collection{String("test")}, true, nil
+				case "'myVar'":
+					return Collection{String("myVar")}, true, nil
+				case "'testVar'":
+					return Collection{String("testVar")}, true, nil
+				case "'value'":
+					return Collection{String("value")}, true, nil
+				case "'invalid'":
+					return Collection{String("invalid")}, true, nil
+				case "'multiple'":
+					return Collection{String("multiple")}, true, nil
+				default:
+					return Collection{}, false, fmt.Errorf("evaluate not implemented for expression: %s", expr.String())
+				}
+			}
+			ctx := context.Background()
+			ctx, _ = withNewEnvStackFrame(ctx)
+			result, _, err := defaultFunctions["defineVariable"](ctx, testElement{}, tt.target, true, tt.params, mockEvaluate)
+			if tt.expectError {
+				if err == nil {
+					t.Errorf("Expected error but got none")
+				}
+				return
+			} else if err != nil {
+				t.Errorf("Unexpected error: %v", err)
+				return
+			}
+			if !cmp.Equal(result, tt.expected, cmpopts.IgnoreUnexported(testElement{})) {
+				t.Errorf("Expected %v, got %v", tt.expected, result)
+			}
+
+			// Verify variable was set in environment
+			if !tt.expectError {
+				val, exists := envValue(ctx, tt.varName)
+				if !exists {
+					t.Errorf("Variable %s was not set in environment", tt.varName)
+				} else if val != tt.varValue {
+					t.Errorf("Expected variable value '%s', got '%s'", tt.varValue, val.String())
+				}
+			}
 		})
 	}
 }

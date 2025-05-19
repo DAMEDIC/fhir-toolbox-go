@@ -2469,8 +2469,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Add the variable to the expression enclosing context so it is passed to subsequent calls
-		outerCtx := outerCtx(ctx)
-		*outerCtx = WithEnv(*outerCtx, string(name), value)
+		_ = WithEnv(ctx, string(name), value)
 
 		// Return the input collection (does not change input)
 		return target, inputOrdered, nil

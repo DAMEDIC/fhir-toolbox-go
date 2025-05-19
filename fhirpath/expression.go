@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
 	"strconv"
 	"strings"
 
@@ -151,7 +152,7 @@ func evalExpression(
 	tree parser.IExpressionContext,
 	isRoot bool,
 ) (result Collection, resultOrdered bool, err error) {
-	ctx = setOuterContext(ctx, &ctx)
+	ctx, _ = withNewEnvStackFrame(ctx)
 
 	switch t := tree.(type) {
 	case *parser.ExpressionContext:
@@ -575,30 +576,42 @@ func evalLiteral(
 	}
 }
 
-type envKey string
+type envKey struct{}
 
 func WithEnv(ctx context.Context, name string, value Element) context.Context {
-	return context.WithValue(ctx, envKey(name), value)
+	frame, ok := envStackFrame(ctx)
+	if !ok {
+		ctx, frame = withNewEnvStackFrame(ctx)
+	}
+	frame[name] = value
+	return ctx
+}
+
+func withNewEnvStackFrame(ctx context.Context) (context.Context, map[string]Element) {
+	frame, ok := envStackFrame(ctx)
+	if !ok {
+		frame = map[string]Element{}
+	}
+	return context.WithValue(ctx, envKey{}, maps.Clone(frame)), frame
+}
+
+func envStackFrame(ctx context.Context) (map[string]Element, bool) {
+	val, ok := ctx.Value(envKey{}).(map[string]Element)
+	if !ok {
+		return nil, false
+	}
+	return val, true
 }
 
 func envValue(ctx context.Context, name string) (Element, bool) {
-	val, ok := ctx.Value(envKey(name)).(Element)
+	frame, ok := envStackFrame(ctx)
+	if !ok {
+		return nil, false
+	}
+	val, ok := frame[name]
 	return val, ok
 }
 
-type outerCtxKey struct{}
-
-func setOuterContext(ctx context.Context, outerCtx *context.Context) context.Context {
-	return context.WithValue(ctx, outerCtxKey{}, outerCtx)
-}
-
-func outerCtx(ctx context.Context) *context.Context {
-	outerCtx, ok := ctx.Value(outerCtxKey{}).(*context.Context)
-	if !ok {
-		return nil
-	}
-	return outerCtx
-}
 func evalExternalConstant(
 	ctx context.Context,
 	tree parser.IExternalConstantContext,
