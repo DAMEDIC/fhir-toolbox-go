@@ -4,11 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
+
 	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/cockroachdb/apd/v3"
-	"strconv"
-	"strings"
 )
 
 // Expression represents a parsed FHIRPath expression that can be evaluated against a FHIR resource.
@@ -150,6 +151,8 @@ func evalExpression(
 	tree parser.IExpressionContext,
 	isRoot bool,
 ) (result Collection, resultOrdered bool, err error) {
+	ctx = setOuterContext(ctx, &ctx)
+
 	switch t := tree.(type) {
 	case *parser.ExpressionContext:
 		return nil, false, fmt.Errorf("can not evaluate empty expression")
@@ -583,6 +586,19 @@ func envValue(ctx context.Context, name string) (Element, bool) {
 	return val, ok
 }
 
+type outerCtxKey struct{}
+
+func setOuterContext(ctx context.Context, outerCtx *context.Context) context.Context {
+	return context.WithValue(ctx, outerCtxKey{}, outerCtx)
+}
+
+func outerCtx(ctx context.Context) *context.Context {
+	outerCtx, ok := ctx.Value(outerCtxKey{}).(*context.Context)
+	if !ok {
+		return nil
+	}
+	return outerCtx
+}
 func evalExternalConstant(
 	ctx context.Context,
 	tree parser.IExternalConstantContext,

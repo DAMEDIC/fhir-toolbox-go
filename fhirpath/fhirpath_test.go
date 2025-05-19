@@ -2,13 +2,14 @@ package fhirpath_test
 
 import (
 	"fmt"
+	"regexp"
+	"testing"
+
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
 	"github.com/cockroachdb/apd/v3"
-	"regexp"
-	"testing"
 )
 
 func TestFHIRPathTestSuiteR4(t *testing.T) {
