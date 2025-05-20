@@ -1,6 +1,7 @@
 package fhirpath_test
 
 import (
+	"context"
 	"fmt"
 	"regexp"
 	"testing"
@@ -11,6 +12,49 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
 	"github.com/cockroachdb/apd/v3"
 )
+
+// runFHIRPathTest executes a single FHIRPath test and validates the result
+func runFHIRPathTest(t *testing.T, ctx context.Context, test testdata.FHIRPathTest) {
+	defer func() {
+		if err := recover(); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	expr, err := fhirpath.Parse(test.Expression.Expression)
+	if err != nil && (test.Invalid != "" || test.Expression.Invalid != "") {
+		return
+	}
+	if err != nil {
+		t.Fatalf("Unexpected error parsing expression: %v", err)
+	}
+
+	result, err := fhirpath.Evaluate(
+		ctx,
+		test.InputResource,
+		expr,
+	)
+	if err != nil && test.Expression.Invalid != "" {
+		return
+	}
+	if err != nil {
+		t.Fatalf("Unexpected error evaluating expression: %v", err)
+	}
+
+	if test.Predicate {
+		v, ok, err := fhirpath.Singleton[fhirpath.Boolean](result)
+		if err != nil {
+			t.Fatalf("Unexpected error: %v", err)
+		}
+		if !ok {
+			t.Fatalf("expected boolean value to exist")
+		}
+		result = fhirpath.Collection{v}
+	}
+
+	expected := test.OutputCollection()
+	assert.FHIRPathEqual(t, expected, result)
+}
 
 func TestFHIRPathTestSuiteR4(t *testing.T) {
 	ctx := r4.Context()
@@ -51,42 +95,7 @@ func TestFHIRPathTestSuiteR4(t *testing.T) {
 				}
 
 				t.Run(name, func(t *testing.T) {
-					defer func() {
-						if err := recover(); err != nil {
-							t.Fatal(err)
-						}
-					}()
-
-					expr, err := fhirpath.Parse(test.Expression.Expression)
-					if err != nil && (test.Invalid != "" || test.Expression.Invalid != "") {
-						return
-					}
-
-					result, err := fhirpath.Evaluate(
-						ctx,
-						test.InputResource,
-						expr,
-					)
-					if err != nil && test.Expression.Invalid != "" {
-						return
-					}
-					if err != nil {
-						t.Fatalf("Unexpected error: %v", err)
-					}
-
-					if test.Predicate {
-						v, ok, err := fhirpath.Singleton[fhirpath.Boolean](result)
-						if err != nil {
-							t.Fatalf("Unexpected error: %v", err)
-						}
-						if !ok {
-							t.Fatalf("expected boolean value to exist")
-						}
-						result = fhirpath.Collection{v}
-					}
-
-					expected := test.OutputCollection()
-					assert.FHIRPathEqual(t, expected, result)
+					runFHIRPathTest(t, ctx, test)
 				})
 			}
 		})
@@ -186,4 +195,34 @@ var testOverrides = map[string]testdata.FHIRPathTest{
 			Invalid: "testConformsTo function not implemented yet",
 		},
 	},
+}
+
+func TestAdditionalFHIRPathTests(t *testing.T) {
+	ctx := r4.Context()
+	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(8))
+
+	var additionalTests = []testdata.FHIRPathTest{
+		{
+			Name:        "testDefineVariableSelect",
+			Description: "Test defineVariable with select",
+			Expression: testdata.FHIRPathTestExpression{
+				Expression: "defineVariable('a', 'b').select(%a)",
+			},
+			Output: []testdata.FHIRPathTestOutput{{
+				Type:   "string",
+				Output: "b",
+			}},
+		},
+	}
+
+	for _, test := range additionalTests {
+		name := test.Name
+		if test.Description != "" {
+			name = fmt.Sprintf("%s (%s)", name, test.Description)
+		}
+
+		t.Run(name, func(t *testing.T) {
+			runFHIRPathTest(t, ctx, test)
+		})
+	}
 }

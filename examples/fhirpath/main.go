@@ -100,4 +100,8 @@ func main() {
 	fmt.Println("\n# Tracing")
 	ctx = fhirpath.WithTracer(ctx, fhirpath.StdoutTracer{})
 	evaluateAndPrint(ctx, patient, "Patient.name.trace('names').given", "Result after tracing: %v\n")
+
+	// Define Variable
+	fmt.Println("\n# Define Variable")
+	evaluateAndPrint(ctx, patient, "defineVariable('a', 'b').select(%a)", "Result after defineVariable: %v\n")
 }
