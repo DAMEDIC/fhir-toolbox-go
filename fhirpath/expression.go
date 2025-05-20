@@ -4,11 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
+	"strconv"
+	"strings"
+
 	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/cockroachdb/apd/v3"
-	"strconv"
-	"strings"
 )
 
 // Expression represents a parsed FHIRPath expression that can be evaluated against a FHIR resource.
@@ -150,6 +152,8 @@ func evalExpression(
 	tree parser.IExpressionContext,
 	isRoot bool,
 ) (result Collection, resultOrdered bool, err error) {
+	ctx, _ = withNewEnvStackFrame(ctx)
+
 	switch t := tree.(type) {
 	case *parser.ExpressionContext:
 		return nil, false, fmt.Errorf("can not evaluate empty expression")
@@ -572,14 +576,39 @@ func evalLiteral(
 	}
 }
 
-type envKey string
+type envKey struct{}
 
 func WithEnv(ctx context.Context, name string, value Element) context.Context {
-	return context.WithValue(ctx, envKey(name), value)
+	frame, ok := envStackFrame(ctx)
+	if !ok {
+		ctx, frame = withNewEnvStackFrame(ctx)
+	}
+	frame[name] = value
+	return ctx
+}
+
+func withNewEnvStackFrame(ctx context.Context) (context.Context, map[string]Element) {
+	frame, ok := envStackFrame(ctx)
+	if !ok {
+		frame = map[string]Element{}
+	}
+	return context.WithValue(ctx, envKey{}, maps.Clone(frame)), frame
+}
+
+func envStackFrame(ctx context.Context) (map[string]Element, bool) {
+	val, ok := ctx.Value(envKey{}).(map[string]Element)
+	if !ok {
+		return nil, false
+	}
+	return val, true
 }
 
 func envValue(ctx context.Context, name string) (Element, bool) {
-	val, ok := ctx.Value(envKey(name)).(Element)
+	frame, ok := envStackFrame(ctx)
+	if !ok {
+		return nil, false
+	}
+	val, ok := frame[name]
 	return val, ok
 }
 

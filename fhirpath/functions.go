@@ -2,13 +2,18 @@ package fhirpath
 
 import (
 	"context"
+	"encoding/base64"
+	"encoding/hex"
+	"encoding/json"
 	"fmt"
-	"github.com/cockroachdb/apd/v3"
+	"html"
 	"maps"
 	"math"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/cockroachdb/apd/v3"
 )
 
 // Tracer defines the interface for logging trace messages
@@ -127,7 +132,11 @@ func getFunction(ctx context.Context, name string) (Function, bool) {
 	return fn, ok
 }
 
+// global variable for mocking time in tests
+var now = time.Now
+
 var defaultFunctions = Functions{
+	// Type functions
 	"type": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -188,6 +197,40 @@ var defaultFunctions = Functions{
 		}
 		return c, true, nil
 	},
+	"ofType": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single type specifier parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		typeSpec := ParseTypeSpecifier(parameters[0].String())
+
+		for _, elem := range target {
+			isOfType, err := isType(ctx, elem, typeSpec)
+			if err != nil {
+				return nil, false, err
+			}
+
+			// Check if isOfType is a Boolean with value true
+			if boolVal, ok := isOfType.(Boolean); ok && bool(boolVal) {
+				result = append(result, elem)
+			}
+		}
+
+		return result, inputOrdered, nil
+	},
+
+	// Boolean functions
 	"not": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -395,6 +438,8 @@ var defaultFunctions = Functions{
 		}
 		return Collection{Boolean(false)}, true, nil
 	},
+
+	// Collection functions
 	"subsetOf": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -669,38 +714,6 @@ var defaultFunctions = Functions{
 		}
 
 		return result, false, nil
-	},
-	"ofType": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 1 {
-			return nil, false, fmt.Errorf("expected single type specifier parameter")
-		}
-
-		// If the input collection is empty, the result is empty
-		if len(target) == 0 {
-			return nil, true, nil
-		}
-
-		typeSpec := ParseTypeSpecifier(parameters[0].String())
-
-		for _, elem := range target {
-			isOfType, err := isType(ctx, elem, typeSpec)
-			if err != nil {
-				return nil, false, err
-			}
-
-			// Check if isOfType is a Boolean with value true
-			if boolVal, ok := isOfType.(Boolean); ok && bool(boolVal) {
-				result = append(result, elem)
-			}
-		}
-
-		return result, inputOrdered, nil
 	},
 	"single": func(
 		ctx context.Context,
@@ -1029,497 +1042,8 @@ var defaultFunctions = Functions{
 		// Use the Combine method to merge the collections
 		return target.Combine(other), false, nil
 	},
-	"iif": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		// Check parameters: criterion, true-result, and optional otherwise-result
-		if len(parameters) < 2 || len(parameters) > 3 {
-			return nil, false, fmt.Errorf("expected 2 or 3 parameters (criterion, true-result, [otherwise-result])")
-		}
 
-		// Evaluate the criterion expression
-		criterion, _, err := evaluate(ctx, nil, parameters[0])
-		if err != nil {
-			return nil, false, err
-		}
-
-		// Convert criterion to boolean
-		criterionBool, ok, err := Singleton[Boolean](criterion)
-		if err != nil {
-			return nil, false, err
-		}
-
-		// If criterion is true, return the value of the true-result argument
-		if ok && bool(criterionBool) {
-			trueResult, ordered, err := evaluate(ctx, nil, parameters[1])
-			if err != nil {
-				return nil, false, err
-			}
-			return trueResult, ordered, nil
-		}
-
-		// If criterion is false or an empty collection, return otherwise-result
-		// If otherwise-result is not given, return an empty collection
-		if len(parameters) == 3 {
-			otherwiseResult, ordered, err := evaluate(ctx, nil, parameters[2])
-			if err != nil {
-				return nil, false, err
-			}
-			return otherwiseResult, ordered, nil
-		}
-
-		// No otherwise-result, return empty collection
-		return nil, true, nil
-	},
-	"toBoolean": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Convert to boolean
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
-		}
-
-		b, ok, err := elementTo[Boolean](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		return Collection{b}, true, nil
-	},
-	"convertsToBoolean": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Check if convertible to boolean
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[Boolean](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
-	"toInteger": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Convert to integer
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
-		}
-
-		i, ok, err := elementTo[Integer](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		return Collection{i}, true, nil
-	},
-	"convertsToInteger": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Check if convertible to integer
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[Integer](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
-	"toDate": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Convert to date
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
-		}
-
-		d, ok, err := elementTo[Date](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		return Collection{d}, true, nil
-	},
-	"convertsToDate": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Check if convertible to date
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[Date](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
-	"toDateTime": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Convert to datetime
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
-		}
-
-		dt, ok, err := elementTo[DateTime](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		return Collection{dt}, true, nil
-	},
-	"convertsToDateTime": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Check if convertible to datetime
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[DateTime](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
-	"toTime": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Convert to time
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
-		}
-
-		t, ok, err := elementTo[Time](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		return Collection{t}, true, nil
-	},
-	"convertsToTime": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Check if convertible to time
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[Time](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
-	"toDecimal": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Convert to decimal
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
-		}
-
-		d, ok, err := elementTo[Decimal](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		return Collection{d}, true, nil
-	},
-	"convertsToDecimal": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Check if convertible to decimal
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[Decimal](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
-	"toQuantity": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		// Check parameters: optional unit
-		if len(parameters) > 1 {
-			return nil, false, fmt.Errorf("expected at most one unit parameter")
-		}
-
-		// Convert to quantity
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
-		}
-
-		q, ok, err := elementTo[Quantity](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		// If unit parameter is provided, check if the quantity can be converted to the given unit
-		if len(parameters) == 1 {
-			// Evaluate the unit parameter
-			unitCollection, _, err := evaluate(ctx, nil, parameters[0])
-			if err != nil {
-				return nil, false, err
-			}
-
-			unitStr, ok, err := Singleton[String](unitCollection)
-			if err != nil {
-				return nil, false, err
-			}
-			if !ok {
-				return nil, false, fmt.Errorf("expected string unit parameter")
-			}
-
-			q.Unit = unitStr
-		}
-
-		return Collection{q}, true, nil
-	},
-	"convertsToQuantity": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		// Check parameters: optional unit
-		if len(parameters) > 1 {
-			return nil, false, fmt.Errorf("expected at most one unit parameter")
-		}
-
-		// Check if convertible to quantity
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[Quantity](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		// If unit parameter is provided, check if the quantity can be converted to the given unit
-		if len(parameters) == 1 {
-			// Evaluate the unit parameter
-			unitCollection, _, err := evaluate(ctx, nil, parameters[0])
-			if err != nil {
-				return nil, false, err
-			}
-
-			// Convert to string
-			if len(unitCollection) == 0 {
-				return nil, false, fmt.Errorf("expected string unit parameter")
-			} else if len(unitCollection) > 1 {
-				return nil, false, fmt.Errorf("expected single string unit parameter")
-			}
-
-			_, ok, err := Singleton[String](unitCollection)
-			if err != nil {
-				return nil, false, err
-			}
-			if !ok {
-				return nil, false, fmt.Errorf("expected string unit parameter")
-			}
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
-	"toString": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Convert to string
-		if len(target) == 0 {
-			return nil, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
-		}
-
-		s, ok, err := elementTo[String](target[0], true)
-		if err != nil || !ok {
-			return nil, true, nil
-		}
-
-		return Collection{s}, true, nil
-	},
-	"convertsToString": func(
-		ctx context.Context,
-		root Element, target Collection,
-		inputOrdered bool,
-		parameters []Expression,
-		evaluate EvaluateFunc,
-	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 0 {
-			return nil, false, fmt.Errorf("expected no parameters")
-		}
-
-		// Check if convertible to string
-		if len(target) == 0 {
-			return Collection{Boolean(false)}, true, nil
-		} else if len(target) > 1 {
-			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
-		}
-
-		_, ok, err := elementTo[String](target[0], true)
-		if err != nil || !ok {
-			return Collection{Boolean(false)}, true, nil
-		}
-
-		return Collection{Boolean(true)}, true, nil
-	},
+	// String functions
 	"indexOf": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -2034,6 +1558,924 @@ var defaultFunctions = Functions{
 		}
 		return chars, true, nil
 	},
+	"matchesFull": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single regex parameter")
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the regex parameter
+		regexCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert regex to string
+		regexStr, ok, err := Singleton[String](regexCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected string regex parameter")
+		}
+
+		// Compile the regular expression
+		regex, err := regexp.Compile("^" + string(regexStr) + "$")
+		if err != nil {
+			return nil, false, fmt.Errorf("invalid regular expression: %v", err)
+		}
+
+		// Check if the string matches the regular expression exactly
+		return Collection{Boolean(regex.MatchString(string(s)))}, true, nil
+	},
+	"trim": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Trim whitespace from both ends
+		return Collection{String(strings.TrimSpace(string(s)))}, true, nil
+	},
+	"split": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single separator parameter")
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the separator parameter
+		separatorCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert separator to string
+		separator, ok, err := Singleton[String](separatorCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected string separator parameter")
+		}
+
+		// Split the string by the separator
+		parts := strings.Split(string(s), string(separator))
+		result = make(Collection, len(parts))
+		for i, part := range parts {
+			result[i] = String(part)
+		}
+		return result, true, nil
+	},
+	"join": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) > 1 {
+			return nil, false, fmt.Errorf("expected at most one separator parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// Default separator is empty string
+		separator := String("")
+		if len(parameters) == 1 {
+			// Evaluate the separator parameter
+			separatorCollection, _, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, false, err
+			}
+
+			// Convert separator to string
+			sep, ok, err := Singleton[String](separatorCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected string separator parameter")
+			}
+			separator = sep
+		}
+
+		// Convert all elements to strings
+		parts := make([]string, 0, len(target))
+		for _, elem := range target {
+			s, ok, err := elementTo[String](elem, true)
+			if err != nil || !ok {
+				// Skip elements that can't be converted to strings
+				continue
+			}
+			parts = append(parts, string(s))
+		}
+
+		// If no elements could be converted to strings, return empty
+		if len(parts) == 0 {
+			return nil, true, nil
+		}
+
+		// Join the strings with the separator
+		return Collection{String(strings.Join(parts, string(separator)))}, true, nil
+	},
+	"encode": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single format parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the format parameter
+		formatCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert format to string
+		format, ok, err := Singleton[String](formatCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected string format parameter")
+		}
+
+		// Encode according to format
+		switch string(format) {
+		case "hex":
+			// Convert to hex using encoding/hex
+			hex := hex.EncodeToString([]byte(s))
+			return Collection{String(hex)}, true, nil
+		case "base64":
+			// Convert to base64
+			encoded := base64.StdEncoding.EncodeToString([]byte(s))
+			return Collection{String(encoded)}, true, nil
+		case "urlbase64":
+			// Convert to URL-safe base64
+			encoded := base64.URLEncoding.EncodeToString([]byte(s))
+			return Collection{String(encoded)}, true, nil
+		default:
+			return nil, false, fmt.Errorf("unsupported encoding format: %s", format)
+		}
+	},
+	"decode": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single format parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the format parameter
+		formatCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert format to string
+		format, ok, err := Singleton[String](formatCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected string format parameter")
+		}
+
+		// Decode according to format
+		switch string(format) {
+		case "hex":
+			// Convert from hex
+			decoded, err := hex.DecodeString(string(s))
+			if err != nil {
+				return nil, false, fmt.Errorf("invalid hex string: %v", err)
+			}
+			return Collection{String(decoded)}, true, nil
+		case "base64":
+			// Convert from base64
+			decoded, err := base64.StdEncoding.DecodeString(string(s))
+			if err != nil {
+				return nil, false, fmt.Errorf("invalid base64 string: %v", err)
+			}
+			return Collection{String(decoded)}, true, nil
+		case "urlbase64":
+			// Convert from URL-safe base64
+			decoded, err := base64.URLEncoding.DecodeString(string(s))
+			if err != nil {
+				return nil, false, fmt.Errorf("invalid URL-safe base64 string: %v", err)
+			}
+			return Collection{String(decoded)}, true, nil
+		default:
+			return nil, false, fmt.Errorf("unsupported encoding format: %s", format)
+		}
+	},
+	"escape": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single target parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the target parameter
+		targetCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert target to string
+		targetStr, ok, err := Singleton[String](targetCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected string target parameter")
+		}
+
+		// Escape according to target
+		switch string(targetStr) {
+		case "html":
+			// Use html.EscapeString for HTML escaping
+			escaped := html.EscapeString(string(s))
+			return Collection{String(escaped)}, true, nil
+		case "json":
+			// Escape JSON special characters
+			escaped, err := json.Marshal(string(s))
+			if err != nil {
+				return nil, false, fmt.Errorf("failed to escape JSON string: %v", err)
+			}
+			// Remove the surrounding quotes added by json.Marshal
+			return Collection{String(string(escaped[1 : len(escaped)-1]))}, true, nil
+		default:
+			return nil, false, fmt.Errorf("unsupported escape target: %s", targetStr)
+		}
+	},
+	"unescape": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single target parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the target parameter
+		targetCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert target to string
+		targetStr, ok, err := Singleton[String](targetCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected string target parameter")
+		}
+
+		// Unescape according to target
+		switch string(targetStr) {
+		case "html":
+			// Unescape HTML entities
+			unescaped := html.UnescapeString(string(s))
+			return Collection{String(unescaped)}, true, nil
+		case "json":
+			// Unescape JSON string
+			var unescaped string
+			err := json.Unmarshal([]byte(`"`+string(s)+`"`), &unescaped)
+			if err != nil {
+				return nil, false, fmt.Errorf("failed to unescape JSON string: %v", err)
+			}
+			return Collection{String(unescaped)}, true, nil
+		default:
+			return nil, false, fmt.Errorf("unsupported unescape target: %s", targetStr)
+		}
+	},
+	"lowBoundary": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Get precision parameter if provided
+		var precision Integer
+		if len(parameters) == 1 {
+			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, false, err
+			}
+
+			prec, ok, err := Singleton[Integer](precisionCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected integer precision parameter")
+			}
+			precision = prec
+		}
+
+		// Handle Decimal type
+		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
+			// If no precision specified, use at least 8
+			if len(parameters) == 0 {
+				precision = 8
+			}
+
+			// If precision is greater than maximum possible, return empty
+			if precision > 8 {
+				return nil, true, nil
+			}
+
+			// Calculate lower boundary for decimal
+			var boundary apd.Decimal
+			_, err = apdContext(ctx).Floor(&boundary, value.Value)
+			if err != nil {
+				return nil, false, err
+			}
+
+			// Adjust precision
+			if precision < 0 {
+				// For negative precision, round to nearest multiple of 10^|precision|
+				var factor apd.Decimal
+				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(-precision), 0))
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Quo(&boundary, &boundary, &factor)
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Floor(&boundary, &boundary)
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Mul(&boundary, &boundary, &factor)
+				if err != nil {
+					return nil, false, err
+				}
+			} else {
+				// For non-negative precision, round to specified decimal places
+				var factor apd.Decimal
+				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(precision), 0))
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Mul(&boundary, &boundary, &factor)
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Floor(&boundary, &boundary)
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Quo(&boundary, &boundary, &factor)
+				if err != nil {
+					return nil, false, err
+				}
+			}
+
+			return Collection{Decimal{Value: &boundary}}, true, nil
+		}
+
+		// Handle Date type
+		if value, ok, err := Singleton[Date](target); err == nil && ok {
+			// If no precision specified, use at least 4
+			if len(parameters) == 0 {
+				precision = 4
+			}
+
+			// If precision is greater than maximum possible, return empty
+			if precision > 4 {
+				return nil, true, nil
+			}
+
+			// Adjust precision by truncating to the appropriate level
+			result := value
+			switch precision {
+			case 1: // Year
+				result.Precision = DatePrecisionYear
+			case 2: // Month
+				result.Precision = DatePrecisionMonth
+			default: // Full precision
+				result.Precision = DatePrecisionFull
+			}
+			return Collection{result}, true, nil
+		}
+
+		// Handle DateTime type
+		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
+			// If no precision specified, use at least 6 (up to minute)
+			if len(parameters) == 0 {
+				precision = 6
+			}
+
+			// If precision is greater than maximum possible, return empty
+			if precision > 6 {
+				return nil, true, nil
+			}
+
+			// Adjust precision by truncating to the appropriate level
+			result := value
+			switch precision {
+			case 1: // Year
+				result.Precision = DateTimePrecisionYear
+			case 2: // Month
+				result.Precision = DateTimePrecisionMonth
+			case 3: // Day
+				result.Precision = DateTimePrecisionDay
+			case 4: // Hour
+				result.Precision = DateTimePrecisionHour
+			case 5: // Minute
+				result.Precision = DateTimePrecisionMinute
+			default: // Full precision
+				result.Precision = DateTimePrecisionFull
+			}
+			return Collection{result}, true, nil
+		}
+
+		// Handle Time type
+		if value, ok, err := Singleton[Time](target); err == nil && ok {
+			// If no precision specified, use at least 2 (up to minute)
+			if len(parameters) == 0 {
+				precision = 2
+			}
+
+			// If precision is greater than maximum possible, return empty
+			if precision > 2 {
+				return nil, true, nil
+			}
+
+			// Adjust precision by truncating to the appropriate level
+			result := value
+			switch precision {
+			case 1: // Hour
+				result.Precision = TimePrecisionHour
+			case 2: // Minute
+				result.Precision = TimePrecisionMinute
+			default: // Full precision
+				result.Precision = TimePrecisionFull
+			}
+			return Collection{result}, true, nil
+		}
+
+		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
+	},
+	"highBoundary": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Get precision parameter if provided
+		var precision Integer
+		if len(parameters) == 1 {
+			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, false, err
+			}
+
+			prec, ok, err := Singleton[Integer](precisionCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected integer precision parameter")
+			}
+			precision = prec
+		}
+
+		// Handle Decimal type
+		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
+			// If no precision specified, use at least 8
+			if len(parameters) == 0 {
+				precision = 8
+			}
+
+			// If precision is greater than maximum possible, return empty
+			if precision > 8 {
+				return nil, true, nil
+			}
+
+			// Calculate high boundary for decimal
+			var boundary apd.Decimal
+			boundary.Set(value.Value)
+			if precision < 0 {
+				// For negative precision, round up to nearest multiple of 10^|precision| - 1
+				var factor apd.Decimal
+				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(-precision), 0))
+				if err != nil {
+					return nil, false, err
+				}
+				var tmp apd.Decimal
+				_, err = apdContext(ctx).Quo(&tmp, &boundary, &factor)
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Ceil(&tmp, &tmp)
+				if err != nil {
+					return nil, false, err
+				}
+				_, err = apdContext(ctx).Mul(&boundary, &tmp, &factor)
+				if err != nil {
+					return nil, false, err
+				}
+				// Subtract 1 to get the highest value in the range
+				_, err = apdContext(ctx).Sub(&boundary, &boundary, apd.New(1, 0))
+				if err != nil {
+					return nil, false, err
+				}
+			} else {
+				// For non-negative precision, set all digits after precision to 9
+				str := boundary.Text('f')
+				if dot := strings.Index(str, "."); dot != -1 {
+					intPart := str[:dot]
+					fracPart := str[dot+1:]
+					if len(fracPart) < int(precision) {
+						fracPart += strings.Repeat("0", int(precision)-len(fracPart))
+					}
+					fracPart = fracPart[:int(precision)]
+					fracPart += strings.Repeat("9", 8-int(precision))
+					str = intPart + "." + fracPart
+				} else {
+					str += "." + strings.Repeat("9", 8)
+				}
+				newVal, _, err := apd.NewFromString(str)
+				if err != nil {
+					return nil, false, err
+				}
+				boundary.Set(newVal)
+			}
+			return Collection{Decimal{Value: &boundary}}, true, nil
+		}
+
+		// Handle Date type
+		if value, ok, err := Singleton[Date](target); err == nil && ok {
+			if len(parameters) == 0 {
+				precision = 4
+			}
+			if precision > 4 {
+				return nil, true, nil
+			}
+			result := value
+			switch precision {
+			case 1: // Year
+				result.Precision = DatePrecisionYear
+				result.Value = time.Date(result.Value.Year(), 12, 31, 0, 0, 0, 0, result.Value.Location())
+			case 2: // Month
+				result.Precision = DatePrecisionMonth
+				lastDay := time.Date(result.Value.Year(), result.Value.Month()+1, 0, 0, 0, 0, 0, result.Value.Location()).Day()
+				result.Value = time.Date(result.Value.Year(), result.Value.Month(), lastDay, 0, 0, 0, 0, result.Value.Location())
+			default: // Full precision
+				result.Precision = DatePrecisionFull
+			}
+			return Collection{result}, true, nil
+		}
+
+		// Handle DateTime type
+		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
+			if len(parameters) == 0 {
+				precision = 6
+			}
+			if precision > 6 {
+				return nil, true, nil
+			}
+			result := value
+			switch precision {
+			case 1: // Year
+				result.Precision = DateTimePrecisionYear
+				result.Value = time.Date(result.Value.Year(), 12, 31, 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
+			case 2: // Month
+				result.Precision = DateTimePrecisionMonth
+				lastDay := time.Date(result.Value.Year(), result.Value.Month()+1, 0, 0, 0, 0, 0, result.Value.Location()).Day()
+				result.Value = time.Date(result.Value.Year(), result.Value.Month(), lastDay, 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
+			case 3: // Day
+				result.Precision = DateTimePrecisionDay
+				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
+			case 4: // Hour
+				result.Precision = DateTimePrecisionHour
+				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), result.Value.Hour(), 59, 59, int(time.Millisecond*999), result.Value.Location())
+			case 5: // Minute
+				result.Precision = DateTimePrecisionMinute
+				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), result.Value.Hour(), result.Value.Minute(), 59, int(time.Millisecond*999), result.Value.Location())
+			default: // Full precision
+				result.Precision = DateTimePrecisionFull
+			}
+			return Collection{result}, true, nil
+		}
+
+		// Handle Time type
+		if value, ok, err := Singleton[Time](target); err == nil && ok {
+			if len(parameters) == 0 {
+				precision = 2
+			}
+			if precision > 2 {
+				return nil, true, nil
+			}
+			result := value
+			switch precision {
+			case 1: // Hour
+				result.Precision = TimePrecisionHour
+				result.Value = time.Date(0, 1, 1, result.Value.Hour(), 59, 59, int(time.Millisecond*999), result.Value.Location())
+			case 2: // Minute
+				result.Precision = TimePrecisionMinute
+				result.Value = time.Date(0, 1, 1, result.Value.Hour(), result.Value.Minute(), 59, int(time.Millisecond*999), result.Value.Location())
+			default: // Full precision
+				result.Precision = TimePrecisionFull
+			}
+			return Collection{result}, true, nil
+		}
+
+		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
+	},
+	"precision": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Handle Decimal type
+		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
+			// For Decimal, return the number of digits after the decimal point
+			str := value.Value.Text('f')
+			if dot := strings.Index(str, "."); dot != -1 {
+				// Count trailing zeros after decimal point
+				fracPart := str[dot+1:]
+				precision := len(fracPart)
+				// Remove trailing zeros
+				for precision > 0 && fracPart[precision-1] == '0' {
+					precision--
+				}
+				return Collection{Integer(precision)}, true, nil
+			}
+			return Collection{Integer(0)}, true, nil
+		}
+
+		// Handle Date type
+		if value, ok, err := Singleton[Date](target); err == nil && ok {
+			// For Date, return the number of digits in the date
+			switch value.Precision {
+			case "year":
+				return Collection{Integer(4)}, true, nil
+			case "month":
+				return Collection{Integer(6)}, true, nil
+			case "day":
+				return Collection{Integer(8)}, true, nil
+			default:
+				return nil, false, fmt.Errorf("invalid date precision")
+			}
+		}
+
+		// Handle DateTime type
+		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
+			// For DateTime, return the number of digits in the datetime
+			switch value.Precision {
+			case "year":
+				return Collection{Integer(4)}, true, nil
+			case "month":
+				return Collection{Integer(6)}, true, nil
+			case "day":
+				return Collection{Integer(8)}, true, nil
+			case "hour":
+				return Collection{Integer(10)}, true, nil
+			case "minute":
+				return Collection{Integer(12)}, true, nil
+			case "second":
+				return Collection{Integer(14)}, true, nil
+			case "millisecond":
+				return Collection{Integer(17)}, true, nil
+			default:
+				return nil, false, fmt.Errorf("invalid datetime precision")
+			}
+		}
+
+		// Handle Time type
+		if value, ok, err := Singleton[Time](target); err == nil && ok {
+			// For Time, return the number of digits in the time
+			switch value.Precision {
+			case "hour":
+				return Collection{Integer(2)}, true, nil
+			case "minute":
+				return Collection{Integer(4)}, true, nil
+			case "second":
+				return Collection{Integer(6)}, true, nil
+			case "millisecond":
+				return Collection{Integer(9)}, true, nil
+			default:
+				return nil, false, fmt.Errorf("invalid time precision")
+			}
+		}
+
+		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
+	},
+	"defineVariable": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 && len(parameters) != 2 {
+			return nil, false, fmt.Errorf("expected one or two parameters (name [, value])")
+		}
+
+		// Evaluate the name parameter
+		nameCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert name to string
+		name, ok, err := Singleton[String](nameCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, false, fmt.Errorf("expected string name parameter")
+		}
+
+		// Check for variable redefinition in the current scope
+		if _, exists := envValue(ctx, string(name)); exists {
+			return nil, false, fmt.Errorf("variable '%s' already defined in the current scope", name)
+		}
+
+		var value Element
+		if len(parameters) == 2 {
+			// Evaluate the value parameter
+			valueCollection, _, err := evaluate(ctx, nil, parameters[1])
+			if err != nil {
+				return nil, false, err
+			}
+			if len(valueCollection) != 1 {
+				return nil, false, fmt.Errorf("value must be a single element")
+			}
+			value = valueCollection[0]
+		} else {
+			// Use the input collection as the value (must be single element)
+			if len(target) != 1 {
+				return nil, false, fmt.Errorf("input collection must be a single element if no value is provided")
+			}
+			value = target[0]
+		}
+
+		// Add the variable to the expression enclosing context so it is passed to subsequent calls
+		_ = WithEnv(ctx, string(name), value)
+
+		// Return the input collection (does not change input)
+		return target, inputOrdered, nil
+	},
+
+	// Math functions
 	"abs": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -2199,6 +2641,13 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected at most one precision parameter")
 		}
 
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
 		decimalPlaces := int64(0)
 		if len(parameters) == 1 {
 			c, _, err := evaluate(ctx, nil, parameters[0])
@@ -2221,25 +2670,26 @@ var defaultFunctions = Functions{
 			decimalPlaces = int64(decimalPlacesValue)
 		}
 
-		d, ok, err := Singleton[Decimal](target)
-		if err == nil && ok {
-			var intPart apd.Decimal
-			_, err = apdContext(ctx).Floor(&intPart, d.Value)
-
-			// apd counts precision including places before the comma
-			apdCtx := apdContext(ctx).WithPrecision(uint32(intPart.NumDigits() + decimalPlaces))
-
-			// Round the decimal to the specified precision
-			var rounded apd.Decimal
-			_, err = apdCtx.Round(&rounded, d.Value)
-			if err != nil {
-				return nil, false, err
-			}
-
-			return Collection{Decimal{Value: &rounded}}, true, nil
+		var dec *apd.Decimal
+		// Convert Integer to Decimal if needed
+		if i, ok, _ := Singleton[Integer](target); ok {
+			dec = apd.New(int64(i), 0)
+		} else if d, ok, _ := Singleton[Decimal](target); ok {
+			dec = d.Value
+		} else {
+			return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
 		}
 
-		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
+		// Set precision for rounding
+		apdCtx := apdContext(ctx).WithPrecision(uint32(dec.NumDigits() + decimalPlaces))
+		var rounded apd.Decimal
+		// Use Quantize to round to the specified number of decimal places
+		_, err = apdCtx.Quantize(&rounded, dec, int32(-decimalPlaces))
+		if err != nil {
+			return nil, false, err
+		}
+
+		return Collection{Decimal{Value: &rounded}}, true, nil
 	},
 	"exp": func(
 		ctx context.Context,
@@ -2301,7 +2751,6 @@ var defaultFunctions = Functions{
 		if len(parameters) != 1 {
 			return nil, false, fmt.Errorf("expected one base parameter")
 		}
-
 		baseCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
@@ -2439,6 +2888,455 @@ var defaultFunctions = Functions{
 
 		return nil, false, fmt.Errorf("expected Integer or Decimal but got %T", target[0])
 	},
+
+	// Type conversion functions
+	"toBoolean": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert to boolean
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
+		}
+
+		b, ok, err := elementTo[Boolean](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{b}, true, nil
+	},
+	"convertsToBoolean": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Check if convertible to boolean
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to boolean: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[Boolean](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toInteger": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert to integer
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
+		}
+
+		i, ok, err := elementTo[Integer](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{i}, true, nil
+	},
+	"convertsToInteger": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Check if convertible to integer
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to integer: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[Integer](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toDate": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert to date
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
+		}
+
+		d, ok, err := elementTo[Date](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{d}, true, nil
+	},
+	"convertsToDate": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Check if convertible to date
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to date: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[Date](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toDateTime": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert to datetime
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
+		}
+
+		dt, ok, err := elementTo[DateTime](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{dt}, true, nil
+	},
+	"convertsToDateTime": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Check if convertible to datetime
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to datetime: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[DateTime](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toTime": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert to time
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
+		}
+
+		t, ok, err := elementTo[Time](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{t}, true, nil
+	},
+	"convertsToTime": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Check if convertible to time
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to time: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[Time](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toDecimal": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert to decimal
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
+		}
+
+		d, ok, err := elementTo[Decimal](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{d}, true, nil
+	},
+	"convertsToDecimal": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Check if convertible to decimal
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to decimal: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[Decimal](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toQuantity": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// Check parameters: optional unit
+		if len(parameters) > 1 {
+			return nil, false, fmt.Errorf("expected at most one unit parameter")
+		}
+
+		// Convert to quantity
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
+		}
+
+		q, ok, err := elementTo[Quantity](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		// If unit parameter is provided, check if the quantity can be converted to the given unit
+		if len(parameters) == 1 {
+			// Evaluate the unit parameter
+			unitCollection, _, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, false, err
+			}
+
+			unitStr, ok, err := Singleton[String](unitCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected string unit parameter")
+			}
+
+			q.Unit = unitStr
+		}
+
+		return Collection{q}, true, nil
+	},
+	"convertsToQuantity": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// Check parameters: optional unit
+		if len(parameters) > 1 {
+			return nil, false, fmt.Errorf("expected at most one unit parameter")
+		}
+
+		// Check if convertible to quantity
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to quantity: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[Quantity](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		// If unit parameter is provided, check if the quantity can be converted to the given unit
+		if len(parameters) == 1 {
+			// Evaluate the unit parameter
+			unitCollection, _, err := evaluate(ctx, nil, parameters[0])
+			if err != nil {
+				return nil, false, err
+			}
+
+			// Convert to string
+			if len(unitCollection) == 0 {
+				return nil, false, fmt.Errorf("expected string unit parameter")
+			} else if len(unitCollection) > 1 {
+				return nil, false, fmt.Errorf("expected single string unit parameter")
+			}
+
+			_, ok, err := Singleton[String](unitCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected string unit parameter")
+			}
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toString": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Convert to string
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
+		}
+
+		s, ok, err := elementTo[String](target[0], true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{s}, true, nil
+	},
+	"convertsToString": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		// Check if convertible to string
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to string: collection contains > 1 values")
+		}
+
+		_, ok, err := elementTo[String](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+
+	// Tree navigation functions
 	"children": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -2521,6 +3419,8 @@ var defaultFunctions = Functions{
 
 		return result, false, nil
 	},
+
+	// Utility functions
 	"trace": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -2625,8 +3525,7 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// Get the current date and time
-		now := time.Now()
+		now := now()
 		dt := DateTime{Value: now, Precision: DateTimePrecisionFull}
 
 		return Collection{dt}, inputOrdered, nil
@@ -2643,7 +3542,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Get the current time
-		now := time.Now()
+		now := now()
 		t := Time{Value: now, Precision: TimePrecisionFull}
 
 		return Collection{t}, inputOrdered, nil
@@ -2659,12 +3558,401 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// Get the current date
-		now := time.Now()
+		now := now()
 		d := Date{Value: now, Precision: DatePrecisionFull}
 
 		return Collection{d}, inputOrdered, nil
 	},
+	"iif": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// Check parameters: criterion, true-result, and optional otherwise-result
+		if len(parameters) < 2 || len(parameters) > 3 {
+			return nil, false, fmt.Errorf("expected 2 or 3 parameters (criterion, true-result, [otherwise-result])")
+		}
+
+		// Evaluate the criterion expression
+		criterion, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert criterion to boolean
+		criterionBool, ok, err := Singleton[Boolean](criterion)
+		if err != nil {
+			return nil, false, err
+		}
+
+		// If criterion is true, return the value of the true-result argument
+		if ok && bool(criterionBool) {
+			trueResult, ordered, err := evaluate(ctx, nil, parameters[1])
+			if err != nil {
+				return nil, false, err
+			}
+			return trueResult, ordered, nil
+		}
+
+		// If criterion is false or an empty collection, return otherwise-result
+		// If otherwise-result is not given, return an empty collection
+		if len(parameters) == 3 {
+			otherwiseResult, ordered, err := evaluate(ctx, nil, parameters[2])
+			if err != nil {
+				return nil, false, err
+			}
+			return otherwiseResult, ordered, nil
+		}
+
+		// No otherwise-result, return empty collection
+		return nil, true, nil
+	},
+	"yearOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date or DateTime, got %d items", len(target))
+		}
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err != nil || !ok {
+			d, ok, err := target[0].ToDate(false)
+			if err != nil || !ok {
+				return nil, false, fmt.Errorf("expected Date or DateTime, got %T", target[0])
+			}
+			dt = DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision)}
+		}
+
+		if dt.Precision == DateTimePrecisionYear {
+			return Collection{Integer(dt.Value.Year())}, inputOrdered, nil
+		}
+		return nil, false, nil
+	},
+	"monthOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date or DateTime, got %d items", len(target))
+		}
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err != nil || !ok {
+			d, ok, err := target[0].ToDate(false)
+			if err != nil || !ok {
+				return nil, false, fmt.Errorf("expected Date or DateTime, got %T", target[0])
+			}
+			dt = DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision)}
+		}
+
+		if dt.Precision == DateTimePrecisionYear {
+			return nil, inputOrdered, nil
+		}
+		return Collection{Integer(dt.Value.Month())}, inputOrdered, nil
+	},
+	"dayOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date or DateTime, got %d items", len(target))
+		}
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err != nil || !ok {
+			d, ok, err := target[0].ToDate(false)
+			if err != nil || !ok {
+				return nil, false, fmt.Errorf("expected Date or DateTime, got %T", target[0])
+			}
+			dt = DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision)}
+		}
+
+		if dt.Precision == DateTimePrecisionYear || dt.Precision == DateTimePrecisionMonth {
+			return nil, inputOrdered, nil
+		}
+		return Collection{Integer(dt.Value.Day())}, inputOrdered, nil
+	},
+	"hourOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date, DateTime or Time, got %d items", len(target))
+		}
+
+		var t time.Time
+		var precision string
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err == nil && ok {
+			t = dt.Value
+			precision = string(dt.Precision)
+		} else {
+			d, ok, err := target[0].ToDate(false)
+			if err == nil && ok {
+				t = d.Value
+				precision = string(d.Precision)
+			} else {
+				time, ok, err := target[0].ToTime(false)
+				if err != nil || !ok {
+					return nil, false, fmt.Errorf("expected Date, DateTime or Time, got %T", target[0])
+				}
+				t = time.Value
+				precision = string(time.Precision)
+			}
+		}
+
+		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay {
+			return nil, inputOrdered, nil
+		}
+		return Collection{Integer(t.Hour())}, inputOrdered, nil
+	},
+	"minuteOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date, DateTime or Time, got %d items", len(target))
+		}
+
+		var t time.Time
+		var precision string
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err == nil && ok {
+			t = dt.Value
+			precision = string(dt.Precision)
+		} else {
+			d, ok, err := target[0].ToDate(false)
+			if err == nil && ok {
+				t = d.Value
+				precision = string(d.Precision)
+			} else {
+				time, ok, err := target[0].ToTime(false)
+				if err != nil || !ok {
+					return nil, false, fmt.Errorf("expected Date, DateTime or Time, got %T", target[0])
+				}
+				t = time.Value
+				precision = string(time.Precision)
+			}
+		}
+
+		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour {
+			return nil, inputOrdered, nil
+		}
+		return Collection{Integer(t.Minute())}, inputOrdered, nil
+	},
+	"secondOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date, DateTime or Time, got %d items", len(target))
+		}
+
+		var t time.Time
+		var precision string
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err == nil && ok {
+			t = dt.Value
+			precision = string(dt.Precision)
+		} else {
+			d, ok, err := target[0].ToDate(false)
+			if err == nil && ok {
+				t = d.Value
+				precision = string(d.Precision)
+			} else {
+				time, ok, err := target[0].ToTime(false)
+				if err != nil || !ok {
+					return nil, false, fmt.Errorf("expected Date, DateTime or Time, got %T", target[0])
+				}
+				t = time.Value
+				precision = string(time.Precision)
+			}
+		}
+
+		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour || precision == DateTimePrecisionMinute {
+			return nil, inputOrdered, nil
+		}
+		return Collection{Integer(t.Second())}, inputOrdered, nil
+	},
+	"millisecondOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date, DateTime or Time, got %d items", len(target))
+		}
+
+		var t time.Time
+		var precision string
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err == nil && ok {
+			t = dt.Value
+			precision = string(dt.Precision)
+		} else {
+			d, ok, err := target[0].ToDate(false)
+			if err == nil && ok {
+				t = d.Value
+				precision = string(d.Precision)
+			} else {
+				time, ok, err := target[0].ToTime(false)
+				if err != nil || !ok {
+					return nil, false, fmt.Errorf("expected Date, DateTime or Time, got %T", target[0])
+				}
+				t = time.Value
+				precision = string(time.Precision)
+			}
+		}
+
+		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour || precision == DateTimePrecisionMinute {
+			return nil, inputOrdered, nil
+		}
+		return Collection{Integer(t.Nanosecond() / 1000000)}, inputOrdered, nil
+	},
+	"timezoneOffsetOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single DateTime, got %d items", len(target))
+		}
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err != nil || !ok {
+			return nil, false, fmt.Errorf("expected DateTime, got %T", target[0])
+		}
+
+		_, offset := dt.Value.Zone()
+		hours := float64(offset) / 3600.0
+		dec := apd.New(0, 0)
+		dec.SetFloat64(hours)
+		return Collection{Decimal{Value: dec}}, inputOrdered, nil
+	},
+	"dateOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single Date or DateTime, got %d items", len(target))
+		}
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err != nil || !ok {
+			d, ok, err := target[0].ToDate(false)
+			if err != nil || !ok {
+				return nil, false, fmt.Errorf("expected Date or DateTime, got %T", target[0])
+			}
+			return Collection{d}, inputOrdered, nil
+		}
+
+		var precision DatePrecision
+		switch dt.Precision {
+		case DateTimePrecisionYear:
+			precision = DatePrecisionYear
+		case DateTimePrecisionMonth:
+			precision = DatePrecisionMonth
+		default:
+			precision = DatePrecisionFull
+		}
+
+		return Collection{Date{Value: dt.Value, Precision: precision}}, inputOrdered, nil
+	},
+	"timeOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single DateTime, got %d items", len(target))
+		}
+
+		dt, ok, err := target[0].ToDateTime(false)
+		if err != nil || !ok {
+			return nil, false, fmt.Errorf("expected DateTime, got %T", target[0])
+		}
+
+		if dt.Precision == DateTimePrecisionYear || dt.Precision == DateTimePrecisionMonth || dt.Precision == DateTimePrecisionDay {
+			return nil, inputOrdered, nil
+		}
+
+		var precision TimePrecision
+		switch dt.Precision {
+		case DateTimePrecisionHour:
+			precision = TimePrecisionHour
+		case DateTimePrecisionMinute:
+			precision = TimePrecisionMinute
+		default:
+			precision = TimePrecisionFull
+		}
+
+		return Collection{Time{Value: dt.Value, Precision: precision}}, inputOrdered, nil
+	},
+	"extension": FHIRFunctions["extension"],
 }
 
 var FHIRFunctions = Functions{

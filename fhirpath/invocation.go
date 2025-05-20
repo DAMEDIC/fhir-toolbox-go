@@ -3,8 +3,9 @@ package fhirpath
 import (
 	"context"
 	"fmt"
-	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
 	"strings"
+
+	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
 )
 
 func evalInvocation(
@@ -13,7 +14,7 @@ func evalInvocation(
 	inputOrdered bool,
 	tree parser.IInvocationContext,
 	isRoot bool,
-) (result Collection, resultOrdered bool, err error) {
+) (Collection, bool, error) {
 	switch t := tree.(type) {
 	case *parser.MemberInvocationContext:
 		ident, err := evalIdentifier(t.Identifier())
@@ -96,7 +97,7 @@ func evalFunc(
 	root Element, target Collection,
 	inputOrdered bool,
 	tree parser.IFunctionContext,
-) (result Collection, resultOrdered bool, err error) {
+) (Collection, bool, error) {
 	ident, err := evalIdentifier(tree.Identifier())
 	if err != nil {
 		return nil, false, err
@@ -115,7 +116,7 @@ func callFunc(
 	root Element, target Collection,
 	inputOrdered bool,
 	ident string, paramTerms ...parser.IExpressionContext,
-) (result Collection, resultOrdered bool, err error) {
+) (Collection, bool, error) {
 	fn, ok := getFunction(ctx, ident)
 	if !ok {
 		return nil, false, fmt.Errorf("function \"%s\" not found", ident)
@@ -126,7 +127,7 @@ func callFunc(
 		paramExprs = append(paramExprs, Expression{param})
 	}
 
-	return fn(
+	result, ordered, err := fn(
 		ctx,
 		root, target,
 		inputOrdered,
@@ -159,4 +160,8 @@ func callFunc(
 			)
 		},
 	)
+	if err != nil {
+		return nil, false, err
+	}
+	return result, ordered, nil
 }
