@@ -152,7 +152,6 @@ func evalExpression(
 	tree parser.IExpressionContext,
 	isRoot bool,
 ) (result Collection, resultOrdered bool, err error) {
-	ctx, _ = withNewEnvStackFrame(ctx)
 
 	switch t := tree.(type) {
 	case *parser.ExpressionContext:
@@ -160,6 +159,8 @@ func evalExpression(
 	case *parser.TermExpressionContext:
 		return evalTerm(ctx, root, target, inputOrdered, t.Term(), isRoot)
 	case *parser.InvocationExpressionContext:
+		ctx, _ = withNewEnvStackFrame(ctx)
+
 		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 		if err != nil {
 			return nil, false, err
