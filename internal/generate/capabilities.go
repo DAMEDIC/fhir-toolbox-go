@@ -70,7 +70,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					)
 			case "search":
 				g.Id("SearchCapabilities"+r.Name).Params(Id("ctx").Qual("context", "Context")).Params(
-					Qual(moduleName+"/capabilities/search", "Capabilities"),
+					searchCapabilitiesType(release),
 					Error(),
 				)
 				g.Id(interactionName+r.Name).
@@ -112,7 +112,7 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 			Id("Read"):   Make(Map(String()).Qual(moduleName+"/capabilities/read", "Capabilities")),
 			Id("Update"): Make(Map(String()).Qual(moduleName+"/capabilities/update", "Capabilities")),
 			Id("Delete"): Make(Map(String()).Qual(moduleName+"/capabilities/deletion", "Capabilities")),
-			Id("Search"): Make(Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities")),
+			Id("Search"): Make(Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities").Index(Qual(moduleName+"/capabilities/search", "Parameter"))),
 		})
 		g.Var().Id("errs").Index().Error()
 
@@ -164,7 +164,23 @@ func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceO
 				If(Err().Op("!=").Nil()).Block(
 					Id("errs").Op("=").Append(Id("errs"), Err()),
 				).Else().Block(
-					Id("allCapabilities.Search").Index(Lit(r.Name)).Op("=").Id("c"),
+					// Assign a new capabilities struct, initializing the Parameters map
+					Id("allCapabilities").Dot("Search").Index(Lit(r.Name)).Op("=").Qual(
+						moduleName+"/capabilities/search", "Capabilities",
+					).Index(
+						Qual(moduleName+"/capabilities/search", "Parameter"),
+					).Values(Dict{
+						Id("Includes"): Id("c").Dot("Includes"),
+						Id("Parameters"): Make(
+							Map(String()).Qual(moduleName+"/capabilities/search", "Parameter"),
+						),
+					}),
+					// Iterate over the source parameters and copy them
+					For(
+						List(Id("n"), Id("p")).Op(":=").Range().Id("c").Dot("Parameters"),
+					).Block(
+						Id("allCapabilities").Dot("Search").Index(Lit(r.Name)).Dot("Parameters").Index(Id("n")).Op("=").Id("p"),
+					),
 				),
 			)
 		}
