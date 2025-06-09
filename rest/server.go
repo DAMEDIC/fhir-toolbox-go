@@ -374,7 +374,7 @@ func dispatchSearch(
 }
 
 func parseSearchOptions(
-	searchCapabilities search.Capabilities,
+	searchCapabilities search.Capabilities[search.Parameter],
 	params url.Values,
 	tz *time.Location,
 	maxCount, defaultCount int) (search.Options, error) {

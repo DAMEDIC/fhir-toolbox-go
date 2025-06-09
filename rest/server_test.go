@@ -1480,20 +1480,20 @@ func (m mockBackend) DeletePatient(ctx context.Context, id string) error {
 	return nil
 }
 
-func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id":  {Type: search.TypeToken},
-			"date": {Type: search.TypeDate},
-			"eq1":  {Type: search.TypeToken},
-			"ne2":  {Type: search.TypeToken},
-			"gt3":  {Type: search.TypeToken},
-			"lt4":  {Type: search.TypeToken},
-			"ge5":  {Type: search.TypeToken},
-			"le6":  {Type: search.TypeToken},
-			"sa7":  {Type: search.TypeToken},
-			"eb8":  {Type: search.TypeToken},
-			"pre":  {Type: search.TypeToken, Modifiers: []search.Modifier{search.ModifierAbove}},
+func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	return search.Capabilities[r4.SearchParameter]{
+		Parameters: map[string]r4.SearchParameter{
+			"_id":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"date": {Type: r4.Code{Value: ptr.To(search.TypeDate)}},
+			"eq1":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"ne2":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"gt3":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"lt4":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"ge5":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"le6":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"sa7":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"eb8":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"pre":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}, Modifier: []r4.Code{{Value: ptr.To(search.ModifierAbove)}}},
 		},
 	}, nil
 }
@@ -1512,10 +1512,10 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 	return result, nil
 }
 
-func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id": {Type: search.TypeToken},
+func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	return search.Capabilities[r4.SearchParameter]{
+		Parameters: map[string]r4.SearchParameter{
+			"_id": {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
 		},
 		Includes: []string{"Observation:patient"},
 	}, nil

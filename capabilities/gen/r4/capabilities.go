@@ -20,7 +20,7 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		Create: make(map[string]create.Capabilities),
 		Delete: make(map[string]deletion.Capabilities),
 		Read:   make(map[string]read.Capabilities),
-		Search: make(map[string]search.Capabilities),
+		Search: make(map[string]search.Capabilities[search.Parameter]),
 		Update: make(map[string]update.Capabilities),
 	}
 	var errs []error
@@ -50,7 +50,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Account"] = c
+			allCapabilities.Search["Account"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Account"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ActivityDefinitionCreate); ok {
@@ -79,7 +85,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ActivityDefinition"] = c
+			allCapabilities.Search["ActivityDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ActivityDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(AdverseEventCreate); ok {
@@ -108,7 +120,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["AdverseEvent"] = c
+			allCapabilities.Search["AdverseEvent"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["AdverseEvent"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(AllergyIntoleranceCreate); ok {
@@ -137,7 +155,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["AllergyIntolerance"] = c
+			allCapabilities.Search["AllergyIntolerance"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["AllergyIntolerance"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(AppointmentCreate); ok {
@@ -166,7 +190,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Appointment"] = c
+			allCapabilities.Search["Appointment"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Appointment"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(AppointmentResponseCreate); ok {
@@ -195,7 +225,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["AppointmentResponse"] = c
+			allCapabilities.Search["AppointmentResponse"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["AppointmentResponse"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(AuditEventCreate); ok {
@@ -224,7 +260,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["AuditEvent"] = c
+			allCapabilities.Search["AuditEvent"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["AuditEvent"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(BasicCreate); ok {
@@ -253,7 +295,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Basic"] = c
+			allCapabilities.Search["Basic"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Basic"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(BinaryCreate); ok {
@@ -282,7 +330,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Binary"] = c
+			allCapabilities.Search["Binary"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Binary"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(BiologicallyDerivedProductCreate); ok {
@@ -311,7 +365,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["BiologicallyDerivedProduct"] = c
+			allCapabilities.Search["BiologicallyDerivedProduct"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["BiologicallyDerivedProduct"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(BodyStructureCreate); ok {
@@ -340,7 +400,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["BodyStructure"] = c
+			allCapabilities.Search["BodyStructure"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["BodyStructure"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(BundleCreate); ok {
@@ -369,7 +435,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Bundle"] = c
+			allCapabilities.Search["Bundle"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Bundle"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CapabilityStatementCreate); ok {
@@ -398,7 +470,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CapabilityStatement"] = c
+			allCapabilities.Search["CapabilityStatement"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CapabilityStatement"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CarePlanCreate); ok {
@@ -427,7 +505,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CarePlan"] = c
+			allCapabilities.Search["CarePlan"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CarePlan"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CareTeamCreate); ok {
@@ -456,7 +540,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CareTeam"] = c
+			allCapabilities.Search["CareTeam"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CareTeam"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CatalogEntryCreate); ok {
@@ -485,7 +575,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CatalogEntry"] = c
+			allCapabilities.Search["CatalogEntry"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CatalogEntry"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ChargeItemCreate); ok {
@@ -514,7 +610,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ChargeItem"] = c
+			allCapabilities.Search["ChargeItem"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ChargeItem"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ChargeItemDefinitionCreate); ok {
@@ -543,7 +645,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ChargeItemDefinition"] = c
+			allCapabilities.Search["ChargeItemDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ChargeItemDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ClaimCreate); ok {
@@ -572,7 +680,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Claim"] = c
+			allCapabilities.Search["Claim"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Claim"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ClaimResponseCreate); ok {
@@ -601,7 +715,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ClaimResponse"] = c
+			allCapabilities.Search["ClaimResponse"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ClaimResponse"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ClinicalImpressionCreate); ok {
@@ -630,7 +750,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ClinicalImpression"] = c
+			allCapabilities.Search["ClinicalImpression"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ClinicalImpression"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CodeSystemCreate); ok {
@@ -659,7 +785,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CodeSystem"] = c
+			allCapabilities.Search["CodeSystem"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CodeSystem"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CommunicationCreate); ok {
@@ -688,7 +820,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Communication"] = c
+			allCapabilities.Search["Communication"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Communication"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CommunicationRequestCreate); ok {
@@ -717,7 +855,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CommunicationRequest"] = c
+			allCapabilities.Search["CommunicationRequest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CommunicationRequest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CompartmentDefinitionCreate); ok {
@@ -746,7 +890,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CompartmentDefinition"] = c
+			allCapabilities.Search["CompartmentDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CompartmentDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CompositionCreate); ok {
@@ -775,7 +925,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Composition"] = c
+			allCapabilities.Search["Composition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Composition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ConceptMapCreate); ok {
@@ -804,7 +960,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ConceptMap"] = c
+			allCapabilities.Search["ConceptMap"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ConceptMap"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ConditionCreate); ok {
@@ -833,7 +995,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Condition"] = c
+			allCapabilities.Search["Condition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Condition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ConsentCreate); ok {
@@ -862,7 +1030,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Consent"] = c
+			allCapabilities.Search["Consent"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Consent"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ContractCreate); ok {
@@ -891,7 +1065,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Contract"] = c
+			allCapabilities.Search["Contract"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Contract"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CoverageCreate); ok {
@@ -920,7 +1100,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Coverage"] = c
+			allCapabilities.Search["Coverage"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Coverage"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CoverageEligibilityRequestCreate); ok {
@@ -949,7 +1135,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CoverageEligibilityRequest"] = c
+			allCapabilities.Search["CoverageEligibilityRequest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CoverageEligibilityRequest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(CoverageEligibilityResponseCreate); ok {
@@ -978,7 +1170,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["CoverageEligibilityResponse"] = c
+			allCapabilities.Search["CoverageEligibilityResponse"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["CoverageEligibilityResponse"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DetectedIssueCreate); ok {
@@ -1007,7 +1205,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DetectedIssue"] = c
+			allCapabilities.Search["DetectedIssue"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DetectedIssue"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DeviceCreate); ok {
@@ -1036,7 +1240,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Device"] = c
+			allCapabilities.Search["Device"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Device"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DeviceDefinitionCreate); ok {
@@ -1065,7 +1275,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DeviceDefinition"] = c
+			allCapabilities.Search["DeviceDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DeviceDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DeviceMetricCreate); ok {
@@ -1094,7 +1310,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DeviceMetric"] = c
+			allCapabilities.Search["DeviceMetric"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DeviceMetric"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DeviceRequestCreate); ok {
@@ -1123,7 +1345,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DeviceRequest"] = c
+			allCapabilities.Search["DeviceRequest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DeviceRequest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DeviceUseStatementCreate); ok {
@@ -1152,7 +1380,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DeviceUseStatement"] = c
+			allCapabilities.Search["DeviceUseStatement"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DeviceUseStatement"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DiagnosticReportCreate); ok {
@@ -1181,7 +1415,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DiagnosticReport"] = c
+			allCapabilities.Search["DiagnosticReport"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DiagnosticReport"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DocumentManifestCreate); ok {
@@ -1210,7 +1450,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DocumentManifest"] = c
+			allCapabilities.Search["DocumentManifest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DocumentManifest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(DocumentReferenceCreate); ok {
@@ -1239,7 +1485,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["DocumentReference"] = c
+			allCapabilities.Search["DocumentReference"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["DocumentReference"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EffectEvidenceSynthesisCreate); ok {
@@ -1268,7 +1520,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["EffectEvidenceSynthesis"] = c
+			allCapabilities.Search["EffectEvidenceSynthesis"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["EffectEvidenceSynthesis"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EncounterCreate); ok {
@@ -1297,7 +1555,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Encounter"] = c
+			allCapabilities.Search["Encounter"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Encounter"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EndpointCreate); ok {
@@ -1326,7 +1590,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Endpoint"] = c
+			allCapabilities.Search["Endpoint"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Endpoint"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EnrollmentRequestCreate); ok {
@@ -1355,7 +1625,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["EnrollmentRequest"] = c
+			allCapabilities.Search["EnrollmentRequest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["EnrollmentRequest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EnrollmentResponseCreate); ok {
@@ -1384,7 +1660,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["EnrollmentResponse"] = c
+			allCapabilities.Search["EnrollmentResponse"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["EnrollmentResponse"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EpisodeOfCareCreate); ok {
@@ -1413,7 +1695,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["EpisodeOfCare"] = c
+			allCapabilities.Search["EpisodeOfCare"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["EpisodeOfCare"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EventDefinitionCreate); ok {
@@ -1442,7 +1730,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["EventDefinition"] = c
+			allCapabilities.Search["EventDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["EventDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EvidenceCreate); ok {
@@ -1471,7 +1765,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Evidence"] = c
+			allCapabilities.Search["Evidence"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Evidence"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(EvidenceVariableCreate); ok {
@@ -1500,7 +1800,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["EvidenceVariable"] = c
+			allCapabilities.Search["EvidenceVariable"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["EvidenceVariable"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ExampleScenarioCreate); ok {
@@ -1529,7 +1835,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ExampleScenario"] = c
+			allCapabilities.Search["ExampleScenario"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ExampleScenario"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ExplanationOfBenefitCreate); ok {
@@ -1558,7 +1870,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ExplanationOfBenefit"] = c
+			allCapabilities.Search["ExplanationOfBenefit"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ExplanationOfBenefit"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(FamilyMemberHistoryCreate); ok {
@@ -1587,7 +1905,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["FamilyMemberHistory"] = c
+			allCapabilities.Search["FamilyMemberHistory"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["FamilyMemberHistory"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(FlagCreate); ok {
@@ -1616,7 +1940,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Flag"] = c
+			allCapabilities.Search["Flag"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Flag"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(GoalCreate); ok {
@@ -1645,7 +1975,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Goal"] = c
+			allCapabilities.Search["Goal"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Goal"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(GraphDefinitionCreate); ok {
@@ -1674,7 +2010,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["GraphDefinition"] = c
+			allCapabilities.Search["GraphDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["GraphDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(GroupCreate); ok {
@@ -1703,7 +2045,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Group"] = c
+			allCapabilities.Search["Group"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Group"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(GuidanceResponseCreate); ok {
@@ -1732,7 +2080,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["GuidanceResponse"] = c
+			allCapabilities.Search["GuidanceResponse"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["GuidanceResponse"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(HealthcareServiceCreate); ok {
@@ -1761,7 +2115,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["HealthcareService"] = c
+			allCapabilities.Search["HealthcareService"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["HealthcareService"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ImagingStudyCreate); ok {
@@ -1790,7 +2150,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ImagingStudy"] = c
+			allCapabilities.Search["ImagingStudy"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ImagingStudy"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ImmunizationCreate); ok {
@@ -1819,7 +2185,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Immunization"] = c
+			allCapabilities.Search["Immunization"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Immunization"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ImmunizationEvaluationCreate); ok {
@@ -1848,7 +2220,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ImmunizationEvaluation"] = c
+			allCapabilities.Search["ImmunizationEvaluation"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ImmunizationEvaluation"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ImmunizationRecommendationCreate); ok {
@@ -1877,7 +2255,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ImmunizationRecommendation"] = c
+			allCapabilities.Search["ImmunizationRecommendation"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ImmunizationRecommendation"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ImplementationGuideCreate); ok {
@@ -1906,7 +2290,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ImplementationGuide"] = c
+			allCapabilities.Search["ImplementationGuide"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ImplementationGuide"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(InsurancePlanCreate); ok {
@@ -1935,7 +2325,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["InsurancePlan"] = c
+			allCapabilities.Search["InsurancePlan"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["InsurancePlan"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(InvoiceCreate); ok {
@@ -1964,7 +2360,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Invoice"] = c
+			allCapabilities.Search["Invoice"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Invoice"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(LibraryCreate); ok {
@@ -1993,7 +2395,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Library"] = c
+			allCapabilities.Search["Library"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Library"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(LinkageCreate); ok {
@@ -2022,7 +2430,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Linkage"] = c
+			allCapabilities.Search["Linkage"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Linkage"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ListCreate); ok {
@@ -2051,7 +2465,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["List"] = c
+			allCapabilities.Search["List"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["List"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(LocationCreate); ok {
@@ -2080,7 +2500,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Location"] = c
+			allCapabilities.Search["Location"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Location"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MeasureCreate); ok {
@@ -2109,7 +2535,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Measure"] = c
+			allCapabilities.Search["Measure"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Measure"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MeasureReportCreate); ok {
@@ -2138,7 +2570,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MeasureReport"] = c
+			allCapabilities.Search["MeasureReport"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MeasureReport"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MediaCreate); ok {
@@ -2167,7 +2605,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Media"] = c
+			allCapabilities.Search["Media"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Media"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicationCreate); ok {
@@ -2196,7 +2640,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Medication"] = c
+			allCapabilities.Search["Medication"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Medication"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicationAdministrationCreate); ok {
@@ -2225,7 +2675,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicationAdministration"] = c
+			allCapabilities.Search["MedicationAdministration"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicationAdministration"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicationDispenseCreate); ok {
@@ -2254,7 +2710,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicationDispense"] = c
+			allCapabilities.Search["MedicationDispense"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicationDispense"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicationKnowledgeCreate); ok {
@@ -2283,7 +2745,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicationKnowledge"] = c
+			allCapabilities.Search["MedicationKnowledge"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicationKnowledge"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicationRequestCreate); ok {
@@ -2312,7 +2780,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicationRequest"] = c
+			allCapabilities.Search["MedicationRequest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicationRequest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicationStatementCreate); ok {
@@ -2341,7 +2815,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicationStatement"] = c
+			allCapabilities.Search["MedicationStatement"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicationStatement"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductCreate); ok {
@@ -2370,7 +2850,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProduct"] = c
+			allCapabilities.Search["MedicinalProduct"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProduct"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductAuthorizationCreate); ok {
@@ -2399,7 +2885,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductAuthorization"] = c
+			allCapabilities.Search["MedicinalProductAuthorization"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductAuthorization"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductContraindicationCreate); ok {
@@ -2428,7 +2920,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductContraindication"] = c
+			allCapabilities.Search["MedicinalProductContraindication"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductContraindication"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductIndicationCreate); ok {
@@ -2457,7 +2955,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductIndication"] = c
+			allCapabilities.Search["MedicinalProductIndication"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductIndication"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductIngredientCreate); ok {
@@ -2486,7 +2990,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductIngredient"] = c
+			allCapabilities.Search["MedicinalProductIngredient"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductIngredient"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductInteractionCreate); ok {
@@ -2515,7 +3025,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductInteraction"] = c
+			allCapabilities.Search["MedicinalProductInteraction"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductInteraction"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductManufacturedCreate); ok {
@@ -2544,7 +3060,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductManufactured"] = c
+			allCapabilities.Search["MedicinalProductManufactured"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductManufactured"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductPackagedCreate); ok {
@@ -2573,7 +3095,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductPackaged"] = c
+			allCapabilities.Search["MedicinalProductPackaged"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductPackaged"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductPharmaceuticalCreate); ok {
@@ -2602,7 +3130,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductPharmaceutical"] = c
+			allCapabilities.Search["MedicinalProductPharmaceutical"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductPharmaceutical"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MedicinalProductUndesirableEffectCreate); ok {
@@ -2631,7 +3165,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MedicinalProductUndesirableEffect"] = c
+			allCapabilities.Search["MedicinalProductUndesirableEffect"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MedicinalProductUndesirableEffect"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MessageDefinitionCreate); ok {
@@ -2660,7 +3200,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MessageDefinition"] = c
+			allCapabilities.Search["MessageDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MessageDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MessageHeaderCreate); ok {
@@ -2689,7 +3235,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MessageHeader"] = c
+			allCapabilities.Search["MessageHeader"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MessageHeader"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(MolecularSequenceCreate); ok {
@@ -2718,7 +3270,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["MolecularSequence"] = c
+			allCapabilities.Search["MolecularSequence"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["MolecularSequence"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(NamingSystemCreate); ok {
@@ -2747,7 +3305,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["NamingSystem"] = c
+			allCapabilities.Search["NamingSystem"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["NamingSystem"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(NutritionOrderCreate); ok {
@@ -2776,7 +3340,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["NutritionOrder"] = c
+			allCapabilities.Search["NutritionOrder"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["NutritionOrder"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ObservationCreate); ok {
@@ -2805,7 +3375,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Observation"] = c
+			allCapabilities.Search["Observation"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Observation"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ObservationDefinitionCreate); ok {
@@ -2834,7 +3410,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ObservationDefinition"] = c
+			allCapabilities.Search["ObservationDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ObservationDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(OperationDefinitionCreate); ok {
@@ -2863,7 +3445,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["OperationDefinition"] = c
+			allCapabilities.Search["OperationDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["OperationDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(OperationOutcomeCreate); ok {
@@ -2892,7 +3480,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["OperationOutcome"] = c
+			allCapabilities.Search["OperationOutcome"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["OperationOutcome"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(OrganizationCreate); ok {
@@ -2921,7 +3515,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Organization"] = c
+			allCapabilities.Search["Organization"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Organization"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(OrganizationAffiliationCreate); ok {
@@ -2950,7 +3550,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["OrganizationAffiliation"] = c
+			allCapabilities.Search["OrganizationAffiliation"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["OrganizationAffiliation"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ParametersCreate); ok {
@@ -2979,7 +3585,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Parameters"] = c
+			allCapabilities.Search["Parameters"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Parameters"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(PatientCreate); ok {
@@ -3008,7 +3620,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Patient"] = c
+			allCapabilities.Search["Patient"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Patient"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(PaymentNoticeCreate); ok {
@@ -3037,7 +3655,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["PaymentNotice"] = c
+			allCapabilities.Search["PaymentNotice"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["PaymentNotice"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(PaymentReconciliationCreate); ok {
@@ -3066,7 +3690,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["PaymentReconciliation"] = c
+			allCapabilities.Search["PaymentReconciliation"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["PaymentReconciliation"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(PersonCreate); ok {
@@ -3095,7 +3725,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Person"] = c
+			allCapabilities.Search["Person"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Person"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(PlanDefinitionCreate); ok {
@@ -3124,7 +3760,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["PlanDefinition"] = c
+			allCapabilities.Search["PlanDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["PlanDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(PractitionerCreate); ok {
@@ -3153,7 +3795,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Practitioner"] = c
+			allCapabilities.Search["Practitioner"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Practitioner"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(PractitionerRoleCreate); ok {
@@ -3182,7 +3830,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["PractitionerRole"] = c
+			allCapabilities.Search["PractitionerRole"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["PractitionerRole"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ProcedureCreate); ok {
@@ -3211,7 +3865,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Procedure"] = c
+			allCapabilities.Search["Procedure"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Procedure"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ProvenanceCreate); ok {
@@ -3240,7 +3900,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Provenance"] = c
+			allCapabilities.Search["Provenance"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Provenance"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(QuestionnaireCreate); ok {
@@ -3269,7 +3935,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Questionnaire"] = c
+			allCapabilities.Search["Questionnaire"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Questionnaire"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(QuestionnaireResponseCreate); ok {
@@ -3298,7 +3970,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["QuestionnaireResponse"] = c
+			allCapabilities.Search["QuestionnaireResponse"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["QuestionnaireResponse"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(RelatedPersonCreate); ok {
@@ -3327,7 +4005,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["RelatedPerson"] = c
+			allCapabilities.Search["RelatedPerson"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["RelatedPerson"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(RequestGroupCreate); ok {
@@ -3356,7 +4040,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["RequestGroup"] = c
+			allCapabilities.Search["RequestGroup"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["RequestGroup"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ResearchDefinitionCreate); ok {
@@ -3385,7 +4075,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ResearchDefinition"] = c
+			allCapabilities.Search["ResearchDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ResearchDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ResearchElementDefinitionCreate); ok {
@@ -3414,7 +4110,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ResearchElementDefinition"] = c
+			allCapabilities.Search["ResearchElementDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ResearchElementDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ResearchStudyCreate); ok {
@@ -3443,7 +4145,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ResearchStudy"] = c
+			allCapabilities.Search["ResearchStudy"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ResearchStudy"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ResearchSubjectCreate); ok {
@@ -3472,7 +4180,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ResearchSubject"] = c
+			allCapabilities.Search["ResearchSubject"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ResearchSubject"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(RiskAssessmentCreate); ok {
@@ -3501,7 +4215,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["RiskAssessment"] = c
+			allCapabilities.Search["RiskAssessment"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["RiskAssessment"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(RiskEvidenceSynthesisCreate); ok {
@@ -3530,7 +4250,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["RiskEvidenceSynthesis"] = c
+			allCapabilities.Search["RiskEvidenceSynthesis"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["RiskEvidenceSynthesis"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ScheduleCreate); ok {
@@ -3559,7 +4285,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Schedule"] = c
+			allCapabilities.Search["Schedule"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Schedule"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SearchParameterCreate); ok {
@@ -3588,7 +4320,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SearchParameter"] = c
+			allCapabilities.Search["SearchParameter"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SearchParameter"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ServiceRequestCreate); ok {
@@ -3617,7 +4355,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ServiceRequest"] = c
+			allCapabilities.Search["ServiceRequest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ServiceRequest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SlotCreate); ok {
@@ -3646,7 +4390,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Slot"] = c
+			allCapabilities.Search["Slot"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Slot"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SpecimenCreate); ok {
@@ -3675,7 +4425,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Specimen"] = c
+			allCapabilities.Search["Specimen"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Specimen"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SpecimenDefinitionCreate); ok {
@@ -3704,7 +4460,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SpecimenDefinition"] = c
+			allCapabilities.Search["SpecimenDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SpecimenDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(StructureDefinitionCreate); ok {
@@ -3733,7 +4495,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["StructureDefinition"] = c
+			allCapabilities.Search["StructureDefinition"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["StructureDefinition"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(StructureMapCreate); ok {
@@ -3762,7 +4530,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["StructureMap"] = c
+			allCapabilities.Search["StructureMap"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["StructureMap"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubscriptionCreate); ok {
@@ -3791,7 +4565,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Subscription"] = c
+			allCapabilities.Search["Subscription"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Subscription"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubstanceCreate); ok {
@@ -3820,7 +4600,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Substance"] = c
+			allCapabilities.Search["Substance"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Substance"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubstanceNucleicAcidCreate); ok {
@@ -3849,7 +4635,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SubstanceNucleicAcid"] = c
+			allCapabilities.Search["SubstanceNucleicAcid"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SubstanceNucleicAcid"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubstancePolymerCreate); ok {
@@ -3878,7 +4670,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SubstancePolymer"] = c
+			allCapabilities.Search["SubstancePolymer"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SubstancePolymer"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubstanceProteinCreate); ok {
@@ -3907,7 +4705,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SubstanceProtein"] = c
+			allCapabilities.Search["SubstanceProtein"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SubstanceProtein"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubstanceReferenceInformationCreate); ok {
@@ -3936,7 +4740,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SubstanceReferenceInformation"] = c
+			allCapabilities.Search["SubstanceReferenceInformation"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SubstanceReferenceInformation"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubstanceSourceMaterialCreate); ok {
@@ -3965,7 +4775,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SubstanceSourceMaterial"] = c
+			allCapabilities.Search["SubstanceSourceMaterial"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SubstanceSourceMaterial"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SubstanceSpecificationCreate); ok {
@@ -3994,7 +4810,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SubstanceSpecification"] = c
+			allCapabilities.Search["SubstanceSpecification"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SubstanceSpecification"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SupplyDeliveryCreate); ok {
@@ -4023,7 +4845,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SupplyDelivery"] = c
+			allCapabilities.Search["SupplyDelivery"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SupplyDelivery"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(SupplyRequestCreate); ok {
@@ -4052,7 +4880,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["SupplyRequest"] = c
+			allCapabilities.Search["SupplyRequest"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["SupplyRequest"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(TaskCreate); ok {
@@ -4081,7 +4915,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["Task"] = c
+			allCapabilities.Search["Task"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["Task"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(TerminologyCapabilitiesCreate); ok {
@@ -4110,7 +4950,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["TerminologyCapabilities"] = c
+			allCapabilities.Search["TerminologyCapabilities"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["TerminologyCapabilities"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(TestReportCreate); ok {
@@ -4139,7 +4985,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["TestReport"] = c
+			allCapabilities.Search["TestReport"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["TestReport"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(TestScriptCreate); ok {
@@ -4168,7 +5020,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["TestScript"] = c
+			allCapabilities.Search["TestScript"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["TestScript"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(ValueSetCreate); ok {
@@ -4197,7 +5055,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["ValueSet"] = c
+			allCapabilities.Search["ValueSet"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["ValueSet"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(VerificationResultCreate); ok {
@@ -4226,7 +5090,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["VerificationResult"] = c
+			allCapabilities.Search["VerificationResult"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["VerificationResult"].Parameters[n] = p
+			}
 		}
 	}
 	if _, ok := api.(VisionPrescriptionCreate); ok {
@@ -4255,7 +5125,13 @@ func AllCapabilities(ctx context.Context, api any) (capabilities.Capabilities, e
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			allCapabilities.Search["VisionPrescription"] = c
+			allCapabilities.Search["VisionPrescription"] = search.Capabilities[search.Parameter]{
+				Includes:   c.Includes,
+				Parameters: make(map[string]search.Parameter),
+			}
+			for n, p := range c.Parameters {
+				allCapabilities.Search["VisionPrescription"].Parameters[n] = p
+			}
 		}
 	}
 	return allCapabilities, errors.Join(errs...)

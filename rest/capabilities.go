@@ -3,6 +3,7 @@ package rest
 import (
 	"cmp"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
@@ -84,12 +85,19 @@ func rest(
 			)
 		}
 
-		for paramName, paramProps := range capability.Parameters {
+		for spName, sp := range capability.Parameters {
+			fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](sp.Children("type"))
+			if !ok || err != nil {
+				// should never happen
+				continue
+			}
+			resolvedType := string(fhirpathType)
+
 			r.SearchParam = append(
 				r.SearchParam,
 				basic.CapabilityStatementRestResourceSearchParam{
-					Name: basic.String{Value: &paramName},
-					Type: basic.Code{Value: ptr.To(string(paramProps.Type))},
+					Name: basic.String{Value: &spName},
+					Type: basic.Code{Value: &resolvedType},
 				},
 			)
 		}

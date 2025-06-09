@@ -31,7 +31,7 @@ func searchBundle[R model.Resource](
 	resourceType string,
 	result search.Result[R],
 	usedOptions search.Options,
-	searchCapabilities search.Capabilities,
+	searchCapabilities search.Capabilities[search.Parameter],
 	baseURL *url.URL,
 ) (basic.Bundle, error) {
 	entries, err := entries(result, baseURL)
@@ -126,7 +126,7 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.
 func relationLink(
 	resourceType string,
 	options search.Options,
-	searchCapabilities search.Capabilities,
+	searchCapabilities search.Capabilities[search.Parameter],
 	baseURL *url.URL,
 ) basic.Uri {
 	path := strings.Trim(baseURL.Path, "/ ")
@@ -138,14 +138,25 @@ func relationLink(
 
 	// remove options supplied by the client, but not used/supported by the backend
 	usedOptions := options
-	usedOptions.Parameters = make(search.Parameters, len(options.Parameters))
+	usedOptions.Parameters = make(map[search.ParameterKey]search.AllOf, len(options.Parameters))
 	for key, ands := range options.Parameters {
 		p, ok := searchCapabilities.Parameters[key.Name]
 		if !ok {
 			continue
 		}
 
-		if key.Modifier == "" || slices.Contains(p.Modifiers, key.Modifier) {
+		fhirpathModifiers := p.Children("modifier")
+		resolvedModifiers := make([]string, 0, len(fhirpathModifiers))
+		for _, e := range fhirpathModifiers {
+			m, ok, err := e.ToString(false)
+			if !ok || err != nil {
+				// should not happen as long as correct Parameter resources are used
+				continue
+			}
+			resolvedModifiers = append(resolvedModifiers, string(m))
+		}
+
+		if key.Modifier == "" || len(resolvedModifiers) == 0 || slices.Contains(resolvedModifiers, key.Modifier) {
 			usedOptions.Parameters[key] = ands
 		}
 	}

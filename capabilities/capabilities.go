@@ -53,5 +53,5 @@ type Capabilities struct {
 	// Delete is a list of supported resources.
 	Delete map[string]deletion.Capabilities
 	// Search capabilities, indexed by the resource type.
-	Search map[string]search.Capabilities
+	Search map[string]search.Capabilities[search.Parameter]
 }

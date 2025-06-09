@@ -7094,12 +7094,12 @@ func (w Generic) Delete(ctx context.Context, resourceType string, id string) err
 		}}}
 	}
 }
-func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, error) {
+func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities[r4.SearchParameter], error) {
 	switch resourceType {
 	case "Account":
 		impl, ok := w.Concrete.(AccountSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Account")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7109,7 +7109,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ActivityDefinition":
 		impl, ok := w.Concrete.(ActivityDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ActivityDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7119,7 +7119,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AdverseEvent":
 		impl, ok := w.Concrete.(AdverseEventSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for AdverseEvent")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7129,7 +7129,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AllergyIntolerance":
 		impl, ok := w.Concrete.(AllergyIntoleranceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for AllergyIntolerance")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7139,7 +7139,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Appointment":
 		impl, ok := w.Concrete.(AppointmentSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Appointment")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7149,7 +7149,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AppointmentResponse":
 		impl, ok := w.Concrete.(AppointmentResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for AppointmentResponse")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7159,7 +7159,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AuditEvent":
 		impl, ok := w.Concrete.(AuditEventSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for AuditEvent")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7169,7 +7169,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Basic":
 		impl, ok := w.Concrete.(BasicSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Basic")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7179,7 +7179,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Binary":
 		impl, ok := w.Concrete.(BinarySearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Binary")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7189,7 +7189,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "BiologicallyDerivedProduct":
 		impl, ok := w.Concrete.(BiologicallyDerivedProductSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for BiologicallyDerivedProduct")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7199,7 +7199,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "BodyStructure":
 		impl, ok := w.Concrete.(BodyStructureSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for BodyStructure")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7209,7 +7209,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Bundle":
 		impl, ok := w.Concrete.(BundleSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Bundle")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7219,7 +7219,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CapabilityStatement":
 		impl, ok := w.Concrete.(CapabilityStatementSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CapabilityStatement")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7229,7 +7229,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CarePlan":
 		impl, ok := w.Concrete.(CarePlanSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CarePlan")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7239,7 +7239,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CareTeam":
 		impl, ok := w.Concrete.(CareTeamSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CareTeam")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7249,7 +7249,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CatalogEntry":
 		impl, ok := w.Concrete.(CatalogEntrySearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CatalogEntry")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7259,7 +7259,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ChargeItem":
 		impl, ok := w.Concrete.(ChargeItemSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ChargeItem")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7269,7 +7269,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ChargeItemDefinition":
 		impl, ok := w.Concrete.(ChargeItemDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ChargeItemDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7279,7 +7279,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Claim":
 		impl, ok := w.Concrete.(ClaimSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Claim")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7289,7 +7289,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ClaimResponse":
 		impl, ok := w.Concrete.(ClaimResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ClaimResponse")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7299,7 +7299,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ClinicalImpression":
 		impl, ok := w.Concrete.(ClinicalImpressionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ClinicalImpression")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7309,7 +7309,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CodeSystem":
 		impl, ok := w.Concrete.(CodeSystemSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CodeSystem")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7319,7 +7319,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Communication":
 		impl, ok := w.Concrete.(CommunicationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Communication")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7329,7 +7329,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CommunicationRequest":
 		impl, ok := w.Concrete.(CommunicationRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CommunicationRequest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7339,7 +7339,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CompartmentDefinition":
 		impl, ok := w.Concrete.(CompartmentDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CompartmentDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7349,7 +7349,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Composition":
 		impl, ok := w.Concrete.(CompositionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Composition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7359,7 +7359,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ConceptMap":
 		impl, ok := w.Concrete.(ConceptMapSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ConceptMap")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7369,7 +7369,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Condition":
 		impl, ok := w.Concrete.(ConditionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Condition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7379,7 +7379,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Consent":
 		impl, ok := w.Concrete.(ConsentSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Consent")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7389,7 +7389,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Contract":
 		impl, ok := w.Concrete.(ContractSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Contract")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7399,7 +7399,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Coverage":
 		impl, ok := w.Concrete.(CoverageSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Coverage")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7409,7 +7409,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CoverageEligibilityRequest":
 		impl, ok := w.Concrete.(CoverageEligibilityRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CoverageEligibilityRequest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7419,7 +7419,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CoverageEligibilityResponse":
 		impl, ok := w.Concrete.(CoverageEligibilityResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for CoverageEligibilityResponse")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7429,7 +7429,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DetectedIssue":
 		impl, ok := w.Concrete.(DetectedIssueSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DetectedIssue")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7439,7 +7439,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Device":
 		impl, ok := w.Concrete.(DeviceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Device")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7449,7 +7449,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceDefinition":
 		impl, ok := w.Concrete.(DeviceDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DeviceDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7459,7 +7459,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceMetric":
 		impl, ok := w.Concrete.(DeviceMetricSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DeviceMetric")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7469,7 +7469,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceRequest":
 		impl, ok := w.Concrete.(DeviceRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DeviceRequest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7479,7 +7479,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceUseStatement":
 		impl, ok := w.Concrete.(DeviceUseStatementSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DeviceUseStatement")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7489,7 +7489,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DiagnosticReport":
 		impl, ok := w.Concrete.(DiagnosticReportSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DiagnosticReport")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7499,7 +7499,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DocumentManifest":
 		impl, ok := w.Concrete.(DocumentManifestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DocumentManifest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7509,7 +7509,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DocumentReference":
 		impl, ok := w.Concrete.(DocumentReferenceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for DocumentReference")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7519,7 +7519,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EffectEvidenceSynthesis":
 		impl, ok := w.Concrete.(EffectEvidenceSynthesisSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for EffectEvidenceSynthesis")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7529,7 +7529,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Encounter":
 		impl, ok := w.Concrete.(EncounterSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Encounter")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7539,7 +7539,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Endpoint":
 		impl, ok := w.Concrete.(EndpointSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Endpoint")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7549,7 +7549,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EnrollmentRequest":
 		impl, ok := w.Concrete.(EnrollmentRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for EnrollmentRequest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7559,7 +7559,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EnrollmentResponse":
 		impl, ok := w.Concrete.(EnrollmentResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for EnrollmentResponse")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7569,7 +7569,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EpisodeOfCare":
 		impl, ok := w.Concrete.(EpisodeOfCareSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for EpisodeOfCare")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7579,7 +7579,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EventDefinition":
 		impl, ok := w.Concrete.(EventDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for EventDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7589,7 +7589,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Evidence":
 		impl, ok := w.Concrete.(EvidenceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Evidence")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7599,7 +7599,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EvidenceVariable":
 		impl, ok := w.Concrete.(EvidenceVariableSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for EvidenceVariable")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7609,7 +7609,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ExampleScenario":
 		impl, ok := w.Concrete.(ExampleScenarioSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ExampleScenario")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7619,7 +7619,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ExplanationOfBenefit":
 		impl, ok := w.Concrete.(ExplanationOfBenefitSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ExplanationOfBenefit")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7629,7 +7629,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "FamilyMemberHistory":
 		impl, ok := w.Concrete.(FamilyMemberHistorySearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for FamilyMemberHistory")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7639,7 +7639,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Flag":
 		impl, ok := w.Concrete.(FlagSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Flag")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7649,7 +7649,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Goal":
 		impl, ok := w.Concrete.(GoalSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Goal")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7659,7 +7659,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "GraphDefinition":
 		impl, ok := w.Concrete.(GraphDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for GraphDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7669,7 +7669,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Group":
 		impl, ok := w.Concrete.(GroupSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Group")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7679,7 +7679,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "GuidanceResponse":
 		impl, ok := w.Concrete.(GuidanceResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for GuidanceResponse")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7689,7 +7689,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "HealthcareService":
 		impl, ok := w.Concrete.(HealthcareServiceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for HealthcareService")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7699,7 +7699,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImagingStudy":
 		impl, ok := w.Concrete.(ImagingStudySearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ImagingStudy")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7709,7 +7709,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Immunization":
 		impl, ok := w.Concrete.(ImmunizationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Immunization")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7719,7 +7719,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImmunizationEvaluation":
 		impl, ok := w.Concrete.(ImmunizationEvaluationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ImmunizationEvaluation")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7729,7 +7729,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImmunizationRecommendation":
 		impl, ok := w.Concrete.(ImmunizationRecommendationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ImmunizationRecommendation")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7739,7 +7739,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImplementationGuide":
 		impl, ok := w.Concrete.(ImplementationGuideSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ImplementationGuide")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7749,7 +7749,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "InsurancePlan":
 		impl, ok := w.Concrete.(InsurancePlanSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for InsurancePlan")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7759,7 +7759,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Invoice":
 		impl, ok := w.Concrete.(InvoiceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Invoice")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7769,7 +7769,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Library":
 		impl, ok := w.Concrete.(LibrarySearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Library")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7779,7 +7779,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Linkage":
 		impl, ok := w.Concrete.(LinkageSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Linkage")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7789,7 +7789,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "List":
 		impl, ok := w.Concrete.(ListSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for List")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7799,7 +7799,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Location":
 		impl, ok := w.Concrete.(LocationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Location")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7809,7 +7809,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Measure":
 		impl, ok := w.Concrete.(MeasureSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Measure")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7819,7 +7819,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MeasureReport":
 		impl, ok := w.Concrete.(MeasureReportSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MeasureReport")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7829,7 +7829,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Media":
 		impl, ok := w.Concrete.(MediaSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Media")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7839,7 +7839,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Medication":
 		impl, ok := w.Concrete.(MedicationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Medication")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7849,7 +7849,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationAdministration":
 		impl, ok := w.Concrete.(MedicationAdministrationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicationAdministration")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7859,7 +7859,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationDispense":
 		impl, ok := w.Concrete.(MedicationDispenseSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicationDispense")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7869,7 +7869,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationKnowledge":
 		impl, ok := w.Concrete.(MedicationKnowledgeSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicationKnowledge")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7879,7 +7879,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationRequest":
 		impl, ok := w.Concrete.(MedicationRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicationRequest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7889,7 +7889,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationStatement":
 		impl, ok := w.Concrete.(MedicationStatementSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicationStatement")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7899,7 +7899,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProduct":
 		impl, ok := w.Concrete.(MedicinalProductSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProduct")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7909,7 +7909,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductAuthorization":
 		impl, ok := w.Concrete.(MedicinalProductAuthorizationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductAuthorization")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7919,7 +7919,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductContraindication":
 		impl, ok := w.Concrete.(MedicinalProductContraindicationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductContraindication")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7929,7 +7929,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductIndication":
 		impl, ok := w.Concrete.(MedicinalProductIndicationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductIndication")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7939,7 +7939,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductIngredient":
 		impl, ok := w.Concrete.(MedicinalProductIngredientSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductIngredient")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7949,7 +7949,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductInteraction":
 		impl, ok := w.Concrete.(MedicinalProductInteractionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductInteraction")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7959,7 +7959,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductManufactured":
 		impl, ok := w.Concrete.(MedicinalProductManufacturedSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductManufactured")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7969,7 +7969,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductPackaged":
 		impl, ok := w.Concrete.(MedicinalProductPackagedSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductPackaged")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7979,7 +7979,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductPharmaceutical":
 		impl, ok := w.Concrete.(MedicinalProductPharmaceuticalSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductPharmaceutical")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7989,7 +7989,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductUndesirableEffect":
 		impl, ok := w.Concrete.(MedicinalProductUndesirableEffectSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MedicinalProductUndesirableEffect")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -7999,7 +7999,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MessageDefinition":
 		impl, ok := w.Concrete.(MessageDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MessageDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8009,7 +8009,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MessageHeader":
 		impl, ok := w.Concrete.(MessageHeaderSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MessageHeader")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8019,7 +8019,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MolecularSequence":
 		impl, ok := w.Concrete.(MolecularSequenceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for MolecularSequence")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8029,7 +8029,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "NamingSystem":
 		impl, ok := w.Concrete.(NamingSystemSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for NamingSystem")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8039,7 +8039,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "NutritionOrder":
 		impl, ok := w.Concrete.(NutritionOrderSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for NutritionOrder")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8049,7 +8049,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Observation":
 		impl, ok := w.Concrete.(ObservationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Observation")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8059,7 +8059,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ObservationDefinition":
 		impl, ok := w.Concrete.(ObservationDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ObservationDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8069,7 +8069,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "OperationDefinition":
 		impl, ok := w.Concrete.(OperationDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for OperationDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8079,7 +8079,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "OperationOutcome":
 		impl, ok := w.Concrete.(OperationOutcomeSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for OperationOutcome")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8089,7 +8089,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Organization":
 		impl, ok := w.Concrete.(OrganizationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Organization")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8099,7 +8099,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "OrganizationAffiliation":
 		impl, ok := w.Concrete.(OrganizationAffiliationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for OrganizationAffiliation")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8109,7 +8109,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Parameters":
 		impl, ok := w.Concrete.(ParametersSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Parameters")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8119,7 +8119,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Patient":
 		impl, ok := w.Concrete.(PatientSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Patient")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8129,7 +8129,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PaymentNotice":
 		impl, ok := w.Concrete.(PaymentNoticeSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for PaymentNotice")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8139,7 +8139,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PaymentReconciliation":
 		impl, ok := w.Concrete.(PaymentReconciliationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for PaymentReconciliation")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8149,7 +8149,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Person":
 		impl, ok := w.Concrete.(PersonSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Person")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8159,7 +8159,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PlanDefinition":
 		impl, ok := w.Concrete.(PlanDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for PlanDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8169,7 +8169,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Practitioner":
 		impl, ok := w.Concrete.(PractitionerSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Practitioner")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8179,7 +8179,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PractitionerRole":
 		impl, ok := w.Concrete.(PractitionerRoleSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for PractitionerRole")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8189,7 +8189,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Procedure":
 		impl, ok := w.Concrete.(ProcedureSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Procedure")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8199,7 +8199,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Provenance":
 		impl, ok := w.Concrete.(ProvenanceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Provenance")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8209,7 +8209,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Questionnaire":
 		impl, ok := w.Concrete.(QuestionnaireSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Questionnaire")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8219,7 +8219,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "QuestionnaireResponse":
 		impl, ok := w.Concrete.(QuestionnaireResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for QuestionnaireResponse")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8229,7 +8229,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RelatedPerson":
 		impl, ok := w.Concrete.(RelatedPersonSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for RelatedPerson")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8239,7 +8239,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RequestGroup":
 		impl, ok := w.Concrete.(RequestGroupSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for RequestGroup")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8249,7 +8249,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchDefinition":
 		impl, ok := w.Concrete.(ResearchDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ResearchDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8259,7 +8259,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchElementDefinition":
 		impl, ok := w.Concrete.(ResearchElementDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ResearchElementDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8269,7 +8269,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchStudy":
 		impl, ok := w.Concrete.(ResearchStudySearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ResearchStudy")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8279,7 +8279,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchSubject":
 		impl, ok := w.Concrete.(ResearchSubjectSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ResearchSubject")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8289,7 +8289,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RiskAssessment":
 		impl, ok := w.Concrete.(RiskAssessmentSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for RiskAssessment")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8299,7 +8299,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RiskEvidenceSynthesis":
 		impl, ok := w.Concrete.(RiskEvidenceSynthesisSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for RiskEvidenceSynthesis")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8309,7 +8309,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Schedule":
 		impl, ok := w.Concrete.(ScheduleSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Schedule")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8319,7 +8319,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SearchParameter":
 		impl, ok := w.Concrete.(SearchParameterSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SearchParameter")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8329,7 +8329,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ServiceRequest":
 		impl, ok := w.Concrete.(ServiceRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ServiceRequest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8339,7 +8339,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Slot":
 		impl, ok := w.Concrete.(SlotSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Slot")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8349,7 +8349,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Specimen":
 		impl, ok := w.Concrete.(SpecimenSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Specimen")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8359,7 +8359,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SpecimenDefinition":
 		impl, ok := w.Concrete.(SpecimenDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SpecimenDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8369,7 +8369,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "StructureDefinition":
 		impl, ok := w.Concrete.(StructureDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for StructureDefinition")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8379,7 +8379,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "StructureMap":
 		impl, ok := w.Concrete.(StructureMapSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for StructureMap")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8389,7 +8389,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Subscription":
 		impl, ok := w.Concrete.(SubscriptionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Subscription")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8399,7 +8399,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Substance":
 		impl, ok := w.Concrete.(SubstanceSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Substance")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8409,7 +8409,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubstanceNucleicAcid":
 		impl, ok := w.Concrete.(SubstanceNucleicAcidSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SubstanceNucleicAcid")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8419,7 +8419,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubstancePolymer":
 		impl, ok := w.Concrete.(SubstancePolymerSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SubstancePolymer")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8429,7 +8429,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubstanceProtein":
 		impl, ok := w.Concrete.(SubstanceProteinSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SubstanceProtein")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8439,7 +8439,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubstanceReferenceInformation":
 		impl, ok := w.Concrete.(SubstanceReferenceInformationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SubstanceReferenceInformation")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8449,7 +8449,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubstanceSourceMaterial":
 		impl, ok := w.Concrete.(SubstanceSourceMaterialSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SubstanceSourceMaterial")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8459,7 +8459,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubstanceSpecification":
 		impl, ok := w.Concrete.(SubstanceSpecificationSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SubstanceSpecification")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8469,7 +8469,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SupplyDelivery":
 		impl, ok := w.Concrete.(SupplyDeliverySearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SupplyDelivery")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8479,7 +8479,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SupplyRequest":
 		impl, ok := w.Concrete.(SupplyRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SupplyRequest")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8489,7 +8489,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Task":
 		impl, ok := w.Concrete.(TaskSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for Task")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8499,7 +8499,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "TerminologyCapabilities":
 		impl, ok := w.Concrete.(TerminologyCapabilitiesSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for TerminologyCapabilities")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8509,7 +8509,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "TestReport":
 		impl, ok := w.Concrete.(TestReportSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for TestReport")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8519,7 +8519,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "TestScript":
 		impl, ok := w.Concrete.(TestScriptSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for TestScript")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8529,7 +8529,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ValueSet":
 		impl, ok := w.Concrete.(ValueSetSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for ValueSet")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8539,7 +8539,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "VerificationResult":
 		impl, ok := w.Concrete.(VerificationResultSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for VerificationResult")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8549,7 +8549,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "VisionPrescription":
 		impl, ok := w.Concrete.(VisionPrescriptionSearch)
 		if !ok {
-			return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+			return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 				Code:        r4.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4.String{Value: ptr.To("search not implemented for VisionPrescription")},
 				Severity:    r4.Code{Value: ptr.To("fatal")},
@@ -8557,7 +8557,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 		}
 		return impl.SearchCapabilitiesVisionPrescription(ctx)
 	default:
-		return search.Capabilities{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
+		return search.Capabilities[r4.SearchParameter]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
 			Code:        r4.Code{Value: ptr.To("processing")},
 			Diagnostics: &r4.String{Value: ptr.To("invalid resource type: " + resourceType)},
 			Severity:    r4.Code{Value: ptr.To("fatal")},
