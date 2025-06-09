@@ -9,7 +9,6 @@ import (
 
 type TypesGenerator struct {
 	NoOpGenerator
-	ContainedResource bool
 }
 
 func (g TypesGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
@@ -21,9 +20,8 @@ func (g TypesGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g TypesGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	if g.ContainedResource {
-		implementContainedResource(f("contained_resource", strings.ToLower(release)))
-	}
+	implementContainedResource(f("contained_resource", strings.ToLower(release)))
+
 }
 
 func generateStruct(f *File, s ir.Struct) {

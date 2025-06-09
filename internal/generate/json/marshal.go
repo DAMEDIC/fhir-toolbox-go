@@ -8,7 +8,7 @@ import (
 )
 
 type MarshalGenerator struct {
-	ContainedResource bool
+	NotUseContainedResource bool
 }
 
 func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
@@ -17,7 +17,7 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 			implementMarshalPrimitive(f, t)
 		} else {
 			implementMarshalExternal(f, t)
-			implementMarshalInternal(f, t, g.ContainedResource)
+			implementMarshalInternal(f, t, g.NotUseContainedResource)
 		}
 	}
 
@@ -25,10 +25,8 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	if g.ContainedResource {
-		implementMarshalContainedExternal(f("contained_resource", strings.ToLower(release)))
-		implementMarshalContainedInternal(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
-	}
+	implementMarshalContainedExternal(f("contained_resource", strings.ToLower(release)))
+	implementMarshalContainedInternal(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
 	implementPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 	implementMarshalPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 }
@@ -80,7 +78,7 @@ func implementMarshalExternal(f *File, s ir.Struct) {
 	)
 }
 
-func implementMarshalInternal(f *File, s ir.Struct, useContained bool) {
+func implementMarshalInternal(f *File, s ir.Struct, notUseContainedResource bool) {
 	f.Func().Params(Id("r").Id(s.Name)).Id("marshalJSON").Params(
 		Id("w").Qual("io", "Writer"),
 	).Params(Error()).BlockFunc(func(g *Group) {
@@ -107,7 +105,7 @@ func implementMarshalInternal(f *File, s ir.Struct, useContained bool) {
 				t := f.PossibleTypes[0]
 
 				if t.IsNestedResource {
-					implementNestedResource(g, f, useContained)
+					implementNestedResource(g, f, notUseContainedResource)
 				} else if !s.IsResource && f.Name == "Id" {
 					g.If(Id("r." + f.Name).Op("!=").Nil()).BlockFunc(func(g *Group) {
 						writeKey(g, f.MarshalName)
@@ -132,7 +130,7 @@ func implementMarshalInternal(f *File, s ir.Struct, useContained bool) {
 	})
 }
 
-func implementNestedResource(g *Group, f ir.StructField, useContained bool) {
+func implementNestedResource(g *Group, f ir.StructField, notUseContainedResource bool) {
 	if f.Multiple {
 		g.If(Len(Id("r." + f.Name)).Op(">").Lit(0)).BlockFunc(func(g *Group) {
 			writeKey(g, f.MarshalName)
@@ -141,7 +139,7 @@ func implementNestedResource(g *Group, f ir.StructField, useContained bool) {
 			g.Id("setComma").Op("=").False()
 			g.For(Id("_, c").Op(":=").Range().Id("r." + f.Name)).BlockFunc(func(g *Group) {
 				checkWriteComma(g)
-				if useContained {
+				if !notUseContainedResource {
 					g.Err().Op("=").Id("ContainedResource").Values(Id("c")).
 						Dot("marshalJSON").Call(Id("w"))
 					g.If(Err().Op("!=").Nil()).Block(
@@ -162,7 +160,7 @@ func implementNestedResource(g *Group, f ir.StructField, useContained bool) {
 	} else {
 		g.If(Id("r." + f.Name).Op("!=").Nil()).BlockFunc(func(g *Group) {
 			writeKey(g, f.MarshalName)
-			if useContained {
+			if !notUseContainedResource {
 				g.Err().Op("=").Id("ContainedResource").Values(Id("r." + f.Name)).
 					Dot("marshalJSON").Call(Id("w"))
 				g.If(Err().Op("!=").Nil()).Block(

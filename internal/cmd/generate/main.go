@@ -41,14 +41,14 @@ func main() {
 
 		generate.GenerateAll(releaseTypes[r], genDir(modelGenTarget, r), r,
 			generate.ModelPkgDocGenerator{},
-			generate.TypesGenerator{ContainedResource: true},
+			generate.TypesGenerator{},
 			generate.ImplResourceGenerator{},
 			generate.ImplElementGenerator{},
-			generate.StringerGenerator{ContainedResource: true},
+			generate.StringerGenerator{},
 			generate.OperationOutcomeErrorGenerator{},
-			json.MarshalGenerator{ContainedResource: true},
+			json.MarshalGenerator{},
 			json.UnmarshalGenerator{},
-			xml.MarshalGenerator{ContainedResource: true},
+			xml.MarshalGenerator{},
 			xml.UnmarshalGenerator{},
 			fhirpath.FHIRPathGenerator{},
 		)
@@ -64,13 +64,13 @@ func main() {
 
 	generate.GenerateAll(basicTypes, genDir(modelGenTarget, "basic"), "basic",
 		generate.BasicDocGenerator{},
-		generate.TypesGenerator{ContainedResource: false},
+		generate.TypesGenerator{},
 		generate.ImplResourceGenerator{},
 		generate.ImplElementGenerator{},
-		generate.StringerGenerator{ContainedResource: false},
+		generate.StringerGenerator{},
 		generate.OperationOutcomeErrorGenerator{},
-		json.MarshalGenerator{ContainedResource: false},
-		xml.MarshalGenerator{ContainedResource: false},
+		json.MarshalGenerator{NotUseContainedResource: true},
+		xml.MarshalGenerator{},
 		fhirpath.FHIRPathGenerator{},
 	)
 
