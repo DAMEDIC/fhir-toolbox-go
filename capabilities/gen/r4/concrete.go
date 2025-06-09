@@ -15237,12 +15237,20 @@ func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Account"], err
+	sourceCap := allCapabilities.Search["Account"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result[r4.ActivityDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15280,12 +15288,20 @@ func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ActivityDefinition"], err
+	sourceCap := allCapabilities.Search["ActivityDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result[r4.AdverseEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15323,12 +15339,20 @@ func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["AdverseEvent"], err
+	sourceCap := allCapabilities.Search["AdverseEvent"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result[r4.AllergyIntolerance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15366,12 +15390,20 @@ func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["AllergyIntolerance"], err
+	sourceCap := allCapabilities.Search["AllergyIntolerance"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchAppointment(ctx context.Context, options search.Options) (search.Result[r4.Appointment], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15409,12 +15441,20 @@ func (w Concrete) SearchAppointment(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Appointment"], err
+	sourceCap := allCapabilities.Search["Appointment"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result[r4.AppointmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15452,12 +15492,20 @@ func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["AppointmentResponse"], err
+	sourceCap := allCapabilities.Search["AppointmentResponse"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) (search.Result[r4.AuditEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15495,12 +15543,20 @@ func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["AuditEvent"], err
+	sourceCap := allCapabilities.Search["AuditEvent"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (search.Result[r4.Basic], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15538,12 +15594,20 @@ func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Basic"], err
+	sourceCap := allCapabilities.Search["Basic"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (search.Result[r4.Binary], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15581,12 +15645,20 @@ func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Binary"], err
+	sourceCap := allCapabilities.Search["Binary"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result[r4.BiologicallyDerivedProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15624,12 +15696,20 @@ func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["BiologicallyDerivedProduct"], err
+	sourceCap := allCapabilities.Search["BiologicallyDerivedProduct"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Options) (search.Result[r4.BodyStructure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15667,12 +15747,20 @@ func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["BodyStructure"], err
+	sourceCap := allCapabilities.Search["BodyStructure"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (search.Result[r4.Bundle], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15710,12 +15798,20 @@ func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Bundle"], err
+	sourceCap := allCapabilities.Search["Bundle"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result[r4.CapabilityStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15753,12 +15849,20 @@ func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CapabilityStatement"], err
+	sourceCap := allCapabilities.Search["CapabilityStatement"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (search.Result[r4.CarePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15796,12 +15900,20 @@ func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CarePlan"], err
+	sourceCap := allCapabilities.Search["CarePlan"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (search.Result[r4.CareTeam], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15839,12 +15951,20 @@ func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CareTeam"], err
+	sourceCap := allCapabilities.Search["CareTeam"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result[r4.CatalogEntry], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15882,12 +16002,20 @@ func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CatalogEntry"], err
+	sourceCap := allCapabilities.Search["CatalogEntry"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) (search.Result[r4.ChargeItem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15925,12 +16053,20 @@ func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ChargeItem"], err
+	sourceCap := allCapabilities.Search["ChargeItem"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result[r4.ChargeItemDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15968,12 +16104,20 @@ func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ChargeItemDefinition"], err
+	sourceCap := allCapabilities.Search["ChargeItemDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (search.Result[r4.Claim], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16011,12 +16155,20 @@ func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Claim"], err
+	sourceCap := allCapabilities.Search["Claim"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Options) (search.Result[r4.ClaimResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16054,12 +16206,20 @@ func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ClaimResponse"], err
+	sourceCap := allCapabilities.Search["ClaimResponse"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result[r4.ClinicalImpression], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16097,12 +16257,20 @@ func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ClinicalImpression"], err
+	sourceCap := allCapabilities.Search["ClinicalImpression"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) (search.Result[r4.CodeSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16140,12 +16308,20 @@ func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CodeSystem"], err
+	sourceCap := allCapabilities.Search["CodeSystem"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCommunication(ctx context.Context, options search.Options) (search.Result[r4.Communication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16183,12 +16359,20 @@ func (w Concrete) SearchCommunication(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Communication"], err
+	sourceCap := allCapabilities.Search["Communication"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result[r4.CommunicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16226,12 +16410,20 @@ func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CommunicationRequest"], err
+	sourceCap := allCapabilities.Search["CommunicationRequest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result[r4.CompartmentDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16269,12 +16461,20 @@ func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CompartmentDefinition"], err
+	sourceCap := allCapabilities.Search["CompartmentDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchComposition(ctx context.Context, options search.Options) (search.Result[r4.Composition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16312,12 +16512,20 @@ func (w Concrete) SearchComposition(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Composition"], err
+	sourceCap := allCapabilities.Search["Composition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) (search.Result[r4.ConceptMap], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16355,12 +16563,20 @@ func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ConceptMap"], err
+	sourceCap := allCapabilities.Search["ConceptMap"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (search.Result[r4.Condition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16398,12 +16614,20 @@ func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Condition"], err
+	sourceCap := allCapabilities.Search["Condition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (search.Result[r4.Consent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16441,12 +16665,20 @@ func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Consent"], err
+	sourceCap := allCapabilities.Search["Consent"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchContract(ctx context.Context, options search.Options) (search.Result[r4.Contract], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16484,12 +16716,20 @@ func (w Concrete) SearchContract(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Contract"], err
+	sourceCap := allCapabilities.Search["Contract"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (search.Result[r4.Coverage], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16527,12 +16767,20 @@ func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Coverage"], err
+	sourceCap := allCapabilities.Search["Coverage"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result[r4.CoverageEligibilityRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16570,12 +16818,20 @@ func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CoverageEligibilityRequest"], err
+	sourceCap := allCapabilities.Search["CoverageEligibilityRequest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result[r4.CoverageEligibilityResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16613,12 +16869,20 @@ func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["CoverageEligibilityResponse"], err
+	sourceCap := allCapabilities.Search["CoverageEligibilityResponse"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result[r4.DetectedIssue], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16656,12 +16920,20 @@ func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DetectedIssue"], err
+	sourceCap := allCapabilities.Search["DetectedIssue"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (search.Result[r4.Device], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16699,12 +16971,20 @@ func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Device"], err
+	sourceCap := allCapabilities.Search["Device"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result[r4.DeviceDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16742,12 +17022,20 @@ func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DeviceDefinition"], err
+	sourceCap := allCapabilities.Search["DeviceDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result[r4.DeviceMetric], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16785,12 +17073,20 @@ func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DeviceMetric"], err
+	sourceCap := allCapabilities.Search["DeviceMetric"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result[r4.DeviceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16828,12 +17124,20 @@ func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DeviceRequest"], err
+	sourceCap := allCapabilities.Search["DeviceRequest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result[r4.DeviceUseStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16871,12 +17175,20 @@ func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DeviceUseStatement"], err
+	sourceCap := allCapabilities.Search["DeviceUseStatement"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result[r4.DiagnosticReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16914,12 +17226,20 @@ func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DiagnosticReport"], err
+	sourceCap := allCapabilities.Search["DiagnosticReport"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result[r4.DocumentManifest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16957,12 +17277,20 @@ func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DocumentManifest"], err
+	sourceCap := allCapabilities.Search["DocumentManifest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Options) (search.Result[r4.DocumentReference], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17000,12 +17328,20 @@ func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["DocumentReference"], err
+	sourceCap := allCapabilities.Search["DocumentReference"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEffectEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result[r4.EffectEvidenceSynthesis], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17043,12 +17379,20 @@ func (w Concrete) SearchEffectEvidenceSynthesis(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["EffectEvidenceSynthesis"], err
+	sourceCap := allCapabilities.Search["EffectEvidenceSynthesis"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (search.Result[r4.Encounter], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17086,12 +17430,20 @@ func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Encounter"], err
+	sourceCap := allCapabilities.Search["Encounter"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (search.Result[r4.Endpoint], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17129,12 +17481,20 @@ func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Endpoint"], err
+	sourceCap := allCapabilities.Search["Endpoint"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result[r4.EnrollmentRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17172,12 +17532,20 @@ func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["EnrollmentRequest"], err
+	sourceCap := allCapabilities.Search["EnrollmentRequest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result[r4.EnrollmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17215,12 +17583,20 @@ func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["EnrollmentResponse"], err
+	sourceCap := allCapabilities.Search["EnrollmentResponse"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result[r4.EpisodeOfCare], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17258,12 +17634,20 @@ func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["EpisodeOfCare"], err
+	sourceCap := allCapabilities.Search["EpisodeOfCare"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Options) (search.Result[r4.EventDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17301,12 +17685,20 @@ func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["EventDefinition"], err
+	sourceCap := allCapabilities.Search["EventDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (search.Result[r4.Evidence], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17344,12 +17736,20 @@ func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Evidence"], err
+	sourceCap := allCapabilities.Search["Evidence"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result[r4.EvidenceVariable], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17387,12 +17787,20 @@ func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["EvidenceVariable"], err
+	sourceCap := allCapabilities.Search["EvidenceVariable"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Options) (search.Result[r4.ExampleScenario], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17430,12 +17838,20 @@ func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ExampleScenario"], err
+	sourceCap := allCapabilities.Search["ExampleScenario"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result[r4.ExplanationOfBenefit], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17473,12 +17889,20 @@ func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ExplanationOfBenefit"], err
+	sourceCap := allCapabilities.Search["ExplanationOfBenefit"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result[r4.FamilyMemberHistory], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17516,12 +17940,20 @@ func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["FamilyMemberHistory"], err
+	sourceCap := allCapabilities.Search["FamilyMemberHistory"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (search.Result[r4.Flag], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17559,12 +17991,20 @@ func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Flag"], err
+	sourceCap := allCapabilities.Search["Flag"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (search.Result[r4.Goal], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17602,12 +18042,20 @@ func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Goal"], err
+	sourceCap := allCapabilities.Search["Goal"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result[r4.GraphDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17645,12 +18093,20 @@ func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["GraphDefinition"], err
+	sourceCap := allCapabilities.Search["GraphDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (search.Result[r4.Group], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17688,12 +18144,20 @@ func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Group"], err
+	sourceCap := allCapabilities.Search["Group"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result[r4.GuidanceResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17731,12 +18195,20 @@ func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["GuidanceResponse"], err
+	sourceCap := allCapabilities.Search["GuidanceResponse"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Options) (search.Result[r4.HealthcareService], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17774,12 +18246,20 @@ func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["HealthcareService"], err
+	sourceCap := allCapabilities.Search["HealthcareService"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options) (search.Result[r4.ImagingStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17817,12 +18297,20 @@ func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ImagingStudy"], err
+	sourceCap := allCapabilities.Search["ImagingStudy"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchImmunization(ctx context.Context, options search.Options) (search.Result[r4.Immunization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17860,12 +18348,20 @@ func (w Concrete) SearchImmunization(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Immunization"], err
+	sourceCap := allCapabilities.Search["Immunization"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result[r4.ImmunizationEvaluation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17903,12 +18399,20 @@ func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ImmunizationEvaluation"], err
+	sourceCap := allCapabilities.Search["ImmunizationEvaluation"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result[r4.ImmunizationRecommendation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17946,12 +18450,20 @@ func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ImmunizationRecommendation"], err
+	sourceCap := allCapabilities.Search["ImmunizationRecommendation"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result[r4.ImplementationGuide], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17989,12 +18501,20 @@ func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ImplementationGuide"], err
+	sourceCap := allCapabilities.Search["ImplementationGuide"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result[r4.InsurancePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18032,12 +18552,20 @@ func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["InsurancePlan"], err
+	sourceCap := allCapabilities.Search["InsurancePlan"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (search.Result[r4.Invoice], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18075,12 +18603,20 @@ func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Invoice"], err
+	sourceCap := allCapabilities.Search["Invoice"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (search.Result[r4.Library], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18118,12 +18654,20 @@ func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Library"], err
+	sourceCap := allCapabilities.Search["Library"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (search.Result[r4.Linkage], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18161,12 +18705,20 @@ func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Linkage"], err
+	sourceCap := allCapabilities.Search["Linkage"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchList(ctx context.Context, options search.Options) (search.Result[r4.List], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18204,12 +18756,20 @@ func (w Concrete) SearchList(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["List"], err
+	sourceCap := allCapabilities.Search["List"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (search.Result[r4.Location], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18247,12 +18807,20 @@ func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Location"], err
+	sourceCap := allCapabilities.Search["Location"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (search.Result[r4.Measure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18290,12 +18858,20 @@ func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Measure"], err
+	sourceCap := allCapabilities.Search["Measure"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Options) (search.Result[r4.MeasureReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18333,12 +18909,20 @@ func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MeasureReport"], err
+	sourceCap := allCapabilities.Search["MeasureReport"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (search.Result[r4.Media], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18376,12 +18960,20 @@ func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Media"], err
+	sourceCap := allCapabilities.Search["Media"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedication(ctx context.Context, options search.Options) (search.Result[r4.Medication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18419,12 +19011,20 @@ func (w Concrete) SearchMedication(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Medication"], err
+	sourceCap := allCapabilities.Search["Medication"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result[r4.MedicationAdministration], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18462,12 +19062,20 @@ func (w Concrete) SearchMedicationAdministration(ctx context.Context, options se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicationAdministration"], err
+	sourceCap := allCapabilities.Search["MedicationAdministration"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result[r4.MedicationDispense], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18505,12 +19113,20 @@ func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicationDispense"], err
+	sourceCap := allCapabilities.Search["MedicationDispense"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result[r4.MedicationKnowledge], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18548,12 +19164,20 @@ func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicationKnowledge"], err
+	sourceCap := allCapabilities.Search["MedicationKnowledge"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result[r4.MedicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18591,12 +19215,20 @@ func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicationRequest"], err
+	sourceCap := allCapabilities.Search["MedicationRequest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result[r4.MedicationStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18634,12 +19266,20 @@ func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicationStatement"], err
+	sourceCap := allCapabilities.Search["MedicationStatement"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProduct(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18677,12 +19317,20 @@ func (w Concrete) SearchMedicinalProduct(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProduct(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProduct(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProduct"], err
+	sourceCap := allCapabilities.Search["MedicinalProduct"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductAuthorization(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductAuthorization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18720,12 +19368,20 @@ func (w Concrete) SearchMedicinalProductAuthorization(ctx context.Context, optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductAuthorization(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductAuthorization(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductAuthorization"], err
+	sourceCap := allCapabilities.Search["MedicinalProductAuthorization"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductContraindication(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductContraindication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18763,12 +19419,20 @@ func (w Concrete) SearchMedicinalProductContraindication(ctx context.Context, op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductContraindication(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductContraindication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductContraindication"], err
+	sourceCap := allCapabilities.Search["MedicinalProductContraindication"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductIndication(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductIndication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18806,12 +19470,20 @@ func (w Concrete) SearchMedicinalProductIndication(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductIndication(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductIndication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductIndication"], err
+	sourceCap := allCapabilities.Search["MedicinalProductIndication"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductIngredient(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductIngredient], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18849,12 +19521,20 @@ func (w Concrete) SearchMedicinalProductIngredient(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductIngredient(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductIngredient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductIngredient"], err
+	sourceCap := allCapabilities.Search["MedicinalProductIngredient"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductInteraction(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductInteraction], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18892,12 +19572,20 @@ func (w Concrete) SearchMedicinalProductInteraction(ctx context.Context, options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductInteraction(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductInteraction(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductInteraction"], err
+	sourceCap := allCapabilities.Search["MedicinalProductInteraction"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductManufactured(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductManufactured], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18935,12 +19623,20 @@ func (w Concrete) SearchMedicinalProductManufactured(ctx context.Context, option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductManufactured(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductManufactured(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductManufactured"], err
+	sourceCap := allCapabilities.Search["MedicinalProductManufactured"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductPackaged(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductPackaged], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18978,12 +19674,20 @@ func (w Concrete) SearchMedicinalProductPackaged(ctx context.Context, options se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductPackaged(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductPackaged(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductPackaged"], err
+	sourceCap := allCapabilities.Search["MedicinalProductPackaged"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductPharmaceutical(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductPharmaceutical], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19021,12 +19725,20 @@ func (w Concrete) SearchMedicinalProductPharmaceutical(ctx context.Context, opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductPharmaceutical"], err
+	sourceCap := allCapabilities.Search["MedicinalProductPharmaceutical"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMedicinalProductUndesirableEffect(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductUndesirableEffect], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19064,12 +19776,20 @@ func (w Concrete) SearchMedicinalProductUndesirableEffect(ctx context.Context, o
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MedicinalProductUndesirableEffect"], err
+	sourceCap := allCapabilities.Search["MedicinalProductUndesirableEffect"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result[r4.MessageDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19107,12 +19827,20 @@ func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MessageDefinition"], err
+	sourceCap := allCapabilities.Search["MessageDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Options) (search.Result[r4.MessageHeader], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19150,12 +19878,20 @@ func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MessageHeader"], err
+	sourceCap := allCapabilities.Search["MessageHeader"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result[r4.MolecularSequence], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19193,12 +19929,20 @@ func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["MolecularSequence"], err
+	sourceCap := allCapabilities.Search["MolecularSequence"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options) (search.Result[r4.NamingSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19236,12 +19980,20 @@ func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["NamingSystem"], err
+	sourceCap := allCapabilities.Search["NamingSystem"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result[r4.NutritionOrder], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19279,12 +20031,20 @@ func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["NutritionOrder"], err
+	sourceCap := allCapabilities.Search["NutritionOrder"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchObservation(ctx context.Context, options search.Options) (search.Result[r4.Observation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19322,12 +20082,20 @@ func (w Concrete) SearchObservation(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Observation"], err
+	sourceCap := allCapabilities.Search["Observation"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result[r4.ObservationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19365,12 +20133,20 @@ func (w Concrete) SearchObservationDefinition(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ObservationDefinition"], err
+	sourceCap := allCapabilities.Search["ObservationDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result[r4.OperationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19408,12 +20184,20 @@ func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["OperationDefinition"], err
+	sourceCap := allCapabilities.Search["OperationDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result[r4.OperationOutcome], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19451,12 +20235,20 @@ func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["OperationOutcome"], err
+	sourceCap := allCapabilities.Search["OperationOutcome"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchOrganization(ctx context.Context, options search.Options) (search.Result[r4.Organization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19494,12 +20286,20 @@ func (w Concrete) SearchOrganization(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Organization"], err
+	sourceCap := allCapabilities.Search["Organization"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result[r4.OrganizationAffiliation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19537,12 +20337,20 @@ func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["OrganizationAffiliation"], err
+	sourceCap := allCapabilities.Search["OrganizationAffiliation"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchParameters(ctx context.Context, options search.Options) (search.Result[r4.Parameters], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19580,12 +20388,20 @@ func (w Concrete) SearchParameters(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Parameters"], err
+	sourceCap := allCapabilities.Search["Parameters"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (search.Result[r4.Patient], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19623,12 +20439,20 @@ func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Patient"], err
+	sourceCap := allCapabilities.Search["Patient"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result[r4.PaymentNotice], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19666,12 +20490,20 @@ func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["PaymentNotice"], err
+	sourceCap := allCapabilities.Search["PaymentNotice"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result[r4.PaymentReconciliation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19709,12 +20541,20 @@ func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["PaymentReconciliation"], err
+	sourceCap := allCapabilities.Search["PaymentReconciliation"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (search.Result[r4.Person], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19752,12 +20592,20 @@ func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Person"], err
+	sourceCap := allCapabilities.Search["Person"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result[r4.PlanDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19795,12 +20643,20 @@ func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["PlanDefinition"], err
+	sourceCap := allCapabilities.Search["PlanDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options) (search.Result[r4.Practitioner], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19838,12 +20694,20 @@ func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Practitioner"], err
+	sourceCap := allCapabilities.Search["Practitioner"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result[r4.PractitionerRole], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19881,12 +20745,20 @@ func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["PractitionerRole"], err
+	sourceCap := allCapabilities.Search["PractitionerRole"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (search.Result[r4.Procedure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19924,12 +20796,20 @@ func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Procedure"], err
+	sourceCap := allCapabilities.Search["Procedure"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) (search.Result[r4.Provenance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19967,12 +20847,20 @@ func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Provenance"], err
+	sourceCap := allCapabilities.Search["Provenance"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result[r4.Questionnaire], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20010,12 +20898,20 @@ func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Questionnaire"], err
+	sourceCap := allCapabilities.Search["Questionnaire"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result[r4.QuestionnaireResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20053,12 +20949,20 @@ func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["QuestionnaireResponse"], err
+	sourceCap := allCapabilities.Search["QuestionnaireResponse"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result[r4.RelatedPerson], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20096,12 +21000,20 @@ func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["RelatedPerson"], err
+	sourceCap := allCapabilities.Search["RelatedPerson"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options) (search.Result[r4.RequestGroup], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20139,12 +21051,20 @@ func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["RequestGroup"], err
+	sourceCap := allCapabilities.Search["RequestGroup"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result[r4.ResearchDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20182,12 +21102,20 @@ func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ResearchDefinition"], err
+	sourceCap := allCapabilities.Search["ResearchDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result[r4.ResearchElementDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20225,12 +21153,20 @@ func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ResearchElementDefinition"], err
+	sourceCap := allCapabilities.Search["ResearchElementDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Options) (search.Result[r4.ResearchStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20268,12 +21204,20 @@ func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ResearchStudy"], err
+	sourceCap := allCapabilities.Search["ResearchStudy"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Options) (search.Result[r4.ResearchSubject], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20311,12 +21255,20 @@ func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ResearchSubject"], err
+	sourceCap := allCapabilities.Search["ResearchSubject"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result[r4.RiskAssessment], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20354,12 +21306,20 @@ func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["RiskAssessment"], err
+	sourceCap := allCapabilities.Search["RiskAssessment"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchRiskEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result[r4.RiskEvidenceSynthesis], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20397,12 +21357,20 @@ func (w Concrete) SearchRiskEvidenceSynthesis(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["RiskEvidenceSynthesis"], err
+	sourceCap := allCapabilities.Search["RiskEvidenceSynthesis"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (search.Result[r4.Schedule], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20440,12 +21408,20 @@ func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Schedule"], err
+	sourceCap := allCapabilities.Search["Schedule"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r4.SearchParameter], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20483,12 +21459,20 @@ func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SearchParameter"], err
+	sourceCap := allCapabilities.Search["SearchParameter"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Options) (search.Result[r4.ServiceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20526,12 +21510,20 @@ func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ServiceRequest"], err
+	sourceCap := allCapabilities.Search["ServiceRequest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (search.Result[r4.Slot], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20569,12 +21561,20 @@ func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Slot"], err
+	sourceCap := allCapabilities.Search["Slot"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (search.Result[r4.Specimen], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20612,12 +21612,20 @@ func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Specimen"], err
+	sourceCap := allCapabilities.Search["Specimen"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result[r4.SpecimenDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20655,12 +21663,20 @@ func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SpecimenDefinition"], err
+	sourceCap := allCapabilities.Search["SpecimenDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result[r4.StructureDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20698,12 +21714,20 @@ func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["StructureDefinition"], err
+	sourceCap := allCapabilities.Search["StructureDefinition"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options) (search.Result[r4.StructureMap], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20741,12 +21765,20 @@ func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["StructureMap"], err
+	sourceCap := allCapabilities.Search["StructureMap"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubscription(ctx context.Context, options search.Options) (search.Result[r4.Subscription], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20784,12 +21816,20 @@ func (w Concrete) SearchSubscription(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Subscription"], err
+	sourceCap := allCapabilities.Search["Subscription"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (search.Result[r4.Substance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20827,12 +21867,20 @@ func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Substance"], err
+	sourceCap := allCapabilities.Search["Substance"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, options search.Options) (search.Result[r4.SubstanceNucleicAcid], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20870,12 +21918,20 @@ func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SubstanceNucleicAcid"], err
+	sourceCap := allCapabilities.Search["SubstanceNucleicAcid"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubstancePolymer(ctx context.Context, options search.Options) (search.Result[r4.SubstancePolymer], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20913,12 +21969,20 @@ func (w Concrete) SearchSubstancePolymer(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SubstancePolymer"], err
+	sourceCap := allCapabilities.Search["SubstancePolymer"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubstanceProtein(ctx context.Context, options search.Options) (search.Result[r4.SubstanceProtein], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20956,12 +22020,20 @@ func (w Concrete) SearchSubstanceProtein(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SubstanceProtein"], err
+	sourceCap := allCapabilities.Search["SubstanceProtein"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, options search.Options) (search.Result[r4.SubstanceReferenceInformation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20999,12 +22071,20 @@ func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SubstanceReferenceInformation"], err
+	sourceCap := allCapabilities.Search["SubstanceReferenceInformation"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, options search.Options) (search.Result[r4.SubstanceSourceMaterial], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21042,12 +22122,20 @@ func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SubstanceSourceMaterial"], err
+	sourceCap := allCapabilities.Search["SubstanceSourceMaterial"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSubstanceSpecification(ctx context.Context, options search.Options) (search.Result[r4.SubstanceSpecification], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21085,12 +22173,20 @@ func (w Concrete) SearchSubstanceSpecification(ctx context.Context, options sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceSpecification(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSubstanceSpecification(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SubstanceSpecification"], err
+	sourceCap := allCapabilities.Search["SubstanceSpecification"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result[r4.SupplyDelivery], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21128,12 +22224,20 @@ func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SupplyDelivery"], err
+	sourceCap := allCapabilities.Search["SupplyDelivery"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result[r4.SupplyRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21171,12 +22275,20 @@ func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["SupplyRequest"], err
+	sourceCap := allCapabilities.Search["SupplyRequest"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchTask(ctx context.Context, options search.Options) (search.Result[r4.Task], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21214,12 +22326,20 @@ func (w Concrete) SearchTask(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["Task"], err
+	sourceCap := allCapabilities.Search["Task"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result[r4.TerminologyCapabilities], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21257,12 +22377,20 @@ func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["TerminologyCapabilities"], err
+	sourceCap := allCapabilities.Search["TerminologyCapabilities"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) (search.Result[r4.TestReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21300,12 +22428,20 @@ func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["TestReport"], err
+	sourceCap := allCapabilities.Search["TestReport"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) (search.Result[r4.TestScript], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21343,12 +22479,20 @@ func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["TestScript"], err
+	sourceCap := allCapabilities.Search["TestScript"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (search.Result[r4.ValueSet], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21386,12 +22530,20 @@ func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["ValueSet"], err
+	sourceCap := allCapabilities.Search["ValueSet"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchVerificationResult(ctx context.Context, options search.Options) (search.Result[r4.VerificationResult], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21429,12 +22581,20 @@ func (w Concrete) SearchVerificationResult(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["VerificationResult"], err
+	sourceCap := allCapabilities.Search["VerificationResult"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }
 func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result[r4.VisionPrescription], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21472,10 +22632,18 @@ func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, error) {
+func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
 	allCapabilities, err := w.Generic.AllCapabilities(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{}, err
 	}
-	return allCapabilities.Search["VisionPrescription"], err
+	sourceCap := allCapabilities.Search["VisionPrescription"]
+	targetCap := search.Capabilities[r4.SearchParameter]{
+		Includes:   sourceCap.Includes,
+		Parameters: make(map[string]r4.SearchParameter),
+	}
+	for k, v := range sourceCap.Parameters {
+		targetCap.Parameters[k] = v.(r4.SearchParameter)
+	}
+	return targetCap, nil
 }

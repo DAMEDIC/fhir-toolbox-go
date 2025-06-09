@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"github.com/cockroachdb/apd/v3"
@@ -49,8 +50,8 @@ type mockBackend struct{}
 func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	// forward single resource read to a search for the specific id
 	result, err := b.SearchObservation(ctx, search.Options{
-		Parameters: search.Parameters{
-			search.ParameterKey{Name: "_id"}: search.All{search.OneOf{search.String(id)}},
+		Parameters: map[search.ParameterKey]search.AllOf{
+			search.ParameterKey{Name: "_id"}: search.AllOf{search.OneOf{search.String(id)}},
 		},
 		Count: 1,
 	})
@@ -74,10 +75,13 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 }
 
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
-func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id": {Type: search.TypeToken},
+func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	return search.Capabilities[r4.SearchParameter]{
+		Parameters: map[string]r4.SearchParameter{
+			"_id": {
+				// This can and should actually be a full SearchParameter resource!
+				Type: r4.Code{Value: ptr.To(search.TypeToken)},
+			},
 		},
 	}, nil
 }
@@ -147,8 +151,8 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 
 func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, error) {
 	result, err := b.SearchComposition(ctx, search.Options{
-		Parameters: search.Parameters{
-			search.ParameterKey{Name: "_id"}: search.All{search.OneOf{search.String(id)}},
+		Parameters: map[search.ParameterKey]search.AllOf{
+			search.ParameterKey{Name: "_id"}: search.AllOf{search.OneOf{search.String(id)}},
 		},
 		Count: 1,
 	})
@@ -172,10 +176,13 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Compos
 }
 
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
-func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, error) {
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id": {Type: search.TypeToken},
+func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	return search.Capabilities[r4.SearchParameter]{
+		Parameters: map[string]r4.SearchParameter{
+			"_id": {
+				// This can and should actually be a full SearchParameter resource!
+				Type: r4.Code{Value: ptr.To(search.TypeToken)},
+			},
 		},
 	}, nil
 }
