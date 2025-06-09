@@ -46,7 +46,6 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/wrap"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"log/slog"
@@ -386,7 +385,7 @@ func parseSearchOptions(
 }
 
 func returnErr[R model.Release](w http.ResponseWriter, format Format, err error) {
-	status, oo := outcome.ErrorToOperationOutcome[R](err)
+	status, oo := errToOperationOutcome[R](err)
 	returnResult(w, format, status, oo)
 }
 

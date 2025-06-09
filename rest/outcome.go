@@ -1,7 +1,8 @@
-package outcome
+package rest
 
 import (
 	"errors"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
@@ -9,44 +10,11 @@ import (
 	"slices"
 )
 
-var toOOR4 = func(err error) (model.Resource, basic.OperationOutcome, bool) {
-	return nil, basic.OperationOutcome{}, false
-}
-var toOOR4B = func(err error) (model.Resource, basic.OperationOutcome, bool) {
-	return nil, basic.OperationOutcome{}, false
-}
-var toOOR5 = func(err error) (model.Resource, basic.OperationOutcome, bool) {
-	return nil, basic.OperationOutcome{}, false
-}
-
-func ErrorToOperationOutcome[R model.Release](err error) (int, model.Resource) {
-	var (
-		oo      model.Resource
-		ooBasic basic.OperationOutcome
-		ok      bool
-	)
-
-	ok = errors.As(err, &ooBasic)
-	if ok {
-		return toHTTPErrorStatus(ooBasic), ooBasic
-	}
-
-	var r R
-	switch any(r).(type) {
-	case model.R4:
-		oo, ooBasic, ok = toOOR4(err)
-	case model.R4B:
-		oo, ooBasic, ok = toOOR4B(err)
-	case model.R5:
-		oo, ooBasic, ok = toOOR5(err)
-	default:
-		// This should never happen as long as we control all implementations of the Release interface.
-		// This is achieved by sealing the interface. See the interface definition for more information.
-		panic("unsupported release")
-	}
-
-	if ok {
-		return toHTTPErrorStatus(ooBasic), oo
+func errToOperationOutcome[R model.Release](err error) (int, model.Resource) {
+	var oo model.Resource
+	ok := errors.As(err, &oo)
+	if ok && oo.ResourceType() == "OperationOutcome" {
+		return toHTTPErrorStatus(oo), oo
 	}
 
 	return http.StatusInternalServerError, basic.OperationOutcome{
@@ -100,7 +68,7 @@ var issueCodeToHTTPStatus = map[string]int{
 	"throttled":  http.StatusTooManyRequests,     // Throttled / Rate limited (429)
 }
 
-func toHTTPErrorStatus(outcome basic.OperationOutcome) int {
+func toHTTPErrorStatus(outcome model.Resource) int {
 	// define severity levels in order of highest to lowest
 	severityRank := map[string]int{
 		"fatal":       3,
@@ -113,23 +81,26 @@ func toHTTPErrorStatus(outcome basic.OperationOutcome) int {
 	// start with 400, we only handle errors and warnings, so we can assume that
 	highestStatusCodes := []int{http.StatusBadRequest}
 
-	for _, issue := range outcome.Issue {
-		// skip issues without severity or code
-		if issue.Severity.Value == nil || issue.Code.Value == nil {
+	for _, issue := range outcome.Children("issue") {
+		severity, ok, err := fhirpath.Singleton[fhirpath.String](issue.Children("severity"))
+		if err != nil || !ok {
+			// skip issues without severity or code
+			continue
+		}
+		code, ok, err := fhirpath.Singleton[fhirpath.String](issue.Children("code"))
+		if err != nil || !ok {
+			// skip issues without severity or code
 			continue
 		}
 
-		severity := *issue.Severity.Value
-		code := *issue.Code.Value
-
 		// check if this issue has a higher severity than what we've seen so far
-		severityValue, ok := severityRank[severity]
+		severityValue, ok := severityRank[string(severity)]
 		if !ok {
 			// unknown severity, skip
 			continue
 		}
 
-		statusCode, ok := issueCodeToHTTPStatus[code]
+		statusCode, ok := issueCodeToHTTPStatus[string(code)]
 		if !ok {
 			// unknown code, skip
 			continue
