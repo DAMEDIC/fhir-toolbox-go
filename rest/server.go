@@ -100,6 +100,7 @@ func metadataHandler[R model.Release](
 
 		capabilities, err := backend.AllCapabilities(r.Context())
 		if err != nil {
+			slog.Error("error getting metadata", "err", err)
 			returnErr[R](w, responseFormat, err)
 			return
 		}
@@ -126,7 +127,7 @@ func createHandler[R model.Release](
 
 		resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
 		if err != nil {
-			slog.Error("error creating resource", "resourceType", resourceType, "outcome", resource)
+			slog.Error("error creating resource", "resourceType", resourceType, "err", err)
 			returnErr[R](w, responseFormat, err)
 			return
 		}
@@ -179,7 +180,7 @@ func readHandler[R model.Release](
 
 		resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
-			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
+			slog.Error("error reading resource", "resourceType", resourceType, "err", err)
 			returnErr[R](w, responseFormat, err)
 			return
 		}
@@ -219,7 +220,7 @@ func updateHandler[R model.Release](
 
 		result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
 		if err != nil {
-			slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "outcome", result)
+			slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "err", err)
 			returnErr[R](w, responseFormat, err)
 			return
 		}
@@ -288,7 +289,7 @@ func deleteHandler[R model.Release](
 
 		err := dispatchDelete(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
-			slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID)
+			slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID, "err", err)
 			returnErr[R](w, responseFormat, err)
 			return
 		}
@@ -330,7 +331,7 @@ func searchHandler[R model.Release](
 			tz,
 		)
 		if err != nil {
-			slog.Error("error reading resource", "resourceType", resourceType, "outcome", resource)
+			slog.Error("error reading searching", "resourceType", resourceType, "err", err)
 			returnErr[R](w, responseFormat, err)
 			return
 		}
