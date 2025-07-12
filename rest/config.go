@@ -28,7 +28,7 @@ type Config struct {
 
 // DefaultConfig sets reasonable defaults that can be used by the package user.
 var DefaultConfig = Config{
-	Timezone:      time.Now().Location(),
+	Timezone:      time.Local,
 	Date:          time.Now(),
 	MaxCount:      500,
 	DefaultCount:  500,

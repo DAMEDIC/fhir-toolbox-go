@@ -359,12 +359,16 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 							// Extract SearchParameter ID for canonical reference
 							Var().Id("definition").Op("*").Qual(moduleName+"/model/gen/basic", "Canonical"),
 							If(Id("baseUrl").Op("!=").Lit("")).Block(
+								Id("searchParameterId").Op(":=").Lit(""),
 								List(Id("fhirpathId"), Id("idOk"), Id("idErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("p").Dot("Children").Call(Lit("id"))),
 								If(Id("idOk").Op("&&").Id("idErr").Op("==").Nil()).Block(
-									Id("searchParameterId").Op(":=").String().Call(Id("fhirpathId")),
-									Id("canonicalUrl").Op(":=").Id("baseUrl").Op("+").Lit("/SearchParameter/").Op("+").Id("searchParameterId"),
-									Id("definition").Op("=").Op("&").Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonicalUrl")}),
+									Id("searchParameterId").Op("=").String().Call(Id("fhirpathId")),
+								).Else().Block(
+									Comment("// If no explicit ID is set, create one of pattern {resourceType}-{name}"),
+									Id("searchParameterId").Op("=").Lit(r.Name).Op("+").Lit("-").Op("+").Id("n"),
 								),
+								Id("canonicalUrl").Op(":=").Id("baseUrl").Op("+").Lit("/SearchParameter/").Op("+").Id("searchParameterId"),
+								Id("definition").Op("=").Op("&").Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonicalUrl")}),
 							),
 
 							Id("r").Dot("SearchParam").Op("=").Append(
@@ -404,11 +408,36 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 						Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
 					),
 				),
+				// Sort interactions in standard order: create, read, update, delete, search-type
+				Qual("slices", "SortStableFunc").Call(
+					Id("r").Dot("Interaction"),
+					Func().Params(
+						Id("a"),
+						Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceInteraction"),
+					).Int().Block(
+						Id("order").Op(":=").Map(String()).Int().Values(Dict{
+							Lit("create"):      Lit(1),
+							Lit("read"):        Lit(2),
+							Lit("update"):      Lit(3),
+							Lit("delete"):      Lit(4),
+							Lit("search-type"): Lit(5),
+						}),
+						Id("aCode").Op(":=").Lit(""),
+						If(Id("a").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
+							Id("aCode").Op("=").Op("*").Id("a").Dot("Code").Dot("Value"),
+						),
+						Id("bCode").Op(":=").Lit(""),
+						If(Id("b").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
+							Id("bCode").Op("=").Op("*").Id("b").Dot("Code").Dot("Value"),
+						),
+						Return(Qual("cmp", "Compare").Call(Id("order").Index(Id("aCode")), Id("order").Index(Id("bCode")))),
+					),
+				),
 				Id("resourcesList").Op("=").Append(Id("resourcesList"), Id("r")),
 			)
 
 			// Sort resources by type
-			Qual("slices", "SortFunc").Call(
+			g.Qual("slices", "SortFunc").Call(
 				Id("resourcesList"),
 				Func().Params(
 					Id("a"),
@@ -763,13 +792,16 @@ func generateSearchParametersFn(f *File, release string, resources []ir.Resource
 					Id("errs").Op("=").Append(Id("errs"), Err()),
 				).Else().Block(
 					// Store SearchParameter for aggregation, indexed by ID
-					For(List(Id("_"), Id("p")).Op(":=").Range().Id("c").Dot("Parameters")).Block(
+					For(List(Id("n"), Id("p")).Op(":=").Range().Id("c").Dot("Parameters")).Block(
 						// Extract ID from SearchParameter using FHIRPath
+						Id("searchParameterId").Op(":=").Lit(""),
 						List(Id("fhirpathId"), Id("ok"), Id("err")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("p").Dot("Children").Call(Lit("id"))),
-						If(Op("!").Id("ok").Op("||").Id("err").Op("!=").Nil()).Block(
-							Continue(),
+						If(Id("ok").Op("&&").Id("err").Op("==").Nil()).Block(
+							Id("searchParameterId").Op("=").String().Call(Id("fhirpathId")),
+						).Else().Block(
+							Comment("// If no explicit ID is set, create one of pattern {resourceType}-{name}"),
+							Id("searchParameterId").Op("=").Lit(r.Name).Op("+").Lit("-").Op("+").Id("n"),
 						),
-						Id("searchParameterId").Op(":=").String().Call(Id("fhirpathId")),
 						Id("searchParameters").Index(Id("searchParameterId")).Op("=").Id("p"),
 					),
 				),

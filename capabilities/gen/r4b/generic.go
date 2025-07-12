@@ -96,12 +96,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Account" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -151,12 +155,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ActivityDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -206,12 +214,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "AdministrableProductDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -261,12 +273,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "AdverseEvent" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -316,12 +332,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "AllergyIntolerance" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -371,12 +391,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Appointment" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -426,12 +450,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "AppointmentResponse" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -481,12 +509,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "AuditEvent" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -536,12 +568,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Basic" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -591,12 +627,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Binary" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -646,12 +686,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "BiologicallyDerivedProduct" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -701,12 +745,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "BodyStructure" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -756,12 +804,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Bundle" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -811,12 +863,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CapabilityStatement" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -866,12 +922,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CarePlan" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -921,12 +981,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CareTeam" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -976,12 +1040,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CatalogEntry" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1031,12 +1099,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ChargeItem" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1086,12 +1158,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ChargeItemDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1141,12 +1217,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Citation" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1196,12 +1276,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Claim" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1251,12 +1335,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ClaimResponse" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1306,12 +1394,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ClinicalImpression" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1361,12 +1453,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ClinicalUseDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1416,12 +1512,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CodeSystem" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1471,12 +1571,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Communication" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1526,12 +1630,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CommunicationRequest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1581,12 +1689,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CompartmentDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1636,12 +1748,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Composition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1691,12 +1807,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ConceptMap" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1746,12 +1866,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Condition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1801,12 +1925,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Consent" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1856,12 +1984,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Contract" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1911,12 +2043,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Coverage" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -1966,12 +2102,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CoverageEligibilityRequest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2021,12 +2161,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "CoverageEligibilityResponse" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2076,12 +2220,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DetectedIssue" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2131,12 +2279,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Device" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2186,12 +2338,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DeviceDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2241,12 +2397,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DeviceMetric" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2296,12 +2456,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DeviceRequest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2351,12 +2515,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DeviceUseStatement" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2406,12 +2574,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DiagnosticReport" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2461,12 +2633,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DocumentManifest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2516,12 +2692,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "DocumentReference" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2571,12 +2751,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Encounter" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2626,12 +2810,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Endpoint" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2681,12 +2869,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "EnrollmentRequest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2736,12 +2928,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "EnrollmentResponse" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2791,12 +2987,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "EpisodeOfCare" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2846,12 +3046,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "EventDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2901,12 +3105,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Evidence" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -2956,12 +3164,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "EvidenceReport" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3011,12 +3223,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "EvidenceVariable" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3066,12 +3282,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ExampleScenario" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3121,12 +3341,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ExplanationOfBenefit" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3176,12 +3400,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "FamilyMemberHistory" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3231,12 +3459,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Flag" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3286,12 +3518,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Goal" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3341,12 +3577,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "GraphDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3396,12 +3636,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Group" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3451,12 +3695,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "GuidanceResponse" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3506,12 +3754,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "HealthcareService" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3561,12 +3813,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ImagingStudy" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3616,12 +3872,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Immunization" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3671,12 +3931,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ImmunizationEvaluation" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3726,12 +3990,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ImmunizationRecommendation" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3781,12 +4049,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ImplementationGuide" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3836,12 +4108,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Ingredient" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3891,12 +4167,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "InsurancePlan" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -3946,12 +4226,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Invoice" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4001,12 +4285,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Library" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4056,12 +4344,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Linkage" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4111,12 +4403,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "List" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4166,12 +4462,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Location" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4221,12 +4521,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ManufacturedItemDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4276,12 +4580,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Measure" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4331,12 +4639,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MeasureReport" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4386,12 +4698,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Media" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4441,12 +4757,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Medication" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4496,12 +4816,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MedicationAdministration" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4551,12 +4875,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MedicationDispense" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4606,12 +4934,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MedicationKnowledge" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4661,12 +4993,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MedicationRequest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4716,12 +5052,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MedicationStatement" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4771,12 +5111,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MedicinalProductDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4826,12 +5170,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MessageDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4881,12 +5229,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MessageHeader" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4936,12 +5288,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "MolecularSequence" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -4991,12 +5347,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "NamingSystem" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5046,12 +5406,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "NutritionOrder" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5101,12 +5465,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "NutritionProduct" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5156,12 +5524,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Observation" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5211,12 +5583,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ObservationDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5266,12 +5642,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "OperationDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5321,12 +5701,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "OperationOutcome" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5376,12 +5760,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Organization" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5431,12 +5819,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "OrganizationAffiliation" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5486,12 +5878,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "PackagedProductDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5541,12 +5937,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Parameters" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5596,12 +5996,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Patient" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5651,12 +6055,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "PaymentNotice" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5706,12 +6114,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "PaymentReconciliation" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5761,12 +6173,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Person" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5816,12 +6232,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "PlanDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5871,12 +6291,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Practitioner" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5926,12 +6350,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "PractitionerRole" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -5981,12 +6409,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Procedure" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6036,12 +6468,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Provenance" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6091,12 +6527,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Questionnaire" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6146,12 +6586,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "QuestionnaireResponse" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6201,12 +6645,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "RegulatedAuthorization" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6256,12 +6704,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "RelatedPerson" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6311,12 +6763,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "RequestGroup" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6366,12 +6822,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ResearchDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6421,12 +6881,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ResearchElementDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6476,12 +6940,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ResearchStudy" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6531,12 +6999,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ResearchSubject" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6586,12 +7058,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "RiskAssessment" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6641,12 +7117,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Schedule" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6696,12 +7176,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "SearchParameter" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6751,12 +7235,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ServiceRequest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6806,12 +7294,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Slot" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6861,12 +7353,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Specimen" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6916,12 +7412,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "SpecimenDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -6971,12 +7471,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "StructureDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7026,12 +7530,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "StructureMap" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7081,12 +7589,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Subscription" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7136,12 +7648,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "SubscriptionStatus" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7191,12 +7707,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "SubscriptionTopic" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7246,12 +7766,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Substance" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7301,12 +7825,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "SubstanceDefinition" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7356,12 +7884,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "SupplyDelivery" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7411,12 +7943,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "SupplyRequest" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7466,12 +8002,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "Task" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7521,12 +8061,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "TerminologyCapabilities" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7576,12 +8120,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "TestReport" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7631,12 +8179,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "TestScript" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7686,12 +8238,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "ValueSet" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7741,12 +8297,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "VerificationResult" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7796,12 +8356,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 				resolvedType := string(fhirpathType)
 				var definition *basic.Canonical
 				if baseUrl != "" {
+					searchParameterId := ""
 					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
 					if idOk && idErr == nil {
-						searchParameterId := string(fhirpathId)
-						canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
-						definition = &basic.Canonical{Value: &canonicalUrl}
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = "VisionPrescription" + "-" + n
 					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
 				}
 				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
 					Definition: definition,
@@ -7821,8 +8385,29 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 		slices.SortStableFunc(r.SearchParam, func(a, b basic.CapabilityStatementRestResourceSearchParam) int {
 			return cmp.Compare(*a.Name.Value, *b.Name.Value)
 		})
+		slices.SortStableFunc(r.Interaction, func(a, b basic.CapabilityStatementRestResourceInteraction) int {
+			order := map[string]int{
+				"create":      1,
+				"delete":      4,
+				"read":        2,
+				"search-type": 5,
+				"update":      3,
+			}
+			aCode := ""
+			if a.Code.Value != nil {
+				aCode = *a.Code.Value
+			}
+			bCode := ""
+			if b.Code.Value != nil {
+				bCode = *b.Code.Value
+			}
+			return cmp.Compare(order[aCode], order[bCode])
+		})
 		resourcesList = append(resourcesList, r)
 	}
+	slices.SortFunc(resourcesList, func(a, b basic.CapabilityStatementRestResource) int {
+		return cmp.Compare(*a.Type.Value, *b.Type.Value)
+	})
 	capabilityStatement := baseCapabilityStatement
 	if capabilityStatement.FhirVersion.Value == nil {
 		capabilityStatement.FhirVersion = basic.Code{Value: ptr.To("4.3")}
@@ -7841,12 +8426,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Account" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7856,12 +8444,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ActivityDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7871,12 +8462,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "AdministrableProductDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7886,12 +8480,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "AdverseEvent" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7901,12 +8498,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "AllergyIntolerance" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7916,12 +8516,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Appointment" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7931,12 +8534,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "AppointmentResponse" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7946,12 +8552,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "AuditEvent" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7961,12 +8570,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Basic" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7976,12 +8588,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Binary" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -7991,12 +8606,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "BiologicallyDerivedProduct" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8006,12 +8624,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "BodyStructure" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8021,12 +8642,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Bundle" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8036,12 +8660,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CapabilityStatement" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8051,12 +8678,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CarePlan" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8066,12 +8696,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CareTeam" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8081,12 +8714,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CatalogEntry" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8096,12 +8732,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ChargeItem" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8111,12 +8750,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ChargeItemDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8126,12 +8768,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Citation" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8141,12 +8786,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Claim" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8156,12 +8804,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ClaimResponse" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8171,12 +8822,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ClinicalImpression" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8186,12 +8840,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ClinicalUseDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8201,12 +8858,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CodeSystem" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8216,12 +8876,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Communication" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8231,12 +8894,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CommunicationRequest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8246,12 +8912,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CompartmentDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8261,12 +8930,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Composition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8276,12 +8948,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ConceptMap" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8291,12 +8966,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Condition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8306,12 +8984,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Consent" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8321,12 +9002,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Contract" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8336,12 +9020,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Coverage" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8351,12 +9038,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CoverageEligibilityRequest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8366,12 +9056,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "CoverageEligibilityResponse" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8381,12 +9074,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DetectedIssue" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8396,12 +9092,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Device" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8411,12 +9110,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DeviceDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8426,12 +9128,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DeviceMetric" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8441,12 +9146,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DeviceRequest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8456,12 +9164,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DeviceUseStatement" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8471,12 +9182,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DiagnosticReport" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8486,12 +9200,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DocumentManifest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8501,12 +9218,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "DocumentReference" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8516,12 +9236,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Encounter" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8531,12 +9254,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Endpoint" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8546,12 +9272,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "EnrollmentRequest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8561,12 +9290,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "EnrollmentResponse" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8576,12 +9308,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "EpisodeOfCare" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8591,12 +9326,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "EventDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8606,12 +9344,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Evidence" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8621,12 +9362,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "EvidenceReport" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8636,12 +9380,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "EvidenceVariable" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8651,12 +9398,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ExampleScenario" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8666,12 +9416,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ExplanationOfBenefit" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8681,12 +9434,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "FamilyMemberHistory" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8696,12 +9452,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Flag" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8711,12 +9470,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Goal" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8726,12 +9488,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "GraphDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8741,12 +9506,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Group" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8756,12 +9524,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "GuidanceResponse" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8771,12 +9542,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "HealthcareService" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8786,12 +9560,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ImagingStudy" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8801,12 +9578,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Immunization" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8816,12 +9596,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ImmunizationEvaluation" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8831,12 +9614,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ImmunizationRecommendation" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8846,12 +9632,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ImplementationGuide" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8861,12 +9650,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Ingredient" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8876,12 +9668,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "InsurancePlan" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8891,12 +9686,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Invoice" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8906,12 +9704,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Library" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8921,12 +9722,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Linkage" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8936,12 +9740,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "List" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8951,12 +9758,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Location" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8966,12 +9776,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ManufacturedItemDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8981,12 +9794,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Measure" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -8996,12 +9812,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MeasureReport" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9011,12 +9830,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Media" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9026,12 +9848,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Medication" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9041,12 +9866,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MedicationAdministration" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9056,12 +9884,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MedicationDispense" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9071,12 +9902,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MedicationKnowledge" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9086,12 +9920,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MedicationRequest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9101,12 +9938,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MedicationStatement" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9116,12 +9956,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MedicinalProductDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9131,12 +9974,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MessageDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9146,12 +9992,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MessageHeader" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9161,12 +10010,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "MolecularSequence" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9176,12 +10028,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "NamingSystem" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9191,12 +10046,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "NutritionOrder" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9206,12 +10064,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "NutritionProduct" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9221,12 +10082,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Observation" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9236,12 +10100,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ObservationDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9251,12 +10118,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "OperationDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9266,12 +10136,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "OperationOutcome" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9281,12 +10154,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Organization" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9296,12 +10172,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "OrganizationAffiliation" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9311,12 +10190,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "PackagedProductDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9326,12 +10208,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Parameters" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9341,12 +10226,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Patient" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9356,12 +10244,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "PaymentNotice" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9371,12 +10262,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "PaymentReconciliation" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9386,12 +10280,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Person" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9401,12 +10298,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "PlanDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9416,12 +10316,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Practitioner" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9431,12 +10334,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "PractitionerRole" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9446,12 +10352,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Procedure" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9461,12 +10370,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Provenance" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9476,12 +10388,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Questionnaire" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9491,12 +10406,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "QuestionnaireResponse" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9506,12 +10424,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "RegulatedAuthorization" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9521,12 +10442,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "RelatedPerson" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9536,12 +10460,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "RequestGroup" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9551,12 +10478,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ResearchDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9566,12 +10496,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ResearchElementDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9581,12 +10514,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ResearchStudy" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9596,12 +10532,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ResearchSubject" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9611,12 +10550,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "RiskAssessment" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9626,12 +10568,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Schedule" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9641,12 +10586,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "SearchParameter" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9656,12 +10604,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ServiceRequest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9671,12 +10622,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Slot" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9686,12 +10640,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Specimen" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9701,12 +10658,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "SpecimenDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9716,12 +10676,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "StructureDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9731,12 +10694,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "StructureMap" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9746,12 +10712,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Subscription" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9761,12 +10730,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "SubscriptionStatus" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9776,12 +10748,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "SubscriptionTopic" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9791,12 +10766,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Substance" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9806,12 +10784,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "SubstanceDefinition" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9821,12 +10802,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "SupplyDelivery" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9836,12 +10820,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "SupplyRequest" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9851,12 +10838,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "Task" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9866,12 +10856,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "TerminologyCapabilities" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9881,12 +10874,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "TestReport" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9896,12 +10892,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "TestScript" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9911,12 +10910,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "ValueSet" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9926,12 +10928,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "VerificationResult" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}
@@ -9941,12 +10946,15 @@ func searchParameters(ctx context.Context, api any) (map[string]r4b.SearchParame
 		if err != nil {
 			errs = append(errs, err)
 		} else {
-			for _, p := range c.Parameters {
+			for n, p := range c.Parameters {
+				searchParameterId := ""
 				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("id"))
-				if !ok || err != nil {
-					continue
+				if ok && err == nil {
+					searchParameterId = string(fhirpathId)
+				} else {
+					// If no explicit ID is set, create one of pattern {resourceType}-{name}
+					searchParameterId = "VisionPrescription" + "-" + n
 				}
-				searchParameterId := string(fhirpathId)
 				searchParameters[searchParameterId] = p
 			}
 		}

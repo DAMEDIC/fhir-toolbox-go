@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
@@ -46,6 +47,28 @@ func main() {
 }
 
 type mockBackend struct{}
+
+// CapabilityBase provides the base CapabilityStatement (required for ConcreteCapabilities interface)
+func (b *mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+	return basic.CapabilityStatement{
+		Status:      basic.Code{Value: ptr.To("active")},
+		Date:        basic.DateTime{Value: ptr.To(time.Now().Format(time.RFC3339))},
+		Kind:        basic.Code{Value: ptr.To("instance")},
+		FhirVersion: basic.Code{Value: ptr.To("5.0")},
+		Format: []basic.Code{
+			{Value: ptr.To("xml")},
+			{Value: ptr.To("json")},
+		},
+		Software: &basic.CapabilityStatementSoftware{
+			Name:    basic.String{Value: ptr.To("fhir-toolbox-go mock server")},
+			Version: &basic.String{Value: ptr.To("1.0.0")},
+		},
+		Implementation: &basic.CapabilityStatementImplementation{
+			Description: basic.String{Value: ptr.To("Mock FHIR server built with fhir-toolbox-go")},
+			Url:         &basic.Url{Value: ptr.To("http://localhost")},
+		},
+	}, nil
+}
 
 func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	// forward single resource read to a search for the specific id
