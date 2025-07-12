@@ -2,14 +2,16 @@ package capabilities
 
 import (
 	"context"
+
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 )
 
-// The GenericCapabilities interface provides a generic capabilities method that returns all capabilities of the underlying concrete implementation.
+// The GenericCapabilities interface provides a generic capabilities method that returns a CapabilityStatement of the underlying concrete implementation.
 type GenericCapabilities interface {
-	AllCapabilities(ctx context.Context) (Capabilities, error)
+	CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error)
 }
 
 // The GenericCreate interface provides a generic create capability.

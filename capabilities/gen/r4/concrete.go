@@ -9,14 +9,20 @@ import (
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	update "github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
+	basic "github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	r4 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	ptr "github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
+	"strings"
 )
 
 type Concrete struct {
 	Generic capabilities.GenericCapabilities
 }
 
+func (w Concrete) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+	// Delegate to the generic CapabilityStatement method
+	return w.Generic.CapabilityStatement(ctx)
+}
 func (w Concrete) CreateAccount(ctx context.Context, resource r4.Account) (r4.Account, error) {
 	g, ok := w.Generic.(capabilities.GenericCreate)
 	if !ok {
@@ -7934,11 +7940,11 @@ func (w Concrete) UpdateAccount(ctx context.Context, resource r4.Account) (updat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesAccount(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(AccountUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesAccount(ctx)
 	}
-	return allCapabilities.Update["Account"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4.ActivityDefinition) (update.Result[r4.ActivityDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -7973,11 +7979,11 @@ func (w Concrete) UpdateActivityDefinition(ctx context.Context, resource r4.Acti
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesActivityDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ActivityDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesActivityDefinition(ctx)
 	}
-	return allCapabilities.Update["ActivityDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4.AdverseEvent) (update.Result[r4.AdverseEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8012,11 +8018,11 @@ func (w Concrete) UpdateAdverseEvent(ctx context.Context, resource r4.AdverseEve
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesAdverseEvent(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(AdverseEventUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesAdverseEvent(ctx)
 	}
-	return allCapabilities.Update["AdverseEvent"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4.AllergyIntolerance) (update.Result[r4.AllergyIntolerance], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8051,11 +8057,11 @@ func (w Concrete) UpdateAllergyIntolerance(ctx context.Context, resource r4.Alle
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesAllergyIntolerance(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(AllergyIntoleranceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesAllergyIntolerance(ctx)
 	}
-	return allCapabilities.Update["AllergyIntolerance"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateAppointment(ctx context.Context, resource r4.Appointment) (update.Result[r4.Appointment], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8090,11 +8096,11 @@ func (w Concrete) UpdateAppointment(ctx context.Context, resource r4.Appointment
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesAppointment(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(AppointmentUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesAppointment(ctx)
 	}
-	return allCapabilities.Update["Appointment"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4.AppointmentResponse) (update.Result[r4.AppointmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8129,11 +8135,11 @@ func (w Concrete) UpdateAppointmentResponse(ctx context.Context, resource r4.App
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesAppointmentResponse(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(AppointmentResponseUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesAppointmentResponse(ctx)
 	}
-	return allCapabilities.Update["AppointmentResponse"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4.AuditEvent) (update.Result[r4.AuditEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8168,11 +8174,11 @@ func (w Concrete) UpdateAuditEvent(ctx context.Context, resource r4.AuditEvent) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesAuditEvent(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(AuditEventUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesAuditEvent(ctx)
 	}
-	return allCapabilities.Update["AuditEvent"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateBasic(ctx context.Context, resource r4.Basic) (update.Result[r4.Basic], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8207,11 +8213,11 @@ func (w Concrete) UpdateBasic(ctx context.Context, resource r4.Basic) (update.Re
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesBasic(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(BasicUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesBasic(ctx)
 	}
-	return allCapabilities.Update["Basic"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateBinary(ctx context.Context, resource r4.Binary) (update.Result[r4.Binary], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8246,11 +8252,11 @@ func (w Concrete) UpdateBinary(ctx context.Context, resource r4.Binary) (update.
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesBinary(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(BinaryUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesBinary(ctx)
 	}
-	return allCapabilities.Update["Binary"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4.BiologicallyDerivedProduct) (update.Result[r4.BiologicallyDerivedProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8285,11 +8291,11 @@ func (w Concrete) UpdateBiologicallyDerivedProduct(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(BiologicallyDerivedProductUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesBiologicallyDerivedProduct(ctx)
 	}
-	return allCapabilities.Update["BiologicallyDerivedProduct"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4.BodyStructure) (update.Result[r4.BodyStructure], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8324,11 +8330,11 @@ func (w Concrete) UpdateBodyStructure(ctx context.Context, resource r4.BodyStruc
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesBodyStructure(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(BodyStructureUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesBodyStructure(ctx)
 	}
-	return allCapabilities.Update["BodyStructure"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateBundle(ctx context.Context, resource r4.Bundle) (update.Result[r4.Bundle], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8363,11 +8369,11 @@ func (w Concrete) UpdateBundle(ctx context.Context, resource r4.Bundle) (update.
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesBundle(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(BundleUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesBundle(ctx)
 	}
-	return allCapabilities.Update["Bundle"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4.CapabilityStatement) (update.Result[r4.CapabilityStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8402,11 +8408,11 @@ func (w Concrete) UpdateCapabilityStatement(ctx context.Context, resource r4.Cap
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCapabilityStatement(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CapabilityStatementUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCapabilityStatement(ctx)
 	}
-	return allCapabilities.Update["CapabilityStatement"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4.CarePlan) (update.Result[r4.CarePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8441,11 +8447,11 @@ func (w Concrete) UpdateCarePlan(ctx context.Context, resource r4.CarePlan) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCarePlan(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CarePlanUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCarePlan(ctx)
 	}
-	return allCapabilities.Update["CarePlan"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4.CareTeam) (update.Result[r4.CareTeam], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8480,11 +8486,11 @@ func (w Concrete) UpdateCareTeam(ctx context.Context, resource r4.CareTeam) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCareTeam(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CareTeamUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCareTeam(ctx)
 	}
-	return allCapabilities.Update["CareTeam"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4.CatalogEntry) (update.Result[r4.CatalogEntry], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8519,11 +8525,11 @@ func (w Concrete) UpdateCatalogEntry(ctx context.Context, resource r4.CatalogEnt
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCatalogEntry(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CatalogEntryUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCatalogEntry(ctx)
 	}
-	return allCapabilities.Update["CatalogEntry"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4.ChargeItem) (update.Result[r4.ChargeItem], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8558,11 +8564,11 @@ func (w Concrete) UpdateChargeItem(ctx context.Context, resource r4.ChargeItem) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesChargeItem(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ChargeItemUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesChargeItem(ctx)
 	}
-	return allCapabilities.Update["ChargeItem"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4.ChargeItemDefinition) (update.Result[r4.ChargeItemDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8597,11 +8603,11 @@ func (w Concrete) UpdateChargeItemDefinition(ctx context.Context, resource r4.Ch
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesChargeItemDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ChargeItemDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesChargeItemDefinition(ctx)
 	}
-	return allCapabilities.Update["ChargeItemDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateClaim(ctx context.Context, resource r4.Claim) (update.Result[r4.Claim], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8636,11 +8642,11 @@ func (w Concrete) UpdateClaim(ctx context.Context, resource r4.Claim) (update.Re
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesClaim(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ClaimUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesClaim(ctx)
 	}
-	return allCapabilities.Update["Claim"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4.ClaimResponse) (update.Result[r4.ClaimResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8675,11 +8681,11 @@ func (w Concrete) UpdateClaimResponse(ctx context.Context, resource r4.ClaimResp
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesClaimResponse(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ClaimResponseUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesClaimResponse(ctx)
 	}
-	return allCapabilities.Update["ClaimResponse"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4.ClinicalImpression) (update.Result[r4.ClinicalImpression], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8714,11 +8720,11 @@ func (w Concrete) UpdateClinicalImpression(ctx context.Context, resource r4.Clin
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesClinicalImpression(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ClinicalImpressionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesClinicalImpression(ctx)
 	}
-	return allCapabilities.Update["ClinicalImpression"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4.CodeSystem) (update.Result[r4.CodeSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8753,11 +8759,11 @@ func (w Concrete) UpdateCodeSystem(ctx context.Context, resource r4.CodeSystem) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCodeSystem(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CodeSystemUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCodeSystem(ctx)
 	}
-	return allCapabilities.Update["CodeSystem"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCommunication(ctx context.Context, resource r4.Communication) (update.Result[r4.Communication], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8792,11 +8798,11 @@ func (w Concrete) UpdateCommunication(ctx context.Context, resource r4.Communica
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCommunication(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CommunicationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCommunication(ctx)
 	}
-	return allCapabilities.Update["Communication"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4.CommunicationRequest) (update.Result[r4.CommunicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8831,11 +8837,11 @@ func (w Concrete) UpdateCommunicationRequest(ctx context.Context, resource r4.Co
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCommunicationRequest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CommunicationRequestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCommunicationRequest(ctx)
 	}
-	return allCapabilities.Update["CommunicationRequest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4.CompartmentDefinition) (update.Result[r4.CompartmentDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8870,11 +8876,11 @@ func (w Concrete) UpdateCompartmentDefinition(ctx context.Context, resource r4.C
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCompartmentDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CompartmentDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCompartmentDefinition(ctx)
 	}
-	return allCapabilities.Update["CompartmentDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateComposition(ctx context.Context, resource r4.Composition) (update.Result[r4.Composition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8909,11 +8915,11 @@ func (w Concrete) UpdateComposition(ctx context.Context, resource r4.Composition
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesComposition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CompositionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesComposition(ctx)
 	}
-	return allCapabilities.Update["Composition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4.ConceptMap) (update.Result[r4.ConceptMap], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8948,11 +8954,11 @@ func (w Concrete) UpdateConceptMap(ctx context.Context, resource r4.ConceptMap) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesConceptMap(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ConceptMapUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesConceptMap(ctx)
 	}
-	return allCapabilities.Update["ConceptMap"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCondition(ctx context.Context, resource r4.Condition) (update.Result[r4.Condition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -8987,11 +8993,11 @@ func (w Concrete) UpdateCondition(ctx context.Context, resource r4.Condition) (u
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCondition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ConditionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCondition(ctx)
 	}
-	return allCapabilities.Update["Condition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateConsent(ctx context.Context, resource r4.Consent) (update.Result[r4.Consent], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9026,11 +9032,11 @@ func (w Concrete) UpdateConsent(ctx context.Context, resource r4.Consent) (updat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesConsent(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ConsentUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesConsent(ctx)
 	}
-	return allCapabilities.Update["Consent"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateContract(ctx context.Context, resource r4.Contract) (update.Result[r4.Contract], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9065,11 +9071,11 @@ func (w Concrete) UpdateContract(ctx context.Context, resource r4.Contract) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesContract(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ContractUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesContract(ctx)
 	}
-	return allCapabilities.Update["Contract"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCoverage(ctx context.Context, resource r4.Coverage) (update.Result[r4.Coverage], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9104,11 +9110,11 @@ func (w Concrete) UpdateCoverage(ctx context.Context, resource r4.Coverage) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCoverage(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CoverageUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCoverage(ctx)
 	}
-	return allCapabilities.Update["Coverage"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource r4.CoverageEligibilityRequest) (update.Result[r4.CoverageEligibilityRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9143,11 +9149,11 @@ func (w Concrete) UpdateCoverageEligibilityRequest(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCoverageEligibilityRequest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CoverageEligibilityRequestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCoverageEligibilityRequest(ctx)
 	}
-	return allCapabilities.Update["CoverageEligibilityRequest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resource r4.CoverageEligibilityResponse) (update.Result[r4.CoverageEligibilityResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9182,11 +9188,11 @@ func (w Concrete) UpdateCoverageEligibilityResponse(ctx context.Context, resourc
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesCoverageEligibilityResponse(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(CoverageEligibilityResponseUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesCoverageEligibilityResponse(ctx)
 	}
-	return allCapabilities.Update["CoverageEligibilityResponse"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4.DetectedIssue) (update.Result[r4.DetectedIssue], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9221,11 +9227,11 @@ func (w Concrete) UpdateDetectedIssue(ctx context.Context, resource r4.DetectedI
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDetectedIssue(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DetectedIssueUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDetectedIssue(ctx)
 	}
-	return allCapabilities.Update["DetectedIssue"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDevice(ctx context.Context, resource r4.Device) (update.Result[r4.Device], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9260,11 +9266,11 @@ func (w Concrete) UpdateDevice(ctx context.Context, resource r4.Device) (update.
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDevice(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DeviceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDevice(ctx)
 	}
-	return allCapabilities.Update["Device"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4.DeviceDefinition) (update.Result[r4.DeviceDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9299,11 +9305,11 @@ func (w Concrete) UpdateDeviceDefinition(ctx context.Context, resource r4.Device
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDeviceDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DeviceDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDeviceDefinition(ctx)
 	}
-	return allCapabilities.Update["DeviceDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4.DeviceMetric) (update.Result[r4.DeviceMetric], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9338,11 +9344,11 @@ func (w Concrete) UpdateDeviceMetric(ctx context.Context, resource r4.DeviceMetr
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDeviceMetric(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DeviceMetricUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDeviceMetric(ctx)
 	}
-	return allCapabilities.Update["DeviceMetric"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4.DeviceRequest) (update.Result[r4.DeviceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9377,11 +9383,11 @@ func (w Concrete) UpdateDeviceRequest(ctx context.Context, resource r4.DeviceReq
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDeviceRequest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DeviceRequestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDeviceRequest(ctx)
 	}
-	return allCapabilities.Update["DeviceRequest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4.DeviceUseStatement) (update.Result[r4.DeviceUseStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9416,11 +9422,11 @@ func (w Concrete) UpdateDeviceUseStatement(ctx context.Context, resource r4.Devi
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDeviceUseStatement(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DeviceUseStatementUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDeviceUseStatement(ctx)
 	}
-	return allCapabilities.Update["DeviceUseStatement"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4.DiagnosticReport) (update.Result[r4.DiagnosticReport], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9455,11 +9461,11 @@ func (w Concrete) UpdateDiagnosticReport(ctx context.Context, resource r4.Diagno
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDiagnosticReport(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DiagnosticReportUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDiagnosticReport(ctx)
 	}
-	return allCapabilities.Update["DiagnosticReport"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4.DocumentManifest) (update.Result[r4.DocumentManifest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9494,11 +9500,11 @@ func (w Concrete) UpdateDocumentManifest(ctx context.Context, resource r4.Docume
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDocumentManifest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DocumentManifestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDocumentManifest(ctx)
 	}
-	return allCapabilities.Update["DocumentManifest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4.DocumentReference) (update.Result[r4.DocumentReference], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9533,11 +9539,11 @@ func (w Concrete) UpdateDocumentReference(ctx context.Context, resource r4.Docum
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesDocumentReference(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(DocumentReferenceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesDocumentReference(ctx)
 	}
-	return allCapabilities.Update["DocumentReference"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEffectEvidenceSynthesis(ctx context.Context, resource r4.EffectEvidenceSynthesis) (update.Result[r4.EffectEvidenceSynthesis], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9572,11 +9578,11 @@ func (w Concrete) UpdateEffectEvidenceSynthesis(ctx context.Context, resource r4
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EffectEvidenceSynthesisUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEffectEvidenceSynthesis(ctx)
 	}
-	return allCapabilities.Update["EffectEvidenceSynthesis"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEncounter(ctx context.Context, resource r4.Encounter) (update.Result[r4.Encounter], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9611,11 +9617,11 @@ func (w Concrete) UpdateEncounter(ctx context.Context, resource r4.Encounter) (u
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEncounter(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EncounterUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEncounter(ctx)
 	}
-	return allCapabilities.Update["Encounter"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4.Endpoint) (update.Result[r4.Endpoint], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9650,11 +9656,11 @@ func (w Concrete) UpdateEndpoint(ctx context.Context, resource r4.Endpoint) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEndpoint(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EndpointUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEndpoint(ctx)
 	}
-	return allCapabilities.Update["Endpoint"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4.EnrollmentRequest) (update.Result[r4.EnrollmentRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9689,11 +9695,11 @@ func (w Concrete) UpdateEnrollmentRequest(ctx context.Context, resource r4.Enrol
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEnrollmentRequest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EnrollmentRequestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEnrollmentRequest(ctx)
 	}
-	return allCapabilities.Update["EnrollmentRequest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4.EnrollmentResponse) (update.Result[r4.EnrollmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9728,11 +9734,11 @@ func (w Concrete) UpdateEnrollmentResponse(ctx context.Context, resource r4.Enro
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEnrollmentResponse(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EnrollmentResponseUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEnrollmentResponse(ctx)
 	}
-	return allCapabilities.Update["EnrollmentResponse"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOfCare) (update.Result[r4.EpisodeOfCare], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9767,11 +9773,11 @@ func (w Concrete) UpdateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOf
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEpisodeOfCare(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EpisodeOfCareUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEpisodeOfCare(ctx)
 	}
-	return allCapabilities.Update["EpisodeOfCare"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4.EventDefinition) (update.Result[r4.EventDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9806,11 +9812,11 @@ func (w Concrete) UpdateEventDefinition(ctx context.Context, resource r4.EventDe
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEventDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EventDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEventDefinition(ctx)
 	}
-	return allCapabilities.Update["EventDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEvidence(ctx context.Context, resource r4.Evidence) (update.Result[r4.Evidence], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9845,11 +9851,11 @@ func (w Concrete) UpdateEvidence(ctx context.Context, resource r4.Evidence) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEvidence(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EvidenceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEvidence(ctx)
 	}
-	return allCapabilities.Update["Evidence"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4.EvidenceVariable) (update.Result[r4.EvidenceVariable], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9884,11 +9890,11 @@ func (w Concrete) UpdateEvidenceVariable(ctx context.Context, resource r4.Eviden
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesEvidenceVariable(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(EvidenceVariableUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesEvidenceVariable(ctx)
 	}
-	return allCapabilities.Update["EvidenceVariable"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4.ExampleScenario) (update.Result[r4.ExampleScenario], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9923,11 +9929,11 @@ func (w Concrete) UpdateExampleScenario(ctx context.Context, resource r4.Example
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesExampleScenario(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ExampleScenarioUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesExampleScenario(ctx)
 	}
-	return allCapabilities.Update["ExampleScenario"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4.ExplanationOfBenefit) (update.Result[r4.ExplanationOfBenefit], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -9962,11 +9968,11 @@ func (w Concrete) UpdateExplanationOfBenefit(ctx context.Context, resource r4.Ex
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesExplanationOfBenefit(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ExplanationOfBenefitUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesExplanationOfBenefit(ctx)
 	}
-	return allCapabilities.Update["ExplanationOfBenefit"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4.FamilyMemberHistory) (update.Result[r4.FamilyMemberHistory], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10001,11 +10007,11 @@ func (w Concrete) UpdateFamilyMemberHistory(ctx context.Context, resource r4.Fam
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesFamilyMemberHistory(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(FamilyMemberHistoryUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesFamilyMemberHistory(ctx)
 	}
-	return allCapabilities.Update["FamilyMemberHistory"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateFlag(ctx context.Context, resource r4.Flag) (update.Result[r4.Flag], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10040,11 +10046,11 @@ func (w Concrete) UpdateFlag(ctx context.Context, resource r4.Flag) (update.Resu
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesFlag(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(FlagUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesFlag(ctx)
 	}
-	return allCapabilities.Update["Flag"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateGoal(ctx context.Context, resource r4.Goal) (update.Result[r4.Goal], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10079,11 +10085,11 @@ func (w Concrete) UpdateGoal(ctx context.Context, resource r4.Goal) (update.Resu
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesGoal(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(GoalUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesGoal(ctx)
 	}
-	return allCapabilities.Update["Goal"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4.GraphDefinition) (update.Result[r4.GraphDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10118,11 +10124,11 @@ func (w Concrete) UpdateGraphDefinition(ctx context.Context, resource r4.GraphDe
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesGraphDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(GraphDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesGraphDefinition(ctx)
 	}
-	return allCapabilities.Update["GraphDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateGroup(ctx context.Context, resource r4.Group) (update.Result[r4.Group], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10157,11 +10163,11 @@ func (w Concrete) UpdateGroup(ctx context.Context, resource r4.Group) (update.Re
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesGroup(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(GroupUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesGroup(ctx)
 	}
-	return allCapabilities.Update["Group"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4.GuidanceResponse) (update.Result[r4.GuidanceResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10196,11 +10202,11 @@ func (w Concrete) UpdateGuidanceResponse(ctx context.Context, resource r4.Guidan
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesGuidanceResponse(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(GuidanceResponseUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesGuidanceResponse(ctx)
 	}
-	return allCapabilities.Update["GuidanceResponse"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4.HealthcareService) (update.Result[r4.HealthcareService], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10235,11 +10241,11 @@ func (w Concrete) UpdateHealthcareService(ctx context.Context, resource r4.Healt
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesHealthcareService(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(HealthcareServiceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesHealthcareService(ctx)
 	}
-	return allCapabilities.Update["HealthcareService"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4.ImagingStudy) (update.Result[r4.ImagingStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10274,11 +10280,11 @@ func (w Concrete) UpdateImagingStudy(ctx context.Context, resource r4.ImagingStu
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesImagingStudy(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ImagingStudyUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesImagingStudy(ctx)
 	}
-	return allCapabilities.Update["ImagingStudy"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateImmunization(ctx context.Context, resource r4.Immunization) (update.Result[r4.Immunization], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10313,11 +10319,11 @@ func (w Concrete) UpdateImmunization(ctx context.Context, resource r4.Immunizati
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesImmunization(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ImmunizationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesImmunization(ctx)
 	}
-	return allCapabilities.Update["Immunization"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4.ImmunizationEvaluation) (update.Result[r4.ImmunizationEvaluation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10352,11 +10358,11 @@ func (w Concrete) UpdateImmunizationEvaluation(ctx context.Context, resource r4.
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesImmunizationEvaluation(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ImmunizationEvaluationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesImmunizationEvaluation(ctx)
 	}
-	return allCapabilities.Update["ImmunizationEvaluation"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource r4.ImmunizationRecommendation) (update.Result[r4.ImmunizationRecommendation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10391,11 +10397,11 @@ func (w Concrete) UpdateImmunizationRecommendation(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesImmunizationRecommendation(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ImmunizationRecommendationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesImmunizationRecommendation(ctx)
 	}
-	return allCapabilities.Update["ImmunizationRecommendation"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4.ImplementationGuide) (update.Result[r4.ImplementationGuide], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10430,11 +10436,11 @@ func (w Concrete) UpdateImplementationGuide(ctx context.Context, resource r4.Imp
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesImplementationGuide(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ImplementationGuideUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesImplementationGuide(ctx)
 	}
-	return allCapabilities.Update["ImplementationGuide"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4.InsurancePlan) (update.Result[r4.InsurancePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10469,11 +10475,11 @@ func (w Concrete) UpdateInsurancePlan(ctx context.Context, resource r4.Insurance
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesInsurancePlan(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(InsurancePlanUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesInsurancePlan(ctx)
 	}
-	return allCapabilities.Update["InsurancePlan"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateInvoice(ctx context.Context, resource r4.Invoice) (update.Result[r4.Invoice], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10508,11 +10514,11 @@ func (w Concrete) UpdateInvoice(ctx context.Context, resource r4.Invoice) (updat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesInvoice(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(InvoiceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesInvoice(ctx)
 	}
-	return allCapabilities.Update["Invoice"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateLibrary(ctx context.Context, resource r4.Library) (update.Result[r4.Library], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10547,11 +10553,11 @@ func (w Concrete) UpdateLibrary(ctx context.Context, resource r4.Library) (updat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesLibrary(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(LibraryUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesLibrary(ctx)
 	}
-	return allCapabilities.Update["Library"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateLinkage(ctx context.Context, resource r4.Linkage) (update.Result[r4.Linkage], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10586,11 +10592,11 @@ func (w Concrete) UpdateLinkage(ctx context.Context, resource r4.Linkage) (updat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesLinkage(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(LinkageUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesLinkage(ctx)
 	}
-	return allCapabilities.Update["Linkage"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateList(ctx context.Context, resource r4.List) (update.Result[r4.List], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10625,11 +10631,11 @@ func (w Concrete) UpdateList(ctx context.Context, resource r4.List) (update.Resu
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesList(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ListUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesList(ctx)
 	}
-	return allCapabilities.Update["List"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateLocation(ctx context.Context, resource r4.Location) (update.Result[r4.Location], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10664,11 +10670,11 @@ func (w Concrete) UpdateLocation(ctx context.Context, resource r4.Location) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesLocation(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(LocationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesLocation(ctx)
 	}
-	return allCapabilities.Update["Location"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMeasure(ctx context.Context, resource r4.Measure) (update.Result[r4.Measure], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10703,11 +10709,11 @@ func (w Concrete) UpdateMeasure(ctx context.Context, resource r4.Measure) (updat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMeasure(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MeasureUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMeasure(ctx)
 	}
-	return allCapabilities.Update["Measure"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4.MeasureReport) (update.Result[r4.MeasureReport], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10742,11 +10748,11 @@ func (w Concrete) UpdateMeasureReport(ctx context.Context, resource r4.MeasureRe
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMeasureReport(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MeasureReportUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMeasureReport(ctx)
 	}
-	return allCapabilities.Update["MeasureReport"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedia(ctx context.Context, resource r4.Media) (update.Result[r4.Media], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10781,11 +10787,11 @@ func (w Concrete) UpdateMedia(ctx context.Context, resource r4.Media) (update.Re
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedia(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MediaUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedia(ctx)
 	}
-	return allCapabilities.Update["Media"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedication(ctx context.Context, resource r4.Medication) (update.Result[r4.Medication], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10820,11 +10826,11 @@ func (w Concrete) UpdateMedication(ctx context.Context, resource r4.Medication) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedication(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedication(ctx)
 	}
-	return allCapabilities.Update["Medication"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r4.MedicationAdministration) (update.Result[r4.MedicationAdministration], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10859,11 +10865,11 @@ func (w Concrete) UpdateMedicationAdministration(ctx context.Context, resource r
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicationAdministration(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicationAdministrationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicationAdministration(ctx)
 	}
-	return allCapabilities.Update["MedicationAdministration"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4.MedicationDispense) (update.Result[r4.MedicationDispense], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10898,11 +10904,11 @@ func (w Concrete) UpdateMedicationDispense(ctx context.Context, resource r4.Medi
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicationDispense(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicationDispenseUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicationDispense(ctx)
 	}
-	return allCapabilities.Update["MedicationDispense"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4.MedicationKnowledge) (update.Result[r4.MedicationKnowledge], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10937,11 +10943,11 @@ func (w Concrete) UpdateMedicationKnowledge(ctx context.Context, resource r4.Med
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicationKnowledge(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicationKnowledgeUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicationKnowledge(ctx)
 	}
-	return allCapabilities.Update["MedicationKnowledge"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4.MedicationRequest) (update.Result[r4.MedicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -10976,11 +10982,11 @@ func (w Concrete) UpdateMedicationRequest(ctx context.Context, resource r4.Medic
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicationRequest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicationRequestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicationRequest(ctx)
 	}
-	return allCapabilities.Update["MedicationRequest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4.MedicationStatement) (update.Result[r4.MedicationStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11015,11 +11021,11 @@ func (w Concrete) UpdateMedicationStatement(ctx context.Context, resource r4.Med
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicationStatement(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicationStatementUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicationStatement(ctx)
 	}
-	return allCapabilities.Update["MedicationStatement"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProduct(ctx context.Context, resource r4.MedicinalProduct) (update.Result[r4.MedicinalProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11054,11 +11060,11 @@ func (w Concrete) UpdateMedicinalProduct(ctx context.Context, resource r4.Medici
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProduct(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProduct(ctx)
 	}
-	return allCapabilities.Update["MedicinalProduct"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductAuthorization(ctx context.Context, resource r4.MedicinalProductAuthorization) (update.Result[r4.MedicinalProductAuthorization], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11093,11 +11099,11 @@ func (w Concrete) UpdateMedicinalProductAuthorization(ctx context.Context, resou
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductAuthorization(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductAuthorizationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductAuthorization(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductAuthorization"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductContraindication(ctx context.Context, resource r4.MedicinalProductContraindication) (update.Result[r4.MedicinalProductContraindication], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11132,11 +11138,11 @@ func (w Concrete) UpdateMedicinalProductContraindication(ctx context.Context, re
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductContraindication(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductContraindicationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductContraindication(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductContraindication"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductIndication(ctx context.Context, resource r4.MedicinalProductIndication) (update.Result[r4.MedicinalProductIndication], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11171,11 +11177,11 @@ func (w Concrete) UpdateMedicinalProductIndication(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductIndication(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductIndicationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductIndication(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductIndication"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductIngredient(ctx context.Context, resource r4.MedicinalProductIngredient) (update.Result[r4.MedicinalProductIngredient], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11210,11 +11216,11 @@ func (w Concrete) UpdateMedicinalProductIngredient(ctx context.Context, resource
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductIngredient(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductIngredientUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductIngredient(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductIngredient"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductInteraction(ctx context.Context, resource r4.MedicinalProductInteraction) (update.Result[r4.MedicinalProductInteraction], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11249,11 +11255,11 @@ func (w Concrete) UpdateMedicinalProductInteraction(ctx context.Context, resourc
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductInteraction(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductInteractionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductInteraction(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductInteraction"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductManufactured(ctx context.Context, resource r4.MedicinalProductManufactured) (update.Result[r4.MedicinalProductManufactured], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11288,11 +11294,11 @@ func (w Concrete) UpdateMedicinalProductManufactured(ctx context.Context, resour
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductManufactured(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductManufacturedUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductManufactured(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductManufactured"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductPackaged(ctx context.Context, resource r4.MedicinalProductPackaged) (update.Result[r4.MedicinalProductPackaged], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11327,11 +11333,11 @@ func (w Concrete) UpdateMedicinalProductPackaged(ctx context.Context, resource r
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductPackaged(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductPackagedUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductPackaged(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductPackaged"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductPharmaceutical(ctx context.Context, resource r4.MedicinalProductPharmaceutical) (update.Result[r4.MedicinalProductPharmaceutical], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11366,11 +11372,11 @@ func (w Concrete) UpdateMedicinalProductPharmaceutical(ctx context.Context, reso
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductPharmaceuticalUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductPharmaceutical(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductPharmaceutical"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMedicinalProductUndesirableEffect(ctx context.Context, resource r4.MedicinalProductUndesirableEffect) (update.Result[r4.MedicinalProductUndesirableEffect], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11405,11 +11411,11 @@ func (w Concrete) UpdateMedicinalProductUndesirableEffect(ctx context.Context, r
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MedicinalProductUndesirableEffectUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMedicinalProductUndesirableEffect(ctx)
 	}
-	return allCapabilities.Update["MedicinalProductUndesirableEffect"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4.MessageDefinition) (update.Result[r4.MessageDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11444,11 +11450,11 @@ func (w Concrete) UpdateMessageDefinition(ctx context.Context, resource r4.Messa
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMessageDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MessageDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMessageDefinition(ctx)
 	}
-	return allCapabilities.Update["MessageDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4.MessageHeader) (update.Result[r4.MessageHeader], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11483,11 +11489,11 @@ func (w Concrete) UpdateMessageHeader(ctx context.Context, resource r4.MessageHe
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMessageHeader(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MessageHeaderUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMessageHeader(ctx)
 	}
-	return allCapabilities.Update["MessageHeader"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4.MolecularSequence) (update.Result[r4.MolecularSequence], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11522,11 +11528,11 @@ func (w Concrete) UpdateMolecularSequence(ctx context.Context, resource r4.Molec
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesMolecularSequence(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(MolecularSequenceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesMolecularSequence(ctx)
 	}
-	return allCapabilities.Update["MolecularSequence"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4.NamingSystem) (update.Result[r4.NamingSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11561,11 +11567,11 @@ func (w Concrete) UpdateNamingSystem(ctx context.Context, resource r4.NamingSyst
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesNamingSystem(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(NamingSystemUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesNamingSystem(ctx)
 	}
-	return allCapabilities.Update["NamingSystem"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4.NutritionOrder) (update.Result[r4.NutritionOrder], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11600,11 +11606,11 @@ func (w Concrete) UpdateNutritionOrder(ctx context.Context, resource r4.Nutritio
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesNutritionOrder(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(NutritionOrderUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesNutritionOrder(ctx)
 	}
-	return allCapabilities.Update["NutritionOrder"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateObservation(ctx context.Context, resource r4.Observation) (update.Result[r4.Observation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11639,11 +11645,11 @@ func (w Concrete) UpdateObservation(ctx context.Context, resource r4.Observation
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesObservation(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ObservationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesObservation(ctx)
 	}
-	return allCapabilities.Update["Observation"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4.ObservationDefinition) (update.Result[r4.ObservationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11678,11 +11684,11 @@ func (w Concrete) UpdateObservationDefinition(ctx context.Context, resource r4.O
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesObservationDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ObservationDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesObservationDefinition(ctx)
 	}
-	return allCapabilities.Update["ObservationDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4.OperationDefinition) (update.Result[r4.OperationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11717,11 +11723,11 @@ func (w Concrete) UpdateOperationDefinition(ctx context.Context, resource r4.Ope
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesOperationDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(OperationDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesOperationDefinition(ctx)
 	}
-	return allCapabilities.Update["OperationDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4.OperationOutcome) (update.Result[r4.OperationOutcome], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11756,11 +11762,11 @@ func (w Concrete) UpdateOperationOutcome(ctx context.Context, resource r4.Operat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesOperationOutcome(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(OperationOutcomeUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesOperationOutcome(ctx)
 	}
-	return allCapabilities.Update["OperationOutcome"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateOrganization(ctx context.Context, resource r4.Organization) (update.Result[r4.Organization], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11795,11 +11801,11 @@ func (w Concrete) UpdateOrganization(ctx context.Context, resource r4.Organizati
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesOrganization(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(OrganizationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesOrganization(ctx)
 	}
-	return allCapabilities.Update["Organization"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4.OrganizationAffiliation) (update.Result[r4.OrganizationAffiliation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11834,11 +11840,11 @@ func (w Concrete) UpdateOrganizationAffiliation(ctx context.Context, resource r4
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesOrganizationAffiliation(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(OrganizationAffiliationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesOrganizationAffiliation(ctx)
 	}
-	return allCapabilities.Update["OrganizationAffiliation"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateParameters(ctx context.Context, resource r4.Parameters) (update.Result[r4.Parameters], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11873,11 +11879,11 @@ func (w Concrete) UpdateParameters(ctx context.Context, resource r4.Parameters) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesParameters(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ParametersUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesParameters(ctx)
 	}
-	return allCapabilities.Update["Parameters"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdatePatient(ctx context.Context, resource r4.Patient) (update.Result[r4.Patient], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11912,11 +11918,11 @@ func (w Concrete) UpdatePatient(ctx context.Context, resource r4.Patient) (updat
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesPatient(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(PatientUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesPatient(ctx)
 	}
-	return allCapabilities.Update["Patient"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4.PaymentNotice) (update.Result[r4.PaymentNotice], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11951,11 +11957,11 @@ func (w Concrete) UpdatePaymentNotice(ctx context.Context, resource r4.PaymentNo
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesPaymentNotice(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(PaymentNoticeUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesPaymentNotice(ctx)
 	}
-	return allCapabilities.Update["PaymentNotice"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4.PaymentReconciliation) (update.Result[r4.PaymentReconciliation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -11990,11 +11996,11 @@ func (w Concrete) UpdatePaymentReconciliation(ctx context.Context, resource r4.P
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesPaymentReconciliation(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(PaymentReconciliationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesPaymentReconciliation(ctx)
 	}
-	return allCapabilities.Update["PaymentReconciliation"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdatePerson(ctx context.Context, resource r4.Person) (update.Result[r4.Person], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12029,11 +12035,11 @@ func (w Concrete) UpdatePerson(ctx context.Context, resource r4.Person) (update.
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesPerson(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(PersonUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesPerson(ctx)
 	}
-	return allCapabilities.Update["Person"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4.PlanDefinition) (update.Result[r4.PlanDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12068,11 +12074,11 @@ func (w Concrete) UpdatePlanDefinition(ctx context.Context, resource r4.PlanDefi
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesPlanDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(PlanDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesPlanDefinition(ctx)
 	}
-	return allCapabilities.Update["PlanDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4.Practitioner) (update.Result[r4.Practitioner], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12107,11 +12113,11 @@ func (w Concrete) UpdatePractitioner(ctx context.Context, resource r4.Practition
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesPractitioner(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(PractitionerUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesPractitioner(ctx)
 	}
-	return allCapabilities.Update["Practitioner"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4.PractitionerRole) (update.Result[r4.PractitionerRole], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12146,11 +12152,11 @@ func (w Concrete) UpdatePractitionerRole(ctx context.Context, resource r4.Practi
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesPractitionerRole(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(PractitionerRoleUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesPractitionerRole(ctx)
 	}
-	return allCapabilities.Update["PractitionerRole"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateProcedure(ctx context.Context, resource r4.Procedure) (update.Result[r4.Procedure], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12185,11 +12191,11 @@ func (w Concrete) UpdateProcedure(ctx context.Context, resource r4.Procedure) (u
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesProcedure(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ProcedureUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesProcedure(ctx)
 	}
-	return allCapabilities.Update["Procedure"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateProvenance(ctx context.Context, resource r4.Provenance) (update.Result[r4.Provenance], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12224,11 +12230,11 @@ func (w Concrete) UpdateProvenance(ctx context.Context, resource r4.Provenance) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesProvenance(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ProvenanceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesProvenance(ctx)
 	}
-	return allCapabilities.Update["Provenance"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4.Questionnaire) (update.Result[r4.Questionnaire], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12263,11 +12269,11 @@ func (w Concrete) UpdateQuestionnaire(ctx context.Context, resource r4.Questionn
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesQuestionnaire(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(QuestionnaireUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesQuestionnaire(ctx)
 	}
-	return allCapabilities.Update["Questionnaire"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4.QuestionnaireResponse) (update.Result[r4.QuestionnaireResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12302,11 +12308,11 @@ func (w Concrete) UpdateQuestionnaireResponse(ctx context.Context, resource r4.Q
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesQuestionnaireResponse(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(QuestionnaireResponseUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesQuestionnaireResponse(ctx)
 	}
-	return allCapabilities.Update["QuestionnaireResponse"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4.RelatedPerson) (update.Result[r4.RelatedPerson], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12341,11 +12347,11 @@ func (w Concrete) UpdateRelatedPerson(ctx context.Context, resource r4.RelatedPe
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesRelatedPerson(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(RelatedPersonUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesRelatedPerson(ctx)
 	}
-	return allCapabilities.Update["RelatedPerson"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4.RequestGroup) (update.Result[r4.RequestGroup], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12380,11 +12386,11 @@ func (w Concrete) UpdateRequestGroup(ctx context.Context, resource r4.RequestGro
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesRequestGroup(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(RequestGroupUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesRequestGroup(ctx)
 	}
-	return allCapabilities.Update["RequestGroup"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4.ResearchDefinition) (update.Result[r4.ResearchDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12419,11 +12425,11 @@ func (w Concrete) UpdateResearchDefinition(ctx context.Context, resource r4.Rese
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesResearchDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ResearchDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesResearchDefinition(ctx)
 	}
-	return allCapabilities.Update["ResearchDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource r4.ResearchElementDefinition) (update.Result[r4.ResearchElementDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12458,11 +12464,11 @@ func (w Concrete) UpdateResearchElementDefinition(ctx context.Context, resource 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesResearchElementDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ResearchElementDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesResearchElementDefinition(ctx)
 	}
-	return allCapabilities.Update["ResearchElementDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4.ResearchStudy) (update.Result[r4.ResearchStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12497,11 +12503,11 @@ func (w Concrete) UpdateResearchStudy(ctx context.Context, resource r4.ResearchS
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesResearchStudy(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ResearchStudyUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesResearchStudy(ctx)
 	}
-	return allCapabilities.Update["ResearchStudy"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4.ResearchSubject) (update.Result[r4.ResearchSubject], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12536,11 +12542,11 @@ func (w Concrete) UpdateResearchSubject(ctx context.Context, resource r4.Researc
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesResearchSubject(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ResearchSubjectUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesResearchSubject(ctx)
 	}
-	return allCapabilities.Update["ResearchSubject"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4.RiskAssessment) (update.Result[r4.RiskAssessment], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12575,11 +12581,11 @@ func (w Concrete) UpdateRiskAssessment(ctx context.Context, resource r4.RiskAsse
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesRiskAssessment(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(RiskAssessmentUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesRiskAssessment(ctx)
 	}
-	return allCapabilities.Update["RiskAssessment"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateRiskEvidenceSynthesis(ctx context.Context, resource r4.RiskEvidenceSynthesis) (update.Result[r4.RiskEvidenceSynthesis], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12614,11 +12620,11 @@ func (w Concrete) UpdateRiskEvidenceSynthesis(ctx context.Context, resource r4.R
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(RiskEvidenceSynthesisUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesRiskEvidenceSynthesis(ctx)
 	}
-	return allCapabilities.Update["RiskEvidenceSynthesis"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSchedule(ctx context.Context, resource r4.Schedule) (update.Result[r4.Schedule], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12653,11 +12659,11 @@ func (w Concrete) UpdateSchedule(ctx context.Context, resource r4.Schedule) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSchedule(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ScheduleUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSchedule(ctx)
 	}
-	return allCapabilities.Update["Schedule"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4.SearchParameter) (update.Result[r4.SearchParameter], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12692,11 +12698,11 @@ func (w Concrete) UpdateSearchParameter(ctx context.Context, resource r4.SearchP
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSearchParameter(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SearchParameterUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSearchParameter(ctx)
 	}
-	return allCapabilities.Update["SearchParameter"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4.ServiceRequest) (update.Result[r4.ServiceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12731,11 +12737,11 @@ func (w Concrete) UpdateServiceRequest(ctx context.Context, resource r4.ServiceR
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesServiceRequest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ServiceRequestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesServiceRequest(ctx)
 	}
-	return allCapabilities.Update["ServiceRequest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSlot(ctx context.Context, resource r4.Slot) (update.Result[r4.Slot], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12770,11 +12776,11 @@ func (w Concrete) UpdateSlot(ctx context.Context, resource r4.Slot) (update.Resu
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSlot(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SlotUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSlot(ctx)
 	}
-	return allCapabilities.Update["Slot"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4.Specimen) (update.Result[r4.Specimen], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12809,11 +12815,11 @@ func (w Concrete) UpdateSpecimen(ctx context.Context, resource r4.Specimen) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSpecimen(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SpecimenUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSpecimen(ctx)
 	}
-	return allCapabilities.Update["Specimen"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4.SpecimenDefinition) (update.Result[r4.SpecimenDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12848,11 +12854,11 @@ func (w Concrete) UpdateSpecimenDefinition(ctx context.Context, resource r4.Spec
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSpecimenDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SpecimenDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSpecimenDefinition(ctx)
 	}
-	return allCapabilities.Update["SpecimenDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4.StructureDefinition) (update.Result[r4.StructureDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12887,11 +12893,11 @@ func (w Concrete) UpdateStructureDefinition(ctx context.Context, resource r4.Str
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesStructureDefinition(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(StructureDefinitionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesStructureDefinition(ctx)
 	}
-	return allCapabilities.Update["StructureDefinition"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4.StructureMap) (update.Result[r4.StructureMap], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12926,11 +12932,11 @@ func (w Concrete) UpdateStructureMap(ctx context.Context, resource r4.StructureM
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesStructureMap(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(StructureMapUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesStructureMap(ctx)
 	}
-	return allCapabilities.Update["StructureMap"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubscription(ctx context.Context, resource r4.Subscription) (update.Result[r4.Subscription], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -12965,11 +12971,11 @@ func (w Concrete) UpdateSubscription(ctx context.Context, resource r4.Subscripti
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubscription(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubscriptionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubscription(ctx)
 	}
-	return allCapabilities.Update["Subscription"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubstance(ctx context.Context, resource r4.Substance) (update.Result[r4.Substance], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13004,11 +13010,11 @@ func (w Concrete) UpdateSubstance(ctx context.Context, resource r4.Substance) (u
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubstance(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubstanceUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubstance(ctx)
 	}
-	return allCapabilities.Update["Substance"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubstanceNucleicAcid(ctx context.Context, resource r4.SubstanceNucleicAcid) (update.Result[r4.SubstanceNucleicAcid], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13043,11 +13049,11 @@ func (w Concrete) UpdateSubstanceNucleicAcid(ctx context.Context, resource r4.Su
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubstanceNucleicAcid(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubstanceNucleicAcidUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubstanceNucleicAcid(ctx)
 	}
-	return allCapabilities.Update["SubstanceNucleicAcid"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubstancePolymer(ctx context.Context, resource r4.SubstancePolymer) (update.Result[r4.SubstancePolymer], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13082,11 +13088,11 @@ func (w Concrete) UpdateSubstancePolymer(ctx context.Context, resource r4.Substa
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubstancePolymer(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubstancePolymerUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubstancePolymer(ctx)
 	}
-	return allCapabilities.Update["SubstancePolymer"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubstanceProtein(ctx context.Context, resource r4.SubstanceProtein) (update.Result[r4.SubstanceProtein], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13121,11 +13127,11 @@ func (w Concrete) UpdateSubstanceProtein(ctx context.Context, resource r4.Substa
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubstanceProtein(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubstanceProteinUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubstanceProtein(ctx)
 	}
-	return allCapabilities.Update["SubstanceProtein"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubstanceReferenceInformation(ctx context.Context, resource r4.SubstanceReferenceInformation) (update.Result[r4.SubstanceReferenceInformation], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13160,11 +13166,11 @@ func (w Concrete) UpdateSubstanceReferenceInformation(ctx context.Context, resou
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubstanceReferenceInformation(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubstanceReferenceInformationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubstanceReferenceInformation(ctx)
 	}
-	return allCapabilities.Update["SubstanceReferenceInformation"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubstanceSourceMaterial(ctx context.Context, resource r4.SubstanceSourceMaterial) (update.Result[r4.SubstanceSourceMaterial], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13199,11 +13205,11 @@ func (w Concrete) UpdateSubstanceSourceMaterial(ctx context.Context, resource r4
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubstanceSourceMaterial(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubstanceSourceMaterialUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubstanceSourceMaterial(ctx)
 	}
-	return allCapabilities.Update["SubstanceSourceMaterial"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSubstanceSpecification(ctx context.Context, resource r4.SubstanceSpecification) (update.Result[r4.SubstanceSpecification], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13238,11 +13244,11 @@ func (w Concrete) UpdateSubstanceSpecification(ctx context.Context, resource r4.
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSubstanceSpecification(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SubstanceSpecificationUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSubstanceSpecification(ctx)
 	}
-	return allCapabilities.Update["SubstanceSpecification"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4.SupplyDelivery) (update.Result[r4.SupplyDelivery], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13277,11 +13283,11 @@ func (w Concrete) UpdateSupplyDelivery(ctx context.Context, resource r4.SupplyDe
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSupplyDelivery(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SupplyDeliveryUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSupplyDelivery(ctx)
 	}
-	return allCapabilities.Update["SupplyDelivery"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4.SupplyRequest) (update.Result[r4.SupplyRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13316,11 +13322,11 @@ func (w Concrete) UpdateSupplyRequest(ctx context.Context, resource r4.SupplyReq
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesSupplyRequest(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(SupplyRequestUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesSupplyRequest(ctx)
 	}
-	return allCapabilities.Update["SupplyRequest"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateTask(ctx context.Context, resource r4.Task) (update.Result[r4.Task], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13355,11 +13361,11 @@ func (w Concrete) UpdateTask(ctx context.Context, resource r4.Task) (update.Resu
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesTask(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(TaskUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesTask(ctx)
 	}
-	return allCapabilities.Update["Task"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4.TerminologyCapabilities) (update.Result[r4.TerminologyCapabilities], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13394,11 +13400,11 @@ func (w Concrete) UpdateTerminologyCapabilities(ctx context.Context, resource r4
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesTerminologyCapabilities(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(TerminologyCapabilitiesUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesTerminologyCapabilities(ctx)
 	}
-	return allCapabilities.Update["TerminologyCapabilities"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateTestReport(ctx context.Context, resource r4.TestReport) (update.Result[r4.TestReport], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13433,11 +13439,11 @@ func (w Concrete) UpdateTestReport(ctx context.Context, resource r4.TestReport) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesTestReport(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(TestReportUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesTestReport(ctx)
 	}
-	return allCapabilities.Update["TestReport"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateTestScript(ctx context.Context, resource r4.TestScript) (update.Result[r4.TestScript], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13472,11 +13478,11 @@ func (w Concrete) UpdateTestScript(ctx context.Context, resource r4.TestScript) 
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesTestScript(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(TestScriptUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesTestScript(ctx)
 	}
-	return allCapabilities.Update["TestScript"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateValueSet(ctx context.Context, resource r4.ValueSet) (update.Result[r4.ValueSet], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13511,11 +13517,11 @@ func (w Concrete) UpdateValueSet(ctx context.Context, resource r4.ValueSet) (upd
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesValueSet(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(ValueSetUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesValueSet(ctx)
 	}
-	return allCapabilities.Update["ValueSet"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4.VerificationResult) (update.Result[r4.VerificationResult], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13550,11 +13556,11 @@ func (w Concrete) UpdateVerificationResult(ctx context.Context, resource r4.Veri
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesVerificationResult(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(VerificationResultUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesVerificationResult(ctx)
 	}
-	return allCapabilities.Update["VerificationResult"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4.VisionPrescription) (update.Result[r4.VisionPrescription], error) {
 	g, ok := w.Generic.(capabilities.GenericUpdate)
@@ -13589,11 +13595,11 @@ func (w Concrete) UpdateVisionPrescription(ctx context.Context, resource r4.Visi
 	}, nil
 }
 func (w Concrete) UpdateCapabilitiesVisionPrescription(ctx context.Context) (update.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
-	if err != nil {
-		return update.Capabilities{}, err
+	updateImpl, ok := w.Generic.(VisionPrescriptionUpdateCapabilities)
+	if ok {
+		return updateImpl.UpdateCapabilitiesVisionPrescription(ctx)
 	}
-	return allCapabilities.Update["VisionPrescription"], err
+	return update.Capabilities{}, nil
 }
 func (w Concrete) DeleteAccount(ctx context.Context, id string) error {
 	g, ok := w.Generic.(capabilities.GenericDelete)
@@ -15237,12 +15243,49 @@ func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Account"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Account" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result[r4.ActivityDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15280,12 +15323,49 @@ func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ActivityDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ActivityDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result[r4.AdverseEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15323,12 +15403,49 @@ func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["AdverseEvent"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "AdverseEvent" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result[r4.AllergyIntolerance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15366,12 +15483,49 @@ func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["AllergyIntolerance"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "AllergyIntolerance" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchAppointment(ctx context.Context, options search.Options) (search.Result[r4.Appointment], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15409,12 +15563,49 @@ func (w Concrete) SearchAppointment(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Appointment"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Appointment" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result[r4.AppointmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15452,12 +15643,49 @@ func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["AppointmentResponse"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "AppointmentResponse" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) (search.Result[r4.AuditEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15495,12 +15723,49 @@ func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["AuditEvent"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "AuditEvent" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (search.Result[r4.Basic], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15538,12 +15803,49 @@ func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Basic"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Basic" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (search.Result[r4.Binary], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15581,12 +15883,49 @@ func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Binary"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Binary" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result[r4.BiologicallyDerivedProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15624,12 +15963,49 @@ func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["BiologicallyDerivedProduct"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "BiologicallyDerivedProduct" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Options) (search.Result[r4.BodyStructure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15667,12 +16043,49 @@ func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["BodyStructure"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "BodyStructure" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (search.Result[r4.Bundle], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15710,12 +16123,49 @@ func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Bundle"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Bundle" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result[r4.CapabilityStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15753,12 +16203,49 @@ func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CapabilityStatement"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CapabilityStatement" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (search.Result[r4.CarePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15796,12 +16283,49 @@ func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CarePlan"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CarePlan" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (search.Result[r4.CareTeam], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15839,12 +16363,49 @@ func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CareTeam"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CareTeam" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options) (search.Result[r4.CatalogEntry], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15882,12 +16443,49 @@ func (w Concrete) SearchCatalogEntry(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCatalogEntry(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CatalogEntry"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CatalogEntry" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) (search.Result[r4.ChargeItem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15925,12 +16523,49 @@ func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ChargeItem"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ChargeItem" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result[r4.ChargeItemDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -15968,12 +16603,49 @@ func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ChargeItemDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ChargeItemDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (search.Result[r4.Claim], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16011,12 +16683,49 @@ func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Claim"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Claim" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Options) (search.Result[r4.ClaimResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16054,12 +16763,49 @@ func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ClaimResponse"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ClaimResponse" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result[r4.ClinicalImpression], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16097,12 +16843,49 @@ func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ClinicalImpression"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ClinicalImpression" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) (search.Result[r4.CodeSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16140,12 +16923,49 @@ func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CodeSystem"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CodeSystem" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCommunication(ctx context.Context, options search.Options) (search.Result[r4.Communication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16183,12 +17003,49 @@ func (w Concrete) SearchCommunication(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Communication"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Communication" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result[r4.CommunicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16226,12 +17083,49 @@ func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CommunicationRequest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CommunicationRequest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result[r4.CompartmentDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16269,12 +17163,49 @@ func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CompartmentDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CompartmentDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchComposition(ctx context.Context, options search.Options) (search.Result[r4.Composition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16312,12 +17243,49 @@ func (w Concrete) SearchComposition(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Composition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Composition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) (search.Result[r4.ConceptMap], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16355,12 +17323,49 @@ func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ConceptMap"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ConceptMap" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (search.Result[r4.Condition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16398,12 +17403,49 @@ func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Condition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Condition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (search.Result[r4.Consent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16441,12 +17483,49 @@ func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Consent"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Consent" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchContract(ctx context.Context, options search.Options) (search.Result[r4.Contract], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16484,12 +17563,49 @@ func (w Concrete) SearchContract(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Contract"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Contract" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (search.Result[r4.Coverage], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16527,12 +17643,49 @@ func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Coverage"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Coverage" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result[r4.CoverageEligibilityRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16570,12 +17723,49 @@ func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CoverageEligibilityRequest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CoverageEligibilityRequest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result[r4.CoverageEligibilityResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16613,12 +17803,49 @@ func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["CoverageEligibilityResponse"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "CoverageEligibilityResponse" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result[r4.DetectedIssue], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16656,12 +17883,49 @@ func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DetectedIssue"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DetectedIssue" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (search.Result[r4.Device], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16699,12 +17963,49 @@ func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Device"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Device" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result[r4.DeviceDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16742,12 +18043,49 @@ func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DeviceDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DeviceDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result[r4.DeviceMetric], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16785,12 +18123,49 @@ func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DeviceMetric"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DeviceMetric" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result[r4.DeviceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16828,12 +18203,49 @@ func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DeviceRequest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DeviceRequest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.Options) (search.Result[r4.DeviceUseStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16871,12 +18283,49 @@ func (w Concrete) SearchDeviceUseStatement(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDeviceUseStatement(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DeviceUseStatement"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DeviceUseStatement" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result[r4.DiagnosticReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16914,12 +18363,49 @@ func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DiagnosticReport"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DiagnosticReport" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Options) (search.Result[r4.DocumentManifest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -16957,12 +18443,49 @@ func (w Concrete) SearchDocumentManifest(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDocumentManifest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DocumentManifest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DocumentManifest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Options) (search.Result[r4.DocumentReference], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17000,12 +18523,49 @@ func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["DocumentReference"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "DocumentReference" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEffectEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result[r4.EffectEvidenceSynthesis], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17043,12 +18603,49 @@ func (w Concrete) SearchEffectEvidenceSynthesis(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEffectEvidenceSynthesis(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["EffectEvidenceSynthesis"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "EffectEvidenceSynthesis" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (search.Result[r4.Encounter], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17086,12 +18683,49 @@ func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Encounter"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Encounter" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (search.Result[r4.Endpoint], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17129,12 +18763,49 @@ func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Endpoint"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Endpoint" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result[r4.EnrollmentRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17172,12 +18843,49 @@ func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["EnrollmentRequest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "EnrollmentRequest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result[r4.EnrollmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17215,12 +18923,49 @@ func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["EnrollmentResponse"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "EnrollmentResponse" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result[r4.EpisodeOfCare], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17258,12 +19003,49 @@ func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["EpisodeOfCare"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "EpisodeOfCare" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Options) (search.Result[r4.EventDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17301,12 +19083,49 @@ func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["EventDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "EventDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (search.Result[r4.Evidence], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17344,12 +19163,49 @@ func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Evidence"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Evidence" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result[r4.EvidenceVariable], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17387,12 +19243,49 @@ func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["EvidenceVariable"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "EvidenceVariable" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Options) (search.Result[r4.ExampleScenario], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17430,12 +19323,49 @@ func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ExampleScenario"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ExampleScenario" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result[r4.ExplanationOfBenefit], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17473,12 +19403,49 @@ func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ExplanationOfBenefit"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ExplanationOfBenefit" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result[r4.FamilyMemberHistory], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17516,12 +19483,49 @@ func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["FamilyMemberHistory"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "FamilyMemberHistory" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (search.Result[r4.Flag], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17559,12 +19563,49 @@ func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Flag"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Flag" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (search.Result[r4.Goal], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17602,12 +19643,49 @@ func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Goal"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Goal" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result[r4.GraphDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17645,12 +19723,49 @@ func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["GraphDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "GraphDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (search.Result[r4.Group], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17688,12 +19803,49 @@ func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Group"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Group" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result[r4.GuidanceResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17731,12 +19883,49 @@ func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["GuidanceResponse"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "GuidanceResponse" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Options) (search.Result[r4.HealthcareService], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17774,12 +19963,49 @@ func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["HealthcareService"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "HealthcareService" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options) (search.Result[r4.ImagingStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17817,12 +20043,49 @@ func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ImagingStudy"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ImagingStudy" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchImmunization(ctx context.Context, options search.Options) (search.Result[r4.Immunization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17860,12 +20123,49 @@ func (w Concrete) SearchImmunization(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Immunization"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Immunization" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result[r4.ImmunizationEvaluation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17903,12 +20203,49 @@ func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ImmunizationEvaluation"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ImmunizationEvaluation" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result[r4.ImmunizationRecommendation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17946,12 +20283,49 @@ func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ImmunizationRecommendation"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ImmunizationRecommendation" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result[r4.ImplementationGuide], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -17989,12 +20363,49 @@ func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ImplementationGuide"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ImplementationGuide" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result[r4.InsurancePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18032,12 +20443,49 @@ func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["InsurancePlan"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "InsurancePlan" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (search.Result[r4.Invoice], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18075,12 +20523,49 @@ func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Invoice"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Invoice" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (search.Result[r4.Library], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18118,12 +20603,49 @@ func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Library"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Library" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (search.Result[r4.Linkage], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18161,12 +20683,49 @@ func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Linkage"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Linkage" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchList(ctx context.Context, options search.Options) (search.Result[r4.List], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18204,12 +20763,49 @@ func (w Concrete) SearchList(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["List"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "List" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (search.Result[r4.Location], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18247,12 +20843,49 @@ func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Location"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Location" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (search.Result[r4.Measure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18290,12 +20923,49 @@ func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Measure"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Measure" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Options) (search.Result[r4.MeasureReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18333,12 +21003,49 @@ func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MeasureReport"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MeasureReport" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (search.Result[r4.Media], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18376,12 +21083,49 @@ func (w Concrete) SearchMedia(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedia(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Media"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Media" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedication(ctx context.Context, options search.Options) (search.Result[r4.Medication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18419,12 +21163,49 @@ func (w Concrete) SearchMedication(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Medication"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Medication" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result[r4.MedicationAdministration], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18462,12 +21243,49 @@ func (w Concrete) SearchMedicationAdministration(ctx context.Context, options se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicationAdministration"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicationAdministration" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result[r4.MedicationDispense], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18505,12 +21323,49 @@ func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicationDispense"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicationDispense" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result[r4.MedicationKnowledge], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18548,12 +21403,49 @@ func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicationKnowledge"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicationKnowledge" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result[r4.MedicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18591,12 +21483,49 @@ func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicationRequest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicationRequest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result[r4.MedicationStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18634,12 +21563,49 @@ func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicationStatement"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicationStatement" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProduct(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18677,12 +21643,49 @@ func (w Concrete) SearchMedicinalProduct(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProduct(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProduct(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProduct"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProduct" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductAuthorization(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductAuthorization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18720,12 +21723,49 @@ func (w Concrete) SearchMedicinalProductAuthorization(ctx context.Context, optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductAuthorization(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductAuthorization(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductAuthorization"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductAuthorization" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductContraindication(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductContraindication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18763,12 +21803,49 @@ func (w Concrete) SearchMedicinalProductContraindication(ctx context.Context, op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductContraindication(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductContraindication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductContraindication"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductContraindication" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductIndication(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductIndication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18806,12 +21883,49 @@ func (w Concrete) SearchMedicinalProductIndication(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductIndication(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductIndication(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductIndication"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductIndication" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductIngredient(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductIngredient], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18849,12 +21963,49 @@ func (w Concrete) SearchMedicinalProductIngredient(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductIngredient(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductIngredient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductIngredient"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductIngredient" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductInteraction(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductInteraction], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18892,12 +22043,49 @@ func (w Concrete) SearchMedicinalProductInteraction(ctx context.Context, options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductInteraction(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductInteraction(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductInteraction"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductInteraction" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductManufactured(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductManufactured], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18935,12 +22123,49 @@ func (w Concrete) SearchMedicinalProductManufactured(ctx context.Context, option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductManufactured(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductManufactured(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductManufactured"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductManufactured" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductPackaged(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductPackaged], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -18978,12 +22203,49 @@ func (w Concrete) SearchMedicinalProductPackaged(ctx context.Context, options se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductPackaged(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductPackaged(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductPackaged"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductPackaged" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductPharmaceutical(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductPharmaceutical], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19021,12 +22283,49 @@ func (w Concrete) SearchMedicinalProductPharmaceutical(ctx context.Context, opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductPharmaceutical(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductPharmaceutical"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductPharmaceutical" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMedicinalProductUndesirableEffect(ctx context.Context, options search.Options) (search.Result[r4.MedicinalProductUndesirableEffect], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19064,12 +22363,49 @@ func (w Concrete) SearchMedicinalProductUndesirableEffect(ctx context.Context, o
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMedicinalProductUndesirableEffect(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MedicinalProductUndesirableEffect"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductUndesirableEffect" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result[r4.MessageDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19107,12 +22443,49 @@ func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MessageDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MessageDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Options) (search.Result[r4.MessageHeader], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19150,12 +22523,49 @@ func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MessageHeader"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MessageHeader" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result[r4.MolecularSequence], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19193,12 +22603,49 @@ func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["MolecularSequence"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "MolecularSequence" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options) (search.Result[r4.NamingSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19236,12 +22683,49 @@ func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["NamingSystem"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "NamingSystem" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result[r4.NutritionOrder], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19279,12 +22763,49 @@ func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["NutritionOrder"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "NutritionOrder" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchObservation(ctx context.Context, options search.Options) (search.Result[r4.Observation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19322,12 +22843,49 @@ func (w Concrete) SearchObservation(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Observation"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Observation" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result[r4.ObservationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19365,12 +22923,49 @@ func (w Concrete) SearchObservationDefinition(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ObservationDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ObservationDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result[r4.OperationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19408,12 +23003,49 @@ func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["OperationDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "OperationDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result[r4.OperationOutcome], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19451,12 +23083,49 @@ func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["OperationOutcome"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "OperationOutcome" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchOrganization(ctx context.Context, options search.Options) (search.Result[r4.Organization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19494,12 +23163,49 @@ func (w Concrete) SearchOrganization(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Organization"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Organization" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result[r4.OrganizationAffiliation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19537,12 +23243,49 @@ func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["OrganizationAffiliation"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "OrganizationAffiliation" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchParameters(ctx context.Context, options search.Options) (search.Result[r4.Parameters], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19580,12 +23323,49 @@ func (w Concrete) SearchParameters(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Parameters"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Parameters" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (search.Result[r4.Patient], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19623,12 +23403,49 @@ func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Patient"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Patient" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result[r4.PaymentNotice], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19666,12 +23483,49 @@ func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["PaymentNotice"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "PaymentNotice" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result[r4.PaymentReconciliation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19709,12 +23563,49 @@ func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["PaymentReconciliation"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "PaymentReconciliation" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (search.Result[r4.Person], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19752,12 +23643,49 @@ func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Person"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Person" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result[r4.PlanDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19795,12 +23723,49 @@ func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["PlanDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "PlanDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options) (search.Result[r4.Practitioner], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19838,12 +23803,49 @@ func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Practitioner"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Practitioner" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result[r4.PractitionerRole], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19881,12 +23883,49 @@ func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["PractitionerRole"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "PractitionerRole" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (search.Result[r4.Procedure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19924,12 +23963,49 @@ func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Procedure"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Procedure" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) (search.Result[r4.Provenance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -19967,12 +24043,49 @@ func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Provenance"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Provenance" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result[r4.Questionnaire], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20010,12 +24123,49 @@ func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Questionnaire"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Questionnaire" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result[r4.QuestionnaireResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20053,12 +24203,49 @@ func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["QuestionnaireResponse"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "QuestionnaireResponse" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result[r4.RelatedPerson], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20096,12 +24283,49 @@ func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["RelatedPerson"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "RelatedPerson" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options) (search.Result[r4.RequestGroup], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20139,12 +24363,49 @@ func (w Concrete) SearchRequestGroup(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesRequestGroup(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["RequestGroup"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "RequestGroup" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.Options) (search.Result[r4.ResearchDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20182,12 +24443,49 @@ func (w Concrete) SearchResearchDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesResearchDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ResearchDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ResearchDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options search.Options) (search.Result[r4.ResearchElementDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20225,12 +24523,49 @@ func (w Concrete) SearchResearchElementDefinition(ctx context.Context, options s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesResearchElementDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ResearchElementDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ResearchElementDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Options) (search.Result[r4.ResearchStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20268,12 +24603,49 @@ func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ResearchStudy"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ResearchStudy" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Options) (search.Result[r4.ResearchSubject], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20311,12 +24683,49 @@ func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ResearchSubject"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ResearchSubject" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result[r4.RiskAssessment], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20354,12 +24763,49 @@ func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["RiskAssessment"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "RiskAssessment" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchRiskEvidenceSynthesis(ctx context.Context, options search.Options) (search.Result[r4.RiskEvidenceSynthesis], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20397,12 +24843,49 @@ func (w Concrete) SearchRiskEvidenceSynthesis(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesRiskEvidenceSynthesis(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["RiskEvidenceSynthesis"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "RiskEvidenceSynthesis" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (search.Result[r4.Schedule], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20440,12 +24923,49 @@ func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Schedule"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Schedule" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r4.SearchParameter], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20483,12 +25003,49 @@ func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SearchParameter"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SearchParameter" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Options) (search.Result[r4.ServiceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20526,12 +25083,49 @@ func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ServiceRequest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ServiceRequest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (search.Result[r4.Slot], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20569,12 +25163,49 @@ func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Slot"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Slot" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (search.Result[r4.Specimen], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20612,12 +25243,49 @@ func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Specimen"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Specimen" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result[r4.SpecimenDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20655,12 +25323,49 @@ func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SpecimenDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SpecimenDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result[r4.StructureDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20698,12 +25403,49 @@ func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["StructureDefinition"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "StructureDefinition" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options) (search.Result[r4.StructureMap], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20741,12 +25483,49 @@ func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["StructureMap"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "StructureMap" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubscription(ctx context.Context, options search.Options) (search.Result[r4.Subscription], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20784,12 +25563,49 @@ func (w Concrete) SearchSubscription(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Subscription"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Subscription" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (search.Result[r4.Substance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20827,12 +25643,49 @@ func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Substance"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Substance" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, options search.Options) (search.Result[r4.SubstanceNucleicAcid], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20870,12 +25723,49 @@ func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SubstanceNucleicAcid"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceNucleicAcid" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubstancePolymer(ctx context.Context, options search.Options) (search.Result[r4.SubstancePolymer], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20913,12 +25803,49 @@ func (w Concrete) SearchSubstancePolymer(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SubstancePolymer"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SubstancePolymer" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubstanceProtein(ctx context.Context, options search.Options) (search.Result[r4.SubstanceProtein], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20956,12 +25883,49 @@ func (w Concrete) SearchSubstanceProtein(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SubstanceProtein"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceProtein" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, options search.Options) (search.Result[r4.SubstanceReferenceInformation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -20999,12 +25963,49 @@ func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SubstanceReferenceInformation"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceReferenceInformation" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, options search.Options) (search.Result[r4.SubstanceSourceMaterial], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21042,12 +26043,49 @@ func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SubstanceSourceMaterial"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceSourceMaterial" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSubstanceSpecification(ctx context.Context, options search.Options) (search.Result[r4.SubstanceSpecification], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21085,12 +26123,49 @@ func (w Concrete) SearchSubstanceSpecification(ctx context.Context, options sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceSpecification(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSubstanceSpecification(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SubstanceSpecification"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceSpecification" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result[r4.SupplyDelivery], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21128,12 +26203,49 @@ func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SupplyDelivery"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SupplyDelivery" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result[r4.SupplyRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21171,12 +26283,49 @@ func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["SupplyRequest"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "SupplyRequest" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchTask(ctx context.Context, options search.Options) (search.Result[r4.Task], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21214,12 +26363,49 @@ func (w Concrete) SearchTask(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["Task"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "Task" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result[r4.TerminologyCapabilities], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21257,12 +26443,49 @@ func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["TerminologyCapabilities"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "TerminologyCapabilities" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) (search.Result[r4.TestReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21300,12 +26523,49 @@ func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["TestReport"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "TestReport" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) (search.Result[r4.TestScript], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21343,12 +26603,49 @@ func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["TestScript"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "TestScript" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (search.Result[r4.ValueSet], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21386,12 +26683,49 @@ func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["ValueSet"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "ValueSet" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchVerificationResult(ctx context.Context, options search.Options) (search.Result[r4.VerificationResult], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21429,12 +26763,49 @@ func (w Concrete) SearchVerificationResult(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["VerificationResult"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "VerificationResult" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }
 func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result[r4.VisionPrescription], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
@@ -21472,10 +26843,47 @@ func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities, error) {
-	allCapabilities, err := w.Generic.AllCapabilities(ctx)
+func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities{}, err
+		return search.Capabilities[r4.SearchParameter]{
+			Includes:   []string{},
+			Parameters: make(map[string]r4.SearchParameter),
+		}, err
 	}
-	return allCapabilities.Search["VisionPrescription"], err
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == "VisionPrescription" {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+	parameters := make(map[string]r4.SearchParameter)
+	for _, searchParam := range searchParams {
+		if searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			canonicalUrl := *searchParam.Definition.Value
+			lastSlash := strings.LastIndex(canonicalUrl, "/")
+			if lastSlash != -1 && lastSlash < len(canonicalUrl)-1 {
+				searchParamId := canonicalUrl[lastSlash+1:]
+				readImpl, readOk := w.Generic.(capabilities.GenericRead)
+				if readOk {
+					searchParamResource, readErr := readImpl.Read(ctx, "SearchParameter", searchParamId)
+					if readErr == nil {
+						sp, ok := searchParamResource.(r4.SearchParameter)
+						if ok {
+							if sp.Code.Value != nil {
+								parameters[*sp.Code.Value] = sp
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return search.Capabilities[r4.SearchParameter]{
+		Includes:   []string{},
+		Parameters: parameters,
+	}, nil
 }

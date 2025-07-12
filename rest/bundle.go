@@ -23,17 +23,22 @@ func missingIdError(resourceType string) basic.OperationOutcome {
 	}
 }
 
-// searchBundle creates a new search bundle from the given resources and parameters.
+// buildSearchBundle creates a new search bundle from the given resources and parameters.
 //
 // The REST server uses cursor-based pagination.
 // If the search results contain a `Next` cursor, a 'next' bundle link entry will be set.
-func searchBundle[R model.Resource](
+func buildSearchBundle[R model.Resource](
 	resourceType string,
 	result search.Result[R],
 	usedOptions search.Options,
-	searchCapabilities search.Capabilities,
-	baseURL *url.URL,
+	capabilityStatement basic.CapabilityStatement,
+	resolveSearchParameter func(canonical string) (model.Element, error),
 ) (basic.Bundle, error) {
+	// Extract base URL from CapabilityStatement
+	baseURL, err := url.Parse(*capabilityStatement.Implementation.Url.Value)
+	if err != nil {
+		return basic.Bundle{}, fmt.Errorf("invalid implementation URL in CapabilityStatement: %w", err)
+	}
 	entries, err := entries(result, baseURL)
 	if err != nil {
 		return basic.Bundle{}, err
@@ -47,8 +52,8 @@ func searchBundle[R model.Resource](
 				Url: relationLink(
 					resourceType,
 					usedOptions,
-					searchCapabilities,
-					baseURL,
+					capabilityStatement,
+					resolveSearchParameter,
 				),
 			},
 		},
@@ -64,8 +69,8 @@ func searchBundle[R model.Resource](
 			Url: relationLink(
 				resourceType,
 				nextOptions,
-				searchCapabilities,
-				baseURL,
+				capabilityStatement,
+				resolveSearchParameter,
 			),
 		})
 
@@ -126,9 +131,15 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.
 func relationLink(
 	resourceType string,
 	options search.Options,
-	searchCapabilities search.Capabilities,
-	baseURL *url.URL,
+	capabilityStatement basic.CapabilityStatement,
+	resolveSearchParameter func(canonical string) (model.Element, error),
 ) basic.Uri {
+	// Extract base URL from CapabilityStatement
+	baseURL, err := url.Parse(*capabilityStatement.Implementation.Url.Value)
+	if err != nil {
+		// In case of URL parsing error, return empty URL
+		return basic.Uri{Value: ptr.To("")}
+	}
 	path := strings.Trim(baseURL.Path, "/ ")
 	link := url.URL{
 		Scheme: baseURL.Scheme,
@@ -138,14 +149,47 @@ func relationLink(
 
 	// remove options supplied by the client, but not used/supported by the backend
 	usedOptions := options
-	usedOptions.Parameters = make(search.Parameters, len(options.Parameters))
+	usedOptions.Parameters = make(map[search.ParameterKey]search.AllOf, len(options.Parameters))
+
+	// Build search parameters map from CapabilityStatement
+	searchParameters := make(map[string]search.Parameter)
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
+				for _, searchParam := range resource.SearchParam {
+					if searchParam.Name.Value != nil && searchParam.Definition != nil && searchParam.Definition.Value != nil {
+						paramName := *searchParam.Name.Value
+						canonical := *searchParam.Definition.Value
+
+						// Resolve the SearchParameter resource
+						if param, err := resolveSearchParameter(canonical); err == nil {
+							searchParameters[paramName] = param
+						}
+					}
+				}
+				break
+			}
+		}
+	}
+
 	for key, ands := range options.Parameters {
-		p, ok := searchCapabilities.Parameters[key.Name]
+		p, ok := searchParameters[key.Name]
 		if !ok {
 			continue
 		}
 
-		if key.Modifier == "" || slices.Contains(p.Modifiers, key.Modifier) {
+		fhirpathModifiers := p.Children("modifier")
+		resolvedModifiers := make([]string, 0, len(fhirpathModifiers))
+		for _, e := range fhirpathModifiers {
+			m, ok, err := e.ToString(false)
+			if !ok || err != nil {
+				// should not happen as long as correct Parameter resources are used
+				continue
+			}
+			resolvedModifiers = append(resolvedModifiers, string(m))
+		}
+
+		if key.Modifier == "" || len(resolvedModifiers) == 0 || slices.Contains(resolvedModifiers, key.Modifier) {
 			usedOptions.Parameters[key] = ands
 		}
 	}

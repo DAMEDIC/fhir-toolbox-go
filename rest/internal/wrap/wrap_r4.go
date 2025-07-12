@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	genericR4 = func(api any) (capabilities.GenericCapabilities, error) {
+	genericR4 = func(api capabilities.ConcreteCapabilities) (capabilities.GenericCapabilities, error) {
 		return capabilitiesR4.Generic{Concrete: api}, nil
 	}
 }

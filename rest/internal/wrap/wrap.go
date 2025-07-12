@@ -7,9 +7,15 @@ import (
 	"strings"
 )
 
-var genericR4 = func(api any) (capabilities.GenericCapabilities, error) { return nil, disabledErr[model.R4]() }
-var genericR4B = func(api any) (capabilities.GenericCapabilities, error) { return nil, disabledErr[model.R4B]() }
-var genericR5 = func(api any) (capabilities.GenericCapabilities, error) { return nil, disabledErr[model.R5]() }
+var genericR4 = func(api capabilities.ConcreteCapabilities) (capabilities.GenericCapabilities, error) {
+	return nil, disabledErr[model.R4]()
+}
+var genericR4B = func(api capabilities.ConcreteCapabilities) (capabilities.GenericCapabilities, error) {
+	return nil, disabledErr[model.R4B]()
+}
+var genericR5 = func(api capabilities.ConcreteCapabilities) (capabilities.GenericCapabilities, error) {
+	return nil, disabledErr[model.R5]()
+}
 
 func disabledErr[R model.Release]() error {
 	r := model.ReleaseName[R]()
@@ -20,7 +26,7 @@ func disabledErr[R model.Release]() error {
 	)
 }
 
-func Generic[R model.Release](api any) (capabilities.GenericCapabilities, error) {
+func Generic[R model.Release](api capabilities.ConcreteCapabilities) (capabilities.GenericCapabilities, error) {
 	// we assume already generic, do not wrap it again
 	generic, ok := api.(capabilities.GenericCapabilities)
 	if ok {

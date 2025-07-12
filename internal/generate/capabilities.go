@@ -19,7 +19,6 @@ func (g CapabilitiesGenerator) GenerateAdditional(f func(fileName string, pkgNam
 	generateCapability(f("delete", "capabilities"+release), ir.FilterResources(rt), release, "delete")
 	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search")
 
-	generateAllCapabilitiesFn(f("capabilities", "capabilities"+release), release, ir.FilterResources(rt))
 }
 
 func generateCapability(f *File, resources []ir.ResourceOrType, release, interaction string) {
@@ -70,7 +69,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 					)
 			case "search":
 				g.Id("SearchCapabilities"+r.Name).Params(Id("ctx").Qual("context", "Context")).Params(
-					Qual(moduleName+"/capabilities/search", "Capabilities"),
+					searchCapabilitiesType(release),
 					Error(),
 				)
 				g.Id(interactionName+r.Name).
@@ -95,80 +94,4 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 			)
 		}
 	}
-}
-
-func generateAllCapabilitiesFn(f *File, release string, resources []ir.ResourceOrType) {
-	f.Func().Id("AllCapabilities").
-		Params(
-			Id("ctx").Qual("context", "Context"),
-			Id("api").Any(),
-		).
-		Params(
-			Qual(moduleName+"/capabilities", "Capabilities"),
-			Error(),
-		).BlockFunc(func(g *Group) {
-		g.Id("allCapabilities").Op(":=").Qual(moduleName+"/capabilities", "Capabilities").Values(Dict{
-			Id("Create"): Make(Map(String()).Qual(moduleName+"/capabilities/create", "Capabilities")),
-			Id("Read"):   Make(Map(String()).Qual(moduleName+"/capabilities/read", "Capabilities")),
-			Id("Update"): Make(Map(String()).Qual(moduleName+"/capabilities/update", "Capabilities")),
-			Id("Delete"): Make(Map(String()).Qual(moduleName+"/capabilities/deletion", "Capabilities")),
-			Id("Search"): Make(Map(String()).Qual(moduleName+"/capabilities/search", "Capabilities")),
-		})
-		g.Var().Id("errs").Index().Error()
-
-		for _, r := range resources {
-			for _, interaction := range []string{"create", "read", "delete"} {
-				interactionName := strcase.ToCamel(interaction)
-				capPkg := interaction
-				if interaction == "delete" {
-					capPkg = "deletion"
-				}
-
-				g.If(
-					List(Id("_"), Id("ok")).Op(":=").Id("api").Dot("").Call(
-						Id(r.Name+interactionName),
-					),
-					Id("ok"),
-				).Block(
-					Id("allCapabilities."+interactionName).Index(Lit(r.Name)).Op("=").Qual(moduleName+"/capabilities/"+capPkg, "Capabilities").Values(),
-				)
-			}
-
-			// Update
-			g.If(
-				List(Id("c"), Id("ok")).Op(":=").Id("api").Dot("").Call(
-					Id(r.Name+"Update"),
-				),
-				Id("ok"),
-			).Block(
-				Id("allCapabilities.Update").Index(Lit(r.Name)).Op("=").Qual(moduleName+"/capabilities/update", "Capabilities").Values(),
-				List(Id("c"), Id("ok")).Op(":=").Id("c").Dot("").Call(Id(r.Name+"UpdateCapabilities")),
-				If(Id("ok")).Block(
-					List(Id("c"), Err()).Op(":=").Id("c").Dot("UpdateCapabilities"+r.Name).Call(Id("ctx")),
-					If(Err().Op("!=").Nil()).Block(
-						Id("errs").Op("=").Append(Id("errs"), Err()),
-					).Else().Block(
-						Id("allCapabilities.Update").Index(Lit(r.Name)).Op("=").Id("c"),
-					),
-				),
-			)
-
-			// Search
-			g.If(
-				List(Id("c"), Id("ok")).Op(":=").Id("api").Dot("").Call(
-					Id(r.Name+"Search"),
-				),
-				Id("ok"),
-			).Block(
-				List(Id("c"), Err()).Op(":=").Id("c").Dot("SearchCapabilities"+r.Name).Call(Id("ctx")),
-				If(Err().Op("!=").Nil()).Block(
-					Id("errs").Op("=").Append(Id("errs"), Err()),
-				).Else().Block(
-					Id("allCapabilities.Search").Index(Lit(r.Name)).Op("=").Id("c"),
-				),
-			)
-		}
-
-		g.Return(Id("allCapabilities"), Qual("errors", "Join").Call(Id("errs").Op("...")))
-	})
 }

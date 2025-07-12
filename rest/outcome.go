@@ -10,7 +10,7 @@ import (
 	"slices"
 )
 
-func errToOperationOutcome[R model.Release](err error) (int, model.Resource) {
+func errToOperationOutcome(err error) (int, model.Resource) {
 	var oo model.Resource
 	ok := errors.As(err, &oo)
 	if ok && oo.ResourceType() == "OperationOutcome" {
