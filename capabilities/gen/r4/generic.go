@@ -21,7 +21,7 @@ import (
 )
 
 type Generic struct {
-	Concrete any
+	Concrete capabilities.ConcreteCapabilities
 }
 
 func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
@@ -31,11 +31,7 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 		return gen.CapabilityStatement(ctx)
 	}
 	// Generate CapabilityStatement from concrete implementation
-	concreteCapabilities, ok := w.Concrete.(capabilities.ConcreteCapabilities)
-	if !ok {
-		return basic.CapabilityStatement{}, fmt.Errorf("concrete implementation must implement ConcreteCapabilities interface to provide base CapabilityStatement with implementation.url")
-	}
-	baseCapabilityStatement, err := concreteCapabilities.CapabilityBase(ctx)
+	baseCapabilityStatement, err := w.Concrete.CapabilityBase(ctx)
 	if err != nil {
 		return basic.CapabilityStatement{}, err
 	}
@@ -8104,7 +8100,7 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 	}
 	capabilityStatement := baseCapabilityStatement
 	if capabilityStatement.FhirVersion.Value == nil {
-		capabilityStatement.FhirVersion = basic.Code{Value: ptr.To("4.0.1")}
+		capabilityStatement.FhirVersion = basic.Code{Value: ptr.To("4.0")}
 	}
 	if len(capabilityStatement.Rest) == 0 {
 		capabilityStatement.Rest = []basic.CapabilityStatementRest{{Mode: basic.Code{Value: ptr.To("server")}}}

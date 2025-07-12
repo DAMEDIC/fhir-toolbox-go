@@ -2,6 +2,9 @@ package search
 
 import (
 	"encoding/json"
+	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"github.com/cockroachdb/apd/v3"
@@ -314,8 +317,45 @@ func TestParseAndToString(t *testing.T) {
 				t.Fatalf("Failed to parse query: %v", err)
 			}
 
+			// Convert old test format to new format
+			// Create a mock CapabilityStatement with SearchParam definitions
+			capabilityStatement := basic.CapabilityStatement{
+				Rest: []basic.CapabilityStatementRest{
+					{
+						Resource: []basic.CapabilityStatementRestResource{
+							{
+								Type:        basic.Code{Value: ptr.To("TestResource")},
+								SearchParam: []basic.CapabilityStatementRestResourceSearchParam{},
+							},
+						},
+					},
+				},
+			}
+
+			// Add SearchParam definitions and create resolver map
+			searchParamMap := make(map[string]r4.SearchParameter)
+			for name, param := range tt.capabilities.Parameters {
+				canonical := "http://example.com/SearchParameter/" + name
+				capabilityStatement.Rest[0].Resource[0].SearchParam = append(
+					capabilityStatement.Rest[0].Resource[0].SearchParam,
+					basic.CapabilityStatementRestResourceSearchParam{
+						Name:       basic.String{Value: ptr.To(name)},
+						Definition: &basic.Canonical{Value: ptr.To(canonical)},
+					},
+				)
+				searchParamMap[canonical] = param
+			}
+
+			// Create resolver function
+			resolveSearchParameter := func(canonical string) (model.Element, error) {
+				if param, ok := searchParamMap[canonical]; ok {
+					return param, nil
+				}
+				return nil, fmt.Errorf("SearchParameter not found: %s", canonical)
+			}
+
 			// test parse
-			parsedOpts, err := ParseOptions(tt.capabilities, wantValues, time.UTC, 500, tt.options.Count)
+			parsedOpts, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, wantValues, time.UTC, 500, tt.options.Count)
 			if err != nil {
 				t.Fatalf("Failed to parse options: %v", err)
 			}

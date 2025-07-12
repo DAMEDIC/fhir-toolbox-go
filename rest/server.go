@@ -51,6 +51,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -58,12 +59,22 @@ import (
 func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 
-	genericBackend, err := wrap.Generic[R](backend)
-	if err != nil {
-		return nil, err
+	var genericBackend capabilities.GenericCapabilities
+	genericBackend, ok := backend.(capabilities.GenericCapabilities)
+	if !ok {
+		concreteBackend, ok := backend.(capabilities.ConcreteCapabilities)
+		if !ok {
+			return nil, fmt.Errorf("backend does not implement capabilities.GenericCapabilities or capabilities.ConcreteCapabilities")
+		}
+
+		var err error
+		genericBackend, err = wrap.Generic[R](concreteBackend)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	err = registerRoutes[R](mux, genericBackend, config)
+	err := registerRoutes[R](mux, genericBackend, config)
 	if err != nil {
 		return nil, err
 	}
@@ -360,26 +371,27 @@ func dispatchSearch[R model.Release](
 		return nil, err
 	}
 
-	// Find the resource type in the CapabilityStatement and build search capabilities
-	var searchCapabilities search.Capabilities[search.Parameter]
-	for _, rest := range capabilityStatement.Rest {
-		for _, resource := range rest.Resource {
-			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
-				searchCapabilities = search.Capabilities[search.Parameter]{
-					Includes:   extractIncludes(resource.SearchInclude),
-					Parameters: make(map[string]search.Parameter),
+	// Create a SearchParameter resolver function
+	resolveSearchParameter := func(canonical string) (model.Element, error) {
+		// Try to resolve SearchParameter using Read operation if available
+		if readBackend, ok := backend.(capabilities.GenericRead); ok {
+			// Extract SearchParameter ID from canonical URL
+			lastSlash := strings.LastIndex(canonical, "/")
+			if lastSlash != -1 && lastSlash < len(canonical)-1 {
+				searchParamId := canonical[lastSlash+1:]
+				resource, err := readBackend.Read(ctx, "SearchParameter", searchParamId)
+				if err != nil {
+					return nil, err
 				}
-
-				// For now, search parameters are empty - they would need to be retrieved
-				// from SearchCapabilities methods or through SearchParameter read operations
-				// TODO: implement proper SearchParameter resource lookup
-
-				break
+				// Return the SearchParameter resource as a model.Element
+				return resource, nil
 			}
 		}
+		// Return error if SearchParameter cannot be resolved
+		return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
 	}
 
-	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
+	options, err := parseSearchOptions(capabilityStatement, resourceType, resolveSearchParameter, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +401,13 @@ func dispatchSearch[R model.Release](
 		return nil, err
 	}
 
-	bundle, err := searchBundle(resourceType, resources, options, searchCapabilities, config.Base)
+	// Create empty search capabilities since options are already filtered by ParseOptions
+	emptyCapabilities := search.Capabilities[search.Parameter]{
+		Parameters: make(map[string]search.Parameter),
+		Includes:   []string{},
+	}
+
+	bundle, err := searchBundle(resourceType, resources, options, emptyCapabilities, config.Base)
 	if err != nil {
 		return nil, err
 	}
@@ -409,11 +427,13 @@ func extractIncludes(searchInclude []basic.String) []string {
 }
 
 func parseSearchOptions(
-	searchCapabilities search.Capabilities[search.Parameter],
+	capabilityStatement basic.CapabilityStatement,
+	resourceType string,
+	resolveSearchParameter func(canonical string) (model.Element, error),
 	params url.Values,
 	tz *time.Location,
 	maxCount, defaultCount int) (search.Options, error) {
-	options, err := search.ParseOptions(searchCapabilities, params, tz, maxCount, defaultCount)
+	options, err := search.ParseOptions(capabilityStatement, resourceType, resolveSearchParameter, params, tz, maxCount, defaultCount)
 	if err != nil {
 		return search.Options{}, searchError(err.Error())
 	}

@@ -37,7 +37,7 @@ func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string,
 
 func generateGenericWrapperStruct(f *File, release string) {
 	f.Type().Id(genericWrapperName).Struct(
-		Id("Concrete").Any(),
+		Id("Concrete").Qual(moduleName+"/capabilities", "ConcreteCapabilities"),
 	)
 }
 
@@ -236,22 +236,16 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 			Error(),
 		).
 		BlockFunc(func(g *Group) {
+			// Check if concrete implementation also implements GenericCapabilities for shortcut
 			g.List(Id("gen"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Qual(moduleName+"/capabilities", "GenericCapabilities"))
 			g.If(Id("ok")).Block(
 				Comment("// shortcut for the case that the underlying implementation already implements the generic API"),
 				Return(Id("gen.CapabilityStatement").Params(Id("ctx"))),
 			)
 
-			// Inline CapabilityStatement generation logic
+			// Generate CapabilityStatement from ConcreteCapabilities
 			g.Comment("// Generate CapabilityStatement from concrete implementation")
-
-			// Require concrete implementation to provide base CapabilityStatement with implementation.url
-			g.List(Id("concreteCapabilities"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Qual(moduleName+"/capabilities", "ConcreteCapabilities"))
-			g.If(Op("!").Id("ok")).Block(
-				Return(Qual(moduleName+"/model/gen/basic", "CapabilityStatement").Values(), Qual("fmt", "Errorf").Call(Lit("concrete implementation must implement ConcreteCapabilities interface to provide base CapabilityStatement with implementation.url"))),
-			)
-
-			g.List(Id("baseCapabilityStatement"), Id("err")).Op(":=").Id("concreteCapabilities.CapabilityBase").Call(Id("ctx"))
+			g.List(Id("baseCapabilityStatement"), Id("err")).Op(":=").Id("w.Concrete.CapabilityBase").Call(Id("ctx"))
 			g.If(Id("err").Op("!=").Nil()).Block(
 				Return(Qual(moduleName+"/model/gen/basic", "CapabilityStatement").Values(), Id("err")),
 			)

@@ -29,6 +29,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/cockroachdb/apd/v3"
 	"net/url"
 	"slices"
@@ -175,16 +176,19 @@ var KnownPrefixes = []string{
 // ParseOptions parses search options from a [url.Values] query string.
 //
 // Only parameters supported by the backing implementation as described
-// by the passed `searchCapabilities` are used.
+// by the passed `capabilityStatement` for the given `resourceType` are used.
+//
+// The `resolveSearchParameter` function is used to resolve SearchParameter resources
+// from their canonical URLs found in the CapabilityStatement.
 //
 // [Result modifying parameters] are parsed into separate fields on the [Options] object.
 // All other parameters are parsed into [options.Parameters].
 //
 // [Result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
-//
-// [result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
-func ParseOptions[P Parameter](
-	searchCapabilities Capabilities[P],
+func ParseOptions(
+	capabilityStatement basic.CapabilityStatement,
+	resourceType string,
+	resolveSearchParameter func(canonical string) (model.Element, error),
 	params url.Values,
 	tz *time.Location,
 	maxCount, defaultCount int,
@@ -193,6 +197,25 @@ func ParseOptions[P Parameter](
 		// backed by a map, which must be initialized
 		Parameters: map[ParameterKey]AllOf{},
 		Count:      min(defaultCount, maxCount),
+	}
+
+	// Find the search parameters for the given resource type from the CapabilityStatement
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+
+	// Build a map of parameter names to their canonical URLs for quick lookup
+	parameterDefinitions := make(map[string]string)
+	for _, searchParam := range searchParams {
+		if searchParam.Name.Value != nil && searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			parameterDefinitions[*searchParam.Name.Value] = *searchParam.Definition.Value
+		}
 	}
 
 	for k, v := range params {
@@ -227,9 +250,16 @@ func ParseOptions[P Parameter](
 				param.Modifier = splits[1]
 			}
 
-			sp, ok := searchCapabilities.Parameters[param.Name]
+			canonical, ok := parameterDefinitions[param.Name]
 			if !ok {
 				// only known parameters are forwarded
+				continue
+			}
+
+			// Resolve the SearchParameter using the provided function
+			sp, err := resolveSearchParameter(canonical)
+			if err != nil || sp == nil {
+				// Skip if SearchParameter cannot be resolved
 				continue
 			}
 

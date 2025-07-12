@@ -133,7 +133,7 @@ func TestCapabilityStatement(t *testing.T) {
 			  ],
 			  "implementation": {
 				"description": "a simple FHIR service built with fhir-toolbox-go",
-				"url": "http://example.com/metadata"
+				"url": "http://example.com/"
 			  },
 			  "kind": "instance",
 			  "resourceType": "CapabilityStatement",
@@ -249,7 +249,7 @@ func TestCapabilityStatement(t *testing.T) {
 				  </software>
 				  <implementation>
 					<description value='a simple FHIR service built with fhir-toolbox-go'/>
-					<url value='http://example.com/metadata'/>
+					<url value='http://example.com/'/>
 				  </implementation>
 				  <fhirVersion value='4.0'/>
 				  <format value='xml'/>
@@ -351,7 +351,7 @@ func TestCapabilityStatement(t *testing.T) {
 				t.Fatalf("Failed to create server: %v", err)
 			}
 
-			req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
+			req := httptest.NewRequest("GET", "http://example.com/", nil)
 			req.Header.Set("Accept", tt.format)
 
 			rr := httptest.NewRecorder()
