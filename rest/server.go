@@ -101,7 +101,7 @@ func metadataHandler[R model.Release](
 		capabilities, err := backend.AllCapabilities(r.Context())
 		if err != nil {
 			slog.Error("error getting metadata", "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -128,7 +128,7 @@ func createHandler[R model.Release](
 		resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
 		if err != nil {
 			slog.Error("error creating resource", "resourceType", resourceType, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -181,7 +181,7 @@ func readHandler[R model.Release](
 		resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error reading resource", "resourceType", resourceType, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -221,7 +221,7 @@ func updateHandler[R model.Release](
 		result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -290,7 +290,7 @@ func deleteHandler[R model.Release](
 		err := dispatchDelete(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -332,7 +332,7 @@ func searchHandler[R model.Release](
 		)
 		if err != nil {
 			slog.Error("error reading searching", "resourceType", resourceType, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -385,8 +385,8 @@ func parseSearchOptions(
 	return options, nil
 }
 
-func returnErr[R model.Release](w http.ResponseWriter, format Format, err error) {
-	status, oo := errToOperationOutcome[R](err)
+func returnErr(w http.ResponseWriter, format Format, err error) {
+	status, oo := errToOperationOutcome(err)
 	returnResult(w, format, status, oo)
 }
 
@@ -424,7 +424,7 @@ func checkInteractionImplemented[R model.Release](
 ) bool {
 	if !implemented {
 		slog.Error("interaction not implemented by backend", "interaction", interaction)
-		returnErr[R](w, format, notImplementedError(interaction))
+		returnErr(w, format, notImplementedError(interaction))
 		return false
 	}
 	return true
