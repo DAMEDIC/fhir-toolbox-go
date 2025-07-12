@@ -1571,3 +1571,21 @@ func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error 
 		return nil
 	}
 }
+
+// Implement ConcreteCapabilities interface
+func (m mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+	return basic.CapabilityStatement{
+		Status:      basic.Code{Value: ptr.To("active")},
+		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
+		Kind:        basic.Code{Value: ptr.To("instance")},
+		FhirVersion: basic.Code{Value: ptr.To("4.0")},
+		Format: []basic.Code{
+			{Value: ptr.To("xml")},
+			{Value: ptr.To("json")},
+		},
+		Implementation: &basic.CapabilityStatementImplementation{
+			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
+			Url:         &basic.Url{Value: ptr.To("http://example.com")},
+		},
+	}, nil
+}

@@ -98,14 +98,20 @@ func metadataHandler[R model.Release](
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 
-		capabilities, err := backend.AllCapabilities(r.Context())
+		capabilityStatement, err := backend.CapabilityStatement(r.Context())
 		if err != nil {
 			slog.Error("error getting metadata", "err", err)
 			returnErr(w, responseFormat, err)
 			return
 		}
 
-		capabilityStatement := capabilityStatement[R](config.Base, capabilities, date)
+		// Set the date and implementation URL based on the server configuration
+		capabilityStatement.Date = basic.DateTime{Value: ptr.To(date.Format(time.RFC3339))}
+		if capabilityStatement.Implementation == nil {
+			capabilityStatement.Implementation = &basic.CapabilityStatementImplementation{}
+		}
+		capabilityStatement.Implementation.Url = &basic.Url{Value: ptr.To(config.Base.String())}
+
 		returnResult(w, responseFormat, http.StatusOK, capabilityStatement)
 	})
 }
@@ -322,7 +328,7 @@ func searchHandler[R model.Release](
 			return
 		}
 
-		resource, err := dispatchSearch(
+		resource, err := dispatchSearch[R](
 			r.Context(),
 			backend,
 			config,
@@ -340,7 +346,7 @@ func searchHandler[R model.Release](
 	})
 }
 
-func dispatchSearch(
+func dispatchSearch[R model.Release](
 	ctx context.Context,
 	backend capabilities.GenericSearch,
 	config Config,
@@ -348,12 +354,30 @@ func dispatchSearch(
 	parameters url.Values,
 	tz *time.Location,
 ) (model.Resource, error) {
-	allCapabilities, err := backend.AllCapabilities(ctx)
+	// Get CapabilityStatement to extract SearchParameter information
+	capabilityStatement, err := backend.CapabilityStatement(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	searchCapabilities := allCapabilities.Search[resourceType]
+	// Find the resource type in the CapabilityStatement and build search capabilities
+	var searchCapabilities search.Capabilities[search.Parameter]
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
+				searchCapabilities = search.Capabilities[search.Parameter]{
+					Includes:   extractIncludes(resource.SearchInclude),
+					Parameters: make(map[string]search.Parameter),
+				}
+
+				// For now, search parameters are empty - they would need to be retrieved
+				// from SearchCapabilities methods or through SearchParameter read operations
+				// TODO: implement proper SearchParameter resource lookup
+
+				break
+			}
+		}
+	}
 
 	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {
@@ -371,6 +395,17 @@ func dispatchSearch(
 	}
 
 	return bundle, nil
+}
+
+// extractIncludes extracts include strings from CapabilityStatement SearchInclude
+func extractIncludes(searchInclude []basic.String) []string {
+	includes := make([]string, 0, len(searchInclude))
+	for _, include := range searchInclude {
+		if include.Value != nil {
+			includes = append(includes, *include.Value)
+		}
+	}
+	return includes
 }
 
 func parseSearchOptions(

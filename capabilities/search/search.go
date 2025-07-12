@@ -60,6 +60,7 @@ type Capabilities[P Parameter] struct {
 	Includes   []string
 }
 
+// Parameter is a placeholder for FHIR version specific SearchParameter.
 type Parameter model.Element
 
 // Options represents the parameters passed to a search implementation.

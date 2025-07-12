@@ -35,23 +35,13 @@
 package capabilities
 
 import (
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/create"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/deletion"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/read"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
+	"context"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 )
 
-// Capabilities is a description of all capabilities that an implementation provides.
-type Capabilities struct {
-	// Create is a list of supported resources.
-	Create map[string]create.Capabilities
-	// Read is a list of supported resources.
-	Read map[string]read.Capabilities
-	// Update capabilities, indexed by the resource type.
-	Update map[string]update.Capabilities
-	// Delete is a list of supported resources.
-	Delete map[string]deletion.Capabilities
-	// Search capabilities, indexed by the resource type.
-	Search map[string]search.Capabilities[search.Parameter]
+// The ConcreteCapabilities interface allows concrete implementations to provide a base CapabilityStatement
+// that will be enhanced with the detected concrete capabilities. This is useful for setting implementation
+// details, base URLs, and other metadata that should be preserved in the final CapabilityStatement.
+type ConcreteCapabilities interface {
+	CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error)
 }

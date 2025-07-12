@@ -5,24 +5,27 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"log"
 	"log/slog"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
+	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 )
 
 // For implementing generic APIs, it is good practice to define a common interface for the client.
 // This groups all the capabilities that are supported.
 type myClient interface {
+	capabilities.GenericCapabilities
 	capabilities.GenericRead
 	capabilities.GenericSearch
 }
@@ -66,9 +69,25 @@ type Client struct {
 	url string
 }
 
-func (c *Client) AllCapabilities(ctx context.Context) (capabilities.Capabilities, error) {
-	// TODO: this should call the remote service for its capabilities
-	return capabilities.Capabilities{}, nil
+func (c *Client) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
+	// TODO: this should call the remote service for its CapabilityStatement
+	// For now, return a basic CapabilityStatement with base URL for canonical references
+
+	return basic.CapabilityStatement{
+		Status: basic.Code{Value: ptr.To("active")},
+		Date:   basic.DateTime{Value: ptr.To(time.Now().Format(time.RFC3339))},
+		Kind:   basic.Code{Value: ptr.To("instance")},
+		Software: &basic.CapabilityStatementSoftware{
+			Name: basic.String{Value: ptr.To("fhir-toolbox-go-proxy")},
+		},
+		Implementation: &basic.CapabilityStatementImplementation{
+			Description: basic.String{Value: ptr.To("a FHIR proxy built with fhir-toolbox-go")},
+			Url:         &basic.Url{Value: ptr.To("http://localhost")},
+		},
+		FhirVersion: basic.Code{Value: ptr.To("5.0.0")},
+		Format:      []basic.Code{{Value: ptr.To("xml")}, {Value: ptr.To("json")}},
+		Rest:        []basic.CapabilityStatementRest{},
+	}, nil
 }
 
 func (c *Client) Read(ctx context.Context, resourceType string, id string) (model.Resource, error) {
