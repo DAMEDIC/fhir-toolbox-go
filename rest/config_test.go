@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
-	"net/url"
 	"testing"
 	"time"
 )
@@ -27,27 +26,18 @@ func TestConfigDefaultValues(t *testing.T) {
 		t.Errorf("Expected DefaultConfig.DefaultFormat to be %v, got %v", expectedFormat, defaultConfig.DefaultFormat)
 	}
 
-	// Timezone and Date are set dynamically, so we just check they're not nil
+	// Timezone is set dynamically, so we just check it's not nil
 	if defaultConfig.Timezone == nil {
 		t.Error("Expected DefaultConfig.Timezone to be non-nil")
-	}
-
-	// Date should be set to a non-zero time
-	if defaultConfig.Date.IsZero() {
-		t.Error("Expected DefaultConfig.Date to be non-zero")
 	}
 }
 
 func TestConfigMarshalJSON(t *testing.T) {
 	// Create a config with known values
-	baseURL, _ := url.Parse("http://example.com/fhir")
 	timezone, _ := time.LoadLocation("UTC")
-	date := time.Date(2023, 1, 1, 12, 0, 0, 0, timezone)
 
 	config := rest.Config{
-		Base:          baseURL,
 		Timezone:      timezone,
-		Date:          date,
 		MaxCount:      100,
 		DefaultCount:  50,
 		DefaultFormat: rest.Format("application/fhir+json"),
@@ -60,9 +50,7 @@ func TestConfigMarshalJSON(t *testing.T) {
 	}
 
 	assert.JSONEqual(t, `{
-		"base": "http://example.com/fhir",
 		"timezone": "UTC",
-		"date": "2023-01-01T12:00:00Z", 
 		"maxCount": 100,
 		"defaultCount": 50,
 		"defaultFormat": "application/fhir+json"
@@ -71,9 +59,7 @@ func TestConfigMarshalJSON(t *testing.T) {
 
 func TestConfigUnmarshalJSON(t *testing.T) {
 	jsonData := `{
-		"base": "http://example.com/fhir",
 		"timezone": "America/New_York",
-		"date": "2023-01-01T12:00:00Z",
 		"maxCount": 200,
 		"defaultCount": 100,
 		"defaultFormat": "application/fhir+xml"
@@ -86,19 +72,9 @@ func TestConfigUnmarshalJSON(t *testing.T) {
 	}
 
 	// Check parsed values
-	expectedBase, _ := url.Parse("http://example.com/fhir")
-	if config.Base.String() != expectedBase.String() {
-		t.Errorf("Expected Base URL %s, got %s", expectedBase.String(), config.Base.String())
-	}
-
 	expectedTimezone, _ := time.LoadLocation("America/New_York")
 	if config.Timezone.String() != expectedTimezone.String() {
 		t.Errorf("Expected Timezone %s, got %s", expectedTimezone.String(), config.Timezone.String())
-	}
-
-	expectedDate, _ := time.Parse(time.RFC3339, "2023-01-01T12:00:00Z")
-	if !config.Date.Equal(expectedDate) {
-		t.Errorf("Expected Date %v, got %v", expectedDate, config.Date)
 	}
 
 	if config.MaxCount != 200 {
@@ -126,18 +102,8 @@ func TestConfigUnmarshalJSONErrors(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name:    "Invalid Base URL",
-			json:    `{"base": "://invalid"}`,
-			wantErr: true,
-		},
-		{
 			name:    "Invalid Timezone",
-			json:    `{"base": "http://example.com", "timezone": "NonExistentTimezone"}`,
-			wantErr: true,
-		},
-		{
-			name:    "Invalid Date Format",
-			json:    `{"base": "http://example.com", "timezone": "UTC", "date": "not-a-date"}`,
+			json:    `{"timezone": "NonExistentTimezone"}`,
 			wantErr: true,
 		},
 	}

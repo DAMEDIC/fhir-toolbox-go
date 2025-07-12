@@ -13,10 +13,8 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"strings"
 	"testing"
-	"time"
 )
 
 // testCase represents a common structure for HTTP handler tests
@@ -37,7 +35,6 @@ type testCase struct {
 // runTest executes a common test pattern for HTTP handlers
 func runTest(t *testing.T, tc testCase) {
 	config := rest.DefaultConfig
-	config.Base, _ = url.Parse("http://example.com")
 
 	server, err := rest.NewServer[model.R4](tc.backend, config)
 	if err != nil {
@@ -133,7 +130,7 @@ func TestCapabilityStatement(t *testing.T) {
 			  ],
 			  "implementation": {
 				"description": "a simple FHIR service built with fhir-toolbox-go",
-				"url": "http://example.com/"
+				"url": "http://example.com"
 			  },
 			  "kind": "instance",
 			  "resourceType": "CapabilityStatement",
@@ -269,7 +266,7 @@ func TestCapabilityStatement(t *testing.T) {
 				  </software>
 				  <implementation>
 					<description value='a simple FHIR service built with fhir-toolbox-go'/>
-					<url value='http://example.com/'/>
+					<url value='http://example.com'/>
 				  </implementation>
 				  <fhirVersion value='4.0'/>
 				  <format value='xml'/>
@@ -376,13 +373,6 @@ func TestCapabilityStatement(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			parsedDate, err := time.Parse(time.RFC3339, tt.date)
-			if err != nil {
-				t.Fatalf("Failed to parse date: %v", err)
-			}
-			config.Date = parsedDate
 
 			server, err := rest.NewServer[model.R4](mockBackend{}, config)
 			if err != nil {

@@ -156,8 +156,8 @@ func registerRoutes[R model.Release](
 	backend capabilities.GenericCapabilities,
 	config Config,
 ) error {
-	mux.Handle("GET /", metadataHandler[R](backend, config, config.Date))
-	mux.Handle("GET /metadata", metadataHandler[R](backend, config, config.Date))
+	mux.Handle("GET /", metadataHandler[R](backend, config))
+	mux.Handle("GET /metadata", metadataHandler[R](backend, config))
 	mux.Handle("POST /{type}", createHandler[R](backend, config))
 	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
 	mux.Handle("PUT /{type}/{id}", updateHandler[R](backend, config))
@@ -170,7 +170,6 @@ func registerRoutes[R model.Release](
 func metadataHandler[R model.Release](
 	backend capabilities.GenericCapabilities,
 	config Config,
-	date time.Time,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
@@ -182,17 +181,8 @@ func metadataHandler[R model.Release](
 			return
 		}
 
-		// Set the date and implementation URL based on the server configuration
-		capabilityStatement.Date = basic.DateTime{Value: ptr.To(date.Format(time.RFC3339))}
-		if capabilityStatement.Implementation == nil {
-			capabilityStatement.Implementation = &basic.CapabilityStatementImplementation{}
-		}
-		baseURL := config.Base.String()
-		if !strings.HasSuffix(baseURL, "/") {
-			baseURL += "/"
-		}
-		capabilityStatement.Implementation.Url = &basic.Url{Value: ptr.To(baseURL)}
-
+		// The CapabilityStatement comes fully configured from the backend
+		// No additional modification needed
 		returnResult(w, responseFormat, http.StatusOK, capabilityStatement)
 	})
 }
@@ -221,7 +211,8 @@ func createHandler[R model.Release](
 
 		// fall back to empty string if id is not set
 		id, _ := resource.ResourceId()
-		w.Header().Set("Location", config.Base.JoinPath(resourceType, id).String())
+		baseURL := getBaseURL(r)
+		w.Header().Set("Location", baseURL.JoinPath(resourceType, id).String())
 
 		returnResult(w, responseFormat, http.StatusCreated, resource)
 	})
@@ -314,7 +305,8 @@ func updateHandler[R model.Release](
 
 		// set Location header with the resource's logical ID
 		// the dispatchUpdate function checks that the path id matches the id included in the resource
-		w.Header().Set("Location", config.Base.JoinPath(resourceType, resourceID).String())
+		baseURL := getBaseURL(r)
+		w.Header().Set("Location", baseURL.JoinPath(resourceType, resourceID).String())
 
 		status := http.StatusOK
 		if result.Created {
@@ -410,7 +402,7 @@ func searchHandler[R model.Release](
 		}
 
 		resource, err := dispatchSearch[R](
-			r.Context(),
+			r,
 			backend,
 			config,
 			resourceType,
@@ -428,13 +420,14 @@ func searchHandler[R model.Release](
 }
 
 func dispatchSearch[R model.Release](
-	ctx context.Context,
+	r *http.Request,
 	backend capabilities.GenericSearch,
 	config Config,
 	resourceType string,
 	parameters url.Values,
 	tz *time.Location,
 ) (model.Resource, error) {
+	ctx := r.Context()
 	// Get CapabilityStatement to extract SearchParameter information
 	capabilityStatement, err := backend.CapabilityStatement(ctx)
 	if err != nil {
@@ -532,7 +525,8 @@ func dispatchSearch[R model.Release](
 		}
 	}
 
-	bundle, err := searchBundle(resourceType, resources, options, searchCapabilities, config.Base)
+	baseURL := getBaseURL(r)
+	bundle, err := searchBundle(resourceType, resources, options, searchCapabilities, baseURL)
 	if err != nil {
 		return nil, err
 	}
@@ -628,4 +622,27 @@ func unexpectedResourceError(expectedType string, gotType string) basic.Operatio
 
 func searchError(msg string) basic.OperationOutcome {
 	return createOperationOutcome("fatal", "processing", msg)
+}
+
+// getBaseURL extracts the base URL from the request
+func getBaseURL(r *http.Request) *url.URL {
+	scheme := "http"
+	if r.TLS != nil {
+		scheme = "https"
+	}
+
+	// Check for X-Forwarded-Proto header (common in load balancer setups)
+	if proto := r.Header.Get("X-Forwarded-Proto"); proto != "" {
+		scheme = proto
+	}
+
+	host := r.Host
+	if host == "" {
+		host = "localhost"
+	}
+
+	return &url.URL{
+		Scheme: scheme,
+		Host:   host,
+	}
 }

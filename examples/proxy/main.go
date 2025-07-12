@@ -8,7 +8,6 @@ import (
 	"log"
 	"log/slog"
 	"net/http"
-	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -54,7 +53,6 @@ func main() {
 	// Create the REST server.
 	// You can plug in any backend you want here.
 	cfg := rest.DefaultConfig
-	cfg.Base = &url.URL{Scheme: "http", Host: "localhost"}
 	server, err := rest.NewServer[model.R5](genericClient, cfg)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)

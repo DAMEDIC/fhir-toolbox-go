@@ -9,7 +9,6 @@ import (
 	"github.com/cockroachdb/apd/v3"
 	"log"
 	"net/http"
-	"net/url"
 	"time"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
@@ -64,7 +63,6 @@ func main() {
 
 	// 5. Start your server!
 	cfg := rest.DefaultConfig
-	cfg.Base = &url.URL{Scheme: "http", Host: "localhost"}
 	server, err := rest.NewServer[model.R5](&backend, cfg)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
