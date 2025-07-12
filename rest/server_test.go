@@ -379,7 +379,7 @@ func TestCapabilityStatement(t *testing.T) {
 				t.Fatalf("Failed to create server: %v", err)
 			}
 
-			req := httptest.NewRequest("GET", "http://example.com/", nil)
+			req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
 			req.Header.Set("Accept", tt.format)
 
 			rr := httptest.NewRecorder()

@@ -91,7 +91,6 @@ func registerRoutes[R model.Release](
 	backend capabilities.GenericCapabilities,
 	config Config,
 ) error {
-	mux.Handle("GET /", metadataHandler[R](backend, config))
 	mux.Handle("GET /metadata", metadataHandler[R](backend, config))
 	mux.Handle("POST /{type}", createHandler[R](backend, config))
 	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
