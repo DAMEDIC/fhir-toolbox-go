@@ -13,10 +13,8 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"strings"
 	"testing"
-	"time"
 )
 
 // testCase represents a common structure for HTTP handler tests
@@ -37,7 +35,6 @@ type testCase struct {
 // runTest executes a common test pattern for HTTP handlers
 func runTest(t *testing.T, tc testCase) {
 	config := rest.DefaultConfig
-	config.Base, _ = url.Parse("http://example.com")
 
 	server, err := rest.NewServer[model.R4](tc.backend, config)
 	if err != nil {
@@ -133,7 +130,7 @@ func TestCapabilityStatement(t *testing.T) {
 			  ],
 			  "implementation": {
 				"description": "a simple FHIR service built with fhir-toolbox-go",
-				"url": "http://example.com/metadata"
+				"url": "http://example.com"
 			  },
 			  "kind": "instance",
 			  "resourceType": "CapabilityStatement",
@@ -152,6 +149,7 @@ func TestCapabilityStatement(t *testing.T) {
 					  ],
 					  "searchParam": [
 						{
+						  "definition": "http://example.com/SearchParameter/Observation-id",
 						  "name": "_id",
 						  "type": "token"
 						}
@@ -178,52 +176,71 @@ func TestCapabilityStatement(t *testing.T) {
 					  ],
 					  "searchParam": [
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-id",
 						  "name": "_id",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-date",
 						  "name": "date",
 						  "type": "date"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-eb8",
 						  "name": "eb8",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-eq1",
 						  "name": "eq1",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-ge5",
 						  "name": "ge5",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-gt3",
 						  "name": "gt3",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-le6",
 						  "name": "le6",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-lt4",
 						  "name": "lt4",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-ne2",
 						  "name": "ne2",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-pre",
 						  "name": "pre",
 						  "type": "token"
 						},
 						{
+						  "definition": "http://example.com/SearchParameter/Patient-sa7",
 						  "name": "sa7",
 						  "type": "token"
 						}
 					  ],
 					  "type": "Patient",
 					  "updateCreate": false
+					},
+					{
+					  "interaction": [
+						{
+						  "code": "read"
+						}
+					  ],
+					  "type": "SearchParameter"
 					}
 				  ]
 				}
@@ -249,7 +266,7 @@ func TestCapabilityStatement(t *testing.T) {
 				  </software>
 				  <implementation>
 					<description value='a simple FHIR service built with fhir-toolbox-go'/>
-					<url value='http://example.com/metadata'/>
+					<url value='http://example.com'/>
 				  </implementation>
 				  <fhirVersion value='4.0'/>
 				  <format value='xml'/>
@@ -264,6 +281,7 @@ func TestCapabilityStatement(t *testing.T) {
 					  <searchInclude value='Observation:patient'/>
 					  <searchParam>
 						<name value='_id'/>
+						<definition value='http://example.com/SearchParameter/Observation-id'/>
 						<type value='token'/>
 					  </searchParam>
 					</resource>
@@ -287,49 +305,66 @@ func TestCapabilityStatement(t *testing.T) {
                       <updateCreate value="false"></updateCreate>
 					  <searchParam>
 						<name value='_id'/>
+						<definition value='http://example.com/SearchParameter/Patient-id'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='date'/>
+						<definition value='http://example.com/SearchParameter/Patient-date'/>
 						<type value='date'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='eb8'/>
+						<definition value='http://example.com/SearchParameter/Patient-eb8'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='eq1'/>
+						<definition value='http://example.com/SearchParameter/Patient-eq1'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='ge5'/>
+						<definition value='http://example.com/SearchParameter/Patient-ge5'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='gt3'/>
+						<definition value='http://example.com/SearchParameter/Patient-gt3'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='le6'/>
+						<definition value='http://example.com/SearchParameter/Patient-le6'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='lt4'/>
+						<definition value='http://example.com/SearchParameter/Patient-lt4'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='ne2'/>
+						<definition value='http://example.com/SearchParameter/Patient-ne2'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='pre'/>
+						<definition value='http://example.com/SearchParameter/Patient-pre'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>
 						<name value='sa7'/>
+						<definition value='http://example.com/SearchParameter/Patient-sa7'/>
 						<type value='token'/>
 					  </searchParam>
 					</resource>
+					<resource>
+                      <type value="SearchParameter"/>
+                      <interaction>
+                        <code value="read"/>
+                      </interaction>
+                    </resource>
 				  </rest>
 				</CapabilityStatement>`,
 		},
@@ -338,13 +373,6 @@ func TestCapabilityStatement(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			config := rest.DefaultConfig
-			config.Base, _ = url.Parse("http://example.com")
-
-			parsedDate, err := time.Parse(time.RFC3339, tt.date)
-			if err != nil {
-				t.Fatalf("Failed to parse date: %v", err)
-			}
-			config.Date = parsedDate
 
 			server, err := rest.NewServer[model.R4](mockBackend{}, config)
 			if err != nil {
@@ -835,7 +863,7 @@ func TestHandleDelete(t *testing.T) {
 			format:         "application/fhir+json",
 			resourceType:   "Patient",
 			resourceID:     "1",
-			backend:        struct{}{},
+			backend:        minimalBackend{},
 			expectedStatus: http.StatusNotImplemented,
 			expectedBody: `{
 				"resourceType": "OperationOutcome",
@@ -1440,6 +1468,27 @@ type mockBackend struct {
 	deleteErrorMode string // Can be "not-found", "invalid-type", "server-error", or empty for success
 }
 
+// Implement ConcreteCapabilities interface
+func (m mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+	return basic.CapabilityStatement{
+		Status:      basic.Code{Value: ptr.To("active")},
+		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
+		Kind:        basic.Code{Value: ptr.To("instance")},
+		FhirVersion: basic.Code{Value: ptr.To("4.0")},
+		Format: []basic.Code{
+			{Value: ptr.To("xml")},
+			{Value: ptr.To("json")},
+		},
+		Software: &basic.CapabilityStatementSoftware{
+			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
+		},
+		Implementation: &basic.CapabilityStatementImplementation{
+			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
+			Url:         &basic.Url{Value: ptr.To("http://example.com")},
+		},
+	}, nil
+}
+
 func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.Patient, error) {
 	patient.Id = &r4.Id{Value: ptr.To("server-assigned-id")}
 	return patient, nil
@@ -1476,24 +1525,30 @@ func (m mockBackend) UpdatePatient(ctx context.Context, patient r4.Patient) (upd
 	}, nil
 }
 
+func (m mockBackend) UpdateCapabilitiesPatient(ctx context.Context) (update.Capabilities, error) {
+	return update.Capabilities{
+		UpdateCreate: false,
+	}, nil
+}
+
 func (m mockBackend) DeletePatient(ctx context.Context, id string) error {
 	return nil
 }
 
-func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities, error) {
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id":  {Type: search.TypeToken},
-			"date": {Type: search.TypeDate},
-			"eq1":  {Type: search.TypeToken},
-			"ne2":  {Type: search.TypeToken},
-			"gt3":  {Type: search.TypeToken},
-			"lt4":  {Type: search.TypeToken},
-			"ge5":  {Type: search.TypeToken},
-			"le6":  {Type: search.TypeToken},
-			"sa7":  {Type: search.TypeToken},
-			"eb8":  {Type: search.TypeToken},
-			"pre":  {Type: search.TypeToken, Modifiers: []search.Modifier{search.ModifierAbove}},
+func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	return search.Capabilities[r4.SearchParameter]{
+		Parameters: map[string]r4.SearchParameter{
+			"_id":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"date": {Type: r4.Code{Value: ptr.To(search.TypeDate)}},
+			"eq1":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"ne2":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"gt3":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"lt4":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"ge5":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"le6":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"sa7":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"eb8":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"pre":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}, Modifier: []r4.Code{{Value: ptr.To(search.ModifierAbove)}}},
 		},
 	}, nil
 }
@@ -1512,10 +1567,10 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 	return result, nil
 }
 
-func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities, error) {
-	return search.Capabilities{
-		Parameters: map[string]search.ParameterDescription{
-			"_id": {Type: search.TypeToken},
+func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
+	return search.Capabilities[r4.SearchParameter]{
+		Parameters: map[string]r4.SearchParameter{
+			"_id": {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
 		},
 		Includes: []string{"Observation:patient"},
 	}, nil
@@ -1570,4 +1625,28 @@ func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error 
 	default:
 		return nil
 	}
+}
+
+// minimalBackend implements only ConcreteCapabilities but no specific resource operations
+// Used for testing "not implemented" scenarios
+type minimalBackend struct{}
+
+func (m minimalBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+	return basic.CapabilityStatement{
+		Status:      basic.Code{Value: ptr.To("active")},
+		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
+		Kind:        basic.Code{Value: ptr.To("instance")},
+		FhirVersion: basic.Code{Value: ptr.To("4.0")},
+		Format: []basic.Code{
+			{Value: ptr.To("xml")},
+			{Value: ptr.To("json")},
+		},
+		Software: &basic.CapabilityStatementSoftware{
+			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
+		},
+		Implementation: &basic.CapabilityStatementImplementation{
+			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
+			Url:         &basic.Url{Value: ptr.To("http://example.com")},
+		},
+	}, nil
 }

@@ -51,6 +51,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -58,12 +59,22 @@ import (
 func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 
-	genericBackend, err := wrap.Generic[R](backend)
-	if err != nil {
-		return nil, err
+	var genericBackend capabilities.GenericCapabilities
+	genericBackend, ok := backend.(capabilities.GenericCapabilities)
+	if !ok {
+		concreteBackend, ok := backend.(capabilities.ConcreteCapabilities)
+		if !ok {
+			return nil, fmt.Errorf("backend does not implement capabilities.GenericCapabilities or capabilities.ConcreteCapabilities")
+		}
+
+		var err error
+		genericBackend, err = wrap.Generic[R](concreteBackend)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	err = registerRoutes[R](mux, genericBackend, config)
+	err := registerRoutes[R](mux, genericBackend, config)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +91,7 @@ func registerRoutes[R model.Release](
 	backend capabilities.GenericCapabilities,
 	config Config,
 ) error {
-	mux.Handle("GET /metadata", metadataHandler[R](backend, config, config.Date))
+	mux.Handle("GET /metadata", metadataHandler[R](backend, config))
 	mux.Handle("POST /{type}", createHandler[R](backend, config))
 	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
 	mux.Handle("PUT /{type}/{id}", updateHandler[R](backend, config))
@@ -93,19 +104,19 @@ func registerRoutes[R model.Release](
 func metadataHandler[R model.Release](
 	backend capabilities.GenericCapabilities,
 	config Config,
-	date time.Time,
 ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
 
-		capabilities, err := backend.AllCapabilities(r.Context())
+		capabilityStatement, err := backend.CapabilityStatement(r.Context())
 		if err != nil {
 			slog.Error("error getting metadata", "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
-		capabilityStatement := capabilityStatement[R](config.Base, capabilities, date)
+		// The CapabilityStatement comes fully configured from the backend
+		// No additional modification needed
 		returnResult(w, responseFormat, http.StatusOK, capabilityStatement)
 	})
 }
@@ -128,13 +139,14 @@ func createHandler[R model.Release](
 		resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
 		if err != nil {
 			slog.Error("error creating resource", "resourceType", resourceType, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
 		// fall back to empty string if id is not set
 		id, _ := resource.ResourceId()
-		w.Header().Set("Location", config.Base.JoinPath(resourceType, id).String())
+		baseURL := getBaseURL(r)
+		w.Header().Set("Location", baseURL.JoinPath(resourceType, id).String())
 
 		returnResult(w, responseFormat, http.StatusCreated, resource)
 	})
@@ -181,7 +193,7 @@ func readHandler[R model.Release](
 		resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error reading resource", "resourceType", resourceType, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -221,13 +233,14 @@ func updateHandler[R model.Release](
 		result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
 		// set Location header with the resource's logical ID
 		// the dispatchUpdate function checks that the path id matches the id included in the resource
-		w.Header().Set("Location", config.Base.JoinPath(resourceType, resourceID).String())
+		baseURL := getBaseURL(r)
+		w.Header().Set("Location", baseURL.JoinPath(resourceType, resourceID).String())
 
 		status := http.StatusOK
 		if result.Created {
@@ -290,7 +303,7 @@ func deleteHandler[R model.Release](
 		err := dispatchDelete(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -322,8 +335,8 @@ func searchHandler[R model.Release](
 			return
 		}
 
-		resource, err := dispatchSearch(
-			r.Context(),
+		resource, err := dispatchSearch[R](
+			r,
 			backend,
 			config,
 			resourceType,
@@ -332,7 +345,7 @@ func searchHandler[R model.Release](
 		)
 		if err != nil {
 			slog.Error("error reading searching", "resourceType", resourceType, "err", err)
-			returnErr[R](w, responseFormat, err)
+			returnErr(w, responseFormat, err)
 			return
 		}
 
@@ -340,22 +353,42 @@ func searchHandler[R model.Release](
 	})
 }
 
-func dispatchSearch(
-	ctx context.Context,
+func dispatchSearch[R model.Release](
+	r *http.Request,
 	backend capabilities.GenericSearch,
 	config Config,
 	resourceType string,
 	parameters url.Values,
 	tz *time.Location,
 ) (model.Resource, error) {
-	allCapabilities, err := backend.AllCapabilities(ctx)
+	ctx := r.Context()
+	// Get CapabilityStatement to extract SearchParameter information
+	capabilityStatement, err := backend.CapabilityStatement(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	searchCapabilities := allCapabilities.Search[resourceType]
+	// Create a SearchParameter resolver function
+	resolveSearchParameter := func(canonical string) (model.Element, error) {
+		// Try to resolve SearchParameter using Read operation if available
+		if readBackend, ok := backend.(capabilities.GenericRead); ok {
+			// Extract SearchParameter ID from canonical URL
+			lastSlash := strings.LastIndex(canonical, "/")
+			if lastSlash != -1 && lastSlash < len(canonical)-1 {
+				searchParamId := canonical[lastSlash+1:]
+				resource, err := readBackend.Read(ctx, "SearchParameter", searchParamId)
+				if err != nil {
+					return nil, err
+				}
+				// Return the SearchParameter resource as a model.Element
+				return resource, nil
+			}
+		}
+		// Return error if SearchParameter cannot be resolved
+		return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
+	}
 
-	options, err := parseSearchOptions(searchCapabilities, parameters, tz, config.MaxCount, config.DefaultCount)
+	options, err := parseSearchOptions(capabilityStatement, resourceType, resolveSearchParameter, parameters, tz, config.MaxCount, config.DefaultCount)
 	if err != nil {
 		return nil, err
 	}
@@ -365,7 +398,7 @@ func dispatchSearch(
 		return nil, err
 	}
 
-	bundle, err := searchBundle(resourceType, resources, options, searchCapabilities, config.Base)
+	bundle, err := buildSearchBundle(resourceType, resources, options, capabilityStatement, resolveSearchParameter)
 	if err != nil {
 		return nil, err
 	}
@@ -374,19 +407,21 @@ func dispatchSearch(
 }
 
 func parseSearchOptions(
-	searchCapabilities search.Capabilities,
+	capabilityStatement basic.CapabilityStatement,
+	resourceType string,
+	resolveSearchParameter func(canonical string) (model.Element, error),
 	params url.Values,
 	tz *time.Location,
 	maxCount, defaultCount int) (search.Options, error) {
-	options, err := search.ParseOptions(searchCapabilities, params, tz, maxCount, defaultCount)
+	options, err := search.ParseOptions(capabilityStatement, resourceType, resolveSearchParameter, params, tz, maxCount, defaultCount)
 	if err != nil {
 		return search.Options{}, searchError(err.Error())
 	}
 	return options, nil
 }
 
-func returnErr[R model.Release](w http.ResponseWriter, format Format, err error) {
-	status, oo := errToOperationOutcome[R](err)
+func returnErr(w http.ResponseWriter, format Format, err error) {
+	status, oo := errToOperationOutcome(err)
 	returnResult(w, format, status, oo)
 }
 
@@ -424,7 +459,7 @@ func checkInteractionImplemented[R model.Release](
 ) bool {
 	if !implemented {
 		slog.Error("interaction not implemented by backend", "interaction", interaction)
-		returnErr[R](w, format, notImplementedError(interaction))
+		returnErr(w, format, notImplementedError(interaction))
 		return false
 	}
 	return true
@@ -448,4 +483,27 @@ func unexpectedResourceError(expectedType string, gotType string) basic.Operatio
 
 func searchError(msg string) basic.OperationOutcome {
 	return createOperationOutcome("fatal", "processing", msg)
+}
+
+// getBaseURL extracts the base URL from the request
+func getBaseURL(r *http.Request) *url.URL {
+	scheme := "http"
+	if r.TLS != nil {
+		scheme = "https"
+	}
+
+	// Check for X-Forwarded-Proto header (common in load balancer setups)
+	if proto := r.Header.Get("X-Forwarded-Proto"); proto != "" {
+		scheme = proto
+	}
+
+	host := r.Host
+	if host == "" {
+		host = "localhost"
+	}
+
+	return &url.URL{
+		Scheme: scheme,
+		Host:   host,
+	}
 }

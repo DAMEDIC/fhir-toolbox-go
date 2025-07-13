@@ -27,8 +27,9 @@ This includes model types and interfaces modeling capabilities that you can use 
 - Extensible REST API with capabilities modeled as interfaces
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
         - alternatively: generic API for building adapters
-        - automatic generation fo `CapabilityStatements`
+        - automatic generation of `CapabilityStatements` with full SearchParameter integration
     - Interactions: `create`, `read`, `update`, `delete`, `search` (see [Roadmap](#roadmap) for the remaining interactions)
+    - Advanced search parameter handling with full SearchParameter resource support
     - Cursor-based pagination
     - R4, R4B & R5
 
@@ -45,9 +46,9 @@ A quick "getting started" tutorial can be found in the [`./examples/demo`](./exa
 
 ### Other Examples
 
-You can find more examples in [`./examples/`](./examples/o).
+You can find more examples in [`./examples/`](./examples/).
 The [`mock`](./examples/mock/main.go) example shows how to build custom FHIR® facades on top of legacy data sources
-using the capabilities API.
+using the concrete capabilities API, including the required `CapabilityBase` implementation.
 The [`proxy`](./examples/proxy/main.go) example uses the generic API to forward all requests to another FHIR® server.
 
 ```sh
@@ -87,6 +88,8 @@ The **concrete** API:
 func (a myAPI) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {}
 
 func (a myAPI) SearchPatient(ctx context.Context, options search.Options) (search.Result, error) {}
+
+func (a myAPI) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {}
 ```
 
 and the **generic** API:
@@ -95,6 +98,8 @@ and the **generic** API:
 func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, error) {}
 
 func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {}
+
+func (a myAPI) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {}
 ```
 
 You can implement your custom backend or client either way.
@@ -103,6 +108,36 @@ The **concrete** API is ideal for building custom FHIR® facades where a limited
 The **generic** API is better suited for e.g. building FHIR® clients (see [
 `./examples/proxy`](./examples/proxy/main.go))
 or standalone FHIR® servers.
+
+#### CapabilityBase Requirement
+
+**Important**: When using the concrete API, you must implement the `CapabilityBase` method:
+
+```Go
+func (a myAPI) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+    return basic.CapabilityStatement{
+        Status: basic.Code{Value: ptr.To("active")},
+        Kind:   basic.Code{Value: ptr.To("instance")},
+        Implementation: &basic.CapabilityStatementImplementation{
+            Description: basic.String{Value: ptr.To("My FHIR Server")},
+            Url:         &basic.Url{Value: ptr.To("https://my-server.com")},
+        },
+        // ... other metadata
+    }, nil
+}
+```
+
+This base CapabilityStatement is enhanced with the capabilities detected from your concrete implementation.
+The `implementation.url` field is **required** as it's used to generate canonical URLs for SearchParameter references.
+
+#### SearchParameter Aggregation
+
+The library automatically aggregates SearchParameter resources from your concrete implementations into the CapabilityStatement:
+
+1. **SearchParameter Resources**: Your `SearchCapabilities*` methods should return full `SearchParameter` resources, not just metadata
+2. **Canonical URLs**: SearchParameters without explicit IDs get auto-generated IDs using the pattern `{resourceType}-{name}` (e.g., `Patient-name`)
+3. **CapabilityStatement Integration**: The library extracts search parameter information and generates `rest.resource.searchParam` entries with canonical references
+4. **SearchParameter Read Access**: The library automatically adds SearchParameter read capability to enable parameter resolution during search operations
 
 #### Interoperability
 

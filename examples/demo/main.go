@@ -3,12 +3,12 @@ package main
 
 import (
 	"context"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"github.com/cockroachdb/apd/v3"
 	"log"
 	"net/http"
-	"net/url"
 	"time"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
@@ -18,7 +18,29 @@ import (
 // 1. Define our backend
 type demoBackend struct{}
 
-// 2. Implement your desired capabilities (interactions)
+// 2. Implement CapabilityBase
+func (b *demoBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+	return basic.CapabilityStatement{
+		Status:      basic.Code{Value: ptr.To("active")},
+		Date:        basic.DateTime{Value: ptr.To(time.Now().Format(time.RFC3339))},
+		Kind:        basic.Code{Value: ptr.To("instance")},
+		FhirVersion: basic.Code{Value: ptr.To("5.0")},
+		Format: []basic.Code{
+			{Value: ptr.To("xml")},
+			{Value: ptr.To("json")},
+		},
+		Software: &basic.CapabilityStatementSoftware{
+			Name:    basic.String{Value: ptr.To("fhir-toolbox-go demo")},
+			Version: &basic.String{Value: ptr.To("1.0.0")},
+		},
+		Implementation: &basic.CapabilityStatementImplementation{
+			Description: basic.String{Value: ptr.To("Demo FHIR server built with fhir-toolbox-go")},
+			Url:         &basic.Url{Value: ptr.To("http://localhost")},
+		},
+	}, nil
+}
+
+// 3. Implement your desired capabilities (interactions)
 func (b *demoBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	return r5.Observation{
 		Id:     &r5.Id{Value: &id},
@@ -36,12 +58,11 @@ func (b *demoBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 }
 
 func main() {
-	// 3. Instantiate your backend
+	// 4. Instantiate your backend
 	backend := demoBackend{}
 
-	// 4. Start your server!
+	// 5. Start your server!
 	cfg := rest.DefaultConfig
-	cfg.Base = &url.URL{Scheme: "http", Host: "localhost"}
 	server, err := rest.NewServer[model.R5](&backend, cfg)
 	if err != nil {
 		log.Fatalf("unable to create server: %v", err)
@@ -50,5 +71,5 @@ func main() {
 	log.Println("listening on http://localhost")
 	log.Fatal(http.ListenAndServe(":80", server))
 
-	// 5. Visit http://localhost/Observation/1234
+	// 6. Visit http://localhost/Observation/1234
 }

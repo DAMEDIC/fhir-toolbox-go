@@ -5,26 +5,10869 @@
 package capabilitiesR4B
 
 import (
+	"cmp"
 	"context"
+	"errors"
+	"fmt"
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	update "github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
+	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
+	basic "github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	r4b "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 	ptr "github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
+	"slices"
+	"strings"
 )
 
 type Generic struct {
-	Concrete any
+	Concrete capabilities.ConcreteCapabilities
 }
 
-func (w Generic) AllCapabilities(ctx context.Context) (capabilities.Capabilities, error) {
-	g, ok := w.Concrete.(capabilities.GenericCapabilities)
+func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
+	gen, ok := w.Concrete.(capabilities.GenericCapabilities)
 	if ok {
 		// shortcut for the case that the underlying implementation already implements the generic API
-		return g.AllCapabilities(ctx)
+		return gen.CapabilityStatement(ctx)
 	}
-	return AllCapabilities(ctx, w.Concrete)
+	// Generate CapabilityStatement from concrete implementation
+	baseCapabilityStatement, err := w.Concrete.CapabilityBase(ctx)
+	if err != nil {
+		return basic.CapabilityStatement{}, err
+	}
+	var baseUrl string
+	if baseCapabilityStatement.Implementation == nil || baseCapabilityStatement.Implementation.Url == nil || baseCapabilityStatement.Implementation.Url.Value == nil {
+		return basic.CapabilityStatement{}, fmt.Errorf("base CapabilityStatement must have implementation.url set for canonical SearchParameter references")
+	}
+	baseUrl = *baseCapabilityStatement.Implementation.Url.Value
+	resourcesMap := make(map[string]basic.CapabilityStatementRestResource)
+	for _, rest := range baseCapabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil {
+				resourcesMap[*resource.Type.Value] = resource
+			}
+		}
+	}
+	var errs []error
+	addInteraction := func(name string, interactionCode string) basic.CapabilityStatementRestResource {
+		r, ok := resourcesMap[name]
+		if !ok {
+			r = basic.CapabilityStatementRestResource{Type: basic.Code{Value: &name}}
+		}
+		r.Interaction = append(r.Interaction, basic.CapabilityStatementRestResourceInteraction{Code: basic.Code{Value: ptr.To(interactionCode)}})
+		return r
+	}
+	if _, ok := w.Concrete.(AccountCreate); ok {
+		resourcesMap["Account"] = addInteraction("Account", "create")
+	}
+	if _, ok := w.Concrete.(AccountRead); ok {
+		resourcesMap["Account"] = addInteraction("Account", "read")
+	}
+	if _, ok := w.Concrete.(AccountDelete); ok {
+		resourcesMap["Account"] = addInteraction("Account", "delete")
+	}
+	if c, ok := w.Concrete.(AccountUpdate); ok {
+		r := addInteraction("Account", "update")
+		c, ok := c.(AccountUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAccount(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Account"] = r
+	}
+	if c, ok := w.Concrete.(AccountSearch); ok {
+		c, err := c.SearchCapabilitiesAccount(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Account", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Account-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Account"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ActivityDefinitionCreate); ok {
+		resourcesMap["ActivityDefinition"] = addInteraction("ActivityDefinition", "create")
+	}
+	if _, ok := w.Concrete.(ActivityDefinitionRead); ok {
+		resourcesMap["ActivityDefinition"] = addInteraction("ActivityDefinition", "read")
+	}
+	if _, ok := w.Concrete.(ActivityDefinitionDelete); ok {
+		resourcesMap["ActivityDefinition"] = addInteraction("ActivityDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(ActivityDefinitionUpdate); ok {
+		r := addInteraction("ActivityDefinition", "update")
+		c, ok := c.(ActivityDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesActivityDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ActivityDefinition"] = r
+	}
+	if c, ok := w.Concrete.(ActivityDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesActivityDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ActivityDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ActivityDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ActivityDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(AdministrableProductDefinitionCreate); ok {
+		resourcesMap["AdministrableProductDefinition"] = addInteraction("AdministrableProductDefinition", "create")
+	}
+	if _, ok := w.Concrete.(AdministrableProductDefinitionRead); ok {
+		resourcesMap["AdministrableProductDefinition"] = addInteraction("AdministrableProductDefinition", "read")
+	}
+	if _, ok := w.Concrete.(AdministrableProductDefinitionDelete); ok {
+		resourcesMap["AdministrableProductDefinition"] = addInteraction("AdministrableProductDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(AdministrableProductDefinitionUpdate); ok {
+		r := addInteraction("AdministrableProductDefinition", "update")
+		c, ok := c.(AdministrableProductDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAdministrableProductDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["AdministrableProductDefinition"] = r
+	}
+	if c, ok := w.Concrete.(AdministrableProductDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesAdministrableProductDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("AdministrableProductDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("AdministrableProductDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["AdministrableProductDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(AdverseEventCreate); ok {
+		resourcesMap["AdverseEvent"] = addInteraction("AdverseEvent", "create")
+	}
+	if _, ok := w.Concrete.(AdverseEventRead); ok {
+		resourcesMap["AdverseEvent"] = addInteraction("AdverseEvent", "read")
+	}
+	if _, ok := w.Concrete.(AdverseEventDelete); ok {
+		resourcesMap["AdverseEvent"] = addInteraction("AdverseEvent", "delete")
+	}
+	if c, ok := w.Concrete.(AdverseEventUpdate); ok {
+		r := addInteraction("AdverseEvent", "update")
+		c, ok := c.(AdverseEventUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAdverseEvent(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["AdverseEvent"] = r
+	}
+	if c, ok := w.Concrete.(AdverseEventSearch); ok {
+		c, err := c.SearchCapabilitiesAdverseEvent(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("AdverseEvent", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("AdverseEvent-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["AdverseEvent"] = r
+		}
+	}
+	if _, ok := w.Concrete.(AllergyIntoleranceCreate); ok {
+		resourcesMap["AllergyIntolerance"] = addInteraction("AllergyIntolerance", "create")
+	}
+	if _, ok := w.Concrete.(AllergyIntoleranceRead); ok {
+		resourcesMap["AllergyIntolerance"] = addInteraction("AllergyIntolerance", "read")
+	}
+	if _, ok := w.Concrete.(AllergyIntoleranceDelete); ok {
+		resourcesMap["AllergyIntolerance"] = addInteraction("AllergyIntolerance", "delete")
+	}
+	if c, ok := w.Concrete.(AllergyIntoleranceUpdate); ok {
+		r := addInteraction("AllergyIntolerance", "update")
+		c, ok := c.(AllergyIntoleranceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAllergyIntolerance(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["AllergyIntolerance"] = r
+	}
+	if c, ok := w.Concrete.(AllergyIntoleranceSearch); ok {
+		c, err := c.SearchCapabilitiesAllergyIntolerance(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("AllergyIntolerance", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("AllergyIntolerance-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["AllergyIntolerance"] = r
+		}
+	}
+	if _, ok := w.Concrete.(AppointmentCreate); ok {
+		resourcesMap["Appointment"] = addInteraction("Appointment", "create")
+	}
+	if _, ok := w.Concrete.(AppointmentRead); ok {
+		resourcesMap["Appointment"] = addInteraction("Appointment", "read")
+	}
+	if _, ok := w.Concrete.(AppointmentDelete); ok {
+		resourcesMap["Appointment"] = addInteraction("Appointment", "delete")
+	}
+	if c, ok := w.Concrete.(AppointmentUpdate); ok {
+		r := addInteraction("Appointment", "update")
+		c, ok := c.(AppointmentUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAppointment(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Appointment"] = r
+	}
+	if c, ok := w.Concrete.(AppointmentSearch); ok {
+		c, err := c.SearchCapabilitiesAppointment(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Appointment", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Appointment-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Appointment"] = r
+		}
+	}
+	if _, ok := w.Concrete.(AppointmentResponseCreate); ok {
+		resourcesMap["AppointmentResponse"] = addInteraction("AppointmentResponse", "create")
+	}
+	if _, ok := w.Concrete.(AppointmentResponseRead); ok {
+		resourcesMap["AppointmentResponse"] = addInteraction("AppointmentResponse", "read")
+	}
+	if _, ok := w.Concrete.(AppointmentResponseDelete); ok {
+		resourcesMap["AppointmentResponse"] = addInteraction("AppointmentResponse", "delete")
+	}
+	if c, ok := w.Concrete.(AppointmentResponseUpdate); ok {
+		r := addInteraction("AppointmentResponse", "update")
+		c, ok := c.(AppointmentResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAppointmentResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["AppointmentResponse"] = r
+	}
+	if c, ok := w.Concrete.(AppointmentResponseSearch); ok {
+		c, err := c.SearchCapabilitiesAppointmentResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("AppointmentResponse", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("AppointmentResponse-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["AppointmentResponse"] = r
+		}
+	}
+	if _, ok := w.Concrete.(AuditEventCreate); ok {
+		resourcesMap["AuditEvent"] = addInteraction("AuditEvent", "create")
+	}
+	if _, ok := w.Concrete.(AuditEventRead); ok {
+		resourcesMap["AuditEvent"] = addInteraction("AuditEvent", "read")
+	}
+	if _, ok := w.Concrete.(AuditEventDelete); ok {
+		resourcesMap["AuditEvent"] = addInteraction("AuditEvent", "delete")
+	}
+	if c, ok := w.Concrete.(AuditEventUpdate); ok {
+		r := addInteraction("AuditEvent", "update")
+		c, ok := c.(AuditEventUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesAuditEvent(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["AuditEvent"] = r
+	}
+	if c, ok := w.Concrete.(AuditEventSearch); ok {
+		c, err := c.SearchCapabilitiesAuditEvent(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("AuditEvent", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("AuditEvent-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["AuditEvent"] = r
+		}
+	}
+	if _, ok := w.Concrete.(BasicCreate); ok {
+		resourcesMap["Basic"] = addInteraction("Basic", "create")
+	}
+	if _, ok := w.Concrete.(BasicRead); ok {
+		resourcesMap["Basic"] = addInteraction("Basic", "read")
+	}
+	if _, ok := w.Concrete.(BasicDelete); ok {
+		resourcesMap["Basic"] = addInteraction("Basic", "delete")
+	}
+	if c, ok := w.Concrete.(BasicUpdate); ok {
+		r := addInteraction("Basic", "update")
+		c, ok := c.(BasicUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBasic(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Basic"] = r
+	}
+	if c, ok := w.Concrete.(BasicSearch); ok {
+		c, err := c.SearchCapabilitiesBasic(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Basic", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Basic-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Basic"] = r
+		}
+	}
+	if _, ok := w.Concrete.(BinaryCreate); ok {
+		resourcesMap["Binary"] = addInteraction("Binary", "create")
+	}
+	if _, ok := w.Concrete.(BinaryRead); ok {
+		resourcesMap["Binary"] = addInteraction("Binary", "read")
+	}
+	if _, ok := w.Concrete.(BinaryDelete); ok {
+		resourcesMap["Binary"] = addInteraction("Binary", "delete")
+	}
+	if c, ok := w.Concrete.(BinaryUpdate); ok {
+		r := addInteraction("Binary", "update")
+		c, ok := c.(BinaryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBinary(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Binary"] = r
+	}
+	if c, ok := w.Concrete.(BinarySearch); ok {
+		c, err := c.SearchCapabilitiesBinary(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Binary", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Binary-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Binary"] = r
+		}
+	}
+	if _, ok := w.Concrete.(BiologicallyDerivedProductCreate); ok {
+		resourcesMap["BiologicallyDerivedProduct"] = addInteraction("BiologicallyDerivedProduct", "create")
+	}
+	if _, ok := w.Concrete.(BiologicallyDerivedProductRead); ok {
+		resourcesMap["BiologicallyDerivedProduct"] = addInteraction("BiologicallyDerivedProduct", "read")
+	}
+	if _, ok := w.Concrete.(BiologicallyDerivedProductDelete); ok {
+		resourcesMap["BiologicallyDerivedProduct"] = addInteraction("BiologicallyDerivedProduct", "delete")
+	}
+	if c, ok := w.Concrete.(BiologicallyDerivedProductUpdate); ok {
+		r := addInteraction("BiologicallyDerivedProduct", "update")
+		c, ok := c.(BiologicallyDerivedProductUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBiologicallyDerivedProduct(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["BiologicallyDerivedProduct"] = r
+	}
+	if c, ok := w.Concrete.(BiologicallyDerivedProductSearch); ok {
+		c, err := c.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("BiologicallyDerivedProduct", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("BiologicallyDerivedProduct-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["BiologicallyDerivedProduct"] = r
+		}
+	}
+	if _, ok := w.Concrete.(BodyStructureCreate); ok {
+		resourcesMap["BodyStructure"] = addInteraction("BodyStructure", "create")
+	}
+	if _, ok := w.Concrete.(BodyStructureRead); ok {
+		resourcesMap["BodyStructure"] = addInteraction("BodyStructure", "read")
+	}
+	if _, ok := w.Concrete.(BodyStructureDelete); ok {
+		resourcesMap["BodyStructure"] = addInteraction("BodyStructure", "delete")
+	}
+	if c, ok := w.Concrete.(BodyStructureUpdate); ok {
+		r := addInteraction("BodyStructure", "update")
+		c, ok := c.(BodyStructureUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBodyStructure(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["BodyStructure"] = r
+	}
+	if c, ok := w.Concrete.(BodyStructureSearch); ok {
+		c, err := c.SearchCapabilitiesBodyStructure(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("BodyStructure", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("BodyStructure-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["BodyStructure"] = r
+		}
+	}
+	if _, ok := w.Concrete.(BundleCreate); ok {
+		resourcesMap["Bundle"] = addInteraction("Bundle", "create")
+	}
+	if _, ok := w.Concrete.(BundleRead); ok {
+		resourcesMap["Bundle"] = addInteraction("Bundle", "read")
+	}
+	if _, ok := w.Concrete.(BundleDelete); ok {
+		resourcesMap["Bundle"] = addInteraction("Bundle", "delete")
+	}
+	if c, ok := w.Concrete.(BundleUpdate); ok {
+		r := addInteraction("Bundle", "update")
+		c, ok := c.(BundleUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesBundle(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Bundle"] = r
+	}
+	if c, ok := w.Concrete.(BundleSearch); ok {
+		c, err := c.SearchCapabilitiesBundle(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Bundle", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Bundle-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Bundle"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CapabilityStatementCreate); ok {
+		resourcesMap["CapabilityStatement"] = addInteraction("CapabilityStatement", "create")
+	}
+	if _, ok := w.Concrete.(CapabilityStatementRead); ok {
+		resourcesMap["CapabilityStatement"] = addInteraction("CapabilityStatement", "read")
+	}
+	if _, ok := w.Concrete.(CapabilityStatementDelete); ok {
+		resourcesMap["CapabilityStatement"] = addInteraction("CapabilityStatement", "delete")
+	}
+	if c, ok := w.Concrete.(CapabilityStatementUpdate); ok {
+		r := addInteraction("CapabilityStatement", "update")
+		c, ok := c.(CapabilityStatementUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCapabilityStatement(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CapabilityStatement"] = r
+	}
+	if c, ok := w.Concrete.(CapabilityStatementSearch); ok {
+		c, err := c.SearchCapabilitiesCapabilityStatement(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CapabilityStatement", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CapabilityStatement-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CapabilityStatement"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CarePlanCreate); ok {
+		resourcesMap["CarePlan"] = addInteraction("CarePlan", "create")
+	}
+	if _, ok := w.Concrete.(CarePlanRead); ok {
+		resourcesMap["CarePlan"] = addInteraction("CarePlan", "read")
+	}
+	if _, ok := w.Concrete.(CarePlanDelete); ok {
+		resourcesMap["CarePlan"] = addInteraction("CarePlan", "delete")
+	}
+	if c, ok := w.Concrete.(CarePlanUpdate); ok {
+		r := addInteraction("CarePlan", "update")
+		c, ok := c.(CarePlanUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCarePlan(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CarePlan"] = r
+	}
+	if c, ok := w.Concrete.(CarePlanSearch); ok {
+		c, err := c.SearchCapabilitiesCarePlan(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CarePlan", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CarePlan-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CarePlan"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CareTeamCreate); ok {
+		resourcesMap["CareTeam"] = addInteraction("CareTeam", "create")
+	}
+	if _, ok := w.Concrete.(CareTeamRead); ok {
+		resourcesMap["CareTeam"] = addInteraction("CareTeam", "read")
+	}
+	if _, ok := w.Concrete.(CareTeamDelete); ok {
+		resourcesMap["CareTeam"] = addInteraction("CareTeam", "delete")
+	}
+	if c, ok := w.Concrete.(CareTeamUpdate); ok {
+		r := addInteraction("CareTeam", "update")
+		c, ok := c.(CareTeamUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCareTeam(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CareTeam"] = r
+	}
+	if c, ok := w.Concrete.(CareTeamSearch); ok {
+		c, err := c.SearchCapabilitiesCareTeam(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CareTeam", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CareTeam-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CareTeam"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CatalogEntryCreate); ok {
+		resourcesMap["CatalogEntry"] = addInteraction("CatalogEntry", "create")
+	}
+	if _, ok := w.Concrete.(CatalogEntryRead); ok {
+		resourcesMap["CatalogEntry"] = addInteraction("CatalogEntry", "read")
+	}
+	if _, ok := w.Concrete.(CatalogEntryDelete); ok {
+		resourcesMap["CatalogEntry"] = addInteraction("CatalogEntry", "delete")
+	}
+	if c, ok := w.Concrete.(CatalogEntryUpdate); ok {
+		r := addInteraction("CatalogEntry", "update")
+		c, ok := c.(CatalogEntryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCatalogEntry(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CatalogEntry"] = r
+	}
+	if c, ok := w.Concrete.(CatalogEntrySearch); ok {
+		c, err := c.SearchCapabilitiesCatalogEntry(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CatalogEntry", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CatalogEntry-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CatalogEntry"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ChargeItemCreate); ok {
+		resourcesMap["ChargeItem"] = addInteraction("ChargeItem", "create")
+	}
+	if _, ok := w.Concrete.(ChargeItemRead); ok {
+		resourcesMap["ChargeItem"] = addInteraction("ChargeItem", "read")
+	}
+	if _, ok := w.Concrete.(ChargeItemDelete); ok {
+		resourcesMap["ChargeItem"] = addInteraction("ChargeItem", "delete")
+	}
+	if c, ok := w.Concrete.(ChargeItemUpdate); ok {
+		r := addInteraction("ChargeItem", "update")
+		c, ok := c.(ChargeItemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesChargeItem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ChargeItem"] = r
+	}
+	if c, ok := w.Concrete.(ChargeItemSearch); ok {
+		c, err := c.SearchCapabilitiesChargeItem(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ChargeItem", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ChargeItem-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ChargeItem"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ChargeItemDefinitionCreate); ok {
+		resourcesMap["ChargeItemDefinition"] = addInteraction("ChargeItemDefinition", "create")
+	}
+	if _, ok := w.Concrete.(ChargeItemDefinitionRead); ok {
+		resourcesMap["ChargeItemDefinition"] = addInteraction("ChargeItemDefinition", "read")
+	}
+	if _, ok := w.Concrete.(ChargeItemDefinitionDelete); ok {
+		resourcesMap["ChargeItemDefinition"] = addInteraction("ChargeItemDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(ChargeItemDefinitionUpdate); ok {
+		r := addInteraction("ChargeItemDefinition", "update")
+		c, ok := c.(ChargeItemDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesChargeItemDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ChargeItemDefinition"] = r
+	}
+	if c, ok := w.Concrete.(ChargeItemDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesChargeItemDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ChargeItemDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ChargeItemDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ChargeItemDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CitationCreate); ok {
+		resourcesMap["Citation"] = addInteraction("Citation", "create")
+	}
+	if _, ok := w.Concrete.(CitationRead); ok {
+		resourcesMap["Citation"] = addInteraction("Citation", "read")
+	}
+	if _, ok := w.Concrete.(CitationDelete); ok {
+		resourcesMap["Citation"] = addInteraction("Citation", "delete")
+	}
+	if c, ok := w.Concrete.(CitationUpdate); ok {
+		r := addInteraction("Citation", "update")
+		c, ok := c.(CitationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCitation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Citation"] = r
+	}
+	if c, ok := w.Concrete.(CitationSearch); ok {
+		c, err := c.SearchCapabilitiesCitation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Citation", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Citation-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Citation"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ClaimCreate); ok {
+		resourcesMap["Claim"] = addInteraction("Claim", "create")
+	}
+	if _, ok := w.Concrete.(ClaimRead); ok {
+		resourcesMap["Claim"] = addInteraction("Claim", "read")
+	}
+	if _, ok := w.Concrete.(ClaimDelete); ok {
+		resourcesMap["Claim"] = addInteraction("Claim", "delete")
+	}
+	if c, ok := w.Concrete.(ClaimUpdate); ok {
+		r := addInteraction("Claim", "update")
+		c, ok := c.(ClaimUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClaim(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Claim"] = r
+	}
+	if c, ok := w.Concrete.(ClaimSearch); ok {
+		c, err := c.SearchCapabilitiesClaim(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Claim", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Claim-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Claim"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ClaimResponseCreate); ok {
+		resourcesMap["ClaimResponse"] = addInteraction("ClaimResponse", "create")
+	}
+	if _, ok := w.Concrete.(ClaimResponseRead); ok {
+		resourcesMap["ClaimResponse"] = addInteraction("ClaimResponse", "read")
+	}
+	if _, ok := w.Concrete.(ClaimResponseDelete); ok {
+		resourcesMap["ClaimResponse"] = addInteraction("ClaimResponse", "delete")
+	}
+	if c, ok := w.Concrete.(ClaimResponseUpdate); ok {
+		r := addInteraction("ClaimResponse", "update")
+		c, ok := c.(ClaimResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClaimResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ClaimResponse"] = r
+	}
+	if c, ok := w.Concrete.(ClaimResponseSearch); ok {
+		c, err := c.SearchCapabilitiesClaimResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ClaimResponse", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ClaimResponse-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ClaimResponse"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ClinicalImpressionCreate); ok {
+		resourcesMap["ClinicalImpression"] = addInteraction("ClinicalImpression", "create")
+	}
+	if _, ok := w.Concrete.(ClinicalImpressionRead); ok {
+		resourcesMap["ClinicalImpression"] = addInteraction("ClinicalImpression", "read")
+	}
+	if _, ok := w.Concrete.(ClinicalImpressionDelete); ok {
+		resourcesMap["ClinicalImpression"] = addInteraction("ClinicalImpression", "delete")
+	}
+	if c, ok := w.Concrete.(ClinicalImpressionUpdate); ok {
+		r := addInteraction("ClinicalImpression", "update")
+		c, ok := c.(ClinicalImpressionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClinicalImpression(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ClinicalImpression"] = r
+	}
+	if c, ok := w.Concrete.(ClinicalImpressionSearch); ok {
+		c, err := c.SearchCapabilitiesClinicalImpression(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ClinicalImpression", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ClinicalImpression-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ClinicalImpression"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ClinicalUseDefinitionCreate); ok {
+		resourcesMap["ClinicalUseDefinition"] = addInteraction("ClinicalUseDefinition", "create")
+	}
+	if _, ok := w.Concrete.(ClinicalUseDefinitionRead); ok {
+		resourcesMap["ClinicalUseDefinition"] = addInteraction("ClinicalUseDefinition", "read")
+	}
+	if _, ok := w.Concrete.(ClinicalUseDefinitionDelete); ok {
+		resourcesMap["ClinicalUseDefinition"] = addInteraction("ClinicalUseDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(ClinicalUseDefinitionUpdate); ok {
+		r := addInteraction("ClinicalUseDefinition", "update")
+		c, ok := c.(ClinicalUseDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesClinicalUseDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ClinicalUseDefinition"] = r
+	}
+	if c, ok := w.Concrete.(ClinicalUseDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesClinicalUseDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ClinicalUseDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ClinicalUseDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ClinicalUseDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CodeSystemCreate); ok {
+		resourcesMap["CodeSystem"] = addInteraction("CodeSystem", "create")
+	}
+	if _, ok := w.Concrete.(CodeSystemRead); ok {
+		resourcesMap["CodeSystem"] = addInteraction("CodeSystem", "read")
+	}
+	if _, ok := w.Concrete.(CodeSystemDelete); ok {
+		resourcesMap["CodeSystem"] = addInteraction("CodeSystem", "delete")
+	}
+	if c, ok := w.Concrete.(CodeSystemUpdate); ok {
+		r := addInteraction("CodeSystem", "update")
+		c, ok := c.(CodeSystemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCodeSystem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CodeSystem"] = r
+	}
+	if c, ok := w.Concrete.(CodeSystemSearch); ok {
+		c, err := c.SearchCapabilitiesCodeSystem(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CodeSystem", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CodeSystem-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CodeSystem"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CommunicationCreate); ok {
+		resourcesMap["Communication"] = addInteraction("Communication", "create")
+	}
+	if _, ok := w.Concrete.(CommunicationRead); ok {
+		resourcesMap["Communication"] = addInteraction("Communication", "read")
+	}
+	if _, ok := w.Concrete.(CommunicationDelete); ok {
+		resourcesMap["Communication"] = addInteraction("Communication", "delete")
+	}
+	if c, ok := w.Concrete.(CommunicationUpdate); ok {
+		r := addInteraction("Communication", "update")
+		c, ok := c.(CommunicationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCommunication(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Communication"] = r
+	}
+	if c, ok := w.Concrete.(CommunicationSearch); ok {
+		c, err := c.SearchCapabilitiesCommunication(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Communication", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Communication-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Communication"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CommunicationRequestCreate); ok {
+		resourcesMap["CommunicationRequest"] = addInteraction("CommunicationRequest", "create")
+	}
+	if _, ok := w.Concrete.(CommunicationRequestRead); ok {
+		resourcesMap["CommunicationRequest"] = addInteraction("CommunicationRequest", "read")
+	}
+	if _, ok := w.Concrete.(CommunicationRequestDelete); ok {
+		resourcesMap["CommunicationRequest"] = addInteraction("CommunicationRequest", "delete")
+	}
+	if c, ok := w.Concrete.(CommunicationRequestUpdate); ok {
+		r := addInteraction("CommunicationRequest", "update")
+		c, ok := c.(CommunicationRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCommunicationRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CommunicationRequest"] = r
+	}
+	if c, ok := w.Concrete.(CommunicationRequestSearch); ok {
+		c, err := c.SearchCapabilitiesCommunicationRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CommunicationRequest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CommunicationRequest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CommunicationRequest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CompartmentDefinitionCreate); ok {
+		resourcesMap["CompartmentDefinition"] = addInteraction("CompartmentDefinition", "create")
+	}
+	if _, ok := w.Concrete.(CompartmentDefinitionRead); ok {
+		resourcesMap["CompartmentDefinition"] = addInteraction("CompartmentDefinition", "read")
+	}
+	if _, ok := w.Concrete.(CompartmentDefinitionDelete); ok {
+		resourcesMap["CompartmentDefinition"] = addInteraction("CompartmentDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(CompartmentDefinitionUpdate); ok {
+		r := addInteraction("CompartmentDefinition", "update")
+		c, ok := c.(CompartmentDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCompartmentDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CompartmentDefinition"] = r
+	}
+	if c, ok := w.Concrete.(CompartmentDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesCompartmentDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CompartmentDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CompartmentDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CompartmentDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CompositionCreate); ok {
+		resourcesMap["Composition"] = addInteraction("Composition", "create")
+	}
+	if _, ok := w.Concrete.(CompositionRead); ok {
+		resourcesMap["Composition"] = addInteraction("Composition", "read")
+	}
+	if _, ok := w.Concrete.(CompositionDelete); ok {
+		resourcesMap["Composition"] = addInteraction("Composition", "delete")
+	}
+	if c, ok := w.Concrete.(CompositionUpdate); ok {
+		r := addInteraction("Composition", "update")
+		c, ok := c.(CompositionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesComposition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Composition"] = r
+	}
+	if c, ok := w.Concrete.(CompositionSearch); ok {
+		c, err := c.SearchCapabilitiesComposition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Composition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Composition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Composition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ConceptMapCreate); ok {
+		resourcesMap["ConceptMap"] = addInteraction("ConceptMap", "create")
+	}
+	if _, ok := w.Concrete.(ConceptMapRead); ok {
+		resourcesMap["ConceptMap"] = addInteraction("ConceptMap", "read")
+	}
+	if _, ok := w.Concrete.(ConceptMapDelete); ok {
+		resourcesMap["ConceptMap"] = addInteraction("ConceptMap", "delete")
+	}
+	if c, ok := w.Concrete.(ConceptMapUpdate); ok {
+		r := addInteraction("ConceptMap", "update")
+		c, ok := c.(ConceptMapUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesConceptMap(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ConceptMap"] = r
+	}
+	if c, ok := w.Concrete.(ConceptMapSearch); ok {
+		c, err := c.SearchCapabilitiesConceptMap(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ConceptMap", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ConceptMap-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ConceptMap"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ConditionCreate); ok {
+		resourcesMap["Condition"] = addInteraction("Condition", "create")
+	}
+	if _, ok := w.Concrete.(ConditionRead); ok {
+		resourcesMap["Condition"] = addInteraction("Condition", "read")
+	}
+	if _, ok := w.Concrete.(ConditionDelete); ok {
+		resourcesMap["Condition"] = addInteraction("Condition", "delete")
+	}
+	if c, ok := w.Concrete.(ConditionUpdate); ok {
+		r := addInteraction("Condition", "update")
+		c, ok := c.(ConditionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCondition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Condition"] = r
+	}
+	if c, ok := w.Concrete.(ConditionSearch); ok {
+		c, err := c.SearchCapabilitiesCondition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Condition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Condition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Condition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ConsentCreate); ok {
+		resourcesMap["Consent"] = addInteraction("Consent", "create")
+	}
+	if _, ok := w.Concrete.(ConsentRead); ok {
+		resourcesMap["Consent"] = addInteraction("Consent", "read")
+	}
+	if _, ok := w.Concrete.(ConsentDelete); ok {
+		resourcesMap["Consent"] = addInteraction("Consent", "delete")
+	}
+	if c, ok := w.Concrete.(ConsentUpdate); ok {
+		r := addInteraction("Consent", "update")
+		c, ok := c.(ConsentUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesConsent(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Consent"] = r
+	}
+	if c, ok := w.Concrete.(ConsentSearch); ok {
+		c, err := c.SearchCapabilitiesConsent(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Consent", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Consent-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Consent"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ContractCreate); ok {
+		resourcesMap["Contract"] = addInteraction("Contract", "create")
+	}
+	if _, ok := w.Concrete.(ContractRead); ok {
+		resourcesMap["Contract"] = addInteraction("Contract", "read")
+	}
+	if _, ok := w.Concrete.(ContractDelete); ok {
+		resourcesMap["Contract"] = addInteraction("Contract", "delete")
+	}
+	if c, ok := w.Concrete.(ContractUpdate); ok {
+		r := addInteraction("Contract", "update")
+		c, ok := c.(ContractUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesContract(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Contract"] = r
+	}
+	if c, ok := w.Concrete.(ContractSearch); ok {
+		c, err := c.SearchCapabilitiesContract(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Contract", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Contract-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Contract"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CoverageCreate); ok {
+		resourcesMap["Coverage"] = addInteraction("Coverage", "create")
+	}
+	if _, ok := w.Concrete.(CoverageRead); ok {
+		resourcesMap["Coverage"] = addInteraction("Coverage", "read")
+	}
+	if _, ok := w.Concrete.(CoverageDelete); ok {
+		resourcesMap["Coverage"] = addInteraction("Coverage", "delete")
+	}
+	if c, ok := w.Concrete.(CoverageUpdate); ok {
+		r := addInteraction("Coverage", "update")
+		c, ok := c.(CoverageUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCoverage(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Coverage"] = r
+	}
+	if c, ok := w.Concrete.(CoverageSearch); ok {
+		c, err := c.SearchCapabilitiesCoverage(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Coverage", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Coverage-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Coverage"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CoverageEligibilityRequestCreate); ok {
+		resourcesMap["CoverageEligibilityRequest"] = addInteraction("CoverageEligibilityRequest", "create")
+	}
+	if _, ok := w.Concrete.(CoverageEligibilityRequestRead); ok {
+		resourcesMap["CoverageEligibilityRequest"] = addInteraction("CoverageEligibilityRequest", "read")
+	}
+	if _, ok := w.Concrete.(CoverageEligibilityRequestDelete); ok {
+		resourcesMap["CoverageEligibilityRequest"] = addInteraction("CoverageEligibilityRequest", "delete")
+	}
+	if c, ok := w.Concrete.(CoverageEligibilityRequestUpdate); ok {
+		r := addInteraction("CoverageEligibilityRequest", "update")
+		c, ok := c.(CoverageEligibilityRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCoverageEligibilityRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CoverageEligibilityRequest"] = r
+	}
+	if c, ok := w.Concrete.(CoverageEligibilityRequestSearch); ok {
+		c, err := c.SearchCapabilitiesCoverageEligibilityRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CoverageEligibilityRequest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CoverageEligibilityRequest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CoverageEligibilityRequest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(CoverageEligibilityResponseCreate); ok {
+		resourcesMap["CoverageEligibilityResponse"] = addInteraction("CoverageEligibilityResponse", "create")
+	}
+	if _, ok := w.Concrete.(CoverageEligibilityResponseRead); ok {
+		resourcesMap["CoverageEligibilityResponse"] = addInteraction("CoverageEligibilityResponse", "read")
+	}
+	if _, ok := w.Concrete.(CoverageEligibilityResponseDelete); ok {
+		resourcesMap["CoverageEligibilityResponse"] = addInteraction("CoverageEligibilityResponse", "delete")
+	}
+	if c, ok := w.Concrete.(CoverageEligibilityResponseUpdate); ok {
+		r := addInteraction("CoverageEligibilityResponse", "update")
+		c, ok := c.(CoverageEligibilityResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesCoverageEligibilityResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["CoverageEligibilityResponse"] = r
+	}
+	if c, ok := w.Concrete.(CoverageEligibilityResponseSearch); ok {
+		c, err := c.SearchCapabilitiesCoverageEligibilityResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("CoverageEligibilityResponse", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("CoverageEligibilityResponse-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["CoverageEligibilityResponse"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DetectedIssueCreate); ok {
+		resourcesMap["DetectedIssue"] = addInteraction("DetectedIssue", "create")
+	}
+	if _, ok := w.Concrete.(DetectedIssueRead); ok {
+		resourcesMap["DetectedIssue"] = addInteraction("DetectedIssue", "read")
+	}
+	if _, ok := w.Concrete.(DetectedIssueDelete); ok {
+		resourcesMap["DetectedIssue"] = addInteraction("DetectedIssue", "delete")
+	}
+	if c, ok := w.Concrete.(DetectedIssueUpdate); ok {
+		r := addInteraction("DetectedIssue", "update")
+		c, ok := c.(DetectedIssueUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDetectedIssue(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DetectedIssue"] = r
+	}
+	if c, ok := w.Concrete.(DetectedIssueSearch); ok {
+		c, err := c.SearchCapabilitiesDetectedIssue(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DetectedIssue", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DetectedIssue-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DetectedIssue"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DeviceCreate); ok {
+		resourcesMap["Device"] = addInteraction("Device", "create")
+	}
+	if _, ok := w.Concrete.(DeviceRead); ok {
+		resourcesMap["Device"] = addInteraction("Device", "read")
+	}
+	if _, ok := w.Concrete.(DeviceDelete); ok {
+		resourcesMap["Device"] = addInteraction("Device", "delete")
+	}
+	if c, ok := w.Concrete.(DeviceUpdate); ok {
+		r := addInteraction("Device", "update")
+		c, ok := c.(DeviceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDevice(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Device"] = r
+	}
+	if c, ok := w.Concrete.(DeviceSearch); ok {
+		c, err := c.SearchCapabilitiesDevice(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Device", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Device-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Device"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DeviceDefinitionCreate); ok {
+		resourcesMap["DeviceDefinition"] = addInteraction("DeviceDefinition", "create")
+	}
+	if _, ok := w.Concrete.(DeviceDefinitionRead); ok {
+		resourcesMap["DeviceDefinition"] = addInteraction("DeviceDefinition", "read")
+	}
+	if _, ok := w.Concrete.(DeviceDefinitionDelete); ok {
+		resourcesMap["DeviceDefinition"] = addInteraction("DeviceDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(DeviceDefinitionUpdate); ok {
+		r := addInteraction("DeviceDefinition", "update")
+		c, ok := c.(DeviceDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DeviceDefinition"] = r
+	}
+	if c, ok := w.Concrete.(DeviceDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DeviceDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DeviceDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DeviceDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DeviceMetricCreate); ok {
+		resourcesMap["DeviceMetric"] = addInteraction("DeviceMetric", "create")
+	}
+	if _, ok := w.Concrete.(DeviceMetricRead); ok {
+		resourcesMap["DeviceMetric"] = addInteraction("DeviceMetric", "read")
+	}
+	if _, ok := w.Concrete.(DeviceMetricDelete); ok {
+		resourcesMap["DeviceMetric"] = addInteraction("DeviceMetric", "delete")
+	}
+	if c, ok := w.Concrete.(DeviceMetricUpdate); ok {
+		r := addInteraction("DeviceMetric", "update")
+		c, ok := c.(DeviceMetricUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceMetric(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DeviceMetric"] = r
+	}
+	if c, ok := w.Concrete.(DeviceMetricSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceMetric(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DeviceMetric", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DeviceMetric-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DeviceMetric"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DeviceRequestCreate); ok {
+		resourcesMap["DeviceRequest"] = addInteraction("DeviceRequest", "create")
+	}
+	if _, ok := w.Concrete.(DeviceRequestRead); ok {
+		resourcesMap["DeviceRequest"] = addInteraction("DeviceRequest", "read")
+	}
+	if _, ok := w.Concrete.(DeviceRequestDelete); ok {
+		resourcesMap["DeviceRequest"] = addInteraction("DeviceRequest", "delete")
+	}
+	if c, ok := w.Concrete.(DeviceRequestUpdate); ok {
+		r := addInteraction("DeviceRequest", "update")
+		c, ok := c.(DeviceRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DeviceRequest"] = r
+	}
+	if c, ok := w.Concrete.(DeviceRequestSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DeviceRequest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DeviceRequest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DeviceRequest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DeviceUseStatementCreate); ok {
+		resourcesMap["DeviceUseStatement"] = addInteraction("DeviceUseStatement", "create")
+	}
+	if _, ok := w.Concrete.(DeviceUseStatementRead); ok {
+		resourcesMap["DeviceUseStatement"] = addInteraction("DeviceUseStatement", "read")
+	}
+	if _, ok := w.Concrete.(DeviceUseStatementDelete); ok {
+		resourcesMap["DeviceUseStatement"] = addInteraction("DeviceUseStatement", "delete")
+	}
+	if c, ok := w.Concrete.(DeviceUseStatementUpdate); ok {
+		r := addInteraction("DeviceUseStatement", "update")
+		c, ok := c.(DeviceUseStatementUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDeviceUseStatement(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DeviceUseStatement"] = r
+	}
+	if c, ok := w.Concrete.(DeviceUseStatementSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceUseStatement(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DeviceUseStatement", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DeviceUseStatement-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DeviceUseStatement"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DiagnosticReportCreate); ok {
+		resourcesMap["DiagnosticReport"] = addInteraction("DiagnosticReport", "create")
+	}
+	if _, ok := w.Concrete.(DiagnosticReportRead); ok {
+		resourcesMap["DiagnosticReport"] = addInteraction("DiagnosticReport", "read")
+	}
+	if _, ok := w.Concrete.(DiagnosticReportDelete); ok {
+		resourcesMap["DiagnosticReport"] = addInteraction("DiagnosticReport", "delete")
+	}
+	if c, ok := w.Concrete.(DiagnosticReportUpdate); ok {
+		r := addInteraction("DiagnosticReport", "update")
+		c, ok := c.(DiagnosticReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDiagnosticReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DiagnosticReport"] = r
+	}
+	if c, ok := w.Concrete.(DiagnosticReportSearch); ok {
+		c, err := c.SearchCapabilitiesDiagnosticReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DiagnosticReport", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DiagnosticReport-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DiagnosticReport"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DocumentManifestCreate); ok {
+		resourcesMap["DocumentManifest"] = addInteraction("DocumentManifest", "create")
+	}
+	if _, ok := w.Concrete.(DocumentManifestRead); ok {
+		resourcesMap["DocumentManifest"] = addInteraction("DocumentManifest", "read")
+	}
+	if _, ok := w.Concrete.(DocumentManifestDelete); ok {
+		resourcesMap["DocumentManifest"] = addInteraction("DocumentManifest", "delete")
+	}
+	if c, ok := w.Concrete.(DocumentManifestUpdate); ok {
+		r := addInteraction("DocumentManifest", "update")
+		c, ok := c.(DocumentManifestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDocumentManifest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DocumentManifest"] = r
+	}
+	if c, ok := w.Concrete.(DocumentManifestSearch); ok {
+		c, err := c.SearchCapabilitiesDocumentManifest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DocumentManifest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DocumentManifest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DocumentManifest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(DocumentReferenceCreate); ok {
+		resourcesMap["DocumentReference"] = addInteraction("DocumentReference", "create")
+	}
+	if _, ok := w.Concrete.(DocumentReferenceRead); ok {
+		resourcesMap["DocumentReference"] = addInteraction("DocumentReference", "read")
+	}
+	if _, ok := w.Concrete.(DocumentReferenceDelete); ok {
+		resourcesMap["DocumentReference"] = addInteraction("DocumentReference", "delete")
+	}
+	if c, ok := w.Concrete.(DocumentReferenceUpdate); ok {
+		r := addInteraction("DocumentReference", "update")
+		c, ok := c.(DocumentReferenceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesDocumentReference(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["DocumentReference"] = r
+	}
+	if c, ok := w.Concrete.(DocumentReferenceSearch); ok {
+		c, err := c.SearchCapabilitiesDocumentReference(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("DocumentReference", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("DocumentReference-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["DocumentReference"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EncounterCreate); ok {
+		resourcesMap["Encounter"] = addInteraction("Encounter", "create")
+	}
+	if _, ok := w.Concrete.(EncounterRead); ok {
+		resourcesMap["Encounter"] = addInteraction("Encounter", "read")
+	}
+	if _, ok := w.Concrete.(EncounterDelete); ok {
+		resourcesMap["Encounter"] = addInteraction("Encounter", "delete")
+	}
+	if c, ok := w.Concrete.(EncounterUpdate); ok {
+		r := addInteraction("Encounter", "update")
+		c, ok := c.(EncounterUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEncounter(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Encounter"] = r
+	}
+	if c, ok := w.Concrete.(EncounterSearch); ok {
+		c, err := c.SearchCapabilitiesEncounter(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Encounter", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Encounter-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Encounter"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EndpointCreate); ok {
+		resourcesMap["Endpoint"] = addInteraction("Endpoint", "create")
+	}
+	if _, ok := w.Concrete.(EndpointRead); ok {
+		resourcesMap["Endpoint"] = addInteraction("Endpoint", "read")
+	}
+	if _, ok := w.Concrete.(EndpointDelete); ok {
+		resourcesMap["Endpoint"] = addInteraction("Endpoint", "delete")
+	}
+	if c, ok := w.Concrete.(EndpointUpdate); ok {
+		r := addInteraction("Endpoint", "update")
+		c, ok := c.(EndpointUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEndpoint(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Endpoint"] = r
+	}
+	if c, ok := w.Concrete.(EndpointSearch); ok {
+		c, err := c.SearchCapabilitiesEndpoint(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Endpoint", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Endpoint-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Endpoint"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EnrollmentRequestCreate); ok {
+		resourcesMap["EnrollmentRequest"] = addInteraction("EnrollmentRequest", "create")
+	}
+	if _, ok := w.Concrete.(EnrollmentRequestRead); ok {
+		resourcesMap["EnrollmentRequest"] = addInteraction("EnrollmentRequest", "read")
+	}
+	if _, ok := w.Concrete.(EnrollmentRequestDelete); ok {
+		resourcesMap["EnrollmentRequest"] = addInteraction("EnrollmentRequest", "delete")
+	}
+	if c, ok := w.Concrete.(EnrollmentRequestUpdate); ok {
+		r := addInteraction("EnrollmentRequest", "update")
+		c, ok := c.(EnrollmentRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEnrollmentRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["EnrollmentRequest"] = r
+	}
+	if c, ok := w.Concrete.(EnrollmentRequestSearch); ok {
+		c, err := c.SearchCapabilitiesEnrollmentRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("EnrollmentRequest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("EnrollmentRequest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["EnrollmentRequest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EnrollmentResponseCreate); ok {
+		resourcesMap["EnrollmentResponse"] = addInteraction("EnrollmentResponse", "create")
+	}
+	if _, ok := w.Concrete.(EnrollmentResponseRead); ok {
+		resourcesMap["EnrollmentResponse"] = addInteraction("EnrollmentResponse", "read")
+	}
+	if _, ok := w.Concrete.(EnrollmentResponseDelete); ok {
+		resourcesMap["EnrollmentResponse"] = addInteraction("EnrollmentResponse", "delete")
+	}
+	if c, ok := w.Concrete.(EnrollmentResponseUpdate); ok {
+		r := addInteraction("EnrollmentResponse", "update")
+		c, ok := c.(EnrollmentResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEnrollmentResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["EnrollmentResponse"] = r
+	}
+	if c, ok := w.Concrete.(EnrollmentResponseSearch); ok {
+		c, err := c.SearchCapabilitiesEnrollmentResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("EnrollmentResponse", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("EnrollmentResponse-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["EnrollmentResponse"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EpisodeOfCareCreate); ok {
+		resourcesMap["EpisodeOfCare"] = addInteraction("EpisodeOfCare", "create")
+	}
+	if _, ok := w.Concrete.(EpisodeOfCareRead); ok {
+		resourcesMap["EpisodeOfCare"] = addInteraction("EpisodeOfCare", "read")
+	}
+	if _, ok := w.Concrete.(EpisodeOfCareDelete); ok {
+		resourcesMap["EpisodeOfCare"] = addInteraction("EpisodeOfCare", "delete")
+	}
+	if c, ok := w.Concrete.(EpisodeOfCareUpdate); ok {
+		r := addInteraction("EpisodeOfCare", "update")
+		c, ok := c.(EpisodeOfCareUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEpisodeOfCare(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["EpisodeOfCare"] = r
+	}
+	if c, ok := w.Concrete.(EpisodeOfCareSearch); ok {
+		c, err := c.SearchCapabilitiesEpisodeOfCare(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("EpisodeOfCare", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("EpisodeOfCare-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["EpisodeOfCare"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EventDefinitionCreate); ok {
+		resourcesMap["EventDefinition"] = addInteraction("EventDefinition", "create")
+	}
+	if _, ok := w.Concrete.(EventDefinitionRead); ok {
+		resourcesMap["EventDefinition"] = addInteraction("EventDefinition", "read")
+	}
+	if _, ok := w.Concrete.(EventDefinitionDelete); ok {
+		resourcesMap["EventDefinition"] = addInteraction("EventDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(EventDefinitionUpdate); ok {
+		r := addInteraction("EventDefinition", "update")
+		c, ok := c.(EventDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEventDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["EventDefinition"] = r
+	}
+	if c, ok := w.Concrete.(EventDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesEventDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("EventDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("EventDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["EventDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EvidenceCreate); ok {
+		resourcesMap["Evidence"] = addInteraction("Evidence", "create")
+	}
+	if _, ok := w.Concrete.(EvidenceRead); ok {
+		resourcesMap["Evidence"] = addInteraction("Evidence", "read")
+	}
+	if _, ok := w.Concrete.(EvidenceDelete); ok {
+		resourcesMap["Evidence"] = addInteraction("Evidence", "delete")
+	}
+	if c, ok := w.Concrete.(EvidenceUpdate); ok {
+		r := addInteraction("Evidence", "update")
+		c, ok := c.(EvidenceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEvidence(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Evidence"] = r
+	}
+	if c, ok := w.Concrete.(EvidenceSearch); ok {
+		c, err := c.SearchCapabilitiesEvidence(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Evidence", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Evidence-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Evidence"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EvidenceReportCreate); ok {
+		resourcesMap["EvidenceReport"] = addInteraction("EvidenceReport", "create")
+	}
+	if _, ok := w.Concrete.(EvidenceReportRead); ok {
+		resourcesMap["EvidenceReport"] = addInteraction("EvidenceReport", "read")
+	}
+	if _, ok := w.Concrete.(EvidenceReportDelete); ok {
+		resourcesMap["EvidenceReport"] = addInteraction("EvidenceReport", "delete")
+	}
+	if c, ok := w.Concrete.(EvidenceReportUpdate); ok {
+		r := addInteraction("EvidenceReport", "update")
+		c, ok := c.(EvidenceReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEvidenceReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["EvidenceReport"] = r
+	}
+	if c, ok := w.Concrete.(EvidenceReportSearch); ok {
+		c, err := c.SearchCapabilitiesEvidenceReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("EvidenceReport", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("EvidenceReport-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["EvidenceReport"] = r
+		}
+	}
+	if _, ok := w.Concrete.(EvidenceVariableCreate); ok {
+		resourcesMap["EvidenceVariable"] = addInteraction("EvidenceVariable", "create")
+	}
+	if _, ok := w.Concrete.(EvidenceVariableRead); ok {
+		resourcesMap["EvidenceVariable"] = addInteraction("EvidenceVariable", "read")
+	}
+	if _, ok := w.Concrete.(EvidenceVariableDelete); ok {
+		resourcesMap["EvidenceVariable"] = addInteraction("EvidenceVariable", "delete")
+	}
+	if c, ok := w.Concrete.(EvidenceVariableUpdate); ok {
+		r := addInteraction("EvidenceVariable", "update")
+		c, ok := c.(EvidenceVariableUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesEvidenceVariable(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["EvidenceVariable"] = r
+	}
+	if c, ok := w.Concrete.(EvidenceVariableSearch); ok {
+		c, err := c.SearchCapabilitiesEvidenceVariable(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("EvidenceVariable", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("EvidenceVariable-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["EvidenceVariable"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ExampleScenarioCreate); ok {
+		resourcesMap["ExampleScenario"] = addInteraction("ExampleScenario", "create")
+	}
+	if _, ok := w.Concrete.(ExampleScenarioRead); ok {
+		resourcesMap["ExampleScenario"] = addInteraction("ExampleScenario", "read")
+	}
+	if _, ok := w.Concrete.(ExampleScenarioDelete); ok {
+		resourcesMap["ExampleScenario"] = addInteraction("ExampleScenario", "delete")
+	}
+	if c, ok := w.Concrete.(ExampleScenarioUpdate); ok {
+		r := addInteraction("ExampleScenario", "update")
+		c, ok := c.(ExampleScenarioUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesExampleScenario(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ExampleScenario"] = r
+	}
+	if c, ok := w.Concrete.(ExampleScenarioSearch); ok {
+		c, err := c.SearchCapabilitiesExampleScenario(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ExampleScenario", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ExampleScenario-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ExampleScenario"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ExplanationOfBenefitCreate); ok {
+		resourcesMap["ExplanationOfBenefit"] = addInteraction("ExplanationOfBenefit", "create")
+	}
+	if _, ok := w.Concrete.(ExplanationOfBenefitRead); ok {
+		resourcesMap["ExplanationOfBenefit"] = addInteraction("ExplanationOfBenefit", "read")
+	}
+	if _, ok := w.Concrete.(ExplanationOfBenefitDelete); ok {
+		resourcesMap["ExplanationOfBenefit"] = addInteraction("ExplanationOfBenefit", "delete")
+	}
+	if c, ok := w.Concrete.(ExplanationOfBenefitUpdate); ok {
+		r := addInteraction("ExplanationOfBenefit", "update")
+		c, ok := c.(ExplanationOfBenefitUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesExplanationOfBenefit(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ExplanationOfBenefit"] = r
+	}
+	if c, ok := w.Concrete.(ExplanationOfBenefitSearch); ok {
+		c, err := c.SearchCapabilitiesExplanationOfBenefit(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ExplanationOfBenefit", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ExplanationOfBenefit-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ExplanationOfBenefit"] = r
+		}
+	}
+	if _, ok := w.Concrete.(FamilyMemberHistoryCreate); ok {
+		resourcesMap["FamilyMemberHistory"] = addInteraction("FamilyMemberHistory", "create")
+	}
+	if _, ok := w.Concrete.(FamilyMemberHistoryRead); ok {
+		resourcesMap["FamilyMemberHistory"] = addInteraction("FamilyMemberHistory", "read")
+	}
+	if _, ok := w.Concrete.(FamilyMemberHistoryDelete); ok {
+		resourcesMap["FamilyMemberHistory"] = addInteraction("FamilyMemberHistory", "delete")
+	}
+	if c, ok := w.Concrete.(FamilyMemberHistoryUpdate); ok {
+		r := addInteraction("FamilyMemberHistory", "update")
+		c, ok := c.(FamilyMemberHistoryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesFamilyMemberHistory(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["FamilyMemberHistory"] = r
+	}
+	if c, ok := w.Concrete.(FamilyMemberHistorySearch); ok {
+		c, err := c.SearchCapabilitiesFamilyMemberHistory(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("FamilyMemberHistory", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("FamilyMemberHistory-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["FamilyMemberHistory"] = r
+		}
+	}
+	if _, ok := w.Concrete.(FlagCreate); ok {
+		resourcesMap["Flag"] = addInteraction("Flag", "create")
+	}
+	if _, ok := w.Concrete.(FlagRead); ok {
+		resourcesMap["Flag"] = addInteraction("Flag", "read")
+	}
+	if _, ok := w.Concrete.(FlagDelete); ok {
+		resourcesMap["Flag"] = addInteraction("Flag", "delete")
+	}
+	if c, ok := w.Concrete.(FlagUpdate); ok {
+		r := addInteraction("Flag", "update")
+		c, ok := c.(FlagUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesFlag(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Flag"] = r
+	}
+	if c, ok := w.Concrete.(FlagSearch); ok {
+		c, err := c.SearchCapabilitiesFlag(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Flag", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Flag-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Flag"] = r
+		}
+	}
+	if _, ok := w.Concrete.(GoalCreate); ok {
+		resourcesMap["Goal"] = addInteraction("Goal", "create")
+	}
+	if _, ok := w.Concrete.(GoalRead); ok {
+		resourcesMap["Goal"] = addInteraction("Goal", "read")
+	}
+	if _, ok := w.Concrete.(GoalDelete); ok {
+		resourcesMap["Goal"] = addInteraction("Goal", "delete")
+	}
+	if c, ok := w.Concrete.(GoalUpdate); ok {
+		r := addInteraction("Goal", "update")
+		c, ok := c.(GoalUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGoal(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Goal"] = r
+	}
+	if c, ok := w.Concrete.(GoalSearch); ok {
+		c, err := c.SearchCapabilitiesGoal(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Goal", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Goal-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Goal"] = r
+		}
+	}
+	if _, ok := w.Concrete.(GraphDefinitionCreate); ok {
+		resourcesMap["GraphDefinition"] = addInteraction("GraphDefinition", "create")
+	}
+	if _, ok := w.Concrete.(GraphDefinitionRead); ok {
+		resourcesMap["GraphDefinition"] = addInteraction("GraphDefinition", "read")
+	}
+	if _, ok := w.Concrete.(GraphDefinitionDelete); ok {
+		resourcesMap["GraphDefinition"] = addInteraction("GraphDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(GraphDefinitionUpdate); ok {
+		r := addInteraction("GraphDefinition", "update")
+		c, ok := c.(GraphDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGraphDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["GraphDefinition"] = r
+	}
+	if c, ok := w.Concrete.(GraphDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesGraphDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("GraphDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("GraphDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["GraphDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(GroupCreate); ok {
+		resourcesMap["Group"] = addInteraction("Group", "create")
+	}
+	if _, ok := w.Concrete.(GroupRead); ok {
+		resourcesMap["Group"] = addInteraction("Group", "read")
+	}
+	if _, ok := w.Concrete.(GroupDelete); ok {
+		resourcesMap["Group"] = addInteraction("Group", "delete")
+	}
+	if c, ok := w.Concrete.(GroupUpdate); ok {
+		r := addInteraction("Group", "update")
+		c, ok := c.(GroupUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGroup(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Group"] = r
+	}
+	if c, ok := w.Concrete.(GroupSearch); ok {
+		c, err := c.SearchCapabilitiesGroup(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Group", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Group-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Group"] = r
+		}
+	}
+	if _, ok := w.Concrete.(GuidanceResponseCreate); ok {
+		resourcesMap["GuidanceResponse"] = addInteraction("GuidanceResponse", "create")
+	}
+	if _, ok := w.Concrete.(GuidanceResponseRead); ok {
+		resourcesMap["GuidanceResponse"] = addInteraction("GuidanceResponse", "read")
+	}
+	if _, ok := w.Concrete.(GuidanceResponseDelete); ok {
+		resourcesMap["GuidanceResponse"] = addInteraction("GuidanceResponse", "delete")
+	}
+	if c, ok := w.Concrete.(GuidanceResponseUpdate); ok {
+		r := addInteraction("GuidanceResponse", "update")
+		c, ok := c.(GuidanceResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesGuidanceResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["GuidanceResponse"] = r
+	}
+	if c, ok := w.Concrete.(GuidanceResponseSearch); ok {
+		c, err := c.SearchCapabilitiesGuidanceResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("GuidanceResponse", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("GuidanceResponse-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["GuidanceResponse"] = r
+		}
+	}
+	if _, ok := w.Concrete.(HealthcareServiceCreate); ok {
+		resourcesMap["HealthcareService"] = addInteraction("HealthcareService", "create")
+	}
+	if _, ok := w.Concrete.(HealthcareServiceRead); ok {
+		resourcesMap["HealthcareService"] = addInteraction("HealthcareService", "read")
+	}
+	if _, ok := w.Concrete.(HealthcareServiceDelete); ok {
+		resourcesMap["HealthcareService"] = addInteraction("HealthcareService", "delete")
+	}
+	if c, ok := w.Concrete.(HealthcareServiceUpdate); ok {
+		r := addInteraction("HealthcareService", "update")
+		c, ok := c.(HealthcareServiceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesHealthcareService(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["HealthcareService"] = r
+	}
+	if c, ok := w.Concrete.(HealthcareServiceSearch); ok {
+		c, err := c.SearchCapabilitiesHealthcareService(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("HealthcareService", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("HealthcareService-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["HealthcareService"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ImagingStudyCreate); ok {
+		resourcesMap["ImagingStudy"] = addInteraction("ImagingStudy", "create")
+	}
+	if _, ok := w.Concrete.(ImagingStudyRead); ok {
+		resourcesMap["ImagingStudy"] = addInteraction("ImagingStudy", "read")
+	}
+	if _, ok := w.Concrete.(ImagingStudyDelete); ok {
+		resourcesMap["ImagingStudy"] = addInteraction("ImagingStudy", "delete")
+	}
+	if c, ok := w.Concrete.(ImagingStudyUpdate); ok {
+		r := addInteraction("ImagingStudy", "update")
+		c, ok := c.(ImagingStudyUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImagingStudy(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ImagingStudy"] = r
+	}
+	if c, ok := w.Concrete.(ImagingStudySearch); ok {
+		c, err := c.SearchCapabilitiesImagingStudy(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ImagingStudy", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ImagingStudy-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ImagingStudy"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ImmunizationCreate); ok {
+		resourcesMap["Immunization"] = addInteraction("Immunization", "create")
+	}
+	if _, ok := w.Concrete.(ImmunizationRead); ok {
+		resourcesMap["Immunization"] = addInteraction("Immunization", "read")
+	}
+	if _, ok := w.Concrete.(ImmunizationDelete); ok {
+		resourcesMap["Immunization"] = addInteraction("Immunization", "delete")
+	}
+	if c, ok := w.Concrete.(ImmunizationUpdate); ok {
+		r := addInteraction("Immunization", "update")
+		c, ok := c.(ImmunizationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImmunization(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Immunization"] = r
+	}
+	if c, ok := w.Concrete.(ImmunizationSearch); ok {
+		c, err := c.SearchCapabilitiesImmunization(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Immunization", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Immunization-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Immunization"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ImmunizationEvaluationCreate); ok {
+		resourcesMap["ImmunizationEvaluation"] = addInteraction("ImmunizationEvaluation", "create")
+	}
+	if _, ok := w.Concrete.(ImmunizationEvaluationRead); ok {
+		resourcesMap["ImmunizationEvaluation"] = addInteraction("ImmunizationEvaluation", "read")
+	}
+	if _, ok := w.Concrete.(ImmunizationEvaluationDelete); ok {
+		resourcesMap["ImmunizationEvaluation"] = addInteraction("ImmunizationEvaluation", "delete")
+	}
+	if c, ok := w.Concrete.(ImmunizationEvaluationUpdate); ok {
+		r := addInteraction("ImmunizationEvaluation", "update")
+		c, ok := c.(ImmunizationEvaluationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImmunizationEvaluation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ImmunizationEvaluation"] = r
+	}
+	if c, ok := w.Concrete.(ImmunizationEvaluationSearch); ok {
+		c, err := c.SearchCapabilitiesImmunizationEvaluation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ImmunizationEvaluation", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ImmunizationEvaluation-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ImmunizationEvaluation"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ImmunizationRecommendationCreate); ok {
+		resourcesMap["ImmunizationRecommendation"] = addInteraction("ImmunizationRecommendation", "create")
+	}
+	if _, ok := w.Concrete.(ImmunizationRecommendationRead); ok {
+		resourcesMap["ImmunizationRecommendation"] = addInteraction("ImmunizationRecommendation", "read")
+	}
+	if _, ok := w.Concrete.(ImmunizationRecommendationDelete); ok {
+		resourcesMap["ImmunizationRecommendation"] = addInteraction("ImmunizationRecommendation", "delete")
+	}
+	if c, ok := w.Concrete.(ImmunizationRecommendationUpdate); ok {
+		r := addInteraction("ImmunizationRecommendation", "update")
+		c, ok := c.(ImmunizationRecommendationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImmunizationRecommendation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ImmunizationRecommendation"] = r
+	}
+	if c, ok := w.Concrete.(ImmunizationRecommendationSearch); ok {
+		c, err := c.SearchCapabilitiesImmunizationRecommendation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ImmunizationRecommendation", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ImmunizationRecommendation-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ImmunizationRecommendation"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ImplementationGuideCreate); ok {
+		resourcesMap["ImplementationGuide"] = addInteraction("ImplementationGuide", "create")
+	}
+	if _, ok := w.Concrete.(ImplementationGuideRead); ok {
+		resourcesMap["ImplementationGuide"] = addInteraction("ImplementationGuide", "read")
+	}
+	if _, ok := w.Concrete.(ImplementationGuideDelete); ok {
+		resourcesMap["ImplementationGuide"] = addInteraction("ImplementationGuide", "delete")
+	}
+	if c, ok := w.Concrete.(ImplementationGuideUpdate); ok {
+		r := addInteraction("ImplementationGuide", "update")
+		c, ok := c.(ImplementationGuideUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesImplementationGuide(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ImplementationGuide"] = r
+	}
+	if c, ok := w.Concrete.(ImplementationGuideSearch); ok {
+		c, err := c.SearchCapabilitiesImplementationGuide(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ImplementationGuide", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ImplementationGuide-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ImplementationGuide"] = r
+		}
+	}
+	if _, ok := w.Concrete.(IngredientCreate); ok {
+		resourcesMap["Ingredient"] = addInteraction("Ingredient", "create")
+	}
+	if _, ok := w.Concrete.(IngredientRead); ok {
+		resourcesMap["Ingredient"] = addInteraction("Ingredient", "read")
+	}
+	if _, ok := w.Concrete.(IngredientDelete); ok {
+		resourcesMap["Ingredient"] = addInteraction("Ingredient", "delete")
+	}
+	if c, ok := w.Concrete.(IngredientUpdate); ok {
+		r := addInteraction("Ingredient", "update")
+		c, ok := c.(IngredientUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesIngredient(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Ingredient"] = r
+	}
+	if c, ok := w.Concrete.(IngredientSearch); ok {
+		c, err := c.SearchCapabilitiesIngredient(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Ingredient", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Ingredient-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Ingredient"] = r
+		}
+	}
+	if _, ok := w.Concrete.(InsurancePlanCreate); ok {
+		resourcesMap["InsurancePlan"] = addInteraction("InsurancePlan", "create")
+	}
+	if _, ok := w.Concrete.(InsurancePlanRead); ok {
+		resourcesMap["InsurancePlan"] = addInteraction("InsurancePlan", "read")
+	}
+	if _, ok := w.Concrete.(InsurancePlanDelete); ok {
+		resourcesMap["InsurancePlan"] = addInteraction("InsurancePlan", "delete")
+	}
+	if c, ok := w.Concrete.(InsurancePlanUpdate); ok {
+		r := addInteraction("InsurancePlan", "update")
+		c, ok := c.(InsurancePlanUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesInsurancePlan(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["InsurancePlan"] = r
+	}
+	if c, ok := w.Concrete.(InsurancePlanSearch); ok {
+		c, err := c.SearchCapabilitiesInsurancePlan(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("InsurancePlan", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("InsurancePlan-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["InsurancePlan"] = r
+		}
+	}
+	if _, ok := w.Concrete.(InvoiceCreate); ok {
+		resourcesMap["Invoice"] = addInteraction("Invoice", "create")
+	}
+	if _, ok := w.Concrete.(InvoiceRead); ok {
+		resourcesMap["Invoice"] = addInteraction("Invoice", "read")
+	}
+	if _, ok := w.Concrete.(InvoiceDelete); ok {
+		resourcesMap["Invoice"] = addInteraction("Invoice", "delete")
+	}
+	if c, ok := w.Concrete.(InvoiceUpdate); ok {
+		r := addInteraction("Invoice", "update")
+		c, ok := c.(InvoiceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesInvoice(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Invoice"] = r
+	}
+	if c, ok := w.Concrete.(InvoiceSearch); ok {
+		c, err := c.SearchCapabilitiesInvoice(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Invoice", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Invoice-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Invoice"] = r
+		}
+	}
+	if _, ok := w.Concrete.(LibraryCreate); ok {
+		resourcesMap["Library"] = addInteraction("Library", "create")
+	}
+	if _, ok := w.Concrete.(LibraryRead); ok {
+		resourcesMap["Library"] = addInteraction("Library", "read")
+	}
+	if _, ok := w.Concrete.(LibraryDelete); ok {
+		resourcesMap["Library"] = addInteraction("Library", "delete")
+	}
+	if c, ok := w.Concrete.(LibraryUpdate); ok {
+		r := addInteraction("Library", "update")
+		c, ok := c.(LibraryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesLibrary(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Library"] = r
+	}
+	if c, ok := w.Concrete.(LibrarySearch); ok {
+		c, err := c.SearchCapabilitiesLibrary(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Library", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Library-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Library"] = r
+		}
+	}
+	if _, ok := w.Concrete.(LinkageCreate); ok {
+		resourcesMap["Linkage"] = addInteraction("Linkage", "create")
+	}
+	if _, ok := w.Concrete.(LinkageRead); ok {
+		resourcesMap["Linkage"] = addInteraction("Linkage", "read")
+	}
+	if _, ok := w.Concrete.(LinkageDelete); ok {
+		resourcesMap["Linkage"] = addInteraction("Linkage", "delete")
+	}
+	if c, ok := w.Concrete.(LinkageUpdate); ok {
+		r := addInteraction("Linkage", "update")
+		c, ok := c.(LinkageUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesLinkage(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Linkage"] = r
+	}
+	if c, ok := w.Concrete.(LinkageSearch); ok {
+		c, err := c.SearchCapabilitiesLinkage(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Linkage", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Linkage-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Linkage"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ListCreate); ok {
+		resourcesMap["List"] = addInteraction("List", "create")
+	}
+	if _, ok := w.Concrete.(ListRead); ok {
+		resourcesMap["List"] = addInteraction("List", "read")
+	}
+	if _, ok := w.Concrete.(ListDelete); ok {
+		resourcesMap["List"] = addInteraction("List", "delete")
+	}
+	if c, ok := w.Concrete.(ListUpdate); ok {
+		r := addInteraction("List", "update")
+		c, ok := c.(ListUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesList(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["List"] = r
+	}
+	if c, ok := w.Concrete.(ListSearch); ok {
+		c, err := c.SearchCapabilitiesList(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("List", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("List-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["List"] = r
+		}
+	}
+	if _, ok := w.Concrete.(LocationCreate); ok {
+		resourcesMap["Location"] = addInteraction("Location", "create")
+	}
+	if _, ok := w.Concrete.(LocationRead); ok {
+		resourcesMap["Location"] = addInteraction("Location", "read")
+	}
+	if _, ok := w.Concrete.(LocationDelete); ok {
+		resourcesMap["Location"] = addInteraction("Location", "delete")
+	}
+	if c, ok := w.Concrete.(LocationUpdate); ok {
+		r := addInteraction("Location", "update")
+		c, ok := c.(LocationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesLocation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Location"] = r
+	}
+	if c, ok := w.Concrete.(LocationSearch); ok {
+		c, err := c.SearchCapabilitiesLocation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Location", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Location-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Location"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ManufacturedItemDefinitionCreate); ok {
+		resourcesMap["ManufacturedItemDefinition"] = addInteraction("ManufacturedItemDefinition", "create")
+	}
+	if _, ok := w.Concrete.(ManufacturedItemDefinitionRead); ok {
+		resourcesMap["ManufacturedItemDefinition"] = addInteraction("ManufacturedItemDefinition", "read")
+	}
+	if _, ok := w.Concrete.(ManufacturedItemDefinitionDelete); ok {
+		resourcesMap["ManufacturedItemDefinition"] = addInteraction("ManufacturedItemDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(ManufacturedItemDefinitionUpdate); ok {
+		r := addInteraction("ManufacturedItemDefinition", "update")
+		c, ok := c.(ManufacturedItemDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesManufacturedItemDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ManufacturedItemDefinition"] = r
+	}
+	if c, ok := w.Concrete.(ManufacturedItemDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesManufacturedItemDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ManufacturedItemDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ManufacturedItemDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ManufacturedItemDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MeasureCreate); ok {
+		resourcesMap["Measure"] = addInteraction("Measure", "create")
+	}
+	if _, ok := w.Concrete.(MeasureRead); ok {
+		resourcesMap["Measure"] = addInteraction("Measure", "read")
+	}
+	if _, ok := w.Concrete.(MeasureDelete); ok {
+		resourcesMap["Measure"] = addInteraction("Measure", "delete")
+	}
+	if c, ok := w.Concrete.(MeasureUpdate); ok {
+		r := addInteraction("Measure", "update")
+		c, ok := c.(MeasureUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMeasure(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Measure"] = r
+	}
+	if c, ok := w.Concrete.(MeasureSearch); ok {
+		c, err := c.SearchCapabilitiesMeasure(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Measure", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Measure-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Measure"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MeasureReportCreate); ok {
+		resourcesMap["MeasureReport"] = addInteraction("MeasureReport", "create")
+	}
+	if _, ok := w.Concrete.(MeasureReportRead); ok {
+		resourcesMap["MeasureReport"] = addInteraction("MeasureReport", "read")
+	}
+	if _, ok := w.Concrete.(MeasureReportDelete); ok {
+		resourcesMap["MeasureReport"] = addInteraction("MeasureReport", "delete")
+	}
+	if c, ok := w.Concrete.(MeasureReportUpdate); ok {
+		r := addInteraction("MeasureReport", "update")
+		c, ok := c.(MeasureReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMeasureReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MeasureReport"] = r
+	}
+	if c, ok := w.Concrete.(MeasureReportSearch); ok {
+		c, err := c.SearchCapabilitiesMeasureReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MeasureReport", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MeasureReport-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MeasureReport"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MediaCreate); ok {
+		resourcesMap["Media"] = addInteraction("Media", "create")
+	}
+	if _, ok := w.Concrete.(MediaRead); ok {
+		resourcesMap["Media"] = addInteraction("Media", "read")
+	}
+	if _, ok := w.Concrete.(MediaDelete); ok {
+		resourcesMap["Media"] = addInteraction("Media", "delete")
+	}
+	if c, ok := w.Concrete.(MediaUpdate); ok {
+		r := addInteraction("Media", "update")
+		c, ok := c.(MediaUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedia(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Media"] = r
+	}
+	if c, ok := w.Concrete.(MediaSearch); ok {
+		c, err := c.SearchCapabilitiesMedia(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Media", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Media-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Media"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MedicationCreate); ok {
+		resourcesMap["Medication"] = addInteraction("Medication", "create")
+	}
+	if _, ok := w.Concrete.(MedicationRead); ok {
+		resourcesMap["Medication"] = addInteraction("Medication", "read")
+	}
+	if _, ok := w.Concrete.(MedicationDelete); ok {
+		resourcesMap["Medication"] = addInteraction("Medication", "delete")
+	}
+	if c, ok := w.Concrete.(MedicationUpdate); ok {
+		r := addInteraction("Medication", "update")
+		c, ok := c.(MedicationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedication(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Medication"] = r
+	}
+	if c, ok := w.Concrete.(MedicationSearch); ok {
+		c, err := c.SearchCapabilitiesMedication(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Medication", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Medication-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Medication"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MedicationAdministrationCreate); ok {
+		resourcesMap["MedicationAdministration"] = addInteraction("MedicationAdministration", "create")
+	}
+	if _, ok := w.Concrete.(MedicationAdministrationRead); ok {
+		resourcesMap["MedicationAdministration"] = addInteraction("MedicationAdministration", "read")
+	}
+	if _, ok := w.Concrete.(MedicationAdministrationDelete); ok {
+		resourcesMap["MedicationAdministration"] = addInteraction("MedicationAdministration", "delete")
+	}
+	if c, ok := w.Concrete.(MedicationAdministrationUpdate); ok {
+		r := addInteraction("MedicationAdministration", "update")
+		c, ok := c.(MedicationAdministrationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationAdministration(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MedicationAdministration"] = r
+	}
+	if c, ok := w.Concrete.(MedicationAdministrationSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationAdministration(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MedicationAdministration", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MedicationAdministration-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MedicationAdministration"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MedicationDispenseCreate); ok {
+		resourcesMap["MedicationDispense"] = addInteraction("MedicationDispense", "create")
+	}
+	if _, ok := w.Concrete.(MedicationDispenseRead); ok {
+		resourcesMap["MedicationDispense"] = addInteraction("MedicationDispense", "read")
+	}
+	if _, ok := w.Concrete.(MedicationDispenseDelete); ok {
+		resourcesMap["MedicationDispense"] = addInteraction("MedicationDispense", "delete")
+	}
+	if c, ok := w.Concrete.(MedicationDispenseUpdate); ok {
+		r := addInteraction("MedicationDispense", "update")
+		c, ok := c.(MedicationDispenseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationDispense(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MedicationDispense"] = r
+	}
+	if c, ok := w.Concrete.(MedicationDispenseSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationDispense(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MedicationDispense", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MedicationDispense-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MedicationDispense"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MedicationKnowledgeCreate); ok {
+		resourcesMap["MedicationKnowledge"] = addInteraction("MedicationKnowledge", "create")
+	}
+	if _, ok := w.Concrete.(MedicationKnowledgeRead); ok {
+		resourcesMap["MedicationKnowledge"] = addInteraction("MedicationKnowledge", "read")
+	}
+	if _, ok := w.Concrete.(MedicationKnowledgeDelete); ok {
+		resourcesMap["MedicationKnowledge"] = addInteraction("MedicationKnowledge", "delete")
+	}
+	if c, ok := w.Concrete.(MedicationKnowledgeUpdate); ok {
+		r := addInteraction("MedicationKnowledge", "update")
+		c, ok := c.(MedicationKnowledgeUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationKnowledge(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MedicationKnowledge"] = r
+	}
+	if c, ok := w.Concrete.(MedicationKnowledgeSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationKnowledge(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MedicationKnowledge", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MedicationKnowledge-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MedicationKnowledge"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MedicationRequestCreate); ok {
+		resourcesMap["MedicationRequest"] = addInteraction("MedicationRequest", "create")
+	}
+	if _, ok := w.Concrete.(MedicationRequestRead); ok {
+		resourcesMap["MedicationRequest"] = addInteraction("MedicationRequest", "read")
+	}
+	if _, ok := w.Concrete.(MedicationRequestDelete); ok {
+		resourcesMap["MedicationRequest"] = addInteraction("MedicationRequest", "delete")
+	}
+	if c, ok := w.Concrete.(MedicationRequestUpdate); ok {
+		r := addInteraction("MedicationRequest", "update")
+		c, ok := c.(MedicationRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MedicationRequest"] = r
+	}
+	if c, ok := w.Concrete.(MedicationRequestSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MedicationRequest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MedicationRequest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MedicationRequest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MedicationStatementCreate); ok {
+		resourcesMap["MedicationStatement"] = addInteraction("MedicationStatement", "create")
+	}
+	if _, ok := w.Concrete.(MedicationStatementRead); ok {
+		resourcesMap["MedicationStatement"] = addInteraction("MedicationStatement", "read")
+	}
+	if _, ok := w.Concrete.(MedicationStatementDelete); ok {
+		resourcesMap["MedicationStatement"] = addInteraction("MedicationStatement", "delete")
+	}
+	if c, ok := w.Concrete.(MedicationStatementUpdate); ok {
+		r := addInteraction("MedicationStatement", "update")
+		c, ok := c.(MedicationStatementUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicationStatement(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MedicationStatement"] = r
+	}
+	if c, ok := w.Concrete.(MedicationStatementSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationStatement(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MedicationStatement", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MedicationStatement-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MedicationStatement"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MedicinalProductDefinitionCreate); ok {
+		resourcesMap["MedicinalProductDefinition"] = addInteraction("MedicinalProductDefinition", "create")
+	}
+	if _, ok := w.Concrete.(MedicinalProductDefinitionRead); ok {
+		resourcesMap["MedicinalProductDefinition"] = addInteraction("MedicinalProductDefinition", "read")
+	}
+	if _, ok := w.Concrete.(MedicinalProductDefinitionDelete); ok {
+		resourcesMap["MedicinalProductDefinition"] = addInteraction("MedicinalProductDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(MedicinalProductDefinitionUpdate); ok {
+		r := addInteraction("MedicinalProductDefinition", "update")
+		c, ok := c.(MedicinalProductDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMedicinalProductDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MedicinalProductDefinition"] = r
+	}
+	if c, ok := w.Concrete.(MedicinalProductDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesMedicinalProductDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MedicinalProductDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MedicinalProductDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MedicinalProductDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MessageDefinitionCreate); ok {
+		resourcesMap["MessageDefinition"] = addInteraction("MessageDefinition", "create")
+	}
+	if _, ok := w.Concrete.(MessageDefinitionRead); ok {
+		resourcesMap["MessageDefinition"] = addInteraction("MessageDefinition", "read")
+	}
+	if _, ok := w.Concrete.(MessageDefinitionDelete); ok {
+		resourcesMap["MessageDefinition"] = addInteraction("MessageDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(MessageDefinitionUpdate); ok {
+		r := addInteraction("MessageDefinition", "update")
+		c, ok := c.(MessageDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMessageDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MessageDefinition"] = r
+	}
+	if c, ok := w.Concrete.(MessageDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesMessageDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MessageDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MessageDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MessageDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MessageHeaderCreate); ok {
+		resourcesMap["MessageHeader"] = addInteraction("MessageHeader", "create")
+	}
+	if _, ok := w.Concrete.(MessageHeaderRead); ok {
+		resourcesMap["MessageHeader"] = addInteraction("MessageHeader", "read")
+	}
+	if _, ok := w.Concrete.(MessageHeaderDelete); ok {
+		resourcesMap["MessageHeader"] = addInteraction("MessageHeader", "delete")
+	}
+	if c, ok := w.Concrete.(MessageHeaderUpdate); ok {
+		r := addInteraction("MessageHeader", "update")
+		c, ok := c.(MessageHeaderUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMessageHeader(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MessageHeader"] = r
+	}
+	if c, ok := w.Concrete.(MessageHeaderSearch); ok {
+		c, err := c.SearchCapabilitiesMessageHeader(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MessageHeader", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MessageHeader-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MessageHeader"] = r
+		}
+	}
+	if _, ok := w.Concrete.(MolecularSequenceCreate); ok {
+		resourcesMap["MolecularSequence"] = addInteraction("MolecularSequence", "create")
+	}
+	if _, ok := w.Concrete.(MolecularSequenceRead); ok {
+		resourcesMap["MolecularSequence"] = addInteraction("MolecularSequence", "read")
+	}
+	if _, ok := w.Concrete.(MolecularSequenceDelete); ok {
+		resourcesMap["MolecularSequence"] = addInteraction("MolecularSequence", "delete")
+	}
+	if c, ok := w.Concrete.(MolecularSequenceUpdate); ok {
+		r := addInteraction("MolecularSequence", "update")
+		c, ok := c.(MolecularSequenceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesMolecularSequence(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["MolecularSequence"] = r
+	}
+	if c, ok := w.Concrete.(MolecularSequenceSearch); ok {
+		c, err := c.SearchCapabilitiesMolecularSequence(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("MolecularSequence", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("MolecularSequence-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["MolecularSequence"] = r
+		}
+	}
+	if _, ok := w.Concrete.(NamingSystemCreate); ok {
+		resourcesMap["NamingSystem"] = addInteraction("NamingSystem", "create")
+	}
+	if _, ok := w.Concrete.(NamingSystemRead); ok {
+		resourcesMap["NamingSystem"] = addInteraction("NamingSystem", "read")
+	}
+	if _, ok := w.Concrete.(NamingSystemDelete); ok {
+		resourcesMap["NamingSystem"] = addInteraction("NamingSystem", "delete")
+	}
+	if c, ok := w.Concrete.(NamingSystemUpdate); ok {
+		r := addInteraction("NamingSystem", "update")
+		c, ok := c.(NamingSystemUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesNamingSystem(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["NamingSystem"] = r
+	}
+	if c, ok := w.Concrete.(NamingSystemSearch); ok {
+		c, err := c.SearchCapabilitiesNamingSystem(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("NamingSystem", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("NamingSystem-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["NamingSystem"] = r
+		}
+	}
+	if _, ok := w.Concrete.(NutritionOrderCreate); ok {
+		resourcesMap["NutritionOrder"] = addInteraction("NutritionOrder", "create")
+	}
+	if _, ok := w.Concrete.(NutritionOrderRead); ok {
+		resourcesMap["NutritionOrder"] = addInteraction("NutritionOrder", "read")
+	}
+	if _, ok := w.Concrete.(NutritionOrderDelete); ok {
+		resourcesMap["NutritionOrder"] = addInteraction("NutritionOrder", "delete")
+	}
+	if c, ok := w.Concrete.(NutritionOrderUpdate); ok {
+		r := addInteraction("NutritionOrder", "update")
+		c, ok := c.(NutritionOrderUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesNutritionOrder(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["NutritionOrder"] = r
+	}
+	if c, ok := w.Concrete.(NutritionOrderSearch); ok {
+		c, err := c.SearchCapabilitiesNutritionOrder(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("NutritionOrder", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("NutritionOrder-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["NutritionOrder"] = r
+		}
+	}
+	if _, ok := w.Concrete.(NutritionProductCreate); ok {
+		resourcesMap["NutritionProduct"] = addInteraction("NutritionProduct", "create")
+	}
+	if _, ok := w.Concrete.(NutritionProductRead); ok {
+		resourcesMap["NutritionProduct"] = addInteraction("NutritionProduct", "read")
+	}
+	if _, ok := w.Concrete.(NutritionProductDelete); ok {
+		resourcesMap["NutritionProduct"] = addInteraction("NutritionProduct", "delete")
+	}
+	if c, ok := w.Concrete.(NutritionProductUpdate); ok {
+		r := addInteraction("NutritionProduct", "update")
+		c, ok := c.(NutritionProductUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesNutritionProduct(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["NutritionProduct"] = r
+	}
+	if c, ok := w.Concrete.(NutritionProductSearch); ok {
+		c, err := c.SearchCapabilitiesNutritionProduct(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("NutritionProduct", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("NutritionProduct-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["NutritionProduct"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ObservationCreate); ok {
+		resourcesMap["Observation"] = addInteraction("Observation", "create")
+	}
+	if _, ok := w.Concrete.(ObservationRead); ok {
+		resourcesMap["Observation"] = addInteraction("Observation", "read")
+	}
+	if _, ok := w.Concrete.(ObservationDelete); ok {
+		resourcesMap["Observation"] = addInteraction("Observation", "delete")
+	}
+	if c, ok := w.Concrete.(ObservationUpdate); ok {
+		r := addInteraction("Observation", "update")
+		c, ok := c.(ObservationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesObservation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Observation"] = r
+	}
+	if c, ok := w.Concrete.(ObservationSearch); ok {
+		c, err := c.SearchCapabilitiesObservation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Observation", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Observation-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Observation"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ObservationDefinitionCreate); ok {
+		resourcesMap["ObservationDefinition"] = addInteraction("ObservationDefinition", "create")
+	}
+	if _, ok := w.Concrete.(ObservationDefinitionRead); ok {
+		resourcesMap["ObservationDefinition"] = addInteraction("ObservationDefinition", "read")
+	}
+	if _, ok := w.Concrete.(ObservationDefinitionDelete); ok {
+		resourcesMap["ObservationDefinition"] = addInteraction("ObservationDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(ObservationDefinitionUpdate); ok {
+		r := addInteraction("ObservationDefinition", "update")
+		c, ok := c.(ObservationDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesObservationDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ObservationDefinition"] = r
+	}
+	if c, ok := w.Concrete.(ObservationDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesObservationDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ObservationDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ObservationDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ObservationDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(OperationDefinitionCreate); ok {
+		resourcesMap["OperationDefinition"] = addInteraction("OperationDefinition", "create")
+	}
+	if _, ok := w.Concrete.(OperationDefinitionRead); ok {
+		resourcesMap["OperationDefinition"] = addInteraction("OperationDefinition", "read")
+	}
+	if _, ok := w.Concrete.(OperationDefinitionDelete); ok {
+		resourcesMap["OperationDefinition"] = addInteraction("OperationDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(OperationDefinitionUpdate); ok {
+		r := addInteraction("OperationDefinition", "update")
+		c, ok := c.(OperationDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOperationDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["OperationDefinition"] = r
+	}
+	if c, ok := w.Concrete.(OperationDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesOperationDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("OperationDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("OperationDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["OperationDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(OperationOutcomeCreate); ok {
+		resourcesMap["OperationOutcome"] = addInteraction("OperationOutcome", "create")
+	}
+	if _, ok := w.Concrete.(OperationOutcomeRead); ok {
+		resourcesMap["OperationOutcome"] = addInteraction("OperationOutcome", "read")
+	}
+	if _, ok := w.Concrete.(OperationOutcomeDelete); ok {
+		resourcesMap["OperationOutcome"] = addInteraction("OperationOutcome", "delete")
+	}
+	if c, ok := w.Concrete.(OperationOutcomeUpdate); ok {
+		r := addInteraction("OperationOutcome", "update")
+		c, ok := c.(OperationOutcomeUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOperationOutcome(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["OperationOutcome"] = r
+	}
+	if c, ok := w.Concrete.(OperationOutcomeSearch); ok {
+		c, err := c.SearchCapabilitiesOperationOutcome(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("OperationOutcome", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("OperationOutcome-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["OperationOutcome"] = r
+		}
+	}
+	if _, ok := w.Concrete.(OrganizationCreate); ok {
+		resourcesMap["Organization"] = addInteraction("Organization", "create")
+	}
+	if _, ok := w.Concrete.(OrganizationRead); ok {
+		resourcesMap["Organization"] = addInteraction("Organization", "read")
+	}
+	if _, ok := w.Concrete.(OrganizationDelete); ok {
+		resourcesMap["Organization"] = addInteraction("Organization", "delete")
+	}
+	if c, ok := w.Concrete.(OrganizationUpdate); ok {
+		r := addInteraction("Organization", "update")
+		c, ok := c.(OrganizationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOrganization(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Organization"] = r
+	}
+	if c, ok := w.Concrete.(OrganizationSearch); ok {
+		c, err := c.SearchCapabilitiesOrganization(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Organization", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Organization-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Organization"] = r
+		}
+	}
+	if _, ok := w.Concrete.(OrganizationAffiliationCreate); ok {
+		resourcesMap["OrganizationAffiliation"] = addInteraction("OrganizationAffiliation", "create")
+	}
+	if _, ok := w.Concrete.(OrganizationAffiliationRead); ok {
+		resourcesMap["OrganizationAffiliation"] = addInteraction("OrganizationAffiliation", "read")
+	}
+	if _, ok := w.Concrete.(OrganizationAffiliationDelete); ok {
+		resourcesMap["OrganizationAffiliation"] = addInteraction("OrganizationAffiliation", "delete")
+	}
+	if c, ok := w.Concrete.(OrganizationAffiliationUpdate); ok {
+		r := addInteraction("OrganizationAffiliation", "update")
+		c, ok := c.(OrganizationAffiliationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesOrganizationAffiliation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["OrganizationAffiliation"] = r
+	}
+	if c, ok := w.Concrete.(OrganizationAffiliationSearch); ok {
+		c, err := c.SearchCapabilitiesOrganizationAffiliation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("OrganizationAffiliation", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("OrganizationAffiliation-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["OrganizationAffiliation"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PackagedProductDefinitionCreate); ok {
+		resourcesMap["PackagedProductDefinition"] = addInteraction("PackagedProductDefinition", "create")
+	}
+	if _, ok := w.Concrete.(PackagedProductDefinitionRead); ok {
+		resourcesMap["PackagedProductDefinition"] = addInteraction("PackagedProductDefinition", "read")
+	}
+	if _, ok := w.Concrete.(PackagedProductDefinitionDelete); ok {
+		resourcesMap["PackagedProductDefinition"] = addInteraction("PackagedProductDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(PackagedProductDefinitionUpdate); ok {
+		r := addInteraction("PackagedProductDefinition", "update")
+		c, ok := c.(PackagedProductDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPackagedProductDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["PackagedProductDefinition"] = r
+	}
+	if c, ok := w.Concrete.(PackagedProductDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesPackagedProductDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("PackagedProductDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("PackagedProductDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["PackagedProductDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ParametersCreate); ok {
+		resourcesMap["Parameters"] = addInteraction("Parameters", "create")
+	}
+	if _, ok := w.Concrete.(ParametersRead); ok {
+		resourcesMap["Parameters"] = addInteraction("Parameters", "read")
+	}
+	if _, ok := w.Concrete.(ParametersDelete); ok {
+		resourcesMap["Parameters"] = addInteraction("Parameters", "delete")
+	}
+	if c, ok := w.Concrete.(ParametersUpdate); ok {
+		r := addInteraction("Parameters", "update")
+		c, ok := c.(ParametersUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesParameters(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Parameters"] = r
+	}
+	if c, ok := w.Concrete.(ParametersSearch); ok {
+		c, err := c.SearchCapabilitiesParameters(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Parameters", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Parameters-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Parameters"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PatientCreate); ok {
+		resourcesMap["Patient"] = addInteraction("Patient", "create")
+	}
+	if _, ok := w.Concrete.(PatientRead); ok {
+		resourcesMap["Patient"] = addInteraction("Patient", "read")
+	}
+	if _, ok := w.Concrete.(PatientDelete); ok {
+		resourcesMap["Patient"] = addInteraction("Patient", "delete")
+	}
+	if c, ok := w.Concrete.(PatientUpdate); ok {
+		r := addInteraction("Patient", "update")
+		c, ok := c.(PatientUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPatient(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Patient"] = r
+	}
+	if c, ok := w.Concrete.(PatientSearch); ok {
+		c, err := c.SearchCapabilitiesPatient(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Patient", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Patient-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Patient"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PaymentNoticeCreate); ok {
+		resourcesMap["PaymentNotice"] = addInteraction("PaymentNotice", "create")
+	}
+	if _, ok := w.Concrete.(PaymentNoticeRead); ok {
+		resourcesMap["PaymentNotice"] = addInteraction("PaymentNotice", "read")
+	}
+	if _, ok := w.Concrete.(PaymentNoticeDelete); ok {
+		resourcesMap["PaymentNotice"] = addInteraction("PaymentNotice", "delete")
+	}
+	if c, ok := w.Concrete.(PaymentNoticeUpdate); ok {
+		r := addInteraction("PaymentNotice", "update")
+		c, ok := c.(PaymentNoticeUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPaymentNotice(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["PaymentNotice"] = r
+	}
+	if c, ok := w.Concrete.(PaymentNoticeSearch); ok {
+		c, err := c.SearchCapabilitiesPaymentNotice(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("PaymentNotice", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("PaymentNotice-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["PaymentNotice"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PaymentReconciliationCreate); ok {
+		resourcesMap["PaymentReconciliation"] = addInteraction("PaymentReconciliation", "create")
+	}
+	if _, ok := w.Concrete.(PaymentReconciliationRead); ok {
+		resourcesMap["PaymentReconciliation"] = addInteraction("PaymentReconciliation", "read")
+	}
+	if _, ok := w.Concrete.(PaymentReconciliationDelete); ok {
+		resourcesMap["PaymentReconciliation"] = addInteraction("PaymentReconciliation", "delete")
+	}
+	if c, ok := w.Concrete.(PaymentReconciliationUpdate); ok {
+		r := addInteraction("PaymentReconciliation", "update")
+		c, ok := c.(PaymentReconciliationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPaymentReconciliation(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["PaymentReconciliation"] = r
+	}
+	if c, ok := w.Concrete.(PaymentReconciliationSearch); ok {
+		c, err := c.SearchCapabilitiesPaymentReconciliation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("PaymentReconciliation", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("PaymentReconciliation-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["PaymentReconciliation"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PersonCreate); ok {
+		resourcesMap["Person"] = addInteraction("Person", "create")
+	}
+	if _, ok := w.Concrete.(PersonRead); ok {
+		resourcesMap["Person"] = addInteraction("Person", "read")
+	}
+	if _, ok := w.Concrete.(PersonDelete); ok {
+		resourcesMap["Person"] = addInteraction("Person", "delete")
+	}
+	if c, ok := w.Concrete.(PersonUpdate); ok {
+		r := addInteraction("Person", "update")
+		c, ok := c.(PersonUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPerson(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Person"] = r
+	}
+	if c, ok := w.Concrete.(PersonSearch); ok {
+		c, err := c.SearchCapabilitiesPerson(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Person", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Person-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Person"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PlanDefinitionCreate); ok {
+		resourcesMap["PlanDefinition"] = addInteraction("PlanDefinition", "create")
+	}
+	if _, ok := w.Concrete.(PlanDefinitionRead); ok {
+		resourcesMap["PlanDefinition"] = addInteraction("PlanDefinition", "read")
+	}
+	if _, ok := w.Concrete.(PlanDefinitionDelete); ok {
+		resourcesMap["PlanDefinition"] = addInteraction("PlanDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(PlanDefinitionUpdate); ok {
+		r := addInteraction("PlanDefinition", "update")
+		c, ok := c.(PlanDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPlanDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["PlanDefinition"] = r
+	}
+	if c, ok := w.Concrete.(PlanDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesPlanDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("PlanDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("PlanDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["PlanDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PractitionerCreate); ok {
+		resourcesMap["Practitioner"] = addInteraction("Practitioner", "create")
+	}
+	if _, ok := w.Concrete.(PractitionerRead); ok {
+		resourcesMap["Practitioner"] = addInteraction("Practitioner", "read")
+	}
+	if _, ok := w.Concrete.(PractitionerDelete); ok {
+		resourcesMap["Practitioner"] = addInteraction("Practitioner", "delete")
+	}
+	if c, ok := w.Concrete.(PractitionerUpdate); ok {
+		r := addInteraction("Practitioner", "update")
+		c, ok := c.(PractitionerUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPractitioner(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Practitioner"] = r
+	}
+	if c, ok := w.Concrete.(PractitionerSearch); ok {
+		c, err := c.SearchCapabilitiesPractitioner(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Practitioner", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Practitioner-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Practitioner"] = r
+		}
+	}
+	if _, ok := w.Concrete.(PractitionerRoleCreate); ok {
+		resourcesMap["PractitionerRole"] = addInteraction("PractitionerRole", "create")
+	}
+	if _, ok := w.Concrete.(PractitionerRoleRead); ok {
+		resourcesMap["PractitionerRole"] = addInteraction("PractitionerRole", "read")
+	}
+	if _, ok := w.Concrete.(PractitionerRoleDelete); ok {
+		resourcesMap["PractitionerRole"] = addInteraction("PractitionerRole", "delete")
+	}
+	if c, ok := w.Concrete.(PractitionerRoleUpdate); ok {
+		r := addInteraction("PractitionerRole", "update")
+		c, ok := c.(PractitionerRoleUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesPractitionerRole(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["PractitionerRole"] = r
+	}
+	if c, ok := w.Concrete.(PractitionerRoleSearch); ok {
+		c, err := c.SearchCapabilitiesPractitionerRole(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("PractitionerRole", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("PractitionerRole-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["PractitionerRole"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ProcedureCreate); ok {
+		resourcesMap["Procedure"] = addInteraction("Procedure", "create")
+	}
+	if _, ok := w.Concrete.(ProcedureRead); ok {
+		resourcesMap["Procedure"] = addInteraction("Procedure", "read")
+	}
+	if _, ok := w.Concrete.(ProcedureDelete); ok {
+		resourcesMap["Procedure"] = addInteraction("Procedure", "delete")
+	}
+	if c, ok := w.Concrete.(ProcedureUpdate); ok {
+		r := addInteraction("Procedure", "update")
+		c, ok := c.(ProcedureUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesProcedure(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Procedure"] = r
+	}
+	if c, ok := w.Concrete.(ProcedureSearch); ok {
+		c, err := c.SearchCapabilitiesProcedure(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Procedure", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Procedure-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Procedure"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ProvenanceCreate); ok {
+		resourcesMap["Provenance"] = addInteraction("Provenance", "create")
+	}
+	if _, ok := w.Concrete.(ProvenanceRead); ok {
+		resourcesMap["Provenance"] = addInteraction("Provenance", "read")
+	}
+	if _, ok := w.Concrete.(ProvenanceDelete); ok {
+		resourcesMap["Provenance"] = addInteraction("Provenance", "delete")
+	}
+	if c, ok := w.Concrete.(ProvenanceUpdate); ok {
+		r := addInteraction("Provenance", "update")
+		c, ok := c.(ProvenanceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesProvenance(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Provenance"] = r
+	}
+	if c, ok := w.Concrete.(ProvenanceSearch); ok {
+		c, err := c.SearchCapabilitiesProvenance(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Provenance", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Provenance-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Provenance"] = r
+		}
+	}
+	if _, ok := w.Concrete.(QuestionnaireCreate); ok {
+		resourcesMap["Questionnaire"] = addInteraction("Questionnaire", "create")
+	}
+	if _, ok := w.Concrete.(QuestionnaireRead); ok {
+		resourcesMap["Questionnaire"] = addInteraction("Questionnaire", "read")
+	}
+	if _, ok := w.Concrete.(QuestionnaireDelete); ok {
+		resourcesMap["Questionnaire"] = addInteraction("Questionnaire", "delete")
+	}
+	if c, ok := w.Concrete.(QuestionnaireUpdate); ok {
+		r := addInteraction("Questionnaire", "update")
+		c, ok := c.(QuestionnaireUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesQuestionnaire(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Questionnaire"] = r
+	}
+	if c, ok := w.Concrete.(QuestionnaireSearch); ok {
+		c, err := c.SearchCapabilitiesQuestionnaire(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Questionnaire", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Questionnaire-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Questionnaire"] = r
+		}
+	}
+	if _, ok := w.Concrete.(QuestionnaireResponseCreate); ok {
+		resourcesMap["QuestionnaireResponse"] = addInteraction("QuestionnaireResponse", "create")
+	}
+	if _, ok := w.Concrete.(QuestionnaireResponseRead); ok {
+		resourcesMap["QuestionnaireResponse"] = addInteraction("QuestionnaireResponse", "read")
+	}
+	if _, ok := w.Concrete.(QuestionnaireResponseDelete); ok {
+		resourcesMap["QuestionnaireResponse"] = addInteraction("QuestionnaireResponse", "delete")
+	}
+	if c, ok := w.Concrete.(QuestionnaireResponseUpdate); ok {
+		r := addInteraction("QuestionnaireResponse", "update")
+		c, ok := c.(QuestionnaireResponseUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesQuestionnaireResponse(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["QuestionnaireResponse"] = r
+	}
+	if c, ok := w.Concrete.(QuestionnaireResponseSearch); ok {
+		c, err := c.SearchCapabilitiesQuestionnaireResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("QuestionnaireResponse", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("QuestionnaireResponse-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["QuestionnaireResponse"] = r
+		}
+	}
+	if _, ok := w.Concrete.(RegulatedAuthorizationCreate); ok {
+		resourcesMap["RegulatedAuthorization"] = addInteraction("RegulatedAuthorization", "create")
+	}
+	if _, ok := w.Concrete.(RegulatedAuthorizationRead); ok {
+		resourcesMap["RegulatedAuthorization"] = addInteraction("RegulatedAuthorization", "read")
+	}
+	if _, ok := w.Concrete.(RegulatedAuthorizationDelete); ok {
+		resourcesMap["RegulatedAuthorization"] = addInteraction("RegulatedAuthorization", "delete")
+	}
+	if c, ok := w.Concrete.(RegulatedAuthorizationUpdate); ok {
+		r := addInteraction("RegulatedAuthorization", "update")
+		c, ok := c.(RegulatedAuthorizationUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRegulatedAuthorization(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["RegulatedAuthorization"] = r
+	}
+	if c, ok := w.Concrete.(RegulatedAuthorizationSearch); ok {
+		c, err := c.SearchCapabilitiesRegulatedAuthorization(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("RegulatedAuthorization", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("RegulatedAuthorization-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["RegulatedAuthorization"] = r
+		}
+	}
+	if _, ok := w.Concrete.(RelatedPersonCreate); ok {
+		resourcesMap["RelatedPerson"] = addInteraction("RelatedPerson", "create")
+	}
+	if _, ok := w.Concrete.(RelatedPersonRead); ok {
+		resourcesMap["RelatedPerson"] = addInteraction("RelatedPerson", "read")
+	}
+	if _, ok := w.Concrete.(RelatedPersonDelete); ok {
+		resourcesMap["RelatedPerson"] = addInteraction("RelatedPerson", "delete")
+	}
+	if c, ok := w.Concrete.(RelatedPersonUpdate); ok {
+		r := addInteraction("RelatedPerson", "update")
+		c, ok := c.(RelatedPersonUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRelatedPerson(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["RelatedPerson"] = r
+	}
+	if c, ok := w.Concrete.(RelatedPersonSearch); ok {
+		c, err := c.SearchCapabilitiesRelatedPerson(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("RelatedPerson", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("RelatedPerson-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["RelatedPerson"] = r
+		}
+	}
+	if _, ok := w.Concrete.(RequestGroupCreate); ok {
+		resourcesMap["RequestGroup"] = addInteraction("RequestGroup", "create")
+	}
+	if _, ok := w.Concrete.(RequestGroupRead); ok {
+		resourcesMap["RequestGroup"] = addInteraction("RequestGroup", "read")
+	}
+	if _, ok := w.Concrete.(RequestGroupDelete); ok {
+		resourcesMap["RequestGroup"] = addInteraction("RequestGroup", "delete")
+	}
+	if c, ok := w.Concrete.(RequestGroupUpdate); ok {
+		r := addInteraction("RequestGroup", "update")
+		c, ok := c.(RequestGroupUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRequestGroup(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["RequestGroup"] = r
+	}
+	if c, ok := w.Concrete.(RequestGroupSearch); ok {
+		c, err := c.SearchCapabilitiesRequestGroup(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("RequestGroup", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("RequestGroup-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["RequestGroup"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ResearchDefinitionCreate); ok {
+		resourcesMap["ResearchDefinition"] = addInteraction("ResearchDefinition", "create")
+	}
+	if _, ok := w.Concrete.(ResearchDefinitionRead); ok {
+		resourcesMap["ResearchDefinition"] = addInteraction("ResearchDefinition", "read")
+	}
+	if _, ok := w.Concrete.(ResearchDefinitionDelete); ok {
+		resourcesMap["ResearchDefinition"] = addInteraction("ResearchDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(ResearchDefinitionUpdate); ok {
+		r := addInteraction("ResearchDefinition", "update")
+		c, ok := c.(ResearchDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesResearchDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ResearchDefinition"] = r
+	}
+	if c, ok := w.Concrete.(ResearchDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesResearchDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ResearchDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ResearchDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ResearchDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ResearchElementDefinitionCreate); ok {
+		resourcesMap["ResearchElementDefinition"] = addInteraction("ResearchElementDefinition", "create")
+	}
+	if _, ok := w.Concrete.(ResearchElementDefinitionRead); ok {
+		resourcesMap["ResearchElementDefinition"] = addInteraction("ResearchElementDefinition", "read")
+	}
+	if _, ok := w.Concrete.(ResearchElementDefinitionDelete); ok {
+		resourcesMap["ResearchElementDefinition"] = addInteraction("ResearchElementDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(ResearchElementDefinitionUpdate); ok {
+		r := addInteraction("ResearchElementDefinition", "update")
+		c, ok := c.(ResearchElementDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesResearchElementDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ResearchElementDefinition"] = r
+	}
+	if c, ok := w.Concrete.(ResearchElementDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesResearchElementDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ResearchElementDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ResearchElementDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ResearchElementDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ResearchStudyCreate); ok {
+		resourcesMap["ResearchStudy"] = addInteraction("ResearchStudy", "create")
+	}
+	if _, ok := w.Concrete.(ResearchStudyRead); ok {
+		resourcesMap["ResearchStudy"] = addInteraction("ResearchStudy", "read")
+	}
+	if _, ok := w.Concrete.(ResearchStudyDelete); ok {
+		resourcesMap["ResearchStudy"] = addInteraction("ResearchStudy", "delete")
+	}
+	if c, ok := w.Concrete.(ResearchStudyUpdate); ok {
+		r := addInteraction("ResearchStudy", "update")
+		c, ok := c.(ResearchStudyUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesResearchStudy(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ResearchStudy"] = r
+	}
+	if c, ok := w.Concrete.(ResearchStudySearch); ok {
+		c, err := c.SearchCapabilitiesResearchStudy(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ResearchStudy", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ResearchStudy-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ResearchStudy"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ResearchSubjectCreate); ok {
+		resourcesMap["ResearchSubject"] = addInteraction("ResearchSubject", "create")
+	}
+	if _, ok := w.Concrete.(ResearchSubjectRead); ok {
+		resourcesMap["ResearchSubject"] = addInteraction("ResearchSubject", "read")
+	}
+	if _, ok := w.Concrete.(ResearchSubjectDelete); ok {
+		resourcesMap["ResearchSubject"] = addInteraction("ResearchSubject", "delete")
+	}
+	if c, ok := w.Concrete.(ResearchSubjectUpdate); ok {
+		r := addInteraction("ResearchSubject", "update")
+		c, ok := c.(ResearchSubjectUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesResearchSubject(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ResearchSubject"] = r
+	}
+	if c, ok := w.Concrete.(ResearchSubjectSearch); ok {
+		c, err := c.SearchCapabilitiesResearchSubject(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ResearchSubject", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ResearchSubject-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ResearchSubject"] = r
+		}
+	}
+	if _, ok := w.Concrete.(RiskAssessmentCreate); ok {
+		resourcesMap["RiskAssessment"] = addInteraction("RiskAssessment", "create")
+	}
+	if _, ok := w.Concrete.(RiskAssessmentRead); ok {
+		resourcesMap["RiskAssessment"] = addInteraction("RiskAssessment", "read")
+	}
+	if _, ok := w.Concrete.(RiskAssessmentDelete); ok {
+		resourcesMap["RiskAssessment"] = addInteraction("RiskAssessment", "delete")
+	}
+	if c, ok := w.Concrete.(RiskAssessmentUpdate); ok {
+		r := addInteraction("RiskAssessment", "update")
+		c, ok := c.(RiskAssessmentUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesRiskAssessment(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["RiskAssessment"] = r
+	}
+	if c, ok := w.Concrete.(RiskAssessmentSearch); ok {
+		c, err := c.SearchCapabilitiesRiskAssessment(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("RiskAssessment", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("RiskAssessment-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["RiskAssessment"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ScheduleCreate); ok {
+		resourcesMap["Schedule"] = addInteraction("Schedule", "create")
+	}
+	if _, ok := w.Concrete.(ScheduleRead); ok {
+		resourcesMap["Schedule"] = addInteraction("Schedule", "read")
+	}
+	if _, ok := w.Concrete.(ScheduleDelete); ok {
+		resourcesMap["Schedule"] = addInteraction("Schedule", "delete")
+	}
+	if c, ok := w.Concrete.(ScheduleUpdate); ok {
+		r := addInteraction("Schedule", "update")
+		c, ok := c.(ScheduleUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSchedule(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Schedule"] = r
+	}
+	if c, ok := w.Concrete.(ScheduleSearch); ok {
+		c, err := c.SearchCapabilitiesSchedule(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Schedule", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Schedule-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Schedule"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SearchParameterCreate); ok {
+		resourcesMap["SearchParameter"] = addInteraction("SearchParameter", "create")
+	}
+	if _, ok := w.Concrete.(SearchParameterRead); ok {
+		resourcesMap["SearchParameter"] = addInteraction("SearchParameter", "read")
+	}
+	if _, ok := w.Concrete.(SearchParameterDelete); ok {
+		resourcesMap["SearchParameter"] = addInteraction("SearchParameter", "delete")
+	}
+	if c, ok := w.Concrete.(SearchParameterUpdate); ok {
+		r := addInteraction("SearchParameter", "update")
+		c, ok := c.(SearchParameterUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSearchParameter(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["SearchParameter"] = r
+	}
+	if c, ok := w.Concrete.(SearchParameterSearch); ok {
+		c, err := c.SearchCapabilitiesSearchParameter(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("SearchParameter", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("SearchParameter-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["SearchParameter"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ServiceRequestCreate); ok {
+		resourcesMap["ServiceRequest"] = addInteraction("ServiceRequest", "create")
+	}
+	if _, ok := w.Concrete.(ServiceRequestRead); ok {
+		resourcesMap["ServiceRequest"] = addInteraction("ServiceRequest", "read")
+	}
+	if _, ok := w.Concrete.(ServiceRequestDelete); ok {
+		resourcesMap["ServiceRequest"] = addInteraction("ServiceRequest", "delete")
+	}
+	if c, ok := w.Concrete.(ServiceRequestUpdate); ok {
+		r := addInteraction("ServiceRequest", "update")
+		c, ok := c.(ServiceRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesServiceRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ServiceRequest"] = r
+	}
+	if c, ok := w.Concrete.(ServiceRequestSearch); ok {
+		c, err := c.SearchCapabilitiesServiceRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ServiceRequest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ServiceRequest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ServiceRequest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SlotCreate); ok {
+		resourcesMap["Slot"] = addInteraction("Slot", "create")
+	}
+	if _, ok := w.Concrete.(SlotRead); ok {
+		resourcesMap["Slot"] = addInteraction("Slot", "read")
+	}
+	if _, ok := w.Concrete.(SlotDelete); ok {
+		resourcesMap["Slot"] = addInteraction("Slot", "delete")
+	}
+	if c, ok := w.Concrete.(SlotUpdate); ok {
+		r := addInteraction("Slot", "update")
+		c, ok := c.(SlotUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSlot(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Slot"] = r
+	}
+	if c, ok := w.Concrete.(SlotSearch); ok {
+		c, err := c.SearchCapabilitiesSlot(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Slot", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Slot-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Slot"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SpecimenCreate); ok {
+		resourcesMap["Specimen"] = addInteraction("Specimen", "create")
+	}
+	if _, ok := w.Concrete.(SpecimenRead); ok {
+		resourcesMap["Specimen"] = addInteraction("Specimen", "read")
+	}
+	if _, ok := w.Concrete.(SpecimenDelete); ok {
+		resourcesMap["Specimen"] = addInteraction("Specimen", "delete")
+	}
+	if c, ok := w.Concrete.(SpecimenUpdate); ok {
+		r := addInteraction("Specimen", "update")
+		c, ok := c.(SpecimenUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSpecimen(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Specimen"] = r
+	}
+	if c, ok := w.Concrete.(SpecimenSearch); ok {
+		c, err := c.SearchCapabilitiesSpecimen(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Specimen", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Specimen-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Specimen"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SpecimenDefinitionCreate); ok {
+		resourcesMap["SpecimenDefinition"] = addInteraction("SpecimenDefinition", "create")
+	}
+	if _, ok := w.Concrete.(SpecimenDefinitionRead); ok {
+		resourcesMap["SpecimenDefinition"] = addInteraction("SpecimenDefinition", "read")
+	}
+	if _, ok := w.Concrete.(SpecimenDefinitionDelete); ok {
+		resourcesMap["SpecimenDefinition"] = addInteraction("SpecimenDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(SpecimenDefinitionUpdate); ok {
+		r := addInteraction("SpecimenDefinition", "update")
+		c, ok := c.(SpecimenDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSpecimenDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["SpecimenDefinition"] = r
+	}
+	if c, ok := w.Concrete.(SpecimenDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesSpecimenDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("SpecimenDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("SpecimenDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["SpecimenDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(StructureDefinitionCreate); ok {
+		resourcesMap["StructureDefinition"] = addInteraction("StructureDefinition", "create")
+	}
+	if _, ok := w.Concrete.(StructureDefinitionRead); ok {
+		resourcesMap["StructureDefinition"] = addInteraction("StructureDefinition", "read")
+	}
+	if _, ok := w.Concrete.(StructureDefinitionDelete); ok {
+		resourcesMap["StructureDefinition"] = addInteraction("StructureDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(StructureDefinitionUpdate); ok {
+		r := addInteraction("StructureDefinition", "update")
+		c, ok := c.(StructureDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesStructureDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["StructureDefinition"] = r
+	}
+	if c, ok := w.Concrete.(StructureDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesStructureDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("StructureDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("StructureDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["StructureDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(StructureMapCreate); ok {
+		resourcesMap["StructureMap"] = addInteraction("StructureMap", "create")
+	}
+	if _, ok := w.Concrete.(StructureMapRead); ok {
+		resourcesMap["StructureMap"] = addInteraction("StructureMap", "read")
+	}
+	if _, ok := w.Concrete.(StructureMapDelete); ok {
+		resourcesMap["StructureMap"] = addInteraction("StructureMap", "delete")
+	}
+	if c, ok := w.Concrete.(StructureMapUpdate); ok {
+		r := addInteraction("StructureMap", "update")
+		c, ok := c.(StructureMapUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesStructureMap(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["StructureMap"] = r
+	}
+	if c, ok := w.Concrete.(StructureMapSearch); ok {
+		c, err := c.SearchCapabilitiesStructureMap(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("StructureMap", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("StructureMap-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["StructureMap"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SubscriptionCreate); ok {
+		resourcesMap["Subscription"] = addInteraction("Subscription", "create")
+	}
+	if _, ok := w.Concrete.(SubscriptionRead); ok {
+		resourcesMap["Subscription"] = addInteraction("Subscription", "read")
+	}
+	if _, ok := w.Concrete.(SubscriptionDelete); ok {
+		resourcesMap["Subscription"] = addInteraction("Subscription", "delete")
+	}
+	if c, ok := w.Concrete.(SubscriptionUpdate); ok {
+		r := addInteraction("Subscription", "update")
+		c, ok := c.(SubscriptionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubscription(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Subscription"] = r
+	}
+	if c, ok := w.Concrete.(SubscriptionSearch); ok {
+		c, err := c.SearchCapabilitiesSubscription(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Subscription", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Subscription-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Subscription"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SubscriptionStatusCreate); ok {
+		resourcesMap["SubscriptionStatus"] = addInteraction("SubscriptionStatus", "create")
+	}
+	if _, ok := w.Concrete.(SubscriptionStatusRead); ok {
+		resourcesMap["SubscriptionStatus"] = addInteraction("SubscriptionStatus", "read")
+	}
+	if _, ok := w.Concrete.(SubscriptionStatusDelete); ok {
+		resourcesMap["SubscriptionStatus"] = addInteraction("SubscriptionStatus", "delete")
+	}
+	if c, ok := w.Concrete.(SubscriptionStatusUpdate); ok {
+		r := addInteraction("SubscriptionStatus", "update")
+		c, ok := c.(SubscriptionStatusUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubscriptionStatus(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["SubscriptionStatus"] = r
+	}
+	if c, ok := w.Concrete.(SubscriptionStatusSearch); ok {
+		c, err := c.SearchCapabilitiesSubscriptionStatus(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("SubscriptionStatus", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("SubscriptionStatus-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["SubscriptionStatus"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SubscriptionTopicCreate); ok {
+		resourcesMap["SubscriptionTopic"] = addInteraction("SubscriptionTopic", "create")
+	}
+	if _, ok := w.Concrete.(SubscriptionTopicRead); ok {
+		resourcesMap["SubscriptionTopic"] = addInteraction("SubscriptionTopic", "read")
+	}
+	if _, ok := w.Concrete.(SubscriptionTopicDelete); ok {
+		resourcesMap["SubscriptionTopic"] = addInteraction("SubscriptionTopic", "delete")
+	}
+	if c, ok := w.Concrete.(SubscriptionTopicUpdate); ok {
+		r := addInteraction("SubscriptionTopic", "update")
+		c, ok := c.(SubscriptionTopicUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubscriptionTopic(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["SubscriptionTopic"] = r
+	}
+	if c, ok := w.Concrete.(SubscriptionTopicSearch); ok {
+		c, err := c.SearchCapabilitiesSubscriptionTopic(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("SubscriptionTopic", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("SubscriptionTopic-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["SubscriptionTopic"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SubstanceCreate); ok {
+		resourcesMap["Substance"] = addInteraction("Substance", "create")
+	}
+	if _, ok := w.Concrete.(SubstanceRead); ok {
+		resourcesMap["Substance"] = addInteraction("Substance", "read")
+	}
+	if _, ok := w.Concrete.(SubstanceDelete); ok {
+		resourcesMap["Substance"] = addInteraction("Substance", "delete")
+	}
+	if c, ok := w.Concrete.(SubstanceUpdate); ok {
+		r := addInteraction("Substance", "update")
+		c, ok := c.(SubstanceUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstance(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Substance"] = r
+	}
+	if c, ok := w.Concrete.(SubstanceSearch); ok {
+		c, err := c.SearchCapabilitiesSubstance(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Substance", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Substance-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Substance"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SubstanceDefinitionCreate); ok {
+		resourcesMap["SubstanceDefinition"] = addInteraction("SubstanceDefinition", "create")
+	}
+	if _, ok := w.Concrete.(SubstanceDefinitionRead); ok {
+		resourcesMap["SubstanceDefinition"] = addInteraction("SubstanceDefinition", "read")
+	}
+	if _, ok := w.Concrete.(SubstanceDefinitionDelete); ok {
+		resourcesMap["SubstanceDefinition"] = addInteraction("SubstanceDefinition", "delete")
+	}
+	if c, ok := w.Concrete.(SubstanceDefinitionUpdate); ok {
+		r := addInteraction("SubstanceDefinition", "update")
+		c, ok := c.(SubstanceDefinitionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSubstanceDefinition(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["SubstanceDefinition"] = r
+	}
+	if c, ok := w.Concrete.(SubstanceDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesSubstanceDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("SubstanceDefinition", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("SubstanceDefinition-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["SubstanceDefinition"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SupplyDeliveryCreate); ok {
+		resourcesMap["SupplyDelivery"] = addInteraction("SupplyDelivery", "create")
+	}
+	if _, ok := w.Concrete.(SupplyDeliveryRead); ok {
+		resourcesMap["SupplyDelivery"] = addInteraction("SupplyDelivery", "read")
+	}
+	if _, ok := w.Concrete.(SupplyDeliveryDelete); ok {
+		resourcesMap["SupplyDelivery"] = addInteraction("SupplyDelivery", "delete")
+	}
+	if c, ok := w.Concrete.(SupplyDeliveryUpdate); ok {
+		r := addInteraction("SupplyDelivery", "update")
+		c, ok := c.(SupplyDeliveryUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSupplyDelivery(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["SupplyDelivery"] = r
+	}
+	if c, ok := w.Concrete.(SupplyDeliverySearch); ok {
+		c, err := c.SearchCapabilitiesSupplyDelivery(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("SupplyDelivery", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("SupplyDelivery-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["SupplyDelivery"] = r
+		}
+	}
+	if _, ok := w.Concrete.(SupplyRequestCreate); ok {
+		resourcesMap["SupplyRequest"] = addInteraction("SupplyRequest", "create")
+	}
+	if _, ok := w.Concrete.(SupplyRequestRead); ok {
+		resourcesMap["SupplyRequest"] = addInteraction("SupplyRequest", "read")
+	}
+	if _, ok := w.Concrete.(SupplyRequestDelete); ok {
+		resourcesMap["SupplyRequest"] = addInteraction("SupplyRequest", "delete")
+	}
+	if c, ok := w.Concrete.(SupplyRequestUpdate); ok {
+		r := addInteraction("SupplyRequest", "update")
+		c, ok := c.(SupplyRequestUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesSupplyRequest(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["SupplyRequest"] = r
+	}
+	if c, ok := w.Concrete.(SupplyRequestSearch); ok {
+		c, err := c.SearchCapabilitiesSupplyRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("SupplyRequest", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("SupplyRequest-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["SupplyRequest"] = r
+		}
+	}
+	if _, ok := w.Concrete.(TaskCreate); ok {
+		resourcesMap["Task"] = addInteraction("Task", "create")
+	}
+	if _, ok := w.Concrete.(TaskRead); ok {
+		resourcesMap["Task"] = addInteraction("Task", "read")
+	}
+	if _, ok := w.Concrete.(TaskDelete); ok {
+		resourcesMap["Task"] = addInteraction("Task", "delete")
+	}
+	if c, ok := w.Concrete.(TaskUpdate); ok {
+		r := addInteraction("Task", "update")
+		c, ok := c.(TaskUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTask(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["Task"] = r
+	}
+	if c, ok := w.Concrete.(TaskSearch); ok {
+		c, err := c.SearchCapabilitiesTask(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("Task", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("Task-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["Task"] = r
+		}
+	}
+	if _, ok := w.Concrete.(TerminologyCapabilitiesCreate); ok {
+		resourcesMap["TerminologyCapabilities"] = addInteraction("TerminologyCapabilities", "create")
+	}
+	if _, ok := w.Concrete.(TerminologyCapabilitiesRead); ok {
+		resourcesMap["TerminologyCapabilities"] = addInteraction("TerminologyCapabilities", "read")
+	}
+	if _, ok := w.Concrete.(TerminologyCapabilitiesDelete); ok {
+		resourcesMap["TerminologyCapabilities"] = addInteraction("TerminologyCapabilities", "delete")
+	}
+	if c, ok := w.Concrete.(TerminologyCapabilitiesUpdate); ok {
+		r := addInteraction("TerminologyCapabilities", "update")
+		c, ok := c.(TerminologyCapabilitiesUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTerminologyCapabilities(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["TerminologyCapabilities"] = r
+	}
+	if c, ok := w.Concrete.(TerminologyCapabilitiesSearch); ok {
+		c, err := c.SearchCapabilitiesTerminologyCapabilities(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("TerminologyCapabilities", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("TerminologyCapabilities-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["TerminologyCapabilities"] = r
+		}
+	}
+	if _, ok := w.Concrete.(TestReportCreate); ok {
+		resourcesMap["TestReport"] = addInteraction("TestReport", "create")
+	}
+	if _, ok := w.Concrete.(TestReportRead); ok {
+		resourcesMap["TestReport"] = addInteraction("TestReport", "read")
+	}
+	if _, ok := w.Concrete.(TestReportDelete); ok {
+		resourcesMap["TestReport"] = addInteraction("TestReport", "delete")
+	}
+	if c, ok := w.Concrete.(TestReportUpdate); ok {
+		r := addInteraction("TestReport", "update")
+		c, ok := c.(TestReportUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTestReport(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["TestReport"] = r
+	}
+	if c, ok := w.Concrete.(TestReportSearch); ok {
+		c, err := c.SearchCapabilitiesTestReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("TestReport", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("TestReport-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["TestReport"] = r
+		}
+	}
+	if _, ok := w.Concrete.(TestScriptCreate); ok {
+		resourcesMap["TestScript"] = addInteraction("TestScript", "create")
+	}
+	if _, ok := w.Concrete.(TestScriptRead); ok {
+		resourcesMap["TestScript"] = addInteraction("TestScript", "read")
+	}
+	if _, ok := w.Concrete.(TestScriptDelete); ok {
+		resourcesMap["TestScript"] = addInteraction("TestScript", "delete")
+	}
+	if c, ok := w.Concrete.(TestScriptUpdate); ok {
+		r := addInteraction("TestScript", "update")
+		c, ok := c.(TestScriptUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesTestScript(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["TestScript"] = r
+	}
+	if c, ok := w.Concrete.(TestScriptSearch); ok {
+		c, err := c.SearchCapabilitiesTestScript(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("TestScript", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("TestScript-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["TestScript"] = r
+		}
+	}
+	if _, ok := w.Concrete.(ValueSetCreate); ok {
+		resourcesMap["ValueSet"] = addInteraction("ValueSet", "create")
+	}
+	if _, ok := w.Concrete.(ValueSetRead); ok {
+		resourcesMap["ValueSet"] = addInteraction("ValueSet", "read")
+	}
+	if _, ok := w.Concrete.(ValueSetDelete); ok {
+		resourcesMap["ValueSet"] = addInteraction("ValueSet", "delete")
+	}
+	if c, ok := w.Concrete.(ValueSetUpdate); ok {
+		r := addInteraction("ValueSet", "update")
+		c, ok := c.(ValueSetUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesValueSet(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["ValueSet"] = r
+	}
+	if c, ok := w.Concrete.(ValueSetSearch); ok {
+		c, err := c.SearchCapabilitiesValueSet(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("ValueSet", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("ValueSet-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["ValueSet"] = r
+		}
+	}
+	if _, ok := w.Concrete.(VerificationResultCreate); ok {
+		resourcesMap["VerificationResult"] = addInteraction("VerificationResult", "create")
+	}
+	if _, ok := w.Concrete.(VerificationResultRead); ok {
+		resourcesMap["VerificationResult"] = addInteraction("VerificationResult", "read")
+	}
+	if _, ok := w.Concrete.(VerificationResultDelete); ok {
+		resourcesMap["VerificationResult"] = addInteraction("VerificationResult", "delete")
+	}
+	if c, ok := w.Concrete.(VerificationResultUpdate); ok {
+		r := addInteraction("VerificationResult", "update")
+		c, ok := c.(VerificationResultUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesVerificationResult(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["VerificationResult"] = r
+	}
+	if c, ok := w.Concrete.(VerificationResultSearch); ok {
+		c, err := c.SearchCapabilitiesVerificationResult(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("VerificationResult", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("VerificationResult-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["VerificationResult"] = r
+		}
+	}
+	if _, ok := w.Concrete.(VisionPrescriptionCreate); ok {
+		resourcesMap["VisionPrescription"] = addInteraction("VisionPrescription", "create")
+	}
+	if _, ok := w.Concrete.(VisionPrescriptionRead); ok {
+		resourcesMap["VisionPrescription"] = addInteraction("VisionPrescription", "read")
+	}
+	if _, ok := w.Concrete.(VisionPrescriptionDelete); ok {
+		resourcesMap["VisionPrescription"] = addInteraction("VisionPrescription", "delete")
+	}
+	if c, ok := w.Concrete.(VisionPrescriptionUpdate); ok {
+		r := addInteraction("VisionPrescription", "update")
+		c, ok := c.(VisionPrescriptionUpdateCapabilities)
+		if ok {
+			c, err := c.UpdateCapabilitiesVisionPrescription(ctx)
+			if err != nil {
+				errs = append(errs, err)
+			} else {
+				r.UpdateCreate = &basic.Boolean{Value: ptr.To(c.UpdateCreate)}
+			}
+		}
+		resourcesMap["VisionPrescription"] = r
+	}
+	if c, ok := w.Concrete.(VisionPrescriptionSearch); ok {
+		c, err := c.SearchCapabilitiesVisionPrescription(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			r := addInteraction("VisionPrescription", "search-type")
+			for _, include := range c.Includes {
+				r.SearchInclude = append(r.SearchInclude, basic.String{Value: &include})
+			}
+			for n, p := range c.Parameters {
+				fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](p.Children("type"))
+				if !ok || err != nil {
+					continue
+				}
+				resolvedType := string(fhirpathType)
+				var definition *basic.Canonical
+				if baseUrl != "" {
+					searchParameterId := ""
+					fhirpathId, idOk, idErr := fhirpath.Singleton[fhirpath.String](p.Children("id"))
+					if idOk && idErr == nil {
+						searchParameterId = string(fhirpathId)
+					} else {
+						// If no explicit ID is set, create one of pattern {resourceType}-{name}
+						searchParameterId = sanitizeIdentifier("VisionPrescription-" + n)
+					}
+					canonicalUrl := baseUrl + "/SearchParameter/" + searchParameterId
+					definition = &basic.Canonical{Value: &canonicalUrl}
+				}
+				r.SearchParam = append(r.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+					Definition: definition,
+					Name:       basic.String{Value: &n},
+					Type:       basic.Code{Value: &resolvedType},
+				})
+			}
+			resourcesMap["VisionPrescription"] = r
+		}
+	}
+	resourcesMap["SearchParameter"] = addInteraction("SearchParameter", "read")
+	if len(errs) > 0 {
+		return basic.CapabilityStatement{}, errors.Join(errs...)
+	}
+	resourcesList := make([]basic.CapabilityStatementRestResource, 0, len(resourcesMap))
+	for _, r := range resourcesMap {
+		slices.SortStableFunc(r.SearchParam, func(a, b basic.CapabilityStatementRestResourceSearchParam) int {
+			return cmp.Compare(*a.Name.Value, *b.Name.Value)
+		})
+		slices.SortStableFunc(r.Interaction, func(a, b basic.CapabilityStatementRestResourceInteraction) int {
+			order := map[string]int{
+				"create":      1,
+				"delete":      4,
+				"read":        2,
+				"search-type": 5,
+				"update":      3,
+			}
+			aCode := ""
+			if a.Code.Value != nil {
+				aCode = *a.Code.Value
+			}
+			bCode := ""
+			if b.Code.Value != nil {
+				bCode = *b.Code.Value
+			}
+			return cmp.Compare(order[aCode], order[bCode])
+		})
+		resourcesList = append(resourcesList, r)
+	}
+	slices.SortFunc(resourcesList, func(a, b basic.CapabilityStatementRestResource) int {
+		return cmp.Compare(*a.Type.Value, *b.Type.Value)
+	})
+	capabilityStatement := baseCapabilityStatement
+	if capabilityStatement.FhirVersion.Value == nil {
+		capabilityStatement.FhirVersion = basic.Code{Value: ptr.To("4.3")}
+	}
+	if len(capabilityStatement.Rest) == 0 {
+		capabilityStatement.Rest = []basic.CapabilityStatementRest{{Mode: basic.Code{Value: ptr.To("server")}}}
+	}
+	capabilityStatement.Rest[0].Resource = resourcesList
+	return capabilityStatement, nil
+}
+func sanitizeIdentifier(input string) string {
+	result := strings.ReplaceAll(input, "_", "")
+	return result
+}
+func populateSearchParameter(searchParam r4b.SearchParameter, resourceType string, paramName string, baseUrl string) r4b.SearchParameter {
+	_, idOk, idErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("id"))
+	if !idOk || idErr != nil {
+		// Set auto-generated ID using pattern {resourceType}-{name} (FHIR-compliant)
+		id := sanitizeIdentifier(resourceType + "-" + paramName)
+		searchParam.Id = &r4b.Id{Value: ptr.To(id)}
+	}
+	_, urlOk, urlErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("url"))
+	if !urlOk || urlErr != nil {
+		// Set canonical URL using sanitized ID
+		canonicalUrl := baseUrl + "/SearchParameter/" + *searchParam.Id.Value
+		searchParam.Url = r4b.Uri{Value: ptr.To(canonicalUrl)}
+	}
+	_, nameOk, nameErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("name"))
+	if !nameOk || nameErr != nil {
+		// Set name based on parameter name
+		searchParam.Name = r4b.String{Value: ptr.To(paramName)}
+	}
+	_, statusOk, statusErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("status"))
+	if !statusOk || statusErr != nil {
+		// Set default status to active
+		searchParam.Status = r4b.Code{Value: ptr.To("active")}
+	}
+	_, codeOk, codeErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("code"))
+	if !codeOk || codeErr != nil {
+		// Set code based on parameter name
+		searchParam.Code = r4b.Code{Value: ptr.To(paramName)}
+	}
+	baseElements := searchParam.Children("base")
+	if len(baseElements) == 0 {
+		// Set base resource type
+		searchParam.Base = []r4b.Code{{Value: ptr.To(resourceType)}}
+	}
+	_, descOk, descErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("description"))
+	if !descOk || descErr != nil {
+		// Set default description
+		description := "Search parameter " + paramName + " for " + resourceType + " resource"
+		searchParam.Description = r4b.Markdown{Value: ptr.To(description)}
+	}
+	return searchParam
+}
+func searchParameters(ctx context.Context, api any, baseUrl string) (map[string]r4b.SearchParameter, error) {
+	searchParameters := make(map[string]r4b.SearchParameter)
+	var errs []error
+	if c, ok := api.(AccountSearch); ok {
+		c, err := c.SearchCapabilitiesAccount(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Account", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Account"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ActivityDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesActivityDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ActivityDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ActivityDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(AdministrableProductDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesAdministrableProductDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "AdministrableProductDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["AdministrableProductDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(AdverseEventSearch); ok {
+		c, err := c.SearchCapabilitiesAdverseEvent(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "AdverseEvent", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["AdverseEvent"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(AllergyIntoleranceSearch); ok {
+		c, err := c.SearchCapabilitiesAllergyIntolerance(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "AllergyIntolerance", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["AllergyIntolerance"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(AppointmentSearch); ok {
+		c, err := c.SearchCapabilitiesAppointment(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Appointment", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Appointment"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(AppointmentResponseSearch); ok {
+		c, err := c.SearchCapabilitiesAppointmentResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "AppointmentResponse", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["AppointmentResponse"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(AuditEventSearch); ok {
+		c, err := c.SearchCapabilitiesAuditEvent(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "AuditEvent", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["AuditEvent"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(BasicSearch); ok {
+		c, err := c.SearchCapabilitiesBasic(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Basic", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Basic"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(BinarySearch); ok {
+		c, err := c.SearchCapabilitiesBinary(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Binary", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Binary"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(BiologicallyDerivedProductSearch); ok {
+		c, err := c.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "BiologicallyDerivedProduct", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["BiologicallyDerivedProduct"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(BodyStructureSearch); ok {
+		c, err := c.SearchCapabilitiesBodyStructure(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "BodyStructure", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["BodyStructure"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(BundleSearch); ok {
+		c, err := c.SearchCapabilitiesBundle(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Bundle", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Bundle"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CapabilityStatementSearch); ok {
+		c, err := c.SearchCapabilitiesCapabilityStatement(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CapabilityStatement", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CapabilityStatement"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CarePlanSearch); ok {
+		c, err := c.SearchCapabilitiesCarePlan(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CarePlan", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CarePlan"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CareTeamSearch); ok {
+		c, err := c.SearchCapabilitiesCareTeam(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CareTeam", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CareTeam"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CatalogEntrySearch); ok {
+		c, err := c.SearchCapabilitiesCatalogEntry(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CatalogEntry", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CatalogEntry"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ChargeItemSearch); ok {
+		c, err := c.SearchCapabilitiesChargeItem(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ChargeItem", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ChargeItem"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ChargeItemDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesChargeItemDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ChargeItemDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ChargeItemDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CitationSearch); ok {
+		c, err := c.SearchCapabilitiesCitation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Citation", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Citation"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ClaimSearch); ok {
+		c, err := c.SearchCapabilitiesClaim(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Claim", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Claim"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ClaimResponseSearch); ok {
+		c, err := c.SearchCapabilitiesClaimResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ClaimResponse", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ClaimResponse"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ClinicalImpressionSearch); ok {
+		c, err := c.SearchCapabilitiesClinicalImpression(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ClinicalImpression", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ClinicalImpression"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ClinicalUseDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesClinicalUseDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ClinicalUseDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ClinicalUseDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CodeSystemSearch); ok {
+		c, err := c.SearchCapabilitiesCodeSystem(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CodeSystem", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CodeSystem"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CommunicationSearch); ok {
+		c, err := c.SearchCapabilitiesCommunication(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Communication", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Communication"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CommunicationRequestSearch); ok {
+		c, err := c.SearchCapabilitiesCommunicationRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CommunicationRequest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CommunicationRequest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CompartmentDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesCompartmentDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CompartmentDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CompartmentDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CompositionSearch); ok {
+		c, err := c.SearchCapabilitiesComposition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Composition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Composition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ConceptMapSearch); ok {
+		c, err := c.SearchCapabilitiesConceptMap(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ConceptMap", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ConceptMap"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ConditionSearch); ok {
+		c, err := c.SearchCapabilitiesCondition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Condition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Condition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ConsentSearch); ok {
+		c, err := c.SearchCapabilitiesConsent(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Consent", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Consent"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ContractSearch); ok {
+		c, err := c.SearchCapabilitiesContract(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Contract", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Contract"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CoverageSearch); ok {
+		c, err := c.SearchCapabilitiesCoverage(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Coverage", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Coverage"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CoverageEligibilityRequestSearch); ok {
+		c, err := c.SearchCapabilitiesCoverageEligibilityRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CoverageEligibilityRequest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CoverageEligibilityRequest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(CoverageEligibilityResponseSearch); ok {
+		c, err := c.SearchCapabilitiesCoverageEligibilityResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "CoverageEligibilityResponse", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["CoverageEligibilityResponse"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DetectedIssueSearch); ok {
+		c, err := c.SearchCapabilitiesDetectedIssue(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DetectedIssue", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DetectedIssue"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DeviceSearch); ok {
+		c, err := c.SearchCapabilitiesDevice(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Device", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Device"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DeviceDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DeviceDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DeviceDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DeviceMetricSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceMetric(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DeviceMetric", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DeviceMetric"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DeviceRequestSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DeviceRequest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DeviceRequest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DeviceUseStatementSearch); ok {
+		c, err := c.SearchCapabilitiesDeviceUseStatement(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DeviceUseStatement", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DeviceUseStatement"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DiagnosticReportSearch); ok {
+		c, err := c.SearchCapabilitiesDiagnosticReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DiagnosticReport", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DiagnosticReport"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DocumentManifestSearch); ok {
+		c, err := c.SearchCapabilitiesDocumentManifest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DocumentManifest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DocumentManifest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(DocumentReferenceSearch); ok {
+		c, err := c.SearchCapabilitiesDocumentReference(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "DocumentReference", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["DocumentReference"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EncounterSearch); ok {
+		c, err := c.SearchCapabilitiesEncounter(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Encounter", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Encounter"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EndpointSearch); ok {
+		c, err := c.SearchCapabilitiesEndpoint(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Endpoint", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Endpoint"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EnrollmentRequestSearch); ok {
+		c, err := c.SearchCapabilitiesEnrollmentRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "EnrollmentRequest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["EnrollmentRequest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EnrollmentResponseSearch); ok {
+		c, err := c.SearchCapabilitiesEnrollmentResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "EnrollmentResponse", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["EnrollmentResponse"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EpisodeOfCareSearch); ok {
+		c, err := c.SearchCapabilitiesEpisodeOfCare(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "EpisodeOfCare", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["EpisodeOfCare"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EventDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesEventDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "EventDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["EventDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EvidenceSearch); ok {
+		c, err := c.SearchCapabilitiesEvidence(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Evidence", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Evidence"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EvidenceReportSearch); ok {
+		c, err := c.SearchCapabilitiesEvidenceReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "EvidenceReport", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["EvidenceReport"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(EvidenceVariableSearch); ok {
+		c, err := c.SearchCapabilitiesEvidenceVariable(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "EvidenceVariable", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["EvidenceVariable"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ExampleScenarioSearch); ok {
+		c, err := c.SearchCapabilitiesExampleScenario(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ExampleScenario", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ExampleScenario"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ExplanationOfBenefitSearch); ok {
+		c, err := c.SearchCapabilitiesExplanationOfBenefit(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ExplanationOfBenefit", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ExplanationOfBenefit"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(FamilyMemberHistorySearch); ok {
+		c, err := c.SearchCapabilitiesFamilyMemberHistory(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "FamilyMemberHistory", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["FamilyMemberHistory"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(FlagSearch); ok {
+		c, err := c.SearchCapabilitiesFlag(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Flag", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Flag"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(GoalSearch); ok {
+		c, err := c.SearchCapabilitiesGoal(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Goal", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Goal"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(GraphDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesGraphDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "GraphDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["GraphDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(GroupSearch); ok {
+		c, err := c.SearchCapabilitiesGroup(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Group", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Group"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(GuidanceResponseSearch); ok {
+		c, err := c.SearchCapabilitiesGuidanceResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "GuidanceResponse", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["GuidanceResponse"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(HealthcareServiceSearch); ok {
+		c, err := c.SearchCapabilitiesHealthcareService(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "HealthcareService", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["HealthcareService"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ImagingStudySearch); ok {
+		c, err := c.SearchCapabilitiesImagingStudy(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ImagingStudy", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ImagingStudy"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ImmunizationSearch); ok {
+		c, err := c.SearchCapabilitiesImmunization(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Immunization", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Immunization"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ImmunizationEvaluationSearch); ok {
+		c, err := c.SearchCapabilitiesImmunizationEvaluation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ImmunizationEvaluation", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ImmunizationEvaluation"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ImmunizationRecommendationSearch); ok {
+		c, err := c.SearchCapabilitiesImmunizationRecommendation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ImmunizationRecommendation", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ImmunizationRecommendation"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ImplementationGuideSearch); ok {
+		c, err := c.SearchCapabilitiesImplementationGuide(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ImplementationGuide", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ImplementationGuide"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(IngredientSearch); ok {
+		c, err := c.SearchCapabilitiesIngredient(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Ingredient", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Ingredient"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(InsurancePlanSearch); ok {
+		c, err := c.SearchCapabilitiesInsurancePlan(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "InsurancePlan", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["InsurancePlan"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(InvoiceSearch); ok {
+		c, err := c.SearchCapabilitiesInvoice(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Invoice", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Invoice"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(LibrarySearch); ok {
+		c, err := c.SearchCapabilitiesLibrary(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Library", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Library"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(LinkageSearch); ok {
+		c, err := c.SearchCapabilitiesLinkage(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Linkage", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Linkage"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ListSearch); ok {
+		c, err := c.SearchCapabilitiesList(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "List", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["List"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(LocationSearch); ok {
+		c, err := c.SearchCapabilitiesLocation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Location", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Location"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ManufacturedItemDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesManufacturedItemDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ManufacturedItemDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ManufacturedItemDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MeasureSearch); ok {
+		c, err := c.SearchCapabilitiesMeasure(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Measure", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Measure"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MeasureReportSearch); ok {
+		c, err := c.SearchCapabilitiesMeasureReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MeasureReport", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MeasureReport"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MediaSearch); ok {
+		c, err := c.SearchCapabilitiesMedia(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Media", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Media"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MedicationSearch); ok {
+		c, err := c.SearchCapabilitiesMedication(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Medication", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Medication"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MedicationAdministrationSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationAdministration(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MedicationAdministration", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MedicationAdministration"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MedicationDispenseSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationDispense(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MedicationDispense", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MedicationDispense"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MedicationKnowledgeSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationKnowledge(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MedicationKnowledge", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MedicationKnowledge"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MedicationRequestSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MedicationRequest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MedicationRequest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MedicationStatementSearch); ok {
+		c, err := c.SearchCapabilitiesMedicationStatement(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MedicationStatement", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MedicationStatement"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MedicinalProductDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesMedicinalProductDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MedicinalProductDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MedicinalProductDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MessageDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesMessageDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MessageDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MessageDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MessageHeaderSearch); ok {
+		c, err := c.SearchCapabilitiesMessageHeader(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MessageHeader", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MessageHeader"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(MolecularSequenceSearch); ok {
+		c, err := c.SearchCapabilitiesMolecularSequence(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "MolecularSequence", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["MolecularSequence"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(NamingSystemSearch); ok {
+		c, err := c.SearchCapabilitiesNamingSystem(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "NamingSystem", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["NamingSystem"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(NutritionOrderSearch); ok {
+		c, err := c.SearchCapabilitiesNutritionOrder(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "NutritionOrder", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["NutritionOrder"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(NutritionProductSearch); ok {
+		c, err := c.SearchCapabilitiesNutritionProduct(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "NutritionProduct", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["NutritionProduct"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ObservationSearch); ok {
+		c, err := c.SearchCapabilitiesObservation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Observation", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Observation"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ObservationDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesObservationDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ObservationDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ObservationDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(OperationDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesOperationDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "OperationDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["OperationDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(OperationOutcomeSearch); ok {
+		c, err := c.SearchCapabilitiesOperationOutcome(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "OperationOutcome", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["OperationOutcome"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(OrganizationSearch); ok {
+		c, err := c.SearchCapabilitiesOrganization(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Organization", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Organization"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(OrganizationAffiliationSearch); ok {
+		c, err := c.SearchCapabilitiesOrganizationAffiliation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "OrganizationAffiliation", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["OrganizationAffiliation"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PackagedProductDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesPackagedProductDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "PackagedProductDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["PackagedProductDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ParametersSearch); ok {
+		c, err := c.SearchCapabilitiesParameters(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Parameters", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Parameters"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PatientSearch); ok {
+		c, err := c.SearchCapabilitiesPatient(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Patient", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Patient"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PaymentNoticeSearch); ok {
+		c, err := c.SearchCapabilitiesPaymentNotice(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "PaymentNotice", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["PaymentNotice"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PaymentReconciliationSearch); ok {
+		c, err := c.SearchCapabilitiesPaymentReconciliation(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "PaymentReconciliation", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["PaymentReconciliation"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PersonSearch); ok {
+		c, err := c.SearchCapabilitiesPerson(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Person", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Person"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PlanDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesPlanDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "PlanDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["PlanDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PractitionerSearch); ok {
+		c, err := c.SearchCapabilitiesPractitioner(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Practitioner", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Practitioner"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(PractitionerRoleSearch); ok {
+		c, err := c.SearchCapabilitiesPractitionerRole(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "PractitionerRole", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["PractitionerRole"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ProcedureSearch); ok {
+		c, err := c.SearchCapabilitiesProcedure(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Procedure", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Procedure"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ProvenanceSearch); ok {
+		c, err := c.SearchCapabilitiesProvenance(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Provenance", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Provenance"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(QuestionnaireSearch); ok {
+		c, err := c.SearchCapabilitiesQuestionnaire(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Questionnaire", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Questionnaire"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(QuestionnaireResponseSearch); ok {
+		c, err := c.SearchCapabilitiesQuestionnaireResponse(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "QuestionnaireResponse", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["QuestionnaireResponse"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(RegulatedAuthorizationSearch); ok {
+		c, err := c.SearchCapabilitiesRegulatedAuthorization(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "RegulatedAuthorization", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["RegulatedAuthorization"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(RelatedPersonSearch); ok {
+		c, err := c.SearchCapabilitiesRelatedPerson(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "RelatedPerson", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["RelatedPerson"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(RequestGroupSearch); ok {
+		c, err := c.SearchCapabilitiesRequestGroup(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "RequestGroup", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["RequestGroup"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ResearchDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesResearchDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ResearchDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ResearchDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ResearchElementDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesResearchElementDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ResearchElementDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ResearchElementDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ResearchStudySearch); ok {
+		c, err := c.SearchCapabilitiesResearchStudy(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ResearchStudy", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ResearchStudy"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ResearchSubjectSearch); ok {
+		c, err := c.SearchCapabilitiesResearchSubject(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ResearchSubject", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ResearchSubject"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(RiskAssessmentSearch); ok {
+		c, err := c.SearchCapabilitiesRiskAssessment(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "RiskAssessment", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["RiskAssessment"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ScheduleSearch); ok {
+		c, err := c.SearchCapabilitiesSchedule(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Schedule", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Schedule"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SearchParameterSearch); ok {
+		c, err := c.SearchCapabilitiesSearchParameter(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "SearchParameter", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["SearchParameter"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ServiceRequestSearch); ok {
+		c, err := c.SearchCapabilitiesServiceRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ServiceRequest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ServiceRequest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SlotSearch); ok {
+		c, err := c.SearchCapabilitiesSlot(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Slot", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Slot"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SpecimenSearch); ok {
+		c, err := c.SearchCapabilitiesSpecimen(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Specimen", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Specimen"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SpecimenDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesSpecimenDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "SpecimenDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["SpecimenDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(StructureDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesStructureDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "StructureDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["StructureDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(StructureMapSearch); ok {
+		c, err := c.SearchCapabilitiesStructureMap(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "StructureMap", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["StructureMap"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SubscriptionSearch); ok {
+		c, err := c.SearchCapabilitiesSubscription(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Subscription", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Subscription"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SubscriptionStatusSearch); ok {
+		c, err := c.SearchCapabilitiesSubscriptionStatus(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "SubscriptionStatus", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["SubscriptionStatus"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SubscriptionTopicSearch); ok {
+		c, err := c.SearchCapabilitiesSubscriptionTopic(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "SubscriptionTopic", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["SubscriptionTopic"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SubstanceSearch); ok {
+		c, err := c.SearchCapabilitiesSubstance(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Substance", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Substance"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SubstanceDefinitionSearch); ok {
+		c, err := c.SearchCapabilitiesSubstanceDefinition(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "SubstanceDefinition", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["SubstanceDefinition"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SupplyDeliverySearch); ok {
+		c, err := c.SearchCapabilitiesSupplyDelivery(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "SupplyDelivery", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["SupplyDelivery"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(SupplyRequestSearch); ok {
+		c, err := c.SearchCapabilitiesSupplyRequest(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "SupplyRequest", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["SupplyRequest"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(TaskSearch); ok {
+		c, err := c.SearchCapabilitiesTask(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "Task", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["Task"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(TerminologyCapabilitiesSearch); ok {
+		c, err := c.SearchCapabilitiesTerminologyCapabilities(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "TerminologyCapabilities", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["TerminologyCapabilities"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(TestReportSearch); ok {
+		c, err := c.SearchCapabilitiesTestReport(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "TestReport", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["TestReport"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(TestScriptSearch); ok {
+		c, err := c.SearchCapabilitiesTestScript(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "TestScript", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["TestScript"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(ValueSetSearch); ok {
+		c, err := c.SearchCapabilitiesValueSet(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "ValueSet", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["ValueSet"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(VerificationResultSearch); ok {
+		c, err := c.SearchCapabilitiesVerificationResult(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "VerificationResult", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["VerificationResult"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if c, ok := api.(VisionPrescriptionSearch); ok {
+		c, err := c.SearchCapabilitiesVisionPrescription(ctx)
+		if err != nil {
+			errs = append(errs, err)
+		} else {
+			for n, p := range c.Parameters {
+				populatedParam := populateSearchParameter(p, "VisionPrescription", n, baseUrl)
+				fhirpathId, ok, err := fhirpath.Singleton[fhirpath.String](populatedParam.Children("id"))
+				if ok && err == nil {
+					searchParameters[string(fhirpathId)] = populatedParam
+				} else {
+					// Fallback: use pattern {resourceType}-{name} if ID extraction fails
+					searchParameters["VisionPrescription"+"-"+n] = populatedParam
+				}
+			}
+		}
+	}
+	if len(errs) > 0 {
+		return nil, errors.Join(errs...)
+	}
+	return searchParameters, nil
 }
 func (w Generic) Create(ctx context.Context, resource model.Resource) (model.Resource, error) {
 	g, ok := w.Concrete.(capabilities.GenericCreate)
@@ -2660,14 +13503,32 @@ func (w Generic) Read(ctx context.Context, resourceType string, id string) (mode
 		return impl.ReadSchedule(ctx, id)
 	case "SearchParameter":
 		impl, ok := w.Concrete.(SearchParameterRead)
-		if !ok {
-			return nil, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
-				Code:        r4b.Code{Value: ptr.To("not-supported")},
-				Diagnostics: &r4b.String{Value: ptr.To("read not implemented for SearchParameter")},
-				Severity:    r4b.Code{Value: ptr.To("fatal")},
-			}}}
+		if ok {
+			return impl.ReadSearchParameter(ctx, id)
 		}
-		return impl.ReadSearchParameter(ctx, id)
+		// Fallback: gather SearchParameter from SearchCapabilities methods if ReadSearchParameter not implemented
+		// Get base URL from CapabilityStatement for canonical references
+		capabilityStatement, err := w.Concrete.CapabilityBase(ctx)
+		if err != nil {
+			return nil, err
+		}
+		var baseUrl string
+		if capabilityStatement.Implementation != nil && capabilityStatement.Implementation.Url != nil && capabilityStatement.Implementation.Url.Value != nil {
+			baseUrl = *capabilityStatement.Implementation.Url.Value
+		}
+		searchParameters, err := searchParameters(ctx, w.Concrete, baseUrl)
+		if err != nil {
+			return nil, err
+		}
+		searchParam, exists := searchParameters[id]
+		if exists {
+			return searchParam, nil
+		}
+		return nil, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			Code:        r4b.Code{Value: ptr.To("not-found")},
+			Diagnostics: &r4b.String{Value: ptr.To("SearchParameter with ID " + id + " not found")},
+			Severity:    r4b.Code{Value: ptr.To("error")},
+		}}}
 	case "ServiceRequest":
 		impl, ok := w.Concrete.(ServiceRequestRead)
 		if !ok {
@@ -6854,12 +17715,12 @@ func (w Generic) Delete(ctx context.Context, resourceType string, id string) err
 		}}}
 	}
 }
-func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities, error) {
+func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (search.Capabilities[r4b.SearchParameter], error) {
 	switch resourceType {
 	case "Account":
 		impl, ok := w.Concrete.(AccountSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Account")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6869,7 +17730,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ActivityDefinition":
 		impl, ok := w.Concrete.(ActivityDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ActivityDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6879,7 +17740,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AdministrableProductDefinition":
 		impl, ok := w.Concrete.(AdministrableProductDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for AdministrableProductDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6889,7 +17750,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AdverseEvent":
 		impl, ok := w.Concrete.(AdverseEventSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for AdverseEvent")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6899,7 +17760,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AllergyIntolerance":
 		impl, ok := w.Concrete.(AllergyIntoleranceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for AllergyIntolerance")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6909,7 +17770,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Appointment":
 		impl, ok := w.Concrete.(AppointmentSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Appointment")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6919,7 +17780,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AppointmentResponse":
 		impl, ok := w.Concrete.(AppointmentResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for AppointmentResponse")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6929,7 +17790,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "AuditEvent":
 		impl, ok := w.Concrete.(AuditEventSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for AuditEvent")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6939,7 +17800,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Basic":
 		impl, ok := w.Concrete.(BasicSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Basic")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6949,7 +17810,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Binary":
 		impl, ok := w.Concrete.(BinarySearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Binary")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6959,7 +17820,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "BiologicallyDerivedProduct":
 		impl, ok := w.Concrete.(BiologicallyDerivedProductSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for BiologicallyDerivedProduct")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6969,7 +17830,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "BodyStructure":
 		impl, ok := w.Concrete.(BodyStructureSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for BodyStructure")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6979,7 +17840,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Bundle":
 		impl, ok := w.Concrete.(BundleSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Bundle")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6989,7 +17850,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CapabilityStatement":
 		impl, ok := w.Concrete.(CapabilityStatementSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CapabilityStatement")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -6999,7 +17860,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CarePlan":
 		impl, ok := w.Concrete.(CarePlanSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CarePlan")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7009,7 +17870,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CareTeam":
 		impl, ok := w.Concrete.(CareTeamSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CareTeam")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7019,7 +17880,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CatalogEntry":
 		impl, ok := w.Concrete.(CatalogEntrySearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CatalogEntry")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7029,7 +17890,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ChargeItem":
 		impl, ok := w.Concrete.(ChargeItemSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ChargeItem")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7039,7 +17900,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ChargeItemDefinition":
 		impl, ok := w.Concrete.(ChargeItemDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ChargeItemDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7049,7 +17910,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Citation":
 		impl, ok := w.Concrete.(CitationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Citation")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7059,7 +17920,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Claim":
 		impl, ok := w.Concrete.(ClaimSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Claim")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7069,7 +17930,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ClaimResponse":
 		impl, ok := w.Concrete.(ClaimResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ClaimResponse")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7079,7 +17940,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ClinicalImpression":
 		impl, ok := w.Concrete.(ClinicalImpressionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ClinicalImpression")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7089,7 +17950,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ClinicalUseDefinition":
 		impl, ok := w.Concrete.(ClinicalUseDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ClinicalUseDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7099,7 +17960,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CodeSystem":
 		impl, ok := w.Concrete.(CodeSystemSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CodeSystem")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7109,7 +17970,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Communication":
 		impl, ok := w.Concrete.(CommunicationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Communication")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7119,7 +17980,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CommunicationRequest":
 		impl, ok := w.Concrete.(CommunicationRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CommunicationRequest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7129,7 +17990,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CompartmentDefinition":
 		impl, ok := w.Concrete.(CompartmentDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CompartmentDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7139,7 +18000,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Composition":
 		impl, ok := w.Concrete.(CompositionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Composition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7149,7 +18010,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ConceptMap":
 		impl, ok := w.Concrete.(ConceptMapSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ConceptMap")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7159,7 +18020,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Condition":
 		impl, ok := w.Concrete.(ConditionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Condition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7169,7 +18030,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Consent":
 		impl, ok := w.Concrete.(ConsentSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Consent")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7179,7 +18040,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Contract":
 		impl, ok := w.Concrete.(ContractSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Contract")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7189,7 +18050,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Coverage":
 		impl, ok := w.Concrete.(CoverageSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Coverage")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7199,7 +18060,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CoverageEligibilityRequest":
 		impl, ok := w.Concrete.(CoverageEligibilityRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CoverageEligibilityRequest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7209,7 +18070,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "CoverageEligibilityResponse":
 		impl, ok := w.Concrete.(CoverageEligibilityResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for CoverageEligibilityResponse")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7219,7 +18080,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DetectedIssue":
 		impl, ok := w.Concrete.(DetectedIssueSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DetectedIssue")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7229,7 +18090,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Device":
 		impl, ok := w.Concrete.(DeviceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Device")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7239,7 +18100,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceDefinition":
 		impl, ok := w.Concrete.(DeviceDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DeviceDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7249,7 +18110,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceMetric":
 		impl, ok := w.Concrete.(DeviceMetricSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DeviceMetric")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7259,7 +18120,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceRequest":
 		impl, ok := w.Concrete.(DeviceRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DeviceRequest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7269,7 +18130,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DeviceUseStatement":
 		impl, ok := w.Concrete.(DeviceUseStatementSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DeviceUseStatement")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7279,7 +18140,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DiagnosticReport":
 		impl, ok := w.Concrete.(DiagnosticReportSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DiagnosticReport")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7289,7 +18150,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DocumentManifest":
 		impl, ok := w.Concrete.(DocumentManifestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DocumentManifest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7299,7 +18160,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "DocumentReference":
 		impl, ok := w.Concrete.(DocumentReferenceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for DocumentReference")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7309,7 +18170,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Encounter":
 		impl, ok := w.Concrete.(EncounterSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Encounter")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7319,7 +18180,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Endpoint":
 		impl, ok := w.Concrete.(EndpointSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Endpoint")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7329,7 +18190,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EnrollmentRequest":
 		impl, ok := w.Concrete.(EnrollmentRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for EnrollmentRequest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7339,7 +18200,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EnrollmentResponse":
 		impl, ok := w.Concrete.(EnrollmentResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for EnrollmentResponse")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7349,7 +18210,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EpisodeOfCare":
 		impl, ok := w.Concrete.(EpisodeOfCareSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for EpisodeOfCare")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7359,7 +18220,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EventDefinition":
 		impl, ok := w.Concrete.(EventDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for EventDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7369,7 +18230,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Evidence":
 		impl, ok := w.Concrete.(EvidenceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Evidence")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7379,7 +18240,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EvidenceReport":
 		impl, ok := w.Concrete.(EvidenceReportSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for EvidenceReport")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7389,7 +18250,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "EvidenceVariable":
 		impl, ok := w.Concrete.(EvidenceVariableSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for EvidenceVariable")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7399,7 +18260,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ExampleScenario":
 		impl, ok := w.Concrete.(ExampleScenarioSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ExampleScenario")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7409,7 +18270,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ExplanationOfBenefit":
 		impl, ok := w.Concrete.(ExplanationOfBenefitSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ExplanationOfBenefit")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7419,7 +18280,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "FamilyMemberHistory":
 		impl, ok := w.Concrete.(FamilyMemberHistorySearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for FamilyMemberHistory")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7429,7 +18290,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Flag":
 		impl, ok := w.Concrete.(FlagSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Flag")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7439,7 +18300,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Goal":
 		impl, ok := w.Concrete.(GoalSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Goal")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7449,7 +18310,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "GraphDefinition":
 		impl, ok := w.Concrete.(GraphDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for GraphDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7459,7 +18320,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Group":
 		impl, ok := w.Concrete.(GroupSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Group")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7469,7 +18330,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "GuidanceResponse":
 		impl, ok := w.Concrete.(GuidanceResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for GuidanceResponse")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7479,7 +18340,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "HealthcareService":
 		impl, ok := w.Concrete.(HealthcareServiceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for HealthcareService")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7489,7 +18350,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImagingStudy":
 		impl, ok := w.Concrete.(ImagingStudySearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ImagingStudy")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7499,7 +18360,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Immunization":
 		impl, ok := w.Concrete.(ImmunizationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Immunization")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7509,7 +18370,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImmunizationEvaluation":
 		impl, ok := w.Concrete.(ImmunizationEvaluationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ImmunizationEvaluation")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7519,7 +18380,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImmunizationRecommendation":
 		impl, ok := w.Concrete.(ImmunizationRecommendationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ImmunizationRecommendation")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7529,7 +18390,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ImplementationGuide":
 		impl, ok := w.Concrete.(ImplementationGuideSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ImplementationGuide")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7539,7 +18400,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Ingredient":
 		impl, ok := w.Concrete.(IngredientSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Ingredient")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7549,7 +18410,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "InsurancePlan":
 		impl, ok := w.Concrete.(InsurancePlanSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for InsurancePlan")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7559,7 +18420,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Invoice":
 		impl, ok := w.Concrete.(InvoiceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Invoice")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7569,7 +18430,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Library":
 		impl, ok := w.Concrete.(LibrarySearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Library")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7579,7 +18440,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Linkage":
 		impl, ok := w.Concrete.(LinkageSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Linkage")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7589,7 +18450,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "List":
 		impl, ok := w.Concrete.(ListSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for List")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7599,7 +18460,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Location":
 		impl, ok := w.Concrete.(LocationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Location")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7609,7 +18470,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ManufacturedItemDefinition":
 		impl, ok := w.Concrete.(ManufacturedItemDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ManufacturedItemDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7619,7 +18480,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Measure":
 		impl, ok := w.Concrete.(MeasureSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Measure")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7629,7 +18490,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MeasureReport":
 		impl, ok := w.Concrete.(MeasureReportSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MeasureReport")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7639,7 +18500,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Media":
 		impl, ok := w.Concrete.(MediaSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Media")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7649,7 +18510,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Medication":
 		impl, ok := w.Concrete.(MedicationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Medication")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7659,7 +18520,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationAdministration":
 		impl, ok := w.Concrete.(MedicationAdministrationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MedicationAdministration")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7669,7 +18530,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationDispense":
 		impl, ok := w.Concrete.(MedicationDispenseSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MedicationDispense")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7679,7 +18540,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationKnowledge":
 		impl, ok := w.Concrete.(MedicationKnowledgeSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MedicationKnowledge")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7689,7 +18550,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationRequest":
 		impl, ok := w.Concrete.(MedicationRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MedicationRequest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7699,7 +18560,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicationStatement":
 		impl, ok := w.Concrete.(MedicationStatementSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MedicationStatement")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7709,7 +18570,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MedicinalProductDefinition":
 		impl, ok := w.Concrete.(MedicinalProductDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MedicinalProductDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7719,7 +18580,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MessageDefinition":
 		impl, ok := w.Concrete.(MessageDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MessageDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7729,7 +18590,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MessageHeader":
 		impl, ok := w.Concrete.(MessageHeaderSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MessageHeader")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7739,7 +18600,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "MolecularSequence":
 		impl, ok := w.Concrete.(MolecularSequenceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for MolecularSequence")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7749,7 +18610,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "NamingSystem":
 		impl, ok := w.Concrete.(NamingSystemSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for NamingSystem")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7759,7 +18620,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "NutritionOrder":
 		impl, ok := w.Concrete.(NutritionOrderSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for NutritionOrder")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7769,7 +18630,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "NutritionProduct":
 		impl, ok := w.Concrete.(NutritionProductSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for NutritionProduct")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7779,7 +18640,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Observation":
 		impl, ok := w.Concrete.(ObservationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Observation")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7789,7 +18650,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ObservationDefinition":
 		impl, ok := w.Concrete.(ObservationDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ObservationDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7799,7 +18660,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "OperationDefinition":
 		impl, ok := w.Concrete.(OperationDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for OperationDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7809,7 +18670,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "OperationOutcome":
 		impl, ok := w.Concrete.(OperationOutcomeSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for OperationOutcome")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7819,7 +18680,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Organization":
 		impl, ok := w.Concrete.(OrganizationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Organization")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7829,7 +18690,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "OrganizationAffiliation":
 		impl, ok := w.Concrete.(OrganizationAffiliationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for OrganizationAffiliation")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7839,7 +18700,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PackagedProductDefinition":
 		impl, ok := w.Concrete.(PackagedProductDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for PackagedProductDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7849,7 +18710,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Parameters":
 		impl, ok := w.Concrete.(ParametersSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Parameters")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7859,7 +18720,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Patient":
 		impl, ok := w.Concrete.(PatientSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Patient")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7869,7 +18730,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PaymentNotice":
 		impl, ok := w.Concrete.(PaymentNoticeSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for PaymentNotice")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7879,7 +18740,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PaymentReconciliation":
 		impl, ok := w.Concrete.(PaymentReconciliationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for PaymentReconciliation")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7889,7 +18750,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Person":
 		impl, ok := w.Concrete.(PersonSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Person")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7899,7 +18760,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PlanDefinition":
 		impl, ok := w.Concrete.(PlanDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for PlanDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7909,7 +18770,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Practitioner":
 		impl, ok := w.Concrete.(PractitionerSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Practitioner")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7919,7 +18780,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "PractitionerRole":
 		impl, ok := w.Concrete.(PractitionerRoleSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for PractitionerRole")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7929,7 +18790,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Procedure":
 		impl, ok := w.Concrete.(ProcedureSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Procedure")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7939,7 +18800,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Provenance":
 		impl, ok := w.Concrete.(ProvenanceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Provenance")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7949,7 +18810,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Questionnaire":
 		impl, ok := w.Concrete.(QuestionnaireSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Questionnaire")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7959,7 +18820,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "QuestionnaireResponse":
 		impl, ok := w.Concrete.(QuestionnaireResponseSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for QuestionnaireResponse")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7969,7 +18830,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RegulatedAuthorization":
 		impl, ok := w.Concrete.(RegulatedAuthorizationSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for RegulatedAuthorization")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7979,7 +18840,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RelatedPerson":
 		impl, ok := w.Concrete.(RelatedPersonSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for RelatedPerson")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7989,7 +18850,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RequestGroup":
 		impl, ok := w.Concrete.(RequestGroupSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for RequestGroup")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -7999,7 +18860,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchDefinition":
 		impl, ok := w.Concrete.(ResearchDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ResearchDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8009,7 +18870,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchElementDefinition":
 		impl, ok := w.Concrete.(ResearchElementDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ResearchElementDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8019,7 +18880,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchStudy":
 		impl, ok := w.Concrete.(ResearchStudySearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ResearchStudy")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8029,7 +18890,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ResearchSubject":
 		impl, ok := w.Concrete.(ResearchSubjectSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ResearchSubject")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8039,7 +18900,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "RiskAssessment":
 		impl, ok := w.Concrete.(RiskAssessmentSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for RiskAssessment")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8049,7 +18910,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Schedule":
 		impl, ok := w.Concrete.(ScheduleSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Schedule")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8059,7 +18920,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SearchParameter":
 		impl, ok := w.Concrete.(SearchParameterSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for SearchParameter")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8069,7 +18930,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ServiceRequest":
 		impl, ok := w.Concrete.(ServiceRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ServiceRequest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8079,7 +18940,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Slot":
 		impl, ok := w.Concrete.(SlotSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Slot")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8089,7 +18950,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Specimen":
 		impl, ok := w.Concrete.(SpecimenSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Specimen")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8099,7 +18960,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SpecimenDefinition":
 		impl, ok := w.Concrete.(SpecimenDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for SpecimenDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8109,7 +18970,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "StructureDefinition":
 		impl, ok := w.Concrete.(StructureDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for StructureDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8119,7 +18980,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "StructureMap":
 		impl, ok := w.Concrete.(StructureMapSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for StructureMap")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8129,7 +18990,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Subscription":
 		impl, ok := w.Concrete.(SubscriptionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Subscription")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8139,7 +19000,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubscriptionStatus":
 		impl, ok := w.Concrete.(SubscriptionStatusSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for SubscriptionStatus")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8149,7 +19010,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubscriptionTopic":
 		impl, ok := w.Concrete.(SubscriptionTopicSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for SubscriptionTopic")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8159,7 +19020,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Substance":
 		impl, ok := w.Concrete.(SubstanceSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Substance")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8169,7 +19030,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SubstanceDefinition":
 		impl, ok := w.Concrete.(SubstanceDefinitionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for SubstanceDefinition")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8179,7 +19040,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SupplyDelivery":
 		impl, ok := w.Concrete.(SupplyDeliverySearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for SupplyDelivery")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8189,7 +19050,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "SupplyRequest":
 		impl, ok := w.Concrete.(SupplyRequestSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for SupplyRequest")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8199,7 +19060,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "Task":
 		impl, ok := w.Concrete.(TaskSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for Task")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8209,7 +19070,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "TerminologyCapabilities":
 		impl, ok := w.Concrete.(TerminologyCapabilitiesSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for TerminologyCapabilities")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8219,7 +19080,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "TestReport":
 		impl, ok := w.Concrete.(TestReportSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for TestReport")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8229,7 +19090,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "TestScript":
 		impl, ok := w.Concrete.(TestScriptSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for TestScript")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8239,7 +19100,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "ValueSet":
 		impl, ok := w.Concrete.(ValueSetSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for ValueSet")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8249,7 +19110,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "VerificationResult":
 		impl, ok := w.Concrete.(VerificationResultSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for VerificationResult")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8259,7 +19120,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 	case "VisionPrescription":
 		impl, ok := w.Concrete.(VisionPrescriptionSearch)
 		if !ok {
-			return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+			return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 				Code:        r4b.Code{Value: ptr.To("not-supported")},
 				Diagnostics: &r4b.String{Value: ptr.To("search not implemented for VisionPrescription")},
 				Severity:    r4b.Code{Value: ptr.To("fatal")},
@@ -8267,7 +19128,7 @@ func (w Generic) SearchCapabilities(ctx context.Context, resourceType string) (s
 		}
 		return impl.SearchCapabilitiesVisionPrescription(ctx)
 	default:
-		return search.Capabilities{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
+		return search.Capabilities[r4b.SearchParameter]{}, r4b.OperationOutcome{Issue: []r4b.OperationOutcomeIssue{{
 			Code:        r4b.Code{Value: ptr.To("processing")},
 			Diagnostics: &r4b.String{Value: ptr.To("invalid resource type: " + resourceType)},
 			Severity:    r4b.Code{Value: ptr.To("fatal")},

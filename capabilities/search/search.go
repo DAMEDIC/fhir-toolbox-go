@@ -27,7 +27,9 @@ package search
 
 import (
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/cockroachdb/apd/v3"
 	"net/url"
 	"slices"
@@ -54,23 +56,18 @@ type Cursor string
 // It can be used to derive [CapabilityStatements] which describe what a FHIR system can do.
 //
 // [CapabilityStatements]: https://hl7.org/fhir/capabilitystatement.html
-type Capabilities struct {
-	Parameters ParameterDescriptions
+type Capabilities[P Parameter] struct {
+	Parameters map[string]P
 	Includes   []string
 }
 
-type ParameterDescriptions map[string]ParameterDescription
-
-// ParameterDescription describes a parameter that is supported by the implementation.
-type ParameterDescription struct {
-	Type      ParameterType
-	Modifiers []Modifier
-}
+// Parameter is a placeholder for FHIR version specific SearchParameter.
+type Parameter model.Element
 
 // Options represents the parameters passed to a search implementation.
 type Options struct {
 	// Parameters defines the search parameters.
-	Parameters Parameters
+	Parameters map[ParameterKey]AllOf
 	// Includes specifies the related resources to include in the search results.
 	Includes []string
 	// Count defines the maximum number of results to return.
@@ -79,12 +76,8 @@ type Options struct {
 	Cursor Cursor
 }
 
-// Parameters defines a map of search parameters, where the key is the parameter name
-// (potentially including modifiers)and the value is a slice of possible values for that parameter.
-type Parameters map[ParameterKey]All
-
 // All represents a slice of possible values for a single search parameter where each of the entry has to match.
-type All []OneOf
+type AllOf []OneOf
 
 // OneOf represents a slice of possible values for a single search parameter,
 // where only one of the values has to match.
@@ -97,7 +90,7 @@ type ParameterKey struct {
 	Name string
 	// Modifier is an optional modifier that can be applied to the search parameter,
 	// such as `exact`, `contains`, `identifier`, etc.
-	Modifier Modifier
+	Modifier string
 }
 
 func (p ParameterKey) String() string {
@@ -112,75 +105,64 @@ func (p ParameterKey) MarshalText() ([]byte, error) {
 	return []byte(p.String()), nil
 }
 
-// ParameterType is the type of the parameter
-type ParameterType string
-
 const (
-	TypeNumber    ParameterType = "number"
-	TypeDate      ParameterType = "date"
-	TypeString    ParameterType = "string"
-	TypeToken     ParameterType = "token"
-	TypeReference ParameterType = "reference"
-	TypeComposite ParameterType = "composite"
-	TypeQuantity  ParameterType = "quantity"
-	TypeUri       ParameterType = "uri"
-	TypeSpecial   ParameterType = "special"
+	TypeNumber    string = "number"
+	TypeDate      string = "date"
+	TypeString    string = "string"
+	TypeToken     string = "token"
+	TypeReference string = "reference"
+	TypeComposite string = "composite"
+	TypeQuantity  string = "quantity"
+	TypeUri       string = "uri"
+	TypeSpecial   string = "special"
 )
-
-// Modifier supported by an implementation.
-type Modifier string
 
 const (
 	// ModifierAbove on reference, token, uri: Tests whether the value in a resource is or subsumes the supplied parameter value (is-a, or hierarchical relationships).
-	ModifierAbove Modifier = "above"
+	ModifierAbove string = "above"
 	// ModifierBelow on reference, token, uri: Tests whether the value in a resource is or is subsumed by the supplied parameter value (is-a, or hierarchical relationships).
-	ModifierBelow Modifier = "below"
+	ModifierBelow string = "below"
 	// ModifierCodeText on reference, token: Tests whether the textual display value in a resource (e.g., CodeableConcept.text, Coding.display, or Reference.display) matches the supplied parameter value.
-	ModifierCodeText Modifier = "code-text"
+	ModifierCodeText string = "code-text"
 	// ModifierContains on string, uri: Tests whether the value in a resource includes the supplied parameter value anywhere within the field being searched.
-	ModifierContains Modifier = "contains"
+	ModifierContains string = "contains"
 	// ModifierExact on string: Tests whether the value in a resource exactly matches the supplied parameter value (the whole string, including casing and accents).
-	ModifierExact Modifier = "exact"
+	ModifierExact string = "exact"
 	// ModifierIdentifier on reference: Tests whether the Reference.identifier in a resource (rather than the Reference.reference) matches the supplied parameter value.
-	ModifierIdentifier Modifier = "identifier"
+	ModifierIdentifier string = "identifier"
 	// ModifierInModifier on token: Tests whether the value in a resource is a member of the supplied parameter ValueSet.
-	ModifierInModifier = "in"
+	ModifierIn string = "in"
 	// ModifierIterate Not allowed anywhere by default: The search parameter indicates an inclusion directive (_include, _revinclude) that is applied to an included resource instead of the matching resource.
-	ModifierIterate Modifier = "iterate"
+	ModifierIterate string = "iterate"
 	// ModifierMissing on date, number, quantity, reference, string, token, uri: Tests whether the value in a resource is present (when the supplied parameter value is true) or absent (when the supplied parameter value is false).
-	ModifierMissing Modifier = "missing"
+	ModifierMissing string = "missing"
 	// ModifierNot on token: Tests whether the value in a resource does not match the specified parameter value. Note that this includes resources that have no value for the parameter.
-	ModifierNot Modifier = "not"
+	ModifierNot string = "not"
 	// ModifierNotIn on reference, token: Tests whether the value in a resource is not a member of the supplied parameter ValueSet.
-	ModifierNotIn Modifier = "not-in"
+	ModifierNotIn string = "not-in"
 	// ModifierOfType on token (only Identifier): Tests whether the Identifier value in a resource matches the supplied parameter value.
-	ModifierOfType Modifier = "of-type"
+	ModifierOfType string = "of-type"
 	// ModifierText on reference, token: Tests whether the textual value in a resource (e.g., CodeableConcept.text, Coding.display, Identifier.type.text, or Reference.display) matches the supplied parameter value using basic string matching (begins with or is, case-insensitive).
 	//
 	//on string: The search parameter value should be processed as input to a search with advanced text handling.
-	ModifierText Modifier = "text"
+	ModifierText string = "text"
 	// ModifierTextAdvancedModifier on reference, token: Tests whether the value in a resource matches the supplied parameter value using advanced text handling that searches text associated with the code/value - e.g., CodeableConcept.text, Coding.display, or Identifier.type.text.
-	ModifierTextAdvancedModifier = "text-advanced"
+	ModifierTextAdvanced string = "text-advanced"
 	// ModifierType on reference: Tests whether the value in a resource points to a resource of the supplied parameter type. Note: a concrete ResourceType is specified as the modifier (e.g., not the literal :[type], but a value such as :Patient).
-	ModifierType Modifier = "[type]"
+	ModifierType string = "[type]"
 )
-
-// A Prefix that some parameter types can use to change search behavior.
-// See https://hl7.org/fhir/search.html#prefix.
-type Prefix = string
-
 const (
-	PrefixEqual          Prefix = "eq"
-	PrefixNotEqual       Prefix = "ne"
-	PrefixGreaterThan    Prefix = "gt"
-	PrefixLessThan       Prefix = "lt"
-	PrefixGreaterOrEqual Prefix = "ge"
-	PrefixLessOrEqual    Prefix = "le"
-	PrefixStartsAfter    Prefix = "sa"
-	PrefixEndsBefore     Prefix = "eb"
+	PrefixEqual          string = "eq"
+	PrefixNotEqual       string = "ne"
+	PrefixGreaterThan    string = "gt"
+	PrefixLessThan       string = "lt"
+	PrefixGreaterOrEqual string = "ge"
+	PrefixLessOrEqual    string = "le"
+	PrefixStartsAfter    string = "sa"
+	PrefixEndsBefore     string = "eb"
 )
 
-var KnownPrefixes = []Prefix{
+var KnownPrefixes = []string{
 	PrefixEqual,
 	PrefixNotEqual,
 	PrefixGreaterThan,
@@ -194,24 +176,46 @@ var KnownPrefixes = []Prefix{
 // ParseOptions parses search options from a [url.Values] query string.
 //
 // Only parameters supported by the backing implementation as described
-// by the passed `searchCapabilities` are used.
+// by the passed `capabilityStatement` for the given `resourceType` are used.
+//
+// The `resolveSearchParameter` function is used to resolve SearchParameter resources
+// from their canonical URLs found in the CapabilityStatement.
 //
 // [Result modifying parameters] are parsed into separate fields on the [Options] object.
 // All other parameters are parsed into [options.Parameters].
 //
 // [Result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
-//
-// [result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
 func ParseOptions(
-	searchCapabilities Capabilities,
+	capabilityStatement basic.CapabilityStatement,
+	resourceType string,
+	resolveSearchParameter func(canonical string) (model.Element, error),
 	params url.Values,
 	tz *time.Location,
 	maxCount, defaultCount int,
 ) (Options, error) {
 	options := Options{
-		// Parameters is backed by a map, which must be initialized
-		Parameters: Parameters{},
+		// backed by a map, which must be initialized
+		Parameters: map[ParameterKey]AllOf{},
 		Count:      min(defaultCount, maxCount),
+	}
+
+	// Find the search parameters for the given resource type from the CapabilityStatement
+	var searchParams []basic.CapabilityStatementRestResourceSearchParam
+	for _, rest := range capabilityStatement.Rest {
+		for _, resource := range rest.Resource {
+			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
+				searchParams = resource.SearchParam
+				break
+			}
+		}
+	}
+
+	// Build a map of parameter names to their canonical URLs for quick lookup
+	parameterDefinitions := make(map[string]string)
+	for _, searchParam := range searchParams {
+		if searchParam.Name.Value != nil && searchParam.Definition != nil && searchParam.Definition.Value != nil {
+			parameterDefinitions[*searchParam.Name.Value] = *searchParam.Definition.Value
+		}
 	}
 
 	for k, v := range params {
@@ -243,21 +247,23 @@ func ParseOptions(
 				Name: splits[0],
 			}
 			if len(splits) > 1 {
-				param.Modifier = Modifier(splits[1])
+				param.Modifier = splits[1]
 			}
 
-			desc, ok := searchCapabilities.Parameters[param.Name]
+			canonical, ok := parameterDefinitions[param.Name]
 			if !ok {
 				// only known parameters are forwarded
 				continue
 			}
 
-			// When the :identifier modifier is used, the search value works as a token search.
-			if desc.Type == TypeReference && param.Modifier == ModifierIdentifier {
-				desc.Type = TypeToken
+			// Resolve the SearchParameter using the provided function
+			sp, err := resolveSearchParameter(canonical)
+			if err != nil || sp == nil {
+				// Skip if SearchParameter cannot be resolved
+				continue
 			}
 
-			ands, err := parseSearchParam(param, v, desc, tz)
+			ands, err := parseSearchParam(param, v, sp, tz)
 			if err != nil {
 				return Options{}, err
 			}
@@ -287,18 +293,40 @@ func parseCursor(values []string) (Cursor, error) {
 	return Cursor(values[0]), nil
 }
 
-func parseSearchParam(param ParameterKey, values []string, desc ParameterDescription, tz *time.Location) (All, error) {
-	if param.Modifier != "" && !slices.Contains(desc.Modifiers, param.Modifier) {
-		return nil, fmt.Errorf("unsupported modifier for parameter %s, supported are: %s", param, desc.Modifiers)
+func parseSearchParam(param ParameterKey, values []string, sp Parameter, tz *time.Location) (AllOf, error) {
+	fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](sp.Children("type"))
+	if !ok || err != nil {
+		return AllOf{}, fmt.Errorf("Parameter has no type: %v", sp)
+	}
+	resolvedType := string(fhirpathType)
+
+	fhirpathModifiers := sp.Children("modifier")
+	resolvedModifiers := make([]string, 0, len(fhirpathModifiers))
+	for _, e := range fhirpathModifiers {
+		m, ok, err := e.ToString(false)
+		if !ok || err != nil {
+			return AllOf{}, fmt.Errorf("Parameter error reading modifiers: %v", sp)
+		}
+		resolvedModifiers = append(resolvedModifiers, string(m))
 	}
 
-	ands := make(All, 0, len(values))
+	// When the :identifier modifier is used, the search value works as a token search.
+	if resolvedType == TypeReference && param.Modifier == ModifierIdentifier {
+		resolvedType = TypeToken
+	}
+
+	// empty modifiers in SearchParameters should mean all are supported
+	if param.Modifier != "" && (len(resolvedModifiers) == 0 || !slices.Contains(resolvedModifiers, param.Modifier)) {
+		return nil, fmt.Errorf("unsupported modifier for parameter %s, supported are: %s", param, resolvedModifiers)
+	}
+
+	ands := make(AllOf, 0, len(values))
 	for _, ors := range values {
 		splitStrings := strings.Split(ors, ",")
 
 		ors := make(OneOf, 0, len(splitStrings))
 		for _, s := range splitStrings {
-			value, err := parseSearchValue(desc, s, tz)
+			value, err := parseSearchValue(resolvedType, s, tz)
 			if err != nil {
 				return nil, fmt.Errorf("invalid search value for parameter %s: %w", param, err)
 			}
@@ -310,14 +338,14 @@ func parseSearchParam(param ParameterKey, values []string, desc ParameterDescrip
 	return ands, nil
 }
 
-func parseSearchValue(desc ParameterDescription, value string, tz *time.Location) (Value, error) {
-	prefix := parseSearchValuePrefix(desc.Type, value)
+func parseSearchValue(paramType string, value string, tz *time.Location) (Value, error) {
+	prefix := parseSearchValuePrefix(paramType, value)
 	if prefix != "" {
 		// all prefixes have a width of 2
 		value = value[2:]
 	}
 
-	switch desc.Type {
+	switch paramType {
 	case TypeNumber:
 		dec, _, err := apd.NewFromString(value)
 		return Number{
@@ -447,18 +475,18 @@ func parseSearchValue(desc ParameterDescription, value string, tz *time.Location
 		return Special(value), nil
 
 	default:
-		return nil, fmt.Errorf("unsupported type %s", desc.Type)
+		return nil, fmt.Errorf("unsupported type %s", paramType)
 	}
 }
 
-func parseSearchValuePrefix(typ ParameterType, value string) string {
+func parseSearchValuePrefix(typ string, value string) string {
 	// all prefixes have a width of 2
 	if len(value) < 2 {
 		return ""
 	}
 
 	// only number, date and quantity can have prefixes
-	if !slices.Contains([]ParameterType{TypeNumber, TypeDate, TypeQuantity}, typ) {
+	if !slices.Contains([]string{TypeNumber, TypeDate, TypeQuantity}, typ) {
 		return ""
 	}
 
@@ -479,7 +507,7 @@ func parseSearchValuePrefix(typ ParameterType, value string) string {
 func (o Options) QueryString() string {
 	var builder strings.Builder
 
-	builder.WriteString(o.Parameters.Query().Encode())
+	builder.WriteString(parameterQuery(o.Parameters).Encode())
 
 	if len(o.Includes) > 0 {
 		includes := append([]string{}, o.Includes...)
@@ -518,7 +546,7 @@ func (o Options) QueryString() string {
 // All contained values are sorted, but the returned [url.Values] is backed by a map.
 // To obtain a deterministic query string you can call [url.Values.Encode], because
 // it will sort the keys alphabetically.
-func (p Parameters) Query() url.Values {
+func parameterQuery(p map[ParameterKey]AllOf) url.Values {
 	values := url.Values{}
 
 	for key, ands := range p {
@@ -559,7 +587,7 @@ type Value interface {
 }
 
 type Number struct {
-	Prefix Prefix
+	Prefix string
 	Value  *apd.Decimal
 }
 
@@ -574,7 +602,7 @@ func (n Number) String() string {
 }
 
 type Date struct {
-	Prefix    Prefix
+	Prefix    string
 	Precision DatePrecision
 	Value     time.Time
 }
@@ -670,7 +698,7 @@ func (t Token) String() string {
 func (t Token) isValue() {}
 
 type Reference struct {
-	Modifier Modifier
+	Modifier string
 	Id       string
 	Type     string
 	Url      *url.URL
@@ -714,7 +742,7 @@ func (c Composite) String() string {
 func (c Composite) isValue() {}
 
 type Quantity struct {
-	Prefix Prefix
+	Prefix string
 	Value  *apd.Decimal
 	System *url.URL
 	Code   string
