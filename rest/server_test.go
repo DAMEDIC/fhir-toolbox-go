@@ -149,7 +149,7 @@ func TestCapabilityStatement(t *testing.T) {
 					  ],
 					  "searchParam": [
 						{
-						  "definition": "http://example.com/SearchParameter/Observation-_id",
+						  "definition": "http://example.com/SearchParameter/Observation-id",
 						  "name": "_id",
 						  "type": "token"
 						}
@@ -176,7 +176,7 @@ func TestCapabilityStatement(t *testing.T) {
 					  ],
 					  "searchParam": [
 						{
-						  "definition": "http://example.com/SearchParameter/Patient-_id",
+						  "definition": "http://example.com/SearchParameter/Patient-id",
 						  "name": "_id",
 						  "type": "token"
 						},
@@ -281,7 +281,7 @@ func TestCapabilityStatement(t *testing.T) {
 					  <searchInclude value='Observation:patient'/>
 					  <searchParam>
 						<name value='_id'/>
-						<definition value='http://example.com/SearchParameter/Observation-_id'/>
+						<definition value='http://example.com/SearchParameter/Observation-id'/>
 						<type value='token'/>
 					  </searchParam>
 					</resource>
@@ -305,7 +305,7 @@ func TestCapabilityStatement(t *testing.T) {
                       <updateCreate value="false"></updateCreate>
 					  <searchParam>
 						<name value='_id'/>
-						<definition value='http://example.com/SearchParameter/Patient-_id'/>
+						<definition value='http://example.com/SearchParameter/Patient-id'/>
 						<type value='token'/>
 					  </searchParam>
 					  <searchParam>

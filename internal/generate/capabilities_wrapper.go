@@ -19,6 +19,7 @@ type CapabilitiesWrapperGenerator struct {
 func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
 	generateGenericWrapperStruct(f("generic", "capabilities"+release), release)
 	generateWrapperCapabilityStatement(f("generic", "capabilities"+release), release, ir.FilterResources(rt))
+	generatePopulateSearchParameterFn(f("generic", "capabilities"+release), release)
 	generateSearchParametersFn(f("generic", "capabilities"+release), release, ir.FilterResources(rt))
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "create")
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "read")
@@ -119,7 +120,16 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 
 								// Fallback: gather SearchParameter from SearchCapabilities methods
 								g.Comment("// Fallback: gather SearchParameter from SearchCapabilities methods if ReadSearchParameter not implemented")
-								g.List(Id("searchParameters"), Id("err")).Op(":=").Id("searchParameters").Call(Id("ctx"), Id("w").Dot("Concrete"))
+								g.Comment("// Get base URL from CapabilityStatement for canonical references")
+								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.If(Id("err").Op("!=").Nil()).Block(
+									Return(Nil(), Id("err")),
+								)
+								g.Var().Id("baseUrl").String()
+								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								)
+								g.List(Id("searchParameters"), Id("err")).Op(":=").Id("searchParameters").Call(Id("ctx"), Id("w").Dot("Concrete"), Id("baseUrl"))
 								g.If(Id("err").Op("!=").Nil()).Block(
 									Return(Nil(), Id("err")),
 								)
@@ -129,7 +139,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 									Return(Id("searchParam"), Nil()),
 								)
 
-								g.Return(Nil(), notImplementedError(release, interaction, r.Name))
+								g.Return(Nil(), notFoundError(release, r.Name, Id("id")))
 							} else {
 								g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
 								g.If(Op("!").Id("ok")).Block(Return(Nil(), notImplementedError(release, interaction, r.Name)))
@@ -365,7 +375,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 									Id("searchParameterId").Op("=").String().Call(Id("fhirpathId")),
 								).Else().Block(
 									Comment("// If no explicit ID is set, create one of pattern {resourceType}-{name}"),
-									Id("searchParameterId").Op("=").Lit(r.Name).Op("+").Lit("-").Op("+").Id("n"),
+									Id("searchParameterId").Op("=").Id("sanitizeIdentifier").Call(Lit(r.Name+"-").Op("+").Id("n")),
 								),
 								Id("canonicalUrl").Op(":=").Id("baseUrl").Op("+").Lit("/SearchParameter/").Op("+").Id("searchParameterId"),
 								Id("definition").Op("=").Op("&").Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonicalUrl")}),
@@ -726,6 +736,25 @@ func notImplementedError(release, interaction, resourceType string) Code {
 	})
 }
 
+func notFoundError(release, resourceType string, id *Statement) Code {
+	r := strings.ToLower(release)
+	return Qual(moduleName+"/model/gen/"+r, "OperationOutcome").Values(Dict{
+		Id("Issue"): Index().Qual(moduleName+"/model/gen/"+r, "OperationOutcomeIssue").Values(
+			Values(Dict{
+				Id("Severity"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("error")),
+				}),
+				Id("Code"): Qual(moduleName+"/model/gen/"+r, "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-found")),
+				}),
+				Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+r, "String").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit(resourceType + " with ID ").Op("+").Add(id).Op("+").Lit(" not found")),
+				}),
+			}),
+		),
+	})
+}
+
 func invalidResourceTypeError(release string, resourceType Code) Code {
 	r := strings.ToLower(release)
 	return Qual(moduleName+"/model/gen/"+r, "OperationOutcome").Values(Dict{
@@ -764,11 +793,106 @@ func unexpectedResourceTypeError(release string, expectedType, gotType Code) Cod
 	})
 }
 
+func generatePopulateSearchParameterFn(f *File, release string) {
+	// Helper function to sanitize FHIR resource IDs
+	f.Func().Id("sanitizeIdentifier").
+		Params(Id("input").String()).
+		String().
+		BlockFunc(func(g *Group) {
+			// Replace underscores with hyphens for FHIR compliance
+			g.Id("result").Op(":=").Qual("strings", "ReplaceAll").Call(Id("input"), Lit("_"), Lit(""))
+			g.Return(Id("result"))
+		})
+
+	f.Func().Id("populateSearchParameter").
+		Params(
+			Id("searchParam").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter"),
+			Id("resourceType").String(),
+			Id("paramName").String(),
+			Id("baseUrl").String(),
+		).
+		Params(
+			Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter"),
+		).BlockFunc(func(g *Group) {
+
+		// Auto-generate ID if not set
+		g.List(Id("_"), Id("idOk"), Id("idErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("searchParam").Dot("Children").Call(Lit("id")))
+		g.If(Op("!").Id("idOk").Op("||").Id("idErr").Op("!=").Nil()).Block(
+			Comment("// Set auto-generated ID using pattern {resourceType}-{name} (FHIR-compliant)"),
+			Id("id").Op(":=").Id("sanitizeIdentifier").Call(Id("resourceType").Op("+").Lit("-").Op("+").Id("paramName")),
+			Id("searchParam").Dot("Id").Op("=").Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Id").Values(Dict{
+				Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("id")),
+			}),
+		)
+
+		// Set canonical URL if not set
+		g.List(Id("_"), Id("urlOk"), Id("urlErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("searchParam").Dot("Children").Call(Lit("url")))
+		g.If(Op("!").Id("urlOk").Op("||").Id("urlErr").Op("!=").Nil()).Block(
+			Comment("// Set canonical URL using sanitized ID"),
+			Id("canonicalUrl").Op(":=").Id("baseUrl").Op("+").Lit("/SearchParameter/").Op("+").Id("*searchParam").Dot("Id").Dot("Value"),
+			Id("searchParam").Dot("Url").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Uri").Values(Dict{
+				Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("canonicalUrl")),
+			}),
+		)
+
+		// Set name if not set
+		g.List(Id("_"), Id("nameOk"), Id("nameErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("searchParam").Dot("Children").Call(Lit("name")))
+		g.If(Op("!").Id("nameOk").Op("||").Id("nameErr").Op("!=").Nil()).Block(
+			Comment("// Set name based on parameter name"),
+			Id("searchParam").Dot("Name").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{
+				Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("paramName")),
+			}),
+		)
+
+		// Set status if not set
+		g.List(Id("_"), Id("statusOk"), Id("statusErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("searchParam").Dot("Children").Call(Lit("status")))
+		g.If(Op("!").Id("statusOk").Op("||").Id("statusErr").Op("!=").Nil()).Block(
+			Comment("// Set default status to active"),
+			Id("searchParam").Dot("Status").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
+				Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("active")),
+			}),
+		)
+
+		// Set code if not set
+		g.List(Id("_"), Id("codeOk"), Id("codeErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("searchParam").Dot("Children").Call(Lit("code")))
+		g.If(Op("!").Id("codeOk").Op("||").Id("codeErr").Op("!=").Nil()).Block(
+			Comment("// Set code based on parameter name"),
+			Id("searchParam").Dot("Code").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
+				Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("paramName")),
+			}),
+		)
+
+		// Set base if not set or empty
+		g.Id("baseElements").Op(":=").Id("searchParam").Dot("Children").Call(Lit("base"))
+		g.If(Len(Id("baseElements")).Op("==").Lit(0)).Block(
+			Comment("// Set base resource type"),
+			Id("searchParam").Dot("Base").Op("=").Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(
+				Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("resourceType")),
+				}),
+			),
+		)
+
+		// Set description if not set
+		g.List(Id("_"), Id("descOk"), Id("descErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("searchParam").Dot("Children").Call(Lit("description")))
+		g.If(Op("!").Id("descOk").Op("||").Id("descErr").Op("!=").Nil()).Block(
+			Comment("// Set default description"),
+			Id("description").Op(":=").Lit("Search parameter ").Op("+").Id("paramName").Op("+").Lit(" for ").Op("+").Id("resourceType").Op("+").Lit(" resource"),
+			Id("searchParam").Dot("Description").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Markdown").Values(Dict{
+				Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("description")),
+			}),
+		)
+
+		g.Return(Id("searchParam"))
+	})
+}
+
 func generateSearchParametersFn(f *File, release string, resources []ir.ResourceOrType) {
 	f.Func().Id("searchParameters").
 		Params(
 			Id("ctx").Qual("context", "Context"),
 			Id("api").Any(),
+			Id("baseUrl").String(),
 		).
 		Params(
 			Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter"),
@@ -793,16 +917,17 @@ func generateSearchParametersFn(f *File, release string, resources []ir.Resource
 				).Else().Block(
 					// Store SearchParameter for aggregation, indexed by ID
 					For(List(Id("n"), Id("p")).Op(":=").Range().Id("c").Dot("Parameters")).Block(
-						// Extract ID from SearchParameter using FHIRPath
-						Id("searchParameterId").Op(":=").Lit(""),
-						List(Id("fhirpathId"), Id("ok"), Id("err")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("p").Dot("Children").Call(Lit("id"))),
+						// Use helper function to populate required fields and auto-generate ID
+						Id("populatedParam").Op(":=").Id("populateSearchParameter").Call(Id("p"), Lit(r.Name), Id("n"), Id("baseUrl")),
+
+						// Extract the final ID (either existing or auto-generated)
+						List(Id("fhirpathId"), Id("ok"), Id("err")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("populatedParam").Dot("Children").Call(Lit("id"))),
 						If(Id("ok").Op("&&").Id("err").Op("==").Nil()).Block(
-							Id("searchParameterId").Op("=").String().Call(Id("fhirpathId")),
+							Id("searchParameters").Index(String().Call(Id("fhirpathId"))).Op("=").Id("populatedParam"),
 						).Else().Block(
-							Comment("// If no explicit ID is set, create one of pattern {resourceType}-{name}"),
-							Id("searchParameterId").Op("=").Lit(r.Name).Op("+").Lit("-").Op("+").Id("n"),
+							Comment("// Fallback: use pattern {resourceType}-{name} if ID extraction fails"),
+							Id("searchParameters").Index(Lit(r.Name).Op("+").Lit("-").Op("+").Id("n")).Op("=").Id("populatedParam"),
 						),
-						Id("searchParameters").Index(Id("searchParameterId")).Op("=").Id("p"),
 					),
 				),
 			)
