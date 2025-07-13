@@ -18,7 +18,6 @@ func (g CapabilitiesGenerator) GenerateAdditional(f func(fileName string, pkgNam
 	generateCapability(f("update", "capabilities"+release), ir.FilterResources(rt), release, "update")
 	generateCapability(f("delete", "capabilities"+release), ir.FilterResources(rt), release, "delete")
 	generateCapability(f("search", "capabilities"+release), ir.FilterResources(rt), release, "search")
-
 }
 
 func generateCapability(f *File, resources []ir.ResourceOrType, release, interaction string) {

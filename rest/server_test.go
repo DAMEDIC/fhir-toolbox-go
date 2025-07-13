@@ -1535,8 +1535,8 @@ func (m mockBackend) DeletePatient(ctx context.Context, id string) error {
 	return nil
 }
 
-func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
-	return search.Capabilities[r4.SearchParameter]{
+func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (r4.SearchCapabilities, error) {
+	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
 			"_id":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
 			"date": {Type: r4.Code{Value: ptr.To(search.TypeDate)}},
@@ -1567,8 +1567,8 @@ func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) 
 	return result, nil
 }
 
-func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
-	return search.Capabilities[r4.SearchParameter]{
+func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r4.SearchCapabilities, error) {
+	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
 			"_id": {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
 		},

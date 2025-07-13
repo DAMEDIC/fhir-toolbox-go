@@ -18,13 +18,13 @@ import (
 func TestParseAndToString(t *testing.T) {
 	tests := []struct {
 		name         string
-		capabilities Capabilities[r4.SearchParameter]
+		capabilities r4.SearchCapabilities
 		options      Options
 		want         string
 	}{
 		{
 			name: "number",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
 						Type: r4.Code{Value: ptr.To(TypeNumber)},
@@ -38,7 +38,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "number with prefix",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
 						Type: r4.Code{Value: ptr.To(TypeNumber)},
@@ -52,7 +52,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "number with modifer",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
 						Type:     r4.Code{Value: ptr.To(TypeNumber)},
@@ -67,7 +67,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "number with count",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
 						Type: r4.Code{Value: ptr.To(TypeNumber)},
@@ -82,7 +82,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "number with max count",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
 						Type: r4.Code{Value: ptr.To(TypeNumber)},
@@ -97,7 +97,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "date",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"date": {
 						Type: r4.Code{Value: ptr.To(TypeDate)},
@@ -116,7 +116,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "string",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"string": {
 						Type: r4.Code{Value: ptr.To(TypeString)},
@@ -132,7 +132,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "token",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"token": {
 						Type: r4.Code{Value: ptr.To(TypeToken)},
@@ -150,7 +150,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "token parameter with system",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"token": {
 						Type: r4.Code{Value: ptr.To(TypeToken)},
@@ -166,7 +166,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "local reference",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
 						Type: r4.Code{Value: ptr.To(TypeReference)},
@@ -182,7 +182,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "local reference with version",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
 						Type: r4.Code{Value: ptr.To(TypeReference)},
@@ -198,7 +198,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "url reference",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
 						Type: r4.Code{Value: ptr.To(TypeReference)},
@@ -214,7 +214,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "url reference with version",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
 						Type: r4.Code{Value: ptr.To(TypeReference)},
@@ -230,7 +230,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "reference identifier modifier (treated as token)",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
 						Type:     r4.Code{Value: ptr.To(TypeReference)},
@@ -247,7 +247,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "composite",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"composite": {
 						Type: r4.Code{Value: ptr.To(TypeComposite)},
@@ -263,7 +263,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "quantity",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"quantity": {
 						Type: r4.Code{Value: ptr.To(TypeQuantity)},
@@ -279,7 +279,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "uri",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"uri": {
 						Type: r4.Code{Value: ptr.To(TypeUri)},
@@ -295,7 +295,7 @@ func TestParseAndToString(t *testing.T) {
 		},
 		{
 			name: "special",
-			capabilities: Capabilities[r4.SearchParameter]{
+			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"special": {
 						Type: r4.Code{Value: ptr.To(TypeSpecial)},

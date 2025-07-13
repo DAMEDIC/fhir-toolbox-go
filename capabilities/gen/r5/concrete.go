@@ -16491,10 +16491,10 @@ func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -16530,7 +16530,7 @@ func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (search.Capabil
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -16571,10 +16571,10 @@ func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -16610,7 +16610,7 @@ func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -16651,10 +16651,10 @@ func (w Concrete) SearchActorDefinition(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesActorDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesActorDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -16690,7 +16690,7 @@ func (w Concrete) SearchCapabilitiesActorDefinition(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -16731,10 +16731,10 @@ func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -16770,7 +16770,7 @@ func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -16811,10 +16811,10 @@ func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -16850,7 +16850,7 @@ func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -16891,10 +16891,10 @@ func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -16930,7 +16930,7 @@ func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -16971,10 +16971,10 @@ func (w Concrete) SearchAppointment(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17010,7 +17010,7 @@ func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (search.Cap
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17051,10 +17051,10 @@ func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17090,7 +17090,7 @@ func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17131,10 +17131,10 @@ func (w Concrete) SearchArtifactAssessment(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesArtifactAssessment(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesArtifactAssessment(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17170,7 +17170,7 @@ func (w Concrete) SearchCapabilitiesArtifactAssessment(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17211,10 +17211,10 @@ func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17250,7 +17250,7 @@ func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17291,10 +17291,10 @@ func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17330,7 +17330,7 @@ func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (search.Capabilit
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17371,10 +17371,10 @@ func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17410,7 +17410,7 @@ func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (search.Capabili
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17451,10 +17451,10 @@ func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17490,7 +17490,7 @@ func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Conte
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17531,10 +17531,10 @@ func (w Concrete) SearchBiologicallyDerivedProductDispense(ctx context.Context, 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBiologicallyDerivedProductDispense(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesBiologicallyDerivedProductDispense(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17570,7 +17570,7 @@ func (w Concrete) SearchCapabilitiesBiologicallyDerivedProductDispense(ctx conte
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17611,10 +17611,10 @@ func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17650,7 +17650,7 @@ func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17691,10 +17691,10 @@ func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17730,7 +17730,7 @@ func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (search.Capabili
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17771,10 +17771,10 @@ func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17810,7 +17810,7 @@ func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17851,10 +17851,10 @@ func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17890,7 +17890,7 @@ func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -17931,10 +17931,10 @@ func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -17970,7 +17970,7 @@ func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18011,10 +18011,10 @@ func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18050,7 +18050,7 @@ func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18091,10 +18091,10 @@ func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18130,7 +18130,7 @@ func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (s
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18171,10 +18171,10 @@ func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18210,7 +18210,7 @@ func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18251,10 +18251,10 @@ func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18290,7 +18290,7 @@ func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (search.Capabilit
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18331,10 +18331,10 @@ func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18370,7 +18370,7 @@ func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18411,10 +18411,10 @@ func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18450,7 +18450,7 @@ func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18491,10 +18491,10 @@ func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18530,7 +18530,7 @@ func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18571,10 +18571,10 @@ func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18610,7 +18610,7 @@ func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18651,10 +18651,10 @@ func (w Concrete) SearchCommunication(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18690,7 +18690,7 @@ func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18731,10 +18731,10 @@ func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18770,7 +18770,7 @@ func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (s
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18811,10 +18811,10 @@ func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18850,7 +18850,7 @@ func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18891,10 +18891,10 @@ func (w Concrete) SearchComposition(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -18930,7 +18930,7 @@ func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (search.Cap
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -18971,10 +18971,10 @@ func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19010,7 +19010,7 @@ func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19051,10 +19051,10 @@ func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19090,7 +19090,7 @@ func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (search.Capab
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19131,10 +19131,10 @@ func (w Concrete) SearchConditionDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesConditionDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesConditionDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19170,7 +19170,7 @@ func (w Concrete) SearchCapabilitiesConditionDefinition(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19211,10 +19211,10 @@ func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19250,7 +19250,7 @@ func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (search.Capabil
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19291,10 +19291,10 @@ func (w Concrete) SearchContract(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19330,7 +19330,7 @@ func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19371,10 +19371,10 @@ func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19410,7 +19410,7 @@ func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19451,10 +19451,10 @@ func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19490,7 +19490,7 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Conte
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19531,10 +19531,10 @@ func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19570,7 +19570,7 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Cont
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19611,10 +19611,10 @@ func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19650,7 +19650,7 @@ func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19691,10 +19691,10 @@ func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19730,7 +19730,7 @@ func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (search.Capabili
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19771,10 +19771,10 @@ func (w Concrete) SearchDeviceAssociation(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceAssociation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDeviceAssociation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19810,7 +19810,7 @@ func (w Concrete) SearchCapabilitiesDeviceAssociation(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19851,10 +19851,10 @@ func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19890,7 +19890,7 @@ func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -19931,10 +19931,10 @@ func (w Concrete) SearchDeviceDispense(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceDispense(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDeviceDispense(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -19970,7 +19970,7 @@ func (w Concrete) SearchCapabilitiesDeviceDispense(ctx context.Context) (search.
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20011,10 +20011,10 @@ func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20050,7 +20050,7 @@ func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20091,10 +20091,10 @@ func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20130,7 +20130,7 @@ func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20171,10 +20171,10 @@ func (w Concrete) SearchDeviceUsage(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDeviceUsage(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDeviceUsage(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20210,7 +20210,7 @@ func (w Concrete) SearchCapabilitiesDeviceUsage(ctx context.Context) (search.Cap
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20251,10 +20251,10 @@ func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20290,7 +20290,7 @@ func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20331,10 +20331,10 @@ func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20370,7 +20370,7 @@ func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20411,10 +20411,10 @@ func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20450,7 +20450,7 @@ func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (search.Capab
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20491,10 +20491,10 @@ func (w Concrete) SearchEncounterHistory(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEncounterHistory(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEncounterHistory(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20530,7 +20530,7 @@ func (w Concrete) SearchCapabilitiesEncounterHistory(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20571,10 +20571,10 @@ func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20610,7 +20610,7 @@ func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20651,10 +20651,10 @@ func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20690,7 +20690,7 @@ func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20731,10 +20731,10 @@ func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20770,7 +20770,7 @@ func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20811,10 +20811,10 @@ func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20850,7 +20850,7 @@ func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20891,10 +20891,10 @@ func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -20930,7 +20930,7 @@ func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -20971,10 +20971,10 @@ func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21010,7 +21010,7 @@ func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21051,10 +21051,10 @@ func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21090,7 +21090,7 @@ func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (search.
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21131,10 +21131,10 @@ func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21170,7 +21170,7 @@ func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21211,10 +21211,10 @@ func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21250,7 +21250,7 @@ func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21291,10 +21291,10 @@ func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21330,7 +21330,7 @@ func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (s
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21371,10 +21371,10 @@ func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21410,7 +21410,7 @@ func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21451,10 +21451,10 @@ func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21490,7 +21490,7 @@ func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (search.Capabiliti
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21531,10 +21531,10 @@ func (w Concrete) SearchFormularyItem(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesFormularyItem(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesFormularyItem(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21570,7 +21570,7 @@ func (w Concrete) SearchCapabilitiesFormularyItem(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21611,10 +21611,10 @@ func (w Concrete) SearchGenomicStudy(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGenomicStudy(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesGenomicStudy(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21650,7 +21650,7 @@ func (w Concrete) SearchCapabilitiesGenomicStudy(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21691,10 +21691,10 @@ func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21730,7 +21730,7 @@ func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (search.Capabiliti
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21771,10 +21771,10 @@ func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21810,7 +21810,7 @@ func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21851,10 +21851,10 @@ func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21890,7 +21890,7 @@ func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (search.Capabilit
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -21931,10 +21931,10 @@ func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -21970,7 +21970,7 @@ func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22011,10 +22011,10 @@ func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22050,7 +22050,7 @@ func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22091,10 +22091,10 @@ func (w Concrete) SearchImagingSelection(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImagingSelection(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesImagingSelection(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22130,7 +22130,7 @@ func (w Concrete) SearchCapabilitiesImagingSelection(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22171,10 +22171,10 @@ func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22210,7 +22210,7 @@ func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22251,10 +22251,10 @@ func (w Concrete) SearchImmunization(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22290,7 +22290,7 @@ func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22331,10 +22331,10 @@ func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22370,7 +22370,7 @@ func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) 
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22411,10 +22411,10 @@ func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22450,7 +22450,7 @@ func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Conte
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22491,10 +22491,10 @@ func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22530,7 +22530,7 @@ func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22571,10 +22571,10 @@ func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22610,7 +22610,7 @@ func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22651,10 +22651,10 @@ func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22690,7 +22690,7 @@ func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22731,10 +22731,10 @@ func (w Concrete) SearchInventoryItem(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInventoryItem(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesInventoryItem(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22770,7 +22770,7 @@ func (w Concrete) SearchCapabilitiesInventoryItem(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22811,10 +22811,10 @@ func (w Concrete) SearchInventoryReport(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInventoryReport(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesInventoryReport(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22850,7 +22850,7 @@ func (w Concrete) SearchCapabilitiesInventoryReport(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22891,10 +22891,10 @@ func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -22930,7 +22930,7 @@ func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (search.Capabil
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -22971,10 +22971,10 @@ func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23010,7 +23010,7 @@ func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (search.Capabil
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23051,10 +23051,10 @@ func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23090,7 +23090,7 @@ func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (search.Capabil
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23131,10 +23131,10 @@ func (w Concrete) SearchList(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesList(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23170,7 +23170,7 @@ func (w Concrete) SearchCapabilitiesList(ctx context.Context) (search.Capabiliti
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23211,10 +23211,10 @@ func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23250,7 +23250,7 @@ func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23291,10 +23291,10 @@ func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23330,7 +23330,7 @@ func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Conte
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23371,10 +23371,10 @@ func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23410,7 +23410,7 @@ func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (search.Capabil
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23451,10 +23451,10 @@ func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23490,7 +23490,7 @@ func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23531,10 +23531,10 @@ func (w Concrete) SearchMedication(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23570,7 +23570,7 @@ func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23611,10 +23611,10 @@ func (w Concrete) SearchMedicationAdministration(ctx context.Context, options se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23650,7 +23650,7 @@ func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23691,10 +23691,10 @@ func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23730,7 +23730,7 @@ func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23771,10 +23771,10 @@ func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23810,7 +23810,7 @@ func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23851,10 +23851,10 @@ func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23890,7 +23890,7 @@ func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -23931,10 +23931,10 @@ func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -23970,7 +23970,7 @@ func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24011,10 +24011,10 @@ func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24050,7 +24050,7 @@ func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Conte
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24091,10 +24091,10 @@ func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24130,7 +24130,7 @@ func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24171,10 +24171,10 @@ func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24210,7 +24210,7 @@ func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24251,10 +24251,10 @@ func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24290,7 +24290,7 @@ func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24331,10 +24331,10 @@ func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24370,7 +24370,7 @@ func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24411,10 +24411,10 @@ func (w Concrete) SearchNutritionIntake(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionIntake(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesNutritionIntake(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24450,7 +24450,7 @@ func (w Concrete) SearchCapabilitiesNutritionIntake(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24491,10 +24491,10 @@ func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24530,7 +24530,7 @@ func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (search.
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24571,10 +24571,10 @@ func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24610,7 +24610,7 @@ func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24651,10 +24651,10 @@ func (w Concrete) SearchObservation(ctx context.Context, options search.Options)
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24690,7 +24690,7 @@ func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (search.Cap
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24731,10 +24731,10 @@ func (w Concrete) SearchObservationDefinition(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24770,7 +24770,7 @@ func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24811,10 +24811,10 @@ func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24850,7 +24850,7 @@ func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24891,10 +24891,10 @@ func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -24930,7 +24930,7 @@ func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -24971,10 +24971,10 @@ func (w Concrete) SearchOrganization(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25010,7 +25010,7 @@ func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25051,10 +25051,10 @@ func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25090,7 +25090,7 @@ func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context)
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25131,10 +25131,10 @@ func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25170,7 +25170,7 @@ func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Contex
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25211,10 +25211,10 @@ func (w Concrete) SearchParameters(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25250,7 +25250,7 @@ func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25291,10 +25291,10 @@ func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (se
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25330,7 +25330,7 @@ func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (search.Capabil
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25371,10 +25371,10 @@ func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25410,7 +25410,7 @@ func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25451,10 +25451,10 @@ func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25490,7 +25490,7 @@ func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25531,10 +25531,10 @@ func (w Concrete) SearchPermission(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPermission(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPermission(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25570,7 +25570,7 @@ func (w Concrete) SearchCapabilitiesPermission(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25611,10 +25611,10 @@ func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25650,7 +25650,7 @@ func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (search.Capabili
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25691,10 +25691,10 @@ func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25730,7 +25730,7 @@ func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (search.
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25771,10 +25771,10 @@ func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25810,7 +25810,7 @@ func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25851,10 +25851,10 @@ func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25890,7 +25890,7 @@ func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -25931,10 +25931,10 @@ func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -25970,7 +25970,7 @@ func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (search.Capab
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26011,10 +26011,10 @@ func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26050,7 +26050,7 @@ func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26091,10 +26091,10 @@ func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26130,7 +26130,7 @@ func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26171,10 +26171,10 @@ func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26210,7 +26210,7 @@ func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26251,10 +26251,10 @@ func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options sear
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26290,7 +26290,7 @@ func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) 
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26331,10 +26331,10 @@ func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26370,7 +26370,7 @@ func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26411,10 +26411,10 @@ func (w Concrete) SearchRequestOrchestration(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRequestOrchestration(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesRequestOrchestration(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26450,7 +26450,7 @@ func (w Concrete) SearchCapabilitiesRequestOrchestration(ctx context.Context) (s
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26491,10 +26491,10 @@ func (w Concrete) SearchRequirements(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRequirements(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesRequirements(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26530,7 +26530,7 @@ func (w Concrete) SearchCapabilitiesRequirements(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26571,10 +26571,10 @@ func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26610,7 +26610,7 @@ func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26651,10 +26651,10 @@ func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26690,7 +26690,7 @@ func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26731,10 +26731,10 @@ func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26770,7 +26770,7 @@ func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (search.
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26811,10 +26811,10 @@ func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26850,7 +26850,7 @@ func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26891,10 +26891,10 @@ func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Opti
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -26930,7 +26930,7 @@ func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (search
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -26971,10 +26971,10 @@ func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27010,7 +27010,7 @@ func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (search.
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27051,10 +27051,10 @@ func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27090,7 +27090,7 @@ func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (search.Capabiliti
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27131,10 +27131,10 @@ func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27170,7 +27170,7 @@ func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27211,10 +27211,10 @@ func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27250,7 +27250,7 @@ func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27291,10 +27291,10 @@ func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27330,7 +27330,7 @@ func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27371,10 +27371,10 @@ func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27410,7 +27410,7 @@ func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27451,10 +27451,10 @@ func (w Concrete) SearchSubscription(ctx context.Context, options search.Options
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27490,7 +27490,7 @@ func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (search.Ca
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27531,10 +27531,10 @@ func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27570,7 +27570,7 @@ func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27611,10 +27611,10 @@ func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Op
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27650,7 +27650,7 @@ func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (sear
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27691,10 +27691,10 @@ func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27730,7 +27730,7 @@ func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (search.Capab
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27771,10 +27771,10 @@ func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27810,7 +27810,7 @@ func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (se
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27851,10 +27851,10 @@ func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, options search
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27890,7 +27890,7 @@ func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (s
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -27931,10 +27931,10 @@ func (w Concrete) SearchSubstancePolymer(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -27970,7 +27970,7 @@ func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28011,10 +28011,10 @@ func (w Concrete) SearchSubstanceProtein(ctx context.Context, options search.Opt
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28050,7 +28050,7 @@ func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (searc
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28091,10 +28091,10 @@ func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28130,7 +28130,7 @@ func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Co
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28171,10 +28171,10 @@ func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28210,7 +28210,7 @@ func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context)
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28251,10 +28251,10 @@ func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Optio
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28290,7 +28290,7 @@ func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (search.
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28331,10 +28331,10 @@ func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Option
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28370,7 +28370,7 @@ func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (search.C
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28411,10 +28411,10 @@ func (w Concrete) SearchTask(ctx context.Context, options search.Options) (searc
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28450,7 +28450,7 @@ func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (search.Capabiliti
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28491,10 +28491,10 @@ func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options sea
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28530,7 +28530,7 @@ func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context)
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28571,10 +28571,10 @@ func (w Concrete) SearchTestPlan(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTestPlan(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesTestPlan(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28610,7 +28610,7 @@ func (w Concrete) SearchCapabilitiesTestPlan(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28651,10 +28651,10 @@ func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28690,7 +28690,7 @@ func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28731,10 +28731,10 @@ func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) 
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28770,7 +28770,7 @@ func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (search.Capa
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28811,10 +28811,10 @@ func (w Concrete) SearchTransport(ctx context.Context, options search.Options) (
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesTransport(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesTransport(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28850,7 +28850,7 @@ func (w Concrete) SearchCapabilitiesTransport(ctx context.Context) (search.Capab
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28891,10 +28891,10 @@ func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (s
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -28930,7 +28930,7 @@ func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (search.Capabi
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -28971,10 +28971,10 @@ func (w Concrete) SearchVerificationResult(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -29010,7 +29010,7 @@ func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil
@@ -29051,10 +29051,10 @@ func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.O
 		Resources: resources,
 	}, nil
 }
-func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (r5.SearchCapabilities, error) {
 	capabilityStatement, err := w.Generic.CapabilityStatement(ctx)
 	if err != nil {
-		return search.Capabilities[r5.SearchParameter]{
+		return r5.SearchCapabilities{
 			Includes:   []string{},
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
@@ -29090,7 +29090,7 @@ func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (sea
 			}
 		}
 	}
-	return search.Capabilities[r5.SearchParameter]{
+	return r5.SearchCapabilities{
 		Includes:   []string{},
 		Parameters: parameters,
 	}, nil

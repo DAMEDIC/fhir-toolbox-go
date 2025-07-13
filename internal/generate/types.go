@@ -21,7 +21,9 @@ func (g TypesGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 
 func (g TypesGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
 	implementContainedResource(f("contained_resource", strings.ToLower(release)))
-
+	if release != "basic" {
+		generateSearchCapabilities(f("search_capabilities", strings.ToLower(release)), release)
+	}
 }
 
 func generateStruct(f *File, s ir.Struct) {
@@ -84,5 +86,17 @@ func generatePrimitiveEnums(f *File, s ir.Struct) {
 func implementContainedResource(f *File) *Statement {
 	return f.Type().Id("ContainedResource").Struct(
 		Qual(moduleName+"/model", "Resource"),
+	)
+}
+
+func generateSearchCapabilities(f *File, release string) {
+	f.Comment("SearchCapabilities describe what search capabilities the server provides.")
+	f.Comment("")
+	f.Comment("It can be used to derive CapabilityStatements which describe what a FHIR system can do.")
+	f.Comment("")
+	f.Comment("CapabilityStatements: https://hl7.org/fhir/capabilitystatement.html")
+	f.Type().Id("SearchCapabilities").Struct(
+		Id("Parameters").Map(String()).Id("SearchParameter"),
+		Id("Includes").Index().String(),
 	)
 }

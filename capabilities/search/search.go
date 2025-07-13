@@ -51,16 +51,6 @@ type Result[R model.Resource] struct {
 // for multi-page queries.
 type Cursor string
 
-// Capabilities describe what search capabilities the server provides.
-//
-// It can be used to derive [CapabilityStatements] which describe what a FHIR system can do.
-//
-// [CapabilityStatements]: https://hl7.org/fhir/capabilitystatement.html
-type Capabilities[P Parameter] struct {
-	Parameters map[string]P
-	Includes   []string
-}
-
 // Parameter is a placeholder for FHIR version specific SearchParameter.
 type Parameter model.Element
 

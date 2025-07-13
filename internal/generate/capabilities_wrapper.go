@@ -77,7 +77,6 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		shortcutParams = append(shortcutParams, Id("resourceType"), Id("options"))
 		passParams = append(passParams, Id("options"))
 		returnType = Qual(moduleName+"/capabilities/search", "Result").Index(Qual(moduleName+"/model", "Resource"))
-		f.Add(generateGenericSearchCapabilities(release, resources))
 	}
 
 	var returns []Code
@@ -210,30 +209,6 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 
 			})
 		})
-}
-
-func generateGenericSearchCapabilities(release string, resources []ir.ResourceOrType) Code {
-	return Func().Params(Id("w").Id(genericWrapperName)).Id("SearchCapabilities").
-		Params(Id("ctx").Qual("context", "Context"), Id("resourceType").String()).
-		Params(searchCapabilitiesType(release), Error()).
-		Block(
-			Switch(Id("resourceType")).BlockFunc(func(g *Group) {
-				for _, r := range resources {
-					g.Case(Lit(r.Name)).Block(
-						List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name+"Search")),
-						If(Op("!").Id("ok")).Block(
-							Return(
-								searchCapabilitiesType(release).Block(),
-								notImplementedError(release, "search", r.Name),
-							),
-						),
-						Return(Id("impl.SearchCapabilities"+r.Name).Call(Id("ctx"))),
-					)
-				}
-
-				g.Default().Block(Return(searchCapabilitiesType(release).Block(), invalidResourceTypeError(release, Id("resourceType"))))
-			}),
-		)
 }
 
 func generateWrapperCapabilityStatement(f *File, release string, resources []ir.ResourceOrType) {
@@ -634,9 +609,11 @@ func generateConcreteCapabilities(r ir.ResourceOrType, release, interaction stri
 	interactionName := strcase.ToCamel(interaction)
 
 	// Define the return type for the function signature
-	returnType := Qual(moduleName+"/capabilities/"+interaction, "Capabilities")
+	var returnType *Statement
 	if interaction == "search" {
-		returnType.Add(Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter")))
+		returnType = searchCapabilitiesType(release)
+	} else {
+		returnType = Qual(moduleName+"/capabilities/"+interaction, "Capabilities")
 	}
 
 	return Func().Params(Id("w").Id(concreteWrapperName)).Id(interactionName+"Capabilities"+r.Name).
@@ -648,7 +625,7 @@ func generateConcreteCapabilities(r ir.ResourceOrType, release, interaction stri
 				// Read capabilities from the generic CapabilityStatement method
 				g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w.Generic.CapabilityStatement").Call(Id("ctx"))
 				g.If(Id("err").Op("!=").Nil()).Block(
-					Return(Add(returnType.Clone()).Values(Dict{
+					Return(searchCapabilitiesType(release).Values(Dict{
 						Id("Includes"):   Index().String().Values(),
 						Id("Parameters"): Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter")),
 					}), Id("err")),
@@ -696,7 +673,7 @@ func generateConcreteCapabilities(r ir.ResourceOrType, release, interaction stri
 				)
 
 				// Return the capabilities with resolved SearchParameters
-				g.Return(Add(returnType.Clone()).Values(Dict{
+				g.Return(searchCapabilitiesType(release).Values(Dict{
 					Id("Includes"):   Index().String().Values(),
 					Id("Parameters"): Id("parameters"),
 				}), Nil())
@@ -714,7 +691,7 @@ func generateConcreteCapabilities(r ir.ResourceOrType, release, interaction stri
 }
 
 func searchCapabilitiesType(release string) *Statement {
-	return Qual(moduleName+"/capabilities/search", "Capabilities").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter"))
+	return Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchCapabilities")
 }
 
 func notImplementedError(release, interaction, resourceType string) Code {

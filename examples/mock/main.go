@@ -95,8 +95,8 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 }
 
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
-func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
-	return search.Capabilities[r5.SearchParameter]{
+func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r5.SearchCapabilities, error) {
+	return r5.SearchCapabilities{
 		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
@@ -196,8 +196,8 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Compos
 }
 
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
-func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
-	return search.Capabilities[r5.SearchParameter]{
+func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (r5.SearchCapabilities, error) {
+	return r5.SearchCapabilities{
 		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
