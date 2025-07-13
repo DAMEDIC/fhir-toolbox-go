@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"github.com/cockroachdb/apd/v3"
@@ -96,12 +95,12 @@ func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observ
 }
 
 // SearchCapabilitiesObservation describes the search capabilities on the Observation resource.
-func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
-	return search.Capabilities[r4.SearchParameter]{
-		Parameters: map[string]r4.SearchParameter{
+func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+	return search.Capabilities[r5.SearchParameter]{
+		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
-				Type: r4.Code{Value: ptr.To(search.TypeToken)},
+				Type: r5.Code{Value: ptr.To(search.TypeToken)},
 			},
 		},
 	}, nil
@@ -197,12 +196,12 @@ func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Compos
 }
 
 // SearchCapabilitiesComposition describes the search capabilities on the Composition resource.
-func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities[r4.SearchParameter], error) {
-	return search.Capabilities[r4.SearchParameter]{
-		Parameters: map[string]r4.SearchParameter{
+func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (search.Capabilities[r5.SearchParameter], error) {
+	return search.Capabilities[r5.SearchParameter]{
+		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
-				Type: r4.Code{Value: ptr.To(search.TypeToken)},
+				Type: r5.Code{Value: ptr.To(search.TypeToken)},
 			},
 		},
 	}, nil
