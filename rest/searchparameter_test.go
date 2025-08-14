@@ -605,3 +605,101 @@ func getLastPathSegment(urlStr string) string {
 	}
 	return "unknown"
 }
+
+// Test strict search parameters configuration
+func TestStrictSearchParametersEnabled(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	// Create config with strict search parameters enabled
+	config := rest.DefaultConfig
+	config.StrictSearchParameters = true
+
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	// Try to search with an unsupported parameter - should return an error
+	req := httptest.NewRequest("GET", "http://example.com/Patient?unsupported_param=test", nil)
+	req.Header.Set("Accept", "application/fhir+json")
+
+	rr := httptest.NewRecorder()
+	server.ServeHTTP(rr, req)
+
+	// Should return a 400 Bad Request due to unsupported parameter
+	if rr.Code != http.StatusBadRequest {
+		t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusBadRequest, rr.Code, rr.Body.String())
+	}
+
+	// Check that the error message mentions unsupported parameter
+	bodyStr := rr.Body.String()
+	if !strings.Contains(bodyStr, "unsupported search parameter") {
+		t.Error("Expected error message to mention 'unsupported search parameter'")
+	}
+}
+
+// Test strict search parameters disabled (default behavior)
+func TestStrictSearchParametersDisabled(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	// Use default config (strict search parameters disabled)
+	config := rest.DefaultConfig
+
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	// Try to search with an unsupported parameter - should silently ignore it
+	req := httptest.NewRequest("GET", "http://example.com/Patient?unsupported_param=test", nil)
+	req.Header.Set("Accept", "application/fhir+json")
+
+	rr := httptest.NewRecorder()
+	server.ServeHTTP(rr, req)
+
+	// Should return 200 OK and ignore the unsupported parameter
+	if rr.Code != http.StatusOK {
+		t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusOK, rr.Code, rr.Body.String())
+	}
+
+	// Should return an empty search bundle (since no Patient resources exist in our mock)
+	bodyStr := rr.Body.String()
+	if !strings.Contains(bodyStr, `"resourceType":"Bundle"`) {
+		t.Error("Expected response to be a Bundle")
+	}
+	if !strings.Contains(bodyStr, `"type":"searchset"`) {
+		t.Error("Expected Bundle type to be searchset")
+	}
+}
+
+// Test strict search parameters with supported parameter
+func TestStrictSearchParametersWithSupportedParameter(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	// Create config with strict search parameters enabled
+	config := rest.DefaultConfig
+	config.StrictSearchParameters = true
+
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	// Try to search with a supported parameter (_id) - should work fine
+	req := httptest.NewRequest("GET", "http://example.com/Patient?_id=test123", nil)
+	req.Header.Set("Accept", "application/fhir+json")
+
+	rr := httptest.NewRecorder()
+	server.ServeHTTP(rr, req)
+
+	// Should return 200 OK since _id is a supported parameter
+	if rr.Code != http.StatusOK {
+		t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusOK, rr.Code, rr.Body.String())
+	}
+
+	// Should return a search bundle
+	bodyStr := rr.Body.String()
+	if !strings.Contains(bodyStr, `"resourceType":"Bundle"`) {
+		t.Error("Expected response to be a Bundle")
+	}
+}

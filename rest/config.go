@@ -18,14 +18,19 @@ type Config struct {
 	// DefaultFormat of the server.
 	// Defaults to JSON.
 	DefaultFormat Format `json:"defaultFormat"`
+	// StrictSearchParameters when true causes the server to return an error
+	// if unsupported search parameters are used. When false (default),
+	// unsupported search parameters are silently ignored.
+	StrictSearchParameters bool `json:"strictSearchParameters"`
 }
 
 // DefaultConfig sets reasonable defaults that can be used by the package user.
 var DefaultConfig = Config{
-	Timezone:      time.Local,
-	MaxCount:      500,
-	DefaultCount:  500,
-	DefaultFormat: FormatJSON,
+	Timezone:               time.Local,
+	MaxCount:               500,
+	DefaultCount:           500,
+	DefaultFormat:          FormatJSON,
+	StrictSearchParameters: false,
 }
 
 type jsonConfig struct {

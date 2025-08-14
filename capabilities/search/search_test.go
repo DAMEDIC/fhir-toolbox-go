@@ -11,6 +11,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"net/url"
+	"strings"
 	"testing"
 	"time"
 )
@@ -355,7 +356,7 @@ func TestParseAndToString(t *testing.T) {
 			}
 
 			// test parse
-			parsedOpts, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, wantValues, time.UTC, 500, tt.options.Count)
+			parsedOpts, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, wantValues, time.UTC, 500, tt.options.Count, false)
 			if err != nil {
 				t.Fatalf("Failed to parse options: %v", err)
 			}
@@ -374,6 +375,94 @@ func TestParseAndToString(t *testing.T) {
 
 			if !cmp.Equal(wantValues, gotValues, cmpopts.EquateComparable(apd.Decimal{})) {
 				t.Errorf("QueryString() = %v, want %v, diff: %s", gotValues, wantValues, cmp.Diff(wantValues, gotValues, cmpopts.EquateComparable(apd.Decimal{})))
+			}
+		})
+	}
+}
+
+func TestParseOptionsStrict(t *testing.T) {
+	capabilityStatement := basic.CapabilityStatement{
+		Rest: []basic.CapabilityStatementRest{
+			{
+				Resource: []basic.CapabilityStatementRestResource{
+					{
+						Type: basic.Code{Value: ptr.To("TestResource")},
+						SearchParam: []basic.CapabilityStatementRestResourceSearchParam{
+							{
+								Name:       basic.String{Value: ptr.To("supported-param")},
+								Definition: &basic.Canonical{Value: ptr.To("http://example.com/SearchParameter/supported")},
+								Type:       basic.Code{Value: ptr.To("string")},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	resolveSearchParameter := func(canonical string) (model.Element, error) {
+		return &r4.SearchParameter{
+			Type: r4.Code{Value: ptr.To("string")},
+		}, nil
+	}
+
+	testCases := []struct {
+		name          string
+		strict        bool
+		queryParams   url.Values
+		expectError   bool
+		errorContains string
+	}{
+		{
+			name:   "strict_mode_with_supported_param",
+			strict: true,
+			queryParams: url.Values{
+				"supported-param": []string{"value"},
+			},
+			expectError: false,
+		},
+		{
+			name:   "strict_mode_with_unsupported_param",
+			strict: true,
+			queryParams: url.Values{
+				"unsupported-param": []string{"value"},
+			},
+			expectError:   true,
+			errorContains: "unsupported search parameter: unsupported-param",
+		},
+		{
+			name:   "non_strict_mode_with_unsupported_param",
+			strict: false,
+			queryParams: url.Values{
+				"unsupported-param": []string{"value"},
+			},
+			expectError: false,
+		},
+		{
+			name:   "strict_mode_with_result_modifying_params",
+			strict: true,
+			queryParams: url.Values{
+				"_count":   []string{"10"},
+				"_include": []string{"Patient:organization"},
+			},
+			expectError: false,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			_, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, tc.queryParams, time.UTC, 500, 50, tc.strict)
+
+			if tc.expectError {
+				if err == nil {
+					t.Errorf("Expected error but got none")
+				} else if !strings.Contains(err.Error(), tc.errorContains) {
+					t.Errorf("Expected error to contain '%s' but got: %s", tc.errorContains, err.Error())
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Expected no error but got: %v", err)
+				}
 			}
 		})
 	}

@@ -30,6 +30,11 @@ func TestConfigDefaultValues(t *testing.T) {
 	if defaultConfig.Timezone == nil {
 		t.Error("Expected DefaultConfig.Timezone to be non-nil")
 	}
+
+	// StrictSearchParameters should default to false
+	if defaultConfig.StrictSearchParameters != false {
+		t.Errorf("Expected DefaultConfig.StrictSearchParameters to be false, got %v", defaultConfig.StrictSearchParameters)
+	}
 }
 
 func TestConfigMarshalJSON(t *testing.T) {
@@ -37,10 +42,11 @@ func TestConfigMarshalJSON(t *testing.T) {
 	timezone, _ := time.LoadLocation("UTC")
 
 	config := rest.Config{
-		Timezone:      timezone,
-		MaxCount:      100,
-		DefaultCount:  50,
-		DefaultFormat: rest.Format("application/fhir+json"),
+		Timezone:               timezone,
+		MaxCount:               100,
+		DefaultCount:           50,
+		DefaultFormat:          rest.Format("application/fhir+json"),
+		StrictSearchParameters: true,
 	}
 
 	// Marshal to JSON
@@ -53,7 +59,8 @@ func TestConfigMarshalJSON(t *testing.T) {
 		"timezone": "UTC",
 		"maxCount": 100,
 		"defaultCount": 50,
-		"defaultFormat": "application/fhir+json"
+		"defaultFormat": "application/fhir+json",
+		"strictSearchParameters": true
 	}`, string(data))
 }
 
@@ -62,7 +69,8 @@ func TestConfigUnmarshalJSON(t *testing.T) {
 		"timezone": "America/New_York",
 		"maxCount": 200,
 		"defaultCount": 100,
-		"defaultFormat": "application/fhir+xml"
+		"defaultFormat": "application/fhir+xml",
+		"strictSearchParameters": true
 	}`
 
 	var config rest.Config
@@ -87,6 +95,10 @@ func TestConfigUnmarshalJSON(t *testing.T) {
 
 	if config.DefaultFormat != rest.FormatXML {
 		t.Errorf("Expected DefaultFormat application/fhir+xml, got %v", config.DefaultFormat)
+	}
+
+	if config.StrictSearchParameters != true {
+		t.Errorf("Expected StrictSearchParameters true, got %v", config.StrictSearchParameters)
 	}
 }
 
