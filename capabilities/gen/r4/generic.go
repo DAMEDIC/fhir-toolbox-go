@@ -8672,7 +8672,19 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 			resourcesMap["VisionPrescription"] = r
 		}
 	}
-	resourcesMap["SearchParameter"] = addInteraction("SearchParameter", "read")
+	if _, ok := w.Concrete.(SearchParameterSearch); !ok {
+		resourcesMap["SearchParameter"] = addInteraction("SearchParameter", "read")
+		spResource := addInteraction("SearchParameter", "search-type")
+		idParam := "_id"
+		tokenType := "token"
+		idDefinition := baseUrl + "/SearchParameter/SearchParameter-id"
+		spResource.SearchParam = append(spResource.SearchParam, basic.CapabilityStatementRestResourceSearchParam{
+			Definition: &basic.Canonical{Value: &idDefinition},
+			Name:       basic.String{Value: &idParam},
+			Type:       basic.Code{Value: &tokenType},
+		})
+		resourcesMap["SearchParameter"] = spResource
+	}
 	if len(errs) > 0 {
 		return basic.CapabilityStatement{}, errors.Join(errs...)
 	}
@@ -11246,6 +11258,20 @@ func searchParameters(ctx context.Context, api any, baseUrl string) (map[string]
 	}
 	if len(errs) > 0 {
 		return nil, errors.Join(errs...)
+	}
+	if _, ok := api.(SearchParameterSearch); !ok {
+		idParam := r4.SearchParameter{
+			Base:        []r4.Code{r4.Code{Value: ptr.To("SearchParameter")}},
+			Code:        r4.Code{Value: ptr.To("_id")},
+			Description: r4.Markdown{Value: ptr.To("Logical id of this artifact")},
+			Expression:  &r4.String{Value: ptr.To("SearchParameter.id")},
+			Id:          &r4.Id{Value: ptr.To("SearchParameter-id")},
+			Name:        r4.String{Value: ptr.To("_id")},
+			Status:      r4.Code{Value: ptr.To("active")},
+			Type:        r4.Code{Value: ptr.To("token")},
+			Url:         r4.Uri{Value: ptr.To(baseUrl + "/SearchParameter/SearchParameter-id")},
+		}
+		searchParameters["SearchParameter-id"] = idParam
 	}
 	return searchParameters, nil
 }
@@ -21150,26 +21176,60 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 		}, nil
 	case "SearchParameter":
 		impl, ok := w.Concrete.(SearchParameterSearch)
-		if !ok {
-			return search.Result[model.Resource]{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{{
-				Code:        r4.Code{Value: ptr.To("not-supported")},
-				Diagnostics: &r4.String{Value: ptr.To("search not implemented for SearchParameter")},
-				Severity:    r4.Code{Value: ptr.To("fatal")},
-			}}}
+		if ok {
+			result, err := impl.SearchSearchParameter(ctx, options)
+			if err != nil {
+				return search.Result[model.Resource]{}, err
+			}
+			genericResources := make([]model.Resource, len(result.Resources))
+			for i, r := range result.Resources {
+				genericResources[i] = r
+			}
+			return search.Result[model.Resource]{
+
+				Included:  result.Included,
+				Next:      result.Next,
+				Resources: genericResources,
+			}, nil
 		}
-		result, err := impl.SearchSearchParameter(ctx, options)
+		// Fallback: gather SearchParameter from SearchCapabilities methods if SearchSearchParameter not implemented
+		// Get base URL from CapabilityStatement for canonical references
+		capabilityStatement, err := w.Concrete.CapabilityBase(ctx)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
-		genericResources := make([]model.Resource, len(result.Resources))
-		for i, r := range result.Resources {
-			genericResources[i] = r
+		var baseUrl string
+		if capabilityStatement.Implementation != nil && capabilityStatement.Implementation.Url != nil && capabilityStatement.Implementation.Url.Value != nil {
+			baseUrl = *capabilityStatement.Implementation.Url.Value
+		}
+		searchParameters, err := searchParameters(ctx, w.Concrete, baseUrl)
+		if err != nil {
+			return search.Result[model.Resource]{}, err
+		}
+		filteredParameters := make(map[string]r4.SearchParameter)
+		for id, searchParam := range searchParameters {
+			filteredParameters[id] = searchParam
+		}
+		if idParams, ok := options.Parameters[search.ParameterKey{Name: "_id"}]; ok {
+			filteredParameters = make(map[string]r4.SearchParameter)
+			for _, idValues := range idParams {
+				for _, idValue := range idValues {
+					idStr := idValue.String()
+					if searchParam, exists := searchParameters[idStr]; exists {
+						filteredParameters[idStr] = searchParam
+					}
+				}
+			}
+		}
+		resources := make([]model.Resource, 0, len(filteredParameters))
+		for _, searchParam := range filteredParameters {
+			resources = append(resources, searchParam)
 		}
 		return search.Result[model.Resource]{
 
-			Included:  result.Included,
-			Next:      result.Next,
-			Resources: genericResources,
+			Included:  []model.Resource{},
+			Next:      search.Cursor(""),
+			Resources: resources,
 		}, nil
 	case "ServiceRequest":
 		impl, ok := w.Concrete.(ServiceRequestSearch)
