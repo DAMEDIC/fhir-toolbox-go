@@ -183,21 +183,124 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 				case "search":
 					for _, r := range resources {
 						g.Case(Lit(r.Name)).BlockFunc(func(g *Group) {
-							g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
-							g.If(Op("!").Id("ok")).Block(Return(returnType.Clone().Block(), notImplementedError(release, interaction, r.Name)))
-							g.List(Id("result"), Id("err")).Op(":=").Id("impl." + interactionName + r.Name).Call(passParams...)
-							g.If(Id("err").Op("!=").Nil()).Block(Return(returnType.Clone().Block(), Id("err")))
+							if r.Name == "SearchParameter" {
+								// Special handling for SearchParameter - fallback to searchParameters method
+								g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
+								g.If(Id("ok")).Block(
+									List(Id("result"), Id("err")).Op(":=").Id("impl."+interactionName+r.Name).Call(passParams...),
+									If(Id("err").Op("!=").Nil()).Block(Return(returnType.Clone().Block(), Id("err"))),
 
-							g.Id("genericResources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Len(Id("result.Resources")))
-							g.For(List(Id("i"), Id("r")).Op(":=").Range().Id("result.Resources")).Block(
-								Id("genericResources").Index(Id("i")).Op("=").Id("r"),
-							)
+									Id("genericResources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Len(Id("result.Resources"))),
+									For(List(Id("i"), Id("r")).Op(":=").Range().Id("result.Resources")).Block(
+										Id("genericResources").Index(Id("i")).Op("=").Id("r"),
+									),
 
-							g.Return(returnType.Clone().Block(Dict{
-								Id("Resources"): Id("genericResources"),
-								Id("Included"):  Id("result").Dot("Included"),
-								Id("Next"):      Id("result").Dot("Next"),
-							}), Nil())
+									Return(returnType.Clone().Block(Dict{
+										Id("Resources"): Id("genericResources"),
+										Id("Included"):  Id("result").Dot("Included"),
+										Id("Next"):      Id("result").Dot("Next"),
+									}), Nil()),
+								)
+
+								// Fallback: gather SearchParameter from SearchCapabilities methods
+								g.Comment("// Fallback: gather SearchParameter from SearchCapabilities methods if SearchSearchParameter not implemented")
+								g.Comment("// Get base URL from CapabilityStatement for canonical references")
+								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.If(Id("err").Op("!=").Nil()).Block(
+									Return(returnType.Clone().Block(), Id("err")),
+								)
+								g.Var().Id("baseUrl").String()
+								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								)
+								g.List(Id("searchParameters"), Id("err")).Op(":=").Id("searchParameters").Call(Id("ctx"), Id("w").Dot("Concrete"), Id("baseUrl"))
+								g.If(Id("err").Op("!=").Nil()).Block(
+									Return(returnType.Clone().Block(), Id("err")),
+								)
+
+								// Filter search results based on search options (support _id parameter)
+								g.Id("filteredParameters").Op(":=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter"))
+								g.For(List(Id("id"), Id("searchParam")).Op(":=").Range().Id("searchParameters")).Block(
+									Id("filteredParameters").Index(Id("id")).Op("=").Id("searchParam"),
+								)
+
+								// Check for _id parameter in search options
+								g.If(List(Id("idParams"), Id("ok")).Op(":=").Id("options.Parameters").Index(Qual(moduleName+"/capabilities/search", "ParameterKey").Values(Dict{Id("Name"): Lit("_id")})), Id("ok")).Block(
+									Id("filteredParameters").Op("=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter")),
+									For(List(Id("_"), Id("idValues")).Op(":=").Range().Id("idParams")).Block(
+										For(List(Id("_"), Id("idValue")).Op(":=").Range().Id("idValues")).Block(
+											Id("idStr").Op(":=").Id("idValue").Dot("String").Call(),
+											If(List(Id("searchParam"), Id("exists")).Op(":=").Id("searchParameters").Index(Id("idStr")), Id("exists")).Block(
+												Id("filteredParameters").Index(Id("idStr")).Op("=").Id("searchParam"),
+											),
+										),
+									),
+								)
+
+								// Convert map to slice for search result with deterministic ordering
+								g.Comment("Sort IDs for deterministic ordering")
+								g.Id("sortedIds").Op(":=").Make(Index().String(), Lit(0), Len(Id("filteredParameters")))
+								g.For(List(Id("id"), Id("_")).Op(":=").Range().Id("filteredParameters")).Block(
+									Id("sortedIds").Op("=").Append(Id("sortedIds"), Id("id")),
+								)
+								g.Qual("sort", "Strings").Call(Id("sortedIds"))
+
+								g.Id("allResources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Lit(0), Len(Id("filteredParameters")))
+								g.For(List(Id("_"), Id("id")).Op(":=").Range().Id("sortedIds")).Block(
+									Id("allResources").Op("=").Append(Id("allResources"), Id("filteredParameters").Index(Id("id"))),
+								)
+
+								// Apply cursor-based pagination (offset-based)
+								g.Var().Id("offset").Int()
+								g.If(Id("options.Cursor").Op("!=").Lit("")).Block(
+									List(Id("parsedOffset"), Id("err")).Op(":=").Qual("strconv", "Atoi").Call(String().Call(Id("options.Cursor"))),
+									If(Id("err").Op("!=").Nil()).Block(
+										Return(returnType.Clone().Block(), Qual("fmt", "Errorf").Call(Lit("invalid cursor: %w"), Id("err"))),
+									),
+									If(Id("parsedOffset").Op("<").Lit(0)).Block(
+										Return(returnType.Clone().Block(), Qual("fmt", "Errorf").Call(Lit("invalid cursor: offset must be non-negative"))),
+									),
+									Id("offset").Op("=").Id("parsedOffset"),
+								)
+
+								// Apply offset
+								g.Var().Id("resources").Index().Qual(moduleName+"/model", "Resource")
+								g.If(Id("offset").Op("<").Len(Id("allResources"))).Block(
+									Id("resources").Op("=").Id("allResources").Index(Id("offset").Op(":")),
+								)
+
+								// Apply count limit and determine next cursor
+								g.Var().Id("nextCursor").Qual(moduleName+"/capabilities/search", "Cursor")
+								g.If(Id("options.Count").Op(">").Lit(0).Op("&&").Len(Id("resources")).Op(">").Id("options.Count")).Block(
+									Id("resources").Op("=").Id("resources").Index(Op(":").Id("options.Count")),
+									Id("nextOffset").Op(":=").Id("offset").Op("+").Id("options.Count"),
+									If(Id("nextOffset").Op("<").Len(Id("allResources"))).Block(
+										Id("nextCursor").Op("=").Qual(moduleName+"/capabilities/search", "Cursor").Call(Qual("strconv", "Itoa").Call(Id("nextOffset"))),
+									),
+								)
+
+								g.Return(returnType.Clone().Block(Dict{
+									Id("Resources"): Id("resources"),
+									Id("Included"):  Index().Qual(moduleName+"/model", "Resource").Values(),
+									Id("Next"):      Id("nextCursor"),
+								}), Nil())
+							} else {
+								g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
+								g.If(Op("!").Id("ok")).Block(Return(returnType.Clone().Block(), notImplementedError(release, interaction, r.Name)))
+								g.List(Id("result"), Id("err")).Op(":=").Id("impl." + interactionName + r.Name).Call(passParams...)
+								g.If(Id("err").Op("!=").Nil()).Block(Return(returnType.Clone().Block(), Id("err")))
+
+								g.Id("genericResources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Len(Id("result.Resources")))
+								g.For(List(Id("i"), Id("r")).Op(":=").Range().Id("result.Resources")).Block(
+									Id("genericResources").Index(Id("i")).Op("=").Id("r"),
+								)
+
+								g.Return(returnType.Clone().Block(Dict{
+									Id("Resources"): Id("genericResources"),
+									Id("Included"):  Id("result").Dot("Included"),
+									Id("Next"):      Id("result").Dot("Next"),
+								}), Nil())
+							}
 						})
 					}
 
@@ -371,8 +474,32 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 				)
 			}
 
-			// Always add SearchParameter read capability
-			g.Id("resourcesMap").Index(Lit("SearchParameter")).Op("=").Id("addInteraction").Call(Lit("SearchParameter"), Lit("read"))
+			// Add SearchParameter read and search capabilities only if SearchParameterSearch is not implemented
+			g.If(List(Id("_"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id("SearchParameterSearch")).Op(";").Op("!").Id("ok")).Block(
+				// Add SearchParameter read capability
+				Id("resourcesMap").Index(Lit("SearchParameter")).Op("=").Id("addInteraction").Call(Lit("SearchParameter"), Lit("read")),
+
+				// Add SearchParameter search capability with _id parameter
+				Id("spResource").Op(":=").Id("addInteraction").Call(Lit("SearchParameter"), Lit("search-type")),
+				Id("idParam").Op(":=").Lit("_id"),
+				Id("tokenType").Op(":=").Lit("token"),
+				Id("idDefinition").Op(":=").Id("baseUrl").Op("+").Lit("/SearchParameter/SearchParameter-id"),
+				Id("spResource").Dot("SearchParam").Op("=").Append(
+					Id("spResource").Dot("SearchParam"),
+					Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceSearchParam").Values(Dict{
+						Id("Name"): Qual(moduleName+"/model/gen/basic", "String").Values(Dict{
+							Id("Value"): Op("&").Id("idParam"),
+						}),
+						Id("Type"): Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{
+							Id("Value"): Op("&").Id("tokenType"),
+						}),
+						Id("Definition"): Op("&").Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{
+							Id("Value"): Op("&").Id("idDefinition"),
+						}),
+					}),
+				),
+				Id("resourcesMap").Index(Lit("SearchParameter")).Op("=").Id("spResource"),
+			)
 
 			// Check for errors before proceeding
 			g.If(Len(Id("errs")).Op(">").Lit(0)).Block(
@@ -913,6 +1040,43 @@ func generateSearchParametersFn(f *File, release string, resources []ir.Resource
 		// Check for errors before proceeding
 		g.If(Len(Id("errs")).Op(">").Lit(0)).Block(
 			Return(Nil(), Qual("errors", "Join").Call(Id("errs").Op("..."))),
+		)
+
+		// Add default SearchParameter-id if SearchParameterSearch is not implemented
+		g.If(List(Id("_"), Id("ok")).Op(":=").Id("api").Assert(Id("SearchParameterSearch")).Op(";").Op("!").Id("ok")).Block(
+			// Create default _id SearchParameter
+			Id("idParam").Op(":=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter").Values(Dict{
+				Id("Id"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Id").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("SearchParameter-id")),
+				}),
+				Id("Url"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Uri").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("baseUrl").Op("+").Lit("/SearchParameter/SearchParameter-id")),
+				}),
+				Id("Name"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("_id")),
+				}),
+				Id("Status"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("active")),
+				}),
+				Id("Description"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Markdown").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("Logical id of this artifact")),
+				}),
+				Id("Code"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("_id")),
+				}),
+				Id("Base"): Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(
+					Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
+						Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("SearchParameter")),
+					}),
+				),
+				Id("Type"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("token")),
+				}),
+				Id("Expression"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{
+					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("SearchParameter.id")),
+				}),
+			}),
+			Id("searchParameters").Index(Lit("SearchParameter-id")).Op("=").Id("idParam"),
 		)
 
 		g.Return(Id("searchParameters"), Nil())

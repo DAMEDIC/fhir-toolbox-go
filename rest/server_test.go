@@ -238,6 +238,16 @@ func TestCapabilityStatement(t *testing.T) {
 					  "interaction": [
 						{
 						  "code": "read"
+						},
+						{
+						  "code": "search-type"
+						}
+					  ],
+					  "searchParam": [
+						{
+						  "definition": "http://example.com/SearchParameter/SearchParameter-id",
+						  "name": "_id",
+						  "type": "token"
 						}
 					  ],
 					  "type": "SearchParameter"
@@ -364,6 +374,14 @@ func TestCapabilityStatement(t *testing.T) {
                       <interaction>
                         <code value="read"/>
                       </interaction>
+                      <interaction>
+                        <code value="search-type"/>
+                      </interaction>
+                      <searchParam>
+                        <name value="_id"/>
+                        <definition value="http://example.com/SearchParameter/SearchParameter-id"/>
+                        <type value="token"/>
+                      </searchParam>
                     </resource>
 				  </rest>
 				</CapabilityStatement>`,

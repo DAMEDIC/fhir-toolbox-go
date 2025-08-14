@@ -171,6 +171,9 @@ var KnownPrefixes = []string{
 // The `resolveSearchParameter` function is used to resolve SearchParameter resources
 // from their canonical URLs found in the CapabilityStatement.
 //
+// When `strict` is true, an error is returned if unsupported search parameters are encountered.
+// When `strict` is false, unsupported search parameters are silently ignored.
+//
 // [Result modifying parameters] are parsed into separate fields on the [Options] object.
 // All other parameters are parsed into [options.Parameters].
 //
@@ -182,6 +185,7 @@ func ParseOptions(
 	params url.Values,
 	tz *time.Location,
 	maxCount, defaultCount int,
+	strict bool,
 ) (Options, error) {
 	options := Options{
 		// backed by a map, which must be initialized
@@ -242,6 +246,9 @@ func ParseOptions(
 
 			canonical, ok := parameterDefinitions[param.Name]
 			if !ok {
+				if strict {
+					return Options{}, fmt.Errorf("unsupported search parameter: %s", param.String())
+				}
 				// only known parameters are forwarded
 				continue
 			}

@@ -388,7 +388,7 @@ func dispatchSearch[R model.Release](
 		return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
 	}
 
-	options, err := parseSearchOptions(capabilityStatement, resourceType, resolveSearchParameter, parameters, tz, config.MaxCount, config.DefaultCount)
+	options, err := parseSearchOptions(capabilityStatement, resourceType, resolveSearchParameter, parameters, tz, config.MaxCount, config.DefaultCount, config.StrictSearchParameters)
 	if err != nil {
 		return nil, err
 	}
@@ -412,8 +412,9 @@ func parseSearchOptions(
 	resolveSearchParameter func(canonical string) (model.Element, error),
 	params url.Values,
 	tz *time.Location,
-	maxCount, defaultCount int) (search.Options, error) {
-	options, err := search.ParseOptions(capabilityStatement, resourceType, resolveSearchParameter, params, tz, maxCount, defaultCount)
+	maxCount, defaultCount int,
+	strict bool) (search.Options, error) {
+	options, err := search.ParseOptions(capabilityStatement, resourceType, resolveSearchParameter, params, tz, maxCount, defaultCount, strict)
 	if err != nil {
 		return search.Options{}, searchError(err.Error())
 	}
