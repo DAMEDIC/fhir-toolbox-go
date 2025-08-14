@@ -703,3 +703,398 @@ func TestStrictSearchParametersWithSupportedParameter(t *testing.T) {
 		t.Error("Expected response to be a Bundle")
 	}
 }
+
+// Test SearchParameter pagination with count parameter
+func TestSearchParameterPaginationWithCount(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	config := rest.DefaultConfig
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	// First page with count=2
+	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_count=2", nil)
+	req.Header.Set("Accept", "application/fhir+json")
+
+	rr := httptest.NewRecorder()
+	server.ServeHTTP(rr, req)
+
+	if rr.Code != http.StatusOK {
+		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
+	}
+
+	// Parse the response to check pagination
+	var bundle map[string]interface{}
+	if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
+		t.Fatalf("Failed to parse bundle: %v", err)
+	}
+
+	// Should have exactly 2 entries
+	entries, ok := bundle["entry"].([]interface{})
+	if !ok {
+		t.Fatal("Bundle should have entries")
+	}
+	if len(entries) != 2 {
+		t.Errorf("Expected 2 entries, got %d", len(entries))
+	}
+
+	// Should have a next link
+	links, ok := bundle["link"].([]interface{})
+	if !ok {
+		t.Fatal("Bundle should have links")
+	}
+
+	var nextLink string
+	for _, link := range links {
+		linkObj := link.(map[string]interface{})
+		if relation, ok := linkObj["relation"].(string); ok && relation == "next" {
+			nextLink = linkObj["url"].(string)
+			break
+		}
+	}
+
+	if nextLink == "" {
+		t.Error("Expected to find next link for pagination")
+	}
+
+	// Verify next link contains cursor parameter
+	if !strings.Contains(nextLink, "_cursor=") {
+		t.Error("Next link should contain _cursor parameter")
+	}
+}
+
+// Test SearchParameter pagination with cursor
+func TestSearchParameterPaginationWithCursor(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	config := rest.DefaultConfig
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	// Request second page with cursor (offset=2)
+	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_count=2&_cursor=2", nil)
+	req.Header.Set("Accept", "application/fhir+json")
+
+	rr := httptest.NewRecorder()
+	server.ServeHTTP(rr, req)
+
+	if rr.Code != http.StatusOK {
+		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
+	}
+
+	// Parse the response
+	var bundle map[string]interface{}
+	if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
+		t.Fatalf("Failed to parse bundle: %v", err)
+	}
+
+	// Should have entries (remaining items after offset 2)
+	entries, ok := bundle["entry"].([]interface{})
+	if !ok || len(entries) == 0 {
+		t.Error("Expected entries in paginated result")
+	}
+
+	// Should have at most 2 entries due to count limit
+	if len(entries) > 2 {
+		t.Errorf("Expected at most 2 entries, got %d", len(entries))
+	}
+}
+
+// Test SearchParameter pagination edge cases
+func TestSearchParameterPaginationEdgeCases(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	config := rest.DefaultConfig
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	testCases := []struct {
+		name           string
+		queryString    string
+		expectNextLink bool
+		expectError    bool
+	}{
+		{
+			name:           "cursor_beyond_results",
+			queryString:    "_cursor=100&_count=10",
+			expectNextLink: false,
+			expectError:    false,
+		},
+		{
+			name:           "invalid_cursor",
+			queryString:    "_cursor=invalid&_count=2",
+			expectNextLink: false,
+			expectError:    true, // Should return error for unparsable cursor
+		},
+		{
+			name:           "last_page",
+			queryString:    "_cursor=4&_count=10", // Should get last item(s)
+			expectNextLink: false,
+			expectError:    false,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			req := httptest.NewRequest("GET", "http://example.com/SearchParameter?"+tc.queryString, nil)
+			req.Header.Set("Accept", "application/fhir+json")
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if tc.expectError {
+				// Should return an error status code for invalid cursor
+				if rr.Code == http.StatusOK {
+					t.Errorf("Expected error status code, got %d", rr.Code)
+				}
+				// Check that error message mentions invalid cursor
+				bodyStr := rr.Body.String()
+				if !strings.Contains(bodyStr, "invalid cursor") {
+					t.Error("Expected error message to mention 'invalid cursor'")
+				}
+				return
+			}
+
+			if rr.Code != http.StatusOK {
+				t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
+			}
+
+			// Parse the response
+			var bundle map[string]interface{}
+			if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
+				t.Fatalf("Failed to parse bundle: %v", err)
+			}
+
+			// Check for next link
+			links, _ := bundle["link"].([]interface{})
+			hasNextLink := false
+			if links != nil {
+				for _, link := range links {
+					linkObj := link.(map[string]interface{})
+					if relation, ok := linkObj["relation"].(string); ok && relation == "next" {
+						hasNextLink = true
+						break
+					}
+				}
+			}
+
+			if hasNextLink != tc.expectNextLink {
+				t.Errorf("Expected next link presence: %v, got: %v", tc.expectNextLink, hasNextLink)
+			}
+		})
+	}
+}
+
+// Test SearchParameter pagination with invalid cursor error handling
+func TestSearchParameterPaginationInvalidCursor(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	config := rest.DefaultConfig
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	testCases := []struct {
+		name          string
+		cursor        string
+		expectedError string
+	}{
+		{
+			name:          "non_numeric_cursor",
+			cursor:        "invalid",
+			expectedError: "invalid cursor",
+		},
+		{
+			name:          "empty_cursor_is_valid",
+			cursor:        "",
+			expectedError: "", // Empty cursor should be valid (no error)
+		},
+		{
+			name:          "numeric_cursor_is_valid",
+			cursor:        "5",
+			expectedError: "", // Valid numeric cursor should work
+		},
+		{
+			name:          "special_characters_cursor",
+			cursor:        "abc123",
+			expectedError: "invalid cursor",
+		},
+		{
+			name:          "negative_number_cursor",
+			cursor:        "-1",
+			expectedError: "invalid cursor: offset must be non-negative",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			reqURL := "http://example.com/SearchParameter?_count=2"
+			if tc.cursor != "" {
+				reqURL += "&_cursor=" + tc.cursor
+			}
+
+			req := httptest.NewRequest("GET", reqURL, nil)
+			req.Header.Set("Accept", "application/fhir+json")
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if tc.expectedError != "" {
+				// Should return an error status code
+				if rr.Code == http.StatusOK {
+					t.Errorf("Expected error status code, got %d", rr.Code)
+				}
+				// Check that error message contains expected text
+				bodyStr := rr.Body.String()
+				if !strings.Contains(bodyStr, tc.expectedError) {
+					t.Errorf("Expected error message to contain '%s', got: %s", tc.expectedError, bodyStr)
+				}
+			} else {
+				// Should succeed
+				if rr.Code != http.StatusOK {
+					t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusOK, rr.Code, rr.Body.String())
+				}
+			}
+		})
+	}
+}
+
+// Test SearchParameter pagination with multiple page navigation
+func TestSearchParameterPaginationMultiplePages(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	config := rest.DefaultConfig
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	// Test navigating through multiple pages
+	pageSize := 2
+	currentCursor := ""
+	totalPagesVisited := 0
+	maxPages := 3 // Prevent infinite loops
+
+	for totalPagesVisited < maxPages {
+		// Build request URL
+		reqURL := "http://example.com/SearchParameter?_count=" + fmt.Sprintf("%d", pageSize)
+		if currentCursor != "" {
+			reqURL += "&_cursor=" + currentCursor
+		}
+
+		req := httptest.NewRequest("GET", reqURL, nil)
+		req.Header.Set("Accept", "application/fhir+json")
+
+		rr := httptest.NewRecorder()
+		server.ServeHTTP(rr, req)
+
+		if rr.Code != http.StatusOK {
+			t.Errorf("Page %d: Expected status code %d, got %d", totalPagesVisited+1, http.StatusOK, rr.Code)
+			break
+		}
+
+		// Parse the response
+		var bundle map[string]interface{}
+		if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
+			t.Fatalf("Page %d: Failed to parse bundle: %v", totalPagesVisited+1, err)
+		}
+
+		// Check entries
+		entries, ok := bundle["entry"].([]interface{})
+		if !ok {
+			entries = []interface{}{} // Empty entries is valid
+		}
+
+		// Should have at most pageSize entries
+		if len(entries) > pageSize {
+			t.Errorf("Page %d: Expected at most %d entries, got %d", totalPagesVisited+1, pageSize, len(entries))
+		}
+
+		// Find next link
+		links, _ := bundle["link"].([]interface{})
+		var nextLink string
+		if links != nil {
+			for _, link := range links {
+				linkObj := link.(map[string]interface{})
+				if relation, ok := linkObj["relation"].(string); ok && relation == "next" {
+					nextLink = linkObj["url"].(string)
+					break
+				}
+			}
+		}
+
+		totalPagesVisited++
+
+		// If no next link or no entries, we've reached the end
+		if nextLink == "" || len(entries) == 0 {
+			t.Logf("Reached end of pagination after %d pages", totalPagesVisited)
+			break
+		}
+
+		// Extract cursor from next link for next iteration
+		if nextURL, err := url.Parse(nextLink); err == nil {
+			currentCursor = nextURL.Query().Get("_cursor")
+			if currentCursor == "" {
+				t.Errorf("Page %d: Next link should contain _cursor parameter", totalPagesVisited)
+				break
+			}
+		} else {
+			t.Errorf("Page %d: Failed to parse next link URL: %v", totalPagesVisited, err)
+			break
+		}
+	}
+
+	// Should have visited at least 2 pages to test multi-page navigation
+	if totalPagesVisited < 2 {
+		t.Errorf("Expected to visit at least 2 pages for multi-page test, but only visited %d", totalPagesVisited)
+	}
+}
+
+// Test SearchParameter pagination deterministic ordering
+func TestSearchParameterPaginationDeterministicOrdering(t *testing.T) {
+	backend := mockBackendWithoutSearchParameterSearch{}
+
+	config := rest.DefaultConfig
+	server, err := rest.NewServer[model.R4](backend, config)
+	if err != nil {
+		t.Fatalf("Failed to create server: %v", err)
+	}
+
+	// Make the same request multiple times to ensure consistent ordering
+	numRuns := 5
+	var responses []string
+
+	for i := 0; i < numRuns; i++ {
+		req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_count=10", nil)
+		req.Header.Set("Accept", "application/fhir+json")
+
+		rr := httptest.NewRecorder()
+		server.ServeHTTP(rr, req)
+
+		if rr.Code != http.StatusOK {
+			t.Errorf("Run %d: Expected status code %d, got %d", i+1, http.StatusOK, rr.Code)
+		}
+
+		responses = append(responses, rr.Body.String())
+	}
+
+	// All responses should be identical (deterministic ordering)
+	firstResponse := responses[0]
+	for i, response := range responses[1:] {
+		if response != firstResponse {
+			t.Errorf("Run %d: Response differs from first run. This indicates non-deterministic ordering.", i+2)
+			t.Logf("First response: %s", firstResponse)
+			t.Logf("Run %d response: %s", i+2, response)
+			break
+		}
+	}
+
+	t.Logf("All %d runs produced identical responses, confirming deterministic ordering", numRuns)
+}

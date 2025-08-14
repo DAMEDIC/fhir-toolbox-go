@@ -18,6 +18,8 @@ import (
 	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	ptr "github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"slices"
+	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -22893,14 +22895,43 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				}
 			}
 		}
-		resources := make([]model.Resource, 0, len(filteredParameters))
-		for _, searchParam := range filteredParameters {
-			resources = append(resources, searchParam)
+		// Sort IDs for deterministic ordering
+		sortedIds := make([]string, 0, len(filteredParameters))
+		for id, _ := range filteredParameters {
+			sortedIds = append(sortedIds, id)
+		}
+		sort.Strings(sortedIds)
+		allResources := make([]model.Resource, 0, len(filteredParameters))
+		for _, id := range sortedIds {
+			allResources = append(allResources, filteredParameters[id])
+		}
+		var offset int
+		if options.Cursor != "" {
+			parsedOffset, err := strconv.Atoi(string(options.Cursor))
+			if err != nil {
+				return search.Result[model.Resource]{}, fmt.Errorf("invalid cursor: %w", err)
+			}
+			if parsedOffset < 0 {
+				return search.Result[model.Resource]{}, fmt.Errorf("invalid cursor: offset must be non-negative")
+			}
+			offset = parsedOffset
+		}
+		var resources []model.Resource
+		if offset < len(allResources) {
+			resources = allResources[offset:]
+		}
+		var nextCursor search.Cursor
+		if options.Count > 0 && len(resources) > options.Count {
+			resources = resources[:options.Count]
+			nextOffset := offset + options.Count
+			if nextOffset < len(allResources) {
+				nextCursor = search.Cursor(strconv.Itoa(nextOffset))
+			}
 		}
 		return search.Result[model.Resource]{
 
 			Included:  []model.Resource{},
-			Next:      search.Cursor(""),
+			Next:      nextCursor,
 			Resources: resources,
 		}, nil
 	case "ServiceRequest":

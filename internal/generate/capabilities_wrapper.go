@@ -237,16 +237,52 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 									),
 								)
 
-								// Convert map to slice for search result
-								g.Id("resources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Lit(0), Len(Id("filteredParameters")))
-								g.For(List(Id("_"), Id("searchParam")).Op(":=").Range().Id("filteredParameters")).Block(
-									Id("resources").Op("=").Append(Id("resources"), Id("searchParam")),
+								// Convert map to slice for search result with deterministic ordering
+								g.Comment("Sort IDs for deterministic ordering")
+								g.Id("sortedIds").Op(":=").Make(Index().String(), Lit(0), Len(Id("filteredParameters")))
+								g.For(List(Id("id"), Id("_")).Op(":=").Range().Id("filteredParameters")).Block(
+									Id("sortedIds").Op("=").Append(Id("sortedIds"), Id("id")),
+								)
+								g.Qual("sort", "Strings").Call(Id("sortedIds"))
+
+								g.Id("allResources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Lit(0), Len(Id("filteredParameters")))
+								g.For(List(Id("_"), Id("id")).Op(":=").Range().Id("sortedIds")).Block(
+									Id("allResources").Op("=").Append(Id("allResources"), Id("filteredParameters").Index(Id("id"))),
+								)
+
+								// Apply cursor-based pagination (offset-based)
+								g.Var().Id("offset").Int()
+								g.If(Id("options.Cursor").Op("!=").Lit("")).Block(
+									List(Id("parsedOffset"), Id("err")).Op(":=").Qual("strconv", "Atoi").Call(String().Call(Id("options.Cursor"))),
+									If(Id("err").Op("!=").Nil()).Block(
+										Return(returnType.Clone().Block(), Qual("fmt", "Errorf").Call(Lit("invalid cursor: %w"), Id("err"))),
+									),
+									If(Id("parsedOffset").Op("<").Lit(0)).Block(
+										Return(returnType.Clone().Block(), Qual("fmt", "Errorf").Call(Lit("invalid cursor: offset must be non-negative"))),
+									),
+									Id("offset").Op("=").Id("parsedOffset"),
+								)
+
+								// Apply offset
+								g.Var().Id("resources").Index().Qual(moduleName+"/model", "Resource")
+								g.If(Id("offset").Op("<").Len(Id("allResources"))).Block(
+									Id("resources").Op("=").Id("allResources").Index(Id("offset").Op(":")),
+								)
+
+								// Apply count limit and determine next cursor
+								g.Var().Id("nextCursor").Qual(moduleName+"/capabilities/search", "Cursor")
+								g.If(Id("options.Count").Op(">").Lit(0).Op("&&").Len(Id("resources")).Op(">").Id("options.Count")).Block(
+									Id("resources").Op("=").Id("resources").Index(Op(":").Id("options.Count")),
+									Id("nextOffset").Op(":=").Id("offset").Op("+").Id("options.Count"),
+									If(Id("nextOffset").Op("<").Len(Id("allResources"))).Block(
+										Id("nextCursor").Op("=").Qual(moduleName+"/capabilities/search", "Cursor").Call(Qual("strconv", "Itoa").Call(Id("nextOffset"))),
+									),
 								)
 
 								g.Return(returnType.Clone().Block(Dict{
 									Id("Resources"): Id("resources"),
 									Id("Included"):  Index().Qual(moduleName+"/model", "Resource").Values(),
-									Id("Next"):      Qual(moduleName+"/capabilities/search", "Cursor").Call(Lit("")),
+									Id("Next"):      Id("nextCursor"),
 								}), Nil())
 							} else {
 								g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
