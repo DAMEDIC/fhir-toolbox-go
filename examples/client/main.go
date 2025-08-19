@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
+	"io"
 	"log"
 )
 
@@ -14,6 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// Read patient
 	patient, err := client.ReadPatient(context.Background(), "example")
 	if err != nil {
 		log.Fatal(err)
@@ -34,10 +36,38 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Found %d patients\n%s\n", len(result.Resources), result)
+	fmt.Printf("Found %d patients:\n%s\n", len(result.Resources), result)
 
-	// If there's a next page, show the cursor
-	if result.Next != "" {
-		fmt.Printf("Next cursor: %s\n", result.Next)
+	// Search for patient with pagination
+	initialResult, err := client.SearchPatient(context.Background(),
+		search.Params{
+			"birthdate": search.String("ge2000-01-01"),
+		},
+		search.Options{
+			Count: 5,
+		},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	iter := rest.Iterator(context.Background(), client, initialResult)
+	pageNo := 0
+
+	// Get 5 pages
+	for pageNo < 5 {
+		page, err := iter.Next()
+		if err != nil {
+			// io.EOF signals that there are no more pages.
+			if err == io.EOF {
+				break
+			}
+			log.Fatalf("Failed to fetch next page: %v", err)
+		}
+
+		// handle page
+		fmt.Printf("Page %d:\n%s\n\n", pageNo, page)
+
+		pageNo++
 	}
 }

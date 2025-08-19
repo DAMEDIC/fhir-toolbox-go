@@ -513,3 +513,85 @@ func (c *client) parseR5SearchBundle(bundle r5.Bundle) (search.Result[model.Reso
 
 	return result, nil
 }
+
+// iterator provides pagination functionality for search results.
+type iterator[T model.Resource] struct {
+	ctx    context.Context
+	client capabilities.GenericSearch
+	result search.Result[T]
+	done   bool
+	first  bool
+}
+
+// Iterator creates a new iterator for paginating through search results.
+// It starts with the provided initial result and uses the client to fetch subsequent pages.
+func Iterator[T model.Resource](ctx context.Context, client capabilities.GenericSearch, initialResult search.Result[T]) *iterator[T] {
+	return &iterator[T]{
+		ctx:    ctx,
+		client: client,
+		result: initialResult,
+		done:   false,
+		first:  true,
+	}
+}
+
+// Next returns the next page of search results.
+// It returns io.EOF when there are no more pages available.
+func (it *iterator[T]) Next() (search.Result[T], error) {
+	// If we are done, return EOF
+	if it.done {
+		return search.Result[T]{}, io.EOF
+	}
+
+	// For the first call, return the initial result
+	if it.first {
+		it.first = false
+
+		// If there is no next cursor, mark as done
+		if it.result.Next == "" {
+			it.done = true
+		}
+
+		return it.result, nil
+	}
+
+	// If there is no next cursor, we are done
+	if it.result.Next == "" {
+		it.done = true
+		return search.Result[T]{}, io.EOF
+	}
+
+	// Fetch the next page using the cursor
+	// The cursor contains the full URL, so we use it directly
+	genericResult, err := it.client.Search(it.ctx, "", search.Params{}, search.Options{
+		Cursor: it.result.Next,
+	})
+	if err != nil {
+		it.done = true
+		return search.Result[T]{}, err
+	}
+
+	// Convert the generic result to our specific type
+	nextResult := search.Result[T]{
+		Resources: make([]T, len(genericResult.Resources)),
+		Included:  genericResult.Included,
+		Next:      genericResult.Next,
+	}
+
+	// Convert each resource
+	for i, resource := range genericResult.Resources {
+		if typedResource, ok := resource.(T); ok {
+			nextResult.Resources[i] = typedResource
+		}
+	}
+
+	// Update our state with the new result
+	it.result = nextResult
+
+	// If the next result has no cursor, we are done after this
+	if nextResult.Next == "" {
+		it.done = true
+	}
+
+	return nextResult, nil
+}
