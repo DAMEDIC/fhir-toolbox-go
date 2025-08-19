@@ -33,7 +33,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			},
 			want: "number=0.100",
 		},
@@ -47,7 +47,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
+				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
 			},
 			want: "number=ge0.100",
 		},
@@ -62,7 +62,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{ParameterKey{Name: "number", Modifier: ModifierMissing}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: internalParams{ParameterKey{Name: "number", Modifier: ModifierMissing}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			},
 			want: "number:missing=0.100",
 		},
@@ -76,7 +76,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 				Count:      100,
 			},
 			want: "number=0.100&_count=100",
@@ -91,7 +91,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 				Count:      1000,
 			},
 			want: "number=0.100&_count=500",
@@ -106,7 +106,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "date"}: MatchAll{{Date{
 						Value:     time.Date(2024, time.December, 25, 0, 0, 0, 0, time.UTC),
 						Precision: PrecisionDay,
@@ -125,7 +125,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "string"}: MatchAll{{String("example")}},
 				},
 			},
@@ -141,7 +141,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "token"}: MatchAll{
 						{Token{Code: "value"}},
 					},
@@ -159,7 +159,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "token"}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 				},
 			},
@@ -175,7 +175,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123"}}},
 				},
 			},
@@ -191,7 +191,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123", Version: "456"}}},
 				},
 			},
@@ -207,8 +207,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
-					ParameterKey{Name: "ref"}: MatchAll{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}}}},
+				Parameters: internalParams{
+					ParameterKey{Name: "ref"}: MatchAll{{Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}}}},
 				},
 			},
 			want: "ref=scheme://host",
@@ -223,8 +223,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
-					ParameterKey{Name: "ref"}: MatchAll{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
+				Parameters: internalParams{
+					ParameterKey{Name: "ref"}: MatchAll{{Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
 				},
 			},
 			want: "ref=scheme://host|456",
@@ -240,7 +240,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "ref", Modifier: ModifierIdentifier}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 				},
 			},
@@ -256,7 +256,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "composite"}: MatchAll{{Composite{"a", "b"}}},
 				},
 			},
@@ -272,7 +272,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "quantity"}: MatchAll{{Quantity{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
 				},
 			},
@@ -288,7 +288,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "uri"}: MatchAll{{Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
 				},
 			},
@@ -304,7 +304,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: Parameters{
+				Parameters: internalParams{
 					ParameterKey{Name: "special"}: MatchAll{{Special("abc")}},
 				},
 			},
@@ -471,16 +471,16 @@ func TestParseOptionsStrict(t *testing.T) {
 func TestParametersMarshalJSON(t *testing.T) {
 	tests := []struct {
 		name      string
-		parameter Parameters
+		parameter internalParams
 		expected  string
 	}{
 		{
 			name:      "No Modifier",
-			parameter: Parameters{ParameterKey{Name: "exampleName"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+			parameter: internalParams{ParameterKey{Name: "exampleName"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
 		{
 			name:      "Modifier",
-			parameter: Parameters{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+			parameter: internalParams{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
 	}
 

@@ -149,10 +149,10 @@ func relationLink(
 
 	// remove options supplied by the client, but not used/supported by the backend
 	usedOptions := options
-	usedOptions.Parameters = make(map[search.ParameterKey]search.Criteria, len(options.Parameters))
+	usedOptionsParams := make(map[string]search.Criteria)
 
 	// Build search parameters map from CapabilityStatement
-	searchParameters := make(map[string]search.Parameter)
+	searchParameters := make(map[string]model.Element)
 	for _, rest := range capabilityStatement.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
@@ -172,7 +172,7 @@ func relationLink(
 		}
 	}
 
-	for key, ands := range options.Parameters {
+	for key, ands := range options.Parameters.Map() {
 		p, ok := searchParameters[key.Name]
 		if !ok {
 			continue
@@ -190,7 +190,7 @@ func relationLink(
 		}
 
 		if key.Modifier == "" || len(resolvedModifiers) == 0 || slices.Contains(resolvedModifiers, key.Modifier) {
-			usedOptions.Parameters[key] = ands
+			usedOptionsParams[key.String()] = ands
 		}
 	}
 

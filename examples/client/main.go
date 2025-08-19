@@ -23,8 +23,8 @@ func main() {
 
 	// Search for patients
 	result, err := client.SearchPatient(context.Background(), search.Options{
-		Parameters: search.Parameters{
-			search.ParameterKey{Name: "birthdate"}: search.String("ge2000-01-01"),
+		Parameters: search.Params{
+			"birthdate": search.String("ge2000-01-01"),
 		},
 		Count: 5,
 	})

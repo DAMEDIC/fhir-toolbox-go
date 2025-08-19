@@ -51,9 +51,6 @@ type Result[R model.Resource] struct {
 // for multi-page queries.
 type Cursor string
 
-// Parameter is a placeholder for FHIR version specific SearchParameter.
-type Parameter model.Element
-
 // Options represents the parameters passed to a search implementation.
 type Options struct {
 	// Parameters defines the search parameters.
@@ -66,25 +63,8 @@ type Options struct {
 	Cursor Cursor
 }
 
-type Parameters map[ParameterKey]Criteria
-
-type Criteria interface {
-	MatchesAll() MatchAll
-}
-
-// All represents a slice of possible values for a single search parameter where each of the entry has to match.
-type MatchAll []MatchAny
-
-func (a MatchAll) MatchesAll() MatchAll {
-	return a
-}
-
-// MatchAny represents a slice of possible values for a single search parameter,
-// where only one of the values has to match.
-type MatchAny []Value
-
-func (o MatchAny) MatchesAll() MatchAll {
-	return MatchAll{o}
+type Parameters interface {
+	Map() map[ParameterKey]MatchAll
 }
 
 // ParameterKey represents a key for a search parameter,
@@ -107,6 +87,47 @@ func (p ParameterKey) String() string {
 
 func (p ParameterKey) MarshalText() ([]byte, error) {
 	return []byte(p.String()), nil
+}
+
+type Params map[string]Criteria
+
+func (p Params) Map() map[ParameterKey]Criteria {
+	m := make(map[ParameterKey]Criteria, len(p))
+	for k, v := range p {
+		splits := strings.Split(k, ":")
+		paramName := splits[0]
+		var paramModifier string
+		if len(splits) > 1 {
+			paramModifier = splits[1]
+		}
+		m[ParameterKey{Name: paramName, Modifier: paramModifier}] = v
+	}
+	return m
+}
+
+type internalParams map[ParameterKey]MatchAll
+
+func (p internalParams) Map() map[ParameterKey]MatchAll {
+	return p
+}
+
+type Criteria interface {
+	MatchesAll() MatchAll
+}
+
+// All represents a slice of possible values for a single search parameter where each of the entry has to match.
+type MatchAll []MatchAny
+
+func (a MatchAll) MatchesAll() MatchAll {
+	return a
+}
+
+// MatchAny represents a slice of possible values for a single search parameter,
+// where only one of the values has to match.
+type MatchAny []Value
+
+func (o MatchAny) MatchesAll() MatchAll {
+	return MatchAll{o}
 }
 
 const (
@@ -202,8 +223,8 @@ func ParseOptions(
 	strict bool,
 ) (Options, error) {
 	options := Options{
-		// backed by a map, which must be initialized
-		Parameters: Parameters{},
+		// backed by a map
+		Parameters: internalParams{},
 		Count:      min(defaultCount, maxCount),
 	}
 
@@ -279,7 +300,7 @@ func ParseOptions(
 				return Options{}, err
 			}
 
-			options.Parameters[param] = ands
+			options.Parameters.(internalParams)[param] = ands
 		}
 	}
 
@@ -304,21 +325,20 @@ func parseCursor(values []string) (Cursor, error) {
 	return Cursor(values[0]), nil
 }
 
-func parseSearchParam(param ParameterKey, urlValues []string, sp Parameter, tz *time.Location) (MatchAll, error) {
+func parseSearchParam(param ParameterKey, urlValues []string, sp model.Element, tz *time.Location) (MatchAll, error) {
 	fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](sp.Children("type"))
 	if !ok || err != nil {
 		return MatchAll{}, fmt.Errorf("Parameter has no type: %v", sp)
 	}
 	resolvedType := string(fhirpathType)
 
-	fhirpathModifiers := sp.Children("modifier")
-	resolvedModifiers := make([]string, 0, len(fhirpathModifiers))
-	for _, e := range fhirpathModifiers {
+	var supportedModifiers []string
+	for _, e := range sp.Children("modifier") {
 		m, ok, err := e.ToString(false)
 		if !ok || err != nil {
-			return MatchAll{}, fmt.Errorf("Parameter error reading modifiers: %v", sp)
+			return MatchAll{}, fmt.Errorf("parameter error reading modifiers: %v", sp)
 		}
-		resolvedModifiers = append(resolvedModifiers, string(m))
+		supportedModifiers = append(supportedModifiers, string(m))
 	}
 
 	// When the :identifier modifier is used, the search value works as a token search.
@@ -327,8 +347,8 @@ func parseSearchParam(param ParameterKey, urlValues []string, sp Parameter, tz *
 	}
 
 	// empty modifiers in SearchParameters should mean all are supported
-	if param.Modifier != "" && (len(resolvedModifiers) == 0 || !slices.Contains(resolvedModifiers, param.Modifier)) {
-		return nil, fmt.Errorf("unsupported modifier for parameter %s, supported are: %s", param, resolvedModifiers)
+	if param.Modifier != "" && (len(supportedModifiers) == 0 || !slices.Contains(supportedModifiers, param.Modifier)) {
+		return nil, fmt.Errorf("unsupported modifier for parameter %s, supported are: %s", param, supportedModifiers)
 	}
 
 	matchAll := make(MatchAll, 0, len(urlValues))
@@ -396,20 +416,20 @@ func parseSearchValue(paramType string, value string, tz *time.Location) (Value,
 		// if url, there may be a version appended
 		urlSplit := strings.Split(value, "|")
 
-		url, err := url.Parse(urlSplit[0])
+		parsedURL, err := url.Parse(urlSplit[0])
 		if err != nil {
 			return nil, fmt.Errorf("invalid reference %s: %w", value, err)
 		}
 
-		if url.Scheme != "" {
+		if parsedURL.Scheme != "" {
 			switch len(urlSplit) {
 			case 1:
 				return Reference{
-					Url: url,
+					URL: parsedURL,
 				}, nil
 			case 2:
 				return Reference{
-					Url:     url,
+					URL:     parsedURL,
 					Version: urlSplit[1],
 				}, nil
 			default:
@@ -475,12 +495,12 @@ func parseSearchValue(paramType string, value string, tz *time.Location) (Value,
 			return nil, fmt.Errorf("invalid quantity %s", value)
 		}
 	case TypeUri:
-		url, err := url.Parse(value)
+		parsedURL, err := url.Parse(value)
 		if err != nil {
 			return nil, fmt.Errorf("invalid reference: %w", err)
 		}
 		return Uri{
-			Value: url,
+			Value: parsedURL,
 		}, nil
 	case TypeSpecial:
 		return Special(value), nil
@@ -560,7 +580,7 @@ func (o Options) QueryString() string {
 func parameterQuery(p Parameters) url.Values {
 	values := url.Values{}
 
-	for key, criteria := range p {
+	for key, criteria := range p.Map() {
 		for _, matchAny := range criteria.MatchesAll() {
 			if len(matchAny) == 0 {
 				continue
@@ -594,7 +614,7 @@ func parameterQuery(p Parameters) url.Values {
 //	}
 type Value interface {
 	Criteria
-	String() string
+	fmt.Stringer
 }
 
 type Number struct {
@@ -720,7 +740,7 @@ type Reference struct {
 	Modifier string
 	Id       string
 	Type     string
-	Url      *url.URL
+	URL      *url.URL
 	Version  string
 }
 
@@ -729,9 +749,9 @@ func (r Reference) MatchesAll() MatchAll {
 }
 
 func (r Reference) String() string {
-	if r.Url != nil {
+	if r.URL != nil {
 		b := strings.Builder{}
-		b.WriteString(r.Url.String())
+		b.WriteString(r.URL.String())
 		if r.Version != "" {
 			b.WriteRune('|')
 			b.WriteString(r.Version)

@@ -225,9 +225,9 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 								)
 
 								// Check for _id parameter in search options
-								g.If(List(Id("idParams"), Id("ok")).Op(":=").Id("options.Parameters").Index(Qual(moduleName+"/capabilities/search", "ParameterKey").Values(Dict{Id("Name"): Lit("_id")})), Id("ok")).Block(
+								g.If(List(Id("idParams"), Id("ok")).Op(":=").Id("options.Parameters.Map()").Index(Qual(moduleName+"/capabilities/search", "ParameterKey").Values(Dict{Id("Name"): Lit("_id")})), Id("ok")).Block(
 									Id("filteredParameters").Op("=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter")),
-									For(List(Id("_"), Id("idValues")).Op(":=").Range().Id("idParams.MatchesAll()")).Block(
+									For(List(Id("_"), Id("idValues")).Op(":=").Range().Id("idParams")).Block(
 										For(List(Id("_"), Id("idValue")).Op(":=").Range().Id("idValues")).Block(
 											Id("idStr").Op(":=").Id("idValue").Dot("String").Call(),
 											If(List(Id("searchParam"), Id("exists")).Op(":=").Id("searchParameters").Index(Id("idStr")), Id("exists")).Block(
