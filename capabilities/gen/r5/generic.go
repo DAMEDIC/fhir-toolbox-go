@@ -22886,7 +22886,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 		}
 		if idParams, ok := options.Parameters[search.ParameterKey{Name: "_id"}]; ok {
 			filteredParameters = make(map[string]r5.SearchParameter)
-			for _, idValues := range idParams {
+			for _, idValues := range idParams.MatchesAll() {
 				for _, idValue := range idValues {
 					idStr := idValue.String()
 					if searchParam, exists := searchParameters[idStr]; exists {

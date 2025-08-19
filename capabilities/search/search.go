@@ -57,7 +57,7 @@ type Parameter model.Element
 // Options represents the parameters passed to a search implementation.
 type Options struct {
 	// Parameters defines the search parameters.
-	Parameters map[ParameterKey]AllOf
+	Parameters Parameters
 	// Includes specifies the related resources to include in the search results.
 	Includes []string
 	// Count defines the maximum number of results to return.
@@ -66,12 +66,26 @@ type Options struct {
 	Cursor Cursor
 }
 
-// All represents a slice of possible values for a single search parameter where each of the entry has to match.
-type AllOf []OneOf
+type Parameters map[ParameterKey]Criteria
 
-// OneOf represents a slice of possible values for a single search parameter,
+type Criteria interface {
+	MatchesAll() MatchAll
+}
+
+// All represents a slice of possible values for a single search parameter where each of the entry has to match.
+type MatchAll []MatchAny
+
+func (a MatchAll) MatchesAll() MatchAll {
+	return a
+}
+
+// MatchAny represents a slice of possible values for a single search parameter,
 // where only one of the values has to match.
-type OneOf []Value
+type MatchAny []Value
+
+func (o MatchAny) MatchesAll() MatchAll {
+	return MatchAll{o}
+}
 
 // ParameterKey represents a key for a search parameter,
 // consisting of a name and an optional modifier.
@@ -189,7 +203,7 @@ func ParseOptions(
 ) (Options, error) {
 	options := Options{
 		// backed by a map, which must be initialized
-		Parameters: map[ParameterKey]AllOf{},
+		Parameters: Parameters{},
 		Count:      min(defaultCount, maxCount),
 	}
 
@@ -290,10 +304,10 @@ func parseCursor(values []string) (Cursor, error) {
 	return Cursor(values[0]), nil
 }
 
-func parseSearchParam(param ParameterKey, values []string, sp Parameter, tz *time.Location) (AllOf, error) {
+func parseSearchParam(param ParameterKey, urlValues []string, sp Parameter, tz *time.Location) (MatchAll, error) {
 	fhirpathType, ok, err := fhirpath.Singleton[fhirpath.String](sp.Children("type"))
 	if !ok || err != nil {
-		return AllOf{}, fmt.Errorf("Parameter has no type: %v", sp)
+		return MatchAll{}, fmt.Errorf("Parameter has no type: %v", sp)
 	}
 	resolvedType := string(fhirpathType)
 
@@ -302,7 +316,7 @@ func parseSearchParam(param ParameterKey, values []string, sp Parameter, tz *tim
 	for _, e := range fhirpathModifiers {
 		m, ok, err := e.ToString(false)
 		if !ok || err != nil {
-			return AllOf{}, fmt.Errorf("Parameter error reading modifiers: %v", sp)
+			return MatchAll{}, fmt.Errorf("Parameter error reading modifiers: %v", sp)
 		}
 		resolvedModifiers = append(resolvedModifiers, string(m))
 	}
@@ -317,22 +331,22 @@ func parseSearchParam(param ParameterKey, values []string, sp Parameter, tz *tim
 		return nil, fmt.Errorf("unsupported modifier for parameter %s, supported are: %s", param, resolvedModifiers)
 	}
 
-	ands := make(AllOf, 0, len(values))
-	for _, ors := range values {
-		splitStrings := strings.Split(ors, ",")
+	matchAll := make(MatchAll, 0, len(urlValues))
+	for _, urlValue := range urlValues {
+		splitStrings := strings.Split(urlValue, ",")
 
-		ors := make(OneOf, 0, len(splitStrings))
+		matchAny := make(MatchAny, 0, len(splitStrings))
 		for _, s := range splitStrings {
 			value, err := parseSearchValue(resolvedType, s, tz)
 			if err != nil {
 				return nil, fmt.Errorf("invalid search value for parameter %s: %w", param, err)
 			}
-			ors = append(ors, value)
+			matchAny = append(matchAny, value)
 		}
 
-		ands = append(ands, ors)
+		matchAll = append(matchAll, matchAny)
 	}
-	return ands, nil
+	return matchAll, nil
 }
 
 func parseSearchValue(paramType string, value string, tz *time.Location) (Value, error) {
@@ -543,12 +557,12 @@ func (o Options) QueryString() string {
 // All contained values are sorted, but the returned [url.Values] is backed by a map.
 // To obtain a deterministic query string you can call [url.Values.Encode], because
 // it will sort the keys alphabetically.
-func parameterQuery(p map[ParameterKey]AllOf) url.Values {
+func parameterQuery(p Parameters) url.Values {
 	values := url.Values{}
 
-	for key, ands := range p {
-		for _, ors := range ands {
-			if len(ors) == 0 {
+	for key, criteria := range p {
+		for _, matchAny := range criteria.MatchesAll() {
+			if len(matchAny) == 0 {
 				continue
 			}
 
@@ -557,9 +571,9 @@ func parameterQuery(p map[ParameterKey]AllOf) url.Values {
 				nameWithModifier = fmt.Sprintf("%s:%s", key.Name, key.Modifier)
 			}
 
-			s := make([]string, 0, len(ors))
-			for _, or := range ors {
-				s = append(s, or.String())
+			s := make([]string, 0, len(matchAny))
+			for _, v := range matchAny {
+				s = append(s, v.String())
 			}
 			slices.Sort(s)
 
@@ -579,7 +593,7 @@ func parameterQuery(p map[ParameterKey]AllOf) url.Values {
 //	  // handle search parameter of type number
 //	}
 type Value interface {
-	isValue()
+	Criteria
 	String() string
 }
 
@@ -588,7 +602,9 @@ type Number struct {
 	Value  *apd.Decimal
 }
 
-func (n Number) isValue() {}
+func (n Number) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{n}}
+}
 
 func (n Number) String() string {
 	if n.Prefix != "" {
@@ -648,7 +664,9 @@ func ParseDate(value string, tz *time.Location) (time.Time, DatePrecision, error
 	return time.Time{}, "", err
 }
 
-func (d Date) isValue() {}
+func (d Date) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{d}}
+}
 
 func (d Date) String() string {
 	b := strings.Builder{}
@@ -672,7 +690,9 @@ func (d Date) String() string {
 
 type String string
 
-func (s String) isValue() {}
+func (s String) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{s}}
+}
 
 func (s String) String() string {
 	return string(s)
@@ -692,7 +712,9 @@ func (t Token) String() string {
 	}
 }
 
-func (t Token) isValue() {}
+func (t Token) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{t}}
+}
 
 type Reference struct {
 	Modifier string
@@ -702,7 +724,9 @@ type Reference struct {
 	Version  string
 }
 
-func (r Reference) isValue() {}
+func (r Reference) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{r}}
+}
 
 func (r Reference) String() string {
 	if r.Url != nil {
@@ -736,7 +760,9 @@ func (c Composite) String() string {
 	return strings.Join(c, "$")
 }
 
-func (c Composite) isValue() {}
+func (c Composite) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{c}}
+}
 
 type Quantity struct {
 	Prefix string
@@ -745,7 +771,9 @@ type Quantity struct {
 	Code   string
 }
 
-func (q Quantity) isValue() {}
+func (q Quantity) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{q}}
+}
 
 func (q Quantity) String() string {
 	b := strings.Builder{}
@@ -769,12 +797,16 @@ func (u Uri) String() string {
 	return u.Value.String()
 }
 
-func (u Uri) isValue() {}
+func (u Uri) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{u}}
+}
 
 // Special string contains potential prefixes
 type Special string
 
-func (s Special) isValue() {}
+func (s Special) MatchesAll() MatchAll {
+	return MatchAll{MatchAny{s}}
+}
 
 func (s Special) String() string {
 	return string(s)

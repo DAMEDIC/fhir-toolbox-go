@@ -33,7 +33,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			},
 			want: "number=0.100",
 		},
@@ -47,7 +47,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
+				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
 			},
 			want: "number=ge0.100",
 		},
@@ -62,7 +62,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number", Modifier: ModifierMissing}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: Parameters{ParameterKey{Name: "number", Modifier: ModifierMissing}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			},
 			want: "number:missing=0.100",
 		},
@@ -76,7 +76,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 				Count:      100,
 			},
 			want: "number=0.100&_count=100",
@@ -91,7 +91,7 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+				Parameters: Parameters{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 				Count:      1000,
 			},
 			want: "number=0.100&_count=500",
@@ -106,8 +106,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "date"}: AllOf{{Date{
+				Parameters: Parameters{
+					ParameterKey{Name: "date"}: MatchAll{{Date{
 						Value:     time.Date(2024, time.December, 25, 0, 0, 0, 0, time.UTC),
 						Precision: PrecisionDay,
 					}}},
@@ -125,8 +125,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "string"}: AllOf{{String("example")}},
+				Parameters: Parameters{
+					ParameterKey{Name: "string"}: MatchAll{{String("example")}},
 				},
 			},
 			want: "string=example",
@@ -141,8 +141,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "token"}: AllOf{
+				Parameters: Parameters{
+					ParameterKey{Name: "token"}: MatchAll{
 						{Token{Code: "value"}},
 					},
 				},
@@ -159,8 +159,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "token"}: AllOf{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "token"}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 				},
 			},
 			want: "token=scheme://system|value",
@@ -175,8 +175,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Type: "Patient", Id: "123"}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123"}}},
 				},
 			},
 			want: "ref=Patient/123",
@@ -191,8 +191,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Type: "Patient", Id: "123", Version: "456"}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123", Version: "456"}}},
 				},
 			},
 			want: "ref=Patient/123/_history/456",
@@ -207,8 +207,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "ref"}: MatchAll{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}}}},
 				},
 			},
 			want: "ref=scheme://host",
@@ -223,8 +223,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "ref"}: MatchAll{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
 				},
 			},
 			want: "ref=scheme://host|456",
@@ -240,8 +240,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref", Modifier: ModifierIdentifier}: AllOf{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "ref", Modifier: ModifierIdentifier}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 				},
 			},
 			want: "ref:identifier=scheme://system|value",
@@ -256,8 +256,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "composite"}: AllOf{{Composite{"a", "b"}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "composite"}: MatchAll{{Composite{"a", "b"}}},
 				},
 			},
 			want: "composite=a$b",
@@ -272,8 +272,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "quantity"}: AllOf{{Quantity{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "quantity"}: MatchAll{{Quantity{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
 				},
 			},
 			want: "quantity=ge0.100|scheme://host|code",
@@ -288,8 +288,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "uri"}: AllOf{{Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
+				Parameters: Parameters{
+					ParameterKey{Name: "uri"}: MatchAll{{Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
 				},
 			},
 			want: "uri=urn:oid:1.2.3.4.5",
@@ -304,8 +304,8 @@ func TestParseAndToString(t *testing.T) {
 				},
 			},
 			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "special"}: AllOf{{Special("abc")}},
+				Parameters: Parameters{
+					ParameterKey{Name: "special"}: MatchAll{{Special("abc")}},
 				},
 			},
 			want: "special=abc",
@@ -471,16 +471,16 @@ func TestParseOptionsStrict(t *testing.T) {
 func TestParametersMarshalJSON(t *testing.T) {
 	tests := []struct {
 		name      string
-		parameter map[ParameterKey]AllOf
+		parameter Parameters
 		expected  string
 	}{
 		{
 			name:      "No Modifier",
-			parameter: map[ParameterKey]AllOf{ParameterKey{Name: "exampleName"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+			parameter: Parameters{ParameterKey{Name: "exampleName"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
 		{
 			name:      "Modifier",
-			parameter: map[ParameterKey]AllOf{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+			parameter: Parameters{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
 	}
 

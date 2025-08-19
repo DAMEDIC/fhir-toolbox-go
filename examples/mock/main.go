@@ -70,8 +70,8 @@ func (b *mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityState
 func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	// forward single resource read to a search for the specific id
 	result, err := b.SearchObservation(ctx, search.Options{
-		Parameters: map[search.ParameterKey]search.AllOf{
-			search.ParameterKey{Name: "_id"}: search.AllOf{search.OneOf{search.String(id)}},
+		Parameters: map[search.ParameterKey]search.Criteria{
+			search.ParameterKey{Name: "_id"}: search.MatchAll{search.MatchAny{search.String(id)}},
 		},
 		Count: 1,
 	})
@@ -171,8 +171,8 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 
 func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, error) {
 	result, err := b.SearchComposition(ctx, search.Options{
-		Parameters: map[search.ParameterKey]search.AllOf{
-			search.ParameterKey{Name: "_id"}: search.AllOf{search.OneOf{search.String(id)}},
+		Parameters: map[search.ParameterKey]search.Criteria{
+			search.ParameterKey{Name: "_id"}: search.MatchAll{search.MatchAny{search.String(id)}},
 		},
 		Count: 1,
 	})

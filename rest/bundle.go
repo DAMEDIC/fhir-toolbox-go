@@ -149,7 +149,7 @@ func relationLink(
 
 	// remove options supplied by the client, but not used/supported by the backend
 	usedOptions := options
-	usedOptions.Parameters = make(map[search.ParameterKey]search.AllOf, len(options.Parameters))
+	usedOptions.Parameters = make(map[search.ParameterKey]search.Criteria, len(options.Parameters))
 
 	// Build search parameters map from CapabilityStatement
 	searchParameters := make(map[string]search.Parameter)

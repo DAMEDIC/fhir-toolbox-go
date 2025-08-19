@@ -4,10 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
-	"log"
-	"time"
-
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
+	"log"
 )
 
 func main() {
@@ -24,15 +22,11 @@ func main() {
 	fmt.Printf("Read patient:\n%s\n", patient)
 
 	// Search for patients
-	date, err := time.Parse(time.DateOnly, "2000-01-01")
-	if err != nil {
-		log.Fatal(err)
-	}
 	result, err := client.SearchPatient(context.Background(), search.Options{
-		Count: 5,
-		Parameters: map[search.ParameterKey]search.AllOf{
-			search.ParameterKey{Name: "birthdate"}: search.AllOf{search.OneOf{search.Date{Prefix: "ge", Value: date}}},
+		Parameters: search.Parameters{
+			search.ParameterKey{Name: "birthdate"}: search.String("ge2000-01-01"),
 		},
+		Count: 5,
 	})
 	if err != nil {
 		log.Fatal(err)
