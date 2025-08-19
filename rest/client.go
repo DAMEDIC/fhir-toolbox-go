@@ -564,6 +564,7 @@ func (it *iterator[T]) Next() (search.Result[T], error) {
 	// Fetch the next page using the cursor
 	// The cursor contains the full URL, so we use it directly
 	genericResult, err := it.client.Search(it.ctx, "", search.Params{}, search.Options{
+		Count:  len(it.result.Resources),
 		Cursor: it.result.Next,
 	})
 	if err != nil {

@@ -14,8 +14,9 @@ import (
 
 // mockSearchClient implements GenericSearch for testing
 type mockSearchClient struct {
-	pages []search.Result[model.Resource]
-	calls int
+	pages       []search.Result[model.Resource]
+	calls       int
+	lastOptions search.Options // Track the options from the last call
 }
 
 func (m *mockSearchClient) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
@@ -23,6 +24,9 @@ func (m *mockSearchClient) CapabilityStatement(ctx context.Context) (basic.Capab
 }
 
 func (m *mockSearchClient) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
+	// Store the options for verification in tests
+	m.lastOptions = options
+
 	// If cursor is provided, use it to determine which page to return
 	if options.Cursor != "" {
 		// Parse cursor as page number for simplicity
@@ -257,4 +261,209 @@ type iteratorCall struct {
 	expectError           bool
 	expectedErr           error
 	expectedResourceCount int
+}
+
+func TestIteratorCountParameter(t *testing.T) {
+	// Create initial result with 3 resources
+	initialResult := search.Result[r4.Patient]{
+		Resources: []r4.Patient{
+			{Id: &r4.Id{Value: ptr.To("patient1")}},
+			{Id: &r4.Id{Value: ptr.To("patient2")}},
+			{Id: &r4.Id{Value: ptr.To("patient3")}},
+		},
+		Next: "1", // Points to next page
+	}
+
+	// Create second page with 2 resources
+	page2 := search.Result[model.Resource]{
+		Resources: []model.Resource{
+			&r4.Patient{Id: &r4.Id{Value: ptr.To("patient4")}},
+			&r4.Patient{Id: &r4.Id{Value: ptr.To("patient5")}},
+		},
+		Next: "", // No more pages
+	}
+
+	mockClient := &mockSearchClient{
+		pages: []search.Result[model.Resource]{
+			{},    // page 0 (not used)
+			page2, // page 1
+		},
+	}
+
+	iter := Iterator(context.Background(), mockClient, initialResult)
+
+	// First call should return initial result without calling Search
+	result1, err := iter.Next()
+	if err != nil {
+		t.Fatalf("First call failed: %v", err)
+	}
+	if len(result1.Resources) != 3 {
+		t.Errorf("Expected 3 resources in first result, got %d", len(result1.Resources))
+	}
+	if mockClient.calls != 0 {
+		t.Errorf("Expected 0 mock calls after first Next(), got %d", mockClient.calls)
+	}
+
+	// Second call should fetch next page and pass Count=3 (length of initial result)
+	result2, err := iter.Next()
+	if err != nil {
+		t.Fatalf("Second call failed: %v", err)
+	}
+	if len(result2.Resources) != 2 {
+		t.Errorf("Expected 2 resources in second result, got %d", len(result2.Resources))
+	}
+	if mockClient.calls != 1 {
+		t.Errorf("Expected 1 mock call after second Next(), got %d", mockClient.calls)
+	}
+
+	// Verify that Count was set to the length of the previous page (3)
+	if mockClient.lastOptions.Count != 3 {
+		t.Errorf("Expected Count=3 in search options, got Count=%d", mockClient.lastOptions.Count)
+	}
+
+	// Verify cursor was passed correctly
+	if mockClient.lastOptions.Cursor != "1" {
+		t.Errorf("Expected Cursor='1' in search options, got Cursor='%s'", mockClient.lastOptions.Cursor)
+	}
+
+	// Third call should return EOF
+	_, err = iter.Next()
+	if err != io.EOF {
+		t.Errorf("Expected EOF on third call, got: %v", err)
+	}
+}
+
+func TestIteratorCountParameterMultiplePages(t *testing.T) {
+	// Test that Count is maintained across multiple pages
+	initialResult := search.Result[r4.Patient]{
+		Resources: []r4.Patient{
+			{Id: &r4.Id{Value: ptr.To("patient1")}},
+			{Id: &r4.Id{Value: ptr.To("patient2")}},
+		},
+		Next: "1", // Points to page 1
+	}
+
+	page1 := search.Result[model.Resource]{
+		Resources: []model.Resource{
+			&r4.Patient{Id: &r4.Id{Value: ptr.To("patient3")}},
+			&r4.Patient{Id: &r4.Id{Value: ptr.To("patient4")}},
+		},
+		Next: "2", // Points to page 2
+	}
+
+	page2 := search.Result[model.Resource]{
+		Resources: []model.Resource{
+			&r4.Patient{Id: &r4.Id{Value: ptr.To("patient5")}},
+		},
+		Next: "", // No more pages
+	}
+
+	mockClient := &mockSearchClient{
+		pages: []search.Result[model.Resource]{
+			{},    // page 0 (not used)
+			page1, // page 1
+			page2, // page 2
+		},
+	}
+
+	iter := Iterator(context.Background(), mockClient, initialResult)
+
+	// First call returns initial result (2 resources)
+	result1, err := iter.Next()
+	if err != nil {
+		t.Fatalf("First call failed: %v", err)
+	}
+	if len(result1.Resources) != 2 {
+		t.Errorf("Expected 2 resources in first result, got %d", len(result1.Resources))
+	}
+
+	// Second call fetches page 1, Count should be 2
+	result2, err := iter.Next()
+	if err != nil {
+		t.Fatalf("Second call failed: %v", err)
+	}
+	if len(result2.Resources) != 2 {
+		t.Errorf("Expected 2 resources in second result, got %d", len(result2.Resources))
+	}
+	if mockClient.lastOptions.Count != 2 {
+		t.Errorf("Expected Count=2 for page 1, got Count=%d", mockClient.lastOptions.Count)
+	}
+	if mockClient.lastOptions.Cursor != "1" {
+		t.Errorf("Expected Cursor='1' for page 1, got Cursor='%s'", mockClient.lastOptions.Cursor)
+	}
+
+	// Third call fetches page 2, Count should still be 2 (from page 1)
+	result3, err := iter.Next()
+	if err != nil {
+		t.Fatalf("Third call failed: %v", err)
+	}
+	if len(result3.Resources) != 1 {
+		t.Errorf("Expected 1 resource in third result, got %d", len(result3.Resources))
+	}
+	if mockClient.lastOptions.Count != 2 {
+		t.Errorf("Expected Count=2 for page 2, got Count=%d", mockClient.lastOptions.Count)
+	}
+	if mockClient.lastOptions.Cursor != "2" {
+		t.Errorf("Expected Cursor='2' for page 2, got Cursor='%s'", mockClient.lastOptions.Cursor)
+	}
+
+	// Fourth call should return EOF
+	_, err = iter.Next()
+	if err != io.EOF {
+		t.Errorf("Expected EOF on fourth call, got: %v", err)
+	}
+}
+
+func TestIteratorCountParameterEmptyInitialResult(t *testing.T) {
+	// Test Count parameter when initial result is empty but has next page
+	initialResult := search.Result[r4.Patient]{
+		Resources: []r4.Patient{}, // Empty initial result
+		Next:      "1",            // But has next page
+	}
+
+	page1 := search.Result[model.Resource]{
+		Resources: []model.Resource{
+			&r4.Patient{Id: &r4.Id{Value: ptr.To("patient1")}},
+		},
+		Next: "", // No more pages
+	}
+
+	mockClient := &mockSearchClient{
+		pages: []search.Result[model.Resource]{
+			{},    // page 0 (not used)
+			page1, // page 1
+		},
+	}
+
+	iter := Iterator(context.Background(), mockClient, initialResult)
+
+	// First call returns empty initial result
+	result1, err := iter.Next()
+	if err != nil {
+		t.Fatalf("First call failed: %v", err)
+	}
+	if len(result1.Resources) != 0 {
+		t.Errorf("Expected 0 resources in first result, got %d", len(result1.Resources))
+	}
+
+	// Second call fetches page 1, Count should be 0 (from empty initial result)
+	result2, err := iter.Next()
+	if err != nil {
+		t.Fatalf("Second call failed: %v", err)
+	}
+	if len(result2.Resources) != 1 {
+		t.Errorf("Expected 1 resource in second result, got %d", len(result2.Resources))
+	}
+	if mockClient.lastOptions.Count != 0 {
+		t.Errorf("Expected Count=0 for page 1, got Count=%d", mockClient.lastOptions.Count)
+	}
+	if mockClient.lastOptions.Cursor != "1" {
+		t.Errorf("Expected Cursor='1' for page 1, got Cursor='%s'", mockClient.lastOptions.Cursor)
+	}
+
+	// Third call should return EOF
+	_, err = iter.Next()
+	if err != io.EOF {
+		t.Errorf("Expected EOF on third call, got: %v", err)
+	}
 }
