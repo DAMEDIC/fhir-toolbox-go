@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"io"
 	"log"
@@ -23,10 +24,11 @@ func main() {
 
 	fmt.Printf("Read patient:\n%s\n", patient)
 
-	// Search for patients
+	// Search for patients using typed search parameters
 	result, err := client.SearchPatient(context.Background(),
-		search.Params{
-			"birthdate": search.String("ge2000-01-01"),
+		r4.PatientParams{
+			Birthdate: search.String("ge2000-01-01"), // String-based (flexible)
+			Gender:    search.Token{Code: "female"},  // Strongly-typed (safe)
 		},
 		search.Options{
 			Count: 5,
@@ -40,8 +42,8 @@ func main() {
 
 	// Search for patient with pagination
 	initialResult, err := client.SearchPatient(context.Background(),
-		search.Params{
-			"birthdate": search.String("ge2000-01-01"),
+		r4.PatientParams{
+			Birthdate: search.String("ge2000-01-01"),
 		},
 		search.Options{
 			Count: 5,

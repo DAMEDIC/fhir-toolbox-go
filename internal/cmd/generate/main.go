@@ -11,6 +11,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/json"
+	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/xml"
 )
 
@@ -31,7 +32,7 @@ func main() {
 		panic(err)
 	}
 
-	releaseTypes := loadTypes(buildReleases)
+	releaseTypes, releaseSearchParams := loadTypes(buildReleases)
 	basicTypes := collectBasicTypes(releaseTypes)
 
 	for _, r := range buildReleases {
@@ -42,6 +43,7 @@ func main() {
 		generate.GenerateAll(releaseTypes[r], genDir(modelGenTarget, r), r,
 			generate.ModelPkgDocGenerator{},
 			generate.TypesGenerator{},
+			generate.SearchParamsGenerator{SearchParams: releaseSearchParams},
 			generate.ImplResourceGenerator{},
 			generate.ImplElementGenerator{},
 			generate.StringerGenerator{},
@@ -77,15 +79,17 @@ func main() {
 	log.Println("Code generation done.")
 }
 
-func loadTypes(releases []string) map[string][]ir.ResourceOrType {
+func loadTypes(releases []string) (map[string][]ir.ResourceOrType, map[string]model.Bundle) {
 	types := map[string][]ir.ResourceOrType{}
+	searchParams := map[string]model.Bundle{}
 	for _, r := range releases {
 		zipPath := downloadDefinitions(r)
 		bundles := readJSONFromZIP(zipPath)
 
 		types[r] = append(ir.Parse(&bundles.types), ir.Parse(&bundles.resources)...)
+		searchParams[r] = bundles.searchParams
 	}
-	return types
+	return types, searchParams
 }
 
 func collectBasicTypes(releaseTypes map[string][]ir.ResourceOrType) []ir.ResourceOrType {

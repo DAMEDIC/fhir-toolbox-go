@@ -38,6 +38,16 @@ func (e *BundleEntry) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		e.Resource = &r.R
+	case "SearchParameter":
+		// For SearchParameter, we just unmarshal as generic map
+		var r struct {
+			R map[string]interface{} `json:"resource"`
+		}
+		err := json.Unmarshal(data, &r)
+		if err != nil {
+			return err
+		}
+		e.Resource = r.R
 	}
 	return nil
 }

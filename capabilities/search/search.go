@@ -831,3 +831,90 @@ func (s Special) MatchesAll() MatchAll {
 func (s Special) String() string {
 	return string(s)
 }
+
+// Sealed interfaces for search parameters that accept both typed values and String
+//
+// These interfaces provide more flexible client usage by allowing both strongly-typed
+// search values (like Date, Token) and simple string values.
+//
+// Examples:
+//   params.Birthdate = search.Date{Value: time.Now(), Prefix: "ge"}  // strongly typed
+//   params.Birthdate = search.String("ge2000-01-01")                 // string-based
+//
+// The sealed nature (via private methods) ensures only the appropriate search types
+// can implement these interfaces, maintaining type safety while providing flexibility.
+
+// StringOrString is a sealed interface that accepts String values
+type StringOrString interface {
+	Criteria
+	sealedStringOrString()
+}
+
+// TokenOrString is a sealed interface that accepts Token and String values
+type TokenOrString interface {
+	Criteria
+	sealedTokenOrString()
+}
+
+// DateOrString is a sealed interface that accepts Date and String values
+type DateOrString interface {
+	Criteria
+	sealedDateOrString()
+}
+
+// ReferenceOrString is a sealed interface that accepts Reference and String values
+type ReferenceOrString interface {
+	Criteria
+	sealedReferenceOrString()
+}
+
+// QuantityOrString is a sealed interface that accepts Quantity and String values
+type QuantityOrString interface {
+	Criteria
+	sealedQuantityOrString()
+}
+
+// NumberOrString is a sealed interface that accepts Number and String values
+type NumberOrString interface {
+	Criteria
+	sealedNumberOrString()
+}
+
+// UriOrString is a sealed interface that accepts Uri and String values
+type UriOrString interface {
+	Criteria
+	sealedUriOrString()
+}
+
+// CompositeOrString is a sealed interface that accepts Composite and String values
+type CompositeOrString interface {
+	Criteria
+	sealedCompositeOrString()
+}
+
+// SpecialOrString is a sealed interface that accepts Special and String values
+type SpecialOrString interface {
+	Criteria
+	sealedSpecialOrString()
+}
+
+// Sealed interface implementations - String can be used for any parameter type
+func (s String) sealedStringOrString()    {}
+func (s String) sealedTokenOrString()     {}
+func (s String) sealedDateOrString()      {}
+func (s String) sealedReferenceOrString() {}
+func (s String) sealedQuantityOrString()  {}
+func (s String) sealedNumberOrString()    {}
+func (s String) sealedUriOrString()       {}
+func (s String) sealedCompositeOrString() {}
+func (s String) sealedSpecialOrString()   {}
+
+// Typed implementations
+func (t Token) sealedTokenOrString()         {}
+func (d Date) sealedDateOrString()           {}
+func (r Reference) sealedReferenceOrString() {}
+func (q Quantity) sealedQuantityOrString()   {}
+func (n Number) sealedNumberOrString()       {}
+func (u Uri) sealedUriOrString()             {}
+func (c Composite) sealedCompositeOrString() {}
+func (s Special) sealedSpecialOrString()     {}
